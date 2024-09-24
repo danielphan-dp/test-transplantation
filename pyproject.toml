@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "TODO_pkg_name"
+dynamic = ["version"]
+description = "TODO_description"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [{ name = "TODO_your_name", email = "TODO_your@email.com" }]
+# TODO: select the appropriate classifiers on https://pypi.org/classifiers/
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "seutil",
+    # TODO: add dependencies, e.g., "numpy", "pandas"
+]
+
+[project.optional-dependencies]
+dev = ["hatch", "pytest>=6", "pytest-cov", "coverage[toml]", "black", "ruff"]
+# TODO: (optional) add more optional dependencies in the same format of `dev`; if you want them installed in the dev environment, modify the pip install line in prepare-env.sh into `pip install -e .[dev,optional1,optional2]`
+
+[project.urls]
+# TODO: setup and add documentation link, e.g., readthedocs (but usually after developing some code)  # Documentation = ""
+Issues = "https://github.com/TODO_user_name/TODO_repo_name/issues"
+Source = "https://github.com/TODO_user_name/TODO_repo_name"
+
+[tool.hatch.version]
+path = "src/TODO_pkg_name/__about__.py"
+
+# testing (pytest) and coverage (coverage, pytest-cov)
+[tool.coverage.run]
+source_pkgs = ["TODO_pkg_name", "tests"]
+branch = true
+parallel = true
+omit = ["src/TODO_pkg_name/__about__.py"]
+
+[tool.coverage.paths]
+TODO_pkg_name = ["src/TODO_pkg_name", "*/TODO_pkg_name/src/TODO_pkg_name"]
+tests = ["tests", "*/TODO_pkg_name/tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.pytest.ini_options]
+addopts = "--ignore=deprecated --cov --cov-report xml:cov.xml"
+testpaths = ["tests"]
+
+# formatting (black)
+[tool.black]
+target-version = ["py38"]
+line-length = 120
+
+# linting (ruff)
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+select = [
+    "E", # pycodestyle error
+    "F", # pyflakes
+    "I", # isort
+]
+
+[tool.ruff.isort]
+known-first-party = ["TODO_pkg_name"]
