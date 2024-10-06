@@ -1,4 +1,4 @@
-# Template for Python-based AI+SE research project - TODO: replace it with your project name
+<!-- # Template for Python-based AI+SE research project - TODO: replace it with your project name
 
 Steps for using this template:
 
@@ -32,4 +32,18 @@ Steps for using this template:
   * Replace the example code and this readme with your code/tests/documentation
   * If you have installed new dependencies using `pip install`, don't forget to add them to `pyproject.toml`
   * Write [type hints](https://docs.python.org/3/library/typing.html)
-  * Write comments and docstrings
+  * Write comments and docstrings -->
+
+### Gluon
+Gluon is a framework for test transplantation.
+
+#### Installation
+- Install `miniconda` (depending on your OS)
+- Run `./prepare-env.sh` to create the conda environment
+- Run `conda activate gluon` to activate the environment
+
+#### Commands
+Run data collection for a single project:
+```bash
+python -m gluon.collect --project_name=<project_name> --output_dir=<output_dir>
+```

@@ -23,7 +23,10 @@ classifiers = [
 ]
 dependencies = [
     "seutil",
-    # TODO: add dependencies, e.g., "numpy", "pandas"
+    "pydantic",
+    "requests",
+    "pytest",
+    "tqdm",
 ]
 
 [project.optional-dependencies]
@@ -32,22 +35,22 @@ dev = ["hatch", "pytest>=6", "pytest-cov", "coverage[toml]", "black", "ruff"]
 
 [project.urls]
 # TODO: setup and add documentation link, e.g., readthedocs (but usually after developing some code)  # Documentation = ""
-Issues = "https://github.com/TODO_user_name/TODO_repo_name/issues"
-Source = "https://github.com/TODO_user_name/TODO_repo_name"
+Issues = "https://github.com/danielphan-dp/test-transplantation/issues"
+Source = "https://github.com/danielphan-dp/test-transplantation"
 
 [tool.hatch.version]
-path = "src/TODO_pkg_name/__about__.py"
+path = "src/gluon/__about__.py"
 
 # testing (pytest) and coverage (coverage, pytest-cov)
 [tool.coverage.run]
-source_pkgs = ["TODO_pkg_name", "tests"]
+source_pkgs = ["gluon", "tests"]
 branch = true
 parallel = true
-omit = ["src/TODO_pkg_name/__about__.py"]
+omit = ["src/gluon/__about__.py"]
 
 [tool.coverage.paths]
-TODO_pkg_name = ["src/TODO_pkg_name", "*/TODO_pkg_name/src/TODO_pkg_name"]
-tests = ["tests", "*/TODO_pkg_name/tests"]
+gluon = ["src/gluon", "*/gluon/src/gluon"]
+tests = ["tests", "*/gluon/tests"]
 
 [tool.coverage.report]
 exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
@@ -72,4 +75,4 @@ select = [
 ]
 
 [tool.ruff.isort]
-known-first-party = ["TODO_pkg_name"]
+known-first-party = ["gluon"]
