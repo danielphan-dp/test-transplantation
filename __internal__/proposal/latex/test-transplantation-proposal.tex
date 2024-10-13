@@ -290,6 +290,13 @@ We plan to use tools such as Sourcetrail or CodeQL for generating and analyzing 
 
 \section{Method}
 \subsection{Data Preparation and Preprocessing}
+We will collect unit tests from selected open-source Python repositories, focusing on
+projects relevant to our target domains like web development frameworks. To enhance the
+Retrieval-Augmented Generation (RAG) process, we will generate natural language descriptions
+for each collected test, summarizing their purpose and functionality. This can be achieved using
+code summarization models or by extracting existing docstrings and comments. The processed code and their corresponding
+descriptions will then be embedded using models like CodeBERT into a dense feature space, and stored in a vector database
+such as ChromaDB or FAISS, facilitating efficient retrieval during the test transplantation process.
 \subsection{Host Program Analysis}
 Extra parsing logic will be researched to identify how the collected unit tests can be transplanted to the host program. A host program can be an ongoing high-impact project that is maintained by many developers. Some possibilities are:
 \begin{itemize}
