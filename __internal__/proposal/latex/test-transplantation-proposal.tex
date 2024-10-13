@@ -246,7 +246,19 @@ Code data is highly dynamic and can be representative, as such, Code understandi
 A large language model (LLM) will play a key role in generating the transplanted unit test code. Given a feature from the donor project and relevant unit test functions, the LLM will help generate the code necessary for transplanting the unit test into the host project. We plan to use models such as Code LLaMA, GPT-4, or other state-of-the-art code-generation models to assist with the transplantation process. There are many LLMs-related tools to take a look at right now (some are somewhat stable, and many are still being developed). If time permits, we will also look at agentic AI tools such as AutoGen or Swarm (which has just been released by OpenAI).
 
 \subsubsection{Retrieval Augmented Generation (RAG)}
-TODO
+\
+
+Retrieval: Given a feature or functionality that the user wishes to transplant, we will retrieve the top k most relevant unit test functions from the donor repository using mathematical techniques such as cosine similarity to compare embeddings.
+
+Function Mapping: After gathering the relevant unit tests from the donor repository, we will search for corresponding code functions in the host repository. These functions are mapped to the donor’s relevant code to ensure a meaningful transplantation.
+
+Augmentation and Generation: The feature code, relevant unit tests from the donor, and mapping functions in the host are then provided to the LLM.
+
+Function Mapping: After gathering the relevant unit tests from the donor repository, we will search for corresponding code functions in the host repository. These functions are mapped to the donor’s relevant code to ensure a meaningful transplantation.
+
+Augmentation and Generation: The feature code, relevant unit tests from the donor, and mapping functions in the host are then provided to the LLM.
+
+With carefully crafted prompts, the LLM will generate the transplanted unit test code, ensuring it is adapted to the host environment.
 
 \subsubsection{Code Graph}
 Code graphs are powerful tools for representing and analyzing the structure of software. In our project, we will utilize code graph tools to enhance our understanding of the codebase structure, dependencies, and relationships between different components. This will be particularly useful for:
