@@ -64,9 +64,9 @@
 \acmDOI{XXXXXXX.XXXXXXX}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
-\acmConference[Conference acronym 'XX]{Make sure to enter the correct
-  conference title from your rights confirmation emai}{June 03--05,
-  2018}{Woodstock, NY}
+% \acmConference[Conference acronym 'XX]{Make sure to enter the correct
+%   conference title from your rights confirmation emai}{June 03--05,
+%   2018}{Woodstock, NY}
 %%
 %%  Uncomment \acmBooktitle if the title of the proceedings is different
 %%  from ``Proceedings of ...''!
@@ -164,7 +164,7 @@
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-  Software testing is a crucial task in the development of software.
+Software testing is a crucial task in the development of software, as such, research in software testing is an active area of software engineering research. This research project aims to automate the process of unit test transplantation, where unit tests are extracted from a donor project and transplanted into a host project. The project will utilize Retrieval-Augmented Generation (RAG) and large language models (LLMs) to generate the test code that is tailored to the host project. In addition, the project will also explore the use of code graphs to help identify the correspondence of the tests.
 \end{abstract}
 
 %%
@@ -208,10 +208,64 @@
 \maketitle
 
 \section{Introduction}
-Automating software transplantation has long been a challenging problem in software engineering research, especially when applied to real-world codebases. Software transplantation, when can be done, can be highly useful for developers. Software transplantation aims to extract a feature from one system, referred to as the `donor program,` and integrate it into another system, the `host program,` which lacks that feature. This process can significantly reduce the time needed to develop new features, particularly when writing unit tests. In this project, we focus on building a tool for unit test transplantation—transplanting unit tests from one project repository to another that tests the same functionality. By utilizing Retrieval-Augmented Generation (RAG) and large language models (LLMs), we aim to develop a system that can potentially save software developers significant time by automating the reuse of unit tests across projects with similar functionality.
+Automating software transplantation has long been a challenging problem in software engineering research, especially when applied to real-world codebases. Software transplantation, when can be done, can be highly useful for developers. Software transplantation aims to extract a feature from one system, referred to as the ``donor program'' and integrate it into another system, the ``host program'' which lacks that feature. This process can significantly reduce the time needed to develop new features, particularly when writing unit tests.
 
-\section{Acknowledgments}
-Acknowledgments section.
+In this project, we focus on building a tool for unit test transplantation—transplanting unit tests from one project repository to another that tests the same functionality. By utilizing Retrieval-Augmented Generation (RAG) and large language models (LLMs), we aim to develop a system that can potentially save software developers significant time by automating the reuse of unit tests across projects with similar functionality. For safety-critical and reliability-critical systems where the software is required to be extremely accurate and a failure is costly, having such utility is highly valuable.
+
+
+\section{Data}
+Unit tests will be extracted from open-source Python repositories, particularly focusing on popular frameworks for general software engineering and web development (front-end or API development frameworks). In addition, we will ensure our research will comply with the license in each repo. If time permits, we might also expand to other areas such as command-line interface building, machine learning frameworks, and databases; and as well, higher-level testing (file-level and system-level) will also be considered. Our focus will be on the test directories in each repository, storing all functions used for unit testing. We will use guidelines from pytest to identify and extract tasks that are likely to represent unit tests. Python's AST can be used to traverse the code structure. Code graph tools can be used for more complex analysis and visualizations of the components of the codebase. Linting and code formatting tools can be used for data cleansing (remove comments and make the code more consistent before adding to the vector database). These extracted unit tests will serve as the primary data for our transplantation process. There are also many conventions that we can follow to identify the tests in the directories. Next, we will design logic to pinpoint the methods under test associated with the test function. There is a lot of research going for this which we can utilize, and in addition, we can utilize machine learning techniques to get this done.
+
+
+\section{Tools}
+\subsection{Database}
+Code data is highly dynamic and can be representative, as such, Code understanding is an important and ongoing research problem. In this research project, we will employ more complex embedding algorithms such as CodeBERT and Graph Neural Networks to capture the semantics of the code data. To facilitate retrieval, we will use ChromaDB or FAISS (or similar tools) to store unit test data. The database will store relevant information for each unit test, including the unit test function code, vector embeddings generated by a pre-trained embedding model, and metadata such as the location of the function within the repository. This allows for efficient retrieval of the most relevant unit tests based on a user-defined feature for transplantation.
+\subsection{Large Language Models}
+A large language model (LLM) will play a key role in generating the transplanted unit test code. Given a feature from the donor project and relevant unit test functions, the LLM will help generate the code necessary for transplanting the unit test into the host project. We plan to use models such as Code LLaMA, GPT-4, or other state-of-the-art code-generation models to assist with the transplantation process. There are many LLMs-related tools to take a look at right now (some are somewhat stable, and many are still being developed). If time permits, we will also look at agentic AI tools such as AutoGen or Swarm (which has just been released by OpenAI).
+\subsection{Retrieval Augmented Generation}
+
+\subsection{Code Graph}
+Code graphs are powerful tools for representing and analyzing the structure of software. In our project, we will utilize code graph tools to enhance our understanding of the codebase structure, dependencies, and relationships between different components. This will be particularly useful for:
+\begin{itemize}
+\item Identifying the relationships between unit tests and the functions they are testing
+\item Visualizing the structure of both donor and host projects to aid in the transplantation process
+\item Analyzing dependencies to ensure successful integration of transplanted tests
+\end{itemize}
+We plan to use tools such as Sourcetrail or CodeQL for generating and analyzing code graphs. These tools will provide valuable insights into the structure of the codebase, helping us make more informed decisions during the test transplantation process.
+
+
+\section{Method}
+\subsection{Data Preparation and Preprocessing}
+\subsection{Host Program Analysis}
+Extra parsing logic will be researched to identify how the collected unit tests can be transplanted to the host program. A host program can be an ongoing high-impact project that is maintained by many developers. Some possibilities are:
+\begin{itemize}
+\item Looking at the functions and the associated contexts to identify the tests through retrieval-augmented generation.
+\item Scanning through the test suites and the associated contexts to identify the tests that can be transplanted.
+\item Applying the aformentioned methods and utilize code graphs to find the correspondence of the tests.
+\end{itemize}
+
+\subsection{Prompting}
+Some prompting techniques will be researched to help generate the test code that is tailored to the host program. The prompt can be in various forms, in general, the prompt will contain all the necessary context for the LLM to generate the test. In addition, we can also use various techniques such as zero-shot, one-shot, few-shot prompting to see how the LLMs perform. The examples provided to the LLM can be the motivating examples collected from our research process (each target repo can also have its own examples). In addition, multi-turn prompting can also be considered to refine the test generation process.
+
+\subsection{Large Language Model Utilizatiion and Orchestration}
+The key LLM coding APIs (such as OpenAI GPT-4o and Anthropic Claude 3.5 Sonnet) will be utilized to generate the test code. If time permits, we might also explore the use of agentic AI tools such as AutoGen or Swarm to see if the final results is significantly better.
+
+
+
+\subsection{Evaluation}
+The test transplantation pipeline wil be benchmarked to see if it can successfully transplant the tests and can outperform a regular test generation process uing LLMs.
+
+\subsubsection{Manual Inspection}\label{sec:manual-inspection}
+Manual inspection can be used to evaluate the effectiveness of the transplantation. The program can recommend the locations of the tests first, then, the selected transplantations can be run (otherwise, many API requests will be made, and this can be costly). Then, some manual inspection such as trying to see if the code is reasonable (for example, if the test is for a function that takes in a list, it should not be transplanted to a function that takes in an integer). In addition, the transplanted test can also then be run to see if it is reasonable with the host program.
+
+\subsubsection{Utilize Code Metrics}\label{sec:utilize-code-metrics}
+A combination of code metrics can be used to evaluate the effectiveness of the transplantation. Code coverage and maintainability metrics can be used to evaluate the quality of the tests. If possible, we also wants the generated tests to blend well with the code in the host program (such as following the same coding style and conventions specific to the host program).
+
+\subsubsection{Execute Transplanted Code}\label{sec:execute-transplanted-code}
+In a real-world scenario, making the transplanted code executable is important (also, executability can be a priority in the reranking process). The transplanted code should ideally be able to be run without any modifications from the developer. Another research path to look into here is when the generated code is not executable, we can use multi-turn prompting to refine the code to be executable.
+
+\subsubsection{LLM Utilization}\label{sec:llm-utilization}
+Another way to evaluate the efffectiveness of the transplantation is to utilize another LLM to review the transplanted code (for example, code quality and code structure of the transplanted code). This approach might require heavy prompt engineering to help capture all the semantics of the code structure.
 
 \end{document}
 \endinput
