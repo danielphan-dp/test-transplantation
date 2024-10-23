@@ -1,7 +1,9 @@
 import ast
 import json
+import stdlib_list
+import pkg_resources
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Set
 
 from pydantic import BaseModel, Field
 
@@ -23,6 +25,7 @@ class TestCase(BaseModel):
     setup_method: Optional[str] = None
     teardown_method: Optional[str] = None
     mocks: List[str] = Field(default_factory=list)
+    methods_under_test: List[str] = Field(default_factory=list)
 
 
 class TestCollection(BaseModel):
@@ -65,9 +68,56 @@ def extract_mocks(node: ast.FunctionDef) -> List[str]:
     return mocks
 
 
-def collect_tests(directory: str) -> TestCollection:
+def extract_methods_under_test(
+    node: ast.FunctionDef, 
+    application_modules: Set[str], 
+    standard_lib_names: Set[str],
+    third_party_lib_names: Set[str]
+) -> List[str]:
+    methods_under_test = []
+    for sub_node in ast.walk(node):
+        if isinstance(sub_node, ast.Call):
+            func_name = get_full_func_name(sub_node.func)
+            if func_name and not is_standard_or_third_party(func_name, standard_lib_names, third_party_lib_names):
+                methods_under_test.append(func_name)
+    return methods_under_test
+
+
+def get_full_func_name(func) -> Optional[str]:
+    if isinstance(func, ast.Name):
+        return func.id
+    elif isinstance(func, ast.Attribute):
+        value = func.value
+        attr = func.attr
+        if isinstance(value, ast.Name):
+            return f"{value.id}.{attr}"
+        elif isinstance(value, ast.Attribute):
+            parent = get_full_func_name(value)
+            if parent:
+                return f"{parent}.{attr}"
+    return None
+
+
+def is_standard_or_third_party(func_name: str, standard_lib_names: Set[str], third_party_lib_names: Set[str]) -> bool:
+    module_name = func_name.split('.')[0]
+    return module_name in standard_lib_names or module_name in third_party_lib_names
+
+
+def get_standard_library_names() -> Set[str]:
+    return set(stdlib_list.stdlib_list())
+
+
+def get_third_party_library_names() -> Set[str]:
+    return {pkg.key for pkg in pkg_resources.working_set}
+
+
+def collect_tests(directory: str, application_modules: Set[str]) -> TestCollection:
     test_collection = TestCollection()
     directory_path = Path(directory)
+
+    # Gather standard and third-party libraries
+    standard_lib_names = get_standard_library_names()
+    third_party_lib_names = get_third_party_library_names()
 
     for test_file in directory_path.rglob("test_*.py"):
         with open(test_file, "r", encoding="utf-8") as file:
@@ -93,6 +143,12 @@ def collect_tests(directory: str) -> TestCollection:
                         fixtures = extract_fixtures(node)
                         assertions = extract_assertions(node)
                         mocks = extract_mocks(node)
+                        methods_under_test = extract_methods_under_test(
+                            node, 
+                            application_modules, 
+                            standard_lib_names,
+                            third_party_lib_names
+                        )
 
                         test_collection.tests.append(
                             TestCase(
@@ -111,6 +167,7 @@ def collect_tests(directory: str) -> TestCollection:
                                 setup_method=setup_method,
                                 teardown_method=teardown_method,
                                 mocks=mocks,
+                                methods_under_test=methods_under_test
                             )
                         )
                 elif isinstance(node, ast.ClassDef):
@@ -140,6 +197,12 @@ def collect_tests(directory: str) -> TestCollection:
                             fixtures = extract_fixtures(sub_node)
                             assertions = extract_assertions(sub_node)
                             mocks = extract_mocks(sub_node)
+                            methods_under_test = extract_methods_under_test(
+                                sub_node, 
+                                application_modules, 
+                                standard_lib_names,
+                                third_party_lib_names
+                            )
 
                             test_collection.tests.append(
                                 TestCase(
@@ -161,6 +224,7 @@ def collect_tests(directory: str) -> TestCollection:
                                     setup_method=class_setup_method,
                                     teardown_method=class_teardown_method,
                                     mocks=mocks,
+                                    methods_under_test=methods_under_test
                                 )
                             )
 
@@ -168,6 +232,10 @@ def collect_tests(directory: str) -> TestCollection:
 
 
 def dump_tests_to_json(test_collection: TestCollection, output_file: str):
+    # Create the output directory if it doesn't exist
+    output_path = Path(output_file)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    
     with open(output_file, "w") as f:
         json.dump(test_collection.model_dump(), f, indent=2)
 
@@ -176,10 +244,10 @@ if __name__ == "__main__":
     # Repos for API development
     repo_paths = [
         "./__internal__/data/flask",
-        "./__internal__/data/fastapi",
-        "./__internal__/data/gunicorn",
-        "./__internal__/data/pyramid",
-        "./__internal__/data/connexion",
+        # "./__internal__/data/fastapi",
+        # "./__internal__/data/gunicorn",
+        # "./__internal__/data/pyramid",
+        # "./__internal__/data/connexion",
     ]
 
     for repo_path in repo_paths:
@@ -187,6 +255,11 @@ if __name__ == "__main__":
         repo_name = Path(repo_path).name
         output_json = f"./__internal__/collected_tests/collected_tests__{repo_name}.json"
 
-        collected_tests = collect_tests(tests_dir)
+        # Add empty set for application_modules
+        collected_tests = collect_tests(tests_dir, set())
         dump_tests_to_json(collected_tests, output_json)
         print(f"Collected {len(collected_tests.tests)} tests and saved to {output_json}")
+
+if __name__ == "__main__":
+    standard_lib_names = set(stdlib_list.stdlib_list())
+    third_party_lib_names = {pkg.key for pkg in pkg_resources.working_set}
