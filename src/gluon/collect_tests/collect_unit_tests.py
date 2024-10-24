@@ -5,6 +5,9 @@ import pkg_resources
 from pathlib import Path
 from typing import List, Optional, Set, Dict
 import os
+from tqdm import tqdm
+import logging
+import click
 
 from pydantic import BaseModel, Field
 
@@ -136,27 +139,39 @@ def resolve_method(func_name: str, source_files: Dict[str, ast.Module]) -> Optio
 
 def scan_source_files(directory: str) -> Dict[str, ast.Module]:
     source_files = {}
-    for root, _, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.py'):
-                file_path = os.path.join(root, file)
-                with open(file_path, 'r') as f:
-                    source_files[file_path] = ast.parse(f.read())
+    all_files = list(Path(directory).rglob('*.py'))
+    
+    with tqdm(total=len(all_files), desc="Scanning source files", unit="file") as pbar:
+        for file_path in all_files:
+            pbar.set_postfix_str(f"Scanning: {file_path}")
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    source_files[str(file_path)] = ast.parse(f.read())
+            except Exception as e:
+                logger.error(f"Error parsing file {file_path}: {str(e)}")
+            pbar.update(1)
+    
+    logger.info(f"Scanned {len(source_files)} source files")
     return source_files
 
 
 def collect_tests(directory: str, application_modules: Set[str]) -> TestCollection:
+    logger.info(f"Starting test collection from directory: {directory}")
     test_collection = TestCollection()
     directory_path = Path(directory)
 
-    # Gather standard and third-party libraries
+    logger.info("Gathering standard and third-party libraries")
     standard_lib_names = get_standard_library_names()
     third_party_lib_names = get_third_party_library_names()
 
-    # Scan source files
+    logger.info("Scanning source files")
     source_files = scan_source_files(directory)
 
-    for test_file in directory_path.rglob("test_*.py"):
+    test_files = list(directory_path.rglob("test_*.py"))
+    logger.info(f"Found {len(test_files)} test files")
+
+    for test_file in tqdm(test_files, desc="Collecting tests", unit="file"):
+        logger.info(f"Processing test file: {test_file}")
         with open(test_file, "r", encoding="utf-8") as file:
             file_content = file.read()
             tree = ast.parse(file_content, filename=str(test_file))
@@ -173,6 +188,7 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                         teardown_method = ast.get_source_segment(file_content, node)
 
                     if node.name.startswith("test_"):
+                        logger.debug(f"Found test method: {node.name}")
                         source_code = ast.get_source_segment(file_content, node)
                         docstring = ast.get_docstring(node)
                         decorators = [ast.unparse(d) for d in node.decorator_list]
@@ -209,6 +225,7 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                             )
                         )
                 elif isinstance(node, ast.ClassDef):
+                    logger.debug(f"Found test class: {node.name}")
                     class_setup_method = next(
                         (
                             ast.get_source_segment(file_content, m)
@@ -267,38 +284,53 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                                 )
                             )
 
+    logger.info(f"Collected {len(test_collection.tests)} tests in total")
     return test_collection
 
 
 def dump_tests_to_json(test_collection: TestCollection, output_file: str):
+    logger.info(f"Dumping {len(test_collection.tests)} tests to JSON: {output_file}")
     # Create the output directory if it doesn't exist
     output_path = Path(output_file)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
     with open(output_file, "w") as f:
         json.dump(test_collection.model_dump(), f, indent=2)
+    logger.info(f"JSON dump completed: {output_file}")
 
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+@click.command()
+@click.argument('repo_path', type=click.Path(exists=True, file_okay=False, dir_okay=True))
+@click.argument('output_path', type=click.Path(file_okay=True, dir_okay=False))
+@click.option('--log-level', type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']), default='INFO', help='Set the logging level')
+def main(repo_path: str, output_path: str, log_level: str):
+    """
+    Collect unit tests from a repository and save them to a JSON file.
+
+    REPO_PATH: Path to the repository containing the tests
+    OUTPUT_PATH: Path to save the output JSON file
+    """
+    # Set the log level
+    logging.getLogger().setLevel(log_level)
+
+    logger.info(f"Starting test collection process for repository: {repo_path}")
+    logger.info(f"Output will be saved to: {output_path}")
+
+    tests_dir = os.path.join(repo_path, "tests")
+    if not os.path.exists(tests_dir):
+        logger.error(f"Tests directory not found: {tests_dir}")
+        return
+
+    # Add empty set for application_modules
+    collected_tests = collect_tests(tests_dir, set())
+    dump_tests_to_json(collected_tests, output_path)
+    logger.info(f"Collected {len(collected_tests.tests)} tests and saved to {output_path}")
+
+    logger.info("Test collection process completed")
 
 if __name__ == "__main__":
-    # Repos for API development
-    repo_paths = [
-        "./__internal__/data/flask",
-        # "./__internal__/data/fastapi",
-        # "./__internal__/data/gunicorn",
-        # "./__internal__/data/pyramid",
-        # "./__internal__/data/connexion",
-    ]
-
-    for repo_path in repo_paths:
-        tests_dir = f"{repo_path}/tests"
-        repo_name = Path(repo_path).name
-        output_json = f"./__internal__/collected_tests/collected_tests__{repo_name}.json"
-
-        # Add empty set for application_modules
-        collected_tests = collect_tests(tests_dir, set())
-        dump_tests_to_json(collected_tests, output_json)
-        print(f"Collected {len(collected_tests.tests)} tests and saved to {output_json}")
-
-if __name__ == "__main__":
-    standard_lib_names = set(stdlib_list.stdlib_list())
-    third_party_lib_names = {pkg.key for pkg in pkg_resources.working_set}
+    main()
