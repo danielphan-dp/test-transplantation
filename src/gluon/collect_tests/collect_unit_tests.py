@@ -3,7 +3,8 @@ import json
 import stdlib_list
 import pkg_resources
 from pathlib import Path
-from typing import List, Optional, Set
+from typing import List, Optional, Set, Dict
+import os
 
 from pydantic import BaseModel, Field
 
@@ -25,7 +26,7 @@ class TestCase(BaseModel):
     setup_method: Optional[str] = None
     teardown_method: Optional[str] = None
     mocks: List[str] = Field(default_factory=list)
-    methods_under_test: List[str] = Field(default_factory=list)
+    methods_under_test: List[Dict[str, str]] = Field(default_factory=list)
 
 
 class TestCollection(BaseModel):
@@ -72,14 +73,17 @@ def extract_methods_under_test(
     node: ast.FunctionDef, 
     application_modules: Set[str], 
     standard_lib_names: Set[str],
-    third_party_lib_names: Set[str]
-) -> List[str]:
+    third_party_lib_names: Set[str],
+    source_files: Dict[str, ast.Module]
+) -> List[Dict[str, str]]:
     methods_under_test = []
     for sub_node in ast.walk(node):
         if isinstance(sub_node, ast.Call):
             func_name = get_full_func_name(sub_node.func)
             if func_name and not is_standard_or_third_party(func_name, standard_lib_names, third_party_lib_names):
-                methods_under_test.append(func_name)
+                method_info = resolve_method(func_name, source_files)
+                if method_info:
+                    methods_under_test.append(method_info)
     return methods_under_test
 
 
@@ -111,6 +115,36 @@ def get_third_party_library_names() -> Set[str]:
     return {pkg.key for pkg in pkg_resources.working_set}
 
 
+def resolve_method(func_name: str, source_files: Dict[str, ast.Module]) -> Optional[Dict[str, str]]:
+    parts = func_name.split('.')
+    for file_path, tree in source_files.items():
+        for node in ast.walk(tree):
+            if len(parts) > 1 and isinstance(node, ast.ClassDef) and node.name == parts[-2]:
+                for sub_node in node.body:
+                    if isinstance(sub_node, ast.FunctionDef) and sub_node.name == parts[-1]:
+                        return {
+                            'name': func_name,
+                            'body': ast.unparse(sub_node)
+                        }
+            elif isinstance(node, ast.FunctionDef) and node.name == parts[-1]:
+                return {
+                    'name': func_name,
+                    'body': ast.unparse(node)
+                }
+    return None
+
+
+def scan_source_files(directory: str) -> Dict[str, ast.Module]:
+    source_files = {}
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.py'):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r') as f:
+                    source_files[file_path] = ast.parse(f.read())
+    return source_files
+
+
 def collect_tests(directory: str, application_modules: Set[str]) -> TestCollection:
     test_collection = TestCollection()
     directory_path = Path(directory)
@@ -118,6 +152,9 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
     # Gather standard and third-party libraries
     standard_lib_names = get_standard_library_names()
     third_party_lib_names = get_third_party_library_names()
+
+    # Scan source files
+    source_files = scan_source_files(directory)
 
     for test_file in directory_path.rglob("test_*.py"):
         with open(test_file, "r", encoding="utf-8") as file:
@@ -147,7 +184,8 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                             node, 
                             application_modules, 
                             standard_lib_names,
-                            third_party_lib_names
+                            third_party_lib_names,
+                            source_files
                         )
 
                         test_collection.tests.append(
@@ -201,7 +239,8 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                                 sub_node, 
                                 application_modules, 
                                 standard_lib_names,
-                                third_party_lib_names
+                                third_party_lib_names,
+                                source_files
                             )
 
                             test_collection.tests.append(
