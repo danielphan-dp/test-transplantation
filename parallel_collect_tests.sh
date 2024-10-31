@@ -1,18 +1,23 @@
 #!/bin/bash
-set -euo pipefail  # Add error handling
+set -euo pipefail
 
 # -----------------------------
 # Configuration
 # -----------------------------
 readonly DATA_DIR="__internal__/data"
 readonly TESTS_DIR="__internal__/collected_tests"
-readonly REPOS="connexion fastapi flask gunicorn pyramid"
-readonly REPO_OWNERS=(
-    "zalando/connexion"
-    "tiangolo/fastapi"
-    "pallets/flask"
-    "benoitc/gunicorn"
-    "Pylons/pyramid"
+declare -A REPO_MAP=(
+    [connexion]="zalando"
+    [fastapi]="tiangolo"
+    [flask]="pallets"
+    [gunicorn]="benoitc"
+    [pyramid]="Pylons"
+    [django]="django"
+    [starlette]="encode"
+    [tornado]="tornadoweb"
+    [sanic]="sanic-org"
+    [aiohttp]="aio-libs"
+    [uvicorn]="encode"
 )
 
 # -----------------------------
@@ -22,40 +27,41 @@ log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
 }
 
-cleanup() {
-    cd - >/dev/null  # Return to original directory
-}
-
 # -----------------------------
-# Create required directories
+# Main Script
 # -----------------------------
 log "Creating directories..."
 mkdir -p "$DATA_DIR" "$TESTS_DIR"
 
-# -----------------------------
-# Clone repositories in parallel
-# -----------------------------
-trap cleanup EXIT  # Ensure we return to original directory
+log "Cloning repositories..."
 cd "$DATA_DIR" || exit 1
 
-log "Cloning repositories..."
-echo "$REPOS" | tr ' ' '\n' | parallel --jobs 100% '
+# Clone repositories in parallel
+printf '%s\n' "${!REPO_MAP[@]}" | \
+    parallel --jobs 100% \
+    '
     if [ ! -d {} ]; then
-        echo "Cloning {}..."
-        git clone --depth 1 https://github.com/{owner}/{} 2>/dev/null
+        owner="${REPO_MAP[{}]}"
+        echo "Cloning {}: https://github.com/$owner/{}"
+        git clone --depth 1 "https://github.com/$owner/{}" || exit 1
     else
         echo "{} already exists"
-    fi' \
-    --env owner \
-    ::: "${REPO_OWNERS[@]}"
+    fi
+    '
+
+# Verify clones
+for repo in "${!REPO_MAP[@]}"; do
+    if [ ! -d "$repo" ]; then
+        log "ERROR: Repository $repo was not cloned successfully"
+        exit 1
+    fi
+done
+
 cd ../..
 
-# -----------------------------
-# Collect tests in parallel
-# -----------------------------
 log "Collecting tests..."
-echo "$REPOS" | tr ' ' '\n' | \
-parallel --jobs -1 --bar \
+printf '%s\n' "${!REPO_MAP[@]}" | \
+    parallel --jobs -1 --bar \
     'python -m src.gluon.collect_tests.collect_unit_tests \
         '"$DATA_DIR"'/{} \
         '"$TESTS_DIR"'/collected_tests__{}.json \
