@@ -1,0 +1,4281 @@
+{
+  "tests": [
+    {
+      "name": "test_create_sockets_unix_bytes",
+      "module": "test_sock",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_sock.py",
+      "line_number": 11,
+      "end_line_number": 18,
+      "source_code": "def test_create_sockets_unix_bytes(stat):\n    conf = mock.Mock(address=[b'127.0.0.1:8000'])\n    log = mock.Mock()\n    with mock.patch.object(sock.UnixSocket, '__init__', lambda *args: None):\n        listeners = sock.create_sockets(conf, log)\n        assert len(listeners) == 1\n        print(type(listeners[0]))\n        assert isinstance(listeners[0], sock.UnixSocket)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.stat')"
+      ],
+      "arguments": [
+        "stat"
+      ],
+      "imports": [
+        "unittest.mock",
+        "gunicorn.sock"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert len(listeners) == 1",
+        "assert isinstance(listeners[0], sock.UnixSocket)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.stat')",
+        "mock.Mock(address=[b'127.0.0.1:8000'])",
+        "mock.Mock()"
+      ],
+      "methods_under_test": [
+        {
+          "name": "len",
+          "body": "def len(self):\n    return self.tmp.len"
+        }
+      ]
+    },
+    {
+      "name": "test_create_sockets_unix_strings",
+      "module": "test_sock",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_sock.py",
+      "line_number": 22,
+      "end_line_number": 28,
+      "source_code": "def test_create_sockets_unix_strings(stat):\n    conf = mock.Mock(address=['127.0.0.1:8000'])\n    log = mock.Mock()\n    with mock.patch.object(sock.UnixSocket, '__init__', lambda *args: None):\n        listeners = sock.create_sockets(conf, log)\n        assert len(listeners) == 1\n        assert isinstance(listeners[0], sock.UnixSocket)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.stat')"
+      ],
+      "arguments": [
+        "stat"
+      ],
+      "imports": [
+        "unittest.mock",
+        "gunicorn.sock"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert len(listeners) == 1",
+        "assert isinstance(listeners[0], sock.UnixSocket)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.stat')",
+        "mock.Mock(address=['127.0.0.1:8000'])",
+        "mock.Mock()"
+      ],
+      "methods_under_test": [
+        {
+          "name": "len",
+          "body": "def len(self):\n    return self.tmp.len"
+        }
+      ]
+    },
+    {
+      "name": "test_socket_close",
+      "module": "test_sock",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_sock.py",
+      "line_number": 31,
+      "end_line_number": 38,
+      "source_code": "def test_socket_close():\n    listener1 = mock.Mock()\n    listener1.getsockname.return_value = ('127.0.0.1', '80')\n    listener2 = mock.Mock()\n    listener2.getsockname.return_value = ('192.168.2.5', '80')\n    sock.close_sockets([listener1, listener2])\n    listener1.close.assert_called_with()\n    listener2.close.assert_called_with()",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "unittest.mock",
+        "gunicorn.sock"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.Mock()",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_unix_socket_close_unlink",
+      "module": "test_sock",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_sock.py",
+      "line_number": 42,
+      "end_line_number": 47,
+      "source_code": "def test_unix_socket_close_unlink(unlink):\n    listener = mock.Mock()\n    listener.getsockname.return_value = '/var/run/test.sock'\n    sock.close_sockets([listener])\n    listener.close.assert_called_with()\n    unlink.assert_called_once_with('/var/run/test.sock')",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.unlink')"
+      ],
+      "arguments": [
+        "unlink"
+      ],
+      "imports": [
+        "unittest.mock",
+        "gunicorn.sock"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.unlink')",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_unix_socket_close_without_unlink",
+      "module": "test_sock",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_sock.py",
+      "line_number": 51,
+      "end_line_number": 56,
+      "source_code": "def test_unix_socket_close_without_unlink(unlink):\n    listener = mock.Mock()\n    listener.getsockname.return_value = '/var/run/test.sock'\n    sock.close_sockets([listener], False)\n    listener.close.assert_called_with()\n    assert not unlink.called, 'unlink should not have been called'",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.unlink')"
+      ],
+      "arguments": [
+        "unlink"
+      ],
+      "imports": [
+        "unittest.mock",
+        "gunicorn.sock"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert not unlink.called, 'unlink should not have been called'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.unlink')",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_reload_on_syntax_error",
+      "module": "test_reload",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_reload.py",
+      "line_number": 30,
+      "end_line_number": 44,
+      "source_code": "def test_reload_on_syntax_error():\n    \"\"\"\n    Test that reloading works if the application has a syntax error.\n    \"\"\"\n    reloader = mock.Mock()\n    reloader_engines['poll'] = lambda *args, **kw: reloader\n\n    app = SyntaxErrorApp()\n    cfg = app.cfg\n    log = mock.Mock()\n    worker = MyWorker(age=0, ppid=0, sockets=[], app=app, timeout=0, cfg=cfg, log=log)\n\n    worker.init_process()\n    reloader.start.assert_called_with()\n    reloader.add_extra_file.assert_called_with('syntax_error_filename')",
+      "docstring": "Test that reloading works if the application has a syntax error.",
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "unittest.mock",
+        "gunicorn.app.base.Application",
+        "gunicorn.workers.base.Worker",
+        "gunicorn.reloader.reloader_engines"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.Mock()",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_start_reloader_after_load_wsgi",
+      "module": "test_reload",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_reload.py",
+      "line_number": 47,
+      "end_line_number": 68,
+      "source_code": "def test_start_reloader_after_load_wsgi():\n    \"\"\"\n    Check that the reloader is started after the wsgi app has been loaded.\n    \"\"\"\n    reloader = mock.Mock()\n    reloader_engines['poll'] = lambda *args, **kw: reloader\n\n    app = ReloadApp()\n    cfg = app.cfg\n    log = mock.Mock()\n    worker = MyWorker(age=0, ppid=0, sockets=[], app=app, timeout=0, cfg=cfg, log=log)\n\n    worker.load_wsgi = mock.Mock()\n    mock_parent = mock.Mock()\n    mock_parent.attach_mock(worker.load_wsgi, 'load_wsgi')\n    mock_parent.attach_mock(reloader.start, 'reloader_start')\n\n    worker.init_process()\n    mock_parent.assert_has_calls([\n        mock.call.load_wsgi(),\n        mock.call.reloader_start(),\n    ])",
+      "docstring": "Check that the reloader is started after the wsgi app has been loaded.",
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "unittest.mock",
+        "gunicorn.app.base.Application",
+        "gunicorn.workers.base.Worker",
+        "gunicorn.reloader.reloader_engines"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.Mock()",
+        "mock.Mock()",
+        "mock.Mock()",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_listen_fds_ignores_wrong_pid",
+      "module": "test_systemd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_systemd.py",
+      "line_number": 44,
+      "end_line_number": 50,
+      "source_code": "def test_listen_fds_ignores_wrong_pid(unset):\n    with mock.patch.dict(os.environ):\n        os.environ['LISTEN_FDS'] = str(5)\n        os.environ['LISTEN_PID'] = str(1)\n        with check_environ(False):  # early exit \u2014 never changes the environment\n            assert systemd.listen_fds(unset) == 0, \\\n                \"should ignore listen fds not intended for this pid\"",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('unset', [True, False])"
+      ],
+      "arguments": [
+        "unset"
+      ],
+      "imports": [
+        "contextlib.contextmanager",
+        "os",
+        "unittest.mock",
+        "pytest",
+        "gunicorn.systemd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert systemd.listen_fds(unset) == 0, 'should ignore listen fds not intended for this pid'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "check_environ",
+          "body": "@contextmanager\ndef check_environ(unset=True):\n    \"\"\"\n    A context manager that asserts post-conditions of ``listen_fds`` at exit.\n\n    This helper is used to ease checking of the test post-conditions for the\n    systemd socket activation tests that parametrize the call argument.\n    \"\"\"\n    with mock.patch.dict(os.environ):\n        old_fds = os.environ.get('LISTEN_FDS', None)\n        old_pid = os.environ.get('LISTEN_PID', None)\n        yield\n        if unset:\n            assert 'LISTEN_FDS' not in os.environ, 'LISTEN_FDS should have been unset'\n            assert 'LISTEN_PID' not in os.environ, 'LISTEN_PID should have been unset'\n        else:\n            new_fds = os.environ.get('LISTEN_FDS', None)\n            new_pid = os.environ.get('LISTEN_PID', None)\n            assert new_fds == old_fds, 'LISTEN_FDS should not have been changed'\n            assert new_pid == old_pid, 'LISTEN_PID should not have been changed'"
+        }
+      ]
+    },
+    {
+      "name": "test_listen_fds_returns_count",
+      "module": "test_systemd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_systemd.py",
+      "line_number": 54,
+      "end_line_number": 60,
+      "source_code": "def test_listen_fds_returns_count(unset):\n    with mock.patch.dict(os.environ):\n        os.environ['LISTEN_FDS'] = str(5)\n        os.environ['LISTEN_PID'] = str(os.getpid())\n        with check_environ(unset):\n            assert systemd.listen_fds(unset) == 5, \\\n                \"should return the correct count of fds\"",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('unset', [True, False])"
+      ],
+      "arguments": [
+        "unset"
+      ],
+      "imports": [
+        "contextlib.contextmanager",
+        "os",
+        "unittest.mock",
+        "pytest",
+        "gunicorn.systemd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert systemd.listen_fds(unset) == 5, 'should return the correct count of fds'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "check_environ",
+          "body": "@contextmanager\ndef check_environ(unset=True):\n    \"\"\"\n    A context manager that asserts post-conditions of ``listen_fds`` at exit.\n\n    This helper is used to ease checking of the test post-conditions for the\n    systemd socket activation tests that parametrize the call argument.\n    \"\"\"\n    with mock.patch.dict(os.environ):\n        old_fds = os.environ.get('LISTEN_FDS', None)\n        old_pid = os.environ.get('LISTEN_PID', None)\n        yield\n        if unset:\n            assert 'LISTEN_FDS' not in os.environ, 'LISTEN_FDS should have been unset'\n            assert 'LISTEN_PID' not in os.environ, 'LISTEN_PID should have been unset'\n        else:\n            new_fds = os.environ.get('LISTEN_FDS', None)\n            new_pid = os.environ.get('LISTEN_PID', None)\n            assert new_fds == old_fds, 'LISTEN_FDS should not have been changed'\n            assert new_pid == old_pid, 'LISTEN_PID should not have been changed'"
+        }
+      ]
+    },
+    {
+      "name": "test_statsd_fail",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 50,
+      "end_line_number": 59,
+      "source_code": "def test_statsd_fail():\n    \"UDP socket fails\"\n    logger = Statsd(Config())\n    logger.sock = MockSocket(True)\n    logger.info(\"No impact on logging\")\n    logger.debug(\"No impact on logging\")\n    logger.critical(\"No impact on logging\")\n    logger.error(\"No impact on logging\")\n    logger.warning(\"No impact on logging\")\n    logger.exception(\"No impact on logging\")",
+      "docstring": "UDP socket fails",
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_statsd_host_initialization",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 62,
+      "end_line_number": 71,
+      "source_code": "def test_statsd_host_initialization():\n    c = Config()\n    c.set('statsd_host', 'unix:test.sock')\n    logger = Statsd(c)\n    logger.info(\"Can be initialized and used with a UDS socket\")\n\n    # Can be initialized and used with a UDP address\n    c.set('statsd_host', 'host:8080')\n    logger = Statsd(c)\n    logger.info(\"Can be initialized and used with a UDP socket\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_dogstatsd_tags",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 74,
+      "end_line_number": 82,
+      "source_code": "def test_dogstatsd_tags():\n    c = Config()\n    tags = 'yucatan,libertine:rhubarb'\n    c.set('dogstatsd_tags', tags)\n    logger = Statsd(c)\n    logger.sock = MockSocket(False)\n    logger.info(\"Twill\", extra={\"mtype\": \"gauge\", \"metric\": \"barb.westerly\",\n                                \"value\": 2})\n    assert logger.sock.msgs[0] == b\"barb.westerly:2|g|#\" + tags.encode('ascii')",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert logger.sock.msgs[0] == b'barb.westerly:2|g|#' + tags.encode('ascii')"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_instrument",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 85,
+      "end_line_number": 117,
+      "source_code": "def test_instrument():\n    logger = Statsd(Config())\n    # Capture logged messages\n    sio = io.StringIO()\n    logger.error_log.addHandler(logging.StreamHandler(sio))\n    logger.sock = MockSocket(False)\n\n    # Regular message\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"\n    logger.sock.reset()\n\n    # Only metrics, no logging\n    logger.info(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    # Debug logging also supports metrics\n    logger.debug(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.debug\", \"value\": 667})\n    assert logger.sock.msgs[0] == b\"gunicorn.debug:667|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    logger.critical(\"Boom\")\n    assert logger.sock.msgs[0] == b\"gunicorn.log.critical:1|c|@1.0\"\n    logger.sock.reset()\n\n    logger.access(SimpleNamespace(status=\"200 OK\"), None, {}, timedelta(seconds=7))\n    assert logger.sock.msgs[0] == b\"gunicorn.request.duration:7000.0|ms\"\n    assert logger.sock.msgs[1] == b\"gunicorn.requests:1|c|@1.0\"\n    assert logger.sock.msgs[2] == b\"gunicorn.request.status.200:1|c|@1.0\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+        "assert sio.getvalue() == 'Blah\\n'",
+        "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+        "assert sio.getvalue() == 'Blah\\n'",
+        "assert logger.sock.msgs[0] == b'gunicorn.debug:667|g'",
+        "assert sio.getvalue() == 'Blah\\n'",
+        "assert logger.sock.msgs[0] == b'gunicorn.log.critical:1|c|@1.0'",
+        "assert logger.sock.msgs[0] == b'gunicorn.request.duration:7000.0|ms'",
+        "assert logger.sock.msgs[1] == b'gunicorn.requests:1|c|@1.0'",
+        "assert logger.sock.msgs[2] == b'gunicorn.request.status.200:1|c|@1.0'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "logger.sock.reset",
+          "body": "def reset(self):\n    self.msgs = []"
+        },
+        {
+          "name": "logger.sock.reset",
+          "body": "def reset(self):\n    self.msgs = []"
+        },
+        {
+          "name": "logger.sock.reset",
+          "body": "def reset(self):\n    self.msgs = []"
+        },
+        {
+          "name": "logger.sock.reset",
+          "body": "def reset(self):\n    self.msgs = []"
+        }
+      ]
+    },
+    {
+      "name": "test_prefix",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 120,
+      "end_line_number": 127,
+      "source_code": "def test_prefix():\n    c = Config()\n    c.set(\"statsd_prefix\", \"test.\")\n    logger = Statsd(c)\n    logger.sock = MockSocket(False)\n\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"test.gunicorn.test:666|g\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert logger.sock.msgs[0] == b'test.gunicorn.test:666|g'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_prefix_no_dot",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 130,
+      "end_line_number": 137,
+      "source_code": "def test_prefix_no_dot():\n    c = Config()\n    c.set(\"statsd_prefix\", \"test\")\n    logger = Statsd(c)\n    logger.sock = MockSocket(False)\n\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"test.gunicorn.test:666|g\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert logger.sock.msgs[0] == b'test.gunicorn.test:666|g'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_prefix_multiple_dots",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 140,
+      "end_line_number": 147,
+      "source_code": "def test_prefix_multiple_dots():\n    c = Config()\n    c.set(\"statsd_prefix\", \"test...\")\n    logger = Statsd(c)\n    logger.sock = MockSocket(False)\n\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"test.gunicorn.test:666|g\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert logger.sock.msgs[0] == b'test.gunicorn.test:666|g'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_prefix_nested",
+      "module": "test_statsd",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+      "line_number": 150,
+      "end_line_number": 157,
+      "source_code": "def test_prefix_nested():\n    c = Config()\n    c.set(\"statsd_prefix\", \"test.asdf.\")\n    logger = Statsd(c)\n    logger.sock = MockSocket(False)\n\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"test.asdf.gunicorn.test:666|g\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "logging",
+        "os",
+        "shutil",
+        "socket",
+        "tempfile",
+        "datetime.timedelta",
+        "types.SimpleNamespace",
+        "gunicorn.config.Config",
+        "gunicorn.instrument.statsd.Statsd"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert logger.sock.msgs[0] == b'test.asdf.gunicorn.test:666|g'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_http_parser",
+      "module": "test_invalid_requests",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_invalid_requests.py",
+      "line_number": 18,
+      "end_line_number": 26,
+      "source_code": "def test_http_parser(fname):\n    env = treq.load_py(os.path.splitext(fname)[0] + \".py\")\n\n    expect = env[\"request\"]\n    cfg = env[\"cfg\"]\n    req = treq.badrequest(fname)\n\n    with pytest.raises(expect):\n        req.check(cfg)",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('fname', httpfiles)"
+      ],
+      "arguments": [
+        "fname"
+      ],
+      "imports": [
+        "glob",
+        "os",
+        "pytest",
+        "treq"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "treq.load_py",
+          "body": "def load_py(fname):\n    module_name = '__config__'\n    mod = types.ModuleType(module_name)\n    setattr(mod, 'uri', uri)\n    setattr(mod, 'cfg', Config())\n    loader = importlib.machinery.SourceFileLoader(module_name, fname)\n    loader.exec_module(mod)\n    return vars(mod)"
+        },
+        {
+          "name": "req.check",
+          "body": "def check(self, cfg, sender, sizer, matcher):\n    cases = self.expect[:]\n    p = RequestParser(cfg, sender(), None)\n    parsed_request_idx = -1\n    for (parsed_request_idx, req) in enumerate(p):\n        self.same(req, sizer, matcher, cases.pop(0))\n    assert len(self.expect) == parsed_request_idx + 1\n    assert not cases"
+        }
+      ]
+    },
+    {
+      "name": "test_http_parser",
+      "module": "test_valid_requests",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_valid_requests.py",
+      "line_number": 18,
+      "end_line_number": 26,
+      "source_code": "def test_http_parser(fname):\n    env = treq.load_py(os.path.splitext(fname)[0] + \".py\")\n\n    expect = env['request']\n    cfg = env['cfg']\n    req = treq.request(fname, expect)\n\n    for case in req.gen_cases(cfg):\n        case[0](*case[1:])",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('fname', httpfiles)"
+      ],
+      "arguments": [
+        "fname"
+      ],
+      "imports": [
+        "glob",
+        "os",
+        "pytest",
+        "treq"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "treq.load_py",
+          "body": "def load_py(fname):\n    module_name = '__config__'\n    mod = types.ModuleType(module_name)\n    setattr(mod, 'uri', uri)\n    setattr(mod, 'cfg', Config())\n    loader = importlib.machinery.SourceFileLoader(module_name, fname)\n    loader.exec_module(mod)\n    return vars(mod)"
+        },
+        {
+          "name": "req.gen_cases",
+          "body": "def gen_cases(self, cfg):\n\n    def get_funs(p):\n        return [v for (k, v) in inspect.getmembers(self) if k.startswith(p)]\n    senders = get_funs('send_')\n    sizers = get_funs('size_')\n    matchers = get_funs('match_')\n    cfgs = [(mt, sz, sn) for mt in matchers for sz in sizers for sn in senders]\n    ret = []\n    for (mt, sz, sn) in cfgs:\n        if hasattr(mt, 'funcname'):\n            mtn = mt.func_name[6:]\n            szn = sz.func_name[5:]\n            snn = sn.func_name[5:]\n        else:\n            mtn = mt.__name__[6:]\n            szn = sz.__name__[5:]\n            snn = sn.__name__[5:]\n\n        def test_req(sn, sz, mt):\n            self.check(cfg, sn, sz, mt)\n        desc = '%s: MT: %s SZ: %s SN: %s' % (self.name, mtn, szn, snn)\n        test_req.description = desc\n        ret.append((test_req, sn, sz, mt))\n    return ret"
+        }
+      ]
+    },
+    {
+      "name": "test_keyfile",
+      "module": "test_ssl",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_ssl.py",
+      "line_number": 16,
+      "end_line_number": 22,
+      "source_code": "def test_keyfile():\n    assert issubclass(KeyFile, Setting)\n    assert KeyFile.name == 'keyfile'\n    assert KeyFile.section == 'SSL'\n    assert KeyFile.cli == ['--keyfile']\n    assert KeyFile.meta == 'FILE'\n    assert KeyFile.default is None",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "pytest",
+        "gunicorn.config.KeyFile",
+        "gunicorn.config.CertFile",
+        "gunicorn.config.CACerts",
+        "gunicorn.config.SuppressRaggedEOFs",
+        "gunicorn.config.DoHandshakeOnConnect",
+        "gunicorn.config.Setting",
+        "gunicorn.config.Ciphers"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert issubclass(KeyFile, Setting)",
+        "assert KeyFile.name == 'keyfile'",
+        "assert KeyFile.section == 'SSL'",
+        "assert KeyFile.cli == ['--keyfile']",
+        "assert KeyFile.meta == 'FILE'",
+        "assert KeyFile.default is None"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_certfile",
+      "module": "test_ssl",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_ssl.py",
+      "line_number": 25,
+      "end_line_number": 30,
+      "source_code": "def test_certfile():\n    assert issubclass(CertFile, Setting)\n    assert CertFile.name == 'certfile'\n    assert CertFile.section == 'SSL'\n    assert CertFile.cli == ['--certfile']\n    assert CertFile.default is None",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "pytest",
+        "gunicorn.config.KeyFile",
+        "gunicorn.config.CertFile",
+        "gunicorn.config.CACerts",
+        "gunicorn.config.SuppressRaggedEOFs",
+        "gunicorn.config.DoHandshakeOnConnect",
+        "gunicorn.config.Setting",
+        "gunicorn.config.Ciphers"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert issubclass(CertFile, Setting)",
+        "assert CertFile.name == 'certfile'",
+        "assert CertFile.section == 'SSL'",
+        "assert CertFile.cli == ['--certfile']",
+        "assert CertFile.default is None"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_cacerts",
+      "module": "test_ssl",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_ssl.py",
+      "line_number": 33,
+      "end_line_number": 39,
+      "source_code": "def test_cacerts():\n    assert issubclass(CACerts, Setting)\n    assert CACerts.name == 'ca_certs'\n    assert CACerts.section == 'SSL'\n    assert CACerts.cli == ['--ca-certs']\n    assert CACerts.meta == 'FILE'\n    assert CACerts.default is None",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "pytest",
+        "gunicorn.config.KeyFile",
+        "gunicorn.config.CertFile",
+        "gunicorn.config.CACerts",
+        "gunicorn.config.SuppressRaggedEOFs",
+        "gunicorn.config.DoHandshakeOnConnect",
+        "gunicorn.config.Setting",
+        "gunicorn.config.Ciphers"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert issubclass(CACerts, Setting)",
+        "assert CACerts.name == 'ca_certs'",
+        "assert CACerts.section == 'SSL'",
+        "assert CACerts.cli == ['--ca-certs']",
+        "assert CACerts.meta == 'FILE'",
+        "assert CACerts.default is None"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_suppress_ragged_eofs",
+      "module": "test_ssl",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_ssl.py",
+      "line_number": 42,
+      "end_line_number": 48,
+      "source_code": "def test_suppress_ragged_eofs():\n    assert issubclass(SuppressRaggedEOFs, Setting)\n    assert SuppressRaggedEOFs.name == 'suppress_ragged_eofs'\n    assert SuppressRaggedEOFs.section == 'SSL'\n    assert SuppressRaggedEOFs.cli == ['--suppress-ragged-eofs']\n    assert SuppressRaggedEOFs.action == 'store_true'\n    assert SuppressRaggedEOFs.default is True",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "pytest",
+        "gunicorn.config.KeyFile",
+        "gunicorn.config.CertFile",
+        "gunicorn.config.CACerts",
+        "gunicorn.config.SuppressRaggedEOFs",
+        "gunicorn.config.DoHandshakeOnConnect",
+        "gunicorn.config.Setting",
+        "gunicorn.config.Ciphers"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert issubclass(SuppressRaggedEOFs, Setting)",
+        "assert SuppressRaggedEOFs.name == 'suppress_ragged_eofs'",
+        "assert SuppressRaggedEOFs.section == 'SSL'",
+        "assert SuppressRaggedEOFs.cli == ['--suppress-ragged-eofs']",
+        "assert SuppressRaggedEOFs.action == 'store_true'",
+        "assert SuppressRaggedEOFs.default is True"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_do_handshake_on_connect",
+      "module": "test_ssl",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_ssl.py",
+      "line_number": 51,
+      "end_line_number": 57,
+      "source_code": "def test_do_handshake_on_connect():\n    assert issubclass(DoHandshakeOnConnect, Setting)\n    assert DoHandshakeOnConnect.name == 'do_handshake_on_connect'\n    assert DoHandshakeOnConnect.section == 'SSL'\n    assert DoHandshakeOnConnect.cli == ['--do-handshake-on-connect']\n    assert DoHandshakeOnConnect.action == 'store_true'\n    assert DoHandshakeOnConnect.default is False",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "pytest",
+        "gunicorn.config.KeyFile",
+        "gunicorn.config.CertFile",
+        "gunicorn.config.CACerts",
+        "gunicorn.config.SuppressRaggedEOFs",
+        "gunicorn.config.DoHandshakeOnConnect",
+        "gunicorn.config.Setting",
+        "gunicorn.config.Ciphers"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert issubclass(DoHandshakeOnConnect, Setting)",
+        "assert DoHandshakeOnConnect.name == 'do_handshake_on_connect'",
+        "assert DoHandshakeOnConnect.section == 'SSL'",
+        "assert DoHandshakeOnConnect.cli == ['--do-handshake-on-connect']",
+        "assert DoHandshakeOnConnect.action == 'store_true'",
+        "assert DoHandshakeOnConnect.default is False"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_ciphers",
+      "module": "test_ssl",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_ssl.py",
+      "line_number": 60,
+      "end_line_number": 65,
+      "source_code": "def test_ciphers():\n    assert issubclass(Ciphers, Setting)\n    assert Ciphers.name == 'ciphers'\n    assert Ciphers.section == 'SSL'\n    assert Ciphers.cli == ['--ciphers']\n    assert Ciphers.default is None",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "pytest",
+        "gunicorn.config.KeyFile",
+        "gunicorn.config.CertFile",
+        "gunicorn.config.CACerts",
+        "gunicorn.config.SuppressRaggedEOFs",
+        "gunicorn.config.DoHandshakeOnConnect",
+        "gunicorn.config.Setting",
+        "gunicorn.config.Ciphers"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert issubclass(Ciphers, Setting)",
+        "assert Ciphers.name == 'ciphers'",
+        "assert Ciphers.section == 'SSL'",
+        "assert Ciphers.cli == ['--ciphers']",
+        "assert Ciphers.default is None"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_worker_class",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 70,
+      "end_line_number": 79,
+      "source_code": "def test_worker_class():\n\n    c = config.Config()\n    c.set(\"worker_class\", CustomWorker)\n    assert c.worker_class == CustomWorker\n\n    try:\n        assert isinstance(load_class(c.worker_class), object)\n    except AttributeError:\n        pytest.fail(\"'load_class doesn't support type class argument'\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.worker_class == CustomWorker",
+        "assert isinstance(load_class(c.worker_class), object)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_defaults",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 82,
+      "end_line_number": 85,
+      "source_code": "def test_defaults():\n    c = config.Config()\n    for s in config.KNOWN_SETTINGS:\n        assert c.settings[s.name].validator(s.default) == c.settings[s.name].get()",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.settings[s.name].validator(s.default) == c.settings[s.name].get()"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_property_access",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 88,
+      "end_line_number": 127,
+      "source_code": "def test_property_access():\n    c = config.Config()\n    for s in config.KNOWN_SETTINGS:\n        getattr(c, s.name)\n\n    # Class was loaded\n    assert c.worker_class == SyncWorker\n\n    # logger class was loaded\n    assert c.logger_class == glogging.Logger\n\n    # Workers defaults to 1\n    assert c.workers == 1\n    c.set(\"workers\", 3)\n    assert c.workers == 3\n\n    # Address is parsed\n    assert c.address == [(\"127.0.0.1\", 8000)]\n\n    # User and group defaults\n    assert os.geteuid() == c.uid\n    assert os.getegid() == c.gid\n\n    # Proc name\n    assert \"gunicorn\" == c.proc_name\n\n    # Not a config property\n    pytest.raises(AttributeError, getattr, c, \"foo\")\n    # Force to be not an error\n    class Baz:\n        def get(self):\n            return 3.14\n    c.settings[\"foo\"] = Baz()\n    assert c.foo == 3.14\n\n    # Attempt to set a cfg not via c.set\n    pytest.raises(AttributeError, setattr, c, \"proc_name\", \"baz\")\n\n    # No setting for name\n    pytest.raises(AttributeError, c.set, \"baz\", \"bar\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.worker_class == SyncWorker",
+        "assert c.logger_class == glogging.Logger",
+        "assert c.workers == 1",
+        "assert c.workers == 3",
+        "assert c.address == [('127.0.0.1', 8000)]",
+        "assert os.geteuid() == c.uid",
+        "assert os.getegid() == c.gid",
+        "assert 'gunicorn' == c.proc_name",
+        "assert c.foo == 3.14"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_bool_validation",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 130,
+      "end_line_number": 140,
+      "source_code": "def test_bool_validation():\n    c = config.Config()\n    assert c.preload_app is False\n    c.set(\"preload_app\", True)\n    assert c.preload_app is True\n    c.set(\"preload_app\", \"true\")\n    assert c.preload_app is True\n    c.set(\"preload_app\", \"false\")\n    assert c.preload_app is False\n    pytest.raises(ValueError, c.set, \"preload_app\", \"zilch\")\n    pytest.raises(TypeError, c.set, \"preload_app\", 4)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.preload_app is False",
+        "assert c.preload_app is True",
+        "assert c.preload_app is True",
+        "assert c.preload_app is False"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_pos_int_validation",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 143,
+      "end_line_number": 155,
+      "source_code": "def test_pos_int_validation():\n    c = config.Config()\n    assert c.workers == 1\n    c.set(\"workers\", 4)\n    assert c.workers == 4\n    c.set(\"workers\", \"5\")\n    assert c.workers == 5\n    c.set(\"workers\", \"0xFF\")\n    assert c.workers == 255\n    c.set(\"workers\", True)\n    assert c.workers == 1  # Yes. That's right...\n    pytest.raises(ValueError, c.set, \"workers\", -21)\n    pytest.raises(TypeError, c.set, \"workers\", c)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.workers == 1",
+        "assert c.workers == 4",
+        "assert c.workers == 5",
+        "assert c.workers == 255",
+        "assert c.workers == 1"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_str_validation",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 158,
+      "end_line_number": 163,
+      "source_code": "def test_str_validation():\n    c = config.Config()\n    assert c.proc_name == \"gunicorn\"\n    c.set(\"proc_name\", \" foo \")\n    assert c.proc_name == \"foo\"\n    pytest.raises(TypeError, c.set, \"proc_name\", 2)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.proc_name == 'gunicorn'",
+        "assert c.proc_name == 'foo'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_str_to_addr_list_validation",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 166,
+      "end_line_number": 181,
+      "source_code": "def test_str_to_addr_list_validation():\n    c = config.Config()\n    assert c.proxy_allow_ips == [\"127.0.0.1\", \"::1\"]\n    assert c.forwarded_allow_ips == [\"127.0.0.1\", \"::1\"]\n    c.set(\"forwarded_allow_ips\", \"127.0.0.1,192.0.2.1\")\n    assert c.forwarded_allow_ips == [\"127.0.0.1\", \"192.0.2.1\"]\n    c.set(\"forwarded_allow_ips\", \"\")\n    assert c.forwarded_allow_ips == []\n    c.set(\"forwarded_allow_ips\", None)\n    assert c.forwarded_allow_ips == []\n    # demand addresses are specified unambiguously\n    pytest.raises(TypeError, c.set, \"forwarded_allow_ips\", 1)\n    # demand networks are specified unambiguously\n    pytest.raises(ValueError, c.set, \"forwarded_allow_ips\", \"127.0.0\")\n    # detect typos\n    pytest.raises(ValueError, c.set, \"forwarded_allow_ips\", \"::f:\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.proxy_allow_ips == ['127.0.0.1', '::1']",
+        "assert c.forwarded_allow_ips == ['127.0.0.1', '::1']",
+        "assert c.forwarded_allow_ips == ['127.0.0.1', '192.0.2.1']",
+        "assert c.forwarded_allow_ips == []",
+        "assert c.forwarded_allow_ips == []"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_str_to_list",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 184,
+      "end_line_number": 192,
+      "source_code": "def test_str_to_list():\n    c = config.Config()\n    assert c.forwarder_headers == [\"SCRIPT_NAME\", \"PATH_INFO\"]\n    c.set(\"forwarder_headers\", \"SCRIPT_NAME,REMOTE_USER\")\n    assert c.forwarder_headers == [\"SCRIPT_NAME\", \"REMOTE_USER\"]\n    c.set(\"forwarder_headers\", \"\")\n    assert c.forwarder_headers == []\n    c.set(\"forwarder_headers\", None)\n    assert c.forwarder_headers == []",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.forwarder_headers == ['SCRIPT_NAME', 'PATH_INFO']",
+        "assert c.forwarder_headers == ['SCRIPT_NAME', 'REMOTE_USER']",
+        "assert c.forwarder_headers == []",
+        "assert c.forwarder_headers == []"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_callable_validation",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 195,
+      "end_line_number": 202,
+      "source_code": "def test_callable_validation():\n    c = config.Config()\n    def func(a, b):\n        pass\n    c.set(\"pre_fork\", func)\n    assert c.pre_fork == func\n    pytest.raises(TypeError, c.set, \"pre_fork\", 1)\n    pytest.raises(TypeError, c.set, \"pre_fork\", lambda x: True)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.pre_fork == func"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_reload_engine_validation",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 205,
+      "end_line_number": 213,
+      "source_code": "def test_reload_engine_validation():\n    c = config.Config()\n\n    assert c.reload_engine == \"auto\"\n\n    c.set('reload_engine', 'poll')\n    assert c.reload_engine == 'poll'\n\n    pytest.raises(ConfigError, c.set, \"reload_engine\", \"invalid\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.reload_engine == 'auto'",
+        "assert c.reload_engine == 'poll'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_callable_validation_for_string",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 216,
+      "end_line_number": 232,
+      "source_code": "def test_callable_validation_for_string():\n    from os.path import isdir as testfunc\n    assert config.validate_callable(-1)(\"os.path.isdir\") == testfunc\n\n    # invalid values tests\n    pytest.raises(\n        TypeError,\n        config.validate_callable(-1), \"\"\n    )\n    pytest.raises(\n        TypeError,\n        config.validate_callable(-1), \"os.path.not_found_func\"\n    )\n    pytest.raises(\n        TypeError,\n        config.validate_callable(-1), \"notfoundmodule.func\"\n    )",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert config.validate_callable(-1)('os.path.isdir') == testfunc"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_cmd_line",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 235,
+      "end_line_number": 244,
+      "source_code": "def test_cmd_line():\n    with AltArgs([\"prog_name\", \"-b\", \"blargh\"]):\n        app = NoConfigApp()\n        assert app.cfg.bind == [\"blargh\"]\n    with AltArgs([\"prog_name\", \"-w\", \"3\"]):\n        app = NoConfigApp()\n        assert app.cfg.workers == 3\n    with AltArgs([\"prog_name\", \"--preload\"]):\n        app = NoConfigApp()\n        assert app.cfg.preload_app",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.bind == ['blargh']",
+        "assert app.cfg.workers == 3",
+        "assert app.cfg.preload_app"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_cmd_line_invalid_setting",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 247,
+      "end_line_number": 252,
+      "source_code": "def test_cmd_line_invalid_setting(capsys):\n    with AltArgs([\"prog_name\", \"-q\", \"bar\"]):\n        with pytest.raises(SystemExit):\n            NoConfigApp()\n        _, err = capsys.readouterr()\n        assert  \"error: unrecognized arguments: -q\" in err",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "capsys"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert 'error: unrecognized arguments: -q' in err"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_app_config",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 255,
+      "end_line_number": 259,
+      "source_code": "def test_app_config():\n    with AltArgs():\n        app = NoConfigApp()\n    for s in config.KNOWN_SETTINGS:\n        assert app.cfg.settings[s.name].validator(s.default) == app.cfg.settings[s.name].get()",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.settings[s.name].validator(s.default) == app.cfg.settings[s.name].get()"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_load_config",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 262,
+      "end_line_number": 267,
+      "source_code": "def test_load_config():\n    with AltArgs([\"prog_name\", \"-c\", cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"unix:/tmp/bar/baz\"]\n    assert app.cfg.workers == 3\n    assert app.cfg.proc_name == \"fooey\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.bind == ['unix:/tmp/bar/baz']",
+        "assert app.cfg.workers == 3",
+        "assert app.cfg.proc_name == 'fooey'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        }
+      ]
+    },
+    {
+      "name": "test_load_config_explicit_file",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 270,
+      "end_line_number": 275,
+      "source_code": "def test_load_config_explicit_file():\n    with AltArgs([\"prog_name\", \"-c\", \"file:%s\" % cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"unix:/tmp/bar/baz\"]\n    assert app.cfg.workers == 3\n    assert app.cfg.proc_name == \"fooey\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.bind == ['unix:/tmp/bar/baz']",
+        "assert app.cfg.workers == 3",
+        "assert app.cfg.proc_name == 'fooey'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        }
+      ]
+    },
+    {
+      "name": "test_load_config_module",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 278,
+      "end_line_number": 283,
+      "source_code": "def test_load_config_module():\n    with AltArgs([\"prog_name\", \"-c\", \"python:%s\" % cfg_module()]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"unix:/tmp/bar/baz\"]\n    assert app.cfg.workers == 3\n    assert app.cfg.proc_name == \"fooey\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.bind == ['unix:/tmp/bar/baz']",
+        "assert app.cfg.workers == 3",
+        "assert app.cfg.proc_name == 'fooey'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_module",
+          "body": "def cfg_module():\n    return 'config.test_cfg'"
+        }
+      ]
+    },
+    {
+      "name": "test_cli_overrides_config",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 286,
+      "end_line_number": 290,
+      "source_code": "def test_cli_overrides_config():\n    with AltArgs([\"prog_name\", \"-c\", cfg_file(), \"-b\", \"blarney\"]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"blarney\"]\n    assert app.cfg.proc_name == \"fooey\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.bind == ['blarney']",
+        "assert app.cfg.proc_name == 'fooey'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        }
+      ]
+    },
+    {
+      "name": "test_cli_overrides_config_module",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 293,
+      "end_line_number": 297,
+      "source_code": "def test_cli_overrides_config_module():\n    with AltArgs([\"prog_name\", \"-c\", \"python:%s\" % cfg_module(), \"-b\", \"blarney\"]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"blarney\"]\n    assert app.cfg.proc_name == \"fooey\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.bind == ['blarney']",
+        "assert app.cfg.proc_name == 'fooey'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_module",
+          "body": "def cfg_module():\n    return 'config.test_cfg'"
+        }
+      ]
+    },
+    {
+      "name": "test_default_config_file",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 314,
+      "end_line_number": 319,
+      "source_code": "def test_default_config_file(create_config_file):\n    assert config.get_default_config_file() == create_config_file.name\n\n    with AltArgs([\"prog_name\"]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"0.0.0.0:9090\"]",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "create_config_file"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert config.get_default_config_file() == create_config_file.name",
+        "assert app.cfg.bind == ['0.0.0.0:9090']"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_post_request",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 322,
+      "end_line_number": 341,
+      "source_code": "def test_post_request():\n    c = config.Config()\n\n    def post_request_4(worker, req, environ, resp):\n        return 4\n\n    def post_request_3(worker, req, environ):\n        return 3\n\n    def post_request_2(worker, req):\n        return 2\n\n    c.set(\"post_request\", post_request_4)\n    assert c.post_request(1, 2, 3, 4) == 4\n\n    c.set(\"post_request\", post_request_3)\n    assert c.post_request(1, 2, 3, 4) == 3\n\n    c.set(\"post_request\", post_request_2)\n    assert c.post_request(1, 2, 3, 4) == 2",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.post_request(1, 2, 3, 4) == 4",
+        "assert c.post_request(1, 2, 3, 4) == 3",
+        "assert c.post_request(1, 2, 3, 4) == 2"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_nworkers_changed",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 344,
+      "end_line_number": 351,
+      "source_code": "def test_nworkers_changed():\n    c = config.Config()\n\n    def nworkers_changed_3(server, new_value, old_value):\n        return 3\n\n    c.set(\"nworkers_changed\", nworkers_changed_3)\n    assert c.nworkers_changed(1, 2, 3) == 3",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.nworkers_changed(1, 2, 3) == 3"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_statsd_host",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 354,
+      "end_line_number": 364,
+      "source_code": "def test_statsd_host():\n    c = config.Config()\n    assert c.statsd_host is None\n    c.set(\"statsd_host\", \"localhost\")\n    assert c.statsd_host == (\"localhost\", 8125)\n    c.set(\"statsd_host\", \"statsd:7777\")\n    assert c.statsd_host == (\"statsd\", 7777)\n    c.set(\"statsd_host\", \"unix:///path/to.sock\")\n    assert c.statsd_host == \"/path/to.sock\"\n    pytest.raises(TypeError, c.set, \"statsd_host\", 666)\n    pytest.raises(TypeError, c.set, \"statsd_host\", \"host:string\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.statsd_host is None",
+        "assert c.statsd_host == ('localhost', 8125)",
+        "assert c.statsd_host == ('statsd', 7777)",
+        "assert c.statsd_host == '/path/to.sock'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_statsd_host_with_unix_as_hostname",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 367,
+      "end_line_number": 375,
+      "source_code": "def test_statsd_host_with_unix_as_hostname():\n    # This is a regression test for major release 20. After this release\n    # we should consider modifying the behavior of util.parse_address to\n    # simplify gunicorn's code\n    c = config.Config()\n    c.set(\"statsd_host\", \"unix:7777\")\n    assert c.statsd_host == (\"unix\", 7777)\n    c.set(\"statsd_host\", \"unix://some.socket\")\n    assert c.statsd_host == \"some.socket\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.statsd_host == ('unix', 7777)",
+        "assert c.statsd_host == 'some.socket'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_statsd_changes_logger",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 378,
+      "end_line_number": 382,
+      "source_code": "def test_statsd_changes_logger():\n    c = config.Config()\n    assert c.logger_class == glogging.Logger\n    c.set('statsd_host', 'localhost:12345')\n    assert c.logger_class == statsd.Statsd",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.logger_class == glogging.Logger",
+        "assert c.logger_class == statsd.Statsd"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_always_use_configured_logger",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 390,
+      "end_line_number": 396,
+      "source_code": "def test_always_use_configured_logger():\n    c = config.Config()\n    c.set('logger_class', __name__ + '.MyLogger')\n    assert c.logger_class == MyLogger\n    c.set('statsd_host', 'localhost:12345')\n    # still uses custom logger over statsd\n    assert c.logger_class == MyLogger",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert c.logger_class == MyLogger",
+        "assert c.logger_class == MyLogger"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_load_enviroment_variables_config",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 399,
+      "end_line_number": 403,
+      "source_code": "def test_load_enviroment_variables_config(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--workers=4\")\n    with AltArgs():\n        app = NoConfigApp()\n    assert app.cfg.workers == 4",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "monkeypatch"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.workers == 4"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_config_file_environment_variable",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 405,
+      "end_line_number": 414,
+      "source_code": "def test_config_file_environment_variable(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--config=\" + alt_cfg_file())\n    with AltArgs():\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"not-fooey\"\n    assert app.cfg.config == alt_cfg_file()\n    with AltArgs([\"prog_name\", \"--config\", cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"fooey\"\n    assert app.cfg.config == cfg_file()",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "monkeypatch"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.proc_name == 'not-fooey'",
+        "assert app.cfg.config == alt_cfg_file()",
+        "assert app.cfg.proc_name == 'fooey'",
+        "assert app.cfg.config == cfg_file()"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "alt_cfg_file",
+          "body": "def alt_cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg_alt.py')"
+        },
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        },
+        {
+          "name": "alt_cfg_file",
+          "body": "def alt_cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg_alt.py')"
+        },
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        }
+      ]
+    },
+    {
+      "name": "test_invalid_enviroment_variables_config",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 416,
+      "end_line_number": 422,
+      "source_code": "def test_invalid_enviroment_variables_config(monkeypatch, capsys):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--foo=bar\")\n    with AltArgs():\n        with pytest.raises(SystemExit):\n            NoConfigApp()\n        _, err = capsys.readouterr()\n        assert  \"error: unrecognized arguments: --foo\" in err",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "monkeypatch",
+        "capsys"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert 'error: unrecognized arguments: --foo' in err"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_cli_overrides_enviroment_variables_module",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 425,
+      "end_line_number": 429,
+      "source_code": "def test_cli_overrides_enviroment_variables_module(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--workers=4\")\n    with AltArgs([\"prog_name\", \"-c\", cfg_file(), \"--workers\", \"3\"]):\n        app = NoConfigApp()\n    assert app.cfg.workers == 3",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "monkeypatch"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.workers == 3"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        }
+      ]
+    },
+    {
+      "name": "test_wsgi_app_config",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 438,
+      "end_line_number": 443,
+      "source_code": "def test_wsgi_app_config(options, expected):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        app = WSGIApp()\n    assert app.app_uri == expected",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('options, expected', [(['app:app'], 'app:app'), (['-c', cfg_file(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app()], 'app1:app1')])"
+      ],
+      "arguments": [
+        "options",
+        "expected"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.app_uri == expected"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        },
+        {
+          "name": "cfg_file_with_wsgi_app",
+          "body": "def cfg_file_with_wsgi_app():\n    return os.path.join(dirname, 'config', 'test_cfg_with_wsgi_app.py')"
+        },
+        {
+          "name": "cfg_file_with_wsgi_app",
+          "body": "def cfg_file_with_wsgi_app():\n    return os.path.join(dirname, 'config', 'test_cfg_with_wsgi_app.py')"
+        }
+      ]
+    },
+    {
+      "name": "test_non_wsgi_app",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 450,
+      "end_line_number": 457,
+      "source_code": "def test_non_wsgi_app(options, capsys):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        with pytest.raises(SystemExit):\n            WSGIApp()\n        _, err = capsys.readouterr()\n        assert  \"Error: No application module specified.\" in err",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('options', [[], ['-c', cfg_file()]])"
+      ],
+      "arguments": [
+        "options",
+        "capsys"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert 'Error: No application module specified.' in err"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "cfg_file",
+          "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')"
+        }
+      ]
+    },
+    {
+      "name": "test_reload",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 466,
+      "end_line_number": 471,
+      "source_code": "def test_reload(options, expected):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        app = NoConfigApp()\n    assert app.cfg.reload == expected",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('options, expected', [(['myapp:app'], False), (['--reload', 'myapp:app'], True), (['--reload', '--', 'myapp:app'], True), (['--reload', '-w 2', 'myapp:app'], True)])"
+      ],
+      "arguments": [
+        "options",
+        "expected"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.reload == expected"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_umask_config",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 481,
+      "end_line_number": 486,
+      "source_code": "def test_umask_config(options, expected):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        app = NoConfigApp()\n    assert app.cfg.umask == expected",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('options, expected', [(['--umask', '0', 'myapp:app'], 0), (['--umask', '0o0', 'myapp:app'], 0), (['--umask', '0x0', 'myapp:app'], 0), (['--umask', '0xFF', 'myapp:app'], 255), (['--umask', '0022', 'myapp:app'], 18)])"
+      ],
+      "arguments": [
+        "options",
+        "expected"
+      ],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.umask == expected"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_bind_fd",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 497,
+      "end_line_number": 500,
+      "source_code": "def test_bind_fd():\n    with AltArgs([\"prog_name\", \"-b\", \"fd://42\"]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"fd://42\"]",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert app.cfg.bind == ['fd://42']"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_repr",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 503,
+      "end_line_number": 507,
+      "source_code": "def test_repr():\n    c = config.Config()\n    c.set(\"workers\", 5)\n\n    assert \"with value 5\" in repr(c.settings['workers'])",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert 'with value 5' in repr(c.settings['workers'])"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_str",
+      "module": "test_config",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+      "line_number": 510,
+      "end_line_number": 542,
+      "source_code": "def test_str():\n    c = config.Config()\n    o = str(c)\n\n    # match the first few lines, some different types, but don't go OTT\n    # to avoid needless test fails with changes\n    OUTPUT_MATCH = {\n        'access_log_format': '%(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\"',\n        'accesslog': 'None',\n        'backlog': '2048',\n        'bind': \"['127.0.0.1:8000']\",\n        'capture_output': 'False',\n        'child_exit': '<ChildExit.child_exit()>',\n    }\n    for i, line in enumerate(o.splitlines()):\n        m = re.match(r'^(\\w+)\\s+= ', line)\n        assert m, \"Line {} didn't match expected format: {!r}\".format(i, line)\n\n        key = m.group(1)\n        try:\n            s = OUTPUT_MATCH.pop(key)\n        except KeyError:\n            continue\n\n        line_re = r'^{}\\s+= {}$'.format(key, re.escape(s))\n        assert re.match(line_re, line), '{!r} != {!r}'.format(line_re, line)\n\n        if not OUTPUT_MATCH:\n            break\n    else:\n        assert False, 'missing expected setting lines? {}'.format(\n            OUTPUT_MATCH.keys()\n        )",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "re",
+        "sys",
+        "pytest",
+        "gunicorn.config",
+        "gunicorn.app.base.Application",
+        "gunicorn.app.wsgiapp.WSGIApplication",
+        "gunicorn.errors.ConfigError",
+        "gunicorn.util.load_class",
+        "gunicorn.workers.sync.SyncWorker",
+        "gunicorn.glogging",
+        "gunicorn.instrument.statsd",
+        "os.path.isdir"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert m, \"Line {} didn't match expected format: {!r}\".format(i, line)",
+        "assert re.match(line_re, line), '{!r} != {!r}'.format(line_re, line)",
+        "assert False, 'missing expected setting lines? {}'.format(OUTPUT_MATCH.keys())"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_parse_address",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 27,
+      "end_line_number": 28,
+      "source_code": "def test_parse_address(test_input, expected):\n    assert util.parse_address(test_input) == expected",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('test_input, expected', [('unix://var/run/test.sock', 'var/run/test.sock'), ('unix:/var/run/test.sock', '/var/run/test.sock'), ('tcp://localhost', ('localhost', 8000)), ('tcp://localhost:5000', ('localhost', 5000)), ('', ('0.0.0.0', 8000)), ('[::1]:8000', ('::1', 8000)), ('[::1]:5000', ('::1', 5000)), ('[::1]', ('::1', 8000)), ('localhost:8000', ('localhost', 8000)), ('127.0.0.1:8000', ('127.0.0.1', 8000)), ('localhost', ('localhost', 8000)), ('fd://33', 33)])"
+      ],
+      "arguments": [
+        "test_input",
+        "expected"
+      ],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert util.parse_address(test_input) == expected"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_parse_address_invalid",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 31,
+      "end_line_number": 34,
+      "source_code": "def test_parse_address_invalid():\n    with pytest.raises(RuntimeError) as exc_info:\n        util.parse_address('127.0.0.1:test')\n    assert \"'test' is not a valid port number.\" in str(exc_info.value)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert \"'test' is not a valid port number.\" in str(exc_info.value)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_parse_fd_invalid",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 37,
+      "end_line_number": 40,
+      "source_code": "def test_parse_fd_invalid():\n    with pytest.raises(RuntimeError) as exc_info:\n        util.parse_address('fd://asd')\n    assert \"'asd' is not a valid file descriptor.\" in str(exc_info.value)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert \"'asd' is not a valid file descriptor.\" in str(exc_info.value)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_http_date",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 43,
+      "end_line_number": 44,
+      "source_code": "def test_http_date():\n    assert util.http_date(1508607753.740316) == 'Sat, 21 Oct 2017 17:42:33 GMT'",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert util.http_date(1508607753.740316) == 'Sat, 21 Oct 2017 17:42:33 GMT'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_is_ipv6",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 53,
+      "end_line_number": 54,
+      "source_code": "def test_is_ipv6(test_input, expected):\n    assert util.is_ipv6(test_input) == expected",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('test_input, expected', [('1200:0000:AB00:1234:0000:2552:7777:1313', True), ('1200::AB00:1234::2552:7777:1313', False), ('21DA:D3:0:2F3B:2AA:FF:FE28:9C5A', True), ('1200:0000:AB00:1234:O000:2552:7777:1313', False)])"
+      ],
+      "arguments": [
+        "test_input",
+        "expected"
+      ],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert util.is_ipv6(test_input) == expected"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_warn",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 57,
+      "end_line_number": 60,
+      "source_code": "def test_warn(capsys):\n    util.warn('test warn')\n    _, err = capsys.readouterr()\n    assert '!!! WARNING: test warn' in err",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "capsys"
+      ],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert '!!! WARNING: test warn' in err"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_import_app_good",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 73,
+      "end_line_number": 74,
+      "source_code": "def test_import_app_good(value):\n    assert util.import_app(value)",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('value', ['support', 'support:app', 'support:create_app()', \"support:create_app('Gunicorn', 3)\", 'support:create_app(count=3)'])"
+      ],
+      "arguments": [
+        "value"
+      ],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert util.import_app(value)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_import_app_bad",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 92,
+      "end_line_number": 96,
+      "source_code": "def test_import_app_bad(value, exc_type, msg):\n    with pytest.raises(exc_type) as exc_info:\n        util.import_app(value)\n\n    assert msg in str(exc_info.value)",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize(('value', 'exc_type', 'msg'), [('a:app', ImportError, 'No module'), ('support:create_app(', AppImportError, 'Failed to parse'), ('support:create.app()', AppImportError, 'Function reference'), ('support:create_app(Gunicorn)', AppImportError, 'literal values'), ('support:create.app', AppImportError, 'attribute name'), ('support:wrong_app', AppImportError, 'find attribute'), ('support:error_factory(1)', AppImportError, 'error_factory() takes'), ('support:error_factory()', TypeError, 'inner'), ('support:none_app', AppImportError, 'find application object'), ('support:HOST', AppImportError, 'callable')])"
+      ],
+      "arguments": [
+        "value",
+        "exc_type",
+        "msg"
+      ],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert msg in str(exc_info.value)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_import_app_py_ext",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 99,
+      "end_line_number": 105,
+      "source_code": "def test_import_app_py_ext(monkeypatch):\n    monkeypatch.chdir(os.path.dirname(__file__))\n\n    with pytest.raises(ImportError) as exc_info:\n        util.import_app(\"support.py\")\n\n    assert \"did you mean\" in str(exc_info.value)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [
+        "monkeypatch"
+      ],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert 'did you mean' in str(exc_info.value)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_to_bytestring",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 108,
+      "end_line_number": 115,
+      "source_code": "def test_to_bytestring():\n    assert util.to_bytestring('test_str', 'ascii') == b'test_str'\n    assert util.to_bytestring('test_str\u00ae') == b'test_str\\xc2\\xae'\n    assert util.to_bytestring(b'byte_test_str') == b'byte_test_str'\n    with pytest.raises(TypeError) as exc_info:\n        util.to_bytestring(100)\n    msg = '100 is not a string'\n    assert msg in str(exc_info.value)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert util.to_bytestring('test_str', 'ascii') == b'test_str'",
+        "assert util.to_bytestring('test_str\u00ae') == b'test_str\\xc2\\xae'",
+        "assert util.to_bytestring(b'byte_test_str') == b'byte_test_str'",
+        "assert msg in str(exc_info.value)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_split_request_uri",
+      "module": "test_util",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_util.py",
+      "line_number": 130,
+      "end_line_number": 131,
+      "source_code": "def test_split_request_uri(test_input, expected):\n    assert util.split_request_uri(test_input) == expected",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('test_input, expected', [('https://example.org/a/b?c=1#d', SplitResult(scheme='https', netloc='example.org', path='/a/b', query='c=1', fragment='d')), ('a/b?c=1#d', SplitResult(scheme='', netloc='', path='a/b', query='c=1', fragment='d')), ('/a/b?c=1#d', SplitResult(scheme='', netloc='', path='/a/b', query='c=1', fragment='d')), ('//a/b?c=1#d', SplitResult(scheme='', netloc='', path='//a/b', query='c=1', fragment='d')), ('///a/b?c=1#d', SplitResult(scheme='', netloc='', path='///a/b', query='c=1', fragment='d'))])"
+      ],
+      "arguments": [
+        "test_input",
+        "expected"
+      ],
+      "imports": [
+        "os",
+        "pytest",
+        "gunicorn.util",
+        "gunicorn.errors.AppImportError",
+        "urllib.parse.SplitResult"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert util.split_request_uri(test_input) == expected"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_atoms_defaults",
+      "module": "test_logger",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_logger.py",
+      "line_number": 10,
+      "end_line_number": 32,
+      "source_code": "def test_atoms_defaults():\n    response = SimpleNamespace(\n        status='200', response_length=1024,\n        headers=(('Content-Type', 'application/json'),), sent=1024,\n    )\n    request = SimpleNamespace(headers=(('Accept', 'application/json'),))\n    environ = {\n        'REQUEST_METHOD': 'GET', 'RAW_URI': '/my/path?foo=bar',\n        'PATH_INFO': '/my/path', 'QUERY_STRING': 'foo=bar',\n        'SERVER_PROTOCOL': 'HTTP/1.1',\n    }\n    logger = Logger(Config())\n    atoms = logger.atoms(response, request, environ, datetime.timedelta(seconds=1))\n    assert isinstance(atoms, dict)\n    assert atoms['r'] == 'GET /my/path?foo=bar HTTP/1.1'\n    assert atoms['m'] == 'GET'\n    assert atoms['U'] == '/my/path'\n    assert atoms['q'] == 'foo=bar'\n    assert atoms['H'] == 'HTTP/1.1'\n    assert atoms['b'] == '1024'\n    assert atoms['B'] == 1024\n    assert atoms['{accept}i'] == 'application/json'\n    assert atoms['{content-type}o'] == 'application/json'",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "datetime",
+        "types.SimpleNamespace",
+        "pytest",
+        "gunicorn.config.Config",
+        "gunicorn.glogging.Logger"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert isinstance(atoms, dict)",
+        "assert atoms['r'] == 'GET /my/path?foo=bar HTTP/1.1'",
+        "assert atoms['m'] == 'GET'",
+        "assert atoms['U'] == '/my/path'",
+        "assert atoms['q'] == 'foo=bar'",
+        "assert atoms['H'] == 'HTTP/1.1'",
+        "assert atoms['b'] == '1024'",
+        "assert atoms['B'] == 1024",
+        "assert atoms['{accept}i'] == 'application/json'",
+        "assert atoms['{content-type}o'] == 'application/json'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_atoms_zero_bytes",
+      "module": "test_logger",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_logger.py",
+      "line_number": 35,
+      "end_line_number": 49,
+      "source_code": "def test_atoms_zero_bytes():\n    response = SimpleNamespace(\n        status='200', response_length=0,\n        headers=(('Content-Type', 'application/json'),), sent=0,\n    )\n    request = SimpleNamespace(headers=(('Accept', 'application/json'),))\n    environ = {\n        'REQUEST_METHOD': 'GET', 'RAW_URI': '/my/path?foo=bar',\n        'PATH_INFO': '/my/path', 'QUERY_STRING': 'foo=bar',\n        'SERVER_PROTOCOL': 'HTTP/1.1',\n    }\n    logger = Logger(Config())\n    atoms = logger.atoms(response, request, environ, datetime.timedelta(seconds=1))\n    assert atoms['b'] == '0'\n    assert atoms['B'] == 0",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "datetime",
+        "types.SimpleNamespace",
+        "pytest",
+        "gunicorn.config.Config",
+        "gunicorn.glogging.Logger"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert atoms['b'] == '0'",
+        "assert atoms['B'] == 0"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_get_username_from_basic_auth_header",
+      "module": "test_logger",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_logger.py",
+      "line_number": 58,
+      "end_line_number": 72,
+      "source_code": "def test_get_username_from_basic_auth_header(auth):\n    request = SimpleNamespace(headers=())\n    response = SimpleNamespace(\n        status='200', response_length=1024, sent=1024,\n        headers=(('Content-Type', 'text/plain'),),\n    )\n    environ = {\n        'REQUEST_METHOD': 'GET', 'RAW_URI': '/my/path?foo=bar',\n        'PATH_INFO': '/my/path', 'QUERY_STRING': 'foo=bar',\n        'SERVER_PROTOCOL': 'HTTP/1.1',\n        'HTTP_AUTHORIZATION': auth,\n    }\n    logger = Logger(Config())\n    atoms = logger.atoms(response, request, environ, datetime.timedelta(seconds=1))\n    assert atoms['u'] == 'brk0v'",
+      "docstring": null,
+      "decorators": [
+        "pytest.mark.parametrize('auth', ['Basic YnJrMHY6', 'basic YnJrMHY6', 'BASIC YnJrMHY6'])"
+      ],
+      "arguments": [
+        "auth"
+      ],
+      "imports": [
+        "datetime",
+        "types.SimpleNamespace",
+        "pytest",
+        "gunicorn.config.Config",
+        "gunicorn.glogging.Logger"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert atoms['u'] == 'brk0v'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_get_username_handles_malformed_basic_auth_header",
+      "module": "test_logger",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_logger.py",
+      "line_number": 75,
+      "end_line_number": 91,
+      "source_code": "def test_get_username_handles_malformed_basic_auth_header():\n    \"\"\"Should catch a malformed auth header\"\"\"\n    request = SimpleNamespace(headers=())\n    response = SimpleNamespace(\n        status='200', response_length=1024, sent=1024,\n        headers=(('Content-Type', 'text/plain'),),\n    )\n    environ = {\n        'REQUEST_METHOD': 'GET', 'RAW_URI': '/my/path?foo=bar',\n        'PATH_INFO': '/my/path', 'QUERY_STRING': 'foo=bar',\n        'SERVER_PROTOCOL': 'HTTP/1.1',\n        'HTTP_AUTHORIZATION': 'Basic ixsTtkKzIpVTncfQjbBcnoRNoDfbnaXG',\n    }\n    logger = Logger(Config())\n\n    atoms = logger.atoms(response, request, environ, datetime.timedelta(seconds=1))\n    assert atoms['u'] == '-'",
+      "docstring": "Should catch a malformed auth header",
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "datetime",
+        "types.SimpleNamespace",
+        "pytest",
+        "gunicorn.config.Config",
+        "gunicorn.glogging.Logger"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert atoms['u'] == '-'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_stop_closes_listeners",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 29,
+      "end_line_number": 36,
+      "source_code": "def test_arbiter_stop_closes_listeners(close_sockets):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    listener1 = mock.Mock()\n    listener2 = mock.Mock()\n    listeners = [listener1, listener2]\n    arbiter.LISTENERS = listeners\n    arbiter.stop()\n    close_sockets.assert_called_with(listeners, True)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "arguments": [
+        "close_sockets"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('gunicorn.sock.close_sockets')",
+        "mock.Mock()",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_stop_child_does_not_unlink_listeners",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 40,
+      "end_line_number": 44,
+      "source_code": "def test_arbiter_stop_child_does_not_unlink_listeners(close_sockets):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.reexec_pid = os.getpid()\n    arbiter.stop()\n    close_sockets.assert_called_with([], False)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "arguments": [
+        "close_sockets"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_stop_parent_does_not_unlink_listeners",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 48,
+      "end_line_number": 52,
+      "source_code": "def test_arbiter_stop_parent_does_not_unlink_listeners(close_sockets):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.master_pid = os.getppid()\n    arbiter.stop()\n    close_sockets.assert_called_with([], False)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "arguments": [
+        "close_sockets"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_stop_does_not_unlink_systemd_listeners",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 56,
+      "end_line_number": 60,
+      "source_code": "def test_arbiter_stop_does_not_unlink_systemd_listeners(close_sockets):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.systemd = True\n    arbiter.stop()\n    close_sockets.assert_called_with([], False)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "arguments": [
+        "close_sockets"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_stop_does_not_unlink_when_using_reuse_port",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 64,
+      "end_line_number": 69,
+      "source_code": "def test_arbiter_stop_does_not_unlink_when_using_reuse_port(close_sockets):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.cfg.settings['reuse_port'] = ReusePort()\n    arbiter.cfg.settings['reuse_port'].set(True)\n    arbiter.stop()\n    close_sockets.assert_called_with([], False)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "arguments": [
+        "close_sockets"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('gunicorn.sock.close_sockets')"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_reexec_passing_systemd_sockets",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 75,
+      "end_line_number": 85,
+      "source_code": "def test_arbiter_reexec_passing_systemd_sockets(execvpe, fork, getpid):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.LISTENERS = [mock.Mock(), mock.Mock()]\n    arbiter.systemd = True\n    fork.return_value = 0\n    getpid.side_effect = [2, 3]\n    arbiter.reexec()\n    environ = execvpe.call_args[0][2]\n    assert environ['GUNICORN_PID'] == '2'\n    assert environ['LISTEN_FDS'] == '2'\n    assert environ['LISTEN_PID'] == '3'",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.getpid')",
+        "mock.patch('os.fork')",
+        "mock.patch('os.execvpe')"
+      ],
+      "arguments": [
+        "execvpe",
+        "fork",
+        "getpid"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert environ['GUNICORN_PID'] == '2'",
+        "assert environ['LISTEN_FDS'] == '2'",
+        "assert environ['LISTEN_PID'] == '3'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.getpid')",
+        "mock.patch('os.fork')",
+        "mock.patch('os.execvpe')",
+        "mock.Mock()",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_reexec_passing_gunicorn_sockets",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 91,
+      "end_line_number": 103,
+      "source_code": "def test_arbiter_reexec_passing_gunicorn_sockets(execvpe, fork, getpid):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    listener1 = mock.Mock()\n    listener2 = mock.Mock()\n    listener1.fileno.return_value = 4\n    listener2.fileno.return_value = 5\n    arbiter.LISTENERS = [listener1, listener2]\n    fork.return_value = 0\n    getpid.side_effect = [2, 3]\n    arbiter.reexec()\n    environ = execvpe.call_args[0][2]\n    assert environ['GUNICORN_FD'] == '4,5'\n    assert environ['GUNICORN_PID'] == '2'",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.getpid')",
+        "mock.patch('os.fork')",
+        "mock.patch('os.execvpe')"
+      ],
+      "arguments": [
+        "execvpe",
+        "fork",
+        "getpid"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert environ['GUNICORN_FD'] == '4,5'",
+        "assert environ['GUNICORN_PID'] == '2'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.getpid')",
+        "mock.patch('os.fork')",
+        "mock.patch('os.execvpe')",
+        "mock.Mock()",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_reexec_limit_parent",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 107,
+      "end_line_number": 111,
+      "source_code": "def test_arbiter_reexec_limit_parent(fork):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.reexec_pid = ~os.getpid()\n    arbiter.reexec()\n    assert fork.called is False, \"should not fork when there is already a child\"",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.fork')"
+      ],
+      "arguments": [
+        "fork"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert fork.called is False, 'should not fork when there is already a child'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.fork')"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_reexec_limit_child",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 115,
+      "end_line_number": 119,
+      "source_code": "def test_arbiter_reexec_limit_child(fork):\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.master_pid = ~os.getpid()\n    arbiter.reexec()\n    assert fork.called is False, \"should not fork when arbiter is a child\"",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.fork')"
+      ],
+      "arguments": [
+        "fork"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert fork.called is False, 'should not fork when arbiter is a child'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.fork')"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_calls_worker_exit",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 123,
+      "end_line_number": 135,
+      "source_code": "def test_arbiter_calls_worker_exit(mock_os_fork):\n    mock_os_fork.return_value = 0\n\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.cfg.settings['worker_exit'] = mock.Mock()\n    arbiter.pid = None\n    mock_worker = mock.Mock()\n    arbiter.worker_class = mock.Mock(return_value=mock_worker)\n    try:\n        arbiter.spawn_worker()\n    except SystemExit:\n        pass\n    arbiter.cfg.worker_exit.assert_called_with(arbiter, mock_worker)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.fork')"
+      ],
+      "arguments": [
+        "mock_os_fork"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.fork')",
+        "mock.Mock()",
+        "mock.Mock()",
+        "mock.Mock(return_value=mock_worker)"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_arbiter_reap_workers",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 139,
+      "end_line_number": 147,
+      "source_code": "def test_arbiter_reap_workers(mock_os_waitpid):\n    mock_os_waitpid.side_effect = [(42, 0), (0, 0)]\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.cfg.settings['child_exit'] = mock.Mock()\n    mock_worker = mock.Mock()\n    arbiter.WORKERS = {42: mock_worker}\n    arbiter.reap_workers()\n    mock_worker.tmp.close.assert_called_with()\n    arbiter.cfg.child_exit.assert_called_with(arbiter, mock_worker)",
+      "docstring": null,
+      "decorators": [
+        "mock.patch('os.waitpid')"
+      ],
+      "arguments": [
+        "mock_os_waitpid"
+      ],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch('os.waitpid')",
+        "mock.Mock()",
+        "mock.Mock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_env_vars_available_during_preload",
+      "module": "test_arbiter",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_arbiter.py",
+      "line_number": 179,
+      "end_line_number": 187,
+      "source_code": "def test_env_vars_available_during_preload():\n    \"\"\"Ensure that configured environmental variables are set during the\n    initial set up of the application (called from the .setup() method of\n    the Arbiter) such that they are available during the initial loading\n    of the WSGI application.\n    \"\"\"\n    # Note that we aren't making any assertions here, they are made in the\n    # dummy application object being loaded here instead.\n    gunicorn.arbiter.Arbiter(PreloadedAppWithEnvSettings())",
+      "docstring": "Ensure that configured environmental variables are set during the\ninitial set up of the application (called from the .setup() method of\nthe Arbiter) such that they are available during the initial loading\nof the WSGI application.",
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "os",
+        "unittest.mock",
+        "gunicorn.app.base",
+        "gunicorn.arbiter",
+        "gunicorn.config.ReusePort"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_method_pattern",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 14,
+      "end_line_number": 21,
+      "source_code": "def test_method_pattern():\n    assert TOKEN_RE.fullmatch(\"GET\")\n    assert TOKEN_RE.fullmatch(\"MKCALENDAR\")\n    assert not TOKEN_RE.fullmatch(\"GET:\")\n    assert not TOKEN_RE.fullmatch(\"GET;\")\n    RFC9110_5_6_2_TOKEN_DELIM = r'\"(),/:;<=>?@[\\]{}'\n    for bad_char in RFC9110_5_6_2_TOKEN_DELIM:\n        assert not TOKEN_RE.match(bad_char)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert TOKEN_RE.fullmatch('GET')",
+        "assert TOKEN_RE.fullmatch('MKCALENDAR')",
+        "assert not TOKEN_RE.fullmatch('GET:')",
+        "assert not TOKEN_RE.fullmatch('GET;')",
+        "assert not TOKEN_RE.match(bad_char)"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_readline_empty_body",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 29,
+      "end_line_number": 31,
+      "source_code": "def test_readline_empty_body():\n    assert_readline(b\"\", None, b\"\")\n    assert_readline(b\"\", 1, b\"\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "assert_readline",
+          "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected"
+        },
+        {
+          "name": "assert_readline",
+          "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected"
+        }
+      ]
+    },
+    {
+      "name": "test_readline_zero_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 34,
+      "end_line_number": 36,
+      "source_code": "def test_readline_zero_size():\n    assert_readline(b\"abc\", 0, b\"\")\n    assert_readline(b\"\\n\", 0, b\"\")",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "assert_readline",
+          "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected"
+        },
+        {
+          "name": "assert_readline",
+          "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected"
+        }
+      ]
+    },
+    {
+      "name": "test_readline_new_line_before_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 39,
+      "end_line_number": 42,
+      "source_code": "def test_readline_new_line_before_size():\n    body = Body(io.BytesIO(b\"abc\\ndef\"))\n    assert body.readline(4) == b\"abc\\n\"\n    assert body.readline() == b\"def\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert body.readline(4) == b'abc\\n'",
+        "assert body.readline() == b'def'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_readline_new_line_after_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 45,
+      "end_line_number": 48,
+      "source_code": "def test_readline_new_line_after_size():\n    body = Body(io.BytesIO(b\"abc\\ndef\"))\n    assert body.readline(2) == b\"ab\"\n    assert body.readline() == b\"c\\n\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert body.readline(2) == b'ab'",
+        "assert body.readline() == b'c\\n'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_readline_no_new_line",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 51,
+      "end_line_number": 57,
+      "source_code": "def test_readline_no_new_line():\n    body = Body(io.BytesIO(b\"abcdef\"))\n    assert body.readline() == b\"abcdef\"\n    body = Body(io.BytesIO(b\"abcdef\"))\n    assert body.readline(2) == b\"ab\"\n    assert body.readline(2) == b\"cd\"\n    assert body.readline(2) == b\"ef\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert body.readline() == b'abcdef'",
+        "assert body.readline(2) == b'ab'",
+        "assert body.readline(2) == b'cd'",
+        "assert body.readline(2) == b'ef'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_readline_buffer_loaded",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 60,
+      "end_line_number": 68,
+      "source_code": "def test_readline_buffer_loaded():\n    reader = io.BytesIO(b\"abc\\ndef\")\n    body = Body(reader)\n    body.read(1) # load internal buffer\n    reader.write(b\"g\\nhi\")\n    reader.seek(7)\n    assert body.readline() == b\"bc\\n\"\n    assert body.readline() == b\"defg\\n\"\n    assert body.readline() == b\"hi\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert body.readline() == b'bc\\n'",
+        "assert body.readline() == b'defg\\n'",
+        "assert body.readline() == b'hi'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": [
+        {
+          "name": "reader.seek",
+          "body": "def seek(self, offset, whence=0):\n    self.tmp.seek(offset, whence)"
+        }
+      ]
+    },
+    {
+      "name": "test_readline_buffer_loaded_with_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 71,
+      "end_line_number": 77,
+      "source_code": "def test_readline_buffer_loaded_with_size():\n    body = Body(io.BytesIO(b\"abc\\ndef\"))\n    body.read(1)  # load internal buffer\n    assert body.readline(2) == b\"bc\"\n    assert body.readline(2) == b\"\\n\"\n    assert body.readline(2) == b\"de\"\n    assert body.readline(2) == b\"f\"",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert body.readline(2) == b'bc'",
+        "assert body.readline(2) == b'\\n'",
+        "assert body.readline(2) == b'de'",
+        "assert body.readline(2) == b'f'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_http_header_encoding",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 80,
+      "end_line_number": 105,
+      "source_code": "def test_http_header_encoding():\n    \"\"\" tests whether http response headers are USASCII encoded \"\"\"\n\n    mocked_socket = mock.MagicMock()\n    mocked_socket.sendall = mock.MagicMock()\n\n    mocked_request = mock.MagicMock()\n    response = Response(mocked_request, mocked_socket, None)\n\n    # set umlaut header value - latin-1 is OK\n    response.headers.append(('foo', 'h\u00e4der'))\n    response.send_headers()\n\n    # set a-breve header value - unicode, non-latin-1 fails\n    response = Response(mocked_request, mocked_socket, None)\n    response.headers.append(('apple', 'm\u0103r'))\n    with pytest.raises(UnicodeEncodeError):\n        response.send_headers()\n\n    # build our own header_str to compare against\n    tosend = response.default_headers()\n    tosend.extend([\"%s: %s\\r\\n\" % (k, v) for k, v in response.headers])\n    header_str = \"%s\\r\\n\" % \"\".join(tosend)\n\n    with pytest.raises(UnicodeEncodeError):\n        mocked_socket.sendall(util.to_bytestring(header_str, \"ascii\"))",
+      "docstring": "tests whether http response headers are USASCII encoded ",
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.MagicMock()",
+        "mock.MagicMock()",
+        "mock.MagicMock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_http_invalid_response_header",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 108,
+      "end_line_number": 122,
+      "source_code": "def test_http_invalid_response_header():\n    \"\"\" tests whether http response headers are contains control chars \"\"\"\n\n    mocked_socket = mock.MagicMock()\n    mocked_socket.sendall = mock.MagicMock()\n\n    mocked_request = mock.MagicMock()\n    response = Response(mocked_request, mocked_socket, None)\n\n    with pytest.raises(InvalidHeader):\n        response.start_response(\"200 OK\", [('foo', 'essai\\r\\n')])\n\n    response = Response(mocked_request, mocked_socket, None)\n    with pytest.raises(InvalidHeaderName):\n        response.start_response(\"200 OK\", [('foo\\r\\n', 'essai')])",
+      "docstring": "tests whether http response headers are contains control chars ",
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.MagicMock()",
+        "mock.MagicMock()",
+        "mock.MagicMock()"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_unreader_read_when_size_is_none",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 125,
+      "end_line_number": 131,
+      "source_code": "def test_unreader_read_when_size_is_none():\n    unreader = Unreader()\n    unreader.chunk = mock.MagicMock(side_effect=[b'qwerty', b'123456', b''])\n\n    assert unreader.read(size=None) == b'qwerty'\n    assert unreader.read(size=None) == b'123456'\n    assert unreader.read(size=None) == b''",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert unreader.read(size=None) == b'qwerty'",
+        "assert unreader.read(size=None) == b'123456'",
+        "assert unreader.read(size=None) == b''"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.MagicMock(side_effect=[b'qwerty', b'123456', b''])"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_unreader_unread",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 134,
+      "end_line_number": 137,
+      "source_code": "def test_unreader_unread():\n    unreader = Unreader()\n    unreader.unread(b'hi there')\n    assert b'hi there' in unreader.read()",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert b'hi there' in unreader.read()"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_unreader_read_zero_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 140,
+      "end_line_number": 144,
+      "source_code": "def test_unreader_read_zero_size():\n    unreader = Unreader()\n    unreader.chunk = mock.MagicMock(side_effect=[b'qwerty', b'asdfgh'])\n\n    assert unreader.read(size=0) == b''",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert unreader.read(size=0) == b''"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.MagicMock(side_effect=[b'qwerty', b'asdfgh'])"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_unreader_read_with_nonzero_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 147,
+      "end_line_number": 158,
+      "source_code": "def test_unreader_read_with_nonzero_size():\n    unreader = Unreader()\n    unreader.chunk = mock.MagicMock(side_effect=[\n        b'qwerty', b'asdfgh', b'zxcvbn', b'123456', b'', b''\n    ])\n\n    assert unreader.read(size=5) == b'qwert'\n    assert unreader.read(size=5) == b'yasdf'\n    assert unreader.read(size=5) == b'ghzxc'\n    assert unreader.read(size=5) == b'vbn12'\n    assert unreader.read(size=5) == b'3456'\n    assert unreader.read(size=5) == b''",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert unreader.read(size=5) == b'qwert'",
+        "assert unreader.read(size=5) == b'yasdf'",
+        "assert unreader.read(size=5) == b'ghzxc'",
+        "assert unreader.read(size=5) == b'vbn12'",
+        "assert unreader.read(size=5) == b'3456'",
+        "assert unreader.read(size=5) == b''"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.MagicMock(side_effect=[b'qwerty', b'asdfgh', b'zxcvbn', b'123456', b'', b''])"
+      ],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_unreader_raises_excpetion_on_invalid_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 161,
+      "end_line_number": 168,
+      "source_code": "def test_unreader_raises_excpetion_on_invalid_size():\n    unreader = Unreader()\n    with pytest.raises(TypeError):\n        unreader.read(size='foobar')\n    with pytest.raises(TypeError):\n        unreader.read(size=3.14)\n    with pytest.raises(TypeError):\n        unreader.read(size=[])",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_iter_unreader_chunk",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 171,
+      "end_line_number": 178,
+      "source_code": "def test_iter_unreader_chunk():\n    iter_unreader = IterUnreader((b'ab', b'cd', b'ef'))\n\n    assert iter_unreader.chunk() == b'ab'\n    assert iter_unreader.chunk() == b'cd'\n    assert iter_unreader.chunk() == b'ef'\n    assert iter_unreader.chunk() == b''\n    assert iter_unreader.chunk() == b''",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert iter_unreader.chunk() == b'ab'",
+        "assert iter_unreader.chunk() == b'cd'",
+        "assert iter_unreader.chunk() == b'ef'",
+        "assert iter_unreader.chunk() == b''",
+        "assert iter_unreader.chunk() == b''"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_socket_unreader_chunk",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 181,
+      "end_line_number": 189,
+      "source_code": "def test_socket_unreader_chunk():\n    fake_sock = t.FakeSocket(io.BytesIO(b'Lorem ipsum dolor'))\n    sock_unreader = SocketUnreader(fake_sock, max_chunk=5)\n\n    assert sock_unreader.chunk() == b'Lorem'\n    assert sock_unreader.chunk() == b' ipsu'\n    assert sock_unreader.chunk() == b'm dol'\n    assert sock_unreader.chunk() == b'or'\n    assert sock_unreader.chunk() == b''",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert sock_unreader.chunk() == b'Lorem'",
+        "assert sock_unreader.chunk() == b' ipsu'",
+        "assert sock_unreader.chunk() == b'm dol'",
+        "assert sock_unreader.chunk() == b'or'",
+        "assert sock_unreader.chunk() == b''"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_length_reader_read",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 192,
+      "end_line_number": 205,
+      "source_code": "def test_length_reader_read():\n    unreader = IterUnreader((b'Lorem', b'ipsum', b'dolor', b'sit', b'amet'))\n    reader = LengthReader(unreader, 13)\n    assert reader.read(0) == b''\n    assert reader.read(5) == b'Lorem'\n    assert reader.read(6) == b'ipsumd'\n    assert reader.read(4) == b'ol'\n    assert reader.read(100) == b''\n\n    reader = LengthReader(unreader, 10)\n    assert reader.read(0) == b''\n    assert reader.read(5) == b'orsit'\n    assert reader.read(5) == b'amet'\n    assert reader.read(100) == b''",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert reader.read(0) == b''",
+        "assert reader.read(5) == b'Lorem'",
+        "assert reader.read(6) == b'ipsumd'",
+        "assert reader.read(4) == b'ol'",
+        "assert reader.read(100) == b''",
+        "assert reader.read(0) == b''",
+        "assert reader.read(5) == b'orsit'",
+        "assert reader.read(5) == b'amet'",
+        "assert reader.read(100) == b''"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_length_reader_read_invalid_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 208,
+      "end_line_number": 215,
+      "source_code": "def test_length_reader_read_invalid_size():\n    reader = LengthReader(None, 5)\n    with pytest.raises(TypeError):\n        reader.read('100')\n    with pytest.raises(TypeError):\n        reader.read([100])\n    with pytest.raises(ValueError):\n        reader.read(-100)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_eof_reader_read",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 218,
+      "end_line_number": 228,
+      "source_code": "def test_eof_reader_read():\n    unreader = IterUnreader((b'Lorem', b'ipsum', b'dolor', b'sit', b'amet'))\n    reader = EOFReader(unreader)\n\n    assert reader.read(0) == b''\n    assert reader.read(5) == b'Lorem'\n    assert reader.read(5) == b'ipsum'\n    assert reader.read(3) == b'dol'\n    assert reader.read(3) == b'ors'\n    assert reader.read(100) == b'itamet'\n    assert reader.read(100) == b''",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert reader.read(0) == b''",
+        "assert reader.read(5) == b'Lorem'",
+        "assert reader.read(5) == b'ipsum'",
+        "assert reader.read(3) == b'dol'",
+        "assert reader.read(3) == b'ors'",
+        "assert reader.read(100) == b'itamet'",
+        "assert reader.read(100) == b''"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_eof_reader_read_invalid_size",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 231,
+      "end_line_number": 238,
+      "source_code": "def test_eof_reader_read_invalid_size():\n    reader = EOFReader(None)\n    with pytest.raises(TypeError):\n        reader.read('100')\n    with pytest.raises(TypeError):\n        reader.read([100])\n    with pytest.raises(ValueError):\n        reader.read(-100)",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_invalid_http_version_error",
+      "module": "test_http",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+      "line_number": 241,
+      "end_line_number": 243,
+      "source_code": "def test_invalid_http_version_error():\n    assert str(InvalidHTTPVersion('foo')) == \"Invalid HTTP Version: 'foo'\"\n    assert str(InvalidHTTPVersion((2, 1))) == 'Invalid HTTP Version: (2, 1)'",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "io",
+        "t",
+        "pytest",
+        "unittest.mock",
+        "gunicorn.util",
+        "gunicorn.http.body.Body",
+        "gunicorn.http.body.LengthReader",
+        "gunicorn.http.body.EOFReader",
+        "gunicorn.http.wsgi.Response",
+        "gunicorn.http.unreader.Unreader",
+        "gunicorn.http.unreader.IterUnreader",
+        "gunicorn.http.unreader.SocketUnreader",
+        "gunicorn.http.errors.InvalidHeader",
+        "gunicorn.http.errors.InvalidHeaderName",
+        "gunicorn.http.errors.InvalidHTTPVersion",
+        "gunicorn.http.message.TOKEN_RE"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert str(InvalidHTTPVersion('foo')) == \"Invalid HTTP Version: 'foo'\"",
+        "assert str(InvalidHTTPVersion((2, 1))) == 'Invalid HTTP Version: (2, 1)'"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_validate_no_file",
+      "module": "test_pidfile",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+      "line_number": 16,
+      "end_line_number": 19,
+      "source_code": "def test_validate_no_file(_open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    _open.side_effect = IOError(errno.ENOENT)\n    assert pidfile.validate() is None",
+      "docstring": null,
+      "decorators": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open)"
+      ],
+      "arguments": [
+        "_open"
+      ],
+      "imports": [
+        "errno",
+        "unittest.mock",
+        "gunicorn.pidfile"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert pidfile.validate() is None"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open)"
+      ],
+      "methods_under_test": [
+        {
+          "name": "builtin",
+          "body": "def builtin(name):\n    return 'builtins.{}'.format(name)"
+        }
+      ]
+    },
+    {
+      "name": "test_validate_file_pid_exists",
+      "module": "test_pidfile",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+      "line_number": 24,
+      "end_line_number": 27,
+      "source_code": "def test_validate_file_pid_exists(kill, _open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    assert pidfile.validate() == 1\n    assert kill.called",
+      "docstring": null,
+      "decorators": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+        "mock.patch('os.kill')"
+      ],
+      "arguments": [
+        "kill",
+        "_open"
+      ],
+      "imports": [
+        "errno",
+        "unittest.mock",
+        "gunicorn.pidfile"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert pidfile.validate() == 1",
+        "assert kill.called"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+        "mock.patch('os.kill')"
+      ],
+      "methods_under_test": [
+        {
+          "name": "builtin",
+          "body": "def builtin(name):\n    return 'builtins.{}'.format(name)"
+        }
+      ]
+    },
+    {
+      "name": "test_validate_file_pid_malformed",
+      "module": "test_pidfile",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+      "line_number": 31,
+      "end_line_number": 33,
+      "source_code": "def test_validate_file_pid_malformed(_open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    assert pidfile.validate() is None",
+      "docstring": null,
+      "decorators": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='a')"
+      ],
+      "arguments": [
+        "_open"
+      ],
+      "imports": [
+        "errno",
+        "unittest.mock",
+        "gunicorn.pidfile"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert pidfile.validate() is None"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='a')"
+      ],
+      "methods_under_test": [
+        {
+          "name": "builtin",
+          "body": "def builtin(name):\n    return 'builtins.{}'.format(name)"
+        }
+      ]
+    },
+    {
+      "name": "test_validate_file_pid_exists_kill_exception",
+      "module": "test_pidfile",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+      "line_number": 38,
+      "end_line_number": 41,
+      "source_code": "def test_validate_file_pid_exists_kill_exception(kill, _open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    kill.side_effect = OSError(errno.EPERM)\n    assert pidfile.validate() == 1",
+      "docstring": null,
+      "decorators": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+        "mock.patch('os.kill')"
+      ],
+      "arguments": [
+        "kill",
+        "_open"
+      ],
+      "imports": [
+        "errno",
+        "unittest.mock",
+        "gunicorn.pidfile"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert pidfile.validate() == 1"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+        "mock.patch('os.kill')"
+      ],
+      "methods_under_test": [
+        {
+          "name": "builtin",
+          "body": "def builtin(name):\n    return 'builtins.{}'.format(name)"
+        }
+      ]
+    },
+    {
+      "name": "test_validate_file_pid_does_not_exist",
+      "module": "test_pidfile",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+      "line_number": 46,
+      "end_line_number": 49,
+      "source_code": "def test_validate_file_pid_does_not_exist(kill, _open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    kill.side_effect = OSError(errno.ESRCH)\n    assert pidfile.validate() is None",
+      "docstring": null,
+      "decorators": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+        "mock.patch('os.kill')"
+      ],
+      "arguments": [
+        "kill",
+        "_open"
+      ],
+      "imports": [
+        "errno",
+        "unittest.mock",
+        "gunicorn.pidfile"
+      ],
+      "fixtures": [],
+      "assertions": [
+        "assert pidfile.validate() is None"
+      ],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [
+        "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+        "mock.patch('os.kill')"
+      ],
+      "methods_under_test": [
+        {
+          "name": "builtin",
+          "body": "def builtin(name):\n    return 'builtins.{}'.format(name)"
+        }
+      ]
+    },
+    {
+      "name": "test_import",
+      "module": "test_ggevent",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/workers/test_ggevent.py",
+      "line_number": 5,
+      "end_line_number": 6,
+      "source_code": "def test_import():\n    __import__('gunicorn.workers.ggevent')",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    },
+    {
+      "name": "test_import",
+      "module": "test_geventlet",
+      "class_name": null,
+      "file_path": "__internal__/data/gunicorn/tests/workers/test_geventlet.py",
+      "line_number": 8,
+      "end_line_number": 16,
+      "source_code": "def test_import():\n\n    try:\n        import eventlet\n    except AttributeError:\n        if (3,13) > sys.version_info >= (3, 12):\n            pytest.skip(\"Ignoring eventlet failures on Python 3.12\")\n        raise\n    __import__('gunicorn.workers.geventlet')",
+      "docstring": null,
+      "decorators": [],
+      "arguments": [],
+      "imports": [
+        "pytest",
+        "sys",
+        "eventlet"
+      ],
+      "fixtures": [],
+      "assertions": [],
+      "setup_method": null,
+      "teardown_method": null,
+      "mocks": [],
+      "methods_under_test": []
+    }
+  ]
+}
