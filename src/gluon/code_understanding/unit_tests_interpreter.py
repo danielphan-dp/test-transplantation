@@ -20,7 +20,7 @@ import os
 os.environ["OPENAI_API_KEY"] = "sk-<API_KEY>"
 
 class CodebaseIndexer:
-    """Index and manage source code repositories"""
+    """Index and manage source code repositories using FAISS"""
     def __init__(self, embedding_model_name="sentence-transformers/all-mpnet-base-v2"):
         self.embeddings = HuggingFaceEmbeddings(model_name=embedding_model_name)
         self.db_cache: Dict[str, FAISS] = {}
