@@ -72,6 +72,11 @@ class TestDataLoader:
         # Extract repo name from collected_tests__<repo>.json
         repo_name = Path(test_file).stem.split("__")[1]
         return f"__internal__/data_repo/{repo_name}"
+    
+    @staticmethod
+    def get_repo_name(test_file: str) -> str:
+        """Extract the repository name from the test file path."""
+        return Path(test_file).stem.split("__")[1]
 
 class TestExplainer:
     """Generate explanations for test cases using LLM and RAG"""
@@ -79,33 +84,51 @@ class TestExplainer:
         self.llm = ChatOpenAI(model=model_name, temperature=temperature)
         self.prompt = self._create_test_explanation_prompt()
     
-    # Haven't modified the prompt in a proper way (such as FLASK should be replaced with the actual repository name parameter)
     def _create_test_explanation_prompt(self) -> ChatPromptTemplate:
         template = """You are an expert code reviewer analyzing Python unit tests.
         Given the following test and relevant code from the codebase:
 
         Test Information:
-        This is one of the unit tests for the FLASK repository.
+        This is one of the unit tests for the {repository_name} repository.
         Name: {test_name}
         Source Code:
-        Methods Under Test: {methods_under_test} Module: {module} Arguments: {arguments} Assertions: {assertions}
+        {source_code}
 
-        Relevant Code from Codebase: {relevant_code}
+        Methods Under Test:
+        {methods_under_test}
 
-        Provide a concise explanation that covers:
+        Module: {module}
+        Arguments: {arguments}
+        Assertions: {assertions}
 
-        The main purpose of this test
-        What specific functionality or behavior it verifies
-        The code being tested and how it works
-        Any notable testing patterns or techniques used
-        Keep the explanation focused on explaining both the test and the actual code being tested."""
+        Relevant Code from Codebase:
+        {relevant_code}
+
+        Provide a **concise** and **clear** explanation in the following format:
+:
+
+        **Main Purpose of the Test**:
+        [Your explanation here]
+
+        **Specific Functionality or Behavior Verified**:
+        [Your explanation here]
+
+        **Code Being Tested and How It Works**:
+        [Your explanation here]
+
+        **Notable Testing Patterns or Techniques Used**:
+        [Your explanation here]
+
+        Focus on the most important aspects of the test and the code. Use clear and precise language to describe the functionalities and behaviors being tested.
+        """
         
         return ChatPromptTemplate.from_messages([
-            ("system", "You are a specialized code analysis AI that explains unit tests."),
+            # ("system", "You are a specialized code analysis AI that explains unit tests."),
+            ("system", "You are a highly skilled software engineer and code analyst specializing in Python unit tests. Your task is to provide detailed and insightful explanations of unit tests, focusing on their purpose, functionality, and implementation details. Be thorough yet concise in your explanations."),
             ("user", template)
         ])
 
-    def generate_explanation(self, test: dict, relevant_docs: list) -> str:
+    def generate_explanation(self, test: dict, repo_name: str, relevant_docs: list) -> str:
         """Generate explanation for a test using context from codebase"""
         # Format methods under test
         methods_str = "None" if not test.get('methods_under_test') else \
@@ -122,6 +145,7 @@ class TestExplainer:
         chain = self.prompt | self.llm | StrOutputParser()
         
         return chain.invoke({
+            "repository_name": repo_name,
             "test_name": test['name'],
             "source_code": test['source_code'],
             "methods_under_test": methods_str, 
@@ -147,24 +171,24 @@ def main():
         print(f"\nProcessing tests from: {json_file}")
         
         test_data = loader.load_test_data(json_file)
-        
+        repo_name = loader.get_repo_name(json_file)
         repo_path = loader.get_repo_path(json_file)
         print(f"Indexing repository: {repo_path}")
         db = indexer.index_repository(repo_path)
         
         retriever = db.as_retriever(
             search_type="mmr",
-            search_kwargs={"k": 8}
+            search_kwargs={"k": 5}
         )
         
+        total = len(test_data["tests"])
         count = 0
 
         for test in test_data["tests"]:
-            print(f"Processing test: {test['name']}")
-
+            print(f"({count+1}/{total}) Processing test {test['name']}")
             count += 1
-            if count > 5:
-                break
+            # if count > 5:
+            #     break
             
             try:
                 # Use test name, source code, and methods under test for retrieval
@@ -181,7 +205,8 @@ def main():
                 #     test["methods_under_test"]
                 # )
                 
-                explanation = explainer.generate_explanation(test, relevant_docs)
+                
+                explanation = explainer.generate_explanation(test, repo_name, relevant_docs)
                 test["code_explanation"] = explanation
                 
             except Exception as e:
