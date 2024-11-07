@@ -8,6 +8,8 @@ from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
+from langchain.retrievers import EnsembleRetriever
+from langchain_community.retrievers import BM25Retriever
 
 class TestDataExtractor:
     """Extract and process test data from JSON files"""   
@@ -159,7 +161,37 @@ class Retriever():
         """
         retriever = db.as_retriever(search_type="similarity_score_threshold", search_kwargs={"k": topk, "score_threshold": score_threshold})
         return retriever.get_relevant_documents(query)
+    
+    @classmethod
+    def ensemble(cls, faiss_db, data, query, faiss_topk, bm25_topk):
+        """
+        Perform ensemble search, retrieve top-k results from FAISS DB and BM25
+        :param faiss_db: FAISS DB vector store
+        :param data: Donor data to be retrieved
+        :param query: Query to search for
+        :param faiss_topk: Number of top-k results to retrieve from FAISS DB
+        :param bm25_topk: Number of top-k results to retrieve from BM25
+        :return: Top-k results from FAISS DB and BM25
+        """
+        documents = []
+        for d in data:
+            doc = Document(
+                page_content=d,
+                metadata={"type": type},
+            )
+            documents.append(doc)
 
+        bm25_retriever = BM25Retriever.from_documents(documents)
+        bm25_retriever.k = bm25_topk
+        retriever = EnsembleRetriever(
+            retrievers=[
+                faiss_db.as_retriever(search_kwargs={"k": faiss_topk}),
+                bm25_retriever
+            ],
+            weights=[0.6, 0.4],
+        )
+        return retriever.invoke(query)
+        
 
 if __name__ == "__main__":
     # Initialize
@@ -169,7 +201,6 @@ if __name__ == "__main__":
     code_explanation_db = CodebaseIndexer(embedding_model_name)
     donor_data_extractor = TestDataExtractor()
     host_data_extractor = TestDataExtractor()
-
     
     donor_name = "flask"
     host_name = "fastapi"
@@ -180,17 +211,20 @@ if __name__ == "__main__":
     methods_db_path = f"./__internal__/faissdb/{donor_name}/methods_under_test"
     source_code_db_path = f"./__internal__/faissdb/{donor_name}/source_code"
     code_explanation_db_path = f"./__internal__/faissdb/{donor_name}/code_explanation"
-    
+
+    # Load and extract methods under tests, source codes and code explanations from donor and host files
+    donor_data = donor_data_extractor.load_data(donor_file)
+    donor_methods = donor_data_extractor.extract_methods_under_test(donor_data)
+    donor_source_codes = donor_data_extractor.extract_source_code(donor_data)
+    donor_code_explanations = donor_data_extractor.extract_code_explanations(donor_data)
+
+    host_data = host_data_extractor.load_data(host_file)
+    host_methods = host_data_extractor.extract_methods_under_test(host_data)
+    host_source_codes = host_data_extractor.extract_source_code(host_data)
+    host_code_explanations = host_data_extractor.extract_code_explanations(host_data)
 
     if not os.path.exists(f"./__internal__/faissdb/{donor_name}"):
         os.makedirs(f"./__internal__/faissdb/{donor_name}")
-
-        # Load and extract methods under tests and source codes
-        donor_data = donor_data_extractor.load_data(donor_file)
-        donor_methods = donor_data_extractor.extract_methods_under_test(donor_data)
-        donor_source_codes = donor_data_extractor.extract_source_code(donor_data)
-        donor_code_explanations = donor_data_extractor.extract_code_explanations(donor_data)
-        
         methods_db.StoreData(donor_methods, type="donor_methods")
         source_code_db.StoreData(donor_source_codes, type="donor_source_code")
         code_explanation_db.StoreData(donor_code_explanations, type="donor_code_explanation")
@@ -201,28 +235,33 @@ if __name__ == "__main__":
     else:
         print("Donor FAISS DB already exists")
     
-    host_data = host_data_extractor.load_data(host_file)
-    host_methods = host_data_extractor.extract_methods_under_test(host_data)
-    host_source_codes = host_data_extractor.extract_source_code(host_data)
-    host_code_explanations = host_data_extractor.extract_code_explanations(host_data)
-
     methods_db.LoadFromLocal(methods_db_path)
     source_code_db.LoadFromLocal(source_code_db_path)
     code_explanation_db.LoadFromLocal(code_explanation_db_path)
 
     # TESTTTTTT ------------------- TESTTTTTTT
-    k = 30
-    score_threshold = 0.6
+    k = 10
+    bm25_k = 5
     for code_explanation in host_code_explanations:
-        results = Retriever.similarity_score_threshold(code_explanation_db.GetVector(), code_explanation, k, score_threshold)
-        if not results:
-            print("No results found")
-            continue
+        results = Retriever.ensemble(code_explanation_db.GetVector(), donor_code_explanations, code_explanation, k, bm25_k)
         print(f"\nCode Explanation: {code_explanation}")
         print(f"\nTop {k} code explanations from donor file for the code explanation:")
         for i, (res) in enumerate(results):
             print(f"\nRank {i+1}:")
             print(f"Method: {res.page_content}")
+
+    # k = 30
+    # score_threshold = 0.6
+    # for code_explanation in host_code_explanations:
+    #     results = Retriever.similarity_score_threshold(code_explanation_db.GetVector(), code_explanation, k, score_threshold)
+    #     if not results:
+    #         print("No results found")
+    #         continue
+    #     print(f"\nCode Explanation: {code_explanation}")
+    #     print(f"\nTop {k} code explanations from donor file for the code explanation:")
+    #     for i, (res) in enumerate(results):
+    #         print(f"\nRank {i+1}:")
+    #         print(f"Method: {res.page_content}")
 
 
     # first_host_method = host_methods[0]
