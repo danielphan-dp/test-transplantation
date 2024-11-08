@@ -165,7 +165,7 @@ class Retriever():
     @classmethod
     def ensemble(cls, faiss_db, data, query, faiss_topk, bm25_topk):
         """
-        Perform ensemble search, retrieve top-k results from FAISS DB and BM25
+        Perform ensemble search, retrieve top-k results from FAISS DB and BM25 retriever
         :param faiss_db: FAISS DB vector store
         :param data: Donor data to be retrieved
         :param query: Query to search for
