@@ -31,8 +31,8 @@ def print_stack_trace(func: Callable[..., T]) -> Callable[..., T]:
                     filepath = os.path.abspath(frame.f_code.co_filename)
 
                     # Only skip system files and our wrapper
-                    if frame.f_code.co_name == "wrapper" or "site-packages" in filepath or "lib/python" in filepath:
-                        return traceit
+                    # if frame.f_code.co_name == "wrapper" or "site-packages" in filepath or "lib/python" in filepath:
+                    #     return traceit
 
                     # Format function arguments
                     args_str = []
@@ -70,6 +70,9 @@ def print_stack_trace(func: Callable[..., T]) -> Callable[..., T]:
 
         except Exception as e:
             print(f"Stack trace error: {e}")
+            import traceback
+
+            traceback.print_exc()
             sys.settrace(None)
             return func(*args, **kwargs)
 
