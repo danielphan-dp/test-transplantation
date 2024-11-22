@@ -1,7 +1,9 @@
 import inspect
 from functools import wraps
 from typing import Callable, TypeVar, Any
-from gluon.dynamic_analysis._tests._test4 import process_order
+from gluon.dynamic_analysis._tests._test1 import process_numbers
+from gluon.dynamic_analysis._tests._test2 import process_number
+from gluon.dynamic_analysis._tests._test3 import process_order
 from gluon.dynamic_analysis.hooks.print_stack_trace import print_stack_trace
 
 T = TypeVar('T')
@@ -40,9 +42,25 @@ if __name__ == "__main__":
     # Get the wrapped function
     hooked_func = attach_stack_trace_hook()
     
-    # Test the function with proper sample data
+    # Test 1
     print("\nTesting hooked function:")
+    hooked_func = attach_stack_trace_hook(process_numbers)
+    result = hooked_func(10, 20)
+    print(f"Result: {result:.2f}")
+    
+    
+    # Test 2
+    print("\nTesting hooked function:")
+    hooked_func = attach_stack_trace_hook(process_number)
+    result = hooked_func(5)
+    print(f"Result: {result:.2f}")
+    
+    # Test 3
+    print("\nTesting hooked function:")
+    hooked_func = attach_stack_trace_hook(process_order)
     test_user_id = 1500
-    test_cart_items = [100, 200, 300, 400]  # Sample cart items
+    test_cart_items = [100, 200, 300, 400]
     result = hooked_func(test_user_id, test_cart_items)
     print(f"Result: ${result:.2f}")
+    
+    

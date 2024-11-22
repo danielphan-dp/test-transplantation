@@ -1,18 +1,13 @@
-from gluon.dynamic_analysis.hooks.print_stack_trace import print_stack_trace
-
-@print_stack_trace()
 def factorial(n):
     if n <= 1:
         return 1
     return n * factorial(n - 1)
 
-@print_stack_trace()
 def fibonacci(n):
     if n <= 1:
         return n
     return fibonacci(n - 1) + fibonacci(n - 2)
 
-@print_stack_trace()
 def compute_math_series(n):
     fact = factorial(n)
     fib = fibonacci(n)
