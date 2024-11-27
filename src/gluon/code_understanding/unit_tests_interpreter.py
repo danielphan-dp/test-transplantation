@@ -105,7 +105,6 @@ class TestExplainer:
         {relevant_code}
 
         Provide a **concise** and **clear** explanation in the following format:
-:
 
         **Main Purpose of the Test**:
         [Your explanation here]
