@@ -2,12 +2,12 @@ import inspect
 import os
 import sys
 from functools import wraps
-from typing import Callable, TypeVar, Any
+from typing import Callable, TypeVar, Any, Optional, Union
 
 T = TypeVar("T")
 
 
-def print_stack_trace(func: Callable[..., T]) -> Callable[..., T]:
+def print_stack_trace(func: Callable[..., T], project_root: Optional[str] = None) -> Callable[..., T]:
     """
     A decorator that prints a clean, meaningful stack trace of function calls,
     including internal function calls within the decorated function.
@@ -16,13 +16,10 @@ def print_stack_trace(func: Callable[..., T]) -> Callable[..., T]:
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> T:
         try:
-            # Get project root directory (Flask repo directory in this case)
-            project_root = os.path.dirname(
-                os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-            )
+            root_dir = project_root or os.getcwd()
 
             print(f"\nStack Trace for: {func.__name__}")
-            print(f"Project root: {os.path.basename(project_root)}")
+            print(f"Project root: {os.path.basename(root_dir)}")
             print("-" * 80)
 
             # Set up trace function
@@ -41,8 +38,8 @@ def print_stack_trace(func: Callable[..., T]) -> Callable[..., T]:
                             continue
                         try:
                             val_str = repr(value)
-                            if len(val_str) > 50:
-                                val_str = val_str[:47] + "..."
+                            # if len(val_str) > 50:
+                            #     val_str = val_str[:47] + "..."
                             args_str.append(f"{name}={val_str}")
                         except Exception:
                             args_str.append(f"{name}=<unprintable>")

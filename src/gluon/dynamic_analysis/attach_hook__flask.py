@@ -61,14 +61,14 @@ def attach_hooks_to_tests(flask_repo_path: str) -> None:
                     for name, obj in inspect.getmembers(module):
                         if name.startswith("test_") and inspect.isfunction(obj):
                             # Actually attach the decorator to the function
-                            setattr(module, name, print_stack_trace(obj))
+                            setattr(module, name, print_stack_trace(obj, flask_repo_path))
                             print(f"Attached hook to {name}")
                         elif inspect.isclass(obj):
                             # Handle test methods in test classes
                             for method_name, method in inspect.getmembers(obj, inspect.isfunction):
                                 if method_name.startswith("test_"):
                                     # Attach decorator to the method
-                                    setattr(obj, method_name, print_stack_trace(method))
+                                    setattr(obj, method_name, print_stack_trace(method, flask_repo_path))
                                     print(f"Attached hook to {obj.__name__}.{method_name}")
 
                 except Exception as e:
@@ -114,6 +114,6 @@ if __name__ == "__main__":
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # The Flask repo is in the 'data/flask' subdirectory of the current directory
-    FLASK_REPO_PATH = os.path.join(current_dir, "data", "flask")
+    FLASK_REPO_PATH = os.path.join(current_dir, "_data", "flask")
     print(f"Using Flask repo path: {FLASK_REPO_PATH}")
     run_flask_tests(FLASK_REPO_PATH)
