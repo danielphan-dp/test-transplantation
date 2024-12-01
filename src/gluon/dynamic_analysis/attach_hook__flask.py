@@ -47,10 +47,31 @@ def attach_hooks_to_tests(flask_repo_path: str) -> None:
 
     def get_test_context(obj):
         """Extract test context from docstring or source"""
+        context = {}
+
+        # Get docstring and source
         doc = inspect.getdoc(obj)
         source = inspect.getsource(obj)
-        # Parse docstring and source to identify Flask methods being tested
-        # Return context information
+
+        # Parse docstring for test description
+        if doc:
+            context["description"] = doc
+
+        # Look for Flask method calls in source
+        flask_calls = []
+        for line in source.split("\n"):
+            # Look for common Flask patterns
+            if "app." in line or "flask." in line:
+                flask_calls.append(line.strip())
+        if flask_calls:
+            context["flask_calls"] = flask_calls
+
+        # Get the test file name and class (if any)
+        context["test_file"] = inspect.getfile(obj)
+        if inspect.ismethod(obj):
+            context["test_class"] = obj.__self__.__class__.__name__
+
+        return context
 
     for root, _, files in os.walk(test_dir):
         for file in files:

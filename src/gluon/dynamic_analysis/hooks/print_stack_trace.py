@@ -3,6 +3,7 @@ import os
 import sys
 from functools import wraps
 from typing import Callable, TypeVar, Any, Optional, Union
+import traceback
 
 T = TypeVar("T")
 
@@ -28,44 +29,51 @@ def print_stack_trace(
         try:
             root_dir = project_root or os.getcwd()
 
+            # Print test context first
             print(f"\nStack Trace for: {func.__name__}")
+            if context:
+                if "description" in context:
+                    print(f"Test Description: {context['description']}")
+                if "test_class" in context:
+                    print(f"Test Class: {context['test_class']}")
+                if "flask_calls" in context:
+                    print("Expected Flask calls:")
+                    for call in context["flask_calls"]:
+                        print(f"  - {call}")
             print(f"Project root: {os.path.basename(root_dir)}")
             print("-" * 80)
 
-            # Set up trace function
+            # Track actual Flask methods called
+            flask_methods_called = set()
+
             def traceit(frame, event, arg):
                 if event == "call":
                     is_flask, module_name, method_name = resolve_flask_method(frame)
                     if is_flask:
+                        flask_methods_called.add(f"{module_name}.{method_name}")
                         print(f"Flask method: {module_name}.{method_name}")
-                    filepath = os.path.abspath(frame.f_code.co_filename)
 
-                    # Add filtering for Flask-specific paths
-                    if "flask" not in filepath.lower() and not filepath.startswith(project_root):
-                        return traceit
-
-                    # Format function arguments
-                    args_str = []
-                    for name, value in frame.f_locals.items():
-                        if name == "self":  # Skip self for class methods
-                            continue
+                        # Print source location
+                        filepath = os.path.abspath(frame.f_code.co_filename)
                         try:
-                            val_str = repr(value)
-                            # if len(val_str) > 50:
-                            #     val_str = val_str[:47] + "..."
-                            args_str.append(f"{name}={val_str}")
-                        except Exception:
-                            args_str.append(f"{name}=<unprintable>")
+                            rel_path = os.path.relpath(filepath, project_root)
+                        except ValueError:
+                            rel_path = filepath
+                        print(f"-> {rel_path}:{frame.f_lineno} - {method_name}")
 
-                    # Print frame info
-                    try:
-                        rel_path = os.path.relpath(filepath, project_root)
-                    except ValueError:
-                        rel_path = filepath
+                        # Print method arguments
+                        args_str = format_arguments(frame)
+                        if args_str:
+                            print(f"   Args: {args_str}")
 
-                    print(f"-> {rel_path}:{frame.f_lineno} - {frame.f_code.co_name}")
-                    if args_str:
-                        print(f"   Args: {', '.join(args_str)}")
+                    # For non-Flask calls, only trace if in project root
+                    elif project_root and frame.f_code.co_filename.startswith(project_root):
+                        filepath = os.path.abspath(frame.f_code.co_filename)
+                        if filepath.startswith(project_root):
+                            print(
+                                f"-> {os.path.relpath(filepath, project_root)}:"
+                                f"{frame.f_lineno} - {frame.f_code.co_name}"
+                            )
 
                 return traceit
 
@@ -74,16 +82,31 @@ def print_stack_trace(
             result = func(*args, **kwargs)
             sys.settrace(None)
 
+            # Print summary
             print("-" * 80)
-            print(f"End trace for: {func.__name__}\n")
+            print(f"End trace for: {func.__name__}")
+            print(f"Flask methods called: {', '.join(sorted(flask_methods_called))}\n")
+
             return result
 
         except Exception as e:
             print(f"Stack trace error: {e}")
-            import traceback
-
             traceback.print_exc()
             sys.settrace(None)
             return func(*args, **kwargs)
 
     return wrapper
+
+
+def format_arguments(frame):
+    """Format function arguments for printing"""
+    args_str = []
+    for name, value in frame.f_locals.items():
+        if name == "self":  # Skip self for class methods
+            continue
+        try:
+            val_str = repr(value)
+            args_str.append(f"{name}={val_str}")
+        except Exception:
+            args_str.append(f"{name}=<unprintable>")
+    return ", ".join(args_str)
