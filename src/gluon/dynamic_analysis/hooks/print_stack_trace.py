@@ -7,7 +7,17 @@ from typing import Callable, TypeVar, Any, Optional, Union
 T = TypeVar("T")
 
 
-def print_stack_trace(func: Callable[..., T], project_root: Optional[str] = None) -> Callable[..., T]:
+def resolve_flask_method(frame):
+    """Identify if the current frame is executing a Flask method"""
+    module = inspect.getmodule(frame.f_code)
+    if module and "flask" in module.__name__:
+        return True, module.__name__, frame.f_code.co_name
+    return False, None, None
+
+
+def print_stack_trace(
+    func: Callable[..., T], project_root: Optional[str] = None, context: Optional[dict] = None
+) -> Callable[..., T]:
     """
     A decorator that prints a clean, meaningful stack trace of function calls,
     including internal function calls within the decorated function.
@@ -25,11 +35,14 @@ def print_stack_trace(func: Callable[..., T], project_root: Optional[str] = None
             # Set up trace function
             def traceit(frame, event, arg):
                 if event == "call":
+                    is_flask, module_name, method_name = resolve_flask_method(frame)
+                    if is_flask:
+                        print(f"Flask method: {module_name}.{method_name}")
                     filepath = os.path.abspath(frame.f_code.co_filename)
 
-                    # Only skip system files and our wrapper
-                    # if frame.f_code.co_name == "wrapper" or "site-packages" in filepath or "lib/python" in filepath:
-                    #     return traceit
+                    # Add filtering for Flask-specific paths
+                    if "flask" not in filepath.lower() and not filepath.startswith(project_root):
+                        return traceit
 
                     # Format function arguments
                     args_str = []

@@ -45,6 +45,13 @@ def attach_hooks_to_tests(flask_repo_path: str) -> None:
     """Attach hooks to all test functions in the Flask repository."""
     test_dir = os.path.join(flask_repo_path, "tests")
 
+    def get_test_context(obj):
+        """Extract test context from docstring or source"""
+        doc = inspect.getdoc(obj)
+        source = inspect.getsource(obj)
+        # Parse docstring and source to identify Flask methods being tested
+        # Return context information
+
     for root, _, files in os.walk(test_dir):
         for file in files:
             if file.startswith("test_") and file.endswith(".py"):
@@ -60,8 +67,9 @@ def attach_hooks_to_tests(flask_repo_path: str) -> None:
                     # Find all test functions and attach hooks
                     for name, obj in inspect.getmembers(module):
                         if name.startswith("test_") and inspect.isfunction(obj):
-                            # Actually attach the decorator to the function
-                            setattr(module, name, print_stack_trace(obj, flask_repo_path))
+                            context = get_test_context(obj)
+                            # Attach context to the trace
+                            setattr(module, name, print_stack_trace(obj, flask_repo_path, context))
                             print(f"Attached hook to {name}")
                         elif inspect.isclass(obj):
                             # Handle test methods in test classes
