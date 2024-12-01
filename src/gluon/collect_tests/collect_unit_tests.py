@@ -8,6 +8,7 @@ import os
 from tqdm import tqdm
 import logging
 import click
+import inspect
 
 from pydantic import BaseModel, Field
 
@@ -73,13 +74,35 @@ def extract_mocks(node: ast.FunctionDef) -> List[str]:
 
 
 def extract_methods_under_test(
-    node: ast.FunctionDef, 
-    application_modules: Set[str], 
+    node: ast.FunctionDef,
+    application_modules: Set[str],
     standard_lib_names: Set[str],
     third_party_lib_names: Set[str],
-    source_files: Dict[str, ast.Module]
+    source_files: Dict[str, ast.Module],
 ) -> List[Dict[str, str]]:
     methods_under_test = []
+
+    # Add decorator function analysis
+    for decorator in node.decorator_list:
+        if isinstance(decorator, ast.Call):
+            # Get the decorator function name
+            decorator_name = get_full_func_name(decorator.func)
+            if decorator_name and not is_standard_or_third_party(
+                decorator_name, standard_lib_names, third_party_lib_names
+            ):
+                method_info = resolve_method(decorator_name, source_files)
+                if method_info:
+                    methods_under_test.append(method_info)
+
+            # Also analyze any functions passed as arguments to decorators
+            for arg in decorator.args:
+                if isinstance(arg, ast.Name):
+                    arg_name = get_full_func_name(arg)
+                    if arg_name and not is_standard_or_third_party(arg_name, standard_lib_names, third_party_lib_names):
+                        method_info = resolve_method(arg_name, source_files)
+                        if method_info:
+                            methods_under_test.append(method_info)
+
     for sub_node in ast.walk(node):
         if isinstance(sub_node, ast.Call):
             func_name = get_full_func_name(sub_node.func)
@@ -106,7 +129,7 @@ def get_full_func_name(func) -> Optional[str]:
 
 
 def is_standard_or_third_party(func_name: str, standard_lib_names: Set[str], third_party_lib_names: Set[str]) -> bool:
-    module_name = func_name.split('.')[0]
+    module_name = func_name.split(".")[0]
     return module_name in standard_lib_names or module_name in third_party_lib_names
 
 
@@ -119,38 +142,54 @@ def get_third_party_library_names() -> Set[str]:
 
 
 def resolve_method(func_name: str, source_files: Dict[str, ast.Module]) -> Optional[Dict[str, str]]:
-    parts = func_name.split('.')
+    parts = func_name.split(".")
+
+    # First try to find in source files
+    result = find_in_source_files(parts, source_files)
+    if result:
+        return result
+
+    # Then try to resolve from loaded modules
+    try:
+        module_parts = parts[:-1]
+        if module_parts:
+            module = __import__(".".join(module_parts), fromlist=[parts[-1]])
+            if hasattr(module, parts[-1]):
+                func = getattr(module, parts[-1])
+                if inspect.isfunction(func):
+                    return {"name": func_name, "body": inspect.getsource(func)}
+    except (ImportError, AttributeError):
+        pass
+
+    return None
+
+
+def find_in_source_files(parts: List[str], source_files: Dict[str, ast.Module]) -> Optional[Dict[str, str]]:
     for file_path, tree in source_files.items():
         for node in ast.walk(tree):
             if len(parts) > 1 and isinstance(node, ast.ClassDef) and node.name == parts[-2]:
                 for sub_node in node.body:
                     if isinstance(sub_node, ast.FunctionDef) and sub_node.name == parts[-1]:
-                        return {
-                            'name': func_name,
-                            'body': ast.unparse(sub_node)
-                        }
+                        return {"name": func_name, "body": ast.unparse(sub_node)}
             elif isinstance(node, ast.FunctionDef) and node.name == parts[-1]:
-                return {
-                    'name': func_name,
-                    'body': ast.unparse(node)
-                }
+                return {"name": func_name, "body": ast.unparse(node)}
     return None
 
 
 def scan_source_files(directory: str) -> Dict[str, ast.Module]:
     source_files = {}
-    all_files = list(Path(directory).rglob('*.py'))
-    
+    all_files = list(Path(directory).rglob("*.py"))
+
     with tqdm(total=len(all_files), desc="Scanning source files", unit="file") as pbar:
         for file_path in all_files:
             pbar.set_postfix_str(f"Scanning: {file_path}")
             try:
-                with open(file_path, 'r', encoding='utf-8') as f:
+                with open(file_path, "r", encoding="utf-8") as f:
                     source_files[str(file_path)] = ast.parse(f.read())
             except Exception as e:
                 logger.error(f"Error parsing file {file_path}: {str(e)}")
             pbar.update(1)
-    
+
     logger.info(f"Scanned {len(source_files)} source files")
     return source_files
 
@@ -197,11 +236,7 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                         assertions = extract_assertions(node)
                         mocks = extract_mocks(node)
                         methods_under_test = extract_methods_under_test(
-                            node, 
-                            application_modules, 
-                            standard_lib_names,
-                            third_party_lib_names,
-                            source_files
+                            node, application_modules, standard_lib_names, third_party_lib_names, source_files
                         )
 
                         test_collection.tests.append(
@@ -221,7 +256,7 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                                 setup_method=setup_method,
                                 teardown_method=teardown_method,
                                 mocks=mocks,
-                                methods_under_test=methods_under_test
+                                methods_under_test=methods_under_test,
                             )
                         )
                 elif isinstance(node, ast.ClassDef):
@@ -253,11 +288,7 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                             assertions = extract_assertions(sub_node)
                             mocks = extract_mocks(sub_node)
                             methods_under_test = extract_methods_under_test(
-                                sub_node, 
-                                application_modules, 
-                                standard_lib_names,
-                                third_party_lib_names,
-                                source_files
+                                sub_node, application_modules, standard_lib_names, third_party_lib_names, source_files
                             )
 
                             test_collection.tests.append(
@@ -280,7 +311,7 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
                                     setup_method=class_setup_method,
                                     teardown_method=class_teardown_method,
                                     mocks=mocks,
-                                    methods_under_test=methods_under_test
+                                    methods_under_test=methods_under_test,
                                 )
                             )
 
@@ -293,20 +324,26 @@ def dump_tests_to_json(test_collection: TestCollection, output_file: str):
     # Create the output directory if it doesn't exist
     output_path = Path(output_file)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(output_file, "w") as f:
         json.dump(test_collection.model_dump(), f, indent=2)
     logger.info(f"JSON dump completed: {output_file}")
 
 
 # Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
+
 @click.command()
-@click.argument('repo_path', type=click.Path(exists=True, file_okay=False, dir_okay=True))
-@click.argument('output_path', type=click.Path(file_okay=True, dir_okay=False))
-@click.option('--log-level', type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']), default='INFO', help='Set the logging level')
+@click.argument("repo_path", type=click.Path(exists=True, file_okay=False, dir_okay=True))
+@click.argument("output_path", type=click.Path(file_okay=True, dir_okay=False))
+@click.option(
+    "--log-level",
+    type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]),
+    default="INFO",
+    help="Set the logging level",
+)
 def main(repo_path: str, output_path: str, log_level: str):
     """
     Collect unit tests from a repository and save them to a JSON file.
@@ -331,6 +368,7 @@ def main(repo_path: str, output_path: str, log_level: str):
     logger.info(f"Collected {len(collected_tests.tests)} tests and saved to {output_path}")
 
     logger.info("Test collection process completed")
+
 
 if __name__ == "__main__":
     main()

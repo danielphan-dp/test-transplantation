@@ -36,14 +36,20 @@ mkdir -p "$DATA_DIR" "$TESTS_DIR"
 log "Cloning repositories..."
 cd "$DATA_DIR" || exit 1
 
+# Export the REPO_MAP values as environment variables for parallel
+for repo in "${!REPO_MAP[@]}"; do
+    export "REPO_OWNER_${repo}=${REPO_MAP[$repo]}"
+done
+
 # Clone repositories in parallel
 printf '%s\n' "${!REPO_MAP[@]}" | \
     parallel --jobs 100% \
     '
     if [ ! -d {} ]; then
-        owner="${REPO_MAP[{}]}"
-        echo "Cloning {}: https://github.com/$owner/{}"
-        git clone --depth 1 "https://github.com/$owner/{}" || exit 1
+        owner_var="REPO_OWNER_{}"
+        owner="${!owner_var}"
+        echo "Cloning {}: https://github.com/${owner}/{}"
+        git clone --depth 1 "https://github.com/${owner}/{}" || exit 1
     else
         echo "{} already exists"
     fi
