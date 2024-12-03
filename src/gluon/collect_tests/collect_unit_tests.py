@@ -164,15 +164,15 @@ def resolve_method(func_name: str, source_files: Dict[str, ast.Module]) -> Optio
     return None
 
 
-def find_in_source_files(parts: List[str], source_files: Dict[str, ast.Module]) -> Optional[Dict[str, str]]:
+def find_in_source_files(parts: List[str], source_files: Dict[str, ast.Module]) -> Optional[Dict]:
     for file_path, tree in source_files.items():
         for node in ast.walk(tree):
             if len(parts) > 1 and isinstance(node, ast.ClassDef) and node.name == parts[-2]:
                 for sub_node in node.body:
                     if isinstance(sub_node, ast.FunctionDef) and sub_node.name == parts[-1]:
-                        return {"name": func_name, "body": ast.unparse(sub_node)}
+                        return {"name": ".".join(parts), "body": ast.unparse(sub_node)}
             elif isinstance(node, ast.FunctionDef) and node.name == parts[-1]:
-                return {"name": func_name, "body": ast.unparse(node)}
+                return {"name": ".".join(parts), "body": ast.unparse(node)}
     return None
 
 

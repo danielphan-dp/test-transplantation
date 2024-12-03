@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Dict, Set, List
 from contextlib import contextmanager
 from .collect_unit_tests import collect_tests, TestCollection
+import click
 
 
 class MethodCallTracer:
@@ -158,32 +159,45 @@ class TestAnalyzer:
         print("=" * 80)
 
 
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: python analyze_test_methods.py <repo_path>")
-        sys.exit(1)
-
-    repo_path = sys.argv[1]
-    analyzer = TestAnalyzer(repo_path)
+@click.command()
+@click.option(
+    "--input-dir",
+    "-i",
+    type=click.Path(exists=True),
+    required=True,
+    help="Repository path to analyze",
+)
+@click.option(
+    "--output-dir",
+    "-o",
+    type=click.Path(),
+    required=True,
+    help="Directory to store analysis results",
+)
+def main(input_dir: str, output_dir: str):
+    """Analyze unit tests in the given repository."""
+    analyzer = TestAnalyzer(input_dir)
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
 
     # Run static analysis
-    print("Running static analysis...")
+    click.echo("Running static analysis...")
     test_collection = analyzer.run_static_analysis()
 
     # Analyze each test
-    print("\nAnalyzing tests...")
+    click.echo("\nAnalyzing tests...")
     for test_case in test_collection.tests:
         try:
             analysis = analyzer.analyze_test(test_case.model_dump())
             analyzer.print_analysis(analysis)
 
             # Save detailed results
-            output_file = f"test_analysis_{test_case.name}.json"
+            output_file = output_path / f"test_analysis_{test_case.name}.json"
             with open(output_file, "w") as f:
                 json.dump(analysis, f, indent=2)
-            print(f"Detailed analysis saved to: {output_file}")
+            click.echo(f"Detailed analysis saved to: {output_file}")
         except Exception as e:
-            print(f"Error analyzing test {test_case.name}: {str(e)}")
+            click.echo(f"Error analyzing test {test_case.name}: {str(e)}", err=True)
 
 
 if __name__ == "__main__":
