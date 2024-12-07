@@ -2,13 +2,48 @@
   "test_name": "test_session_using_session_settings",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.config.update",
-    "app.route",
-    "app.route",
-    "client.get",
-    "rv.headers.lower",
-    "client.get",
-    "rv.headers.lower"
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.lower",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.lower",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -69,5 +104,6 @@
     "assert 'partitioned' in cookie"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_session_using_session_settings(app, client):\n    app.config.update(\n        SERVER_NAME=\"www.example.com:8080\",\n        APPLICATION_ROOT=\"/test\",\n        SESSION_COOKIE_DOMAIN=\".example.com\",\n        SESSION_COOKIE_HTTPONLY=False,\n        SESSION_COOKIE_SECURE=True,\n        SESSION_COOKIE_PARTITIONED=True,\n        SESSION_COOKIE_SAMESITE=\"Lax\",\n        SESSION_COOKIE_PATH=\"/\",\n    )\n\n    @app.route(\"/\")\n    def index():\n        flask.session[\"testing\"] = 42\n        return \"Hello World\"\n\n    @app.route(\"/clear\")\n    def clear():\n        flask.session.pop(\"testing\", None)\n        return \"Goodbye World\"\n\n    rv = client.get(\"/\", \"http://www.example.com:8080/test/\")\n    cookie = rv.headers[\"set-cookie\"].lower()\n    # or condition for Werkzeug < 2.3\n    assert \"domain=example.com\" in cookie or \"domain=.example.com\" in cookie\n    assert \"path=/\" in cookie\n    assert \"secure\" in cookie\n    assert \"httponly\" not in cookie\n    assert \"samesite\" in cookie\n    assert \"partitioned\" in cookie\n\n    rv = client.get(\"/clear\", \"http://www.example.com:8080/test/\")\n    cookie = rv.headers[\"set-cookie\"].lower()\n    assert \"session=;\" in cookie\n    # or condition for Werkzeug < 2.3\n    assert \"domain=example.com\" in cookie or \"domain=.example.com\" in cookie\n    assert \"path=/\" in cookie\n    assert \"secure\" in cookie\n    assert \"samesite\" in cookie\n    assert \"partitioned\" in cookie"
 }

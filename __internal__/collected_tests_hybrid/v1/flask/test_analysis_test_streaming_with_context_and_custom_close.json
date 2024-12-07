@@ -2,12 +2,42 @@
   "test_name": "test_streaming_with_context_and_custom_close",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "called.append",
-    "next",
-    "Wrapper",
-    "generate"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Wrapper",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "generate",
+      "source_code": "def generate() -> t.Iterator[str]:\n        yield from template.generate(context)\n        template_rendered.send(\n            app, _async_wrapper=app.ensure_sync, template=template, context=context\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/templating.py",
+      "line_number": 173
+    }
   ],
   "dynamic_methods": [
     {
@@ -52,5 +82,6 @@
     "assert called == [42]"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_streaming_with_context_and_custom_close(self, app, client):\n        called = []\n\n        class Wrapper:\n            def __init__(self, gen):\n                self._gen = gen\n\n            def __iter__(self):\n                return self\n\n            def close(self):\n                called.append(42)\n\n            def __next__(self):\n                return next(self._gen)\n\n            next = __next__\n\n        @app.route(\"/\")\n        def index():\n            def generate():\n                yield \"Hello \"\n                yield flask.request.args[\"name\"]\n                yield \"!\"\n\n            return flask.Response(flask.stream_with_context(Wrapper(generate())))\n\n        rv = client.get(\"/?name=World\")\n        assert rv.data == b\"Hello World!\"\n        assert called == [42]"
 }

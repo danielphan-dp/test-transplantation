@@ -2,7 +2,12 @@
   "test_name": "test_run_exclude_patterns",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "run_command.make_context"
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -16,5 +21,6 @@
     "assert ctx.params['exclude_patterns'] == [__file__]"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_run_exclude_patterns():\n    ctx = run_command.make_context(\"run\", [\"--exclude-patterns\", __file__])\n    assert ctx.params[\"exclude_patterns\"] == [__file__]"
 }

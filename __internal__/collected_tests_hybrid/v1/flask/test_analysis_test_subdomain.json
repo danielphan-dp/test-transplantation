@@ -2,11 +2,36 @@
   "test_name": "test_subdomain",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "Flask",
-    "app.add_url_rule",
-    "app.add_url_rule",
-    "FlaskGroup",
-    "runner.invoke"
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FlaskGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert 'Subdomain' in result.output"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_subdomain(self, runner):\n        app = Flask(__name__, static_folder=None)\n        app.add_url_rule(\"/a\", subdomain=\"a\", endpoint=\"a\")\n        app.add_url_rule(\"/b\", subdomain=\"b\", endpoint=\"b\")\n        cli = FlaskGroup(create_app=lambda: app)\n        result = runner.invoke(cli, [\"routes\"])\n        assert result.exit_code == 0\n        assert \"Subdomain\" in result.output"
 }

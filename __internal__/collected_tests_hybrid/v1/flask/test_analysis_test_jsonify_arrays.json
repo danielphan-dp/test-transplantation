@@ -2,9 +2,24 @@
   "test_name": "test_jsonify_arrays",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert flask.json.loads(rv.data) == a_list"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_jsonify_arrays(app, client):\n    \"\"\"Test jsonify of lists and args unpacking.\"\"\"\n    a_list = [\n        0,\n        42,\n        3.14,\n        \"t\",\n        \"hello\",\n        True,\n        False,\n        [\"test list\", 2, False],\n        {\"test\": \"dict\"},\n    ]\n\n    @app.route(\"/args_unpack\")\n    def return_args_unpack():\n        return flask.jsonify(*a_list)\n\n    @app.route(\"/array\")\n    def return_array():\n        return flask.jsonify(a_list)\n\n    for url in \"/args_unpack\", \"/array\":\n        rv = client.get(url)\n        assert rv.mimetype == \"application/json\"\n        assert flask.json.loads(rv.data) == a_list"
 }

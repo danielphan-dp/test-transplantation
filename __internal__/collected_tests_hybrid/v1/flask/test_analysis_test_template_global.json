@@ -2,13 +2,48 @@
   "test_name": "test_template_global",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "app.app_context",
-    "bp.app_template_global",
-    "app.register_blueprint",
-    "app.jinja_env.globals.keys",
-    "app.jinja_env.globals.keys",
-    "app.jinja_env.globals",
-    "app.app_context"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.app_template_global",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.globals.keys",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.globals.keys",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.globals",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -62,5 +97,6 @@
     "assert rv == '42'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_template_global(app):\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    @bp.app_template_global()\n    def get_answer():\n        return 42\n\n    # Make sure the function is not in the jinja_env already\n    assert \"get_answer\" not in app.jinja_env.globals.keys()\n    app.register_blueprint(bp)\n\n    # Tests\n    assert \"get_answer\" in app.jinja_env.globals.keys()\n    assert app.jinja_env.globals[\"get_answer\"] is get_answer\n    assert app.jinja_env.globals[\"get_answer\"]() == 42\n\n    with app.app_context():\n        rv = flask.render_template_string(\"{{ get_answer() }}\")\n        assert rv == \"42\""
 }

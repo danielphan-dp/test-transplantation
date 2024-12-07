@@ -2,11 +2,36 @@
   "test_name": "test_installed_package_paths",
   "test_file": "__internal__/_data/flask/tests/test_instance_config.py",
   "static_methods": [
-    "installed_path.mkdir",
-    "monkeypatch.syspath_prepend",
-    "app.mkdir",
-    "write_text",
-    "purge_module"
+    {
+      "name": "installed_path.mkdir",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.syspath_prepend",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.mkdir",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "write_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "purge_module",
+      "source_code": "def purge_module(request):\n    def inner(name):\n        request.addfinalizer(lambda: sys.modules.pop(name, None))\n\n    return inner",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/conftest.py",
+      "line_number": 156
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert app.instance_path == os.fspath(modules_tmp_path / 'var' / 'installed_package-instance')"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_installed_package_paths(\n    limit_loader, modules_tmp_path, modules_tmp_path_prefix, purge_module, monkeypatch\n):\n    installed_path = modules_tmp_path / \"path\"\n    installed_path.mkdir()\n    monkeypatch.syspath_prepend(installed_path)\n\n    app = installed_path / \"installed_package\"\n    app.mkdir()\n    (app / \"__init__.py\").write_text(\"import flask\\napp = flask.Flask(__name__)\\n\")\n    purge_module(\"installed_package\")\n\n    from installed_package import app\n\n    assert app.instance_path == os.fspath(\n        modules_tmp_path / \"var\" / \"installed_package-instance\"\n    )"
 }

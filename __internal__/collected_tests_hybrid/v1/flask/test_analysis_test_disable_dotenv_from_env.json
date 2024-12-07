@@ -2,11 +2,36 @@
   "test_name": "test_disable_dotenv_from_env",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "monkeypatch.chdir",
-    "monkeypatch.setitem",
-    "runner.invoke",
-    "FlaskGroup",
-    "need_dotenv"
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setitem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FlaskGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "need_dotenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert 'FOO' not in os.environ"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_disable_dotenv_from_env(monkeypatch, runner):\n    monkeypatch.chdir(test_path)\n    monkeypatch.setitem(os.environ, \"FLASK_SKIP_DOTENV\", \"1\")\n    runner.invoke(FlaskGroup())\n    assert \"FOO\" not in os.environ"
 }

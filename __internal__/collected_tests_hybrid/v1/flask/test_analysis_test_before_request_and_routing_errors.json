@@ -2,8 +2,18 @@
   "test_name": "test_before_request_and_routing_errors",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.errorhandler",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -24,5 +34,6 @@
     "assert rv.data == b'value'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_before_request_and_routing_errors(app, client):\n    @app.before_request\n    def attach_something():\n        flask.g.something = \"value\"\n\n    @app.errorhandler(404)\n    def return_something(error):\n        return flask.g.something, 404\n\n    rv = client.get(\"/\")\n    assert rv.status_code == 404\n    assert rv.data == b\"value\""
 }

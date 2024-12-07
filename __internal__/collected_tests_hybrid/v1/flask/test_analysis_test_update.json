@@ -2,14 +2,54 @@
   "test_name": "test_update",
   "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_blog.py",
   "static_methods": [
-    "app.app_context",
-    "auth.login",
-    "client.post",
-    "app.app_context",
-    "get_db",
-    "db.execute.fetchone",
-    "client.get",
-    "db.execute"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "auth.login",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "get_db",
+      "source_code": "def get_db():\n    \"\"\"Connect to the application's configured database. The connection\n    is unique for each request and will be reused if this is called\n    again.\n    \"\"\"\n    if \"db\" not in g:\n        g.db = sqlite3.connect(\n            current_app.config[\"DATABASE\"], detect_types=sqlite3.PARSE_DECLTYPES\n        )\n        g.db.row_factory = sqlite3.Row\n\n    return g.db",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/db.py",
+      "line_number": 9
+    },
+    {
+      "name": "db.execute.fetchone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "db.execute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -66,5 +106,6 @@
     "assert post['title'] == 'updated'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_update(client, auth, app):\n    auth.login()\n    assert client.get(\"/1/update\").status_code == 200\n    client.post(\"/1/update\", data={\"title\": \"updated\", \"body\": \"\"})\n\n    with app.app_context():\n        db = get_db()\n        post = db.execute(\"SELECT * FROM post WHERE id = 1\").fetchone()\n        assert post[\"title\"] == \"updated\""
 }

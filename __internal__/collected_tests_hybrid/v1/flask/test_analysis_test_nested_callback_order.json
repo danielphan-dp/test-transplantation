@@ -2,16 +2,66 @@
   "test_name": "test_nested_callback_order",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "child.route",
-    "child.route",
-    "parent.register_blueprint",
-    "app.register_blueprint",
-    "dict",
-    "dict",
-    "dict",
-    "join",
-    "client.get",
-    "client.get"
+    {
+      "name": "child.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "child.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parent.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "join",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -86,5 +136,6 @@
     "assert flask.g.seen.pop() == 'child_2'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_nested_callback_order(app, client):\n    parent = flask.Blueprint(\"parent\", __name__)\n    child = flask.Blueprint(\"child\", __name__)\n\n    @app.before_request\n    def app_before1():\n        flask.g.setdefault(\"seen\", []).append(\"app_1\")\n\n    @app.teardown_request\n    def app_teardown1(e=None):\n        assert flask.g.seen.pop() == \"app_1\"\n\n    @app.before_request\n    def app_before2():\n        flask.g.setdefault(\"seen\", []).append(\"app_2\")\n\n    @app.teardown_request\n    def app_teardown2(e=None):\n        assert flask.g.seen.pop() == \"app_2\"\n\n    @app.context_processor\n    def app_ctx():\n        return dict(key=\"app\")\n\n    @parent.before_request\n    def parent_before1():\n        flask.g.setdefault(\"seen\", []).append(\"parent_1\")\n\n    @parent.teardown_request\n    def parent_teardown1(e=None):\n        assert flask.g.seen.pop() == \"parent_1\"\n\n    @parent.before_request\n    def parent_before2():\n        flask.g.setdefault(\"seen\", []).append(\"parent_2\")\n\n    @parent.teardown_request\n    def parent_teardown2(e=None):\n        assert flask.g.seen.pop() == \"parent_2\"\n\n    @parent.context_processor\n    def parent_ctx():\n        return dict(key=\"parent\")\n\n    @child.before_request\n    def child_before1():\n        flask.g.setdefault(\"seen\", []).append(\"child_1\")\n\n    @child.teardown_request\n    def child_teardown1(e=None):\n        assert flask.g.seen.pop() == \"child_1\"\n\n    @child.before_request\n    def child_before2():\n        flask.g.setdefault(\"seen\", []).append(\"child_2\")\n\n    @child.teardown_request\n    def child_teardown2(e=None):\n        assert flask.g.seen.pop() == \"child_2\"\n\n    @child.context_processor\n    def child_ctx():\n        return dict(key=\"child\")\n\n    @child.route(\"/a\")\n    def a():\n        return \", \".join(flask.g.seen)\n\n    @child.route(\"/b\")\n    def b():\n        return flask.render_template_string(\"{{ key }}\")\n\n    parent.register_blueprint(child)\n    app.register_blueprint(parent)\n    assert (\n        client.get(\"/a\").data == b\"app_1, app_2, parent_1, parent_2, child_1, child_2\"\n    )\n    assert client.get(\"/b\").data == b\"child\""
 }

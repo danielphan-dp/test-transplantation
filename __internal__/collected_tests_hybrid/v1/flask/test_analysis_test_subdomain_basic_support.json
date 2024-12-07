@@ -2,11 +2,36 @@
   "test_name": "test_subdomain_basic_support",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_client",
-    "app.route",
-    "app.route",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert rv.data == b'test index'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_subdomain_basic_support():\n    app = flask.Flask(__name__, subdomain_matching=True)\n    app.config[\"SERVER_NAME\"] = \"localhost.localdomain\"\n    client = app.test_client()\n\n    @app.route(\"/\")\n    def normal_index():\n        return \"normal index\"\n\n    @app.route(\"/\", subdomain=\"test\")\n    def test_index():\n        return \"test index\"\n\n    rv = client.get(\"/\", \"http://localhost.localdomain/\")\n    assert rv.data == b\"normal index\"\n\n    rv = client.get(\"/\", \"http://test.localhost.localdomain/\")\n    assert rv.data == b\"test index\""
 }

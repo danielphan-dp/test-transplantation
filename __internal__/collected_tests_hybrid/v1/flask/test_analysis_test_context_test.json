@@ -2,9 +2,24 @@
   "test_name": "test_context_test",
   "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
-    "app.test_request_context",
-    "ctx.push",
-    "ctx.pop"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.push",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.pop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -33,5 +48,6 @@
     "assert flask.has_request_context()"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_context_test(app):\n    assert not flask.request\n    assert not flask.has_request_context()\n    ctx = app.test_request_context()\n    ctx.push()\n    try:\n        assert flask.request\n        assert flask.has_request_context()\n    finally:\n        ctx.pop()"
 }

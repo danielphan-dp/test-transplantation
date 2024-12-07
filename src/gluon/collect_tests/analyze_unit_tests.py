@@ -169,7 +169,17 @@ class TestAnalyzer:
         """Analyze a single test case using both static and dynamic analysis"""
         try:
             # Static analysis results
-            static_methods = [method["name"] for method in test_case["methods_under_test"]]
+            static_methods = []
+            for method in test_case["methods_under_test"]:
+                # Include the method name and its source code
+                static_methods.append(
+                    {
+                        "name": method["name"],
+                        "source_code": method.get("body", ""),  # Include the source code
+                        "file_path": method.get("file_path", ""),
+                        "line_number": method.get("line_number", 0),
+                    }
+                )
 
             # Run the test and get static calls and success status
             traced_calls, success = self.run_test_with_tracing(test_case)
@@ -177,11 +187,12 @@ class TestAnalyzer:
             return {
                 "test_name": test_case["name"],
                 "test_file": test_case["file_path"],
-                "static_methods": static_methods,
-                "dynamic_methods": traced_calls,  # Now using static calls since tracing isn't working
+                "static_methods": static_methods,  # Now includes source code
+                "dynamic_methods": traced_calls,
                 "assertions": test_case.get("assertions", []),
                 "mocks": test_case.get("mocks", []),
-                "success": success,  # Using actual test execution result
+                "success": success,
+                "test_source_code": test_case.get("source_code", ""),  # Also include test source code
             }
         except Exception as e:
             logger.warning(f"Error analyzing test {test_case['name']}: {str(e)}")
@@ -194,6 +205,7 @@ class TestAnalyzer:
                 "mocks": [],
                 "success": False,
                 "error": str(e),
+                "test_source_code": test_case.get("source_code", ""),
             }
 
     def print_analysis(self, analysis: Dict):
@@ -204,7 +216,11 @@ class TestAnalyzer:
 
         print("\nMethods Under Test (Static Analysis):")
         for method in analysis["static_methods"]:
-            print(f"  - {method}")
+            print(f"  - {method['name']} ({Path(method['file_path']).name}:{method['line_number']})")
+            if method.get("source_code"):
+                print("    Source code:")
+                for line in method["source_code"].splitlines():
+                    print(f"      {line}")
 
         print("\nMethods Actually Called (Dynamic Analysis):")
         seen_methods = set()
@@ -214,6 +230,11 @@ class TestAnalyzer:
                 print(f"  - {method_sig}")
                 print(f"    Called by: {call['caller']}")
                 seen_methods.add(method_sig)
+
+        print("\nTest Source Code:")
+        if analysis.get("test_source_code"):
+            for line in analysis["test_source_code"].splitlines():
+                print(f"  {line}")
 
         print("\nAssertions:")
         for assertion in analysis["assertions"]:

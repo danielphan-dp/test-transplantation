@@ -2,10 +2,30 @@
   "test_name": "test_method_route",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "getattr",
-    "getattr",
-    "method_route",
-    "client_method"
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "method_route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client_method",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert client_method('/').data == b'Hello'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_method_route(app, client, method):\n    method_route = getattr(app, method)\n    client_method = getattr(client, method)\n\n    @method_route(\"/\")\n    def hello():\n        return \"Hello\"\n\n    assert client_method(\"/\").data == b\"Hello\""
 }

@@ -2,16 +2,66 @@
   "test_name": "test_aborting",
   "test_file": "__internal__/_data/flask/tests/test_regression.py",
   "static_methods": [
-    "app.test_client",
-    "app.errorhandler",
-    "app.route",
-    "app.route",
-    "str",
-    "Foo",
-    "app.test_client",
-    "c.get",
-    "rv.headers.rpartition",
-    "c.get"
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.rpartition",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -81,5 +131,6 @@
     "assert location_parts[0] == 'http://localhost'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_aborting(app):\n    class Foo(Exception):\n        whatever = 42\n\n    @app.errorhandler(Foo)\n    def handle_foo(e):\n        return str(e.whatever)\n\n    @app.route(\"/\")\n    def index():\n        raise flask.abort(flask.redirect(flask.url_for(\"test\")))\n\n    @app.route(\"/test\")\n    def test():\n        raise Foo()\n\n    with app.test_client() as c:\n        rv = c.get(\"/\")\n        location_parts = rv.headers[\"Location\"].rpartition(\"/\")\n\n        if location_parts[0]:\n            # For older Werkzeug that used absolute redirects.\n            assert location_parts[0] == \"http://localhost\"\n\n        assert location_parts[2] == \"test\"\n        rv = c.get(\"/test\")\n        assert rv.data == b\"42\""
 }

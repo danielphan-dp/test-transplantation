@@ -2,7 +2,12 @@
   "test_name": "test_g_iteration_protocol",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "sorted"
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -18,5 +23,6 @@
     "assert sorted(flask.g) == ['bar', 'foo']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_g_iteration_protocol(app_ctx):\n    flask.g.foo = 23\n    flask.g.bar = 42\n    assert \"foo\" in flask.g\n    assert \"foos\" not in flask.g\n    assert sorted(flask.g) == [\"bar\", \"foo\"]"
 }

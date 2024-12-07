@@ -2,11 +2,36 @@
   "test_name": "test_unique_blueprint_names",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "app.register_blueprint",
-    "app.register_blueprint",
-    "app.register_blueprint",
-    "app.register_blueprint",
-    "app.register_blueprint"
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -42,5 +67,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_unique_blueprint_names(app, client) -> None:\n    bp = flask.Blueprint(\"bp\", __name__)\n    bp2 = flask.Blueprint(\"bp\", __name__)\n\n    app.register_blueprint(bp)\n\n    with pytest.raises(ValueError):\n        app.register_blueprint(bp)  # same bp, same name, error\n\n    app.register_blueprint(bp, name=\"again\")  # same bp, different name, ok\n\n    with pytest.raises(ValueError):\n        app.register_blueprint(bp2)  # different bp, same name, error\n\n    app.register_blueprint(bp2, name=\"alt\")"
 }

@@ -2,11 +2,36 @@
   "test_name": "test_blueprint_with_subdomain",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.test_client",
-    "bp.route",
-    "app.register_blueprint",
-    "app.test_request_context",
-    "client.get"
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -46,5 +71,6 @@
     "assert ctx.request.blueprint == bp.name"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_blueprint_with_subdomain():\n    app = flask.Flask(__name__, subdomain_matching=True)\n    app.config[\"SERVER_NAME\"] = \"example.com:1234\"\n    app.config[\"APPLICATION_ROOT\"] = \"/foo\"\n    client = app.test_client()\n\n    bp = flask.Blueprint(\"company\", __name__, subdomain=\"xxx\")\n\n    @bp.route(\"/\")\n    def index():\n        return flask.request.url\n\n    app.register_blueprint(bp)\n\n    ctx = app.test_request_context(\"/\", subdomain=\"xxx\")\n    assert ctx.request.url == \"http://xxx.example.com:1234/foo/\"\n\n    with ctx:\n        assert ctx.request.blueprint == bp.name\n\n    rv = client.get(\"/\", subdomain=\"xxx\")\n    assert rv.data == b\"http://xxx.example.com:1234/foo/\""
 }

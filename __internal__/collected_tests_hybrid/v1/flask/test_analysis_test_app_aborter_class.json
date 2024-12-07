@@ -2,8 +2,18 @@
   "test_name": "test_app_aborter_class",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "MyFlask",
-    "isinstance"
+    {
+      "name": "MyFlask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert isinstance(app.aborter, MyAborter)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_app_aborter_class():\n    class MyAborter(werkzeug.exceptions.Aborter):\n        pass\n\n    class MyFlask(flask.Flask):\n        aborter_class = MyAborter\n\n    app = MyFlask(__name__)\n    assert isinstance(app.aborter, MyAborter)"
 }

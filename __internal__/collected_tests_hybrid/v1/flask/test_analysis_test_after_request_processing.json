@@ -2,8 +2,18 @@
   "test_name": "test_after_request_processing",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -24,5 +34,6 @@
     "assert resp.headers['X-Foo'] == 'a header'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_after_request_processing(app, client):\n    @app.route(\"/\")\n    def index():\n        @flask.after_this_request\n        def foo(response):\n            response.headers[\"X-Foo\"] = \"a header\"\n            return response\n\n        return \"Test\"\n\n    resp = client.get(\"/\")\n    assert resp.status_code == 200\n    assert resp.headers[\"X-Foo\"] == \"a header\""
 }

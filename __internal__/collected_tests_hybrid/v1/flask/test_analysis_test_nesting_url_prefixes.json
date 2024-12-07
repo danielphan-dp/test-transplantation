@@ -2,10 +2,30 @@
   "test_name": "test_nesting_url_prefixes",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "child.route",
-    "parent.register_blueprint",
-    "app.register_blueprint",
-    "client.get"
+    {
+      "name": "child.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parent.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert response.status_code == 200"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_nesting_url_prefixes(\n    parent_init,\n    child_init,\n    parent_registration,\n    child_registration,\n    app,\n    client,\n) -> None:\n    parent = flask.Blueprint(\"parent\", __name__, url_prefix=parent_init)\n    child = flask.Blueprint(\"child\", __name__, url_prefix=child_init)\n\n    @child.route(\"/\")\n    def index():\n        return \"index\"\n\n    parent.register_blueprint(child, url_prefix=child_registration)\n    app.register_blueprint(parent, url_prefix=parent_registration)\n\n    response = client.get(\"/parent/child/\")\n    assert response.status_code == 200"
 }

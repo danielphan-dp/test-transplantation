@@ -2,13 +2,48 @@
   "test_name": "test_suppressed_exception_logging",
   "test_file": "__internal__/_data/flask/tests/test_subclassing.py",
   "static_methods": [
-    "StringIO",
-    "SuppressedFlask",
-    "app.route",
-    "app.test_client.get",
-    "Exception",
-    "out.getvalue",
-    "app.test_client"
+    {
+      "name": "StringIO",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SuppressedFlask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Exception",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "out.getvalue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -60,5 +95,6 @@
     "assert not out.getvalue()"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_suppressed_exception_logging():\n    class SuppressedFlask(flask.Flask):\n        def log_exception(self, exc_info):\n            pass\n\n    out = StringIO()\n    app = SuppressedFlask(__name__)\n\n    @app.route(\"/\")\n    def index():\n        raise Exception(\"test\")\n\n    rv = app.test_client().get(\"/\", errors_stream=out)\n    assert rv.status_code == 500\n    assert b\"Internal Server Error\" in rv.data\n    assert not out.getvalue()"
 }

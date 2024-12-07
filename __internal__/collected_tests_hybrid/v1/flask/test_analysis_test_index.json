@@ -2,9 +2,24 @@
   "test_name": "test_index",
   "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_blog.py",
   "static_methods": [
-    "client.get",
-    "auth.login",
-    "client.get"
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "auth.login",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -35,5 +50,6 @@
     "assert b'href=\"/1/update\"' in response.data"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_index(client, auth):\n    response = client.get(\"/\")\n    assert b\"Log In\" in response.data\n    assert b\"Register\" in response.data\n\n    auth.login()\n    response = client.get(\"/\")\n    assert b\"test title\" in response.data\n    assert b\"by test on 2018-01-01\" in response.data\n    assert b\"test\\nbody\" in response.data\n    assert b'href=\"/1/update\"' in response.data"
 }

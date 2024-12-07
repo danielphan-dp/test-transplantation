@@ -2,13 +2,48 @@
   "test_name": "test_session_error_pops_context",
   "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
-    "CustomFlask",
-    "app.route",
-    "app.test_client.get",
-    "FailingSessionInterface",
-    "AssertionError",
-    "SessionError",
-    "app.test_client"
+    {
+      "name": "CustomFlask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FailingSessionInterface",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AssertionError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SessionError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -60,5 +95,6 @@
     "assert not flask.current_app"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_error_pops_context():\n    class SessionError(Exception):\n        pass\n\n    class FailingSessionInterface(SessionInterface):\n        def open_session(self, app, request):\n            raise SessionError()\n\n    class CustomFlask(flask.Flask):\n        session_interface = FailingSessionInterface()\n\n    app = CustomFlask(__name__)\n\n    @app.route(\"/\")\n    def index():\n        # shouldn't get here\n        AssertionError()\n\n    response = app.test_client().get(\"/\")\n    assert response.status_code == 500\n    assert not flask.request\n    assert not flask.current_app"
 }

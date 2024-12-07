@@ -17,5 +17,6 @@
     "assert app.jinja_env.auto_reload is True"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_templates_auto_reload(app):\n    # debug is False, config option is None\n    assert app.debug is False\n    assert app.config[\"TEMPLATES_AUTO_RELOAD\"] is None\n    assert app.jinja_env.auto_reload is False\n    # debug is False, config option is False\n    app = flask.Flask(__name__)\n    app.config[\"TEMPLATES_AUTO_RELOAD\"] = False\n    assert app.debug is False\n    assert app.jinja_env.auto_reload is False\n    # debug is False, config option is True\n    app = flask.Flask(__name__)\n    app.config[\"TEMPLATES_AUTO_RELOAD\"] = True\n    assert app.debug is False\n    assert app.jinja_env.auto_reload is True\n    # debug is True, config option is None\n    app = flask.Flask(__name__)\n    app.config[\"DEBUG\"] = True\n    assert app.config[\"TEMPLATES_AUTO_RELOAD\"] is None\n    assert app.jinja_env.auto_reload is True\n    # debug is True, config option is False\n    app = flask.Flask(__name__)\n    app.config[\"DEBUG\"] = True\n    app.config[\"TEMPLATES_AUTO_RELOAD\"] = False\n    assert app.jinja_env.auto_reload is False\n    # debug is True, config option is True\n    app = flask.Flask(__name__)\n    app.config[\"DEBUG\"] = True\n    app.config[\"TEMPLATES_AUTO_RELOAD\"] = True\n    assert app.jinja_env.auto_reload is True"
 }

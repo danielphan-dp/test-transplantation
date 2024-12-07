@@ -2,11 +2,36 @@
   "test_name": "test_limit_config",
   "test_file": "__internal__/_data/flask/tests/test_request.py",
   "static_methods": [
-    "app.app_context",
-    "app.app_context",
-    "Request",
-    "app.app_context",
-    "app.app_context"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -55,5 +80,6 @@
     "assert r.max_form_parts == 4"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_limit_config(app: Flask):\n    app.config[\"MAX_CONTENT_LENGTH\"] = 100\n    app.config[\"MAX_FORM_MEMORY_SIZE\"] = 50\n    app.config[\"MAX_FORM_PARTS\"] = 3\n    r = Request({})\n\n    # no app context, use Werkzeug defaults\n    assert r.max_content_length is None\n    assert r.max_form_memory_size == 500_000\n    assert r.max_form_parts == 1_000\n\n    # in app context, use config\n    with app.app_context():\n        assert r.max_content_length == 100\n        assert r.max_form_memory_size == 50\n        assert r.max_form_parts == 3\n\n    # regardless of app context, use override\n    r.max_content_length = 90\n    r.max_form_memory_size = 30\n    r.max_form_parts = 4\n\n    assert r.max_content_length == 90\n    assert r.max_form_memory_size == 30\n    assert r.max_form_parts == 4\n\n    with app.app_context():\n        assert r.max_content_length == 90\n        assert r.max_form_memory_size == 30\n        assert r.max_form_parts == 4"
 }

@@ -2,9 +2,24 @@
   "test_name": "test_jsonify_datetime",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "http_date"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "http_date",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert r.json['value'] == http_date(value)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_jsonify_datetime(app, client, value):\n    @app.route(\"/\")\n    def index():\n        return flask.jsonify(value=value)\n\n    r = client.get()\n    assert r.json[\"value\"] == http_date(value)"
 }

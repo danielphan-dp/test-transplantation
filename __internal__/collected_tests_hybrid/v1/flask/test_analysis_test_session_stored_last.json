@@ -2,10 +2,30 @@
   "test_name": "test_session_stored_last",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "repr",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert client.get('/').data == b'42'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_stored_last(app, client):\n    @app.after_request\n    def modify_session(response):\n        flask.session[\"foo\"] = 42\n        return response\n\n    @app.route(\"/\")\n    def dump_session_contents():\n        return repr(flask.session.get(\"foo\"))\n\n    assert client.get(\"/\").data == b\"None\"\n    assert client.get(\"/\").data == b\"42\""
 }

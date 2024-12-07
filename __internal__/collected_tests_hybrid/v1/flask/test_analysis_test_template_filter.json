@@ -2,9 +2,24 @@
   "test_name": "test_template_filter",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.template_filter",
-    "app.jinja_env.filters.keys",
-    "app.jinja_env.filters"
+    {
+      "name": "app.template_filter",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.filters.keys",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.filters",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -32,5 +47,6 @@
     "assert app.jinja_env.filters['my_reverse']('abcd') == 'dcba'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_template_filter(app):\n    @app.template_filter()\n    def my_reverse(s):\n        return s[::-1]\n\n    assert \"my_reverse\" in app.jinja_env.filters.keys()\n    assert app.jinja_env.filters[\"my_reverse\"] == my_reverse\n    assert app.jinja_env.filters[\"my_reverse\"](\"abcd\") == \"dcba\""
 }

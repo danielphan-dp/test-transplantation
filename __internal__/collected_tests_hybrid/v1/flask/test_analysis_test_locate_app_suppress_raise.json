@@ -2,8 +2,18 @@
   "test_name": "test_locate_app_suppress_raise",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "locate_app",
-    "locate_app"
+    {
+      "name": "locate_app",
+      "source_code": "def locate_app(\n    module_name: str, app_name: str | None, raise_if_not_found: t.Literal[True] = True\n) -> Flask: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 230
+    },
+    {
+      "name": "locate_app",
+      "source_code": "def locate_app(\n    module_name: str, app_name: str | None, raise_if_not_found: t.Literal[True] = True\n) -> Flask: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 230
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert app is None"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_locate_app_suppress_raise(test_apps):\n    app = locate_app(\"notanapp.py\", None, raise_if_not_found=False)\n    assert app is None\n\n    # only direct import error is suppressed\n    with pytest.raises(NoAppException):\n        locate_app(\"cliapp.importerrorapp\", None, raise_if_not_found=False)"
 }

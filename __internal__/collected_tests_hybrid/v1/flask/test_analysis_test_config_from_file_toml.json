@@ -2,8 +2,18 @@
   "test_name": "test_config_from_file_toml",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "app.config.from_file",
-    "common_object_test"
+    {
+      "name": "app.config.from_file",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "common_object_test",
+      "source_code": "def common_object_test(app):\n    assert app.secret_key == \"config\"\n    assert app.config[\"TEST_KEY\"] == \"foo\"\n    assert \"TestConfig\" not in app.config",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_config.py",
+      "line_number": 13
+    }
   ],
   "dynamic_methods": [
     {
@@ -21,5 +31,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_config_from_file_toml():\n    tomllib = pytest.importorskip(\"tomllib\", reason=\"tomllib added in 3.11\")\n    app = flask.Flask(__name__)\n    current_dir = os.path.dirname(os.path.abspath(__file__))\n    app.config.from_file(\n        os.path.join(current_dir, \"static\", \"config.toml\"), tomllib.load, text=False\n    )\n    common_object_test(app)"
 }

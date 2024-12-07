@@ -2,9 +2,24 @@
   "test_name": "test_prepare_import",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "request.addfinalizer",
-    "prepare_import",
-    "str"
+    {
+      "name": "request.addfinalizer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "prepare_import",
+      "source_code": "def prepare_import(path: str) -> str:\n    \"\"\"Given a filename this will try to calculate the python path, add it\n    to the search path and return the actual module name that is expected.\n    \"\"\"\n    path = os.path.realpath(path)\n\n    fname, ext = os.path.splitext(path)\n    if ext == \".py\":\n        path = fname\n\n    if os.path.basename(path) == \"__init__\":\n        path = os.path.dirname(path)\n\n    module_name = []\n\n    # move up until outside package structure (no __init__.py)\n    while True:\n        path, name = os.path.split(path)\n        module_name.append(name)\n\n        if not os.path.exists(os.path.join(path, \"__init__.py\")):\n            break\n\n    if sys.path[0] != path:\n        sys.path.insert(0, path)\n\n    return \".\".join(module_name[::-1])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 200
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert sys.path[0] == str(path)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_prepare_import(request, value, path, result):\n    \"\"\"Expect the correct path to be set and the correct import and app names\n    to be returned.\n\n    :func:`prepare_exec_for_file` has a side effect where the parent directory\n    of the given import is added to :data:`sys.path`. This is reset after the\n    test runs.\n    \"\"\"\n    original_path = sys.path[:]\n\n    def reset_path():\n        sys.path[:] = original_path\n\n    request.addfinalizer(reset_path)\n\n    assert prepare_import(value) == result\n    assert sys.path[0] == str(path)"
 }

@@ -2,8 +2,18 @@
   "test_name": "test_from_pyfile_weird_encoding",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "f.write_text",
-    "app.config.from_pyfile"
+    {
+      "name": "f.write_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_pyfile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert value == 'f\u00f6\u00f6'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_from_pyfile_weird_encoding(tmp_path, encoding):\n    f = tmp_path / \"my_config.py\"\n    f.write_text(f'# -*- coding: {encoding} -*-\\nTEST_VALUE = \"f\u00f6\u00f6\"\\n', encoding)\n    app = flask.Flask(__name__)\n    app.config.from_pyfile(os.fspath(f))\n    value = app.config[\"TEST_VALUE\"]\n    assert value == \"f\u00f6\u00f6\""
 }

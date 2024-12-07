@@ -2,16 +2,66 @@
   "test_name": "test_server_name_subdomain",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_client",
-    "app.route",
-    "app.route",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -85,5 +135,6 @@
     "assert rv.status_code == 404"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_server_name_subdomain():\n    app = flask.Flask(__name__, subdomain_matching=True)\n    client = app.test_client()\n\n    @app.route(\"/\")\n    def index():\n        return \"default\"\n\n    @app.route(\"/\", subdomain=\"foo\")\n    def subdomain():\n        return \"subdomain\"\n\n    app.config[\"SERVER_NAME\"] = \"dev.local:5000\"\n    rv = client.get(\"/\")\n    assert rv.data == b\"default\"\n\n    rv = client.get(\"/\", \"http://dev.local:5000\")\n    assert rv.data == b\"default\"\n\n    rv = client.get(\"/\", \"https://dev.local:5000\")\n    assert rv.data == b\"default\"\n\n    app.config[\"SERVER_NAME\"] = \"dev.local:443\"\n    rv = client.get(\"/\", \"https://dev.local\")\n\n    # Werkzeug 1.0 fixes matching https scheme with 443 port\n    if rv.status_code != 404:\n        assert rv.data == b\"default\"\n\n    app.config[\"SERVER_NAME\"] = \"dev.local\"\n    rv = client.get(\"/\", \"https://dev.local\")\n    assert rv.data == b\"default\"\n\n    # suppress Werkzeug 0.15 warning about name mismatch\n    with warnings.catch_warnings():\n        warnings.filterwarnings(\n            \"ignore\", \"Current server name\", UserWarning, \"flask.app\"\n        )\n        rv = client.get(\"/\", \"http://foo.localhost\")\n        assert rv.status_code == 404\n\n    rv = client.get(\"/\", \"http://foo.dev.local\")\n    assert rv.data == b\"subdomain\""
 }

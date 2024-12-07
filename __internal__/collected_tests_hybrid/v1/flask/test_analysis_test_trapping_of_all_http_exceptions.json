@@ -2,8 +2,18 @@
   "test_name": "test_trapping_of_all_http_exceptions",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -21,5 +31,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_trapping_of_all_http_exceptions(app, client):\n    app.config[\"TRAP_HTTP_EXCEPTIONS\"] = True\n\n    @app.route(\"/fail\")\n    def fail():\n        flask.abort(404)\n\n    with pytest.raises(NotFound):\n        client.get(\"/fail\")"
 }

@@ -2,10 +2,30 @@
   "test_name": "test_teardown_request_handler_debug_mode",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "called.append",
-    "len"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -39,5 +59,6 @@
     "assert len(called) == 1"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_teardown_request_handler_debug_mode(app, client):\n    called = []\n\n    @app.teardown_request\n    def teardown_request(exc):\n        called.append(True)\n        return \"Ignored\"\n\n    @app.route(\"/\")\n    def root():\n        return \"Response\"\n\n    rv = client.get(\"/\")\n    assert rv.status_code == 200\n    assert b\"Response\" in rv.data\n    assert len(called) == 1"
 }

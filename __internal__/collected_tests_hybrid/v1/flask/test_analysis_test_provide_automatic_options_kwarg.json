@@ -2,18 +2,78 @@
   "test_name": "test_provide_automatic_options_kwarg",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.add_url_rule",
-    "app.add_url_rule",
-    "client.post",
-    "client.open",
-    "client.head",
-    "client.delete",
-    "client.open",
-    "sorted",
-    "sorted",
-    "client.get",
-    "client.post",
-    "client.get"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.head",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.delete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -103,5 +163,6 @@
     "assert rv.status_code == 405"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_provide_automatic_options_kwarg(app, client):\n    def index():\n        return flask.request.method\n\n    def more():\n        return flask.request.method\n\n    app.add_url_rule(\"/\", view_func=index, provide_automatic_options=False)\n    app.add_url_rule(\n        \"/more\",\n        view_func=more,\n        methods=[\"GET\", \"POST\"],\n        provide_automatic_options=False,\n    )\n    assert client.get(\"/\").data == b\"GET\"\n\n    rv = client.post(\"/\")\n    assert rv.status_code == 405\n    assert sorted(rv.allow) == [\"GET\", \"HEAD\"]\n\n    rv = client.open(\"/\", method=\"OPTIONS\")\n    assert rv.status_code == 405\n\n    rv = client.head(\"/\")\n    assert rv.status_code == 200\n    assert not rv.data  # head truncates\n    assert client.post(\"/more\").data == b\"POST\"\n    assert client.get(\"/more\").data == b\"GET\"\n\n    rv = client.delete(\"/more\")\n    assert rv.status_code == 405\n    assert sorted(rv.allow) == [\"GET\", \"HEAD\", \"POST\"]\n\n    rv = client.open(\"/more\", method=\"OPTIONS\")\n    assert rv.status_code == 405"
 }

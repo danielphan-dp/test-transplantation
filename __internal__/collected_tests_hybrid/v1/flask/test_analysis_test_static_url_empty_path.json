@@ -2,9 +2,24 @@
   "test_name": "test_static_url_empty_path",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_client.open",
-    "rv.close",
-    "app.test_client"
+    {
+      "name": "app.test_client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.status_code == 200"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_static_url_empty_path(app):\n    app = flask.Flask(__name__, static_folder=\"\", static_url_path=\"\")\n    rv = app.test_client().open(\"/static/index.html\", method=\"GET\")\n    assert rv.status_code == 200\n    rv.close()"
 }

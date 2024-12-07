@@ -2,8 +2,18 @@
   "test_name": "test_simple",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "FlaskCliRunner.invoke",
-    "self.expect_order"
+    {
+      "name": "FlaskCliRunner.invoke",
+      "source_code": "def invoke(  # type: ignore\n        self, cli: t.Any = None, args: t.Any = None, **kwargs: t.Any\n    ) -> Result:\n        \"\"\"Invokes a CLI command in an isolated environment. See\n        :meth:`CliRunner.invoke <click.testing.CliRunner.invoke>` for\n        full method documentation. See :ref:`testing-cli` for examples.\n\n        If the ``obj`` argument is not given, passes an instance of\n        :class:`~flask.cli.ScriptInfo` that knows how to load the Flask\n        app being tested.\n\n        :param cli: Command object to invoke. Default is the app's\n            :attr:`~flask.app.Flask.cli` group.\n        :param args: List of strings to invoke the command with.\n\n        :return: a :class:`~click.testing.Result` object.\n        \"\"\"\n        if cli is None:\n            cli = self.app.cli\n\n        if \"obj\" not in kwargs:\n            kwargs[\"obj\"] = ScriptInfo(create_app=lambda: self.app)\n\n        return super().invoke(cli, args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
+      "line_number": 275
+    },
+    {
+      "name": "self.expect_order",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert result.exit_code == 0"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_simple(self, invoke):\n        result = invoke([\"routes\"])\n        assert result.exit_code == 0\n        self.expect_order([\"aaa_post\", \"static\", \"yyy_get_post\"], result.output)"
 }

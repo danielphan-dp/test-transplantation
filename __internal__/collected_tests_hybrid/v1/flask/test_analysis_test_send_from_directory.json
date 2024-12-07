@@ -2,8 +2,18 @@
   "test_name": "test_send_from_directory",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "rv.close",
-    "rv.data.strip"
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.data.strip",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert rv.data.strip() == b'Hello Subdomain'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_send_from_directory(self, app, req_ctx):\n        app.root_path = os.path.join(\n            os.path.dirname(__file__), \"test_apps\", \"subdomaintestmodule\"\n        )\n        rv = flask.send_from_directory(\"static\", \"hello.txt\")\n        rv.direct_passthrough = False\n        assert rv.data.strip() == b\"Hello Subdomain\"\n        rv.close()"
 }

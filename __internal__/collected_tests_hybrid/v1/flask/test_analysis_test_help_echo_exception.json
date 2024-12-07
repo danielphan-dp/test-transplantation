@@ -2,11 +2,36 @@
   "test_name": "test_help_echo_exception",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "FlaskGroup",
-    "runner.invoke",
-    "Exception",
-    "CliRunner",
-    "CliRunner"
+    {
+      "name": "FlaskGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Exception",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CliRunner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CliRunner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -46,5 +71,6 @@
     "assert 'Usage:' in result.stdout"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_help_echo_exception():\n    def create_app():\n        raise Exception(\"oh no\")\n\n    cli = FlaskGroup(create_app=create_app)\n\n    try:\n        runner = CliRunner(mix_stderr=False)\n    except (DeprecationWarning, TypeError):\n        # Click >= 8.2\n        runner = CliRunner()\n\n    result = runner.invoke(cli, [\"--help\"])\n    assert result.exit_code == 0\n    assert \"Exception: oh no\" in result.stderr\n    assert \"Usage:\" in result.stdout"
 }

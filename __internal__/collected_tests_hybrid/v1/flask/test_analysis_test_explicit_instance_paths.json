@@ -7,5 +7,6 @@
     "assert app.instance_path == os.fspath(modules_tmp_path)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_explicit_instance_paths(modules_tmp_path):\n    with pytest.raises(ValueError, match=\".*must be absolute\"):\n        flask.Flask(__name__, instance_path=\"instance\")\n\n    app = flask.Flask(__name__, instance_path=os.fspath(modules_tmp_path))\n    assert app.instance_path == os.fspath(modules_tmp_path)"
 }

@@ -2,10 +2,30 @@
   "test_name": "test_template_test_with_name",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.template_test",
-    "app.jinja_env.tests",
-    "isinstance",
-    "app.jinja_env.tests.keys"
+    {
+      "name": "app.template_test",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.tests",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.tests.keys",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -39,5 +59,6 @@
     "assert app.jinja_env.tests['boolean'](False)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_template_test_with_name(app):\n    @app.template_test(\"boolean\")\n    def is_boolean(value):\n        return isinstance(value, bool)\n\n    assert \"boolean\" in app.jinja_env.tests.keys()\n    assert app.jinja_env.tests[\"boolean\"] == is_boolean\n    assert app.jinja_env.tests[\"boolean\"](False)"
 }

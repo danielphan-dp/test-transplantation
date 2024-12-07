@@ -2,9 +2,24 @@
   "test_name": "test_json_bad_requests",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.route",
-    "client.post",
-    "str"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.status_code == 400"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_bad_requests(app, client):\n    @app.route(\"/json\", methods=[\"POST\"])\n    def return_json():\n        return flask.jsonify(foo=str(flask.request.get_json()))\n\n    rv = client.post(\"/json\", data=\"malformed\", content_type=\"application/json\")\n    assert rv.status_code == 400"
 }

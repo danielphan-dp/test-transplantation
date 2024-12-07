@@ -2,31 +2,156 @@
   "test_name": "test_find_best_app",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "find_best_app",
-    "isinstance",
-    "find_best_app",
-    "isinstance",
-    "find_best_app",
-    "isinstance",
-    "Flask",
-    "find_best_app",
-    "Flask",
-    "find_best_app",
-    "Flask",
-    "find_best_app",
-    "Flask",
-    "find_best_app",
-    "Flask",
-    "find_best_app",
-    "Flask",
-    "Flask",
-    "Flask",
-    "Flask",
-    "Flask",
-    "Flask",
-    "Flask",
-    "Flask",
-    "TypeError"
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_best_app",
+      "source_code": "def find_best_app(module: ModuleType) -> Flask:\n    \"\"\"Given a module instance this tries to find the best possible\n    application in the module or raises an exception.\n    \"\"\"\n    from . import Flask\n\n    # Search for the most common names first.\n    for attr_name in (\"app\", \"application\"):\n        app = getattr(module, attr_name, None)\n\n        if isinstance(app, Flask):\n            return app\n\n    # Otherwise find the only object that is a Flask instance.\n    matches = [v for v in module.__dict__.values() if isinstance(v, Flask)]\n\n    if len(matches) == 1:\n        return matches[0]\n    elif len(matches) > 1:\n        raise NoAppException(\n            \"Detected multiple Flask applications in module\"\n            f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n            \" to specify the correct one.\"\n        )\n\n    # Search for app factory functions.\n    for attr_name in (\"create_app\", \"make_app\"):\n        app_factory = getattr(module, attr_name, None)\n\n        if inspect.isfunction(app_factory):\n            try:\n                app = app_factory()\n\n                if isinstance(app, Flask):\n                    return app\n            except TypeError as e:\n                if not _called_with_wrong_args(app_factory):\n                    raise\n\n                raise NoAppException(\n                    f\"Detected factory '{attr_name}' in module '{module.__name__}',\"\n                    \" but could not call it without arguments. Use\"\n                    f\" '{module.__name__}:{attr_name}(args)'\"\n                    \" to specify arguments.\"\n                ) from e\n\n    raise NoAppException(\n        \"Failed to find Flask application or factory in module\"\n        f\" '{module.__name__}'. Use '{module.__name__}:name'\"\n        \" to specify one.\"\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 41
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TypeError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -194,5 +319,6 @@
     "assert find_best_app(Module) == Module.myapp"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_find_best_app(test_apps):\n    class Module:\n        app = Flask(\"appname\")\n\n    assert find_best_app(Module) == Module.app\n\n    class Module:\n        application = Flask(\"appname\")\n\n    assert find_best_app(Module) == Module.application\n\n    class Module:\n        myapp = Flask(\"appname\")\n\n    assert find_best_app(Module) == Module.myapp\n\n    class Module:\n        @staticmethod\n        def create_app():\n            return Flask(\"appname\")\n\n    app = find_best_app(Module)\n    assert isinstance(app, Flask)\n    assert app.name == \"appname\"\n\n    class Module:\n        @staticmethod\n        def create_app(**kwargs):\n            return Flask(\"appname\")\n\n    app = find_best_app(Module)\n    assert isinstance(app, Flask)\n    assert app.name == \"appname\"\n\n    class Module:\n        @staticmethod\n        def make_app():\n            return Flask(\"appname\")\n\n    app = find_best_app(Module)\n    assert isinstance(app, Flask)\n    assert app.name == \"appname\"\n\n    class Module:\n        myapp = Flask(\"appname1\")\n\n        @staticmethod\n        def create_app():\n            return Flask(\"appname2\")\n\n    assert find_best_app(Module) == Module.myapp\n\n    class Module:\n        myapp = Flask(\"appname1\")\n\n        @staticmethod\n        def create_app():\n            return Flask(\"appname2\")\n\n    assert find_best_app(Module) == Module.myapp\n\n    class Module:\n        pass\n\n    pytest.raises(NoAppException, find_best_app, Module)\n\n    class Module:\n        myapp1 = Flask(\"appname1\")\n        myapp2 = Flask(\"appname2\")\n\n    pytest.raises(NoAppException, find_best_app, Module)\n\n    class Module:\n        @staticmethod\n        def create_app(foo, bar):\n            return Flask(\"appname2\")\n\n    pytest.raises(NoAppException, find_best_app, Module)\n\n    class Module:\n        @staticmethod\n        def create_app():\n            raise TypeError(\"bad bad factory!\")\n\n    pytest.raises(TypeError, find_best_app, Module)"
 }

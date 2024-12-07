@@ -2,11 +2,36 @@
   "test_name": "test_greenlet_context_copying_api",
   "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "greenlets.run",
-    "greenlets.append",
-    "greenlet"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "greenlets.run",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "greenlets.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "greenlet",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -50,5 +75,6 @@
     "assert flask.session.get('fizz') == 'buzz'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_greenlet_context_copying_api(self, app, client):\n        greenlets = []\n\n        @app.route(\"/\")\n        def index():\n            flask.session[\"fizz\"] = \"buzz\"\n\n            @flask.copy_current_request_context\n            def g():\n                assert flask.request\n                assert flask.current_app == app\n                assert flask.request.path == \"/\"\n                assert flask.request.args[\"foo\"] == \"bar\"\n                assert flask.session.get(\"fizz\") == \"buzz\"\n                return 42\n\n            greenlets.append(greenlet(g))\n            return \"Hello World!\"\n\n        rv = client.get(\"/?foo=bar\")\n        assert rv.data == b\"Hello World!\"\n\n        result = greenlets[0].run()\n        assert result == 42"
 }

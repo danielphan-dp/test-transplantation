@@ -2,21 +2,96 @@
   "test_name": "test_session_cookie_setting",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "app.test_client",
-    "run_test",
-    "run_test",
-    "run_test",
-    "run_test",
-    "str",
-    "str",
-    "app.test_client",
-    "c.get",
-    "rv.headers.get",
-    "c.get",
-    "c.get",
-    "c.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_test",
+      "source_code": "def run_test(expect_header):\n        with app.test_client() as c:\n            assert c.get(\"/bump\").data == b\"1\"\n            assert c.get(\"/bump\").data == b\"2\"\n            assert c.get(\"/bump\").data == b\"3\"\n\n            rv = c.get(\"/read\")\n            set_cookie = rv.headers.get(\"set-cookie\")\n            assert (set_cookie is not None) == expect_header\n            assert rv.data == b\"3\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
+      "line_number": 485
+    },
+    {
+      "name": "run_test",
+      "source_code": "def run_test(expect_header):\n        with app.test_client() as c:\n            assert c.get(\"/bump\").data == b\"1\"\n            assert c.get(\"/bump\").data == b\"2\"\n            assert c.get(\"/bump\").data == b\"3\"\n\n            rv = c.get(\"/read\")\n            set_cookie = rv.headers.get(\"set-cookie\")\n            assert (set_cookie is not None) == expect_header\n            assert rv.data == b\"3\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
+      "line_number": 485
+    },
+    {
+      "name": "run_test",
+      "source_code": "def run_test(expect_header):\n        with app.test_client() as c:\n            assert c.get(\"/bump\").data == b\"1\"\n            assert c.get(\"/bump\").data == b\"2\"\n            assert c.get(\"/bump\").data == b\"3\"\n\n            rv = c.get(\"/read\")\n            set_cookie = rv.headers.get(\"set-cookie\")\n            assert (set_cookie is not None) == expect_header\n            assert rv.data == b\"3\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
+      "line_number": 485
+    },
+    {
+      "name": "run_test",
+      "source_code": "def run_test(expect_header):\n        with app.test_client() as c:\n            assert c.get(\"/bump\").data == b\"1\"\n            assert c.get(\"/bump\").data == b\"2\"\n            assert c.get(\"/bump\").data == b\"3\"\n\n            rv = c.get(\"/read\")\n            set_cookie = rv.headers.get(\"set-cookie\")\n            assert (set_cookie is not None) == expect_header\n            assert rv.data == b\"3\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
+      "line_number": 485
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -118,5 +193,6 @@
     "assert rv.data == b'3'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_cookie_setting(app):\n    is_permanent = True\n\n    @app.route(\"/bump\")\n    def bump():\n        rv = flask.session[\"foo\"] = flask.session.get(\"foo\", 0) + 1\n        flask.session.permanent = is_permanent\n        return str(rv)\n\n    @app.route(\"/read\")\n    def read():\n        return str(flask.session.get(\"foo\", 0))\n\n    def run_test(expect_header):\n        with app.test_client() as c:\n            assert c.get(\"/bump\").data == b\"1\"\n            assert c.get(\"/bump\").data == b\"2\"\n            assert c.get(\"/bump\").data == b\"3\"\n\n            rv = c.get(\"/read\")\n            set_cookie = rv.headers.get(\"set-cookie\")\n            assert (set_cookie is not None) == expect_header\n            assert rv.data == b\"3\"\n\n    is_permanent = True\n    app.config[\"SESSION_REFRESH_EACH_REQUEST\"] = True\n    run_test(expect_header=True)\n\n    is_permanent = True\n    app.config[\"SESSION_REFRESH_EACH_REQUEST\"] = False\n    run_test(expect_header=False)\n\n    is_permanent = False\n    app.config[\"SESSION_REFRESH_EACH_REQUEST\"] = True\n    run_test(expect_header=False)\n\n    is_permanent = False\n    app.config[\"SESSION_REFRESH_EACH_REQUEST\"] = False\n    run_test(expect_header=False)"
 }

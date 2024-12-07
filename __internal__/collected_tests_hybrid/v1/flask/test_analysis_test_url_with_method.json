@@ -2,10 +2,30 @@
   "test_name": "test_url_with_method",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "MyView.as_view",
-    "app.add_url_rule",
-    "app.add_url_rule",
-    "app.add_url_rule"
+    {
+      "name": "MyView.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -39,5 +59,6 @@
     "assert flask.url_for('myview', _method='POST') == '/myview/create'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_url_with_method(self, app, req_ctx):\n        from flask.views import MethodView\n\n        class MyView(MethodView):\n            def get(self, id=None):\n                if id is None:\n                    return \"List\"\n                return f\"Get {id:d}\"\n\n            def post(self):\n                return \"Create\"\n\n        myview = MyView.as_view(\"myview\")\n        app.add_url_rule(\"/myview/\", methods=[\"GET\"], view_func=myview)\n        app.add_url_rule(\"/myview/<int:id>\", methods=[\"GET\"], view_func=myview)\n        app.add_url_rule(\"/myview/create\", methods=[\"POST\"], view_func=myview)\n\n        assert flask.url_for(\"myview\", _method=\"GET\") == \"/myview/\"\n        assert flask.url_for(\"myview\", id=42, _method=\"GET\") == \"/myview/42\"\n        assert flask.url_for(\"myview\", _method=\"POST\") == \"/myview/create\""
 }

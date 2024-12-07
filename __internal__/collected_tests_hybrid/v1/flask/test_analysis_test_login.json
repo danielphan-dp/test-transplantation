@@ -2,9 +2,24 @@
   "test_name": "test_login",
   "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_auth.py",
   "static_methods": [
-    "auth.login",
-    "client.get",
-    "client.get"
+    {
+      "name": "auth.login",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -33,5 +48,6 @@
     "assert g.user['username'] == 'test'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_login(client, auth):\n    # test that viewing the page renders without template errors\n    assert client.get(\"/auth/login\").status_code == 200\n\n    # test that successful login redirects to the index page\n    response = auth.login()\n    assert response.headers[\"Location\"] == \"/\"\n\n    # login request set the user_id in the session\n    # check that the user is loaded from the session\n    with client:\n        client.get(\"/\")\n        assert session[\"user_id\"] == 1\n        assert g.user[\"username\"] == \"test\""
 }

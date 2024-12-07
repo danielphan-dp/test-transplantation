@@ -2,10 +2,30 @@
   "test_name": "test_max_content_length",
   "test_file": "__internal__/_data/flask/tests/test_request.py",
   "static_methods": [
-    "app.post",
-    "app.errorhandler",
-    "client.post",
-    "AssertionError"
+    {
+      "name": "app.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AssertionError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert rv.data == b'42'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_max_content_length(app: Flask, client: FlaskClient) -> None:\n    app.config[\"MAX_CONTENT_LENGTH\"] = 50\n\n    @app.post(\"/\")\n    def index():\n        request.form[\"myfile\"]\n        AssertionError()\n\n    @app.errorhandler(413)\n    def catcher(error):\n        return \"42\"\n\n    rv = client.post(\"/\", data={\"myfile\": \"foo\" * 50})\n    assert rv.data == b\"42\""
 }

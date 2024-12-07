@@ -2,9 +2,24 @@
   "test_name": "test_dotted_names_from_app",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "app.route",
-    "app.register_blueprint",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.data == b'/test/'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_dotted_names_from_app(app, client):\n    test = flask.Blueprint(\"test\", __name__)\n\n    @app.route(\"/\")\n    def app_index():\n        return flask.url_for(\"test.index\")\n\n    @test.route(\"/test/\")\n    def index():\n        return flask.url_for(\"app_index\")\n\n    app.register_blueprint(test)\n\n    rv = client.get(\"/\")\n    assert rv.data == b\"/test/\""
 }

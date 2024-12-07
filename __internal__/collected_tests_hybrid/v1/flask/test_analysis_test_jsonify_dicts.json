@@ -2,9 +2,24 @@
   "test_name": "test_jsonify_dicts",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert flask.json.loads(rv.data) == d"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_jsonify_dicts(app, client):\n    d = {\n        \"a\": 0,\n        \"b\": 23,\n        \"c\": 3.14,\n        \"d\": \"t\",\n        \"e\": \"Hi\",\n        \"f\": True,\n        \"g\": False,\n        \"h\": [\"test list\", 10, False],\n        \"i\": {\"test\": \"dict\"},\n    }\n\n    @app.route(\"/kw\")\n    def return_kwargs():\n        return flask.jsonify(**d)\n\n    @app.route(\"/dict\")\n    def return_dict():\n        return flask.jsonify(d)\n\n    for url in \"/kw\", \"/dict\":\n        rv = client.get(url)\n        assert rv.mimetype == \"application/json\"\n        assert flask.json.loads(rv.data) == d"
 }

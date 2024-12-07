@@ -2,9 +2,24 @@
   "test_name": "test_error_handling_processing",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.errorhandler",
-    "app.route",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert resp.data == b'internal server error'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_error_handling_processing(app, client):\n    app.testing = False\n\n    @app.errorhandler(500)\n    def internal_server_error(e):\n        return \"internal server error\", 500\n\n    @app.route(\"/\")\n    def broken_func():\n        raise ZeroDivisionError\n\n    @app.after_request\n    def after_request(resp):\n        resp.mimetype = \"text/x-special\"\n        return resp\n\n    resp = client.get(\"/\")\n    assert resp.mimetype == \"text/x-special\"\n    assert resp.data == b\"internal server error\""
 }

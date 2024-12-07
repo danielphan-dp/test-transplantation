@@ -2,10 +2,30 @@
   "test_name": "test_jsonify_aware_datetimes",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "FixedOffset",
-    "FixedOffset",
-    "dt.astimezone.strftime",
-    "dt.astimezone"
+    {
+      "name": "FixedOffset",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FixedOffset",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dt.astimezone.strftime",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dt.astimezone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert flask.json.dumps(dt) == expected"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_jsonify_aware_datetimes(tz):\n    \"\"\"Test if aware datetime.datetime objects are converted into GMT.\"\"\"\n    tzinfo = FixedOffset(hours=tz[1], name=tz[0])\n    dt = datetime.datetime(2017, 1, 1, 12, 34, 56, tzinfo=tzinfo)\n    gmt = FixedOffset(hours=0, name=\"GMT\")\n    expected = dt.astimezone(gmt).strftime('\"%a, %d %b %Y %H:%M:%S %Z\"')\n    assert flask.json.dumps(dt) == expected"
 }

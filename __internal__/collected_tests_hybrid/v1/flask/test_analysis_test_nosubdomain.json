@@ -2,10 +2,30 @@
   "test_name": "test_nosubdomain",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.route",
-    "app.test_request_context",
-    "client.get"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert b'xxx' == response.data"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_nosubdomain(app, client):\n    app.config[\"SERVER_NAME\"] = \"example.com\"\n\n    @app.route(\"/<company_id>\")\n    def view(company_id):\n        return company_id\n\n    with app.test_request_context():\n        url = flask.url_for(\"view\", company_id=\"xxx\")\n\n    with client:\n        response = client.get(url)\n\n    assert 200 == response.status_code\n    assert b\"xxx\" == response.data"
 }

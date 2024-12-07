@@ -2,11 +2,36 @@
   "test_name": "test_routing_redirect_debugging",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.post",
-    "monkeypatch.setattr",
-    "client.post",
-    "str"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert \"canonical URL 'http://localhost/user/'\" in str(exc_info.value)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_routing_redirect_debugging(monkeypatch, app, client):\n    app.config[\"DEBUG\"] = True\n\n    @app.route(\"/user/\", methods=[\"GET\", \"POST\"])\n    def user():\n        return flask.request.form[\"status\"]\n\n    # default redirect code preserves form data\n    rv = client.post(\"/user\", data={\"status\": \"success\"}, follow_redirects=True)\n    assert rv.data == b\"success\"\n\n    # 301 and 302 raise error\n    monkeypatch.setattr(RequestRedirect, \"code\", 301)\n\n    with client, pytest.raises(AssertionError) as exc_info:\n        client.post(\"/user\", data={\"status\": \"error\"}, follow_redirects=True)\n\n    assert \"canonical URL 'http://localhost/user/'\" in str(exc_info.value)"
 }

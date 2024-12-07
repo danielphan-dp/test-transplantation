@@ -2,9 +2,24 @@
   "test_name": "test_basic_url_generation",
   "test_file": "__internal__/_data/flask/tests/test_appctx.py",
   "static_methods": [
-    "app.app_context",
-    "app.route",
-    "app.app_context"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv == 'https://localhost/'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_basic_url_generation(app):\n    app.config[\"SERVER_NAME\"] = \"localhost\"\n    app.config[\"PREFERRED_URL_SCHEME\"] = \"https\"\n\n    @app.route(\"/\")\n    def index():\n        pass\n\n    with app.app_context():\n        rv = flask.url_for(\"index\")\n        assert rv == \"https://localhost/\""
 }

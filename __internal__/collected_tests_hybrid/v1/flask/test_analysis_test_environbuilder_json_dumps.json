@@ -2,9 +2,24 @@
   "test_name": "test_environbuilder_json_dumps",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "EnvironBuilder",
-    "eb.input_stream.read.decode",
-    "eb.input_stream.read"
+    {
+      "name": "EnvironBuilder",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "eb.input_stream.read.decode",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "eb.input_stream.read",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert eb.input_stream.read().decode('utf8') == '\"\u20ac\"'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_environbuilder_json_dumps(app):\n    \"\"\"EnvironBuilder.json_dumps() takes settings from the app.\"\"\"\n    app.json.ensure_ascii = False\n    eb = EnvironBuilder(app, json=\"\\u20ac\")\n    assert eb.input_stream.read().decode(\"utf8\") == '\"\\u20ac\"'"
 }

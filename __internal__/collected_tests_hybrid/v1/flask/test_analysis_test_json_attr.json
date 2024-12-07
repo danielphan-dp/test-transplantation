@@ -2,9 +2,24 @@
   "test_name": "test_json_attr",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.route",
-    "client.post",
-    "str"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.data == b'3'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_attr(app, client):\n    @app.route(\"/add\", methods=[\"POST\"])\n    def add():\n        json = flask.request.get_json()\n        return str(json[\"a\"] + json[\"b\"])\n\n    rv = client.post(\n        \"/add\",\n        data=flask.json.dumps({\"a\": 1, \"b\": 2}),\n        content_type=\"application/json\",\n    )\n    assert rv.data == b\"3\""
 }

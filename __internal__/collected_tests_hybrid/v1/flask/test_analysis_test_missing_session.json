@@ -2,10 +2,30 @@
   "test_name": "test_missing_session",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.test_request_context",
-    "expect_exception",
-    "expect_exception"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "expect_exception",
+      "source_code": "def expect_exception(f, *args, **kwargs):\n        e = pytest.raises(RuntimeError, f, *args, **kwargs)\n        assert e.value.args and \"session is unavailable\" in e.value.args[0]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
+      "line_number": 364
+    },
+    {
+      "name": "expect_exception",
+      "source_code": "def expect_exception(f, *args, **kwargs):\n        e = pytest.raises(RuntimeError, f, *args, **kwargs)\n        assert e.value.args and \"session is unavailable\" in e.value.args[0]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
+      "line_number": 364
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert flask.session.get('missing_key') is None"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_missing_session(app):\n    app.secret_key = None\n\n    def expect_exception(f, *args, **kwargs):\n        e = pytest.raises(RuntimeError, f, *args, **kwargs)\n        assert e.value.args and \"session is unavailable\" in e.value.args[0]\n\n    with app.test_request_context():\n        assert flask.session.get(\"missing_key\") is None\n        expect_exception(flask.session.__setitem__, \"foo\", 42)\n        expect_exception(flask.session.pop, \"foo\")"
 }

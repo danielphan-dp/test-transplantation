@@ -2,26 +2,126 @@
   "test_name": "test_error_handler_no_match",
   "test_file": "__internal__/_data/flask/tests/test_user_error_handler.py",
   "static_methods": [
-    "app.errorhandler",
-    "app.errorhandler",
-    "app.route",
-    "app.route",
-    "app.route",
-    "isinstance",
-    "app.register_error_handler",
-    "str",
-    "app.register_error_handler",
-    "str",
-    "isinstance",
-    "app.register_error_handler",
-    "str",
-    "CustomException",
-    "KeyError",
-    "CustomException",
-    "client.get",
-    "client.get",
-    "client.get",
-    "type"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_error_handler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_error_handler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_error_handler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CustomException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "KeyError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CustomException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -156,5 +256,6 @@
     "assert isinstance(e, InternalServerError)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_error_handler_no_match(app, client):\n    class CustomException(Exception):\n        pass\n\n    @app.errorhandler(CustomException)\n    def custom_exception_handler(e):\n        assert isinstance(e, CustomException)\n        return \"custom\"\n\n    with pytest.raises(TypeError) as exc_info:\n        app.register_error_handler(CustomException(), None)\n\n    assert \"CustomException() is an instance, not a class.\" in str(exc_info.value)\n\n    with pytest.raises(ValueError) as exc_info:\n        app.register_error_handler(list, None)\n\n    assert \"'list' is not a subclass of Exception.\" in str(exc_info.value)\n\n    @app.errorhandler(500)\n    def handle_500(e):\n        assert isinstance(e, InternalServerError)\n\n        if e.original_exception is not None:\n            return f\"wrapped {type(e.original_exception).__name__}\"\n\n        return \"direct\"\n\n    with pytest.raises(ValueError) as exc_info:\n        app.register_error_handler(999, None)\n\n    assert \"Use a subclass of HTTPException\" in str(exc_info.value)\n\n    @app.route(\"/custom\")\n    def custom_test():\n        raise CustomException()\n\n    @app.route(\"/keyerror\")\n    def key_error():\n        raise KeyError()\n\n    @app.route(\"/abort\")\n    def do_abort():\n        flask.abort(500)\n\n    app.testing = False\n    assert client.get(\"/custom\").data == b\"custom\"\n    assert client.get(\"/keyerror\").data == b\"wrapped KeyError\"\n    assert client.get(\"/abort\").data == b\"direct\""
 }

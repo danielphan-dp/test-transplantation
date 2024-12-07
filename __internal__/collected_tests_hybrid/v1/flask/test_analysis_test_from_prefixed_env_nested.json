@@ -2,11 +2,36 @@
   "test_name": "test_from_prefixed_env_nested",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "monkeypatch.setenv",
-    "monkeypatch.setenv",
-    "monkeypatch.setenv",
-    "monkeypatch.setenv",
-    "app.config.from_prefixed_env"
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_prefixed_env",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -46,5 +71,6 @@
     "assert app.config['EXIST'] == {'ok': 'value', 'OK': 'other', 'flag': True, 'inner': {'ik': 1}, 'INNER': {'IK': 2}, 'NEW': {'MORE': {'k': False}}}"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_from_prefixed_env_nested(monkeypatch):\n    monkeypatch.setenv(\"FLASK_EXIST__ok\", \"other\")\n    monkeypatch.setenv(\"FLASK_EXIST__inner__ik\", \"2\")\n    monkeypatch.setenv(\"FLASK_EXIST__new__more\", '{\"k\": false}')\n    monkeypatch.setenv(\"FLASK_NEW__K\", \"v\")\n\n    app = flask.Flask(__name__)\n    app.config[\"EXIST\"] = {\"ok\": \"value\", \"flag\": True, \"inner\": {\"ik\": 1}}\n    app.config.from_prefixed_env()\n\n    if os.name != \"nt\":\n        assert app.config[\"EXIST\"] == {\n            \"ok\": \"other\",\n            \"flag\": True,\n            \"inner\": {\"ik\": 2},\n            \"new\": {\"more\": {\"k\": False}},\n        }\n    else:\n        # Windows env var keys are always uppercase.\n        assert app.config[\"EXIST\"] == {\n            \"ok\": \"value\",\n            \"OK\": \"other\",\n            \"flag\": True,\n            \"inner\": {\"ik\": 1},\n            \"INNER\": {\"IK\": 2},\n            \"NEW\": {\"MORE\": {\"k\": False}},\n        }\n\n    assert app.config[\"NEW\"] == {\"K\": \"v\"}"
 }

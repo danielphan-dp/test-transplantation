@@ -2,9 +2,24 @@
   "test_name": "test_options_work",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.open",
-    "sorted"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert rv.data == b''"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_options_work(app, client):\n    @app.route(\"/\", methods=[\"GET\", \"POST\"])\n    def index():\n        return \"Hello World\"\n\n    rv = client.open(\"/\", method=\"OPTIONS\")\n    assert sorted(rv.allow) == [\"GET\", \"HEAD\", \"OPTIONS\", \"POST\"]\n    assert rv.data == b\"\""
 }

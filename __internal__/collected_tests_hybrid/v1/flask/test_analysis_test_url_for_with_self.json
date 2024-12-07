@@ -2,7 +2,12 @@
   "test_name": "test_url_for_with_self",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.route"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -16,5 +21,6 @@
     "assert flask.url_for('index', self='2') == '/2'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_url_for_with_self(self, app, req_ctx):\n        @app.route(\"/<self>\")\n        def index(self):\n            return \"42\"\n\n        assert flask.url_for(\"index\", self=\"2\") == \"/2\""
 }

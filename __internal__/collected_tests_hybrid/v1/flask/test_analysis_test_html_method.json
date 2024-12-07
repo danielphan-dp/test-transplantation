@@ -2,7 +2,12 @@
   "test_name": "test_html_method",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "ObjectWithHTML"
+    {
+      "name": "ObjectWithHTML",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -16,5 +21,6 @@
     "assert result == '\"<p>test</p>\"'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_html_method():\n    class ObjectWithHTML:\n        def __html__(self):\n            return \"<p>test</p>\"\n\n    result = json.dumps(ObjectWithHTML())\n    assert result == '\"<p>test</p>\"'"
 }

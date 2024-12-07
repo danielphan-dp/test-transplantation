@@ -2,16 +2,66 @@
   "test_name": "test_max_cookie_size",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.app_context",
-    "app.route",
-    "client.get",
-    "recwarn.pop",
-    "client.get",
-    "app.app_context",
-    "r.set_cookie",
-    "len",
-    "str",
-    "len"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "recwarn.pop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "r.set_cookie",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -83,5 +133,6 @@
     "assert flask.Response().max_cookie_size == 100"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_max_cookie_size(app, client, recwarn):\n    app.config[\"MAX_COOKIE_SIZE\"] = 100\n\n    # outside app context, default to Werkzeug static value,\n    # which is also the default config\n    response = flask.Response()\n    default = flask.Flask.default_config[\"MAX_COOKIE_SIZE\"]\n    assert response.max_cookie_size == default\n\n    # inside app context, use app config\n    with app.app_context():\n        assert flask.Response().max_cookie_size == 100\n\n    @app.route(\"/\")\n    def index():\n        r = flask.Response(\"\", status=204)\n        r.set_cookie(\"foo\", \"bar\" * 100)\n        return r\n\n    client.get(\"/\")\n    assert len(recwarn) == 1\n    w = recwarn.pop()\n    assert \"cookie is too large\" in str(w.message)\n\n    app.config[\"MAX_COOKIE_SIZE\"] = 0\n\n    client.get(\"/\")\n    assert len(recwarn) == 0"
 }

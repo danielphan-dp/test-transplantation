@@ -2,10 +2,30 @@
   "test_name": "test_flaskgroup_nested",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "FlaskGroup",
-    "cli.add_command",
-    "flask_group.command",
-    "runner.invoke"
+    {
+      "name": "FlaskGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cli.add_command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "flask_group.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert result.output == 'flask_test\\n'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_flaskgroup_nested(app, runner):\n    cli = click.Group(\"cli\")\n    flask_group = FlaskGroup(name=\"flask\", create_app=lambda: app)\n    cli.add_command(flask_group)\n\n    @flask_group.command()\n    def show():\n        click.echo(current_app.name)\n\n    result = runner.invoke(cli, [\"flask\", \"show\"])\n    assert result.output == \"flask_test\\n\""
 }

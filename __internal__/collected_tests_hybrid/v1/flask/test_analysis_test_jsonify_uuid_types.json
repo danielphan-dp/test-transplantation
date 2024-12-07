@@ -2,9 +2,24 @@
   "test_name": "test_jsonify_uuid_types",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.add_url_rule",
-    "client.get",
-    "str"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert rv_uuid == test_uuid"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_jsonify_uuid_types(app, client):\n    \"\"\"Test jsonify with uuid.UUID types\"\"\"\n\n    test_uuid = uuid.UUID(bytes=b\"\\xde\\xad\\xbe\\xef\" * 4)\n    url = \"/uuid_test\"\n    app.add_url_rule(url, url, lambda: flask.jsonify(x=test_uuid))\n\n    rv = client.get(url)\n\n    rv_x = flask.json.loads(rv.data)[\"x\"]\n    assert rv_x == str(test_uuid)\n    rv_uuid = uuid.UUID(rv_x)\n    assert rv_uuid == test_uuid"
 }

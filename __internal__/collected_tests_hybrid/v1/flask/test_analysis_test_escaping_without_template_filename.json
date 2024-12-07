@@ -8,5 +8,6 @@
     "assert flask.render_template('mail.txt', foo='<test>') == '<test> Mail'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_escaping_without_template_filename(app, client, req_ctx):\n    assert flask.render_template_string(\"{{ foo }}\", foo=\"<test>\") == \"&lt;test&gt;\"\n    assert flask.render_template(\"mail.txt\", foo=\"<test>\") == \"<test> Mail\""
 }

@@ -2,9 +2,24 @@
   "test_name": "test_app_freed_on_zero_refcount",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "weak",
-    "weak",
-    "require_cpython_gc"
+    {
+      "name": "weak",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "weak",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "require_cpython_gc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -32,5 +47,6 @@
     "assert weak() is None"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_app_freed_on_zero_refcount():\n    # A Flask instance should not create a reference cycle that prevents CPython\n    # from freeing it when all external references to it are released (see #3761).\n    gc.disable()\n    try:\n        app = flask.Flask(__name__)\n        assert app.view_functions[\"static\"]\n        weak = weakref.ref(app)\n        assert weak() is not None\n        del app\n        assert weak() is None\n    finally:\n        gc.enable()"
 }

@@ -2,9 +2,24 @@
   "test_name": "test_baseexception_error_handling",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "KeyboardInterrupt",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "KeyboardInterrupt",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -28,5 +43,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_baseexception_error_handling(app, client):\n    app.testing = False\n\n    @app.route(\"/\")\n    def broken_func():\n        raise KeyboardInterrupt()\n\n    with pytest.raises(KeyboardInterrupt):\n        client.get(\"/\")"
 }

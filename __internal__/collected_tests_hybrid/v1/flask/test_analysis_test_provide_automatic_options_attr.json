@@ -2,15 +2,60 @@
   "test_name": "test_provide_automatic_options_attr",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.test_client.open",
-    "app.route",
-    "app.test_client.open",
-    "app.route",
-    "app.route",
-    "sorted",
-    "app.test_client",
-    "app.test_client"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -73,5 +118,6 @@
     "assert sorted(rv.allow) == ['OPTIONS']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_provide_automatic_options_attr():\n    app = flask.Flask(__name__)\n\n    def index():\n        return \"Hello World!\"\n\n    index.provide_automatic_options = False\n    app.route(\"/\")(index)\n    rv = app.test_client().open(\"/\", method=\"OPTIONS\")\n    assert rv.status_code == 405\n\n    app = flask.Flask(__name__)\n\n    def index2():\n        return \"Hello World!\"\n\n    index2.provide_automatic_options = True\n    app.route(\"/\", methods=[\"OPTIONS\"])(index2)\n    rv = app.test_client().open(\"/\", method=\"OPTIONS\")\n    assert sorted(rv.allow) == [\"OPTIONS\"]"
 }

@@ -2,8 +2,18 @@
   "test_name": "test_url_for_passes_special_values_to_build_error_handler",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.test_request_context"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert values == {'_external': False, '_anchor': None, '_method': None, '_scheme': None}"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_url_for_passes_special_values_to_build_error_handler(app):\n    @app.url_build_error_handlers.append\n    def handler(error, endpoint, values):\n        assert values == {\n            \"_external\": False,\n            \"_anchor\": None,\n            \"_method\": None,\n            \"_scheme\": None,\n        }\n        return \"handled\"\n\n    with app.test_request_context():\n        flask.url_for(\"/\")"
 }

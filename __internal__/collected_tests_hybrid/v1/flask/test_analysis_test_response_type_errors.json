@@ -2,21 +2,96 @@
   "test_name": "test_response_type_errors",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.test_client",
-    "c.get",
-    "str",
-    "str",
-    "c.get",
-    "str",
-    "c.get",
-    "c.get",
-    "str",
-    "c.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -117,5 +192,6 @@
     "assert 'it was a bool' in str(e.value)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_response_type_errors():\n    app = flask.Flask(__name__)\n    app.testing = True\n\n    @app.route(\"/none\")\n    def from_none():\n        pass\n\n    @app.route(\"/small_tuple\")\n    def from_small_tuple():\n        return (\"Hello\",)\n\n    @app.route(\"/large_tuple\")\n    def from_large_tuple():\n        return \"Hello\", 234, {\"X-Foo\": \"Bar\"}, \"???\"\n\n    @app.route(\"/bad_type\")\n    def from_bad_type():\n        return True\n\n    @app.route(\"/bad_wsgi\")\n    def from_bad_wsgi():\n        return lambda: None\n\n    c = app.test_client()\n\n    with pytest.raises(TypeError) as e:\n        c.get(\"/none\")\n\n    assert \"returned None\" in str(e.value)\n    assert \"from_none\" in str(e.value)\n\n    with pytest.raises(TypeError) as e:\n        c.get(\"/small_tuple\")\n\n    assert \"tuple must have the form\" in str(e.value)\n\n    with pytest.raises(TypeError):\n        c.get(\"/large_tuple\")\n\n    with pytest.raises(TypeError) as e:\n        c.get(\"/bad_type\")\n\n    assert \"it was a bool\" in str(e.value)\n\n    with pytest.raises(TypeError):\n        c.get(\"/bad_wsgi\")"
 }

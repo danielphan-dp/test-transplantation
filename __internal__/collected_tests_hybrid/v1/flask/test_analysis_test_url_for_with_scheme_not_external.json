@@ -2,7 +2,12 @@
   "test_name": "test_url_for_with_scheme_not_external",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.add_url_rule"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -16,5 +21,6 @@
     "assert url == 'https://localhost/'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_url_for_with_scheme_not_external(self, app, req_ctx):\n        app.add_url_rule(\"/\", endpoint=\"index\")\n\n        # Implicit external with scheme.\n        url = flask.url_for(\"index\", _scheme=\"https\")\n        assert url == \"https://localhost/\"\n\n        # Error when external=False with scheme\n        with pytest.raises(ValueError):\n            flask.url_for(\"index\", _scheme=\"https\", _external=False)"
 }

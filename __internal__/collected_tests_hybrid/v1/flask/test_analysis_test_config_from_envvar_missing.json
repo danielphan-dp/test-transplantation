@@ -2,12 +2,42 @@
   "test_name": "test_config_from_envvar_missing",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "monkeypatch.setattr",
-    "str",
-    "msg.startswith",
-    "msg.endswith",
-    "app.config.from_envvar",
-    "app.config.from_envvar"
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "msg.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "msg.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_envvar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_envvar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -53,5 +83,6 @@
     "assert not app.config.from_envvar('FOO_SETTINGS', silent=True)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_config_from_envvar_missing(monkeypatch):\n    monkeypatch.setattr(\"os.environ\", {\"FOO_SETTINGS\": \"missing.cfg\"})\n    app = flask.Flask(__name__)\n    with pytest.raises(IOError) as e:\n        app.config.from_envvar(\"FOO_SETTINGS\")\n    msg = str(e.value)\n    assert msg.startswith(\n        \"[Errno 2] Unable to load configuration file (No such file or directory):\"\n    )\n    assert msg.endswith(\"missing.cfg'\")\n    assert not app.config.from_envvar(\"FOO_SETTINGS\", silent=True)"
 }

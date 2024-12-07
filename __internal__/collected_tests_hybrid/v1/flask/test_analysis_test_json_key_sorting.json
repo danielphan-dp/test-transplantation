@@ -2,14 +2,54 @@
   "test_name": "test_json_key_sorting",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "dict.fromkeys",
-    "app.route",
-    "client.get",
-    "range",
-    "x.strip",
-    "rv.data.strip.decode.splitlines",
-    "rv.data.strip.decode",
-    "rv.data.strip"
+    {
+      "name": "dict.fromkeys",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "x.strip",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.data.strip.decode.splitlines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.data.strip.decode",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.data.strip",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -67,5 +107,6 @@
     "assert lines == sorted_by_str"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_key_sorting(app, client):\n    app.debug = True\n    assert app.json.sort_keys\n    d = dict.fromkeys(range(20), \"foo\")\n\n    @app.route(\"/\")\n    def index():\n        return flask.jsonify(values=d)\n\n    rv = client.get(\"/\")\n    lines = [x.strip() for x in rv.data.strip().decode(\"utf-8\").splitlines()]\n    sorted_by_str = [\n        \"{\",\n        '\"values\": {',\n        '\"0\": \"foo\",',\n        '\"1\": \"foo\",',\n        '\"10\": \"foo\",',\n        '\"11\": \"foo\",',\n        '\"12\": \"foo\",',\n        '\"13\": \"foo\",',\n        '\"14\": \"foo\",',\n        '\"15\": \"foo\",',\n        '\"16\": \"foo\",',\n        '\"17\": \"foo\",',\n        '\"18\": \"foo\",',\n        '\"19\": \"foo\",',\n        '\"2\": \"foo\",',\n        '\"3\": \"foo\",',\n        '\"4\": \"foo\",',\n        '\"5\": \"foo\",',\n        '\"6\": \"foo\",',\n        '\"7\": \"foo\",',\n        '\"8\": \"foo\",',\n        '\"9\": \"foo\"',\n        \"}\",\n        \"}\",\n    ]\n    sorted_by_int = [\n        \"{\",\n        '\"values\": {',\n        '\"0\": \"foo\",',\n        '\"1\": \"foo\",',\n        '\"2\": \"foo\",',\n        '\"3\": \"foo\",',\n        '\"4\": \"foo\",',\n        '\"5\": \"foo\",',\n        '\"6\": \"foo\",',\n        '\"7\": \"foo\",',\n        '\"8\": \"foo\",',\n        '\"9\": \"foo\",',\n        '\"10\": \"foo\",',\n        '\"11\": \"foo\",',\n        '\"12\": \"foo\",',\n        '\"13\": \"foo\",',\n        '\"14\": \"foo\",',\n        '\"15\": \"foo\",',\n        '\"16\": \"foo\",',\n        '\"17\": \"foo\",',\n        '\"18\": \"foo\",',\n        '\"19\": \"foo\"',\n        \"}\",\n        \"}\",\n    ]\n\n    try:\n        assert lines == sorted_by_int\n    except AssertionError:\n        assert lines == sorted_by_str"
 }

@@ -2,8 +2,18 @@
   "test_name": "test_custom_app_ctx_globals_class",
   "test_file": "__internal__/_data/flask/tests/test_appctx.py",
   "static_methods": [
-    "app.app_context",
-    "app.app_context"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert flask.render_template_string('{{ g.spam }}') == 'eggs'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_custom_app_ctx_globals_class(app):\n    class CustomRequestGlobals:\n        def __init__(self):\n            self.spam = \"eggs\"\n\n    app.app_ctx_globals_class = CustomRequestGlobals\n    with app.app_context():\n        assert flask.render_template_string(\"{{ g.spam }}\") == \"eggs\""
 }

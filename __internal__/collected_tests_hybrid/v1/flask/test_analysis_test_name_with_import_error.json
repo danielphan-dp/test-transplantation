@@ -2,8 +2,18 @@
   "test_name": "test_name_with_import_error",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "write_text",
-    "AssertionError"
+    {
+      "name": "write_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AssertionError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -21,5 +31,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_name_with_import_error(self, modules_tmp_path):\n        (modules_tmp_path / \"importerror.py\").write_text(\"raise NotImplementedError()\")\n        try:\n            flask.Flask(\"importerror\")\n        except NotImplementedError:\n            AssertionError(\"Flask(import_name) is importing import_name.\")"
 }

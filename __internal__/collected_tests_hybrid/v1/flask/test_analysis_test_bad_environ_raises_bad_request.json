@@ -2,11 +2,36 @@
   "test_name": "test_bad_environ_raises_bad_request",
   "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
-    "app.request_context",
-    "EnvironBuilder",
-    "builder.get_environ",
-    "app.request_context",
-    "app.full_dispatch_request"
+    {
+      "name": "app.request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EnvironBuilder",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "builder.get_environ",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.full_dispatch_request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert response.status_code == 400"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_bad_environ_raises_bad_request():\n    app = flask.Flask(__name__)\n\n    from flask.testing import EnvironBuilder\n\n    builder = EnvironBuilder(app)\n    environ = builder.get_environ()\n\n    # use a non-printable character in the Host - this is key to this test\n    environ[\"HTTP_HOST\"] = \"\\x8a\"\n\n    with app.request_context(environ):\n        response = app.full_dispatch_request()\n    assert response.status_code == 400"
 }

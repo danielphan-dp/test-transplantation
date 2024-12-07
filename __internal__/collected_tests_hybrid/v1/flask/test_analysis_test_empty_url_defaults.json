@@ -2,12 +2,42 @@
   "test_name": "test_empty_url_defaults",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.route",
-    "bp.route",
-    "app.register_blueprint",
-    "str",
-    "client.get",
-    "client.get"
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -52,5 +82,6 @@
     "assert client.get('/page/2').data == b'2'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_empty_url_defaults(app, client):\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    @bp.route(\"/\", defaults={\"page\": 1})\n    @bp.route(\"/page/<int:page>\")\n    def something(page):\n        return str(page)\n\n    app.register_blueprint(bp)\n\n    assert client.get(\"/\").data == b\"1\"\n    assert client.get(\"/page/2\").data == b\"2\""
 }

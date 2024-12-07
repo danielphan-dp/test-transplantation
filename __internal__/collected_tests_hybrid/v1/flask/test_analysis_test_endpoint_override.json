@@ -2,11 +2,36 @@
   "test_name": "test_endpoint_override",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "common_test",
-    "app.add_url_rule",
-    "Index.as_view",
-    "Index.as_view"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "common_test",
+      "source_code": "def common_test(app):\n    c = app.test_client()\n\n    assert c.get(\"/\").data == b\"GET\"\n    assert c.post(\"/\").data == b\"POST\"\n    assert c.put(\"/\").status_code == 405\n    meths = parse_set_header(c.open(\"/\", method=\"OPTIONS\").headers[\"Allow\"])\n    assert sorted(meths) == [\"GET\", \"HEAD\", \"OPTIONS\", \"POST\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_views.py",
+      "line_number": 7
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Index.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Index.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -42,5 +67,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_endpoint_override(app):\n    app.debug = True\n\n    class Index(flask.views.View):\n        methods = [\"GET\", \"POST\"]\n\n        def dispatch_request(self):\n            return flask.request.method\n\n    app.add_url_rule(\"/\", view_func=Index.as_view(\"index\"))\n\n    with pytest.raises(AssertionError):\n        app.add_url_rule(\"/\", view_func=Index.as_view(\"index\"))\n\n    # But these tests should still pass. We just log a warning.\n    common_test(app)"
 }

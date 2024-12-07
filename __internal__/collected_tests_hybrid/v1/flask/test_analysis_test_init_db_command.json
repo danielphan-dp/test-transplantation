@@ -2,8 +2,18 @@
   "test_name": "test_init_db_command",
   "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_db.py",
   "static_methods": [
-    "monkeypatch.setattr",
-    "runner.invoke"
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -24,5 +34,6 @@
     "assert Recorder.called"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_init_db_command(runner, monkeypatch):\n    class Recorder:\n        called = False\n\n    def fake_init_db():\n        Recorder.called = True\n\n    monkeypatch.setattr(\"flaskr.db.init_db\", fake_init_db)\n    result = runner.invoke(args=[\"init-db\"])\n    assert \"Initialized\" in result.output\n    assert Recorder.called"
 }

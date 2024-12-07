@@ -2,10 +2,30 @@
   "test_name": "test_subdomain_matching_other_name",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_client",
-    "app.route",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert rv.status_code == 404 if matching else 204"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_subdomain_matching_other_name(matching):\n    app = flask.Flask(__name__, subdomain_matching=matching)\n    app.config[\"SERVER_NAME\"] = \"localhost.localdomain:3000\"\n    client = app.test_client()\n\n    @app.route(\"/\")\n    def index():\n        return \"\", 204\n\n    # suppress Werkzeug 0.15 warning about name mismatch\n    with warnings.catch_warnings():\n        warnings.filterwarnings(\n            \"ignore\", \"Current server name\", UserWarning, \"flask.app\"\n        )\n        # ip address can't match name\n        rv = client.get(\"/\", \"http://127.0.0.1:3000/\")\n        assert rv.status_code == 404 if matching else 204\n\n    # allow all subdomains if matching is disabled\n    rv = client.get(\"/\", \"http://www.localhost.localdomain:3000/\")\n    assert rv.status_code == 404 if matching else 204"
 }

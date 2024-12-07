@@ -2,9 +2,24 @@
   "test_name": "test_static_folder_with_ending_slash",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.test_client.get",
-    "app.test_client"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.data == b'catch/all'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_static_folder_with_ending_slash():\n    app = flask.Flask(__name__, static_folder=\"static/\")\n\n    @app.route(\"/<path:path>\")\n    def catch_all(path):\n        return path\n\n    rv = app.test_client().get(\"/catch/all\")\n    assert rv.data == b\"catch/all\""
 }

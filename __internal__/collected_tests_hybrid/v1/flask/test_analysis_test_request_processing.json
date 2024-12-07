@@ -2,12 +2,42 @@
   "test_name": "test_request_processing",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.route",
-    "app.register_blueprint",
-    "client.get",
-    "evts.append",
-    "evts.append",
-    "evts.append"
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -53,5 +83,6 @@
     "assert evts == ['before', 'after', 'teardown']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_request_processing(app, client):\n    bp = flask.Blueprint(\"bp\", __name__)\n    evts = []\n\n    @bp.before_request\n    def before_bp():\n        evts.append(\"before\")\n\n    @bp.after_request\n    def after_bp(response):\n        response.data += b\"|after\"\n        evts.append(\"after\")\n        return response\n\n    @bp.teardown_request\n    def teardown_bp(exc):\n        evts.append(\"teardown\")\n\n    # Setup routes for testing\n    @bp.route(\"/bp\")\n    def bp_endpoint():\n        return \"request\"\n\n    app.register_blueprint(bp)\n\n    assert evts == []\n    rv = client.get(\"/bp\")\n    assert rv.data == b\"request|after\"\n    assert evts == [\"before\", \"after\", \"teardown\"]"
 }

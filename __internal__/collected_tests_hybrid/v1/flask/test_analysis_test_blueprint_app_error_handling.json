@@ -2,13 +2,48 @@
   "test_name": "test_blueprint_app_error_handling",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "errors.app_errorhandler",
-    "app.route",
-    "forbidden_bp.route",
-    "app.register_blueprint",
-    "app.register_blueprint",
-    "client.get",
-    "client.get"
+    {
+      "name": "errors.app_errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "forbidden_bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -59,5 +94,6 @@
     "assert client.get('/nope').data == b'you shall not pass'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_blueprint_app_error_handling(app, client):\n    errors = flask.Blueprint(\"errors\", __name__)\n\n    @errors.app_errorhandler(403)\n    def forbidden_handler(e):\n        return \"you shall not pass\", 403\n\n    @app.route(\"/forbidden\")\n    def app_forbidden():\n        flask.abort(403)\n\n    forbidden_bp = flask.Blueprint(\"forbidden_bp\", __name__)\n\n    @forbidden_bp.route(\"/nope\")\n    def bp_forbidden():\n        flask.abort(403)\n\n    app.register_blueprint(errors)\n    app.register_blueprint(forbidden_bp)\n\n    assert client.get(\"/forbidden\").data == b\"you shall not pass\"\n    assert client.get(\"/nope\").data == b\"you shall not pass\""
 }

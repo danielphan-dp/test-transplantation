@@ -2,10 +2,30 @@
   "test_name": "test_multi_route_rules",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "client.open",
-    "client.open"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert rv.data == b'b'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_multi_route_rules(app, client):\n    @app.route(\"/\")\n    @app.route(\"/<test>/\")\n    def index(test=\"a\"):\n        return test\n\n    rv = client.open(\"/\")\n    assert rv.data == b\"a\"\n    rv = client.open(\"/b/\")\n    assert rv.data == b\"b\""
 }

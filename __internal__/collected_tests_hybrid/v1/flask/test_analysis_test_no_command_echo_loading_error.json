@@ -2,9 +2,24 @@
   "test_name": "test_no_command_echo_loading_error",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "runner.invoke",
-    "CliRunner",
-    "CliRunner"
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CliRunner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CliRunner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -32,5 +47,6 @@
     "assert 'Usage:' in result.stderr"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_no_command_echo_loading_error():\n    from flask.cli import cli\n\n    try:\n        runner = CliRunner(mix_stderr=False)\n    except (DeprecationWarning, TypeError):\n        # Click >= 8.2\n        runner = CliRunner()\n\n    result = runner.invoke(cli, [\"missing\"])\n    assert result.exit_code == 2\n    assert \"FLASK_APP\" in result.stderr\n    assert \"Usage:\" in result.stderr"
 }

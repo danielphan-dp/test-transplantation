@@ -2,14 +2,54 @@
   "test_name": "test_request_signals",
   "test_file": "__internal__/_data/flask/tests/test_signals.py",
   "static_methods": [
-    "app.route",
-    "calls.append",
-    "calls.append",
-    "calls.append",
-    "calls.append",
-    "calls.append",
-    "app.test_client.get",
-    "app.test_client"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "calls.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "calls.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "calls.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "calls.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "calls.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -67,5 +107,6 @@
     "assert calls == ['before-signal', 'before-handler', 'handler', 'after-handler', 'after-signal']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_request_signals():\n    app = flask.Flask(__name__)\n    calls = []\n\n    def before_request_signal(sender):\n        calls.append(\"before-signal\")\n\n    def after_request_signal(sender, response):\n        assert response.data == b\"stuff\"\n        calls.append(\"after-signal\")\n\n    @app.before_request\n    def before_request_handler():\n        calls.append(\"before-handler\")\n\n    @app.after_request\n    def after_request_handler(response):\n        calls.append(\"after-handler\")\n        response.data = \"stuff\"\n        return response\n\n    @app.route(\"/\")\n    def index():\n        calls.append(\"handler\")\n        return \"ignored anyway\"\n\n    flask.request_started.connect(before_request_signal, app)\n    flask.request_finished.connect(after_request_signal, app)\n\n    try:\n        rv = app.test_client().get(\"/\")\n        assert rv.data == b\"stuff\"\n\n        assert calls == [\n            \"before-signal\",\n            \"before-handler\",\n            \"handler\",\n            \"after-handler\",\n            \"after-signal\",\n        ]\n    finally:\n        flask.request_started.disconnect(before_request_signal, app)\n        flask.request_finished.disconnect(after_request_signal, app)"
 }

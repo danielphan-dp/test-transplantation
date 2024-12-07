@@ -2,14 +2,54 @@
   "test_name": "test_config_from_envvar",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "monkeypatch.setattr",
-    "monkeypatch.setattr",
-    "app.config.from_envvar",
-    "common_object_test",
-    "app.config.from_envvar",
-    "str",
-    "app.config.from_envvar",
-    "__file__.rsplit"
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_envvar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "common_object_test",
+      "source_code": "def common_object_test(app):\n    assert app.secret_key == \"config\"\n    assert app.config[\"TEST_KEY\"] == \"foo\"\n    assert \"TestConfig\" not in app.config",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_config.py",
+      "line_number": 13
+    },
+    {
+      "name": "app.config.from_envvar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_envvar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "__file__.rsplit",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -67,5 +107,6 @@
     "assert app.config.from_envvar('FOO_SETTINGS')"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_config_from_envvar(monkeypatch):\n    monkeypatch.setattr(\"os.environ\", {})\n    app = flask.Flask(__name__)\n\n    with pytest.raises(RuntimeError) as e:\n        app.config.from_envvar(\"FOO_SETTINGS\")\n\n    assert \"'FOO_SETTINGS' is not set\" in str(e.value)\n    assert not app.config.from_envvar(\"FOO_SETTINGS\", silent=True)\n\n    monkeypatch.setattr(\n        \"os.environ\", {\"FOO_SETTINGS\": f\"{__file__.rsplit('.', 1)[0]}.py\"}\n    )\n    assert app.config.from_envvar(\"FOO_SETTINGS\")\n    common_object_test(app)"
 }

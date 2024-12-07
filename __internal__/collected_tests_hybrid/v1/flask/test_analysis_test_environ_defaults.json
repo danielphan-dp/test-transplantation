@@ -2,9 +2,24 @@
   "test_name": "test_environ_defaults",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.route",
-    "app.test_request_context",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert rv.data == b'http://localhost/'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_environ_defaults(app, client, app_ctx, req_ctx):\n    @app.route(\"/\")\n    def index():\n        return flask.request.url\n\n    ctx = app.test_request_context()\n    assert ctx.request.url == \"http://localhost/\"\n    with client:\n        rv = client.get(\"/\")\n        assert rv.data == b\"http://localhost/\""
 }

@@ -2,11 +2,36 @@
   "test_name": "test_template_test_after_route_with_template",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "app.route",
-    "bp.app_template_test",
-    "app.register_blueprint",
-    "client.get",
-    "isinstance"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.app_template_test",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert b'Success!' in rv.data"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_template_test_after_route_with_template(app, client):\n    @app.route(\"/\")\n    def index():\n        return flask.render_template(\"template_test.html\", value=False)\n\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    @bp.app_template_test()\n    def boolean(value):\n        return isinstance(value, bool)\n\n    app.register_blueprint(bp, url_prefix=\"/py\")\n    rv = client.get(\"/\")\n    assert b\"Success!\" in rv.data"
 }

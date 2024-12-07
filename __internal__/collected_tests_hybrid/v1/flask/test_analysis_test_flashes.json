@@ -2,7 +2,12 @@
   "test_name": "test_flashes",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "list"
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -18,5 +23,6 @@
     "assert list(flask.get_flashed_messages()) == ['Zap', 'Zip']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_flashes(app, req_ctx):\n    assert not flask.session.modified\n    flask.flash(\"Zap\")\n    flask.session.modified = False\n    flask.flash(\"Zip\")\n    assert flask.session.modified\n    assert list(flask.get_flashed_messages()) == [\"Zap\", \"Zip\"]"
 }

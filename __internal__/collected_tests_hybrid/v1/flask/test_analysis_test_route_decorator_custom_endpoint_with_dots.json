@@ -2,10 +2,30 @@
   "test_name": "test_route_decorator_custom_endpoint_with_dots",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.route",
-    "bp.add_url_rule",
-    "bp.add_url_rule",
-    "bp.route"
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -35,5 +55,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_route_decorator_custom_endpoint_with_dots(app, client):\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    with pytest.raises(ValueError):\n        bp.route(\"/\", endpoint=\"a.b\")(lambda: \"\")\n\n    with pytest.raises(ValueError):\n        bp.add_url_rule(\"/\", endpoint=\"a.b\")\n\n    def view():\n        return \"\"\n\n    view.__name__ = \"a.b\"\n\n    with pytest.raises(ValueError):\n        bp.add_url_rule(\"/\", view_func=view)"
 }

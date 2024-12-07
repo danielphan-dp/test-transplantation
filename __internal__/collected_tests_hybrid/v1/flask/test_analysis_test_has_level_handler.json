@@ -2,11 +2,36 @@
   "test_name": "test_has_level_handler",
   "test_file": "__internal__/_data/flask/tests/test_logging.py",
   "static_methods": [
-    "has_level_handler",
-    "handler.setLevel",
-    "has_level_handler",
-    "has_level_handler",
-    "has_level_handler"
+    {
+      "name": "has_level_handler",
+      "source_code": "def has_level_handler(logger: logging.Logger) -> bool:\n    \"\"\"Check if there is a handler in the logging chain that will handle the\n    given logger's :meth:`effective level <~logging.Logger.getEffectiveLevel>`.\n    \"\"\"\n    level = logger.getEffectiveLevel()\n    current = logger\n\n    while current:\n        if any(handler.level <= level for handler in current.handlers):\n            return True\n\n        if not current.propagate:\n            break\n\n        current = current.parent  # type: ignore\n\n    return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/logging.py",
+      "line_number": 31
+    },
+    {
+      "name": "handler.setLevel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "has_level_handler",
+      "source_code": "def has_level_handler(logger: logging.Logger) -> bool:\n    \"\"\"Check if there is a handler in the logging chain that will handle the\n    given logger's :meth:`effective level <~logging.Logger.getEffectiveLevel>`.\n    \"\"\"\n    level = logger.getEffectiveLevel()\n    current = logger\n\n    while current:\n        if any(handler.level <= level for handler in current.handlers):\n            return True\n\n        if not current.propagate:\n            break\n\n        current = current.parent  # type: ignore\n\n    return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/logging.py",
+      "line_number": 31
+    },
+    {
+      "name": "has_level_handler",
+      "source_code": "def has_level_handler(logger: logging.Logger) -> bool:\n    \"\"\"Check if there is a handler in the logging chain that will handle the\n    given logger's :meth:`effective level <~logging.Logger.getEffectiveLevel>`.\n    \"\"\"\n    level = logger.getEffectiveLevel()\n    current = logger\n\n    while current:\n        if any(handler.level <= level for handler in current.handlers):\n            return True\n\n        if not current.propagate:\n            break\n\n        current = current.parent  # type: ignore\n\n    return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/logging.py",
+      "line_number": 31
+    },
+    {
+      "name": "has_level_handler",
+      "source_code": "def has_level_handler(logger: logging.Logger) -> bool:\n    \"\"\"Check if there is a handler in the logging chain that will handle the\n    given logger's :meth:`effective level <~logging.Logger.getEffectiveLevel>`.\n    \"\"\"\n    level = logger.getEffectiveLevel()\n    current = logger\n\n    while current:\n        if any(handler.level <= level for handler in current.handlers):\n            return True\n\n        if not current.propagate:\n            break\n\n        current = current.parent  # type: ignore\n\n    return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/logging.py",
+      "line_number": 31
+    }
   ],
   "dynamic_methods": [
     {
@@ -47,5 +72,6 @@
     "assert not has_level_handler(logger)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_has_level_handler():\n    logger = logging.getLogger(\"flask.app\")\n    assert not has_level_handler(logger)\n\n    handler = logging.StreamHandler()\n    logging.root.addHandler(handler)\n    assert has_level_handler(logger)\n\n    logger.propagate = False\n    assert not has_level_handler(logger)\n    logger.propagate = True\n\n    handler.setLevel(logging.ERROR)\n    assert not has_level_handler(logger)"
 }

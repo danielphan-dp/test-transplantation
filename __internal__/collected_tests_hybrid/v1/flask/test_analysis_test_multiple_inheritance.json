@@ -2,11 +2,36 @@
   "test_name": "test_multiple_inheritance",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "sorted",
-    "GetDeleteView.as_view",
-    "client.get",
-    "client.delete"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "GetDeleteView.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.delete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -46,5 +71,6 @@
     "assert sorted(GetDeleteView.methods) == ['DELETE', 'GET']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_multiple_inheritance(app, client):\n    class GetView(flask.views.MethodView):\n        def get(self):\n            return \"GET\"\n\n    class DeleteView(flask.views.MethodView):\n        def delete(self):\n            return \"DELETE\"\n\n    class GetDeleteView(GetView, DeleteView):\n        pass\n\n    app.add_url_rule(\"/\", view_func=GetDeleteView.as_view(\"index\"))\n\n    assert client.get(\"/\").data == b\"GET\"\n    assert client.delete(\"/\").data == b\"DELETE\"\n    assert sorted(GetDeleteView.methods) == [\"DELETE\", \"GET\"]"
 }

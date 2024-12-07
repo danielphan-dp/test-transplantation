@@ -2,19 +2,84 @@
   "test_name": "test_blueprint_renaming",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.get",
-    "bp.get",
-    "bp.errorhandler",
-    "bp2.get",
-    "bp.register_blueprint",
-    "app.register_blueprint",
-    "app.register_blueprint",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "bp.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp2.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -105,5 +170,6 @@
     "assert client.get('/b/error').data == b'Error'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_blueprint_renaming(app, client) -> None:\n    bp = flask.Blueprint(\"bp\", __name__)\n    bp2 = flask.Blueprint(\"bp2\", __name__)\n\n    @bp.get(\"/\")\n    def index():\n        return flask.request.endpoint\n\n    @bp.get(\"/error\")\n    def error():\n        flask.abort(403)\n\n    @bp.errorhandler(403)\n    def forbidden(_: Exception):\n        return \"Error\", 403\n\n    @bp2.get(\"/\")\n    def index2():\n        return flask.request.endpoint\n\n    bp.register_blueprint(bp2, url_prefix=\"/a\", name=\"sub\")\n    app.register_blueprint(bp, url_prefix=\"/a\")\n    app.register_blueprint(bp, url_prefix=\"/b\", name=\"alt\")\n\n    assert client.get(\"/a/\").data == b\"bp.index\"\n    assert client.get(\"/b/\").data == b\"alt.index\"\n    assert client.get(\"/a/a/\").data == b\"bp.sub.index2\"\n    assert client.get(\"/b/a/\").data == b\"alt.sub.index2\"\n    assert client.get(\"/a/error\").data == b\"Error\"\n    assert client.get(\"/b/error\").data == b\"Error\""
 }

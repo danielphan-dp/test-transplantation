@@ -2,14 +2,54 @@
   "test_name": "test_async_before_after_request",
   "test_file": "__internal__/_data/flask/tests/test_async.py",
   "static_methods": [
-    "Flask",
-    "app.route",
-    "Blueprint",
-    "blueprint.route",
-    "app.register_blueprint",
-    "app.test_client",
-    "test_client.get",
-    "test_client.get"
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "blueprint.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -68,5 +108,6 @@
     "assert bp_after_called"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_async_before_after_request():\n    app_before_called = False\n    app_after_called = False\n    bp_before_called = False\n    bp_after_called = False\n\n    app = Flask(__name__)\n\n    @app.route(\"/\")\n    def index():\n        return \"\"\n\n    @app.before_request\n    async def before():\n        nonlocal app_before_called\n        app_before_called = True\n\n    @app.after_request\n    async def after(response):\n        nonlocal app_after_called\n        app_after_called = True\n        return response\n\n    blueprint = Blueprint(\"bp\", __name__)\n\n    @blueprint.route(\"/\")\n    def bp_index():\n        return \"\"\n\n    @blueprint.before_request\n    async def bp_before():\n        nonlocal bp_before_called\n        bp_before_called = True\n\n    @blueprint.after_request\n    async def bp_after(response):\n        nonlocal bp_after_called\n        bp_after_called = True\n        return response\n\n    app.register_blueprint(blueprint, url_prefix=\"/bp\")\n\n    test_client = app.test_client()\n    test_client.get(\"/\")\n    assert app_before_called\n    assert app_after_called\n    test_client.get(\"/bp/\")\n    assert bp_before_called\n    assert bp_after_called"
 }

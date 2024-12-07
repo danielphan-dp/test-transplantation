@@ -2,8 +2,18 @@
   "test_name": "test_abort_with_app",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.app_context",
-    "app.app_context"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -21,5 +31,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_abort_with_app(app):\n    class My900Error(werkzeug.exceptions.HTTPException):\n        code = 900\n\n    app.aborter.mapping[900] = My900Error\n\n    with app.app_context(), pytest.raises(My900Error):\n        flask.abort(900)"
 }

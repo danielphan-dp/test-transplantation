@@ -2,32 +2,162 @@
   "test_name": "test_response_types",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "encode",
-    "NotFound",
-    "encode",
-    "encode",
-    "rv.headers.getlist",
-    "app.response_class",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "NotFound",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.getlist",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.response_class",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -216,5 +346,6 @@
     "assert rv.status_code == 201"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_response_types(app, client):\n    @app.route(\"/text\")\n    def from_text():\n        return \"H\u00e4llo W\u00f6rld\"\n\n    @app.route(\"/bytes\")\n    def from_bytes():\n        return \"H\u00e4llo W\u00f6rld\".encode()\n\n    @app.route(\"/full_tuple\")\n    def from_full_tuple():\n        return (\n            \"Meh\",\n            400,\n            {\"X-Foo\": \"Testing\", \"Content-Type\": \"text/plain; charset=utf-8\"},\n        )\n\n    @app.route(\"/text_headers\")\n    def from_text_headers():\n        return \"Hello\", {\"X-Foo\": \"Test\", \"Content-Type\": \"text/plain; charset=utf-8\"}\n\n    @app.route(\"/text_status\")\n    def from_text_status():\n        return \"Hi, status!\", 400\n\n    @app.route(\"/response_headers\")\n    def from_response_headers():\n        return (\n            flask.Response(\n                \"Hello world\", 404, {\"Content-Type\": \"text/html\", \"X-Foo\": \"Baz\"}\n            ),\n            {\"Content-Type\": \"text/plain\", \"X-Foo\": \"Bar\", \"X-Bar\": \"Foo\"},\n        )\n\n    @app.route(\"/response_status\")\n    def from_response_status():\n        return app.response_class(\"Hello world\", 400), 500\n\n    @app.route(\"/wsgi\")\n    def from_wsgi():\n        return NotFound()\n\n    @app.route(\"/dict\")\n    def from_dict():\n        return {\"foo\": \"bar\"}, 201\n\n    @app.route(\"/list\")\n    def from_list():\n        return [\"foo\", \"bar\"], 201\n\n    assert client.get(\"/text\").data == \"H\u00e4llo W\u00f6rld\".encode()\n    assert client.get(\"/bytes\").data == \"H\u00e4llo W\u00f6rld\".encode()\n\n    rv = client.get(\"/full_tuple\")\n    assert rv.data == b\"Meh\"\n    assert rv.headers[\"X-Foo\"] == \"Testing\"\n    assert rv.status_code == 400\n    assert rv.mimetype == \"text/plain\"\n\n    rv = client.get(\"/text_headers\")\n    assert rv.data == b\"Hello\"\n    assert rv.headers[\"X-Foo\"] == \"Test\"\n    assert rv.status_code == 200\n    assert rv.mimetype == \"text/plain\"\n\n    rv = client.get(\"/text_status\")\n    assert rv.data == b\"Hi, status!\"\n    assert rv.status_code == 400\n    assert rv.mimetype == \"text/html\"\n\n    rv = client.get(\"/response_headers\")\n    assert rv.data == b\"Hello world\"\n    assert rv.content_type == \"text/plain\"\n    assert rv.headers.getlist(\"X-Foo\") == [\"Bar\"]\n    assert rv.headers[\"X-Bar\"] == \"Foo\"\n    assert rv.status_code == 404\n\n    rv = client.get(\"/response_status\")\n    assert rv.data == b\"Hello world\"\n    assert rv.status_code == 500\n\n    rv = client.get(\"/wsgi\")\n    assert b\"Not Found\" in rv.data\n    assert rv.status_code == 404\n\n    rv = client.get(\"/dict\")\n    assert rv.json == {\"foo\": \"bar\"}\n    assert rv.status_code == 201\n\n    rv = client.get(\"/list\")\n    assert rv.json == [\"foo\", \"bar\"]\n    assert rv.status_code == 201"
 }

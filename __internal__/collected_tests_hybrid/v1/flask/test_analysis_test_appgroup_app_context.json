@@ -2,13 +2,48 @@
   "test_name": "test_appgroup_app_context",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "cli.command",
-    "cli.group",
-    "subgroup.command",
-    "ScriptInfo",
-    "runner.invoke",
-    "runner.invoke",
-    "Flask"
+    {
+      "name": "cli.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cli.group",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "subgroup.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -61,5 +96,6 @@
     "assert result.output == 'testappgroup\\n'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_appgroup_app_context(runner):\n    @click.group(cls=AppGroup)\n    def cli():\n        pass\n\n    @cli.command()\n    def test():\n        click.echo(current_app.name)\n\n    @cli.group()\n    def subgroup():\n        pass\n\n    @subgroup.command()\n    def test2():\n        click.echo(current_app.name)\n\n    obj = ScriptInfo(create_app=lambda: Flask(\"testappgroup\"))\n\n    result = runner.invoke(cli, [\"test\"], obj=obj)\n    assert result.exit_code == 0\n    assert result.output == \"testappgroup\\n\"\n\n    result = runner.invoke(cli, [\"subgroup\", \"test2\"], obj=obj)\n    assert result.exit_code == 0\n    assert result.output == \"testappgroup\\n\""
 }

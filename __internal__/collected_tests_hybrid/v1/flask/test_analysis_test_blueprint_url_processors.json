@@ -2,13 +2,48 @@
   "test_name": "test_blueprint_url_processors",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.route",
-    "bp.route",
-    "app.register_blueprint",
-    "values.setdefault",
-    "values.pop",
-    "client.get",
-    "client.get"
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "values.setdefault",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "values.pop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -59,5 +94,6 @@
     "assert client.get('/de/about').data == b'/de/'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_blueprint_url_processors(app, client):\n    bp = flask.Blueprint(\"frontend\", __name__, url_prefix=\"/<lang_code>\")\n\n    @bp.url_defaults\n    def add_language_code(endpoint, values):\n        values.setdefault(\"lang_code\", flask.g.lang_code)\n\n    @bp.url_value_preprocessor\n    def pull_lang_code(endpoint, values):\n        flask.g.lang_code = values.pop(\"lang_code\")\n\n    @bp.route(\"/\")\n    def index():\n        return flask.url_for(\".about\")\n\n    @bp.route(\"/about\")\n    def about():\n        return flask.url_for(\".index\")\n\n    app.register_blueprint(bp)\n\n    assert client.get(\"/de/\").data == b\"/de/about\"\n    assert client.get(\"/de/about\").data == b\"/de/\""
 }

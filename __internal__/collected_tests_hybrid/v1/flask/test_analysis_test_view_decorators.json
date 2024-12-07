@@ -2,10 +2,30 @@
   "test_name": "test_view_decorators",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "client.get",
-    "Index.as_view",
-    "f"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Index.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "f",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert rv.data == b'Awesome'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_view_decorators(app, client):\n    def add_x_parachute(f):\n        def new_function(*args, **kwargs):\n            resp = flask.make_response(f(*args, **kwargs))\n            resp.headers[\"X-Parachute\"] = \"awesome\"\n            return resp\n\n        return new_function\n\n    class Index(flask.views.View):\n        decorators = [add_x_parachute]\n\n        def dispatch_request(self):\n            return \"Awesome\"\n\n    app.add_url_rule(\"/\", view_func=Index.as_view(\"index\"))\n    rv = client.get(\"/\")\n    assert rv.headers[\"X-Parachute\"] == \"awesome\"\n    assert rv.data == b\"Awesome\""
 }

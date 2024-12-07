@@ -2,11 +2,36 @@
   "test_name": "test_custom_template_loader",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "MyFlask",
-    "app.route",
-    "app.test_client",
-    "c.get",
-    "DictLoader"
+    {
+      "name": "MyFlask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DictLoader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert rv.data == b'Hello Custom World!'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_custom_template_loader(client):\n    class MyFlask(flask.Flask):\n        def create_global_jinja_loader(self):\n            from jinja2 import DictLoader\n\n            return DictLoader({\"index.html\": \"Hello Custom World!\"})\n\n    app = MyFlask(__name__)\n\n    @app.route(\"/\")\n    def index():\n        return flask.render_template(\"index.html\")\n\n    c = app.test_client()\n    rv = c.get(\"/\")\n    assert rv.data == b\"Hello Custom World!\""
 }

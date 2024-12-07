@@ -2,14 +2,54 @@
   "test_name": "test_custom_tag",
   "test_file": "__internal__/_data/flask/tests/test_json_tag.py",
   "static_methods": [
-    "TaggedJSONSerializer",
-    "s.register",
-    "isinstance",
-    "self.serializer.tag",
-    "Foo",
-    "s.loads",
-    "s.dumps",
-    "Foo"
+    {
+      "name": "TaggedJSONSerializer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "s.register",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.serializer.tag",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "s.loads",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "s.dumps",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -65,5 +105,6 @@
     "assert s.loads(s.dumps(Foo('bar'))).data == 'bar'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_custom_tag():\n    class Foo:  # noqa: B903, for Python2 compatibility\n        def __init__(self, data):\n            self.data = data\n\n    class TagFoo(JSONTag):\n        __slots__ = ()\n        key = \" f\"\n\n        def check(self, value):\n            return isinstance(value, Foo)\n\n        def to_json(self, value):\n            return self.serializer.tag(value.data)\n\n        def to_python(self, value):\n            return Foo(value)\n\n    s = TaggedJSONSerializer()\n    s.register(TagFoo)\n    assert s.loads(s.dumps(Foo(\"bar\"))).data == \"bar\""
 }

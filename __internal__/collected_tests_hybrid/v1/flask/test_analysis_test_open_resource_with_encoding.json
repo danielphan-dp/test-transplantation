@@ -2,10 +2,30 @@
   "test_name": "test_open_resource_with_encoding",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.open_resource",
-    "write_text",
-    "app.open_resource",
-    "f.read"
+    {
+      "name": "app.open_resource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "write_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.open_resource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "f.read",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert f.read() == 'test'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_open_resource_with_encoding(tmp_path, encoding):\n    app = flask.Flask(__name__, root_path=os.fspath(tmp_path))\n    (tmp_path / \"test\").write_text(\"test\", encoding=encoding)\n\n    with app.open_resource(\"test\", mode=\"rt\", encoding=encoding) as f:\n        assert f.read() == \"test\""
 }

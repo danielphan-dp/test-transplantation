@@ -2,11 +2,36 @@
   "test_name": "test_init_once",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "str",
-    "CountInit.as_view",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CountInit.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert client.get('/').data == b'1'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_init_once(app, client):\n    n = 0\n\n    class CountInit(flask.views.View):\n        init_every_request = False\n\n        def __init__(self):\n            nonlocal n\n            n += 1\n\n        def dispatch_request(self):\n            return str(n)\n\n    app.add_url_rule(\"/\", view_func=CountInit.as_view(\"index\"))\n    assert client.get(\"/\").data == b\"1\"\n    assert client.get(\"/\").data == b\"1\""
 }

@@ -2,16 +2,66 @@
   "test_name": "test_request_dispatching",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "client.post",
-    "client.head",
-    "client.delete",
-    "sorted",
-    "sorted",
-    "client.get",
-    "client.post",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.head",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.delete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -87,5 +137,6 @@
     "assert sorted(rv.allow) == ['GET', 'HEAD', 'OPTIONS', 'POST']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_request_dispatching(app, client):\n    @app.route(\"/\")\n    def index():\n        return flask.request.method\n\n    @app.route(\"/more\", methods=[\"GET\", \"POST\"])\n    def more():\n        return flask.request.method\n\n    assert client.get(\"/\").data == b\"GET\"\n    rv = client.post(\"/\")\n    assert rv.status_code == 405\n    assert sorted(rv.allow) == [\"GET\", \"HEAD\", \"OPTIONS\"]\n    rv = client.head(\"/\")\n    assert rv.status_code == 200\n    assert not rv.data  # head truncates\n    assert client.post(\"/more\").data == b\"POST\"\n    assert client.get(\"/more\").data == b\"GET\"\n    rv = client.delete(\"/more\")\n    assert rv.status_code == 405\n    assert sorted(rv.allow) == [\"GET\", \"HEAD\", \"OPTIONS\", \"POST\"]"
 }

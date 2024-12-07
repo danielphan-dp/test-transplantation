@@ -2,9 +2,24 @@
   "test_name": "test_error_handler_after_processor_error",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.errorhandler",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert rv.data == b'Hello Server Error'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_error_handler_after_processor_error(app, client):\n    app.testing = False\n\n    @app.before_request\n    def before_request():\n        if _trigger == \"before\":\n            raise ZeroDivisionError\n\n    @app.after_request\n    def after_request(response):\n        if _trigger == \"after\":\n            raise ZeroDivisionError\n\n        return response\n\n    @app.route(\"/\")\n    def index():\n        return \"Foo\"\n\n    @app.errorhandler(500)\n    def internal_server_error(e):\n        return \"Hello Server Error\", 500\n\n    for _trigger in \"before\", \"after\":\n        rv = client.get(\"/\")\n        assert rv.status_code == 500\n        assert rv.data == b\"Hello Server Error\""
 }

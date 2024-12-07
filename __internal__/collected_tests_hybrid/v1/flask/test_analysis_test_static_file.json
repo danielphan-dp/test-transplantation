@@ -2,21 +2,96 @@
   "test_name": "test_static_file",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.send_static_file",
-    "rv.close",
-    "rv.close",
-    "app.send_static_file",
-    "rv.close",
-    "rv.close",
-    "app.send_static_file",
-    "rv.close",
-    "StaticFileApp",
-    "FakePath",
-    "app.test_request_context",
-    "app.send_static_file",
-    "rv.close",
-    "rv.close"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.send_static_file",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.send_static_file",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.send_static_file",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "StaticFileApp",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FakePath",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.send_static_file",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -120,5 +195,6 @@
     "assert rv.cache_control.max_age == 10"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_static_file(self, app, req_ctx):\n        # Default max_age is None.\n\n        # Test with static file handler.\n        rv = app.send_static_file(\"index.html\")\n        assert rv.cache_control.max_age is None\n        rv.close()\n\n        # Test with direct use of send_file.\n        rv = flask.send_file(\"static/index.html\")\n        assert rv.cache_control.max_age is None\n        rv.close()\n\n        app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"] = 3600\n\n        # Test with static file handler.\n        rv = app.send_static_file(\"index.html\")\n        assert rv.cache_control.max_age == 3600\n        rv.close()\n\n        # Test with direct use of send_file.\n        rv = flask.send_file(\"static/index.html\")\n        assert rv.cache_control.max_age == 3600\n        rv.close()\n\n        # Test with pathlib.Path.\n        rv = app.send_static_file(FakePath(\"index.html\"))\n        assert rv.cache_control.max_age == 3600\n        rv.close()\n\n        class StaticFileApp(flask.Flask):\n            def get_send_file_max_age(self, filename):\n                return 10\n\n        app = StaticFileApp(__name__)\n\n        with app.test_request_context():\n            # Test with static file handler.\n            rv = app.send_static_file(\"index.html\")\n            assert rv.cache_control.max_age == 10\n            rv.close()\n\n            # Test with direct use of send_file.\n            rv = flask.send_file(\"static/index.html\")\n            assert rv.cache_control.max_age == 10\n            rv.close()"
 }

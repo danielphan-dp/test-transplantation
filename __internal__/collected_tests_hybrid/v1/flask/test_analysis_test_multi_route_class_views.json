@@ -2,11 +2,36 @@
   "test_name": "test_multi_route_class_views",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "View",
-    "client.open",
-    "client.open",
-    "app.add_url_rule",
-    "app.add_url_rule"
+    {
+      "name": "View",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert rv.data == b'b'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_multi_route_class_views(app, client):\n    class View:\n        def __init__(self, app):\n            app.add_url_rule(\"/\", \"index\", self.index)\n            app.add_url_rule(\"/<test>/\", \"index\", self.index)\n\n        def index(self, test=\"a\"):\n            return test\n\n    _ = View(app)\n    rv = client.open(\"/\")\n    assert rv.data == b\"a\"\n    rv = client.open(\"/b/\")\n    assert rv.data == b\"b\""
 }

@@ -2,15 +2,60 @@
   "test_name": "test_url_processors",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "app.route",
-    "values.pop",
-    "app.url_map.is_endpoint_expecting",
-    "values.setdefault",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "values.pop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.url_map.is_endpoint_expecting",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "values.setdefault",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -74,5 +119,6 @@
     "assert client.get('/foo').data == b'/en/about'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_url_processors(app, client):\n    @app.url_defaults\n    def add_language_code(endpoint, values):\n        if flask.g.lang_code is not None and app.url_map.is_endpoint_expecting(\n            endpoint, \"lang_code\"\n        ):\n            values.setdefault(\"lang_code\", flask.g.lang_code)\n\n    @app.url_value_preprocessor\n    def pull_lang_code(endpoint, values):\n        flask.g.lang_code = values.pop(\"lang_code\", None)\n\n    @app.route(\"/<lang_code>/\")\n    def index():\n        return flask.url_for(\"about\")\n\n    @app.route(\"/<lang_code>/about\")\n    def about():\n        return flask.url_for(\"something_else\")\n\n    @app.route(\"/foo\")\n    def something_else():\n        return flask.url_for(\"about\", lang_code=\"en\")\n\n    assert client.get(\"/de/\").data == b\"/de/about\"\n    assert client.get(\"/de/about\").data == b\"/foo\"\n    assert client.get(\"/foo\").data == b\"/en/about\""
 }

@@ -2,11 +2,36 @@
   "test_name": "test_run_cert_adhoc",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "monkeypatch.setitem",
-    "monkeypatch.setitem",
-    "run_command.make_context",
-    "run_command.make_context",
-    "run_command.make_context"
+    {
+      "name": "monkeypatch.setitem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setitem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert ctx.params['cert'] == 'adhoc'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_run_cert_adhoc(monkeypatch):\n    monkeypatch.setitem(sys.modules, \"cryptography\", None)\n\n    # cryptography not installed\n    with pytest.raises(click.BadParameter):\n        run_command.make_context(\"run\", [\"--cert\", \"adhoc\"])\n\n    # cryptography installed\n    monkeypatch.setitem(sys.modules, \"cryptography\", types.ModuleType(\"cryptography\"))\n    ctx = run_command.make_context(\"run\", [\"--cert\", \"adhoc\"])\n    assert ctx.params[\"cert\"] == \"adhoc\"\n\n    # no key with adhoc\n    with pytest.raises(click.BadParameter):\n        run_command.make_context(\"run\", [\"--cert\", \"adhoc\", \"--key\", __file__])"
 }

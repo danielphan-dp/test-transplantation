@@ -2,14 +2,54 @@
   "test_name": "test_build_error_handler",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.url_build_error_handlers.append",
-    "app.test_request_context",
-    "RuntimeError",
-    "app.test_request_context",
-    "app.test_request_context"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.url_build_error_handlers.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -65,5 +105,6 @@
     "assert flask.url_for('spam') == '/test_handler/'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_build_error_handler(app):\n    # Test base case, a URL which results in a BuildError.\n    with app.test_request_context():\n        pytest.raises(BuildError, flask.url_for, \"spam\")\n\n    # Verify the error is re-raised if not the current exception.\n    try:\n        with app.test_request_context():\n            flask.url_for(\"spam\")\n    except BuildError as err:\n        error = err\n    try:\n        raise RuntimeError(\"Test case where BuildError is not current.\")\n    except RuntimeError:\n        pytest.raises(BuildError, app.handle_url_build_error, error, \"spam\", {})\n\n    # Test a custom handler.\n    def handler(error, endpoint, values):\n        # Just a test.\n        return \"/test_handler/\"\n\n    app.url_build_error_handlers.append(handler)\n    with app.test_request_context():\n        assert flask.url_for(\"spam\") == \"/test_handler/\""
 }

@@ -2,9 +2,24 @@
   "test_name": "test_streaming_with_context_as_decorator",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "generate"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "generate",
+      "source_code": "def generate() -> t.Iterator[str]:\n        yield from template.generate(context)\n        template_rendered.send(\n            app, _async_wrapper=app.ensure_sync, template=template, context=context\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/templating.py",
+      "line_number": 173
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.data == b'Hello World!'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_streaming_with_context_as_decorator(self, app, client):\n        @app.route(\"/\")\n        def index():\n            @flask.stream_with_context\n            def generate(hello):\n                yield hello\n                yield flask.request.args[\"name\"]\n                yield \"!\"\n\n            return flask.Response(generate(\"Hello \"))\n\n        rv = client.get(\"/?name=World\")\n        assert rv.data == b\"Hello World!\""
 }

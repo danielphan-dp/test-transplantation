@@ -2,11 +2,36 @@
   "test_name": "test_before_render_template",
   "test_file": "__internal__/_data/flask/tests/test_signals.py",
   "static_methods": [
-    "app.route",
-    "recorded.append",
-    "app.test_client.get",
-    "len",
-    "app.test_client"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "recorded.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -47,5 +72,6 @@
     "assert rv.data == b'<h1>43</h1>'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_before_render_template():\n    app = flask.Flask(__name__)\n\n    @app.route(\"/\")\n    def index():\n        return flask.render_template(\"simple_template.html\", whiskey=42)\n\n    recorded = []\n\n    def record(sender, template, context):\n        context[\"whiskey\"] = 43\n        recorded.append((template, context))\n\n    flask.before_render_template.connect(record, app)\n    try:\n        rv = app.test_client().get(\"/\")\n        assert len(recorded) == 1\n        template, context = recorded[0]\n        assert template.name == \"simple_template.html\"\n        assert context[\"whiskey\"] == 43\n        assert rv.data == b\"<h1>43</h1>\"\n    finally:\n        flask.before_render_template.disconnect(record, app)"
 }

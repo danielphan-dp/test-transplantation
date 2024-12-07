@@ -2,9 +2,24 @@
   "test_name": "test_session_transactions_keep_context",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "client.session_transaction",
-    "client.get",
-    "client.session_transaction"
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert req is flask.request._get_current_object()"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_transactions_keep_context(app, client, req_ctx):\n    client.get(\"/\")\n    req = flask.request._get_current_object()\n    assert req is not None\n    with client.session_transaction():\n        assert req is flask.request._get_current_object()"
 }

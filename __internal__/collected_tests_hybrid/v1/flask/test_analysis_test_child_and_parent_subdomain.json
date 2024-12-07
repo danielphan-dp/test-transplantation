@@ -2,11 +2,36 @@
   "test_name": "test_child_and_parent_subdomain",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "child.route",
-    "parent.register_blueprint",
-    "app.register_blueprint",
-    "client.get",
-    "client.get"
+    {
+      "name": "child.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parent.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert response.status_code == 404"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_child_and_parent_subdomain(app, client) -> None:\n    app.subdomain_matching = True\n    app.config[\"SERVER_NAME\"] = \"example.test\"\n    client.allow_subdomain_redirects = True\n\n    parent = flask.Blueprint(\"parent\", __name__)\n    child = flask.Blueprint(\"child\", __name__, subdomain=\"api\")\n\n    @child.route(\"/\")\n    def index():\n        return \"child\"\n\n    parent.register_blueprint(child)\n    app.register_blueprint(parent, subdomain=\"parent\")\n\n    response = client.get(\"/\", base_url=\"http://api.parent.example.test\")\n    assert response.status_code == 200\n\n    response = client.get(\"/\", base_url=\"http://parent.example.test\")\n    assert response.status_code == 404"
 }

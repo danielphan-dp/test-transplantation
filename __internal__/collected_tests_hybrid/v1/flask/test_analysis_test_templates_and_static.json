@@ -2,23 +2,108 @@
   "test_name": "test_templates_and_static",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.test_client",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "rv.close",
-    "client.get",
-    "rv.close",
-    "rv.data.strip",
-    "rv.data.strip",
-    "client.get",
-    "parse_cache_control_header",
-    "rv.close",
-    "app.test_request_context",
-    "app.test_request_context"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.data.strip",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.data.strip",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_cache_control_header",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -136,5 +221,6 @@
     "assert flask.render_template('nested/nested.txt') == \"I'm nested\""
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_templates_and_static(test_apps):\n    from blueprintapp import app\n\n    client = app.test_client()\n\n    rv = client.get(\"/\")\n    assert rv.data == b\"Hello from the Frontend\"\n    rv = client.get(\"/admin/\")\n    assert rv.data == b\"Hello from the Admin\"\n    rv = client.get(\"/admin/index2\")\n    assert rv.data == b\"Hello from the Admin\"\n    rv = client.get(\"/admin/static/test.txt\")\n    assert rv.data.strip() == b\"Admin File\"\n    rv.close()\n    rv = client.get(\"/admin/static/css/test.css\")\n    assert rv.data.strip() == b\"/* nested file */\"\n    rv.close()\n\n    # try/finally, in case other tests use this app for Blueprint tests.\n    max_age_default = app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"]\n    try:\n        expected_max_age = 3600\n        if app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"] == expected_max_age:\n            expected_max_age = 7200\n        app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"] = expected_max_age\n        rv = client.get(\"/admin/static/css/test.css\")\n        cc = parse_cache_control_header(rv.headers[\"Cache-Control\"])\n        assert cc.max_age == expected_max_age\n        rv.close()\n    finally:\n        app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"] = max_age_default\n\n    with app.test_request_context():\n        assert (\n            flask.url_for(\"admin.static\", filename=\"test.txt\")\n            == \"/admin/static/test.txt\"\n        )\n\n    with app.test_request_context():\n        with pytest.raises(TemplateNotFound) as e:\n            flask.render_template(\"missing.html\")\n        assert e.value.name == \"missing.html\"\n\n    with flask.Flask(__name__).test_request_context():\n        assert flask.render_template(\"nested/nested.txt\") == \"I'm nested\""
 }

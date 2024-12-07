@@ -2,9 +2,24 @@
   "test_name": "test_flaskgroup_app_context",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "cli.command",
-    "runner.invoke",
-    "Flask"
+    {
+      "name": "cli.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert result.output == 'flaskgroup\\n'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_flaskgroup_app_context(runner):\n    def create_app():\n        return Flask(\"flaskgroup\")\n\n    @click.group(cls=FlaskGroup, create_app=create_app)\n    def cli(**params):\n        pass\n\n    @cli.command()\n    def test():\n        click.echo(current_app.name)\n\n    result = runner.invoke(cli, [\"test\"])\n    assert result.exit_code == 0\n    assert result.output == \"flaskgroup\\n\""
 }

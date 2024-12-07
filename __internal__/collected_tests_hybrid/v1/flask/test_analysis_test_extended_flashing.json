@@ -2,35 +2,180 @@
   "test_name": "test_extended_flashing",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.test_client",
-    "client.get",
-    "client.get",
-    "app.test_client",
-    "client.get",
-    "client.get",
-    "app.test_client",
-    "client.get",
-    "client.get",
-    "app.test_client",
-    "client.get",
-    "client.get",
-    "Markup",
-    "list",
-    "len",
-    "list",
-    "list",
-    "list",
-    "len",
-    "Markup",
-    "Markup",
-    "Markup",
-    "Markup"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -219,5 +364,6 @@
     "assert messages[1] == Markup('<em>Testing</em>')"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_extended_flashing(app):\n    # Be sure app.testing=True below, else tests can fail silently.\n    #\n    # Specifically, if app.testing is not set to True, the AssertionErrors\n    # in the view functions will cause a 500 response to the test client\n    # instead of propagating exceptions.\n\n    @app.route(\"/\")\n    def index():\n        flask.flash(\"Hello World\")\n        flask.flash(\"Hello World\", \"error\")\n        flask.flash(Markup(\"<em>Testing</em>\"), \"warning\")\n        return \"\"\n\n    @app.route(\"/test/\")\n    def test():\n        messages = flask.get_flashed_messages()\n        assert list(messages) == [\n            \"Hello World\",\n            \"Hello World\",\n            Markup(\"<em>Testing</em>\"),\n        ]\n        return \"\"\n\n    @app.route(\"/test_with_categories/\")\n    def test_with_categories():\n        messages = flask.get_flashed_messages(with_categories=True)\n        assert len(messages) == 3\n        assert list(messages) == [\n            (\"message\", \"Hello World\"),\n            (\"error\", \"Hello World\"),\n            (\"warning\", Markup(\"<em>Testing</em>\")),\n        ]\n        return \"\"\n\n    @app.route(\"/test_filter/\")\n    def test_filter():\n        messages = flask.get_flashed_messages(\n            category_filter=[\"message\"], with_categories=True\n        )\n        assert list(messages) == [(\"message\", \"Hello World\")]\n        return \"\"\n\n    @app.route(\"/test_filters/\")\n    def test_filters():\n        messages = flask.get_flashed_messages(\n            category_filter=[\"message\", \"warning\"], with_categories=True\n        )\n        assert list(messages) == [\n            (\"message\", \"Hello World\"),\n            (\"warning\", Markup(\"<em>Testing</em>\")),\n        ]\n        return \"\"\n\n    @app.route(\"/test_filters_without_returning_categories/\")\n    def test_filters2():\n        messages = flask.get_flashed_messages(category_filter=[\"message\", \"warning\"])\n        assert len(messages) == 2\n        assert messages[0] == \"Hello World\"\n        assert messages[1] == Markup(\"<em>Testing</em>\")\n        return \"\"\n\n    # Create new test client on each test to clean flashed messages.\n\n    client = app.test_client()\n    client.get(\"/\")\n    client.get(\"/test_with_categories/\")\n\n    client = app.test_client()\n    client.get(\"/\")\n    client.get(\"/test_filter/\")\n\n    client = app.test_client()\n    client.get(\"/\")\n    client.get(\"/test_filters/\")\n\n    client = app.test_client()\n    client.get(\"/\")\n    client.get(\"/test_filters_without_returning_categories/\")"
 }

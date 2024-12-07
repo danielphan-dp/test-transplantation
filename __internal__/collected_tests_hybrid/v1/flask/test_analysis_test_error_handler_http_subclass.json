@@ -2,20 +2,90 @@
   "test_name": "test_error_handler_http_subclass",
   "test_file": "__internal__/_data/flask/tests/test_user_error_handler.py",
   "static_methods": [
-    "app.errorhandler",
-    "app.errorhandler",
-    "app.route",
-    "app.route",
-    "app.route",
-    "app.test_client",
-    "isinstance",
-    "isinstance",
-    "Forbidden",
-    "ForbiddenSubclassRegistered",
-    "ForbiddenSubclassUnregistered",
-    "c.get",
-    "c.get",
-    "c.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Forbidden",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ForbiddenSubclassRegistered",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ForbiddenSubclassUnregistered",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -111,5 +181,6 @@
     "assert isinstance(e, ForbiddenSubclassRegistered)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_error_handler_http_subclass(app):\n    class ForbiddenSubclassRegistered(Forbidden):\n        pass\n\n    class ForbiddenSubclassUnregistered(Forbidden):\n        pass\n\n    @app.errorhandler(403)\n    def code_exception_handler(e):\n        assert isinstance(e, Forbidden)\n        return \"forbidden\"\n\n    @app.errorhandler(ForbiddenSubclassRegistered)\n    def subclass_exception_handler(e):\n        assert isinstance(e, ForbiddenSubclassRegistered)\n        return \"forbidden-registered\"\n\n    @app.route(\"/forbidden\")\n    def forbidden_test():\n        raise Forbidden()\n\n    @app.route(\"/forbidden-registered\")\n    def registered_test():\n        raise ForbiddenSubclassRegistered()\n\n    @app.route(\"/forbidden-unregistered\")\n    def unregistered_test():\n        raise ForbiddenSubclassUnregistered()\n\n    c = app.test_client()\n\n    assert c.get(\"/forbidden\").data == b\"forbidden\"\n    assert c.get(\"/forbidden-unregistered\").data == b\"forbidden\"\n    assert c.get(\"/forbidden-registered\").data == b\"forbidden-registered\""
 }

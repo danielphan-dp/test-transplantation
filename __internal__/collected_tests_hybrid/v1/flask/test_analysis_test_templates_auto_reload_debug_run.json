@@ -2,9 +2,24 @@
   "test_name": "test_templates_auto_reload_debug_run",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "monkeypatch.setattr",
-    "app.run",
-    "app.run"
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert app.jinja_env.auto_reload"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_templates_auto_reload_debug_run(app, monkeypatch):\n    def run_simple_mock(*args, **kwargs):\n        pass\n\n    monkeypatch.setattr(werkzeug.serving, \"run_simple\", run_simple_mock)\n\n    app.run()\n    assert not app.jinja_env.auto_reload\n\n    app.run(debug=True)\n    assert app.jinja_env.auto_reload"
 }

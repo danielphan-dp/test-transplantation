@@ -2,13 +2,48 @@
   "test_name": "test_default_static_max_age",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "MyBlueprint",
-    "app.register_blueprint",
-    "app.test_request_context",
-    "app.test_request_context",
-    "blueprint.send_static_file",
-    "parse_cache_control_header",
-    "rv.close"
+    {
+      "name": "MyBlueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "blueprint.send_static_file",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_cache_control_header",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -58,5 +93,6 @@
     "assert cc.max_age == 100"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_default_static_max_age(app):\n    class MyBlueprint(flask.Blueprint):\n        def get_send_file_max_age(self, filename):\n            return 100\n\n    blueprint = MyBlueprint(\"blueprint\", __name__, static_folder=\"static\")\n    app.register_blueprint(blueprint)\n\n    # try/finally, in case other tests use this app for Blueprint tests.\n    max_age_default = app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"]\n    try:\n        with app.test_request_context():\n            unexpected_max_age = 3600\n            if app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"] == unexpected_max_age:\n                unexpected_max_age = 7200\n            app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"] = unexpected_max_age\n            rv = blueprint.send_static_file(\"index.html\")\n            cc = parse_cache_control_header(rv.headers[\"Cache-Control\"])\n            assert cc.max_age == 100\n            rv.close()\n    finally:\n        app.config[\"SEND_FILE_MAX_AGE_DEFAULT\"] = max_age_default"
 }

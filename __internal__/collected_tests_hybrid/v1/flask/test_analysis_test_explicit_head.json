@@ -2,10 +2,30 @@
   "test_name": "test_explicit_head",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "client.get",
-    "client.head",
-    "Index.as_view"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.head",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Index.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -39,5 +59,6 @@
     "assert rv.headers['X-Method'] == 'HEAD'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_explicit_head(app, client):\n    class Index(flask.views.MethodView):\n        def get(self):\n            return \"GET\"\n\n        def head(self):\n            return flask.Response(\"\", headers={\"X-Method\": \"HEAD\"})\n\n    app.add_url_rule(\"/\", view_func=Index.as_view(\"index\"))\n    rv = client.get(\"/\")\n    assert rv.data == b\"GET\"\n    rv = client.head(\"/\")\n    assert rv.data == b\"\"\n    assert rv.headers[\"X-Method\"] == \"HEAD\""
 }

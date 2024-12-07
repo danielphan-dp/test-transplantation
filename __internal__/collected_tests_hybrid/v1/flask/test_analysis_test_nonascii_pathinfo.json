@@ -2,8 +2,18 @@
   "test_name": "test_nonascii_pathinfo",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert rv.data == b'Hello World!'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_nonascii_pathinfo(app, client):\n    @app.route(\"/\u043a\u0438\u0440\u0442\u0435\u0441\u0442\")\n    def index():\n        return \"Hello World!\"\n\n    rv = client.get(\"/\u043a\u0438\u0440\u0442\u0435\u0441\u0442\")\n    assert rv.data == b\"Hello World!\""
 }

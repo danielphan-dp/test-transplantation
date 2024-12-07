@@ -2,9 +2,24 @@
   "test_name": "test_add_template_filter_with_template",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.add_template_filter",
-    "app.route",
-    "client.get"
+    {
+      "name": "app.add_template_filter",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.data == b'dcba'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_add_template_filter_with_template(app, client):\n    def super_reverse(s):\n        return s[::-1]\n\n    app.add_template_filter(super_reverse)\n\n    @app.route(\"/\")\n    def index():\n        return flask.render_template(\"template_filter.html\", value=\"abcd\")\n\n    rv = client.get(\"/\")\n    assert rv.data == b\"dcba\""
 }

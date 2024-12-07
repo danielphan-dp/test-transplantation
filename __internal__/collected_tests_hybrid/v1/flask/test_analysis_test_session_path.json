@@ -2,10 +2,30 @@
   "test_name": "test_session_path",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.config.update",
-    "app.route",
-    "client.get",
-    "rv.headers.lower"
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.lower",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert 'path=/foo' in rv.headers['set-cookie'].lower()"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_path(app, client):\n    app.config.update(APPLICATION_ROOT=\"/foo\")\n\n    @app.route(\"/\")\n    def index():\n        flask.session[\"testing\"] = 42\n        return \"Hello World\"\n\n    rv = client.get(\"/\", \"http://example.com:8080/foo\")\n    assert \"path=/foo\" in rv.headers[\"set-cookie\"].lower()"
 }

@@ -2,12 +2,42 @@
   "test_name": "test_handle_generic_http",
   "test_file": "__internal__/_data/flask/tests/test_user_error_handler.py",
   "static_methods": [
-    "app.errorhandler",
-    "isinstance",
-    "str",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -54,5 +84,6 @@
     "assert isinstance(e, HTTPException)"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_handle_generic_http(self, app, client):\n        \"\"\"``HTTPException`` should only receive ``HTTPException``\n        subclasses. It will receive ``404`` routing exceptions.\n        \"\"\"\n\n        @app.errorhandler(HTTPException)\n        def handle_http(e):\n            assert isinstance(e, HTTPException)\n            return str(e.code)\n\n        assert client.get(\"/error\").data == b\"500\"\n        assert client.get(\"/abort\").data == b\"500\"\n        assert client.get(\"/not-found\").data == b\"404\""
 }

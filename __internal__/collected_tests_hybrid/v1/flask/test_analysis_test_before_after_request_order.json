@@ -2,14 +2,54 @@
   "test_name": "test_before_after_request_order",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "called.append",
-    "called.append",
-    "called.append",
-    "called.append",
-    "called.append",
-    "called.append"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -66,5 +106,6 @@
     "assert called == [1, 2, 3, 4, 5, 6]"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_before_after_request_order(app, client):\n    called = []\n\n    @app.before_request\n    def before1():\n        called.append(1)\n\n    @app.before_request\n    def before2():\n        called.append(2)\n\n    @app.after_request\n    def after1(response):\n        called.append(4)\n        return response\n\n    @app.after_request\n    def after2(response):\n        called.append(3)\n        return response\n\n    @app.teardown_request\n    def finish1(exc):\n        called.append(6)\n\n    @app.teardown_request\n    def finish2(exc):\n        called.append(5)\n\n    @app.route(\"/\")\n    def index():\n        return \"42\"\n\n    rv = client.get(\"/\")\n    assert rv.data == b\"42\"\n    assert called == [1, 2, 3, 4, 5, 6]"
 }

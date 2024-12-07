@@ -2,11 +2,36 @@
   "test_name": "test_app_cli_has_app_context",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "app.cli.command",
-    "FlaskGroup",
-    "runner.invoke",
-    "bool",
-    "current_app._get_current_object"
+    {
+      "name": "app.cli.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FlaskGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bool",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "current_app._get_current_object",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert result.return_value == (True, True)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_app_cli_has_app_context(app, runner):\n    def _param_cb(ctx, param, value):\n        # current_app should be available in parameter callbacks\n        return bool(current_app)\n\n    @app.cli.command()\n    @click.argument(\"value\", callback=_param_cb)\n    def check(value):\n        app = click.get_current_context().obj.load_app()\n        # the loaded app should be the same as current_app\n        same_app = current_app._get_current_object() is app\n        return same_app, value\n\n    cli = FlaskGroup(create_app=lambda: app)\n    result = runner.invoke(cli, [\"check\", \"x\"], standalone_mode=False)\n    assert result.return_value == (True, True)"
 }

@@ -2,10 +2,30 @@
   "test_name": "test_cli_custom_obj",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.cli.command",
-    "ScriptInfo",
-    "app.test_cli_runner",
-    "runner.invoke"
+    {
+      "name": "app.cli.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_cli_runner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert NS.called"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_cli_custom_obj(app):\n    class NS:\n        called = False\n\n    def create_app():\n        NS.called = True\n        return app\n\n    @app.cli.command(\"hello\")\n    def hello_command():\n        click.echo(\"Hello, World!\")\n\n    script_info = ScriptInfo(create_app=create_app)\n    runner = app.test_cli_runner()\n    runner.invoke(hello_command, obj=script_info)\n    assert NS.called"
 }

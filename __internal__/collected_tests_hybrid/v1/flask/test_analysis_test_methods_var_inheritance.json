@@ -2,10 +2,30 @@
   "test_name": "test_methods_var_inheritance",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "ChildView.as_view",
-    "client.get",
-    "client.open"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ChildView.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -39,5 +59,6 @@
     "assert ChildView.methods == {'PROPFIND', 'GET'}"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_methods_var_inheritance(app, client):\n    class BaseView(flask.views.MethodView):\n        methods = [\"GET\", \"PROPFIND\"]\n\n    class ChildView(BaseView):\n        def get(self):\n            return \"GET\"\n\n        def propfind(self):\n            return \"PROPFIND\"\n\n    app.add_url_rule(\"/\", view_func=ChildView.as_view(\"index\"))\n\n    assert client.get(\"/\").data == b\"GET\"\n    assert client.open(\"/\", method=\"PROPFIND\").data == b\"PROPFIND\"\n    assert ChildView.methods == {\"PROPFIND\", \"GET\"}"
 }

@@ -2,8 +2,18 @@
   "test_name": "test_bad_request_debug_message",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.route",
-    "client.post"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -24,5 +34,6 @@
     "assert contains == debug"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_bad_request_debug_message(app, client, debug):\n    app.config[\"DEBUG\"] = debug\n    app.config[\"TRAP_BAD_REQUEST_ERRORS\"] = False\n\n    @app.route(\"/json\", methods=[\"POST\"])\n    def post_json():\n        flask.request.get_json()\n        return None\n\n    rv = client.post(\"/json\", data=None, content_type=\"application/json\")\n    assert rv.status_code == 400\n    contains = b\"Failed to decode JSON object\" in rv.data\n    assert contains == debug"
 }

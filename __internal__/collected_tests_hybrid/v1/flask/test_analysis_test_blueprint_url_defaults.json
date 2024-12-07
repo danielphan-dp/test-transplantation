@@ -2,15 +2,60 @@
   "test_name": "test_blueprint_url_defaults",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.route",
-    "bp.route",
-    "app.register_blueprint",
-    "app.register_blueprint",
-    "str",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -75,5 +120,6 @@
     "assert client.get('/2/bar').data == b'19'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_blueprint_url_defaults(app, client):\n    bp = flask.Blueprint(\"test\", __name__)\n\n    @bp.route(\"/foo\", defaults={\"baz\": 42})\n    def foo(bar, baz):\n        return f\"{bar}/{baz:d}\"\n\n    @bp.route(\"/bar\")\n    def bar(bar):\n        return str(bar)\n\n    app.register_blueprint(bp, url_prefix=\"/1\", url_defaults={\"bar\": 23})\n    app.register_blueprint(bp, name=\"test2\", url_prefix=\"/2\", url_defaults={\"bar\": 19})\n\n    assert client.get(\"/1/foo\").data == b\"23/42\"\n    assert client.get(\"/2/foo\").data == b\"19/42\"\n    assert client.get(\"/1/bar\").data == b\"23\"\n    assert client.get(\"/2/bar\").data == b\"19\""
 }

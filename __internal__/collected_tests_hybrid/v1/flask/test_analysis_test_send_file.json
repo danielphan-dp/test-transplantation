@@ -2,10 +2,30 @@
   "test_name": "test_send_file",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.open_resource",
-    "rv.close",
-    "app.open_resource",
-    "f.read"
+    {
+      "name": "app.open_resource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.open_resource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "f.read",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -39,5 +59,6 @@
     "assert rv.data == f.read()"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_send_file(self, app, req_ctx):\n        rv = flask.send_file(\"static/index.html\")\n        assert rv.direct_passthrough\n        assert rv.mimetype == \"text/html\"\n\n        with app.open_resource(\"static/index.html\") as f:\n            rv.direct_passthrough = False\n            assert rv.data == f.read()\n\n        rv.close()"
 }

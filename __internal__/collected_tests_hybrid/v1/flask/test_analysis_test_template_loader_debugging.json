@@ -2,16 +2,66 @@
   "test_name": "test_template_loader_debugging",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.test_client",
-    "app.test_client",
-    "monkeypatch.setitem",
-    "monkeypatch.setattr",
-    "len",
-    "called.append",
-    "str",
-    "c.get",
-    "str",
-    "_TestHandler"
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setitem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_TestHandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -86,5 +136,6 @@
     "assert 'See https://flask.palletsprojects.com/blueprints/#templates' in text"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_template_loader_debugging(test_apps, monkeypatch):\n    from blueprintapp import app\n\n    called = []\n\n    class _TestHandler(logging.Handler):\n        def handle(self, record):\n            called.append(True)\n            text = str(record.msg)\n            assert \"1: trying loader of application 'blueprintapp'\" in text\n            assert (\n                \"2: trying loader of blueprint 'admin' (blueprintapp.apps.admin)\"\n            ) in text\n            assert (\n                \"trying loader of blueprint 'frontend' (blueprintapp.apps.frontend)\"\n            ) in text\n            assert \"Error: the template could not be found\" in text\n            assert (\n                \"looked up from an endpoint that belongs to the blueprint 'frontend'\"\n            ) in text\n            assert \"See https://flask.palletsprojects.com/blueprints/#templates\" in text\n\n    with app.test_client() as c:\n        monkeypatch.setitem(app.config, \"EXPLAIN_TEMPLATE_LOADING\", True)\n        monkeypatch.setattr(\n            logging.getLogger(\"blueprintapp\"), \"handlers\", [_TestHandler()]\n        )\n\n        with pytest.raises(TemplateNotFound) as excinfo:\n            c.get(\"/missing\")\n\n        assert \"missing_template.html\" in str(excinfo.value)\n\n    assert len(called) == 1"
 }

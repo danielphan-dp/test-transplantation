@@ -2,13 +2,48 @@
   "test_name": "test_request_preprocessing_early_return",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "client.get.data.strip",
-    "evts.append",
-    "evts.append",
-    "evts.append",
-    "evts.append",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get.data.strip",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -59,5 +94,6 @@
     "assert evts == [1, 2]"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_request_preprocessing_early_return(app, client):\n    evts = []\n\n    @app.before_request\n    def before_request1():\n        evts.append(1)\n\n    @app.before_request\n    def before_request2():\n        evts.append(2)\n        return \"hello\"\n\n    @app.before_request\n    def before_request3():\n        evts.append(3)\n        return \"bye\"\n\n    @app.route(\"/\")\n    def index():\n        evts.append(\"index\")\n        return \"damnit\"\n\n    rv = client.get(\"/\").data.strip()\n    assert rv == b\"hello\"\n    assert evts == [1, 2]"
 }

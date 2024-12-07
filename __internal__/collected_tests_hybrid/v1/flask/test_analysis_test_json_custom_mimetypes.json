@@ -2,8 +2,18 @@
   "test_name": "test_json_custom_mimetypes",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.route",
-    "client.post"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert rv.data == b'foo'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_custom_mimetypes(app, client):\n    @app.route(\"/json\", methods=[\"POST\"])\n    def return_json():\n        return flask.request.get_json()\n\n    rv = client.post(\"/json\", data='\"foo\"', content_type=\"application/x+json\")\n    assert rv.data == b\"foo\""
 }

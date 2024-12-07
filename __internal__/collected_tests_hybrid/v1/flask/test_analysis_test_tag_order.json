@@ -2,11 +2,36 @@
   "test_name": "test_tag_order",
   "test_file": "__internal__/_data/flask/tests/test_json_tag.py",
   "static_methods": [
-    "TaggedJSONSerializer",
-    "s.register",
-    "isinstance",
-    "s.register",
-    "isinstance"
+    {
+      "name": "TaggedJSONSerializer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "s.register",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "s.register",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert isinstance(s.order[-1], Tag2)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_tag_order():\n    class Tag1(JSONTag):\n        key = \" 1\"\n\n    class Tag2(JSONTag):\n        key = \" 2\"\n\n    s = TaggedJSONSerializer()\n\n    s.register(Tag1, index=-1)\n    assert isinstance(s.order[-2], Tag1)\n\n    s.register(Tag2, index=None)\n    assert isinstance(s.order[-1], Tag2)"
 }

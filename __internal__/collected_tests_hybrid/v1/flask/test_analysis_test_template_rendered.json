@@ -2,10 +2,30 @@
   "test_name": "test_template_rendered",
   "test_file": "__internal__/_data/flask/tests/test_signals.py",
   "static_methods": [
-    "app.route",
-    "recorded.append",
-    "client.get",
-    "len"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "recorded.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -39,5 +59,6 @@
     "assert context['whiskey'] == 42"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_template_rendered(app, client):\n    @app.route(\"/\")\n    def index():\n        return flask.render_template(\"simple_template.html\", whiskey=42)\n\n    recorded = []\n\n    def record(sender, template, context):\n        recorded.append((template, context))\n\n    flask.template_rendered.connect(record, app)\n    try:\n        client.get(\"/\")\n        assert len(recorded) == 1\n        template, context = recorded[0]\n        assert template.name == \"simple_template.html\"\n        assert context[\"whiskey\"] == 42\n    finally:\n        flask.template_rendered.disconnect(record, app)"
 }

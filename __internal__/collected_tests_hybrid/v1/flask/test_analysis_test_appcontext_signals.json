@@ -2,10 +2,30 @@
   "test_name": "test_appcontext_signals",
   "test_file": "__internal__/_data/flask/tests/test_signals.py",
   "static_methods": [
-    "app.route",
-    "recorded.append",
-    "recorded.append",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "recorded.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "recorded.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert recorded == ['push', 'pop']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_appcontext_signals(app, client):\n    recorded = []\n\n    def record_push(sender, **kwargs):\n        recorded.append(\"push\")\n\n    def record_pop(sender, **kwargs):\n        recorded.append(\"pop\")\n\n    @app.route(\"/\")\n    def index():\n        return \"Hello\"\n\n    flask.appcontext_pushed.connect(record_push, app)\n    flask.appcontext_popped.connect(record_pop, app)\n    try:\n        rv = client.get(\"/\")\n        assert rv.data == b\"Hello\"\n        assert recorded == [\"push\", \"pop\"]\n    finally:\n        flask.appcontext_pushed.disconnect(record_push, app)\n        flask.appcontext_popped.disconnect(record_pop, app)"
 }

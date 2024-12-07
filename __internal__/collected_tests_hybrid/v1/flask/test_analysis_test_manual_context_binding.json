@@ -2,12 +2,42 @@
   "test_name": "test_manual_context_binding",
   "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
-    "app.route",
-    "app.test_request_context",
-    "ctx.push",
-    "ctx.pop",
-    "index",
-    "index"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.push",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.pop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "index",
+      "source_code": "def index(js):\n    return render_template(f\"{js}.html\", js=js)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
+      "line_number": 10
+    },
+    {
+      "name": "index",
+      "source_code": "def index(js):\n    return render_template(f\"{js}.html\", js=js)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
+      "line_number": 10
+    }
   ],
   "dynamic_methods": [
     {
@@ -51,5 +81,6 @@
     "assert index() == 'Hello World!'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_manual_context_binding(app):\n    @app.route(\"/\")\n    def index():\n        return f\"Hello {flask.request.args['name']}!\"\n\n    ctx = app.test_request_context(\"/?name=World\")\n    ctx.push()\n    assert index() == \"Hello World!\"\n    ctx.pop()\n    with pytest.raises(RuntimeError):\n        index()"
 }

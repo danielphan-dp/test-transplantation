@@ -2,12 +2,42 @@
   "test_name": "test_session_special_types",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "Markup",
-    "client.get",
-    "type",
-    "type",
-    "Markup"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -60,5 +90,6 @@
     "assert s['di_tag'] == {' di': 'not-a-dict'}"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_special_types(app, client):\n    now = datetime.now(timezone.utc).replace(microsecond=0)\n    the_uuid = uuid.uuid4()\n\n    @app.route(\"/\")\n    def dump_session_contents():\n        flask.session[\"t\"] = (1, 2, 3)\n        flask.session[\"b\"] = b\"\\xff\"\n        flask.session[\"m\"] = Markup(\"<html>\")\n        flask.session[\"u\"] = the_uuid\n        flask.session[\"d\"] = now\n        flask.session[\"t_tag\"] = {\" t\": \"not-a-tuple\"}\n        flask.session[\"di_t_tag\"] = {\" t__\": \"not-a-tuple\"}\n        flask.session[\"di_tag\"] = {\" di\": \"not-a-dict\"}\n        return \"\", 204\n\n    with client:\n        client.get(\"/\")\n        s = flask.session\n        assert s[\"t\"] == (1, 2, 3)\n        assert type(s[\"b\"]) is bytes  # noqa: E721\n        assert s[\"b\"] == b\"\\xff\"\n        assert type(s[\"m\"]) is Markup  # noqa: E721\n        assert s[\"m\"] == Markup(\"<html>\")\n        assert s[\"u\"] == the_uuid\n        assert s[\"d\"] == now\n        assert s[\"t_tag\"] == {\" t\": \"not-a-tuple\"}\n        assert s[\"di_t_tag\"] == {\" t__\": \"not-a-tuple\"}\n        assert s[\"di_tag\"] == {\" di\": \"not-a-dict\"}"
 }

@@ -2,9 +2,24 @@
   "test_name": "test_with_appcontext",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "ScriptInfo",
-    "runner.invoke",
-    "Flask"
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +46,6 @@
     "assert result.output == 'testapp\\n'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_with_appcontext(runner):\n    @click.command()\n    @with_appcontext\n    def testcmd():\n        click.echo(current_app.name)\n\n    obj = ScriptInfo(create_app=lambda: Flask(\"testapp\"))\n\n    result = runner.invoke(testcmd, obj=obj)\n    assert result.exit_code == 0\n    assert result.output == \"testapp\\n\""
 }

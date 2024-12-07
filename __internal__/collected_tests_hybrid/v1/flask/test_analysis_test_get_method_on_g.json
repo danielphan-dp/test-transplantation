@@ -10,5 +10,6 @@
     "assert flask.g.x == 42"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_get_method_on_g(app_ctx):\n    assert flask.g.get(\"x\") is None\n    assert flask.g.get(\"x\", 11) == 11\n    flask.g.x = 42\n    assert flask.g.get(\"x\") == 42\n    assert flask.g.x == 42"
 }

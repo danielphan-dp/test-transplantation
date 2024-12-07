@@ -2,10 +2,30 @@
   "test_name": "test_cli_invoke",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.cli.command",
-    "app.test_cli_runner",
-    "runner.invoke",
-    "runner.invoke"
+    {
+      "name": "app.cli.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_cli_runner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert 'Hello' in result.output"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_cli_invoke(app):\n    @app.cli.command(\"hello\")\n    def hello_command():\n        click.echo(\"Hello, World!\")\n\n    runner = app.test_cli_runner()\n    # invoke with command name\n    result = runner.invoke(args=[\"hello\"])\n    assert \"Hello\" in result.output\n    # invoke with command object\n    result = runner.invoke(hello_command)\n    assert \"Hello\" in result.output"
 }

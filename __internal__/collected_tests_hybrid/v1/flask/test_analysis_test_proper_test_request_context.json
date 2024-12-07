@@ -2,21 +2,96 @@
   "test_name": "test_proper_test_request_context",
   "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.config.update",
-    "app.route",
-    "app.route",
-    "app.test_request_context",
-    "app.config.update",
-    "app.config.update",
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.test_request_context",
-    "app.test_request_context"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -115,5 +190,6 @@
     "assert flask.url_for('sub', _external=True) == 'http://foo.localhost.localdomain:5000/'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_proper_test_request_context(app):\n    app.config.update(SERVER_NAME=\"localhost.localdomain:5000\")\n\n    @app.route(\"/\")\n    def index():\n        return None\n\n    @app.route(\"/\", subdomain=\"foo\")\n    def sub():\n        return None\n\n    with app.test_request_context(\"/\"):\n        assert (\n            flask.url_for(\"index\", _external=True)\n            == \"http://localhost.localdomain:5000/\"\n        )\n\n    with app.test_request_context(\"/\"):\n        assert (\n            flask.url_for(\"sub\", _external=True)\n            == \"http://foo.localhost.localdomain:5000/\"\n        )\n\n    # suppress Werkzeug 0.15 warning about name mismatch\n    with warnings.catch_warnings():\n        warnings.filterwarnings(\n            \"ignore\", \"Current server name\", UserWarning, \"flask.app\"\n        )\n        with app.test_request_context(\n            \"/\", environ_overrides={\"HTTP_HOST\": \"localhost\"}\n        ):\n            pass\n\n    app.config.update(SERVER_NAME=\"localhost\")\n    with app.test_request_context(\"/\", environ_overrides={\"SERVER_NAME\": \"localhost\"}):\n        pass\n\n    app.config.update(SERVER_NAME=\"localhost:80\")\n    with app.test_request_context(\n        \"/\", environ_overrides={\"SERVER_NAME\": \"localhost:80\"}\n    ):\n        pass"
 }

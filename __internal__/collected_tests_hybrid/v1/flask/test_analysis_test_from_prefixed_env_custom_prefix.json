@@ -2,9 +2,24 @@
   "test_name": "test_from_prefixed_env_custom_prefix",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "monkeypatch.setenv",
-    "monkeypatch.setenv",
-    "app.config.from_prefixed_env"
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_prefixed_env",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert app.config['A'] == 'b'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_from_prefixed_env_custom_prefix(monkeypatch):\n    monkeypatch.setenv(\"FLASK_A\", \"a\")\n    monkeypatch.setenv(\"NOT_FLASK_A\", \"b\")\n\n    app = flask.Flask(__name__)\n    app.config.from_prefixed_env(\"NOT_FLASK\")\n\n    assert app.config[\"A\"] == \"b\""
 }

@@ -2,12 +2,42 @@
   "test_name": "test_errorhandler_precedence",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.errorhandler",
-    "app.errorhandler",
-    "app.route",
-    "app.route",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -52,5 +82,6 @@
     "assert rv.data == b'E2'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_errorhandler_precedence(app, client):\n    class E1(Exception):\n        pass\n\n    class E2(Exception):\n        pass\n\n    class E3(E1, E2):\n        pass\n\n    @app.errorhandler(E2)\n    def handle_e2(e):\n        return \"E2\"\n\n    @app.errorhandler(Exception)\n    def handle_exception(e):\n        return \"Exception\"\n\n    @app.route(\"/E1\")\n    def raise_e1():\n        raise E1\n\n    @app.route(\"/E3\")\n    def raise_e3():\n        raise E3\n\n    rv = client.get(\"/E1\")\n    assert rv.data == b\"Exception\"\n\n    rv = client.get(\"/E3\")\n    assert rv.data == b\"E2\""
 }

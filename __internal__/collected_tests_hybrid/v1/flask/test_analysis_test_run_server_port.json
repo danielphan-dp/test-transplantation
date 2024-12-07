@@ -2,8 +2,18 @@
   "test_name": "test_run_server_port",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "monkeypatch.setattr",
-    "app.run"
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert rv['result'] == f'running on {hostname}:{port} ...'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_run_server_port(monkeypatch, app):\n    rv = {}\n\n    # Mocks werkzeug.serving.run_simple method\n    def run_simple_mock(hostname, port, application, *args, **kwargs):\n        rv[\"result\"] = f\"running on {hostname}:{port} ...\"\n\n    monkeypatch.setattr(werkzeug.serving, \"run_simple\", run_simple_mock)\n    hostname, port = \"localhost\", 8000\n    app.run(hostname, port, debug=True)\n    assert rv[\"result\"] == f\"running on {hostname}:{port} ...\""
 }

@@ -2,10 +2,30 @@
   "test_name": "test_json_dump_dataclass",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "make_dataclass",
-    "app.json.dumps",
-    "app.json.loads",
-    "Data"
+    {
+      "name": "make_dataclass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.json.dumps",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.json.loads",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Data",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert value == {'name': 'Flask'}"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_dump_dataclass(app, req_ctx):\n    from dataclasses import make_dataclass\n\n    Data = make_dataclass(\"Data\", [(\"name\", str)])\n    value = app.json.dumps(Data(\"Flask\"))\n    value = app.json.loads(value)\n    assert value == {\"name\": \"Flask\"}"
 }

@@ -2,11 +2,36 @@
   "test_name": "test_view_inheritance",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "parse_set_header",
-    "sorted",
-    "BetterIndex.as_view",
-    "client.open"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_set_header",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BetterIndex.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert sorted(meths) == ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_view_inheritance(app, client):\n    class Index(flask.views.MethodView):\n        def get(self):\n            return \"GET\"\n\n        def post(self):\n            return \"POST\"\n\n    class BetterIndex(Index):\n        def delete(self):\n            return \"DELETE\"\n\n    app.add_url_rule(\"/\", view_func=BetterIndex.as_view(\"index\"))\n\n    meths = parse_set_header(client.open(\"/\", method=\"OPTIONS\").headers[\"Allow\"])\n    assert sorted(meths) == [\"DELETE\", \"GET\", \"HEAD\", \"OPTIONS\", \"POST\"]"
 }

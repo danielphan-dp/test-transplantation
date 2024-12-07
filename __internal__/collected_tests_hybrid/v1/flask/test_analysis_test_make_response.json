@@ -18,5 +18,6 @@
     "assert rv.mimetype == 'text/html'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_make_response(app, req_ctx):\n    rv = flask.make_response()\n    assert rv.status_code == 200\n    assert rv.data == b\"\"\n    assert rv.mimetype == \"text/html\"\n\n    rv = flask.make_response(\"Awesome\")\n    assert rv.status_code == 200\n    assert rv.data == b\"Awesome\"\n    assert rv.mimetype == \"text/html\"\n\n    rv = flask.make_response(\"W00t\", 404)\n    assert rv.status_code == 404\n    assert rv.data == b\"W00t\"\n    assert rv.mimetype == \"text/html\"\n\n    rv = flask.make_response(c for c in \"Hello\")\n    assert rv.status_code == 200\n    assert rv.data == b\"Hello\"\n    assert rv.mimetype == \"text/html\""
 }

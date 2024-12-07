@@ -2,8 +2,18 @@
   "test_name": "test_create_update_validate",
   "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_blog.py",
   "static_methods": [
-    "auth.login",
-    "client.post"
+    {
+      "name": "auth.login",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert b'Title is required.' in response.data"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_create_update_validate(client, auth, path):\n    auth.login()\n    response = client.post(path, data={\"title\": \"\", \"body\": \"\"})\n    assert b\"Title is required.\" in response.data"
 }

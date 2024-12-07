@@ -2,15 +2,60 @@
   "test_name": "test_wsgi_errors_stream",
   "test_file": "__internal__/_data/flask/tests/test_logging.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.route",
-    "StringIO",
-    "client.get",
-    "app.logger.error",
-    "stream.getvalue",
-    "wsgi_errors_stream._get_current_object",
-    "app.test_request_context",
-    "wsgi_errors_stream._get_current_object"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "StringIO",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.logger.error",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stream.getvalue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "wsgi_errors_stream._get_current_object",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "wsgi_errors_stream._get_current_object",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -74,5 +119,6 @@
     "assert wsgi_errors_stream._get_current_object() is stream"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_wsgi_errors_stream(app, client):\n    @app.route(\"/\")\n    def index():\n        app.logger.error(\"test\")\n        return \"\"\n\n    stream = StringIO()\n    client.get(\"/\", errors_stream=stream)\n    assert \"ERROR in test_logging: test\" in stream.getvalue()\n\n    assert wsgi_errors_stream._get_current_object() is sys.stderr\n\n    with app.test_request_context(errors_stream=stream):\n        assert wsgi_errors_stream._get_current_object() is stream"
 }

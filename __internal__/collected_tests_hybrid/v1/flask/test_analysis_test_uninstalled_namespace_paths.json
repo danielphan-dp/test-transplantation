@@ -2,13 +2,48 @@
   "test_name": "test_uninstalled_namespace_paths",
   "test_file": "__internal__/_data/flask/tests/test_instance_config.py",
   "static_methods": [
-    "create_namespace",
-    "create_namespace",
-    "purge_module",
-    "purge_module",
-    "monkeypatch.syspath_prepend",
-    "ns.mkdir",
-    "write_text"
+    {
+      "name": "create_namespace",
+      "source_code": "def create_namespace(package):\n        project = tmp_path / f\"project-{package}\"\n        monkeypatch.syspath_prepend(os.fspath(project))\n        ns = project / \"namespace\" / package\n        ns.mkdir(parents=True)\n        (ns / \"__init__.py\").write_text(\"import flask\\napp = flask.Flask(__name__)\\n\")\n        return project",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_instance_config.py",
+      "line_number": 47
+    },
+    {
+      "name": "create_namespace",
+      "source_code": "def create_namespace(package):\n        project = tmp_path / f\"project-{package}\"\n        monkeypatch.syspath_prepend(os.fspath(project))\n        ns = project / \"namespace\" / package\n        ns.mkdir(parents=True)\n        (ns / \"__init__.py\").write_text(\"import flask\\napp = flask.Flask(__name__)\\n\")\n        return project",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_instance_config.py",
+      "line_number": 47
+    },
+    {
+      "name": "purge_module",
+      "source_code": "def purge_module(request):\n    def inner(name):\n        request.addfinalizer(lambda: sys.modules.pop(name, None))\n\n    return inner",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/conftest.py",
+      "line_number": 156
+    },
+    {
+      "name": "purge_module",
+      "source_code": "def purge_module(request):\n    def inner(name):\n        request.addfinalizer(lambda: sys.modules.pop(name, None))\n\n    return inner",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/conftest.py",
+      "line_number": 156
+    },
+    {
+      "name": "monkeypatch.syspath_prepend",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ns.mkdir",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "write_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -58,5 +93,6 @@
     "assert app.instance_path == os.fspath(project2 / 'instance')"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_uninstalled_namespace_paths(tmp_path, monkeypatch, purge_module):\n    def create_namespace(package):\n        project = tmp_path / f\"project-{package}\"\n        monkeypatch.syspath_prepend(os.fspath(project))\n        ns = project / \"namespace\" / package\n        ns.mkdir(parents=True)\n        (ns / \"__init__.py\").write_text(\"import flask\\napp = flask.Flask(__name__)\\n\")\n        return project\n\n    _ = create_namespace(\"package1\")\n    project2 = create_namespace(\"package2\")\n    purge_module(\"namespace.package2\")\n    purge_module(\"namespace\")\n\n    from namespace.package2 import app\n\n    assert app.instance_path == os.fspath(project2 / \"instance\")"
 }

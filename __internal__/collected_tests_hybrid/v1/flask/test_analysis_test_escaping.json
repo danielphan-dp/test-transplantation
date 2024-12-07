@@ -2,10 +2,30 @@
   "test_name": "test_escaping",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.route",
-    "client.get.data.splitlines",
-    "Markup",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get.data.splitlines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Markup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert lines == [b'&lt;p&gt;Hello World!', b'<p>Hello World!', b'<p>Hello World!', b'<p>Hello World!', b'&lt;p&gt;Hello World!', b'<p>Hello World!']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_escaping(app, client):\n    text = \"<p>Hello World!\"\n\n    @app.route(\"/\")\n    def index():\n        return flask.render_template(\n            \"escaping_template.html\", text=text, html=Markup(text)\n        )\n\n    lines = client.get(\"/\").data.splitlines()\n    assert lines == [\n        b\"&lt;p&gt;Hello World!\",\n        b\"<p>Hello World!\",\n        b\"<p>Hello World!\",\n        b\"<p>Hello World!\",\n        b\"&lt;p&gt;Hello World!\",\n        b\"<p>Hello World!\",\n    ]"
 }

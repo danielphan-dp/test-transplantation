@@ -2,8 +2,18 @@
   "test_name": "test_context_available",
   "test_file": "__internal__/_data/flask/tests/test_converters.py",
   "static_methods": [
-    "app.get",
-    "client.get"
+    {
+      "name": "app.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -25,5 +35,6 @@
     "assert session is not None"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_context_available(app, client):\n    class ContextConverter(BaseConverter):\n        def to_python(self, value):\n            assert request is not None\n            assert session is not None\n            return value\n\n    app.url_map.converters[\"ctx\"] = ContextConverter\n\n    @app.get(\"/<ctx:name>\")\n    def index(name):\n        return name\n\n    assert client.get(\"/admin\").data == b\"admin\""
 }

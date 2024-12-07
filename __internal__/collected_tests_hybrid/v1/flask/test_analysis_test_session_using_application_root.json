@@ -2,12 +2,42 @@
   "test_name": "test_session_using_application_root",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "PrefixPathMiddleware",
-    "app.config.update",
-    "app.route",
-    "client.get",
-    "rv.headers.lower",
-    "self.app"
+    {
+      "name": "PrefixPathMiddleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.lower",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -51,5 +81,6 @@
     "assert 'path=/bar' in rv.headers['set-cookie'].lower()"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_using_application_root(app, client):\n    class PrefixPathMiddleware:\n        def __init__(self, app, prefix):\n            self.app = app\n            self.prefix = prefix\n\n        def __call__(self, environ, start_response):\n            environ[\"SCRIPT_NAME\"] = self.prefix\n            return self.app(environ, start_response)\n\n    app.wsgi_app = PrefixPathMiddleware(app.wsgi_app, \"/bar\")\n    app.config.update(APPLICATION_ROOT=\"/bar\")\n\n    @app.route(\"/\")\n    def index():\n        flask.session[\"testing\"] = 42\n        return \"Hello World\"\n\n    rv = client.get(\"/\", \"http://example.com:8080/\")\n    assert \"path=/bar\" in rv.headers[\"set-cookie\"].lower()"
 }

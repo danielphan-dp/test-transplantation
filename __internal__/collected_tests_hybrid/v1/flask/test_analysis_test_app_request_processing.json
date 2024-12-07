@@ -2,13 +2,48 @@
   "test_name": "test_app_request_processing",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "app.register_blueprint",
-    "app.route",
-    "evts.append",
-    "evts.append",
-    "evts.append",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "evts.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -62,5 +97,6 @@
     "assert evts == ['before', 'after', 'teardown'] * 2"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_app_request_processing(app, client):\n    bp = flask.Blueprint(\"bp\", __name__)\n    evts = []\n\n    @bp.before_app_request\n    def before_app():\n        evts.append(\"before\")\n\n    @bp.after_app_request\n    def after_app(response):\n        response.data += b\"|after\"\n        evts.append(\"after\")\n        return response\n\n    @bp.teardown_app_request\n    def teardown_app(exc):\n        evts.append(\"teardown\")\n\n    app.register_blueprint(bp)\n\n    # Setup routes for testing\n    @app.route(\"/\")\n    def bp_endpoint():\n        return \"request\"\n\n    # before first request\n    assert evts == []\n\n    # first request\n    resp = client.get(\"/\").data\n    assert resp == b\"request|after\"\n    assert evts == [\"before\", \"after\", \"teardown\"]\n\n    # second request\n    resp = client.get(\"/\").data\n    assert resp == b\"request|after\"\n    assert evts == [\"before\", \"after\", \"teardown\"] * 2"
 }

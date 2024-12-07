@@ -2,9 +2,24 @@
   "test_name": "test_method_based_view",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "common_test",
-    "Index.as_view"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "common_test",
+      "source_code": "def common_test(app):\n    c = app.test_client()\n\n    assert c.get(\"/\").data == b\"GET\"\n    assert c.post(\"/\").data == b\"POST\"\n    assert c.put(\"/\").status_code == 405\n    meths = parse_set_header(c.open(\"/\", method=\"OPTIONS\").headers[\"Allow\"])\n    assert sorted(meths) == [\"GET\", \"HEAD\", \"OPTIONS\", \"POST\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_views.py",
+      "line_number": 7
+    },
+    {
+      "name": "Index.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -28,5 +43,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_method_based_view(app):\n    class Index(flask.views.MethodView):\n        def get(self):\n            return \"GET\"\n\n        def post(self):\n            return \"POST\"\n\n    app.add_url_rule(\"/\", view_func=Index.as_view(\"index\"))\n\n    common_test(app)"
 }

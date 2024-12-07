@@ -2,10 +2,30 @@
   "test_name": "test_client_pop_all_preserved",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.route",
-    "rv.close",
-    "client.get",
-    "_cv_request.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_cv_request.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert _cv_request.get(None) is req_ctx"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_client_pop_all_preserved(app, req_ctx, client):\n    @app.route(\"/\")\n    def index():\n        # stream_with_context pushes a third context, preserved by response\n        return flask.stream_with_context(\"hello\")\n\n    # req_ctx fixture pushed an initial context\n    with client:\n        # request pushes a second request context, preserved by client\n        rv = client.get(\"/\")\n\n    # close the response, releasing the context held by stream_with_context\n    rv.close()\n    # only req_ctx fixture should still be pushed\n    assert _cv_request.get(None) is req_ctx"
 }

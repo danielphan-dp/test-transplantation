@@ -2,10 +2,30 @@
   "test_name": "test_session",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "client.post",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -46,5 +66,6 @@
     "assert not flask.session.modified"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session(app, client):\n    @app.route(\"/set\", methods=[\"POST\"])\n    def set():\n        assert not flask.session.accessed\n        assert not flask.session.modified\n        flask.session[\"value\"] = flask.request.form[\"value\"]\n        assert flask.session.accessed\n        assert flask.session.modified\n        return \"value set\"\n\n    @app.route(\"/get\")\n    def get():\n        assert not flask.session.accessed\n        assert not flask.session.modified\n        v = flask.session.get(\"value\", \"None\")\n        assert flask.session.accessed\n        assert not flask.session.modified\n        return v\n\n    assert client.post(\"/set\", data={\"value\": \"42\"}).data == b\"value set\"\n    assert client.get(\"/get\").data == b\"42\""
 }

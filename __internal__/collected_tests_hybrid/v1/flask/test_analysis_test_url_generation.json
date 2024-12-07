@@ -2,7 +2,12 @@
   "test_name": "test_url_generation",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -17,5 +22,6 @@
     "assert flask.url_for('hello', name='test x', _external=True) == 'http://localhost/hello/test%20x'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_url_generation(app, req_ctx):\n    @app.route(\"/hello/<name>\", methods=[\"POST\"])\n    def hello():\n        pass\n\n    assert flask.url_for(\"hello\", name=\"test x\") == \"/hello/test%20x\"\n    assert (\n        flask.url_for(\"hello\", name=\"test x\", _external=True)\n        == \"http://localhost/hello/test%20x\"\n    )"
 }

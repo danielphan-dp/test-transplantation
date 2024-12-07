@@ -2,9 +2,24 @@
   "test_name": "test_add_template_global",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.template_global",
-    "app.jinja_env.globals",
-    "app.jinja_env.globals.keys"
+    {
+      "name": "app.template_global",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.globals",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.jinja_env.globals.keys",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -33,5 +48,6 @@
     "assert rv == '42'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_add_template_global(app, app_ctx):\n    @app.template_global()\n    def get_stuff():\n        return 42\n\n    assert \"get_stuff\" in app.jinja_env.globals.keys()\n    assert app.jinja_env.globals[\"get_stuff\"] == get_stuff\n    assert app.jinja_env.globals[\"get_stuff\"](), 42\n\n    rv = flask.render_template_string(\"{{ get_stuff() }}\")\n    assert rv == \"42\""
 }

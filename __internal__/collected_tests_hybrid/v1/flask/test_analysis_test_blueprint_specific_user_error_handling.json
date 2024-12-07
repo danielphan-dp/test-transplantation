@@ -2,17 +2,72 @@
   "test_name": "test_blueprint_specific_user_error_handling",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "blue.errorhandler",
-    "blue.register_error_handler",
-    "blue.route",
-    "blue.route",
-    "app.register_blueprint",
-    "isinstance",
-    "isinstance",
-    "MyDecoratorException",
-    "MyFunctionException",
-    "client.get",
-    "client.get"
+    {
+      "name": "blue.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "blue.register_error_handler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "blue.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "blue.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MyDecoratorException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MyFunctionException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -89,5 +144,6 @@
     "assert isinstance(e, MyFunctionException)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_blueprint_specific_user_error_handling(app, client):\n    class MyDecoratorException(Exception):\n        pass\n\n    class MyFunctionException(Exception):\n        pass\n\n    blue = flask.Blueprint(\"blue\", __name__)\n\n    @blue.errorhandler(MyDecoratorException)\n    def my_decorator_exception_handler(e):\n        assert isinstance(e, MyDecoratorException)\n        return \"boom\"\n\n    def my_function_exception_handler(e):\n        assert isinstance(e, MyFunctionException)\n        return \"bam\"\n\n    blue.register_error_handler(MyFunctionException, my_function_exception_handler)\n\n    @blue.route(\"/decorator\")\n    def blue_deco_test():\n        raise MyDecoratorException()\n\n    @blue.route(\"/function\")\n    def blue_func_test():\n        raise MyFunctionException()\n\n    app.register_blueprint(blue)\n\n    assert client.get(\"/decorator\").data == b\"boom\"\n    assert client.get(\"/function\").data == b\"bam\""
 }

@@ -2,16 +2,66 @@
   "test_name": "test_session_transactions",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.route",
-    "client.session_transaction",
-    "client.session_transaction",
-    "str",
-    "client.get",
-    "client.session_transaction",
-    "client.session_transaction",
-    "len",
-    "len",
-    "len"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -83,5 +133,6 @@
     "assert sess['foo'] == [42]"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_transactions(app, client):\n    @app.route(\"/\")\n    def index():\n        return str(flask.session[\"foo\"])\n\n    with client:\n        with client.session_transaction() as sess:\n            assert len(sess) == 0\n            sess[\"foo\"] = [42]\n            assert len(sess) == 1\n        rv = client.get(\"/\")\n        assert rv.data == b\"[42]\"\n        with client.session_transaction() as sess:\n            assert len(sess) == 1\n            assert sess[\"foo\"] == [42]"
 }

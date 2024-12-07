@@ -2,12 +2,42 @@
   "test_name": "test_client_json_no_app_context",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "appcontext_popped.connected_to",
-    "app.route",
-    "Namespace",
-    "appcontext_popped.connected_to",
-    "client.post",
-    "rv.get_data"
+    {
+      "name": "appcontext_popped.connected_to",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Namespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "appcontext_popped.connected_to",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.get_data",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -52,5 +82,6 @@
     "assert ns.count == 1"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_client_json_no_app_context(app, client):\n    @app.route(\"/hello\", methods=[\"POST\"])\n    def hello():\n        return f\"Hello, {flask.request.json['name']}!\"\n\n    class Namespace:\n        count = 0\n\n        def add(self, app):\n            self.count += 1\n\n    ns = Namespace()\n\n    with appcontext_popped.connected_to(ns.add, app):\n        rv = client.post(\"/hello\", json={\"name\": \"Flask\"})\n\n    assert rv.get_data(as_text=True) == \"Hello, Flask!\"\n    assert ns.count == 1"
 }

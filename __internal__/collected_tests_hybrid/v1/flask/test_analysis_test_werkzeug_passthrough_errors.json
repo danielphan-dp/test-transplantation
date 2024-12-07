@@ -2,9 +2,24 @@
   "test_name": "test_werkzeug_passthrough_errors",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "monkeypatch.setattr",
-    "app.run",
-    "kwargs.get"
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "kwargs.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -28,5 +43,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_werkzeug_passthrough_errors(\n    monkeypatch, debug, use_debugger, use_reloader, propagate_exceptions, app\n):\n    rv = {}\n\n    # Mocks werkzeug.serving.run_simple method\n    def run_simple_mock(*args, **kwargs):\n        rv[\"passthrough_errors\"] = kwargs.get(\"passthrough_errors\")\n\n    monkeypatch.setattr(werkzeug.serving, \"run_simple\", run_simple_mock)\n    app.config[\"PROPAGATE_EXCEPTIONS\"] = propagate_exceptions\n    app.run(debug=debug, use_debugger=use_debugger, use_reloader=use_reloader)"
 }

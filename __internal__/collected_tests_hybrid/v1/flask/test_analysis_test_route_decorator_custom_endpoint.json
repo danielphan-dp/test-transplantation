@@ -2,17 +2,72 @@
   "test_name": "test_route_decorator_custom_endpoint",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.route",
-    "bp.route",
-    "bp.route",
-    "bp.route",
-    "app.register_blueprint",
-    "app.route",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -90,5 +145,6 @@
     "assert client.get('/py/bar/foo').data == b'bp.bar_foo'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_route_decorator_custom_endpoint(app, client):\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    @bp.route(\"/foo\")\n    def foo():\n        return flask.request.endpoint\n\n    @bp.route(\"/bar\", endpoint=\"bar\")\n    def foo_bar():\n        return flask.request.endpoint\n\n    @bp.route(\"/bar/123\", endpoint=\"123\")\n    def foo_bar_foo():\n        return flask.request.endpoint\n\n    @bp.route(\"/bar/foo\")\n    def bar_foo():\n        return flask.request.endpoint\n\n    app.register_blueprint(bp, url_prefix=\"/py\")\n\n    @app.route(\"/\")\n    def index():\n        return flask.request.endpoint\n\n    assert client.get(\"/\").data == b\"index\"\n    assert client.get(\"/py/foo\").data == b\"bp.foo\"\n    assert client.get(\"/py/bar\").data == b\"bp.bar\"\n    assert client.get(\"/py/bar/123\").data == b\"bp.123\"\n    assert client.get(\"/py/bar/foo\").data == b\"bp.bar_foo\""
 }

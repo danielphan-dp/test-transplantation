@@ -2,10 +2,30 @@
   "test_name": "test_duplicate_tag",
   "test_file": "__internal__/_data/flask/tests/test_json_tag.py",
   "static_methods": [
-    "TaggedJSONSerializer",
-    "s.register",
-    "isinstance",
-    "isinstance"
+    {
+      "name": "TaggedJSONSerializer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "s.register",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert isinstance(s.order[0], TagDict)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_duplicate_tag():\n    class TagDict(JSONTag):\n        key = \" d\"\n\n    s = TaggedJSONSerializer()\n    pytest.raises(KeyError, s.register, TagDict)\n    s.register(TagDict, force=True, index=0)\n    assert isinstance(s.tags[\" d\"], TagDict)\n    assert isinstance(s.order[0], TagDict)"
 }

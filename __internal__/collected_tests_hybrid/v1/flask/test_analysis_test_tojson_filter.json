@@ -7,5 +7,6 @@
     "assert rv == 'const data = {\"name\": \"\\\\u003c/script\\\\u003e\", \"time\": \"Mon, 01 Feb 2021 07:15:00 GMT\"};'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_tojson_filter(app, req_ctx):\n    # The tojson filter is tested in Jinja, this confirms that it's\n    # using Flask's dumps.\n    rv = flask.render_template_string(\n        \"const data = {{ data|tojson }};\",\n        data={\"name\": \"</script>\", \"time\": datetime.datetime(2021, 2, 1, 7, 15)},\n    )\n    assert rv == (\n        'const data = {\"name\": \"\\\\u003c/script\\\\u003e\",'\n        ' \"time\": \"Mon, 01 Feb 2021 07:15:00 GMT\"};'\n    )"
 }

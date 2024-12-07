@@ -2,10 +2,30 @@
   "test_name": "test_context_refcounts",
   "test_file": "__internal__/_data/flask/tests/test_appctx.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "called.append",
-    "called.append"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -40,5 +60,6 @@
     "assert flask.request.environ['werkzeug.request'] is not None"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_context_refcounts(app, client):\n    called = []\n\n    @app.teardown_request\n    def teardown_req(error=None):\n        called.append(\"request\")\n\n    @app.teardown_appcontext\n    def teardown_app(error=None):\n        called.append(\"app\")\n\n    @app.route(\"/\")\n    def index():\n        with app_ctx:\n            with request_ctx:\n                pass\n\n        assert flask.request.environ[\"werkzeug.request\"] is not None\n        return \"\"\n\n    res = client.get(\"/\")\n    assert res.status_code == 200\n    assert res.data == b\"\"\n    assert called == [\"request\", \"app\"]"
 }

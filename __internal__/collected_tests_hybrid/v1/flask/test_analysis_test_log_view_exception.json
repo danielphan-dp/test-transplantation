@@ -2,11 +2,36 @@
   "test_name": "test_log_view_exception",
   "test_file": "__internal__/_data/flask/tests/test_logging.py",
   "static_methods": [
-    "app.route",
-    "StringIO",
-    "client.get",
-    "stream.getvalue",
-    "Exception"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "StringIO",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stream.getvalue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Exception",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -47,5 +72,6 @@
     "assert 'Exception: test' in err"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_log_view_exception(app, client):\n    @app.route(\"/\")\n    def index():\n        raise Exception(\"test\")\n\n    app.testing = False\n    stream = StringIO()\n    rv = client.get(\"/\", errors_stream=stream)\n    assert rv.status_code == 500\n    assert rv.data\n    err = stream.getvalue()\n    assert \"Exception on / [GET]\" in err\n    assert \"Exception: test\" in err"
 }

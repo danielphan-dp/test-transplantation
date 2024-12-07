@@ -2,10 +2,30 @@
   "test_name": "test_clean_pop",
   "test_file": "__internal__/_data/flask/tests/test_appctx.py",
   "static_methods": [
-    "app.app_context",
-    "called.append",
-    "app.app_context",
-    "called.append"
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "called.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert not flask.current_app"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_clean_pop(app):\n    app.testing = False\n    called = []\n\n    @app.teardown_request\n    def teardown_req(error=None):\n        raise ZeroDivisionError\n\n    @app.teardown_appcontext\n    def teardown_app(error=None):\n        called.append(\"TEARDOWN\")\n\n    with app.app_context():\n        called.append(flask.current_app.name)\n\n    assert called == [\"flask_test\", \"TEARDOWN\"]\n    assert not flask.current_app"
 }

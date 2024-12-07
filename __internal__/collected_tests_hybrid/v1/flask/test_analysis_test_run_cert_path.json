@@ -2,10 +2,30 @@
   "test_name": "test_run_cert_path",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "run_command.make_context",
-    "run_command.make_context",
-    "run_command.make_context",
-    "run_command.make_context"
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert ctx.params['cert'] == (__file__, __file__)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_run_cert_path():\n    # no key\n    with pytest.raises(click.BadParameter):\n        run_command.make_context(\"run\", [\"--cert\", __file__])\n\n    # no cert\n    with pytest.raises(click.BadParameter):\n        run_command.make_context(\"run\", [\"--key\", __file__])\n\n    # cert specified first\n    ctx = run_command.make_context(\"run\", [\"--cert\", __file__, \"--key\", __file__])\n    assert ctx.params[\"cert\"] == (__file__, __file__)\n\n    # key specified first\n    ctx = run_command.make_context(\"run\", [\"--key\", __file__, \"--cert\", __file__])\n    assert ctx.params[\"cert\"] == (__file__, __file__)"
 }

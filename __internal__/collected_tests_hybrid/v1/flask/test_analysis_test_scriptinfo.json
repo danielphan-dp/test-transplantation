@@ -2,27 +2,132 @@
   "test_name": "test_scriptinfo",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "ScriptInfo",
-    "obj.load_app",
-    "str",
-    "ScriptInfo",
-    "obj.load_app",
-    "ScriptInfo",
-    "obj.load_app",
-    "ScriptInfo",
-    "obj.load_app",
-    "ScriptInfo",
-    "monkeypatch.chdir",
-    "ScriptInfo",
-    "obj.load_app",
-    "monkeypatch.chdir",
-    "ScriptInfo",
-    "obj.load_app",
-    "obj.load_app",
-    "obj.load_app",
-    "obj.load_app",
-    "Flask",
-    "obj.load_app"
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ScriptInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "obj.load_app",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -165,5 +270,6 @@
     "assert app.name == 'testapp'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_scriptinfo(test_apps, monkeypatch):\n    obj = ScriptInfo(app_import_path=\"cliapp.app:testapp\")\n    app = obj.load_app()\n    assert app.name == \"testapp\"\n    assert obj.load_app() is app\n\n    # import app with module's absolute path\n    cli_app_path = str(test_path / \"cliapp\" / \"app.py\")\n\n    obj = ScriptInfo(app_import_path=cli_app_path)\n    app = obj.load_app()\n    assert app.name == \"testapp\"\n    assert obj.load_app() is app\n    obj = ScriptInfo(app_import_path=f\"{cli_app_path}:testapp\")\n    app = obj.load_app()\n    assert app.name == \"testapp\"\n    assert obj.load_app() is app\n\n    def create_app():\n        return Flask(\"createapp\")\n\n    obj = ScriptInfo(create_app=create_app)\n    app = obj.load_app()\n    assert app.name == \"createapp\"\n    assert obj.load_app() is app\n\n    obj = ScriptInfo()\n    pytest.raises(NoAppException, obj.load_app)\n\n    # import app from wsgi.py in current directory\n    monkeypatch.chdir(test_path / \"helloworld\")\n    obj = ScriptInfo()\n    app = obj.load_app()\n    assert app.name == \"hello\"\n\n    # import app from app.py in current directory\n    monkeypatch.chdir(test_path / \"cliapp\")\n    obj = ScriptInfo()\n    app = obj.load_app()\n    assert app.name == \"testapp\""
 }

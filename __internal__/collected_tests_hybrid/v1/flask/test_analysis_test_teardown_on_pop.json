@@ -2,10 +2,30 @@
   "test_name": "test_teardown_on_pop",
   "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
-    "app.test_request_context",
-    "ctx.push",
-    "ctx.pop",
-    "buffer.append"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.push",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.pop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "buffer.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert buffer == [None]"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_teardown_on_pop(app):\n    buffer = []\n\n    @app.teardown_request\n    def end_of_request(exception):\n        buffer.append(exception)\n\n    ctx = app.test_request_context()\n    ctx.push()\n    assert buffer == []\n    ctx.pop()\n    assert buffer == [None]"
 }

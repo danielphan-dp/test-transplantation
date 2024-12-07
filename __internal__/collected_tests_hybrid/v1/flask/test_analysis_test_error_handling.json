@@ -2,15 +2,60 @@
   "test_name": "test_error_handling",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.errorhandler",
-    "app.errorhandler",
-    "app.errorhandler",
-    "app.route",
-    "app.route",
-    "app.route",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -77,5 +122,6 @@
     "assert b'forbidden' == rv.data"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_error_handling(app, client):\n    app.testing = False\n\n    @app.errorhandler(404)\n    def not_found(e):\n        return \"not found\", 404\n\n    @app.errorhandler(500)\n    def internal_server_error(e):\n        return \"internal server error\", 500\n\n    @app.errorhandler(Forbidden)\n    def forbidden(e):\n        return \"forbidden\", 403\n\n    @app.route(\"/\")\n    def index():\n        flask.abort(404)\n\n    @app.route(\"/error\")\n    def error():\n        raise ZeroDivisionError\n\n    @app.route(\"/forbidden\")\n    def error2():\n        flask.abort(403)\n\n    rv = client.get(\"/\")\n    assert rv.status_code == 404\n    assert rv.data == b\"not found\"\n    rv = client.get(\"/error\")\n    assert rv.status_code == 500\n    assert b\"internal server error\" == rv.data\n    rv = client.get(\"/forbidden\")\n    assert rv.status_code == 403\n    assert b\"forbidden\" == rv.data"
 }

@@ -2,10 +2,30 @@
   "test_name": "test_flaskgroup_debug",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "cli.command",
-    "runner.invoke",
-    "Flask",
-    "str"
+    {
+      "name": "cli.command",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert result.output == f'{not set_debug_flag}\\n'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_flaskgroup_debug(runner, set_debug_flag):\n    def create_app():\n        app = Flask(\"flaskgroup\")\n        app.debug = True\n        return app\n\n    @click.group(cls=FlaskGroup, create_app=create_app, set_debug_flag=set_debug_flag)\n    def cli(**params):\n        pass\n\n    @cli.command()\n    def test():\n        click.echo(str(current_app.debug))\n\n    result = runner.invoke(cli, [\"test\"])\n    assert result.exit_code == 0\n    assert result.output == f\"{not set_debug_flag}\\n\""
 }

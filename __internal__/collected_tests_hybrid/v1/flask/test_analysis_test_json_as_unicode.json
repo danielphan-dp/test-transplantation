@@ -2,7 +2,12 @@
   "test_name": "test_json_as_unicode",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "app.json.dumps"
+    {
+      "name": "app.json.dumps",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -16,5 +21,6 @@
     "assert rv == expected"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_as_unicode(test_value, expected, app, app_ctx):\n    app.json.ensure_ascii = test_value\n    rv = app.json.dumps(\"\\N{SNOWMAN}\")\n    assert rv == expected"
 }

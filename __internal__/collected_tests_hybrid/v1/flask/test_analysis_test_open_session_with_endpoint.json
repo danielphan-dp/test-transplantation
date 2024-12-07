@@ -2,11 +2,36 @@
   "test_name": "test_open_session_with_endpoint",
   "test_file": "__internal__/_data/flask/tests/test_session_interface.py",
   "static_methods": [
-    "MySessionInterface",
-    "app.get",
-    "app.test_client.get",
-    "request_ctx.match_request",
-    "app.test_client"
+    {
+      "name": "MySessionInterface",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request_ctx.match_request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert request.endpoint is not None"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_open_session_with_endpoint():\n    \"\"\"If request.endpoint (or other URL matching behavior) is needed\n    while loading the session, RequestContext.match_request() can be\n    called manually.\n    \"\"\"\n\n    class MySessionInterface(SessionInterface):\n        def save_session(self, app, session, response):\n            pass\n\n        def open_session(self, app, request):\n            request_ctx.match_request()\n            assert request.endpoint is not None\n\n    app = flask.Flask(__name__)\n    app.session_interface = MySessionInterface()\n\n    @app.get(\"/\")\n    def index():\n        return \"Hello, World!\"\n\n    response = app.test_client().get(\"/\")\n    assert response.status_code == 200"
 }

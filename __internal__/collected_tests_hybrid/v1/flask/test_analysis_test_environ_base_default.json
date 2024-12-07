@@ -2,8 +2,18 @@
   "test_name": "test_environ_base_default",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.route",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -24,5 +34,6 @@
     "assert flask.g.user_agent == f\"Werkzeug/{importlib.metadata.version('werkzeug')}\""
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_environ_base_default(app, client):\n    @app.route(\"/\")\n    def index():\n        flask.g.remote_addr = flask.request.remote_addr\n        flask.g.user_agent = flask.request.user_agent.string\n        return \"\"\n\n    with client:\n        client.get(\"/\")\n        assert flask.g.remote_addr == \"127.0.0.1\"\n        assert flask.g.user_agent == (\n            f\"Werkzeug/{importlib.metadata.version('werkzeug')}\"\n        )"
 }

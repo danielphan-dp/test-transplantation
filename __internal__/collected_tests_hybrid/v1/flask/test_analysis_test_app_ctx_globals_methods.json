@@ -2,8 +2,18 @@
   "test_name": "test_app_ctx_globals_methods",
   "test_file": "__internal__/_data/flask/tests/test_appctx.py",
   "static_methods": [
-    "list",
-    "repr"
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -31,5 +41,6 @@
     "assert repr(flask.g) == \"<flask.g of 'flask_test'>\""
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_app_ctx_globals_methods(app, app_ctx):\n    # get\n    assert flask.g.get(\"foo\") is None\n    assert flask.g.get(\"foo\", \"bar\") == \"bar\"\n    # __contains__\n    assert \"foo\" not in flask.g\n    flask.g.foo = \"bar\"\n    assert \"foo\" in flask.g\n    # setdefault\n    flask.g.setdefault(\"bar\", \"the cake is a lie\")\n    flask.g.setdefault(\"bar\", \"hello world\")\n    assert flask.g.bar == \"the cake is a lie\"\n    # pop\n    assert flask.g.pop(\"bar\") == \"the cake is a lie\"\n    with pytest.raises(KeyError):\n        flask.g.pop(\"bar\")\n    assert flask.g.pop(\"bar\", \"more cake\") == \"more cake\"\n    # __iter__\n    assert list(flask.g) == [\"foo\"]\n    # __repr__\n    assert repr(flask.g) == \"<flask.g of 'flask_test'>\""
 }

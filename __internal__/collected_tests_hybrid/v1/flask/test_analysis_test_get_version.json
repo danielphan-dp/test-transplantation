@@ -2,9 +2,24 @@
   "test_name": "test_get_version",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "MockCtx",
-    "get_version",
-    "capsys.readouterr"
+    {
+      "name": "MockCtx",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "get_version",
+      "source_code": "def get_version(ctx: click.Context, param: click.Parameter, value: t.Any) -> None:\n    if not value or ctx.resilient_parsing:\n        return\n\n    flask_version = importlib.metadata.version(\"flask\")\n    werkzeug_version = importlib.metadata.version(\"werkzeug\")\n\n    click.echo(\n        f\"Python {platform.python_version()}\\n\"\n        f\"Flask {flask_version}\\n\"\n        f\"Werkzeug {werkzeug_version}\",\n        color=ctx.color,\n    )\n    ctx.exit()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
+      "line_number": 267
+    },
+    {
+      "name": "capsys.readouterr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -32,5 +47,6 @@
     "assert f\"Werkzeug {importlib.metadata.version('werkzeug')}\" in out"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_get_version(test_apps, capsys):\n    class MockCtx:\n        resilient_parsing = False\n        color = None\n\n        def exit(self):\n            return\n\n    ctx = MockCtx()\n    get_version(ctx, None, \"test\")\n    out, err = capsys.readouterr()\n    assert f\"Python {platform.python_version()}\" in out\n    assert f\"Flask {importlib.metadata.version('flask')}\" in out\n    assert f\"Werkzeug {importlib.metadata.version('werkzeug')}\" in out"
 }

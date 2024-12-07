@@ -2,13 +2,48 @@
   "test_name": "test_inject_blueprint_url_defaults",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_request_context",
-    "bp.route",
-    "app.register_blueprint",
-    "dict",
-    "app.inject_url_defaults",
-    "dict",
-    "app.test_request_context"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.inject_url_defaults",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -59,5 +94,6 @@
     "assert url == expected"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_inject_blueprint_url_defaults(app):\n    bp = flask.Blueprint(\"foo\", __name__, template_folder=\"template\")\n\n    @bp.url_defaults\n    def bp_defaults(endpoint, values):\n        values[\"page\"] = \"login\"\n\n    @bp.route(\"/<page>\")\n    def view(page):\n        pass\n\n    app.register_blueprint(bp)\n\n    values = dict()\n    app.inject_url_defaults(\"foo.view\", values)\n    expected = dict(page=\"login\")\n    assert values == expected\n\n    with app.test_request_context(\"/somepage\"):\n        url = flask.url_for(\"foo.view\")\n    expected = \"/login\"\n    assert url == expected"
 }

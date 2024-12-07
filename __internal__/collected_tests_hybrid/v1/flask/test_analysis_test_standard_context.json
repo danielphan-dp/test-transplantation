@@ -2,9 +2,24 @@
   "test_name": "test_standard_context",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "rv.data.split"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.data.split",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.data.split() == [b'42', b'23', b'False', b'aha']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_standard_context(app, client):\n    @app.route(\"/\")\n    def index():\n        flask.g.foo = 23\n        flask.session[\"test\"] = \"aha\"\n        return flask.render_template_string(\n            \"\"\"\n            {{ request.args.foo }}\n            {{ g.foo }}\n            {{ config.DEBUG }}\n            {{ session.test }}\n        \"\"\"\n        )\n\n    rv = client.get(\"/?foo=42\")\n    assert rv.data.split() == [b\"42\", b\"23\", b\"False\", b\"aha\"]"
 }

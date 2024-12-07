@@ -2,10 +2,30 @@
   "test_name": "test_json_request_and_response",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.route",
-    "jsonify",
-    "client.post",
-    "rv.get_json"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "jsonify",
+      "source_code": "def jsonify(*args: t.Any, **kwargs: t.Any) -> Response:\n    \"\"\"Serialize the given arguments as JSON, and return a\n    :class:`~flask.Response` object with the ``application/json``\n    mimetype. A dict or list returned from a view will be converted to a\n    JSON response automatically without needing to call this.\n\n    This requires an active request or application context, and calls\n    :meth:`app.json.response() <flask.json.provider.JSONProvider.response>`.\n\n    In debug mode, the output is formatted with indentation to make it\n    easier to read. This may also be controlled by the provider.\n\n    Either positional or keyword arguments can be given, not both.\n    If no arguments are given, ``None`` is serialized.\n\n    :param args: A single value to serialize, or multiple values to\n        treat as a list to serialize.\n    :param kwargs: Treat as a dict to serialize.\n\n    .. versionchanged:: 2.2\n        Calls ``current_app.json.response``, allowing an app to override\n        the behavior.\n\n    .. versionchanged:: 2.0.2\n        :class:`decimal.Decimal` is supported by converting to a string.\n\n    .. versionchanged:: 0.11\n        Added support for serializing top-level arrays. This was a\n        security risk in ancient browsers. See :ref:`security-json`.\n\n    .. versionadded:: 0.2\n    \"\"\"\n    return current_app.json.response(*args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/__init__.py",
+      "line_number": 138
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.get_json",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -41,5 +61,6 @@
     "assert rv.get_json() == json_data"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_request_and_response(app, client):\n    @app.route(\"/echo\", methods=[\"POST\"])\n    def echo():\n        return jsonify(flask.request.get_json())\n\n    with client:\n        json_data = {\"drink\": {\"gin\": 1, \"tonic\": True}, \"price\": 10}\n        rv = client.post(\"/echo\", json=json_data)\n\n        # Request should be in JSON\n        assert flask.request.is_json\n        assert flask.request.get_json() == json_data\n\n        # Response should be in JSON\n        assert rv.status_code == 200\n        assert rv.is_json\n        assert rv.get_json() == json_data"
 }

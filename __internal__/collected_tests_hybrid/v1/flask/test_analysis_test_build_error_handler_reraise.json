@@ -2,9 +2,24 @@
   "test_name": "test_build_error_handler_reraise",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.url_build_error_handlers.append",
-    "app.test_request_context"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.url_build_error_handlers.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -28,5 +43,6 @@
   ],
   "assertions": [],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_build_error_handler_reraise(app):\n    # Test a custom handler which reraises the BuildError\n    def handler_raises_build_error(error, endpoint, values):\n        raise error\n\n    app.url_build_error_handlers.append(handler_raises_build_error)\n\n    with app.test_request_context():\n        pytest.raises(BuildError, flask.url_for, \"not.existing\")"
 }

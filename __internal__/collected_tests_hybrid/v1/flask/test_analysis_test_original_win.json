@@ -2,8 +2,18 @@
   "test_name": "test_original_win",
   "test_file": "__internal__/_data/flask/tests/test_templating.py",
   "static_methods": [
-    "app.route",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -23,5 +33,6 @@
     "assert rv.data == b'42'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_original_win(app, client):\n    @app.route(\"/\")\n    def index():\n        return flask.render_template_string(\"{{ config }}\", config=42)\n\n    rv = client.get(\"/\")\n    assert rv.data == b\"42\""
 }

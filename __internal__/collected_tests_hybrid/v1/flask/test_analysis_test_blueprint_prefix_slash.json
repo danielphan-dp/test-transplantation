@@ -2,9 +2,24 @@
   "test_name": "test_blueprint_prefix_slash",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "bp.route",
-    "app.register_blueprint",
-    "client.get"
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert client.get(url).status_code == 204"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_blueprint_prefix_slash(app, client, prefix, rule, url):\n    bp = flask.Blueprint(\"test\", __name__, url_prefix=prefix)\n\n    @bp.route(rule)\n    def index():\n        return \"\", 204\n\n    app.register_blueprint(bp)\n    assert client.get(url).status_code == 204"
 }

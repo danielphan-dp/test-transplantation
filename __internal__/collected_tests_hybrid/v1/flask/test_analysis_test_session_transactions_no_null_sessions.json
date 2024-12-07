@@ -2,11 +2,36 @@
   "test_name": "test_session_transactions_no_null_sessions",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.test_client",
-    "app.test_client",
-    "c.session_transaction",
-    "str",
-    "c.session_transaction"
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -44,5 +69,6 @@
     "assert 'Session backend did not open a session' in str(e.value)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_transactions_no_null_sessions():\n    app = flask.Flask(__name__)\n\n    with app.test_client() as c:\n        with pytest.raises(RuntimeError) as e:\n            with c.session_transaction():\n                pass\n        assert \"Session backend did not open a session\" in str(e.value)"
 }

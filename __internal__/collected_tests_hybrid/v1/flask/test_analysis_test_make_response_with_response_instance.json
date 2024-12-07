@@ -15,5 +15,6 @@
     "assert rv.headers['X-Foo'] == 'bar'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_make_response_with_response_instance(app, req_ctx):\n    rv = flask.make_response(flask.jsonify({\"msg\": \"W00t\"}), 400)\n    assert rv.status_code == 400\n    assert rv.data == b'{\"msg\":\"W00t\"}\\n'\n    assert rv.mimetype == \"application/json\"\n\n    rv = flask.make_response(flask.Response(\"\"), 400)\n    assert rv.status_code == 400\n    assert rv.data == b\"\"\n    assert rv.mimetype == \"text/html\"\n\n    rv = flask.make_response(\n        flask.Response(\"\", headers={\"Content-Type\": \"text/html\"}),\n        400,\n        [(\"X-Foo\", \"bar\")],\n    )\n    assert rv.status_code == 400\n    assert rv.headers[\"Content-Type\"] == \"text/html\"\n    assert rv.headers[\"X-Foo\"] == \"bar\""
 }

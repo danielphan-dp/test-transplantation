@@ -2,10 +2,30 @@
   "test_name": "test_custom_config_class",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "Flask",
-    "isinstance",
-    "app.config.from_object",
-    "common_object_test"
+    {
+      "name": "Flask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.from_object",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "common_object_test",
+      "source_code": "def common_object_test(app):\n    assert app.secret_key == \"config\"\n    assert app.config[\"TEST_KEY\"] == \"foo\"\n    assert \"TestConfig\" not in app.config",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_config.py",
+      "line_number": 13
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert isinstance(app.config, Config)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_custom_config_class():\n    class Config(flask.Config):\n        pass\n\n    class Flask(flask.Flask):\n        config_class = Config\n\n    app = Flask(__name__)\n    assert isinstance(app.config, Config)\n    app.config.from_object(__name__)\n    common_object_test(app)"
 }

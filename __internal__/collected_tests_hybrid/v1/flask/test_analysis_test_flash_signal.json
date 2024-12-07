@@ -2,13 +2,48 @@
   "test_name": "test_flash_signal",
   "test_file": "__internal__/_data/flask/tests/test_signals.py",
   "static_methods": [
-    "app.route",
-    "client.session_transaction",
-    "recorded.append",
-    "app.test_client",
-    "client.session_transaction",
-    "client.get",
-    "len"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "recorded.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.session_transaction",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -60,5 +95,6 @@
     "assert category == 'notice'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_flash_signal(app):\n    @app.route(\"/\")\n    def index():\n        flask.flash(\"This is a flash message\", category=\"notice\")\n        return flask.redirect(\"/other\")\n\n    recorded = []\n\n    def record(sender, message, category):\n        recorded.append((message, category))\n\n    flask.message_flashed.connect(record, app)\n    try:\n        client = app.test_client()\n        with client.session_transaction():\n            client.get(\"/\")\n            assert len(recorded) == 1\n            message, category = recorded[0]\n            assert message == \"This is a flash message\"\n            assert category == \"notice\"\n    finally:\n        flask.message_flashed.disconnect(record, app)"
 }

@@ -2,12 +2,42 @@
   "test_name": "test_handle_generic",
   "test_file": "__internal__/_data/flask/tests/test_user_error_handler.py",
   "static_methods": [
-    "app.errorhandler",
-    "self.report_error",
-    "client.get",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.report_error",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -54,5 +84,6 @@
     "assert client.get('/not-found').data == b'direct NotFound'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_handle_generic(self, app, client):\n        \"\"\"Generic ``Exception`` will handle all exceptions directly,\n        including ``HTTPExceptions``.\n        \"\"\"\n\n        @app.errorhandler(Exception)\n        def handle_exception(e):\n            return self.report_error(e)\n\n        assert client.get(\"/custom\").data == b\"direct Custom\"\n        assert client.get(\"/error\").data == b\"direct KeyError\"\n        assert client.get(\"/abort\").data == b\"direct InternalServerError\"\n        assert client.get(\"/not-found\").data == b\"direct NotFound\""
 }

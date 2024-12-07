@@ -2,12 +2,42 @@
   "test_name": "test_werkzeug_routing",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.url_map.add",
-    "Submount",
-    "client.get",
-    "client.get",
-    "Rule",
-    "Rule"
+    {
+      "name": "app.url_map.add",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Submount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -52,5 +82,6 @@
     "assert client.get('/foo/bar').data == b'bar'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_werkzeug_routing(app, client):\n    from werkzeug.routing import Rule\n    from werkzeug.routing import Submount\n\n    app.url_map.add(\n        Submount(\"/foo\", [Rule(\"/bar\", endpoint=\"bar\"), Rule(\"/\", endpoint=\"index\")])\n    )\n\n    def bar():\n        return \"bar\"\n\n    def index():\n        return \"index\"\n\n    app.view_functions[\"bar\"] = bar\n    app.view_functions[\"index\"] = index\n\n    assert client.get(\"/foo/\").data == b\"index\"\n    assert client.get(\"/foo/bar\").data == b\"bar\""
 }

@@ -2,16 +2,66 @@
   "test_name": "test_error_handler_blueprint",
   "test_file": "__internal__/_data/flask/tests/test_user_error_handler.py",
   "static_methods": [
-    "bp.errorhandler",
-    "bp.route",
-    "app.errorhandler",
-    "app.route",
-    "app.register_blueprint",
-    "app.test_client",
-    "InternalServerError",
-    "InternalServerError",
-    "c.get",
-    "c.get"
+    {
+      "name": "bp.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "InternalServerError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "InternalServerError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -80,5 +130,6 @@
     "assert c.get('/bp/error').data == b'bp-error'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_error_handler_blueprint(app):\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    @bp.errorhandler(500)\n    def bp_exception_handler(e):\n        return \"bp-error\"\n\n    @bp.route(\"/error\")\n    def bp_test():\n        raise InternalServerError()\n\n    @app.errorhandler(500)\n    def app_exception_handler(e):\n        return \"app-error\"\n\n    @app.route(\"/error\")\n    def app_test():\n        raise InternalServerError()\n\n    app.register_blueprint(bp, url_prefix=\"/bp\")\n\n    c = app.test_client()\n\n    assert c.get(\"/error\").data == b\"app-error\"\n    assert c.get(\"/bp/error\").data == b\"bp-error\""
 }

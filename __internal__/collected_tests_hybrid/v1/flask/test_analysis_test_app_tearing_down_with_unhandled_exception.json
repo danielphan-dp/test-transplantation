@@ -2,15 +2,60 @@
   "test_name": "test_app_tearing_down_with_unhandled_exception",
   "test_file": "__internal__/_data/flask/tests/test_appctx.py",
   "static_methods": [
-    "app.route",
-    "app.app_context",
-    "isinstance",
-    "cleanup_stuff.append",
-    "ValueError",
-    "len",
-    "str",
-    "app.app_context",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cleanup_stuff.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ValueError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.app_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -74,5 +119,6 @@
     "assert str(cleanup_stuff[0]) == 'dummy'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_app_tearing_down_with_unhandled_exception(app, client):\n    app.config[\"PROPAGATE_EXCEPTIONS\"] = True\n    cleanup_stuff = []\n\n    @app.teardown_appcontext\n    def cleanup(exception):\n        cleanup_stuff.append(exception)\n\n    @app.route(\"/\")\n    def index():\n        raise ValueError(\"dummy\")\n\n    with pytest.raises(ValueError, match=\"dummy\"):\n        with app.app_context():\n            client.get(\"/\")\n\n    assert len(cleanup_stuff) == 1\n    assert isinstance(cleanup_stuff[0], ValueError)\n    assert str(cleanup_stuff[0]) == \"dummy\""
 }

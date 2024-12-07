@@ -2,16 +2,66 @@
   "test_name": "test_json_customization",
   "test_file": "__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
-    "CustomProvider",
-    "app.route",
-    "client.post",
-    "isinstance",
-    "DefaultJSONProvider.default",
-    "kwargs.setdefault",
-    "super.loads",
-    "X",
-    "len",
-    "super"
+    {
+      "name": "CustomProvider",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DefaultJSONProvider.default",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "kwargs.setdefault",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "super.loads",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "X",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "super",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -79,5 +129,6 @@
     "assert rv.data == b'\"<42>\"'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_json_customization(app, client):\n    class X:  # noqa: B903, for Python2 compatibility\n        def __init__(self, val):\n            self.val = val\n\n    def default(o):\n        if isinstance(o, X):\n            return f\"<{o.val}>\"\n\n        return DefaultJSONProvider.default(o)\n\n    class CustomProvider(DefaultJSONProvider):\n        def object_hook(self, obj):\n            if len(obj) == 1 and \"_foo\" in obj:\n                return X(obj[\"_foo\"])\n\n            return obj\n\n        def loads(self, s, **kwargs):\n            kwargs.setdefault(\"object_hook\", self.object_hook)\n            return super().loads(s, **kwargs)\n\n    app.json = CustomProvider(app)\n    app.json.default = default\n\n    @app.route(\"/\", methods=[\"POST\"])\n    def index():\n        return flask.json.dumps(flask.request.get_json()[\"x\"])\n\n    rv = client.post(\n        \"/\",\n        data=flask.json.dumps({\"x\": {\"_foo\": 42}}),\n        content_type=\"application/json\",\n    )\n    assert rv.data == b'\"<42>\"'"
 }

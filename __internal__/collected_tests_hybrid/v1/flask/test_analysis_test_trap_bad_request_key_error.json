@@ -2,14 +2,54 @@
   "test_name": "test_trap_bad_request_key_error",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.route",
-    "client.get",
-    "exc_info.errisinstance",
-    "client.get",
-    "client.get",
-    "exc_info.value.get_description",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exc_info.errisinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exc_info.value.get_description",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -69,5 +109,6 @@
     "assert rv.status_code == 400"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_trap_bad_request_key_error(app, client, debug, trap, expect_key, expect_abort):\n    app.config[\"DEBUG\"] = debug\n    app.config[\"TRAP_BAD_REQUEST_ERRORS\"] = trap\n\n    @app.route(\"/key\")\n    def fail():\n        flask.request.form[\"missing_key\"]\n\n    @app.route(\"/abort\")\n    def allow_abort():\n        flask.abort(400)\n\n    if expect_key:\n        rv = client.get(\"/key\")\n        assert rv.status_code == 400\n        assert b\"missing_key\" not in rv.data\n    else:\n        with pytest.raises(KeyError) as exc_info:\n            client.get(\"/key\")\n\n        assert exc_info.errisinstance(BadRequest)\n        assert \"missing_key\" in exc_info.value.get_description()\n\n    if expect_abort:\n        rv = client.get(\"/abort\")\n        assert rv.status_code == 400\n    else:\n        with pytest.raises(BadRequest):\n            client.get(\"/abort\")"
 }

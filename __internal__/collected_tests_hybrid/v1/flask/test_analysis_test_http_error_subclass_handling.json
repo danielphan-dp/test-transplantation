@@ -2,19 +2,84 @@
   "test_name": "test_http_error_subclass_handling",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.errorhandler",
-    "app.errorhandler",
-    "app.route",
-    "app.route",
-    "app.route",
-    "isinstance",
-    "isinstance",
-    "ForbiddenSubclass",
-    "Forbidden",
-    "isinstance",
-    "client.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ForbiddenSubclass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Forbidden",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -105,5 +170,6 @@
     "assert isinstance(e, Forbidden)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_http_error_subclass_handling(app, client):\n    class ForbiddenSubclass(Forbidden):\n        pass\n\n    @app.errorhandler(ForbiddenSubclass)\n    def handle_forbidden_subclass(e):\n        assert isinstance(e, ForbiddenSubclass)\n        return \"banana\"\n\n    @app.errorhandler(403)\n    def handle_403(e):\n        assert not isinstance(e, ForbiddenSubclass)\n        assert isinstance(e, Forbidden)\n        return \"apple\"\n\n    @app.route(\"/1\")\n    def index1():\n        raise ForbiddenSubclass()\n\n    @app.route(\"/2\")\n    def index2():\n        flask.abort(403)\n\n    @app.route(\"/3\")\n    def index3():\n        raise Forbidden()\n\n    assert client.get(\"/1\").data == b\"banana\"\n    assert client.get(\"/2\").data == b\"apple\"\n    assert client.get(\"/3\").data == b\"apple\""
 }

@@ -2,12 +2,42 @@
   "test_name": "test_run_cert_import",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "monkeypatch.setitem",
-    "monkeypatch.setitem",
-    "run_command.make_context",
-    "run_command.make_context",
-    "run_command.make_context",
-    "run_command.make_context"
+    {
+      "name": "monkeypatch.setitem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setitem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_command.make_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -51,5 +81,6 @@
     "assert ctx.params['cert'] is ssl_context"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_run_cert_import(monkeypatch):\n    monkeypatch.setitem(sys.modules, \"not_here\", None)\n\n    # ImportError\n    with pytest.raises(click.BadParameter):\n        run_command.make_context(\"run\", [\"--cert\", \"not_here\"])\n\n    with pytest.raises(click.BadParameter):\n        run_command.make_context(\"run\", [\"--cert\", \"flask\"])\n\n    # SSLContext\n    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)\n\n    monkeypatch.setitem(sys.modules, \"ssl_context\", ssl_context)\n    ctx = run_command.make_context(\"run\", [\"--cert\", \"ssl_context\"])\n    assert ctx.params[\"cert\"] is ssl_context\n\n    # no --key with SSLContext\n    with pytest.raises(click.BadParameter):\n        run_command.make_context(\"run\", [\"--cert\", \"ssl_context\", \"--key\", __file__])"
 }

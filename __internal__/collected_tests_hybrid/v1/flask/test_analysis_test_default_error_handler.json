@@ -2,30 +2,150 @@
   "test_name": "test_default_error_handler",
   "test_file": "__internal__/_data/flask/tests/test_user_error_handler.py",
   "static_methods": [
-    "bp.errorhandler",
-    "bp.errorhandler",
-    "bp.route",
-    "bp.route",
-    "app.errorhandler",
-    "app.errorhandler",
-    "app.route",
-    "app.route",
-    "app.register_blueprint",
-    "app.test_client",
-    "isinstance",
-    "isinstance",
-    "isinstance",
-    "NotFound",
-    "Forbidden",
-    "isinstance",
-    "isinstance",
-    "isinstance",
-    "Forbidden",
-    "c.get",
-    "c.get",
-    "c.get",
-    "c.get",
-    "c.get"
+    {
+      "name": "bp.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "NotFound",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Forbidden",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Forbidden",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -187,5 +307,6 @@
     "assert isinstance(e, Forbidden)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_default_error_handler():\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    @bp.errorhandler(HTTPException)\n    def bp_exception_handler(e):\n        assert isinstance(e, HTTPException)\n        assert isinstance(e, NotFound)\n        return \"bp-default\"\n\n    @bp.errorhandler(Forbidden)\n    def bp_forbidden_handler(e):\n        assert isinstance(e, Forbidden)\n        return \"bp-forbidden\"\n\n    @bp.route(\"/undefined\")\n    def bp_registered_test():\n        raise NotFound()\n\n    @bp.route(\"/forbidden\")\n    def bp_forbidden_test():\n        raise Forbidden()\n\n    app = flask.Flask(__name__)\n\n    @app.errorhandler(HTTPException)\n    def catchall_exception_handler(e):\n        assert isinstance(e, HTTPException)\n        assert isinstance(e, NotFound)\n        return \"default\"\n\n    @app.errorhandler(Forbidden)\n    def catchall_forbidden_handler(e):\n        assert isinstance(e, Forbidden)\n        return \"forbidden\"\n\n    @app.route(\"/forbidden\")\n    def forbidden():\n        raise Forbidden()\n\n    @app.route(\"/slash/\")\n    def slash():\n        return \"slash\"\n\n    app.register_blueprint(bp, url_prefix=\"/bp\")\n\n    c = app.test_client()\n    assert c.get(\"/bp/undefined\").data == b\"bp-default\"\n    assert c.get(\"/bp/forbidden\").data == b\"bp-forbidden\"\n    assert c.get(\"/undefined\").data == b\"default\"\n    assert c.get(\"/forbidden\").data == b\"forbidden\"\n    # Don't handle RequestRedirect raised when adding slash.\n    assert c.get(\"/slash\", follow_redirects=True).data == b\"slash\""
 }

@@ -2,18 +2,78 @@
   "test_name": "test_session_using_samesite_attribute",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.route",
-    "app.config.update",
-    "app.config.update",
-    "client.get",
-    "rv.headers.lower",
-    "app.config.update",
-    "client.get",
-    "rv.headers.lower",
-    "app.config.update",
-    "client.get",
-    "rv.headers.lower",
-    "client.get"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.lower",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.lower",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.update",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.headers.lower",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -95,5 +155,6 @@
     "assert 'samesite=lax' in cookie"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_using_samesite_attribute(app, client):\n    @app.route(\"/\")\n    def index():\n        flask.session[\"testing\"] = 42\n        return \"Hello World\"\n\n    app.config.update(SESSION_COOKIE_SAMESITE=\"invalid\")\n\n    with pytest.raises(ValueError):\n        client.get(\"/\")\n\n    app.config.update(SESSION_COOKIE_SAMESITE=None)\n    rv = client.get(\"/\")\n    cookie = rv.headers[\"set-cookie\"].lower()\n    assert \"samesite\" not in cookie\n\n    app.config.update(SESSION_COOKIE_SAMESITE=\"Strict\")\n    rv = client.get(\"/\")\n    cookie = rv.headers[\"set-cookie\"].lower()\n    assert \"samesite=strict\" in cookie\n\n    app.config.update(SESSION_COOKIE_SAMESITE=\"Lax\")\n    rv = client.get(\"/\")\n    cookie = rv.headers[\"set-cookie\"].lower()\n    assert \"samesite=lax\" in cookie"
 }

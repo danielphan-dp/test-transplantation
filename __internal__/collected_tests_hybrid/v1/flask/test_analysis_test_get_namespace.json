@@ -2,14 +2,54 @@
   "test_name": "test_get_namespace",
   "test_file": "__internal__/_data/flask/tests/test_config.py",
   "static_methods": [
-    "app.config.get_namespace",
-    "app.config.get_namespace",
-    "app.config.get_namespace",
-    "app.config.get_namespace",
-    "len",
-    "len",
-    "len",
-    "len"
+    {
+      "name": "app.config.get_namespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.get_namespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.get_namespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.get_namespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -76,5 +116,6 @@
     "assert 'bar stuff 2' == bar_options['BAR_STUFF_2']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_get_namespace():\n    app = flask.Flask(__name__)\n    app.config[\"FOO_OPTION_1\"] = \"foo option 1\"\n    app.config[\"FOO_OPTION_2\"] = \"foo option 2\"\n    app.config[\"BAR_STUFF_1\"] = \"bar stuff 1\"\n    app.config[\"BAR_STUFF_2\"] = \"bar stuff 2\"\n    foo_options = app.config.get_namespace(\"FOO_\")\n    assert 2 == len(foo_options)\n    assert \"foo option 1\" == foo_options[\"option_1\"]\n    assert \"foo option 2\" == foo_options[\"option_2\"]\n    bar_options = app.config.get_namespace(\"BAR_\", lowercase=False)\n    assert 2 == len(bar_options)\n    assert \"bar stuff 1\" == bar_options[\"STUFF_1\"]\n    assert \"bar stuff 2\" == bar_options[\"STUFF_2\"]\n    foo_options = app.config.get_namespace(\"FOO_\", trim_namespace=False)\n    assert 2 == len(foo_options)\n    assert \"foo option 1\" == foo_options[\"foo_option_1\"]\n    assert \"foo option 2\" == foo_options[\"foo_option_2\"]\n    bar_options = app.config.get_namespace(\n        \"BAR_\", lowercase=False, trim_namespace=False\n    )\n    assert 2 == len(bar_options)\n    assert \"bar stuff 1\" == bar_options[\"BAR_STUFF_1\"]\n    assert \"bar stuff 2\" == bar_options[\"BAR_STUFF_2\"]"
 }

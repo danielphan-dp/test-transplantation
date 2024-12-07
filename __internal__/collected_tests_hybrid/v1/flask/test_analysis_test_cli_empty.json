@@ -2,10 +2,30 @@
   "test_name": "test_cli_empty",
   "test_file": "__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
-    "Blueprint",
-    "app.register_blueprint",
-    "app.test_cli_runner.invoke",
-    "app.test_cli_runner"
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_cli_runner.invoke",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_cli_runner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -37,5 +57,6 @@
     "assert result.exit_code == 2, f'Unexpected success:\\n\\n{result.output}'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_cli_empty(app):\n    \"\"\"If a Blueprint's CLI group is empty, do not register it.\"\"\"\n    bp = Blueprint(\"blue\", __name__, cli_group=\"blue\")\n    app.register_blueprint(bp)\n\n    result = app.test_cli_runner().invoke(args=[\"blue\", \"--help\"])\n    assert result.exit_code == 2, f\"Unexpected success:\\n\\n{result.output}\""
 }

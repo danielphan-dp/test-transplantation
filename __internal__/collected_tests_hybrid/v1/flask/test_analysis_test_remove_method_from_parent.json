@@ -2,11 +2,36 @@
   "test_name": "test_remove_method_from_parent",
   "test_file": "__internal__/_data/flask/tests/test_views.py",
   "static_methods": [
-    "app.add_url_rule",
-    "sorted",
-    "View.as_view",
-    "client.get",
-    "client.post"
+    {
+      "name": "app.add_url_rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "View.as_view",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -46,5 +71,6 @@
     "assert sorted(View.methods) == ['GET']"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_remove_method_from_parent(app, client):\n    class GetView(flask.views.MethodView):\n        def get(self):\n            return \"GET\"\n\n    class OtherView(flask.views.MethodView):\n        def post(self):\n            return \"POST\"\n\n    class View(GetView, OtherView):\n        methods = [\"GET\"]\n\n    app.add_url_rule(\"/\", view_func=View.as_view(\"index\"))\n\n    assert client.get(\"/\").data == b\"GET\"\n    assert client.post(\"/\").status_code == 405\n    assert sorted(View.methods) == [\"GET\"]"
 }

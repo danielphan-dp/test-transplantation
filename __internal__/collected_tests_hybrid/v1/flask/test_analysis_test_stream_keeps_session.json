@@ -2,9 +2,24 @@
   "test_name": "test_stream_keeps_session",
   "test_file": "__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
-    "app.route",
-    "client.get",
-    "gen"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "gen",
+      "source_code": "def gen():\n                yield flask.session[\"test\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
+      "line_number": 301
+    }
   ],
   "dynamic_methods": [
     {
@@ -30,5 +45,6 @@
     "assert rv.data == b'flask'"
   ],
   "mocks": [],
-  "success": false
+  "success": false,
+  "test_source_code": "def test_stream_keeps_session(self, app, client):\n        @app.route(\"/\")\n        def index():\n            flask.session[\"test\"] = \"flask\"\n\n            @flask.stream_with_context\n            def gen():\n                yield flask.session[\"test\"]\n\n            return flask.Response(gen())\n\n        rv = client.get(\"/\")\n        assert rv.data == b\"flask\""
 }

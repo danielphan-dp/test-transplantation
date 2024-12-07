@@ -2,12 +2,42 @@
   "test_name": "test_client_open_environ",
   "test_file": "__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
-    "app.route",
-    "EnvironBuilder",
-    "request.addfinalizer",
-    "client.open",
-    "builder.get_environ",
-    "client.open"
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EnvironBuilder",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.addfinalizer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "builder.get_environ",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.open",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -52,5 +82,6 @@
     "assert rv.data == b'127.0.0.2'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_client_open_environ(app, client, request):\n    @app.route(\"/index\")\n    def index():\n        return flask.request.remote_addr\n\n    builder = EnvironBuilder(app, path=\"/index\", method=\"GET\")\n    request.addfinalizer(builder.close)\n\n    rv = client.open(builder)\n    assert rv.data == b\"127.0.0.1\"\n\n    environ = builder.get_environ()\n    client.environ_base[\"REMOTE_ADDR\"] = \"127.0.0.2\"\n    rv = client.open(environ)\n    assert rv.data == b\"127.0.0.2\""
 }

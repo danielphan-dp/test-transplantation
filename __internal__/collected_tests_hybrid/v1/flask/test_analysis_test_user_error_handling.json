@@ -2,11 +2,36 @@
   "test_name": "test_user_error_handling",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.errorhandler",
-    "app.route",
-    "isinstance",
-    "MyException",
-    "client.get"
+    {
+      "name": "app.errorhandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MyException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert isinstance(e, MyException)"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_user_error_handling(app, client):\n    class MyException(Exception):\n        pass\n\n    @app.errorhandler(MyException)\n    def handle_my_exception(e):\n        assert isinstance(e, MyException)\n        return \"42\"\n\n    @app.route(\"/\")\n    def index():\n        raise MyException()\n\n    assert client.get(\"/\").data == b\"42\""
 }

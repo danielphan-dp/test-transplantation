@@ -2,12 +2,42 @@
   "test_name": "test_endpoint_decorator",
   "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
-    "app.url_map.add",
-    "bp.endpoint",
-    "app.register_blueprint",
-    "Rule",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.url_map.add",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.endpoint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Rule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -52,5 +82,6 @@
     "assert client.get('/bp_prefix/bar').status_code == 404"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_endpoint_decorator(app, client):\n    from werkzeug.routing import Rule\n\n    app.url_map.add(Rule(\"/foo\", endpoint=\"bar\"))\n\n    bp = flask.Blueprint(\"bp\", __name__)\n\n    @bp.endpoint(\"bar\")\n    def foobar():\n        return flask.request.endpoint\n\n    app.register_blueprint(bp, url_prefix=\"/bp_prefix\")\n\n    assert client.get(\"/foo\").data == b\"bar\"\n    assert client.get(\"/bp_prefix/bar\").status_code == 404"
 }

@@ -2,11 +2,36 @@
   "test_name": "test_static_url_path_with_ending_slash",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.test_request_context",
-    "app.test_client.get",
-    "rv.close",
-    "app.test_request_context",
-    "app.test_client"
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "rv.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_request_context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -45,5 +70,6 @@
     "assert flask.url_for('static', filename='index.html') == '/foo/index.html'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_static_url_path_with_ending_slash():\n    app = flask.Flask(__name__, static_url_path=\"/foo/\")\n    app.testing = True\n    rv = app.test_client().get(\"/foo/index.html\")\n    assert rv.status_code == 200\n    rv.close()\n\n    with app.test_request_context():\n        assert flask.url_for(\"static\", filename=\"index.html\") == \"/foo/index.html\""
 }

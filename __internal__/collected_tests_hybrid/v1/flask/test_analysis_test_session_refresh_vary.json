@@ -2,10 +2,30 @@
   "test_name": "test_session_refresh_vary",
   "test_file": "__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
-    "app.get",
-    "app.get",
-    "client.get",
-    "client.get"
+    {
+      "name": "app.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
   ],
   "dynamic_methods": [
     {
@@ -38,5 +58,6 @@
     "assert rv.headers['Vary'] == 'Cookie'"
   ],
   "mocks": [],
-  "success": true
+  "success": true,
+  "test_source_code": "def test_session_refresh_vary(app, client):\n    @app.get(\"/login\")\n    def login():\n        flask.session[\"user_id\"] = 1\n        flask.session.permanent = True\n        return \"\"\n\n    @app.get(\"/ignored\")\n    def ignored():\n        return \"\"\n\n    rv = client.get(\"/login\")\n    assert rv.headers[\"Vary\"] == \"Cookie\"\n    rv = client.get(\"/ignored\")\n    assert rv.headers[\"Vary\"] == \"Cookie\""
 }
