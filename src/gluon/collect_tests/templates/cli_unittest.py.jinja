@@ -1,0 +1,32 @@
+import pytest
+from click.testing import CliRunner
+{{ imports }}
+
+@pytest.fixture
+def runner():
+    """Create CLI test runner"""
+    return CliRunner()
+
+{{ fixtures }}  {# LLM: Add more fixtures #}
+
+def test_{{ command_name }}_success(runner{% if fixtures %}, {{ fixtures_params }}{% endif %}):
+    """Test successful CLI command execution"""
+    # Arrange
+    {{ arrange }}
+    
+    # Act
+    result = runner.invoke({{ command_name }}, {{ command_args }})
+    
+    # Assert
+    assert result.exit_code == 0
+    {{ output_assertions }}
+
+def test_{{ command_name }}_invalid_input(runner):
+    """Test CLI command with invalid input"""
+    {{ invalid_input_tests }}
+
+def test_{{ command_name }}_help(runner):
+    """Test CLI help output"""
+    result = runner.invoke({{ command_name }}, ['--help'])
+    assert result.exit_code == 0
+    {{ help_assertions }} 

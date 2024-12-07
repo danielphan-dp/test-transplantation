@@ -1,0 +1,28 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def database():
+    """Set up test database"""
+    {{ db_setup }}
+    yield db
+    {{ db_cleanup }}
+
+class TestMigration{{ version }}:
+    """Tests for database migration version {{ version }}"""
+    
+    async def test_migration_up(self, database):
+        """Test migration up"""
+        {{ up_migration_test }}
+    
+    async def test_migration_down(self, database):
+        """Test migration rollback"""
+        {{ down_migration_test }}
+    
+    async def test_data_integrity(self, database):
+        """Test data integrity after migration"""
+        {{ data_integrity_tests }}
+    
+    async def test_migration_idempotency(self, database):
+        """Test migration idempotency"""
+        {{ idempotency_tests }} 

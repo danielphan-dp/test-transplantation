@@ -1,0 +1,30 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+async def websocket():
+    """Set up test websocket connection"""
+    {{ websocket_setup }}
+    yield ws
+    {{ websocket_cleanup }}
+
+class TestWebSocketHandler:
+    async def test_connection_lifecycle(self, websocket):
+        """Test websocket connection lifecycle"""
+        {{ lifecycle_tests }}
+    
+    async def test_message_handling(self, websocket):
+        """Test message handling"""
+        {{ message_tests }}
+    
+    async def test_broadcast(self, websocket):
+        """Test broadcast functionality"""
+        {{ broadcast_tests }}
+    
+    async def test_connection_errors(self, websocket):
+        """Test error handling"""
+        {{ error_tests }}
+    
+    async def test_rate_limiting(self, websocket):
+        """Test rate limiting"""
+        {{ rate_limit_tests }} 

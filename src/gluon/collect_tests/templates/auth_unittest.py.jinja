@@ -1,0 +1,33 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def auth_service():
+    """Set up authentication service"""
+    {{ auth_setup }}
+
+@pytest.fixture
+def test_user():
+    """Create test user"""
+    {{ user_setup }}
+
+class TestAuthService:
+    async def test_login_success(self, auth_service, test_user):
+        """Test successful login"""
+        {{ login_success_test }}
+    
+    async def test_login_failure(self, auth_service):
+        """Test login failures"""
+        {{ login_failure_tests }}
+    
+    async def test_token_validation(self, auth_service, test_user):
+        """Test token validation"""
+        {{ token_validation_tests }}
+    
+    async def test_password_reset(self, auth_service, test_user):
+        """Test password reset flow"""
+        {{ password_reset_tests }}
+    
+    async def test_session_management(self, auth_service, test_user):
+        """Test session management"""
+        {{ session_tests }} 

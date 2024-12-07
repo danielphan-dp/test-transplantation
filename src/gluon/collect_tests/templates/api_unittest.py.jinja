@@ -1,0 +1,38 @@
+import pytest
+{{ imports }}  {# LLM: Add necessary imports #}
+
+@pytest.fixture
+def service():
+    """Initialize service for testing"""
+    {{ service_setup }}
+    return service
+
+{{ additional_fixtures }}  {# LLM: Add more fixtures #}
+
+{% if class_name %}
+class Test{{ class_name }}:
+    """Tests for {{ class_name }} API/Service"""
+    
+    async def test_{{ function_name }}_success(self, service{% if additional_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test successful API/service call"""
+        # Arrange
+        {{ arrange }}
+        
+        # Act
+        response = await service.{{ function_name }}({{ params }})
+        
+        # Assert
+        {{ success_assertions }}
+    
+    async def test_{{ function_name }}_validation(self, service{% if additional_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test input validation"""
+        {{ validation_tests }}
+    
+    async def test_{{ function_name }}_error_handling(self, service{% if additional_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test error handling"""
+        {{ error_handling }}
+    
+    async def test_{{ function_name }}_edge_cases(self, service{% if additional_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test edge cases"""
+        {{ edge_cases }}
+{% endif %} 

@@ -1,0 +1,32 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def cache():
+    """Set up cache instance"""
+    {{ cache_setup }}
+    yield cache
+    {{ cache_cleanup }}
+
+class Test{{ cache_name }}:
+    """Tests for {{ cache_name }}"""
+    
+    def test_cache_set_get(self, cache):
+        """Test basic cache set/get operations"""
+        {{ basic_operations }}
+    
+    def test_cache_expiration(self, cache):
+        """Test cache entry expiration"""
+        {{ expiration_tests }}
+    
+    def test_cache_eviction(self, cache):
+        """Test cache eviction policies"""
+        {{ eviction_tests }}
+    
+    def test_cache_concurrent_access(self, cache):
+        """Test concurrent cache access"""
+        {{ concurrent_tests }}
+    
+    def test_cache_serialization(self, cache):
+        """Test cache value serialization"""
+        {{ serialization_tests }} 

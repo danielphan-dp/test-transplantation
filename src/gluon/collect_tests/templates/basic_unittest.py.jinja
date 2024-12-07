@@ -1,0 +1,50 @@
+import pytest
+{{ imports }}  {# LLM: Add necessary imports #}
+
+{{ fixtures }}  {# LLM: Add any needed fixtures #}
+
+{% if class_name %}
+class Test{{ class_name }}:
+    """Tests for {{ class_name }}.{{ function_name }}"""
+    
+    {{ setup }}  {# LLM: Add setup if needed #}
+    
+    def test_{{ function_name }}_basic(self{% if fixtures %}, {{ fixtures_params }}{% endif %}):
+        """Test basic functionality of {{ function_name }}"""
+        # Arrange
+        {{ arrange }}
+        
+        # Act
+        {{ act }}
+        
+        # Assert
+        {{ assert }}
+    
+    def test_{{ function_name }}_edge_cases(self{% if fixtures %}, {{ fixtures_params }}{% endif %}):
+        """Test edge cases for {{ function_name }}"""
+        {{ edge_cases }}
+    
+    def test_{{ function_name }}_error_cases(self{% if fixtures %}, {{ fixtures_params }}{% endif %}):
+        """Test error handling for {{ function_name }}"""
+        {{ error_cases }}
+
+{% else %}
+def test_{{ function_name }}_basic({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test basic functionality of {{ function_name }}"""
+    # Arrange
+    {{ arrange }}
+    
+    # Act
+    {{ act }}
+    
+    # Assert
+    {{ assert }}
+
+def test_{{ function_name }}_edge_cases({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test edge cases for {{ function_name }}"""
+    {{ edge_cases }}
+
+def test_{{ function_name }}_error_cases({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test error handling for {{ function_name }}"""
+    {{ error_cases }}
+{% endif %} 

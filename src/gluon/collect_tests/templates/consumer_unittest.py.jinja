@@ -1,0 +1,33 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def queue():
+    """Set up test message queue"""
+    {{ queue_setup }}
+
+@pytest.fixture
+def consumer(queue):
+    """Set up message consumer"""
+    {{ consumer_setup }}
+
+class Test{{ consumer_name }}:
+    async def test_message_processing(self, consumer, queue):
+        """Test successful message processing"""
+        {{ processing_test }}
+    
+    async def test_message_validation(self, consumer, queue):
+        """Test message validation"""
+        {{ validation_tests }}
+    
+    async def test_error_handling(self, consumer, queue):
+        """Test error handling"""
+        {{ error_handling }}
+    
+    async def test_retry_logic(self, consumer, queue):
+        """Test message retry logic"""
+        {{ retry_tests }}
+    
+    async def test_dead_letter(self, consumer, queue):
+        """Test dead letter handling"""
+        {{ dead_letter_tests }} 

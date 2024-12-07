@@ -1,0 +1,33 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def event_bus():
+    """Set up event bus"""
+    {{ event_bus_setup }}
+
+class Test{{ handler_name }}:
+    """Tests for {{ handler_name }} event handler"""
+    
+    async def test_handle_event_success(self, event_bus):
+        """Test successful event handling"""
+        # Arrange
+        {{ arrange }}
+        
+        # Act
+        await event_bus.publish({{ event }})
+        
+        # Assert
+        {{ assertions }}
+    
+    async def test_event_validation(self, event_bus):
+        """Test event data validation"""
+        {{ validation_tests }}
+    
+    async def test_event_error_handling(self, event_bus):
+        """Test error handling during event processing"""
+        {{ error_handling }}
+    
+    async def test_event_side_effects(self, event_bus):
+        """Test side effects of event handling"""
+        {{ side_effect_tests }} 

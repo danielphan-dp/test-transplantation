@@ -1,0 +1,28 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def config():
+    """Set up configuration manager"""
+    {{ config_setup }}
+
+class TestConfigManager:
+    def test_load_config(self, config):
+        """Test configuration loading"""
+        {{ load_tests }}
+    
+    def test_config_validation(self, config):
+        """Test configuration validation"""
+        {{ validation_tests }}
+    
+    def test_config_override(self, config):
+        """Test configuration override mechanisms"""
+        {{ override_tests }}
+    
+    def test_config_reload(self, config):
+        """Test configuration reload functionality"""
+        {{ reload_tests }}
+    
+    def test_config_defaults(self, config):
+        """Test default configuration values"""
+        {{ default_tests }} 

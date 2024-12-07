@@ -1,0 +1,34 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def worker():
+    """Set up background worker"""
+    {{ worker_setup }}
+    yield worker
+    {{ worker_cleanup }}
+
+class TestBackgroundWorker:
+    async def test_task_execution(self, worker):
+        """Test task execution"""
+        {{ execution_tests }}
+    
+    async def test_task_cancellation(self, worker):
+        """Test task cancellation"""
+        {{ cancellation_tests }}
+    
+    async def test_task_prioritization(self, worker):
+        """Test task priority handling"""
+        {{ priority_tests }}
+    
+    async def test_resource_cleanup(self, worker):
+        """Test resource cleanup"""
+        {{ cleanup_tests }}
+    
+    async def test_error_recovery(self, worker):
+        """Test error recovery mechanisms"""
+        {{ recovery_tests }}
+    
+    async def test_task_scheduling(self, worker):
+        """Test task scheduling"""
+        {{ scheduling_tests }} 

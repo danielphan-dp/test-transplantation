@@ -1,0 +1,45 @@
+import pytest
+{{ imports }}  {# LLM: Add necessary imports #}
+
+@pytest.fixture
+def db():
+    """Set up test database"""
+    {{ db_setup }}
+    yield db
+    {{ db_cleanup }}
+
+{{ model_fixtures }}  {# LLM: Add model-specific fixtures #}
+
+class Test{{ class_name }}Model:
+    """Tests for {{ class_name }} model"""
+    
+    def test_create(self, db{% if model_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test model creation"""
+        # Arrange
+        {{ create_arrange }}
+        
+        # Act
+        {{ create_act }}
+        
+        # Assert
+        {{ create_assert }}
+    
+    def test_validation(self, db{% if model_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test model validation"""
+        {{ validation_tests }}
+    
+    def test_relationships(self, db{% if model_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test model relationships"""
+        {{ relationship_tests }}
+    
+    def test_queries(self, db{% if model_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test model queries"""
+        {{ query_tests }}
+    
+    def test_updates(self, db{% if model_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test model updates"""
+        {{ update_tests }}
+    
+    def test_deletions(self, db{% if model_fixtures %}, {{ fixture_params }}{% endif %}):
+        """Test model deletions"""
+        {{ deletion_tests }} 

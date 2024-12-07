@@ -1,0 +1,40 @@
+import pytest
+{{ imports }}  {# LLM: Add necessary imports #}
+
+{{ fixtures }}  {# LLM: Add any needed fixtures #}
+
+@pytest.mark.parametrize("input_data,expected", [
+    {{ test_cases }}  {# LLM: Generate test cases #}
+])
+def test_{{ function_name }}_cases(input_data, expected{% if fixtures %}, {{ fixtures_params }}{% endif %}):
+    """Test {{ function_name }} with various inputs"""
+    # Act
+    result = {{ function_name }}(input_data)
+    
+    # Assert
+    assert result == expected
+
+def test_{{ function_name }}_types({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test type handling"""
+    {{ type_tests }}
+
+def test_{{ function_name }}_validation({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test input validation"""
+    {{ validation_tests }}
+
+def test_{{ function_name }}_performance({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test performance characteristics"""
+    {{ performance_tests }}
+
+{% if error_handling %}
+def test_{{ function_name }}_errors({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test error handling"""
+    {{ error_tests }}
+{% endif %}
+
+{% if async_function %}
+@pytest.mark.asyncio
+async def test_{{ function_name }}_async({% if fixtures %}{{ fixtures_params }}{% endif %}):
+    """Test async functionality"""
+    {{ async_tests }}
+{% endif %} 
