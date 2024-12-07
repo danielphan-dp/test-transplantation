@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "gluon"
 dynamic = ["version"]
-description = "Test Transplantation"
+description = "Gluon: AI-assisted Unit Test Generation"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
@@ -15,11 +15,8 @@ authors = [
     { name = "(Larry) Yixin Li", email = "yiiyinxiix@gmail.com" },
 ]
 
-# TODO: select the appropriate classifiers on https://pypi.org/classifiers/
 classifiers = [
-    "Programming Language :: Python :: 3.9",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: POSIX :: Linux",
 ]
 dependencies = [
     "seutil",
@@ -28,15 +25,20 @@ dependencies = [
     "pytest",
     "tqdm",
     "stdlib-list",
-    "psutil",
+    "click",
 ]
 
 [project.optional-dependencies]
-dev = ["hatch", "pytest>=6", "pytest-cov", "coverage[toml]", "black", "ruff"]
-# TODO: (optional) add more optional dependencies in the same format of `dev`; if you want them installed in the dev environment, modify the pip install line in prepare-env.sh into `pip install -e .[dev,optional1,optional2]`
+dev = [
+    "hatch",
+    "pytest>=6",
+    "pytest-cov",
+    "coverage[toml]",
+    "black",
+    "ruff",
+]
 
 [project.urls]
-# TODO: setup and add documentation link, e.g., readthedocs (but usually after developing some code)  # Documentation = ""
 Issues = "https://github.com/danielphan-dp/test-transplantation/issues"
 Source = "https://github.com/danielphan-dp/test-transplantation"
 
@@ -78,3 +80,6 @@ select = [
 
 [tool.ruff.isort]
 known-first-party = ["gluon"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gluon"]

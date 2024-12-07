@@ -102,6 +102,6 @@
     "assert r.text == expect_xyz"
   ],
   "mocks": [],
-  "success": false,
+  "success": true,
   "test_source_code": "def test_server_name_matching(\n    subdomain_matching: bool,\n    host_matching: bool,\n    expect_base: str,\n    expect_abc: str,\n    expect_xyz: str,\n) -> None:\n    app = flask.Flask(\n        __name__,\n        subdomain_matching=subdomain_matching,\n        host_matching=host_matching,\n        static_host=\"example.test\" if host_matching else None,\n    )\n    app.config[\"SERVER_NAME\"] = \"example.test\"\n\n    @app.route(\"/\", defaults={\"name\": \"default\"}, host=\"<name>\")\n    @app.route(\"/\", subdomain=\"<name>\", host=\"<name>.example.test\")\n    def index(name: str) -> str:\n        return name\n\n    client = app.test_client()\n\n    r = client.get(base_url=\"http://example.test\")\n    assert r.text == expect_base\n\n    r = client.get(base_url=\"http://abc.example.test\")\n    assert r.text == expect_abc\n\n    with pytest.warns() if subdomain_matching else nullcontext():\n        r = client.get(base_url=\"http://xyz.other.test\")\n\n    assert r.text == expect_xyz"
 }

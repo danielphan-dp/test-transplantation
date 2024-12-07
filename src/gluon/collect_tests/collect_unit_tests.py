@@ -19,8 +19,6 @@ import inspect
 
 from pydantic import BaseModel, Field
 
-import astor
-
 
 class MethodUnderTest(BaseModel):
     name: str

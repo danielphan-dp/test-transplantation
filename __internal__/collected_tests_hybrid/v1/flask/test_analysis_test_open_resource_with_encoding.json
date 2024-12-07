@@ -61,6 +61,6 @@
     "assert f.read() == 'test'"
   ],
   "mocks": [],
-  "success": false,
+  "success": true,
   "test_source_code": "def test_open_resource_with_encoding(tmp_path, encoding):\n    app = flask.Flask(__name__, root_path=os.fspath(tmp_path))\n    (tmp_path / \"test\").write_text(\"test\", encoding=encoding)\n\n    with app.open_resource(\"test\", mode=\"rt\", encoding=encoding) as f:\n        assert f.read() == \"test\""
 }

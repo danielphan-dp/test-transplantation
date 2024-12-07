@@ -76,6 +76,6 @@
     "assert r.status_code == 400"
   ],
   "mocks": [],
-  "success": false,
+  "success": true,
   "test_source_code": "def test_trusted_hosts_config(app: Flask) -> None:\n    app.config[\"TRUSTED_HOSTS\"] = [\"example.test\", \".other.test\"]\n\n    @app.get(\"/\")\n    def index() -> str:\n        return \"\"\n\n    client = app.test_client()\n    r = client.get(base_url=\"http://example.test\")\n    assert r.status_code == 200\n    r = client.get(base_url=\"http://a.other.test\")\n    assert r.status_code == 200\n    r = client.get(base_url=\"http://bad.test\")\n    assert r.status_code == 400"
 }
