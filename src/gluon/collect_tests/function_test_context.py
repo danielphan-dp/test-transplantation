@@ -50,6 +50,18 @@ class FunctionTestContext:
     example_outputs: List[Any]  # Example output values
     edge_cases: List[Dict[str, Any]]  # Edge cases to test
 
+    # New fields to match analyze_unit_tests.py capabilities
+    test_success: bool  # Whether the test passed when executed
+    test_complexity: Dict[str, int]  # Metrics about test complexity
+    assertion_density: float  # Assertions per line of code
+    mock_density: float  # Mocks per test
+    test_isolation_level: str  # 'fully_isolated', 'partially_isolated', or 'no_isolation'
+    dynamic_calls: List[Dict[str, Any]]  # Methods actually called during test execution
+
+    # Test execution metrics
+    execution_time: float  # Time taken to execute the test
+    memory_usage: float  # Memory used during test execution
+
 
 class FunctionContextExtractor:
     """Extracts context for a specific function"""

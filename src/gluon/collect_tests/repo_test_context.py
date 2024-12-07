@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import Dict, List, Optional, Set
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Set, Any
 from pathlib import Path
 import ast
 import configparser
@@ -31,6 +31,38 @@ class RepoTestContext:
     # Common imports and dependencies
     common_test_imports: Set[str]  # Frequently used test imports
     common_fixtures: Set[str]  # Commonly used fixtures
+
+    # New fields to match analyze_unit_tests.py capabilities
+    test_metrics: Dict[str, Any] = field(
+        default_factory=lambda: {
+            "total_tests": 0,
+            "successful_tests": 0,
+            "failed_tests": 0,
+            "test_complexity": {
+                "simple": 0,  # 0-2 assertions
+                "moderate": 0,  # 3-5 assertions
+                "complex": 0,  # 6+ assertions
+            },
+            "coverage_metrics": {
+                "methods_with_multiple_tests": 0,
+                "untested_methods": 0,
+                "average_tests_per_method": 0.0,
+            },
+            "test_isolation": {
+                "fully_isolated": 0,
+                "partially_isolated": 0,
+                "no_isolation": 0,
+            },
+        }
+    )
+
+    # Method coverage tracking
+    method_test_coverage: Dict[str, List[str]] = field(default_factory=dict)  # method -> list of testing functions
+    method_call_frequency: Counter = field(default_factory=Counter)  # Tracks how often methods are called
+
+    # Test execution statistics
+    test_execution_times: Dict[str, float] = field(default_factory=dict)
+    test_memory_usage: Dict[str, float] = field(default_factory=dict)
 
 
 class RepoContextExtractor:
