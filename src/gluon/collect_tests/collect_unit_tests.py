@@ -1,9 +1,15 @@
+import sys
+import os
+
+# Add the parent directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 import ast
 import json
 import stdlib_list
 import pkg_resources
 from pathlib import Path
-from typing import List, Optional, Set, Dict
+from typing import List, Optional, Set, Dict, Any
 import os
 from tqdm import tqdm
 import logging
@@ -11,6 +17,15 @@ import click
 import inspect
 
 from pydantic import BaseModel, Field
+
+import astor
+
+
+class MethodUnderTest(BaseModel):
+    name: str
+    body: Optional[str] = None
+    file_path: Optional[str] = None
+    line_number: Optional[int] = None
 
 
 class TestCase(BaseModel):
@@ -30,7 +45,7 @@ class TestCase(BaseModel):
     setup_method: Optional[str] = None
     teardown_method: Optional[str] = None
     mocks: List[str] = Field(default_factory=list)
-    methods_under_test: List[Dict[str, str]] = Field(default_factory=list)
+    methods_under_test: List[MethodUnderTest] = Field(default_factory=list)
 
 
 class TestCollection(BaseModel):
@@ -60,17 +75,117 @@ def extract_assertions(node: ast.FunctionDef) -> List[str]:
     assertions = []
     for sub_node in ast.walk(node):
         if isinstance(sub_node, ast.Assert):
-            assertions.append(ast.unparse(sub_node))
+            try:
+                assertion_code = ast.unparse(sub_node)
+            except Exception as e:
+                logger.warning(f"Could not unparse assertion: {e}")
+                assertion_code = ""
+            assertions.append(assertion_code)
+        elif isinstance(sub_node, ast.Call) and isinstance(sub_node.func, ast.Name):
+            if sub_node.func.id.startswith("assert") or sub_node.func.id.startswith("self.assert"):
+                try:
+                    assertion_code = ast.unparse(sub_node)
+                except Exception as e:
+                    logger.warning(f"Could not unparse assertion call: {e}")
+                    assertion_code = ""
+                assertions.append(assertion_code)
     return assertions
 
 
 def extract_mocks(node: ast.FunctionDef) -> List[str]:
     mocks = []
     for sub_node in ast.walk(node):
-        if isinstance(sub_node, ast.Call) and isinstance(sub_node.func, ast.Attribute):
-            if sub_node.func.attr in ["patch", "Mock", "MagicMock"]:
-                mocks.append(ast.unparse(sub_node))
+        if isinstance(sub_node, ast.Call) and isinstance(sub_node.func, ast.Name):
+            if sub_node.func.id in ["patch", "patch.object"]:
+                try:
+                    mock_code = ast.unparse(sub_node)
+                except Exception as e:
+                    logger.warning(f"Could not unparse mock: {e}")
+                    mock_code = ""
+                mocks.append(mock_code)
     return mocks
+
+
+def get_standard_library_names() -> Set[str]:
+    return set(stdlib_list.stdlib_list())
+
+
+def get_third_party_library_names() -> Set[str]:
+    third_party_packages = {dist.key for dist in pkg_resources.working_set}
+    return third_party_packages
+
+
+def scan_source_files(directory: str) -> Dict[str, ast.Module]:
+    source_files = {}
+    directory_path = Path(directory)
+    source_file_paths = list(directory_path.rglob("*.py"))
+    logger.info(f"Scanned {len(source_file_paths)} source files")
+    for source_file in source_file_paths:
+        with open(source_file, "r", encoding="utf-8") as file:
+            try:
+                content = file.read()
+                tree = ast.parse(content, filename=str(source_file))
+                source_files[str(source_file)] = tree
+            except (SyntaxError, UnicodeDecodeError) as e:
+                logger.warning(f"Failed to parse {source_file}: {e}")
+    return source_files
+
+
+def get_full_func_name(node) -> Optional[str]:
+    if isinstance(node, ast.Name):
+        return node.id
+    elif isinstance(node, ast.Attribute):
+        value = get_full_func_name(node.value)
+        if value:
+            return f"{value}.{node.attr}"
+        else:
+            return node.attr
+    elif isinstance(node, ast.Call):
+        return get_full_func_name(node.func)
+    elif isinstance(node, ast.Subscript):
+        return get_full_func_name(node.value)
+    elif isinstance(node, ast.Lambda):
+        return "<lambda>"
+    else:
+        return None
+
+
+def is_standard_or_third_party(
+    func_name: str,
+    standard_lib_names: Set[str],
+    third_party_lib_names: Set[str],
+) -> bool:
+    if not func_name:
+        return False
+    module_name = func_name.split(".")[0]
+    return module_name in standard_lib_names or module_name in third_party_lib_names
+
+
+def resolve_method(func_name: str, source_files: Dict[str, ast.Module]) -> Optional[Dict[str, Any]]:
+    for file_path, tree in source_files.items():
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef) and node.name == func_name:
+                try:
+                    body = ast.get_source_segment(Path(file_path).read_text(), node) or ""
+                except Exception as e:
+                    logger.warning(f"Could not get source segment for {func_name}: {e}")
+                    body = ""
+                return {"name": func_name, "body": body, "file_path": file_path, "line_number": node.lineno}
+            elif isinstance(node, ast.ClassDef):
+                for class_node in node.body:
+                    if isinstance(class_node, ast.FunctionDef) and class_node.name == func_name:
+                        try:
+                            body = ast.get_source_segment(Path(file_path).read_text(), class_node) or ""
+                        except Exception as e:
+                            logger.warning(f"Could not get source segment for {func_name}: {e}")
+                            body = ""
+                        return {
+                            "name": f"{node.name}.{func_name}",
+                            "body": body,
+                            "file_path": file_path,
+                            "line_number": class_node.lineno,
+                        }
+    return None
 
 
 def extract_methods_under_test(
@@ -79,119 +194,116 @@ def extract_methods_under_test(
     standard_lib_names: Set[str],
     third_party_lib_names: Set[str],
     source_files: Dict[str, ast.Module],
-) -> List[Dict[str, str]]:
+) -> List[MethodUnderTest]:
     methods_under_test = []
 
-    # Add decorator function analysis
-    for decorator in node.decorator_list:
-        if isinstance(decorator, ast.Call):
-            # Get the decorator function name
-            decorator_name = get_full_func_name(decorator.func)
-            if decorator_name and not is_standard_or_third_party(
-                decorator_name, standard_lib_names, third_party_lib_names
-            ):
-                method_info = resolve_method(decorator_name, source_files)
-                if method_info:
-                    methods_under_test.append(method_info)
+    def is_relevant_call(func_name):
+        return func_name is not None and not is_standard_or_third_party(
+            func_name, standard_lib_names, third_party_lib_names
+        )
 
-            # Also analyze any functions passed as arguments to decorators
-            for arg in decorator.args:
-                if isinstance(arg, ast.Name):
-                    arg_name = get_full_func_name(arg)
-                    if arg_name and not is_standard_or_third_party(arg_name, standard_lib_names, third_party_lib_names):
-                        method_info = resolve_method(arg_name, source_files)
-                        if method_info:
-                            methods_under_test.append(method_info)
+    def process_call(call_node):
+        func_name = get_full_func_name(call_node.func)
+        logger.debug(f"Processing call to function: {func_name}")
+        if func_name and is_relevant_call(func_name):
+            method_info = resolve_method(func_name, source_files)
+            if method_info:
+                methods_under_test.append(MethodUnderTest(**method_info))
+            else:
+                # Ensure we have default values for optional fields
+                methods_under_test.append(
+                    MethodUnderTest(
+                        name=func_name,
+                        body="",  # Empty string instead of None
+                        file_path="",  # Empty string instead of None
+                        line_number=0,  # Default to 0 instead of None
+                    )
+                )
+        else:
+            logger.debug(f"Ignoring standard or third-party function: {func_name}")
 
     for sub_node in ast.walk(node):
         if isinstance(sub_node, ast.Call):
-            func_name = get_full_func_name(sub_node.func)
-            if func_name and not is_standard_or_third_party(func_name, standard_lib_names, third_party_lib_names):
-                method_info = resolve_method(func_name, source_files)
+            process_call(sub_node)
+        elif isinstance(sub_node, ast.With):
+            for item in sub_node.items:
+                context_expr = getattr(item, "context_expr", None)
+                if isinstance(context_expr, ast.Call):
+                    process_call(context_expr)
+
+    for decorator in node.decorator_list:
+        if isinstance(decorator, ast.Call):
+            process_call(decorator)
+        else:
+            decorator_name = get_full_func_name(decorator)
+            if decorator_name and is_relevant_call(decorator_name):
+                method_info = resolve_method(decorator_name, source_files)
                 if method_info:
-                    methods_under_test.append(method_info)
+                    methods_under_test.append(MethodUnderTest(**method_info))
+                else:
+                    # Ensure we have default values for optional fields
+                    methods_under_test.append(
+                        MethodUnderTest(
+                            name=decorator_name,
+                            body="",  # Empty string instead of None
+                            file_path="",  # Empty string instead of None
+                            line_number=0,  # Default to 0 instead of None
+                        )
+                    )
+
     return methods_under_test
 
 
-def get_full_func_name(func) -> Optional[str]:
-    if isinstance(func, ast.Name):
-        return func.id
-    elif isinstance(func, ast.Attribute):
-        value = func.value
-        attr = func.attr
-        if isinstance(value, ast.Name):
-            return f"{value.id}.{attr}"
-        elif isinstance(value, ast.Attribute):
-            parent = get_full_func_name(value)
-            if parent:
-                return f"{parent}.{attr}"
-    return None
+def process_test_function(
+    node: ast.FunctionDef,
+    test_file: Path,
+    file_content: str,
+    imports: List[str],
+    setup_method: Optional[str],
+    teardown_method: Optional[str],
+    standard_lib_names: Set[str],
+    third_party_lib_names: Set[str],
+    source_files: Dict[str, ast.Module],
+    class_name: Optional[str] = None,
+) -> Optional[TestCase]:
+    logger.debug(f"Found test method: {node.name}")
+    source_code = ast.get_source_segment(file_content, node) or ""
+    docstring = ast.get_docstring(node)
+    decorators = []
+    for d in node.decorator_list:
+        try:
+            decorator_code = ast.unparse(d)
+        except Exception as e:
+            logger.warning(f"Could not unparse decorator: {e}")
+            decorator_code = ""
+        decorators.append(decorator_code)
+    arguments = [arg.arg for arg in node.args.args]
+    fixtures = extract_fixtures(node)
+    assertions = extract_assertions(node)
+    mocks = extract_mocks(node)
+    methods_under_test = extract_methods_under_test(
+        node, set(), standard_lib_names, third_party_lib_names, source_files
+    )
 
-
-def is_standard_or_third_party(func_name: str, standard_lib_names: Set[str], third_party_lib_names: Set[str]) -> bool:
-    module_name = func_name.split(".")[0]
-    return module_name in standard_lib_names or module_name in third_party_lib_names
-
-
-def get_standard_library_names() -> Set[str]:
-    return set(stdlib_list.stdlib_list())
-
-
-def get_third_party_library_names() -> Set[str]:
-    return {pkg.key for pkg in pkg_resources.working_set}
-
-
-def resolve_method(func_name: str, source_files: Dict[str, ast.Module]) -> Optional[Dict[str, str]]:
-    parts = func_name.split(".")
-
-    # First try to find in source files
-    result = find_in_source_files(parts, source_files)
-    if result:
-        return result
-
-    # Then try to resolve from loaded modules
-    try:
-        module_parts = parts[:-1]
-        if module_parts:
-            module = __import__(".".join(module_parts), fromlist=[parts[-1]])
-            if hasattr(module, parts[-1]):
-                func = getattr(module, parts[-1])
-                if inspect.isfunction(func):
-                    return {"name": func_name, "body": inspect.getsource(func)}
-    except (ImportError, AttributeError):
-        pass
-
-    return None
-
-
-def find_in_source_files(parts: List[str], source_files: Dict[str, ast.Module]) -> Optional[Dict]:
-    for file_path, tree in source_files.items():
-        for node in ast.walk(tree):
-            if len(parts) > 1 and isinstance(node, ast.ClassDef) and node.name == parts[-2]:
-                for sub_node in node.body:
-                    if isinstance(sub_node, ast.FunctionDef) and sub_node.name == parts[-1]:
-                        return {"name": ".".join(parts), "body": ast.unparse(sub_node)}
-            elif isinstance(node, ast.FunctionDef) and node.name == parts[-1]:
-                return {"name": ".".join(parts), "body": ast.unparse(node)}
-    return None
-
-
-def scan_source_files(directory: str) -> Dict[str, ast.Module]:
-    source_files = {}
-    all_files = list(Path(directory).rglob("*.py"))
-
-    with tqdm(total=len(all_files), desc="Scanning source files", unit="file") as pbar:
-        for file_path in all_files:
-            pbar.set_postfix_str(f"Scanning: {file_path}")
-            try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    source_files[str(file_path)] = ast.parse(f.read())
-            except Exception as e:
-                logger.error(f"Error parsing file {file_path}: {str(e)}")
-            pbar.update(1)
-
-    logger.info(f"Scanned {len(source_files)} source files")
-    return source_files
+    return TestCase(
+        name=node.name,
+        module=test_file.stem,
+        class_name=class_name,
+        file_path=str(test_file),
+        line_number=node.lineno,
+        end_line_number=getattr(node, "end_lineno", node.lineno),
+        source_code=source_code,
+        docstring=docstring,
+        decorators=decorators,
+        arguments=arguments,
+        imports=imports,
+        fixtures=fixtures,
+        assertions=assertions,
+        setup_method=setup_method,
+        teardown_method=teardown_method,
+        mocks=mocks,
+        methods_under_test=methods_under_test,
+    )
 
 
 def collect_tests(directory: str, application_modules: Set[str]) -> TestCollection:
@@ -204,116 +316,71 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
     third_party_lib_names = get_third_party_library_names()
 
     logger.info("Scanning source files")
-    source_files = scan_source_files(directory)
+    repo_root = directory_path.resolve()
+    source_files = scan_source_files(str(repo_root))
 
-    test_files = list(directory_path.rglob("test_*.py"))
+    test_files = list(directory_path.rglob("test_*.py")) + list(directory_path.rglob("*_test.py"))
     logger.info(f"Found {len(test_files)} test files")
 
     for test_file in tqdm(test_files, desc="Collecting tests", unit="file"):
         logger.info(f"Processing test file: {test_file}")
         with open(test_file, "r", encoding="utf-8") as file:
             file_content = file.read()
-            tree = ast.parse(file_content, filename=str(test_file))
+            try:
+                tree = ast.parse(file_content, filename=str(test_file))
+            except SyntaxError as e:
+                logger.error(f"Failed to parse {test_file}: {e}")
+                continue
 
             imports = extract_imports(tree)
             setup_method = None
             teardown_method = None
 
-            for node in ast.walk(tree):
+            for node in ast.iter_child_nodes(tree):
                 if isinstance(node, ast.FunctionDef):
                     if node.name == "setup_method":
-                        setup_method = ast.get_source_segment(file_content, node)
+                        setup_method = ast.get_source_segment(file_content, node) or ""
                     elif node.name == "teardown_method":
-                        teardown_method = ast.get_source_segment(file_content, node)
-
-                    if node.name.startswith("test_"):
-                        logger.debug(f"Found test method: {node.name}")
-                        source_code = ast.get_source_segment(file_content, node)
-                        docstring = ast.get_docstring(node)
-                        decorators = [ast.unparse(d) for d in node.decorator_list]
-                        arguments = [arg.arg for arg in node.args.args]
-                        fixtures = extract_fixtures(node)
-                        assertions = extract_assertions(node)
-                        mocks = extract_mocks(node)
-                        methods_under_test = extract_methods_under_test(
-                            node, application_modules, standard_lib_names, third_party_lib_names, source_files
+                        teardown_method = ast.get_source_segment(file_content, node) or ""
+                    elif node.name.startswith("test_"):
+                        test_case = process_test_function(
+                            node,
+                            test_file,
+                            file_content,
+                            imports,
+                            setup_method,
+                            teardown_method,
+                            standard_lib_names,
+                            third_party_lib_names,
+                            source_files,
                         )
-
-                        test_collection.tests.append(
-                            TestCase(
-                                name=node.name,
-                                module=test_file.stem,
-                                file_path=str(test_file),
-                                line_number=node.lineno,
-                                end_line_number=node.end_lineno if hasattr(node, "end_lineno") else node.lineno,
-                                source_code=source_code,
-                                docstring=docstring,
-                                decorators=decorators,
-                                arguments=arguments,
-                                imports=imports,
-                                fixtures=fixtures,
-                                assertions=assertions,
-                                setup_method=setup_method,
-                                teardown_method=teardown_method,
-                                mocks=mocks,
-                                methods_under_test=methods_under_test,
-                            )
-                        )
+                        if test_case:
+                            test_collection.tests.append(test_case)
                 elif isinstance(node, ast.ClassDef):
-                    logger.debug(f"Found test class: {node.name}")
-                    class_setup_method = next(
-                        (
-                            ast.get_source_segment(file_content, m)
-                            for m in node.body
-                            if isinstance(m, ast.FunctionDef) and m.name == "setup_method"
-                        ),
-                        None,
-                    )
-                    class_teardown_method = next(
-                        (
-                            ast.get_source_segment(file_content, m)
-                            for m in node.body
-                            if isinstance(m, ast.FunctionDef) and m.name == "teardown_method"
-                        ),
-                        None,
-                    )
-
-                    for sub_node in node.body:
-                        if isinstance(sub_node, ast.FunctionDef) and sub_node.name.startswith("test_"):
-                            source_code = ast.get_source_segment(file_content, sub_node)
-                            docstring = ast.get_docstring(sub_node)
-                            decorators = [ast.unparse(d) for d in sub_node.decorator_list]
-                            arguments = [arg.arg for arg in sub_node.args.args]
-                            fixtures = extract_fixtures(sub_node)
-                            assertions = extract_assertions(sub_node)
-                            mocks = extract_mocks(sub_node)
-                            methods_under_test = extract_methods_under_test(
-                                sub_node, application_modules, standard_lib_names, third_party_lib_names, source_files
+                    class_setup_method = None
+                    class_teardown_method = None
+                    for class_node in node.body:
+                        if isinstance(class_node, ast.FunctionDef):
+                            if class_node.name == "setup_method":
+                                class_setup_method = ast.get_source_segment(file_content, class_node) or ""
+                            elif class_node.name == "teardown_method":
+                                class_teardown_method = ast.get_source_segment(file_content, class_node) or ""
+                    for class_node in node.body:
+                        if isinstance(class_node, ast.FunctionDef) and class_node.name.startswith("test_"):
+                            test_case = process_test_function(
+                                class_node,
+                                test_file,
+                                file_content,
+                                imports,
+                                class_setup_method,
+                                class_teardown_method,
+                                standard_lib_names,
+                                third_party_lib_names,
+                                source_files,
+                                class_name=node.name,
                             )
-
-                            test_collection.tests.append(
-                                TestCase(
-                                    name=sub_node.name,
-                                    module=test_file.stem,
-                                    class_name=node.name,
-                                    file_path=str(test_file),
-                                    line_number=sub_node.lineno,
-                                    end_line_number=(
-                                        sub_node.end_lineno if hasattr(sub_node, "end_lineno") else sub_node.lineno
-                                    ),
-                                    source_code=source_code,
-                                    docstring=docstring,
-                                    decorators=decorators,
-                                    arguments=arguments,
-                                    imports=imports,
-                                    fixtures=fixtures,
-                                    assertions=assertions,
-                                    setup_method=class_setup_method,
-                                    teardown_method=class_teardown_method,
-                                    mocks=mocks,
-                                    methods_under_test=methods_under_test,
-                                )
-                            )
+                            if test_case:
+                                test_collection.tests.append(test_case)
 
     logger.info(f"Collected {len(test_collection.tests)} tests in total")
     return test_collection
@@ -321,7 +388,6 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
 
 def dump_tests_to_json(test_collection: TestCollection, output_file: str):
     logger.info(f"Dumping {len(test_collection.tests)} tests to JSON: {output_file}")
-    # Create the output directory if it doesn't exist
     output_path = Path(output_file)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -362,10 +428,12 @@ def main(repo_path: str, output_path: str, log_level: str):
         logger.error(f"Tests directory not found: {tests_dir}")
         return
 
-    # Add empty set for application_modules
     collected_tests = collect_tests(tests_dir, set())
+    logger.info(f"Collected {len(collected_tests.tests)} tests in total")
+
+    logger.info("Starting to dump tests to JSON")
     dump_tests_to_json(collected_tests, output_path)
-    logger.info(f"Collected {len(collected_tests.tests)} tests and saved to {output_path}")
+    logger.info("Finished dumping tests to JSON")
 
     logger.info("Test collection process completed")
 

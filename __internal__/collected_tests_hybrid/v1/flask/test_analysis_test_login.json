@@ -1,0 +1,37 @@
+{
+  "test_name": "test_login",
+  "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_auth.py",
+  "static_methods": [
+    "auth.login",
+    "client.get",
+    "client.get"
+  ],
+  "dynamic_methods": [
+    {
+      "function": "auth.login",
+      "filename": "",
+      "line": 0,
+      "caller": "test_login"
+    },
+    {
+      "function": "client.get",
+      "filename": "",
+      "line": 0,
+      "caller": "test_login"
+    },
+    {
+      "function": "client.get",
+      "filename": "",
+      "line": 0,
+      "caller": "test_login"
+    }
+  ],
+  "assertions": [
+    "assert client.get('/auth/login').status_code == 200",
+    "assert response.headers['Location'] == '/'",
+    "assert session['user_id'] == 1",
+    "assert g.user['username'] == 'test'"
+  ],
+  "mocks": [],
+  "success": true
+}
