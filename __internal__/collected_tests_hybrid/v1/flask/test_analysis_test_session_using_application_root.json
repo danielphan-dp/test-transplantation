@@ -10,21 +10,21 @@
     },
     {
       "name": "app.config.update",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "def update(id):\n    \"\"\"Update a post if the current user is the author.\"\"\"\n    post = get_post(id)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
+      "line_number": 88
     },
     {
       "name": "app.route",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 336
     },
     {
       "name": "client.get",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line_number": 88
     },
     {
       "name": "rv.headers.lower",
@@ -34,9 +34,9 @@
     },
     {
       "name": "self.app",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "def app():\n    \"\"\"Create and configure a new app instance for each test.\"\"\"\n    # create a temporary file to isolate the database for each test\n    db_fd, db_path = tempfile.mkstemp()\n    # create the app with common test config\n    app = create_app({\"TESTING\": True, \"DATABASE\": db_path})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/tests/conftest.py",
+      "line_number": 16
     }
   ],
   "dynamic_methods": [
@@ -44,37 +44,43 @@
       "function": "PrefixPathMiddleware",
       "filename": "",
       "line": 0,
-      "caller": "test_session_using_application_root"
+      "caller": "test_session_using_application_root",
+      "source_code": ""
     },
     {
       "function": "app.config.update",
-      "filename": "",
-      "line": 0,
-      "caller": "test_session_using_application_root"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
+      "line": 88,
+      "caller": "test_session_using_application_root",
+      "source_code": "@bp.route(\"/<int:id>/update\", methods=(\"GET\", \"POST\"))\n@login_required\ndef update(id):\n    \"\"\"Update a post if the current user is the author.\"\"\"\n    post = get_post(id)\n\n    if request.method == \"POST\":\n        title = request.form[\"title\"]\n        body = request.form[\"body\"]\n        error = None\n\n        if not title:\n            error = \"Title is required.\"\n\n        if error is not None:\n            flash(error)\n        else:\n            db = get_db()\n            db.execute(\n                \"UPDATE post SET title = ?, body = ? WHERE id = ?\", (title, body, id)\n            )\n            db.commit()\n            return redirect(url_for(\"blog.index\"))\n\n    return render_template(\"blog/update.html\", post=post)\n\n\n"
     },
     {
       "function": "app.route",
-      "filename": "",
-      "line": 0,
-      "caller": "test_session_using_application_root"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 336,
+      "caller": "test_session_using_application_root",
+      "source_code": "    @setupmethod\n    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.\n\n        .. code-block:: python\n\n            @app.route(\"/\")\n            def index():\n                return \"Hello, World!\"\n\n        See :ref:`url-route-registrations`.\n\n        The endpoint name for the route defaults to the name of the view\n        function if the ``endpoint`` parameter isn't passed.\n\n        The ``methods`` parameter defaults to ``[\"GET\"]``. ``HEAD`` and\n        ``OPTIONS`` are added automatically.\n\n        :param rule: The URL rule string.\n        :param options: Extra options passed to the\n            :class:`~werkzeug.routing.Rule` object.\n        \"\"\"\n\n        def decorator(f: T_route) -> T_route:\n            endpoint = options.pop(\"endpoint\", None)\n            self.add_url_rule(rule, endpoint, f, **options)\n            return f\n\n        return decorator\n\n"
     },
     {
       "function": "client.get",
-      "filename": "",
-      "line": 0,
-      "caller": "test_session_using_application_root"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line": 88,
+      "caller": "test_session_using_application_root",
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
     },
     {
       "function": "rv.headers.lower",
       "filename": "",
       "line": 0,
-      "caller": "test_session_using_application_root"
+      "caller": "test_session_using_application_root",
+      "source_code": ""
     },
     {
       "function": "self.app",
-      "filename": "",
-      "line": 0,
-      "caller": "test_session_using_application_root"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/tests/conftest.py",
+      "line": 16,
+      "caller": "test_session_using_application_root",
+      "source_code": "@pytest.fixture\ndef app():\n    \"\"\"Create and configure a new app instance for each test.\"\"\"\n    # create a temporary file to isolate the database for each test\n    db_fd, db_path = tempfile.mkstemp()\n    # create the app with common test config\n    app = create_app({\"TESTING\": True, \"DATABASE\": db_path})\n\n    # create the database and load test data\n    with app.app_context():\n        init_db()\n        get_db().executescript(_data_sql)\n\n    yield app\n\n    # close and remove the temporary database\n    os.close(db_fd)\n    os.unlink(db_path)\n\n\n"
     }
   ],
   "assertions": [

@@ -4,25 +4,25 @@
   "static_methods": [
     {
       "name": "app.app_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1386
     },
     {
       "name": "auth.login",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def login(self, username=\"test\", password=\"test\"):\n        return self._client.post(\n            \"/auth/login\", data={\"username\": username, \"password\": password}\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/tests/conftest.py",
+      "line_number": 51
     },
     {
       "name": "app.app_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1386
     },
     {
       "name": "get_db",
-      "source_code": "def get_db():\n    \"\"\"Connect to the application's configured database. The connection\n    is unique for each request and will be reused if this is called\n    again.\n    \"\"\"\n    if \"db\" not in g:\n        g.db = sqlite3.connect(\n            current_app.config[\"DATABASE\"], detect_types=sqlite3.PARSE_DECLTYPES\n        )\n        g.db.row_factory = sqlite3.Row\n\n    return g.db",
+      "source_code": "def get_db():\n    \"\"\"Connect to the application's configured database. The connection\n    is unique for each request and will be reused if this is called\n    again.\n    \"\"\"\n    if \"db\" not in g:\n        g.db = sqlite3.connect(\n            current_app.config[\"DATABASE\"], detect_types=sqlite3.PARSE_DECLTYPES\n        )\n        g.db.row_factory = sqlite3.Row",
       "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/db.py",
       "line_number": 9
     },
@@ -40,77 +40,86 @@
     },
     {
       "name": "client.post",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 304
     },
     {
       "name": "client.post",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 304
     },
     {
       "name": "client.get",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line_number": 88
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.app_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_author_required"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1386,
+      "caller": "test_author_required",
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.\n\n        An application context is automatically pushed by\n        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`\n        when handling a request, and when running a CLI command. Use\n        this to manually create a context outside of these situations.\n\n        ::\n\n            with app.app_context():\n                init_db()\n\n        See :doc:`/appcontext`.\n\n        .. versionadded:: 0.9\n        \"\"\"\n        return AppContext(self)\n\n"
     },
     {
       "function": "auth.login",
-      "filename": "",
-      "line": 0,
-      "caller": "test_author_required"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/tests/conftest.py",
+      "line": 51,
+      "caller": "test_author_required",
+      "source_code": "    def login(self, username=\"test\", password=\"test\"):\n        return self._client.post(\n            \"/auth/login\", data={\"username\": username, \"password\": password}\n        )\n\n"
     },
     {
       "function": "app.app_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_author_required"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1386,
+      "caller": "test_author_required",
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.\n\n        An application context is automatically pushed by\n        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`\n        when handling a request, and when running a CLI command. Use\n        this to manually create a context outside of these situations.\n\n        ::\n\n            with app.app_context():\n                init_db()\n\n        See :doc:`/appcontext`.\n\n        .. versionadded:: 0.9\n        \"\"\"\n        return AppContext(self)\n\n"
     },
     {
       "function": "get_db",
       "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/db.py",
       "line": 9,
-      "caller": "test_author_required"
+      "caller": "test_author_required",
+      "source_code": "def get_db():\n    \"\"\"Connect to the application's configured database. The connection\n    is unique for each request and will be reused if this is called\n    again.\n    \"\"\"\n    if \"db\" not in g:\n        g.db = sqlite3.connect(\n            current_app.config[\"DATABASE\"], detect_types=sqlite3.PARSE_DECLTYPES\n        )\n        g.db.row_factory = sqlite3.Row\n\n    return g.db\n\n\n"
     },
     {
       "function": "db.execute",
       "filename": "",
       "line": 0,
-      "caller": "test_author_required"
+      "caller": "test_author_required",
+      "source_code": ""
     },
     {
       "function": "db.commit",
       "filename": "",
       "line": 0,
-      "caller": "test_author_required"
+      "caller": "test_author_required",
+      "source_code": ""
     },
     {
       "function": "client.post",
-      "filename": "",
-      "line": 0,
-      "caller": "test_author_required"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 304,
+      "caller": "test_author_required",
+      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
     },
     {
       "function": "client.post",
-      "filename": "",
-      "line": 0,
-      "caller": "test_author_required"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 304,
+      "caller": "test_author_required",
+      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
     },
     {
       "function": "client.get",
-      "filename": "",
-      "line": 0,
-      "caller": "test_author_required"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line": 88,
+      "caller": "test_author_required",
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
     }
   ],
   "assertions": [

@@ -10,26 +10,26 @@
     },
     {
       "name": "s.register",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "def register():\n    \"\"\"Register a new user.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
+      "line_number": 47
     },
     {
       "name": "isinstance",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "s.register",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "def register():\n    \"\"\"Register a new user.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
+      "line_number": 47
     },
     {
       "name": "isinstance",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     }
   ],
@@ -38,31 +38,36 @@
       "function": "TaggedJSONSerializer",
       "filename": "",
       "line": 0,
-      "caller": "test_tag_order"
+      "caller": "test_tag_order",
+      "source_code": ""
     },
     {
       "function": "s.register",
-      "filename": "",
-      "line": 0,
-      "caller": "test_tag_order"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
+      "line": 47,
+      "caller": "test_tag_order",
+      "source_code": "@bp.route(\"/register\", methods=(\"GET\", \"POST\"))\ndef register():\n    \"\"\"Register a new user.\n\n    Validates that the username is not already taken. Hashes the\n    password for security.\n    \"\"\"\n    if request.method == \"POST\":\n        username = request.form[\"username\"]\n        password = request.form[\"password\"]\n        db = get_db()\n        error = None\n\n        if not username:\n            error = \"Username is required.\"\n        elif not password:\n            error = \"Password is required.\"\n\n        if error is None:\n            try:\n                db.execute(\n                    \"INSERT INTO user (username, password) VALUES (?, ?)\",\n                    (username, generate_password_hash(password)),\n                )\n                db.commit()\n            except db.IntegrityError:\n                # The username was already taken, which caused the\n                # commit to fail. Show a validation error.\n                error = f\"User {username} is already registered.\"\n            else:\n                # Success, go to the login page.\n                return redirect(url_for(\"auth.login\"))\n\n        flash(error)\n\n    return render_template(\"auth/register.html\")\n\n\n"
     },
     {
       "function": "isinstance",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_tag_order"
+      "caller": "test_tag_order",
+      "source_code": ""
     },
     {
       "function": "s.register",
-      "filename": "",
-      "line": 0,
-      "caller": "test_tag_order"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
+      "line": 47,
+      "caller": "test_tag_order",
+      "source_code": "@bp.route(\"/register\", methods=(\"GET\", \"POST\"))\ndef register():\n    \"\"\"Register a new user.\n\n    Validates that the username is not already taken. Hashes the\n    password for security.\n    \"\"\"\n    if request.method == \"POST\":\n        username = request.form[\"username\"]\n        password = request.form[\"password\"]\n        db = get_db()\n        error = None\n\n        if not username:\n            error = \"Username is required.\"\n        elif not password:\n            error = \"Password is required.\"\n\n        if error is None:\n            try:\n                db.execute(\n                    \"INSERT INTO user (username, password) VALUES (?, ?)\",\n                    (username, generate_password_hash(password)),\n                )\n                db.commit()\n            except db.IntegrityError:\n                # The username was already taken, which caused the\n                # commit to fail. Show a validation error.\n                error = f\"User {username} is already registered.\"\n            else:\n                # Success, go to the login page.\n                return redirect(url_for(\"auth.login\"))\n\n        flash(error)\n\n    return render_template(\"auth/register.html\")\n\n\n"
     },
     {
       "function": "isinstance",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_tag_order"
+      "caller": "test_tag_order",
+      "source_code": ""
     }
   ],
   "assertions": [

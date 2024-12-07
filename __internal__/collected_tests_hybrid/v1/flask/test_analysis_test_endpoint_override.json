@@ -4,65 +4,70 @@
   "static_methods": [
     {
       "name": "app.add_url_rule",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def add_url_rule(\n        self,\n        rule: str,\n        endpoint: str | None = None,\n        view_func: ft.RouteCallable | None = None,\n        provide_automatic_options: bool | None = None,\n        **options: t.Any,\n    ) -> None:\n        if endpoint is None:\n            endpoint = _endpoint_from_view_func(view_func)  # type: ignore\n        options[\"endpoint\"] = endpoint\n        methods = options.pop(\"methods\", None)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 605
     },
     {
       "name": "common_test",
-      "source_code": "def common_test(app):\n    c = app.test_client()\n\n    assert c.get(\"/\").data == b\"GET\"\n    assert c.post(\"/\").data == b\"POST\"\n    assert c.put(\"/\").status_code == 405\n    meths = parse_set_header(c.open(\"/\", method=\"OPTIONS\").headers[\"Allow\"])\n    assert sorted(meths) == [\"GET\", \"HEAD\", \"OPTIONS\", \"POST\"]",
+      "source_code": "def common_test(app):\n    c = app.test_client()",
       "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_views.py",
       "line_number": 7
     },
     {
       "name": "app.add_url_rule",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def add_url_rule(\n        self,\n        rule: str,\n        endpoint: str | None = None,\n        view_func: ft.RouteCallable | None = None,\n        provide_automatic_options: bool | None = None,\n        **options: t.Any,\n    ) -> None:\n        if endpoint is None:\n            endpoint = _endpoint_from_view_func(view_func)  # type: ignore\n        options[\"endpoint\"] = endpoint\n        methods = options.pop(\"methods\", None)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 605
     },
     {
       "name": "Index.as_view",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def as_view(\n        cls, name: str, *class_args: t.Any, **class_kwargs: t.Any\n    ) -> ft.RouteCallable:\n        \"\"\"Convert the class into a view function that can be registered\n        for a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/views.py",
+      "line_number": 86
     },
     {
       "name": "Index.as_view",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def as_view(\n        cls, name: str, *class_args: t.Any, **class_kwargs: t.Any\n    ) -> ft.RouteCallable:\n        \"\"\"Convert the class into a view function that can be registered\n        for a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/views.py",
+      "line_number": 86
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.add_url_rule",
-      "filename": "",
-      "line": 0,
-      "caller": "test_endpoint_override"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 605,
+      "caller": "test_endpoint_override",
+      "source_code": "    @setupmethod\n    def add_url_rule(\n        self,\n        rule: str,\n        endpoint: str | None = None,\n        view_func: ft.RouteCallable | None = None,\n        provide_automatic_options: bool | None = None,\n        **options: t.Any,\n"
     },
     {
       "function": "common_test",
       "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_views.py",
       "line": 7,
-      "caller": "test_endpoint_override"
+      "caller": "test_endpoint_override",
+      "source_code": "def common_test(app):\n    c = app.test_client()\n\n    assert c.get(\"/\").data == b\"GET\"\n    assert c.post(\"/\").data == b\"POST\"\n    assert c.put(\"/\").status_code == 405\n    meths = parse_set_header(c.open(\"/\", method=\"OPTIONS\").headers[\"Allow\"])\n    assert sorted(meths) == [\"GET\", \"HEAD\", \"OPTIONS\", \"POST\"]\n\n\n"
     },
     {
       "function": "app.add_url_rule",
-      "filename": "",
-      "line": 0,
-      "caller": "test_endpoint_override"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 605,
+      "caller": "test_endpoint_override",
+      "source_code": "    @setupmethod\n    def add_url_rule(\n        self,\n        rule: str,\n        endpoint: str | None = None,\n        view_func: ft.RouteCallable | None = None,\n        provide_automatic_options: bool | None = None,\n        **options: t.Any,\n"
     },
     {
       "function": "Index.as_view",
-      "filename": "",
-      "line": 0,
-      "caller": "test_endpoint_override"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/views.py",
+      "line": 86,
+      "caller": "test_endpoint_override",
+      "source_code": "    @classmethod\n    def as_view(\n        cls, name: str, *class_args: t.Any, **class_kwargs: t.Any\n"
     },
     {
       "function": "Index.as_view",
-      "filename": "",
-      "line": 0,
-      "caller": "test_endpoint_override"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/views.py",
+      "line": 86,
+      "caller": "test_endpoint_override",
+      "source_code": "    @classmethod\n    def as_view(\n        cls, name: str, *class_args: t.Any, **class_kwargs: t.Any\n"
     }
   ],
   "assertions": [],

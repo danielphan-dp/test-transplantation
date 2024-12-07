@@ -150,12 +150,46 @@ class TestAnalyzer:
             # Extract static method calls from the test case
             static_calls = []
             for method in test_case.get("methods_under_test", []):
+                # Try to find the source code for this method
+                source_code = ""
+                file_path = method.get("file_path", "")
+                if file_path and os.path.exists(file_path):
+                    try:
+                        with open(file_path, "r") as f:
+                            source_lines = f.readlines()
+                        line_number = method.get("line_number", 0)
+                        if line_number > 0:
+                            # Find the start of the method (including decorators)
+                            start_line = line_number - 1
+                            while start_line > 0:
+                                line = source_lines[start_line - 1].strip()
+                                if line.startswith("@"):
+                                    start_line -= 1
+                                else:
+                                    break
+
+                            # Find the end of the method by looking for the next non-indented line
+                            base_indent = len(source_lines[line_number - 1]) - len(
+                                source_lines[line_number - 1].lstrip()
+                            )
+                            end_line = line_number
+                            while end_line < len(source_lines):
+                                line = source_lines[end_line]
+                                if line.strip() and len(line) - len(line.lstrip()) <= base_indent:
+                                    break
+                                end_line += 1
+
+                            source_code = "".join(source_lines[start_line:end_line])
+                    except Exception as e:
+                        logger.warning(f"Could not extract source code for {method['name']}: {e}")
+
                 static_calls.append(
                     {
                         "function": method["name"],
-                        "filename": method.get("file_path", ""),
+                        "filename": file_path,
                         "line": method.get("line_number", 0),
                         "caller": test_name,
+                        "source_code": source_code,
                     }
                 )
 
@@ -172,10 +206,34 @@ class TestAnalyzer:
             static_methods = []
             for method in test_case["methods_under_test"]:
                 # Include the method name and its source code
+                source_code = ""
+                file_path = method.get("file_path", "")
+                if file_path and os.path.exists(file_path):
+                    try:
+                        with open(file_path, "r") as f:
+                            source_lines = f.readlines()
+                        line_number = method.get("line_number", 0)
+                        if line_number > 0:
+                            # Extract full method source code
+                            method_lines = []
+                            i = line_number - 1
+                            # Get the method signature
+                            method_lines.append(source_lines[i].rstrip())
+                            # Get the method body
+                            i += 1
+                            while i < len(source_lines) and (
+                                source_lines[i].strip() and source_lines[i].startswith(" " * 4)
+                            ):
+                                method_lines.append(source_lines[i].rstrip())
+                                i += 1
+                            source_code = "\n".join(method_lines)
+                    except Exception as e:
+                        logger.warning(f"Could not extract source code for {method['name']}: {e}")
+
                 static_methods.append(
                     {
                         "name": method["name"],
-                        "source_code": method.get("body", ""),  # Include the source code
+                        "source_code": source_code,
                         "file_path": method.get("file_path", ""),
                         "line_number": method.get("line_number", 0),
                     }
@@ -187,13 +245,14 @@ class TestAnalyzer:
             return {
                 "test_name": test_case["name"],
                 "test_file": test_case["file_path"],
-                "static_methods": static_methods,  # Now includes source code
+                "static_methods": static_methods,
                 "dynamic_methods": traced_calls,
                 "assertions": test_case.get("assertions", []),
                 "mocks": test_case.get("mocks", []),
                 "success": success,
-                "test_source_code": test_case.get("source_code", ""),  # Also include test source code
+                "test_source_code": test_case.get("source_code", ""),
             }
+
         except Exception as e:
             logger.warning(f"Error analyzing test {test_case['name']}: {str(e)}")
             return {

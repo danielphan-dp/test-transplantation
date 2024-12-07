@@ -4,41 +4,44 @@
   "static_methods": [
     {
       "name": "app.route",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 336
     },
     {
       "name": "app.test_client.get",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line_number": 88
     },
     {
       "name": "app.test_client",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def test_client(self, use_cookies: bool = True, **kwargs: t.Any) -> FlaskClient:\n        \"\"\"Creates a test client for this application.  For information\n        about unit testing head over to :doc:`/testing`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 669
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.route",
-      "filename": "",
-      "line": 0,
-      "caller": "test_normal_environ_completes"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 336,
+      "caller": "test_normal_environ_completes",
+      "source_code": "    @setupmethod\n    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.\n\n        .. code-block:: python\n\n            @app.route(\"/\")\n            def index():\n                return \"Hello, World!\"\n\n        See :ref:`url-route-registrations`.\n\n        The endpoint name for the route defaults to the name of the view\n        function if the ``endpoint`` parameter isn't passed.\n\n        The ``methods`` parameter defaults to ``[\"GET\"]``. ``HEAD`` and\n        ``OPTIONS`` are added automatically.\n\n        :param rule: The URL rule string.\n        :param options: Extra options passed to the\n            :class:`~werkzeug.routing.Rule` object.\n        \"\"\"\n\n        def decorator(f: T_route) -> T_route:\n            endpoint = options.pop(\"endpoint\", None)\n            self.add_url_rule(rule, endpoint, f, **options)\n            return f\n\n        return decorator\n\n"
     },
     {
       "function": "app.test_client.get",
-      "filename": "",
-      "line": 0,
-      "caller": "test_normal_environ_completes"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line": 88,
+      "caller": "test_normal_environ_completes",
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
     },
     {
       "function": "app.test_client",
-      "filename": "",
-      "line": 0,
-      "caller": "test_normal_environ_completes"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 669,
+      "caller": "test_normal_environ_completes",
+      "source_code": "    def test_client(self, use_cookies: bool = True, **kwargs: t.Any) -> FlaskClient:\n        \"\"\"Creates a test client for this application.  For information\n        about unit testing head over to :doc:`/testing`.\n\n        Note that if you are testing for assertions or exceptions in your\n        application code, you must set ``app.testing = True`` in order for the\n        exceptions to propagate to the test client.  Otherwise, the exception\n        will be handled by the application (not visible to the test client) and\n        the only indication of an AssertionError or other exception will be a\n        500 status code response to the test client.  See the :attr:`testing`\n        attribute.  For example::\n\n            app.testing = True\n            client = app.test_client()\n\n        The test client can be used in a ``with`` block to defer the closing down\n        of the context until the end of the ``with`` block.  This is useful if\n        you want to access the context locals for testing::\n\n            with app.test_client() as c:\n                rv = c.get('/?vodka=42')\n                assert request.args['vodka'] == '42'\n\n        Additionally, you may pass optional keyword arguments that will then\n        be passed to the application's :attr:`test_client_class` constructor.\n        For example::\n\n            from flask.testing import FlaskClient\n\n            class CustomClient(FlaskClient):\n                def __init__(self, *args, **kwargs):\n                    self._authentication = kwargs.pop(\"authentication\")\n                    super(CustomClient,self).__init__( *args, **kwargs)\n\n            app.test_client_class = CustomClient\n            client = app.test_client(authentication='Basic ....')\n\n        See :class:`~flask.testing.FlaskClient` for more information.\n\n        .. versionchanged:: 0.4\n           added support for ``with`` block usage for the client.\n\n        .. versionadded:: 0.7\n           The `use_cookies` parameter was added as well as the ability\n           to override the client to be used by setting the\n           :attr:`test_client_class` attribute.\n\n        .. versionchanged:: 0.11\n           Added `**kwargs` to support passing additional keyword arguments to\n           the constructor of :attr:`test_client_class`.\n        \"\"\"\n        cls = self.test_client_class\n        if cls is None:\n            from .testing import FlaskClient as cls\n        return cls(  # type: ignore\n            self, self.response_class, use_cookies=use_cookies, **kwargs\n        )\n\n"
     }
   ],
   "assertions": [

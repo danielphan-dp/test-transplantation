@@ -4,41 +4,44 @@
   "static_methods": [
     {
       "name": "app.test_client",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def test_client(self, use_cookies: bool = True, **kwargs: t.Any) -> FlaskClient:\n        \"\"\"Creates a test client for this application.  For information\n        about unit testing head over to :doc:`/testing`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 669
     },
     {
       "name": "c.session_transaction",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def session_transaction(\n        self, *args: t.Any, **kwargs: t.Any\n    ) -> t.Iterator[SessionMixin]:\n        \"\"\"When used in combination with a ``with`` statement this opens a\n        session transaction.  This can be used to modify the session that\n        the test client uses.  Once the ``with`` block is left the session is\n        stored back.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
+      "line_number": 136
     },
     {
       "name": "c.session_transaction",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def session_transaction(\n        self, *args: t.Any, **kwargs: t.Any\n    ) -> t.Iterator[SessionMixin]:\n        \"\"\"When used in combination with a ``with`` statement this opens a\n        session transaction.  This can be used to modify the session that\n        the test client uses.  Once the ``with`` block is left the session is\n        stored back.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
+      "line_number": 136
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.test_client",
-      "filename": "",
-      "line": 0,
-      "caller": "test_session_transaction_needs_cookies"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 669,
+      "caller": "test_session_transaction_needs_cookies",
+      "source_code": "    def test_client(self, use_cookies: bool = True, **kwargs: t.Any) -> FlaskClient:\n        \"\"\"Creates a test client for this application.  For information\n        about unit testing head over to :doc:`/testing`.\n\n        Note that if you are testing for assertions or exceptions in your\n        application code, you must set ``app.testing = True`` in order for the\n        exceptions to propagate to the test client.  Otherwise, the exception\n        will be handled by the application (not visible to the test client) and\n        the only indication of an AssertionError or other exception will be a\n        500 status code response to the test client.  See the :attr:`testing`\n        attribute.  For example::\n\n            app.testing = True\n            client = app.test_client()\n\n        The test client can be used in a ``with`` block to defer the closing down\n        of the context until the end of the ``with`` block.  This is useful if\n        you want to access the context locals for testing::\n\n            with app.test_client() as c:\n                rv = c.get('/?vodka=42')\n                assert request.args['vodka'] == '42'\n\n        Additionally, you may pass optional keyword arguments that will then\n        be passed to the application's :attr:`test_client_class` constructor.\n        For example::\n\n            from flask.testing import FlaskClient\n\n            class CustomClient(FlaskClient):\n                def __init__(self, *args, **kwargs):\n                    self._authentication = kwargs.pop(\"authentication\")\n                    super(CustomClient,self).__init__( *args, **kwargs)\n\n            app.test_client_class = CustomClient\n            client = app.test_client(authentication='Basic ....')\n\n        See :class:`~flask.testing.FlaskClient` for more information.\n\n        .. versionchanged:: 0.4\n           added support for ``with`` block usage for the client.\n\n        .. versionadded:: 0.7\n           The `use_cookies` parameter was added as well as the ability\n           to override the client to be used by setting the\n           :attr:`test_client_class` attribute.\n\n        .. versionchanged:: 0.11\n           Added `**kwargs` to support passing additional keyword arguments to\n           the constructor of :attr:`test_client_class`.\n        \"\"\"\n        cls = self.test_client_class\n        if cls is None:\n            from .testing import FlaskClient as cls\n        return cls(  # type: ignore\n            self, self.response_class, use_cookies=use_cookies, **kwargs\n        )\n\n"
     },
     {
       "function": "c.session_transaction",
-      "filename": "",
-      "line": 0,
-      "caller": "test_session_transaction_needs_cookies"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
+      "line": 136,
+      "caller": "test_session_transaction_needs_cookies",
+      "source_code": "    @contextmanager\n    def session_transaction(\n        self, *args: t.Any, **kwargs: t.Any\n"
     },
     {
       "function": "c.session_transaction",
-      "filename": "",
-      "line": 0,
-      "caller": "test_session_transaction_needs_cookies"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
+      "line": 136,
+      "caller": "test_session_transaction_needs_cookies",
+      "source_code": "    @contextmanager\n    def session_transaction(\n        self, *args: t.Any, **kwargs: t.Any\n"
     }
   ],
   "assertions": [],

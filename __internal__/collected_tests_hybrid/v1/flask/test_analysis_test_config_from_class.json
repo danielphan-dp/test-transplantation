@@ -4,9 +4,9 @@
   "static_methods": [
     {
       "name": "app.config.from_object",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def from_object(self, obj: object | str) -> None:\n        \"\"\"Updates the values from the given object.  An object can be of one\n        of the following two types:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/config.py",
+      "line_number": 218
     },
     {
       "name": "common_object_test",
@@ -18,15 +18,17 @@
   "dynamic_methods": [
     {
       "function": "app.config.from_object",
-      "filename": "",
-      "line": 0,
-      "caller": "test_config_from_class"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/config.py",
+      "line": 218,
+      "caller": "test_config_from_class",
+      "source_code": "    def from_object(self, obj: object | str) -> None:\n        \"\"\"Updates the values from the given object.  An object can be of one\n        of the following two types:\n\n        -   a string: in this case the object with that name will be imported\n        -   an actual object reference: that object is used directly\n\n        Objects are usually either modules or classes. :meth:`from_object`\n        loads only the uppercase attributes of the module/class. A ``dict``\n        object will not work with :meth:`from_object` because the keys of a\n        ``dict`` are not attributes of the ``dict`` class.\n\n        Example of module-based configuration::\n\n            app.config.from_object('yourapplication.default_config')\n            from yourapplication import default_config\n            app.config.from_object(default_config)\n\n        Nothing is done to the object before loading. If the object is a\n        class and has ``@property`` attributes, it needs to be\n        instantiated before being passed to this method.\n\n        You should not use this function to load the actual configuration but\n        rather configuration defaults.  The actual config should be loaded\n        with :meth:`from_pyfile` and ideally from a location not within the\n        package because the package might be installed system wide.\n\n        See :ref:`config-dev-prod` for an example of class-based configuration\n        using :meth:`from_object`.\n\n        :param obj: an import name or object\n        \"\"\"\n        if isinstance(obj, str):\n            obj = import_string(obj)\n        for key in dir(obj):\n            if key.isupper():\n                self[key] = getattr(obj, key)\n\n"
     },
     {
       "function": "common_object_test",
       "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_config.py",
       "line": 13,
-      "caller": "test_config_from_class"
+      "caller": "test_config_from_class",
+      "source_code": "def common_object_test(app):\n    assert app.secret_key == \"config\"\n    assert app.config[\"TEST_KEY\"] == \"foo\"\n    assert \"TestConfig\" not in app.config\n\n\n"
     }
   ],
   "assertions": [],

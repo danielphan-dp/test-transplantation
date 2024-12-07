@@ -4,41 +4,44 @@
   "static_methods": [
     {
       "name": "app.test_request_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1423
     },
     {
       "name": "ctx.push",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def push(self) -> None:\n        \"\"\"Binds the app context to the current context.\"\"\"\n        self._cv_tokens.append(_cv_app.set(self))\n        appcontext_pushed.send(self.app, _async_wrapper=self.app.ensure_sync)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
+      "line_number": 251
     },
     {
       "name": "ctx.pop",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
+      "line_number": 78
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.test_request_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_context_test"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1423,
+      "caller": "test_context_test",
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.\n\n        See :doc:`/reqcontext`.\n\n        Use a ``with`` block to push the context, which will make\n        :data:`request` point at the request for the created\n        environment. ::\n\n            with app.test_request_context(...):\n                generate_report()\n\n        When using the shell, it may be easier to push and pop the\n        context manually to avoid indentation. ::\n\n            ctx = app.test_request_context(...)\n            ctx.push()\n            ...\n            ctx.pop()\n\n        Takes the same arguments as Werkzeug's\n        :class:`~werkzeug.test.EnvironBuilder`, with some defaults from\n        the application. See the linked Werkzeug docs for most of the\n        available arguments. Flask-specific behavior is listed here.\n\n        :param path: URL path being requested.\n        :param base_url: Base URL where the app is being served, which\n            ``path`` is relative to. If not given, built from\n            :data:`PREFERRED_URL_SCHEME`, ``subdomain``,\n            :data:`SERVER_NAME`, and :data:`APPLICATION_ROOT`.\n        :param subdomain: Subdomain name to append to\n            :data:`SERVER_NAME`.\n        :param url_scheme: Scheme to use instead of\n            :data:`PREFERRED_URL_SCHEME`.\n        :param data: The request body, either as a string or a dict of\n            form keys and values.\n        :param json: If given, this is serialized as JSON and passed as\n            ``data``. Also defaults ``content_type`` to\n            ``application/json``.\n        :param args: other positional arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        :param kwargs: other keyword arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        \"\"\"\n        from .testing import EnvironBuilder\n\n        builder = EnvironBuilder(self, *args, **kwargs)\n\n        try:\n            return self.request_context(builder.get_environ())\n        finally:\n            builder.close()\n\n"
     },
     {
       "function": "ctx.push",
-      "filename": "",
-      "line": 0,
-      "caller": "test_context_test"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
+      "line": 251,
+      "caller": "test_context_test",
+      "source_code": "    def push(self) -> None:\n        \"\"\"Binds the app context to the current context.\"\"\"\n        self._cv_tokens.append(_cv_app.set(self))\n        appcontext_pushed.send(self.app, _async_wrapper=self.app.ensure_sync)\n\n"
     },
     {
       "function": "ctx.pop",
-      "filename": "",
-      "line": 0,
-      "caller": "test_context_test"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
+      "line": 78,
+      "caller": "test_context_test",
+      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.\n\n        :param name: Name of attribute to pop.\n        :param default: Value to return if the attribute is not present,\n            instead of raising a ``KeyError``.\n\n        .. versionadded:: 0.11\n        \"\"\"\n        if default is _sentinel:\n            return self.__dict__.pop(name)\n        else:\n            return self.__dict__.pop(name, default)\n\n"
     }
   ],
   "assertions": [

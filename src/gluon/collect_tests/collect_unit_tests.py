@@ -1,5 +1,6 @@
 import sys
 import os
+import builtins
 
 # Add the parent directory to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -9,7 +10,7 @@ import json
 import stdlib_list
 import pkg_resources
 from pathlib import Path
-from typing import List, Optional, Set, Dict, Any
+from typing import List, Optional, Set, Dict, Any, Tuple
 import os
 from tqdm import tqdm
 import logging
@@ -115,19 +116,19 @@ def get_third_party_library_names() -> Set[str]:
     return third_party_packages
 
 
-def scan_source_files(directory: str) -> Dict[str, ast.Module]:
+def scan_source_files(directory: str) -> Dict[str, Tuple[str, ast.Module]]:
     source_files = {}
     directory_path = Path(directory)
     source_file_paths = list(directory_path.rglob("*.py"))
     logger.info(f"Scanned {len(source_file_paths)} source files")
     for source_file in source_file_paths:
-        with open(source_file, "r", encoding="utf-8") as file:
-            try:
+        try:
+            with open(source_file, "r", encoding="utf-8") as file:
                 content = file.read()
-                tree = ast.parse(content, filename=str(source_file))
-                source_files[str(source_file)] = tree
-            except (SyntaxError, UnicodeDecodeError) as e:
-                logger.warning(f"Failed to parse {source_file}: {e}")
+            tree = ast.parse(content, filename=str(source_file))
+            source_files[str(source_file)] = (content, tree)
+        except (SyntaxError, UnicodeDecodeError) as e:
+            logger.warning(f"Failed to parse {source_file}: {e}")
     return source_files
 
 
@@ -161,30 +162,81 @@ def is_standard_or_third_party(
     return module_name in standard_lib_names or module_name in third_party_lib_names
 
 
-def resolve_method(func_name: str, source_files: Dict[str, ast.Module]) -> Optional[Dict[str, Any]]:
-    for file_path, tree in source_files.items():
+def resolve_method(func_name: str, source_files: Dict[str, Tuple[str, ast.Module]]) -> Optional[Dict[str, Any]]:
+    # Split the function name into parts (e.g., "Class.method" -> ["Class", "method"])
+    name_parts = func_name.split(".")
+    base_name = name_parts[-1]  # Get the actual method name
+
+    # Handle built-in methods and standard library methods
+    if base_name in dir(builtins) or func_name.split(".")[0] in stdlib_list.stdlib_list():
+        return {
+            "name": func_name,
+            "body": f"def {base_name}(...): # Built-in or standard library method",
+            "file_path": "<built-in>",
+            "line_number": 0,
+        }
+
+    for file_path, (source_code, tree) in source_files.items():
         for node in ast.walk(tree):
-            if isinstance(node, ast.FunctionDef) and node.name == func_name:
+            if isinstance(node, ast.FunctionDef) and node.name == base_name:
                 try:
-                    body = ast.get_source_segment(Path(file_path).read_text(), node) or ""
+                    # Get the full method source including decorators and body
+                    start_line = min(d.lineno for d in node.decorator_list) if node.decorator_list else node.lineno
+                    end_line = node.end_lineno if hasattr(node, "end_lineno") else node.lineno
+
+                    # Find the actual end of the function by looking for the next non-indented line
+                    lines = source_code.splitlines()
+                    base_indent = len(lines[start_line]) - len(lines[start_line].lstrip())
+
+                    while end_line < len(lines):
+                        line = lines[end_line]
+                        if line.strip() and len(line) - len(line.lstrip()) <= base_indent:
+                            break
+                        end_line += 1
+
+                    method_lines = lines[start_line - 1 : end_line]
+                    body = "\n".join(method_lines)
                 except Exception as e:
                     logger.warning(f"Could not get source segment for {func_name}: {e}")
                     body = ""
                 return {"name": func_name, "body": body, "file_path": file_path, "line_number": node.lineno}
             elif isinstance(node, ast.ClassDef):
-                for class_node in node.body:
-                    if isinstance(class_node, ast.FunctionDef) and class_node.name == func_name:
-                        try:
-                            body = ast.get_source_segment(Path(file_path).read_text(), class_node) or ""
-                        except Exception as e:
-                            logger.warning(f"Could not get source segment for {func_name}: {e}")
-                            body = ""
-                        return {
-                            "name": f"{node.name}.{func_name}",
-                            "body": body,
-                            "file_path": file_path,
-                            "line_number": class_node.lineno,
-                        }
+                # If we're looking for a method within a class
+                if len(name_parts) > 1 and node.name == name_parts[0]:
+                    for class_node in node.body:
+                        if isinstance(class_node, ast.FunctionDef) and class_node.name == base_name:
+                            try:
+                                # Get the full source code including decorators
+                                start_line = (
+                                    min(d.lineno for d in class_node.decorator_list)
+                                    if class_node.decorator_list
+                                    else class_node.lineno
+                                )
+
+                                # Find the actual end of the method by looking for the next non-indented line
+                                lines = source_code.splitlines()
+                                base_indent = len(lines[start_line]) - len(lines[start_line].lstrip())
+                                end_line = (
+                                    class_node.end_lineno if hasattr(class_node, "end_lineno") else class_node.lineno
+                                )
+
+                                while end_line < len(lines):
+                                    line = lines[end_line]
+                                    if line.strip() and len(line) - len(line.lstrip()) <= base_indent:
+                                        break
+                                    end_line += 1
+
+                                full_lines = lines[start_line - 1 : end_line]
+                                body = "\n".join(full_lines)
+                            except Exception as e:
+                                logger.warning(f"Could not get source segment for {func_name}: {e}")
+                                body = ""
+                            return {
+                                "name": f"{node.name}.{base_name}",
+                                "body": body,
+                                "file_path": file_path,
+                                "line_number": class_node.lineno,
+                            }
     return None
 
 
@@ -193,7 +245,7 @@ def extract_methods_under_test(
     application_modules: Set[str],
     standard_lib_names: Set[str],
     third_party_lib_names: Set[str],
-    source_files: Dict[str, ast.Module],
+    source_files: Dict[str, Tuple[str, ast.Module]],
 ) -> List[MethodUnderTest]:
     methods_under_test = []
 
@@ -263,7 +315,7 @@ def process_test_function(
     teardown_method: Optional[str],
     standard_lib_names: Set[str],
     third_party_lib_names: Set[str],
-    source_files: Dict[str, ast.Module],
+    source_files: Dict[str, Tuple[str, ast.Module]],
     class_name: Optional[str] = None,
 ) -> Optional[TestCase]:
     logger.debug(f"Found test method: {node.name}")

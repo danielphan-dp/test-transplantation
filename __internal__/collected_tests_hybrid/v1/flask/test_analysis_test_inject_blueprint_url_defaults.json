@@ -4,89 +4,96 @@
   "static_methods": [
     {
       "name": "app.test_request_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1423
     },
     {
       "name": "bp.route",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 336
     },
     {
       "name": "app.register_blueprint",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def register_blueprint(self, blueprint: Blueprint, **options: t.Any) -> None:\n        \"\"\"Register a :class:`~flask.Blueprint` on the application. Keyword\n        arguments passed to this method will override the defaults set on the\n        blueprint.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 570
     },
     {
       "name": "dict",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "app.inject_url_defaults",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def inject_url_defaults(self, endpoint: str, values: dict[str, t.Any]) -> None:\n        \"\"\"Injects the URL defaults for the given endpoint directly into\n        the values dictionary passed.  This is used internally and\n        automatically called on URL building.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 911
     },
     {
       "name": "dict",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "app.test_request_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1423
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.test_request_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_inject_blueprint_url_defaults"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1423,
+      "caller": "test_inject_blueprint_url_defaults",
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.\n\n        See :doc:`/reqcontext`.\n\n        Use a ``with`` block to push the context, which will make\n        :data:`request` point at the request for the created\n        environment. ::\n\n            with app.test_request_context(...):\n                generate_report()\n\n        When using the shell, it may be easier to push and pop the\n        context manually to avoid indentation. ::\n\n            ctx = app.test_request_context(...)\n            ctx.push()\n            ...\n            ctx.pop()\n\n        Takes the same arguments as Werkzeug's\n        :class:`~werkzeug.test.EnvironBuilder`, with some defaults from\n        the application. See the linked Werkzeug docs for most of the\n        available arguments. Flask-specific behavior is listed here.\n\n        :param path: URL path being requested.\n        :param base_url: Base URL where the app is being served, which\n            ``path`` is relative to. If not given, built from\n            :data:`PREFERRED_URL_SCHEME`, ``subdomain``,\n            :data:`SERVER_NAME`, and :data:`APPLICATION_ROOT`.\n        :param subdomain: Subdomain name to append to\n            :data:`SERVER_NAME`.\n        :param url_scheme: Scheme to use instead of\n            :data:`PREFERRED_URL_SCHEME`.\n        :param data: The request body, either as a string or a dict of\n            form keys and values.\n        :param json: If given, this is serialized as JSON and passed as\n            ``data``. Also defaults ``content_type`` to\n            ``application/json``.\n        :param args: other positional arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        :param kwargs: other keyword arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        \"\"\"\n        from .testing import EnvironBuilder\n\n        builder = EnvironBuilder(self, *args, **kwargs)\n\n        try:\n            return self.request_context(builder.get_environ())\n        finally:\n            builder.close()\n\n"
     },
     {
       "function": "bp.route",
-      "filename": "",
-      "line": 0,
-      "caller": "test_inject_blueprint_url_defaults"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 336,
+      "caller": "test_inject_blueprint_url_defaults",
+      "source_code": "    @setupmethod\n    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.\n\n        .. code-block:: python\n\n            @app.route(\"/\")\n            def index():\n                return \"Hello, World!\"\n\n        See :ref:`url-route-registrations`.\n\n        The endpoint name for the route defaults to the name of the view\n        function if the ``endpoint`` parameter isn't passed.\n\n        The ``methods`` parameter defaults to ``[\"GET\"]``. ``HEAD`` and\n        ``OPTIONS`` are added automatically.\n\n        :param rule: The URL rule string.\n        :param options: Extra options passed to the\n            :class:`~werkzeug.routing.Rule` object.\n        \"\"\"\n\n        def decorator(f: T_route) -> T_route:\n            endpoint = options.pop(\"endpoint\", None)\n            self.add_url_rule(rule, endpoint, f, **options)\n            return f\n\n        return decorator\n\n"
     },
     {
       "function": "app.register_blueprint",
-      "filename": "",
-      "line": 0,
-      "caller": "test_inject_blueprint_url_defaults"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 570,
+      "caller": "test_inject_blueprint_url_defaults",
+      "source_code": "    @setupmethod\n    def register_blueprint(self, blueprint: Blueprint, **options: t.Any) -> None:\n        \"\"\"Register a :class:`~flask.Blueprint` on the application. Keyword\n        arguments passed to this method will override the defaults set on the\n        blueprint.\n\n        Calls the blueprint's :meth:`~flask.Blueprint.register` method after\n        recording the blueprint in the application's :attr:`blueprints`.\n\n        :param blueprint: The blueprint to register.\n        :param url_prefix: Blueprint routes will be prefixed with this.\n        :param subdomain: Blueprint routes will match on this subdomain.\n        :param url_defaults: Blueprint routes will use these default values for\n            view arguments.\n        :param options: Additional keyword arguments are passed to\n            :class:`~flask.blueprints.BlueprintSetupState`. They can be\n            accessed in :meth:`~flask.Blueprint.record` callbacks.\n\n        .. versionchanged:: 2.0.1\n            The ``name`` option can be used to change the (pre-dotted)\n            name the blueprint is registered with. This allows the same\n            blueprint to be registered multiple times with unique names\n            for ``url_for``.\n\n        .. versionadded:: 0.7\n        \"\"\"\n        blueprint.register(self, options)\n\n"
     },
     {
       "function": "dict",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_inject_blueprint_url_defaults"
+      "caller": "test_inject_blueprint_url_defaults",
+      "source_code": ""
     },
     {
       "function": "app.inject_url_defaults",
-      "filename": "",
-      "line": 0,
-      "caller": "test_inject_blueprint_url_defaults"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 911,
+      "caller": "test_inject_blueprint_url_defaults",
+      "source_code": "    def inject_url_defaults(self, endpoint: str, values: dict[str, t.Any]) -> None:\n        \"\"\"Injects the URL defaults for the given endpoint directly into\n        the values dictionary passed.  This is used internally and\n        automatically called on URL building.\n\n        .. versionadded:: 0.7\n        \"\"\"\n        names: t.Iterable[str | None] = (None,)\n\n        # url_for may be called outside a request context, parse the\n        # passed endpoint instead of using request.blueprints.\n        if \".\" in endpoint:\n            names = chain(\n                names, reversed(_split_blueprint_path(endpoint.rpartition(\".\")[0]))\n            )\n\n        for name in names:\n            if name in self.url_default_functions:\n                for func in self.url_default_functions[name]:\n                    func(endpoint, values)\n\n"
     },
     {
       "function": "dict",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_inject_blueprint_url_defaults"
+      "caller": "test_inject_blueprint_url_defaults",
+      "source_code": ""
     },
     {
       "function": "app.test_request_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_inject_blueprint_url_defaults"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1423,
+      "caller": "test_inject_blueprint_url_defaults",
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.\n\n        See :doc:`/reqcontext`.\n\n        Use a ``with`` block to push the context, which will make\n        :data:`request` point at the request for the created\n        environment. ::\n\n            with app.test_request_context(...):\n                generate_report()\n\n        When using the shell, it may be easier to push and pop the\n        context manually to avoid indentation. ::\n\n            ctx = app.test_request_context(...)\n            ctx.push()\n            ...\n            ctx.pop()\n\n        Takes the same arguments as Werkzeug's\n        :class:`~werkzeug.test.EnvironBuilder`, with some defaults from\n        the application. See the linked Werkzeug docs for most of the\n        available arguments. Flask-specific behavior is listed here.\n\n        :param path: URL path being requested.\n        :param base_url: Base URL where the app is being served, which\n            ``path`` is relative to. If not given, built from\n            :data:`PREFERRED_URL_SCHEME`, ``subdomain``,\n            :data:`SERVER_NAME`, and :data:`APPLICATION_ROOT`.\n        :param subdomain: Subdomain name to append to\n            :data:`SERVER_NAME`.\n        :param url_scheme: Scheme to use instead of\n            :data:`PREFERRED_URL_SCHEME`.\n        :param data: The request body, either as a string or a dict of\n            form keys and values.\n        :param json: If given, this is serialized as JSON and passed as\n            ``data``. Also defaults ``content_type`` to\n            ``application/json``.\n        :param args: other positional arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        :param kwargs: other keyword arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        \"\"\"\n        from .testing import EnvironBuilder\n\n        builder = EnvironBuilder(self, *args, **kwargs)\n\n        try:\n            return self.request_context(builder.get_environ())\n        finally:\n            builder.close()\n\n"
     }
   ],
   "assertions": [

@@ -4,9 +4,9 @@
   "static_methods": [
     {
       "name": "app.route",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 336
     },
     {
       "name": "EnvironBuilder",
@@ -23,7 +23,7 @@
     {
       "name": "client.open",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
@@ -35,46 +35,52 @@
     {
       "name": "client.open",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.route",
-      "filename": "",
-      "line": 0,
-      "caller": "test_client_open_environ"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 336,
+      "caller": "test_client_open_environ",
+      "source_code": "    @setupmethod\n    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.\n\n        .. code-block:: python\n\n            @app.route(\"/\")\n            def index():\n                return \"Hello, World!\"\n\n        See :ref:`url-route-registrations`.\n\n        The endpoint name for the route defaults to the name of the view\n        function if the ``endpoint`` parameter isn't passed.\n\n        The ``methods`` parameter defaults to ``[\"GET\"]``. ``HEAD`` and\n        ``OPTIONS`` are added automatically.\n\n        :param rule: The URL rule string.\n        :param options: Extra options passed to the\n            :class:`~werkzeug.routing.Rule` object.\n        \"\"\"\n\n        def decorator(f: T_route) -> T_route:\n            endpoint = options.pop(\"endpoint\", None)\n            self.add_url_rule(rule, endpoint, f, **options)\n            return f\n\n        return decorator\n\n"
     },
     {
       "function": "EnvironBuilder",
       "filename": "",
       "line": 0,
-      "caller": "test_client_open_environ"
+      "caller": "test_client_open_environ",
+      "source_code": ""
     },
     {
       "function": "request.addfinalizer",
       "filename": "",
       "line": 0,
-      "caller": "test_client_open_environ"
+      "caller": "test_client_open_environ",
+      "source_code": ""
     },
     {
       "function": "client.open",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_client_open_environ"
+      "caller": "test_client_open_environ",
+      "source_code": ""
     },
     {
       "function": "builder.get_environ",
       "filename": "",
       "line": 0,
-      "caller": "test_client_open_environ"
+      "caller": "test_client_open_environ",
+      "source_code": ""
     },
     {
       "function": "client.open",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_client_open_environ"
+      "caller": "test_client_open_environ",
+      "source_code": ""
     }
   ],
   "assertions": [

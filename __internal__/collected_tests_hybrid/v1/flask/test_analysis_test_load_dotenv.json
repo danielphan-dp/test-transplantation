@@ -16,7 +16,7 @@
     },
     {
       "name": "load_dotenv",
-      "source_code": "def load_dotenv(\n    path: str | os.PathLike[str] | None = None, load_defaults: bool = True\n) -> bool:\n    \"\"\"Load \"dotenv\" files to set environment variables. A given path takes\n    precedence over ``.env``, which takes precedence over ``.flaskenv``. After\n    loading and combining these files, values are only set if the key is not\n    already set in ``os.environ``.\n\n    This is a no-op if `python-dotenv`_ is not installed.\n\n    .. _python-dotenv: https://github.com/theskumar/python-dotenv#readme\n\n    :param path: Load the file at this location.\n    :param load_defaults: Search for and load the default ``.flaskenv`` and\n        ``.env`` files.\n    :return: ``True`` if at least one env var was loaded.\n\n    .. versionchanged:: 3.1\n        Added the ``load_defaults`` parameter. A given path takes precedence\n        over default files.\n\n    .. versionchanged:: 2.0\n        The current directory is not changed to the location of the\n        loaded file.\n\n    .. versionchanged:: 2.0\n        When loading the env files, set the default encoding to UTF-8.\n\n    .. versionchanged:: 1.1.0\n        Returns ``False`` when python-dotenv is not installed, or when\n        the given path isn't a file.\n\n    .. versionadded:: 1.0\n    \"\"\"\n    try:\n        import dotenv\n    except ImportError:\n        if path or os.path.isfile(\".env\") or os.path.isfile(\".flaskenv\"):\n            click.secho(\n                \" * Tip: There are .env files present. Install python-dotenv\"\n                \" to use them.\",\n                fg=\"yellow\",\n                err=True,\n            )\n\n        return False\n\n    data: dict[str, str | None] = {}\n\n    if load_defaults:\n        for default_name in (\".flaskenv\", \".env\"):\n            if not (default_path := dotenv.find_dotenv(default_name, usecwd=True)):\n                continue\n\n            data |= dotenv.dotenv_values(default_path, encoding=\"utf-8\")\n\n    if path is not None and os.path.isfile(path):\n        data |= dotenv.dotenv_values(path, encoding=\"utf-8\")\n\n    for key, value in data.items():\n        if key in os.environ or value is None:\n            continue\n\n        os.environ[key] = value\n\n    return bool(data)",
+      "source_code": "def load_dotenv(\n    path: str | os.PathLike[str] | None = None, load_defaults: bool = True",
       "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
       "line_number": 704
     },
@@ -34,7 +34,7 @@
     },
     {
       "name": "load_dotenv",
-      "source_code": "def load_dotenv(\n    path: str | os.PathLike[str] | None = None, load_defaults: bool = True\n) -> bool:\n    \"\"\"Load \"dotenv\" files to set environment variables. A given path takes\n    precedence over ``.env``, which takes precedence over ``.flaskenv``. After\n    loading and combining these files, values are only set if the key is not\n    already set in ``os.environ``.\n\n    This is a no-op if `python-dotenv`_ is not installed.\n\n    .. _python-dotenv: https://github.com/theskumar/python-dotenv#readme\n\n    :param path: Load the file at this location.\n    :param load_defaults: Search for and load the default ``.flaskenv`` and\n        ``.env`` files.\n    :return: ``True`` if at least one env var was loaded.\n\n    .. versionchanged:: 3.1\n        Added the ``load_defaults`` parameter. A given path takes precedence\n        over default files.\n\n    .. versionchanged:: 2.0\n        The current directory is not changed to the location of the\n        loaded file.\n\n    .. versionchanged:: 2.0\n        When loading the env files, set the default encoding to UTF-8.\n\n    .. versionchanged:: 1.1.0\n        Returns ``False`` when python-dotenv is not installed, or when\n        the given path isn't a file.\n\n    .. versionadded:: 1.0\n    \"\"\"\n    try:\n        import dotenv\n    except ImportError:\n        if path or os.path.isfile(\".env\") or os.path.isfile(\".flaskenv\"):\n            click.secho(\n                \" * Tip: There are .env files present. Install python-dotenv\"\n                \" to use them.\",\n                fg=\"yellow\",\n                err=True,\n            )\n\n        return False\n\n    data: dict[str, str | None] = {}\n\n    if load_defaults:\n        for default_name in (\".flaskenv\", \".env\"):\n            if not (default_path := dotenv.find_dotenv(default_name, usecwd=True)):\n                continue\n\n            data |= dotenv.dotenv_values(default_path, encoding=\"utf-8\")\n\n    if path is not None and os.path.isfile(path):\n        data |= dotenv.dotenv_values(path, encoding=\"utf-8\")\n\n    for key, value in data.items():\n        if key in os.environ or value is None:\n            continue\n\n        os.environ[key] = value\n\n    return bool(data)",
+      "source_code": "def load_dotenv(\n    path: str | os.PathLike[str] | None = None, load_defaults: bool = True",
       "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
       "line_number": 704
     },
@@ -50,43 +50,50 @@
       "function": "monkeypatch.setenv",
       "filename": "",
       "line": 0,
-      "caller": "test_load_dotenv"
+      "caller": "test_load_dotenv",
+      "source_code": ""
     },
     {
       "function": "monkeypatch.chdir",
       "filename": "",
       "line": 0,
-      "caller": "test_load_dotenv"
+      "caller": "test_load_dotenv",
+      "source_code": ""
     },
     {
       "function": "load_dotenv",
       "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
       "line": 704,
-      "caller": "test_load_dotenv"
+      "caller": "test_load_dotenv",
+      "source_code": "def load_dotenv(\n    path: str | os.PathLike[str] | None = None, load_defaults: bool = True\n"
     },
     {
       "function": "monkeypatch._setitem.append",
       "filename": "",
       "line": 0,
-      "caller": "test_load_dotenv"
+      "caller": "test_load_dotenv",
+      "source_code": ""
     },
     {
       "function": "Path.cwd",
       "filename": "",
       "line": 0,
-      "caller": "test_load_dotenv"
+      "caller": "test_load_dotenv",
+      "source_code": ""
     },
     {
       "function": "load_dotenv",
       "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
       "line": 704,
-      "caller": "test_load_dotenv"
+      "caller": "test_load_dotenv",
+      "source_code": "def load_dotenv(\n    path: str | os.PathLike[str] | None = None, load_defaults: bool = True\n"
     },
     {
       "function": "need_dotenv",
       "filename": "",
       "line": 0,
-      "caller": "test_load_dotenv"
+      "caller": "test_load_dotenv",
+      "source_code": ""
     }
   ],
   "assertions": [

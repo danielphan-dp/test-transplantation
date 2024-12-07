@@ -10,21 +10,21 @@
     },
     {
       "name": "s.register",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "def register():\n    \"\"\"Register a new user.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
+      "line_number": 47
     },
     {
       "name": "isinstance",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "self.serializer.tag",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def tag(self, value: t.Any) -> dict[str, t.Any]:\n        \"\"\"Convert the value to a valid JSON type and add the tag structure\n        around it.\"\"\"\n        return {self.key: self.to_json(value)}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/tag.py",
+      "line_number": 87
     },
     {
       "name": "Foo",
@@ -34,15 +34,15 @@
     },
     {
       "name": "s.loads",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def loads(self, s: str | bytes, **kwargs: t.Any) -> t.Any:\n        \"\"\"Deserialize data as JSON.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
+      "line_number": 59
     },
     {
       "name": "s.dumps",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def dumps(self, obj: t.Any, **kwargs: t.Any) -> str:\n        \"\"\"Serialize data as JSON.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
+      "line_number": 41
     },
     {
       "name": "Foo",
@@ -56,49 +56,57 @@
       "function": "TaggedJSONSerializer",
       "filename": "",
       "line": 0,
-      "caller": "test_custom_tag"
+      "caller": "test_custom_tag",
+      "source_code": ""
     },
     {
       "function": "s.register",
-      "filename": "",
-      "line": 0,
-      "caller": "test_custom_tag"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
+      "line": 47,
+      "caller": "test_custom_tag",
+      "source_code": "@bp.route(\"/register\", methods=(\"GET\", \"POST\"))\ndef register():\n    \"\"\"Register a new user.\n\n    Validates that the username is not already taken. Hashes the\n    password for security.\n    \"\"\"\n    if request.method == \"POST\":\n        username = request.form[\"username\"]\n        password = request.form[\"password\"]\n        db = get_db()\n        error = None\n\n        if not username:\n            error = \"Username is required.\"\n        elif not password:\n            error = \"Password is required.\"\n\n        if error is None:\n            try:\n                db.execute(\n                    \"INSERT INTO user (username, password) VALUES (?, ?)\",\n                    (username, generate_password_hash(password)),\n                )\n                db.commit()\n            except db.IntegrityError:\n                # The username was already taken, which caused the\n                # commit to fail. Show a validation error.\n                error = f\"User {username} is already registered.\"\n            else:\n                # Success, go to the login page.\n                return redirect(url_for(\"auth.login\"))\n\n        flash(error)\n\n    return render_template(\"auth/register.html\")\n\n\n"
     },
     {
       "function": "isinstance",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_custom_tag"
+      "caller": "test_custom_tag",
+      "source_code": ""
     },
     {
       "function": "self.serializer.tag",
-      "filename": "",
-      "line": 0,
-      "caller": "test_custom_tag"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/tag.py",
+      "line": 87,
+      "caller": "test_custom_tag",
+      "source_code": "    def tag(self, value: t.Any) -> dict[str, t.Any]:\n        \"\"\"Convert the value to a valid JSON type and add the tag structure\n        around it.\"\"\"\n        return {self.key: self.to_json(value)}\n\n\n"
     },
     {
       "function": "Foo",
       "filename": "",
       "line": 0,
-      "caller": "test_custom_tag"
+      "caller": "test_custom_tag",
+      "source_code": ""
     },
     {
       "function": "s.loads",
-      "filename": "",
-      "line": 0,
-      "caller": "test_custom_tag"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
+      "line": 59,
+      "caller": "test_custom_tag",
+      "source_code": "    def loads(self, s: str | bytes, **kwargs: t.Any) -> t.Any:\n        \"\"\"Deserialize data as JSON.\n\n        :param s: Text or UTF-8 bytes.\n        :param kwargs: May be passed to the underlying JSON library.\n        \"\"\"\n        raise NotImplementedError\n\n"
     },
     {
       "function": "s.dumps",
-      "filename": "",
-      "line": 0,
-      "caller": "test_custom_tag"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
+      "line": 41,
+      "caller": "test_custom_tag",
+      "source_code": "    def dumps(self, obj: t.Any, **kwargs: t.Any) -> str:\n        \"\"\"Serialize data as JSON.\n\n        :param obj: The data to serialize.\n        :param kwargs: May be passed to the underlying JSON library.\n        \"\"\"\n        raise NotImplementedError\n\n"
     },
     {
       "function": "Foo",
       "filename": "",
       "line": 0,
-      "caller": "test_custom_tag"
+      "caller": "test_custom_tag",
+      "source_code": ""
     }
   ],
   "assertions": [

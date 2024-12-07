@@ -4,15 +4,15 @@
   "static_methods": [
     {
       "name": "app.request_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def request_context(self, environ: WSGIEnvironment) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` representing a\n        WSGI environment. Use a ``with`` block to push the context,\n        which will make :data:`request` point at this request.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1407
     },
     {
       "name": "app.route",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 336
     },
     {
       "name": "EnvironBuilder",
@@ -28,53 +28,59 @@
     },
     {
       "name": "app.request_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def request_context(self, environ: WSGIEnvironment) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` representing a\n        WSGI environment. Use a ``with`` block to push the context,\n        which will make :data:`request` point at this request.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1407
     },
     {
       "name": "app.full_dispatch_request",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def full_dispatch_request(self) -> Response:\n        \"\"\"Dispatches the request and on top of that performs request\n        pre and postprocessing as well as HTTP exception catching and\n        error handling.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 904
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.request_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_environ_for_valid_idna_completes"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1407,
+      "caller": "test_environ_for_valid_idna_completes",
+      "source_code": "    def request_context(self, environ: WSGIEnvironment) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` representing a\n        WSGI environment. Use a ``with`` block to push the context,\n        which will make :data:`request` point at this request.\n\n        See :doc:`/reqcontext`.\n\n        Typically you should not call this from your own code. A request\n        context is automatically pushed by the :meth:`wsgi_app` when\n        handling a request. Use :meth:`test_request_context` to create\n        an environment and context instead of this method.\n\n        :param environ: a WSGI environment\n        \"\"\"\n        return RequestContext(self, environ)\n\n"
     },
     {
       "function": "app.route",
-      "filename": "",
-      "line": 0,
-      "caller": "test_environ_for_valid_idna_completes"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 336,
+      "caller": "test_environ_for_valid_idna_completes",
+      "source_code": "    @setupmethod\n    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.\n\n        .. code-block:: python\n\n            @app.route(\"/\")\n            def index():\n                return \"Hello, World!\"\n\n        See :ref:`url-route-registrations`.\n\n        The endpoint name for the route defaults to the name of the view\n        function if the ``endpoint`` parameter isn't passed.\n\n        The ``methods`` parameter defaults to ``[\"GET\"]``. ``HEAD`` and\n        ``OPTIONS`` are added automatically.\n\n        :param rule: The URL rule string.\n        :param options: Extra options passed to the\n            :class:`~werkzeug.routing.Rule` object.\n        \"\"\"\n\n        def decorator(f: T_route) -> T_route:\n            endpoint = options.pop(\"endpoint\", None)\n            self.add_url_rule(rule, endpoint, f, **options)\n            return f\n\n        return decorator\n\n"
     },
     {
       "function": "EnvironBuilder",
       "filename": "",
       "line": 0,
-      "caller": "test_environ_for_valid_idna_completes"
+      "caller": "test_environ_for_valid_idna_completes",
+      "source_code": ""
     },
     {
       "function": "builder.get_environ",
       "filename": "",
       "line": 0,
-      "caller": "test_environ_for_valid_idna_completes"
+      "caller": "test_environ_for_valid_idna_completes",
+      "source_code": ""
     },
     {
       "function": "app.request_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_environ_for_valid_idna_completes"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1407,
+      "caller": "test_environ_for_valid_idna_completes",
+      "source_code": "    def request_context(self, environ: WSGIEnvironment) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` representing a\n        WSGI environment. Use a ``with`` block to push the context,\n        which will make :data:`request` point at this request.\n\n        See :doc:`/reqcontext`.\n\n        Typically you should not call this from your own code. A request\n        context is automatically pushed by the :meth:`wsgi_app` when\n        handling a request. Use :meth:`test_request_context` to create\n        an environment and context instead of this method.\n\n        :param environ: a WSGI environment\n        \"\"\"\n        return RequestContext(self, environ)\n\n"
     },
     {
       "function": "app.full_dispatch_request",
-      "filename": "",
-      "line": 0,
-      "caller": "test_environ_for_valid_idna_completes"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 904,
+      "caller": "test_environ_for_valid_idna_completes",
+      "source_code": "    def full_dispatch_request(self) -> Response:\n        \"\"\"Dispatches the request and on top of that performs request\n        pre and postprocessing as well as HTTP exception catching and\n        error handling.\n\n        .. versionadded:: 0.7\n        \"\"\"\n        self._got_first_request = True\n\n        try:\n            request_started.send(self, _async_wrapper=self.ensure_sync)\n            rv = self.preprocess_request()\n            if rv is None:\n                rv = self.dispatch_request()\n        except Exception as e:\n            rv = self.handle_user_exception(e)\n        return self.finalize_request(rv)\n\n"
     }
   ],
   "assertions": [

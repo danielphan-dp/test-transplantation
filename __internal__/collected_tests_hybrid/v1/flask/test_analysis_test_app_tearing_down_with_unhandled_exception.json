@@ -4,20 +4,20 @@
   "static_methods": [
     {
       "name": "app.route",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 336
     },
     {
       "name": "app.app_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1386
     },
     {
       "name": "isinstance",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
@@ -29,88 +29,97 @@
     {
       "name": "ValueError",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "len",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "str",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "app.app_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1386
     },
     {
       "name": "client.get",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line_number": 88
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.route",
-      "filename": "",
-      "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 336,
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": "    @setupmethod\n    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.\n\n        .. code-block:: python\n\n            @app.route(\"/\")\n            def index():\n                return \"Hello, World!\"\n\n        See :ref:`url-route-registrations`.\n\n        The endpoint name for the route defaults to the name of the view\n        function if the ``endpoint`` parameter isn't passed.\n\n        The ``methods`` parameter defaults to ``[\"GET\"]``. ``HEAD`` and\n        ``OPTIONS`` are added automatically.\n\n        :param rule: The URL rule string.\n        :param options: Extra options passed to the\n            :class:`~werkzeug.routing.Rule` object.\n        \"\"\"\n\n        def decorator(f: T_route) -> T_route:\n            endpoint = options.pop(\"endpoint\", None)\n            self.add_url_rule(rule, endpoint, f, **options)\n            return f\n\n        return decorator\n\n"
     },
     {
       "function": "app.app_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1386,
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.\n\n        An application context is automatically pushed by\n        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`\n        when handling a request, and when running a CLI command. Use\n        this to manually create a context outside of these situations.\n\n        ::\n\n            with app.app_context():\n                init_db()\n\n        See :doc:`/appcontext`.\n\n        .. versionadded:: 0.9\n        \"\"\"\n        return AppContext(self)\n\n"
     },
     {
       "function": "isinstance",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": ""
     },
     {
       "function": "cleanup_stuff.append",
       "filename": "",
       "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": ""
     },
     {
       "function": "ValueError",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": ""
     },
     {
       "function": "len",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": ""
     },
     {
       "function": "str",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": ""
     },
     {
       "function": "app.app_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1386,
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.\n\n        An application context is automatically pushed by\n        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`\n        when handling a request, and when running a CLI command. Use\n        this to manually create a context outside of these situations.\n\n        ::\n\n            with app.app_context():\n                init_db()\n\n        See :doc:`/appcontext`.\n\n        .. versionadded:: 0.9\n        \"\"\"\n        return AppContext(self)\n\n"
     },
     {
       "function": "client.get",
-      "filename": "",
-      "line": 0,
-      "caller": "test_app_tearing_down_with_unhandled_exception"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line": 88,
+      "caller": "test_app_tearing_down_with_unhandled_exception",
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
     }
   ],
   "assertions": [

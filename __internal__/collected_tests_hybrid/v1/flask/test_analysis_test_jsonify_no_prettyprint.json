@@ -4,9 +4,9 @@
   "static_methods": [
     {
       "name": "app.json.response",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def response(self, *args: t.Any, **kwargs: t.Any) -> Response:\n        \"\"\"Serialize the given arguments as JSON, and return a\n        :class:`~flask.Response` object with the ``application/json``\n        mimetype.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
+      "line_number": 89
     },
     {
       "name": "rv.data.strip",
@@ -18,15 +18,17 @@
   "dynamic_methods": [
     {
       "function": "app.json.response",
-      "filename": "",
-      "line": 0,
-      "caller": "test_jsonify_no_prettyprint"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
+      "line": 89,
+      "caller": "test_jsonify_no_prettyprint",
+      "source_code": "    def response(self, *args: t.Any, **kwargs: t.Any) -> Response:\n        \"\"\"Serialize the given arguments as JSON, and return a\n        :class:`~flask.Response` object with the ``application/json``\n        mimetype.\n\n        The :func:`~flask.json.jsonify` function calls this method for\n        the current application.\n\n        Either positional or keyword arguments can be given, not both.\n        If no arguments are given, ``None`` is serialized.\n\n        :param args: A single value to serialize, or multiple values to\n            treat as a list to serialize.\n        :param kwargs: Treat as a dict to serialize.\n        \"\"\"\n        obj = self._prepare_response_obj(args, kwargs)\n        return self._app.response_class(self.dumps(obj), mimetype=\"application/json\")\n\n\n"
     },
     {
       "function": "rv.data.strip",
       "filename": "",
       "line": 0,
-      "caller": "test_jsonify_no_prettyprint"
+      "caller": "test_jsonify_no_prettyprint",
+      "source_code": ""
     }
   ],
   "assertions": [

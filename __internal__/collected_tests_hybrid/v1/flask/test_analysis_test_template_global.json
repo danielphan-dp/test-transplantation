@@ -4,21 +4,21 @@
   "static_methods": [
     {
       "name": "app.app_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1386
     },
     {
       "name": "bp.app_template_global",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def app_template_global(\n        self, name: str | None = None\n    ) -> t.Callable[[T_template_global], T_template_global]:\n        \"\"\"Register a template global, available in any template rendered by the\n        application. Equivalent to :meth:`.Flask.template_global`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/blueprints.py",
+      "line_number": 516
     },
     {
       "name": "app.register_blueprint",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def register_blueprint(self, blueprint: Blueprint, **options: t.Any) -> None:\n        \"\"\"Register a :class:`~flask.Blueprint` on the application. Keyword\n        arguments passed to this method will override the defaults set on the\n        blueprint.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 570
     },
     {
       "name": "app.jinja_env.globals.keys",
@@ -35,58 +35,65 @@
     {
       "name": "app.jinja_env.globals",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "app.app_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1386
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.app_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_template_global"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1386,
+      "caller": "test_template_global",
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.\n\n        An application context is automatically pushed by\n        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`\n        when handling a request, and when running a CLI command. Use\n        this to manually create a context outside of these situations.\n\n        ::\n\n            with app.app_context():\n                init_db()\n\n        See :doc:`/appcontext`.\n\n        .. versionadded:: 0.9\n        \"\"\"\n        return AppContext(self)\n\n"
     },
     {
       "function": "bp.app_template_global",
-      "filename": "",
-      "line": 0,
-      "caller": "test_template_global"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/blueprints.py",
+      "line": 516,
+      "caller": "test_template_global",
+      "source_code": "    @setupmethod\n    def app_template_global(\n        self, name: str | None = None\n"
     },
     {
       "function": "app.register_blueprint",
-      "filename": "",
-      "line": 0,
-      "caller": "test_template_global"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 570,
+      "caller": "test_template_global",
+      "source_code": "    @setupmethod\n    def register_blueprint(self, blueprint: Blueprint, **options: t.Any) -> None:\n        \"\"\"Register a :class:`~flask.Blueprint` on the application. Keyword\n        arguments passed to this method will override the defaults set on the\n        blueprint.\n\n        Calls the blueprint's :meth:`~flask.Blueprint.register` method after\n        recording the blueprint in the application's :attr:`blueprints`.\n\n        :param blueprint: The blueprint to register.\n        :param url_prefix: Blueprint routes will be prefixed with this.\n        :param subdomain: Blueprint routes will match on this subdomain.\n        :param url_defaults: Blueprint routes will use these default values for\n            view arguments.\n        :param options: Additional keyword arguments are passed to\n            :class:`~flask.blueprints.BlueprintSetupState`. They can be\n            accessed in :meth:`~flask.Blueprint.record` callbacks.\n\n        .. versionchanged:: 2.0.1\n            The ``name`` option can be used to change the (pre-dotted)\n            name the blueprint is registered with. This allows the same\n            blueprint to be registered multiple times with unique names\n            for ``url_for``.\n\n        .. versionadded:: 0.7\n        \"\"\"\n        blueprint.register(self, options)\n\n"
     },
     {
       "function": "app.jinja_env.globals.keys",
       "filename": "",
       "line": 0,
-      "caller": "test_template_global"
+      "caller": "test_template_global",
+      "source_code": ""
     },
     {
       "function": "app.jinja_env.globals.keys",
       "filename": "",
       "line": 0,
-      "caller": "test_template_global"
+      "caller": "test_template_global",
+      "source_code": ""
     },
     {
       "function": "app.jinja_env.globals",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_template_global"
+      "caller": "test_template_global",
+      "source_code": ""
     },
     {
       "function": "app.app_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_template_global"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1386,
+      "caller": "test_template_global",
+      "source_code": "    def app_context(self) -> AppContext:\n        \"\"\"Create an :class:`~flask.ctx.AppContext`. Use as a ``with``\n        block to push the context, which will make :data:`current_app`\n        point at this application.\n\n        An application context is automatically pushed by\n        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`\n        when handling a request, and when running a CLI command. Use\n        this to manually create a context outside of these situations.\n\n        ::\n\n            with app.app_context():\n                init_db()\n\n        See :doc:`/appcontext`.\n\n        .. versionadded:: 0.9\n        \"\"\"\n        return AppContext(self)\n\n"
     }
   ],
   "assertions": [

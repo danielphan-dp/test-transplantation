@@ -15,6 +15,7 @@ Gluon is a framework for test transplantation.
 All commands are run from the root directory of the project.
 
 ```bash
+rm -rf __internal__/collected_tests_hybrid/v1/ && \
 python \
     -m src.gluon.collect_tests.analyze_unit_tests \
     -i __internal__/_data/flask/ \

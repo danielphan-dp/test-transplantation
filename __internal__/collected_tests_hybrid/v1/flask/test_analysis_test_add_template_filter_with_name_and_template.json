@@ -4,41 +4,44 @@
   "static_methods": [
     {
       "name": "app.add_template_filter",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def add_template_filter(\n        self, f: ft.TemplateFilterCallable, name: str | None = None\n    ) -> None:\n        \"\"\"Register a custom template filter.  Works exactly like the\n        :meth:`template_filter` decorator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 686
     },
     {
       "name": "app.route",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line_number": 336
     },
     {
       "name": "client.get",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line_number": 88
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.add_template_filter",
-      "filename": "",
-      "line": 0,
-      "caller": "test_add_template_filter_with_name_and_template"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 686,
+      "caller": "test_add_template_filter_with_name_and_template",
+      "source_code": "    @setupmethod\n    def add_template_filter(\n        self, f: ft.TemplateFilterCallable, name: str | None = None\n"
     },
     {
       "function": "app.route",
-      "filename": "",
-      "line": 0,
-      "caller": "test_add_template_filter_with_name_and_template"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
+      "line": 336,
+      "caller": "test_add_template_filter_with_name_and_template",
+      "source_code": "    @setupmethod\n    def route(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Decorate a view function to register it with the given URL\n        rule and options. Calls :meth:`add_url_rule`, which has more\n        details about the implementation.\n\n        .. code-block:: python\n\n            @app.route(\"/\")\n            def index():\n                return \"Hello, World!\"\n\n        See :ref:`url-route-registrations`.\n\n        The endpoint name for the route defaults to the name of the view\n        function if the ``endpoint`` parameter isn't passed.\n\n        The ``methods`` parameter defaults to ``[\"GET\"]``. ``HEAD`` and\n        ``OPTIONS`` are added automatically.\n\n        :param rule: The URL rule string.\n        :param options: Extra options passed to the\n            :class:`~werkzeug.routing.Rule` object.\n        \"\"\"\n\n        def decorator(f: T_route) -> T_route:\n            endpoint = options.pop(\"endpoint\", None)\n            self.add_url_rule(rule, endpoint, f, **options)\n            return f\n\n        return decorator\n\n"
     },
     {
       "function": "client.get",
-      "filename": "",
-      "line": 0,
-      "caller": "test_add_template_filter_with_name_and_template"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line": 88,
+      "caller": "test_add_template_filter_with_name_and_template",
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
     }
   ],
   "assertions": [

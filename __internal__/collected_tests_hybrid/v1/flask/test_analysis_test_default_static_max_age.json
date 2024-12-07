@@ -10,27 +10,27 @@
     },
     {
       "name": "app.register_blueprint",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def register_blueprint(self, blueprint: Blueprint, **options: t.Any) -> None:\n        \"\"\"Register a :class:`~flask.Blueprint` on the application. Keyword\n        arguments passed to this method will override the defaults set on the\n        blueprint.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 570
     },
     {
       "name": "app.test_request_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1423
     },
     {
       "name": "app.test_request_context",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 1423
     },
     {
       "name": "blueprint.send_static_file",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def send_static_file(self, filename: str) -> Response:\n        \"\"\"The view function used to serve files from\n        :attr:`static_folder`. A route is automatically registered for\n        this view at :attr:`static_url_path` if :attr:`static_folder` is\n        set.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line_number": 308
     },
     {
       "name": "parse_cache_control_header",
@@ -40,9 +40,9 @@
     },
     {
       "name": "rv.close",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "            def close(self):\n                called.append(42)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
+      "line_number": 274
     }
   ],
   "dynamic_methods": [
@@ -50,43 +50,50 @@
       "function": "MyBlueprint",
       "filename": "",
       "line": 0,
-      "caller": "test_default_static_max_age"
+      "caller": "test_default_static_max_age",
+      "source_code": ""
     },
     {
       "function": "app.register_blueprint",
-      "filename": "",
-      "line": 0,
-      "caller": "test_default_static_max_age"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 570,
+      "caller": "test_default_static_max_age",
+      "source_code": "    @setupmethod\n    def register_blueprint(self, blueprint: Blueprint, **options: t.Any) -> None:\n        \"\"\"Register a :class:`~flask.Blueprint` on the application. Keyword\n        arguments passed to this method will override the defaults set on the\n        blueprint.\n\n        Calls the blueprint's :meth:`~flask.Blueprint.register` method after\n        recording the blueprint in the application's :attr:`blueprints`.\n\n        :param blueprint: The blueprint to register.\n        :param url_prefix: Blueprint routes will be prefixed with this.\n        :param subdomain: Blueprint routes will match on this subdomain.\n        :param url_defaults: Blueprint routes will use these default values for\n            view arguments.\n        :param options: Additional keyword arguments are passed to\n            :class:`~flask.blueprints.BlueprintSetupState`. They can be\n            accessed in :meth:`~flask.Blueprint.record` callbacks.\n\n        .. versionchanged:: 2.0.1\n            The ``name`` option can be used to change the (pre-dotted)\n            name the blueprint is registered with. This allows the same\n            blueprint to be registered multiple times with unique names\n            for ``url_for``.\n\n        .. versionadded:: 0.7\n        \"\"\"\n        blueprint.register(self, options)\n\n"
     },
     {
       "function": "app.test_request_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_default_static_max_age"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1423,
+      "caller": "test_default_static_max_age",
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.\n\n        See :doc:`/reqcontext`.\n\n        Use a ``with`` block to push the context, which will make\n        :data:`request` point at the request for the created\n        environment. ::\n\n            with app.test_request_context(...):\n                generate_report()\n\n        When using the shell, it may be easier to push and pop the\n        context manually to avoid indentation. ::\n\n            ctx = app.test_request_context(...)\n            ctx.push()\n            ...\n            ctx.pop()\n\n        Takes the same arguments as Werkzeug's\n        :class:`~werkzeug.test.EnvironBuilder`, with some defaults from\n        the application. See the linked Werkzeug docs for most of the\n        available arguments. Flask-specific behavior is listed here.\n\n        :param path: URL path being requested.\n        :param base_url: Base URL where the app is being served, which\n            ``path`` is relative to. If not given, built from\n            :data:`PREFERRED_URL_SCHEME`, ``subdomain``,\n            :data:`SERVER_NAME`, and :data:`APPLICATION_ROOT`.\n        :param subdomain: Subdomain name to append to\n            :data:`SERVER_NAME`.\n        :param url_scheme: Scheme to use instead of\n            :data:`PREFERRED_URL_SCHEME`.\n        :param data: The request body, either as a string or a dict of\n            form keys and values.\n        :param json: If given, this is serialized as JSON and passed as\n            ``data``. Also defaults ``content_type`` to\n            ``application/json``.\n        :param args: other positional arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        :param kwargs: other keyword arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        \"\"\"\n        from .testing import EnvironBuilder\n\n        builder = EnvironBuilder(self, *args, **kwargs)\n\n        try:\n            return self.request_context(builder.get_environ())\n        finally:\n            builder.close()\n\n"
     },
     {
       "function": "app.test_request_context",
-      "filename": "",
-      "line": 0,
-      "caller": "test_default_static_max_age"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 1423,
+      "caller": "test_default_static_max_age",
+      "source_code": "    def test_request_context(self, *args: t.Any, **kwargs: t.Any) -> RequestContext:\n        \"\"\"Create a :class:`~flask.ctx.RequestContext` for a WSGI\n        environment created from the given values. This is mostly useful\n        during testing, where you may want to run a function that uses\n        request data without dispatching a full request.\n\n        See :doc:`/reqcontext`.\n\n        Use a ``with`` block to push the context, which will make\n        :data:`request` point at the request for the created\n        environment. ::\n\n            with app.test_request_context(...):\n                generate_report()\n\n        When using the shell, it may be easier to push and pop the\n        context manually to avoid indentation. ::\n\n            ctx = app.test_request_context(...)\n            ctx.push()\n            ...\n            ctx.pop()\n\n        Takes the same arguments as Werkzeug's\n        :class:`~werkzeug.test.EnvironBuilder`, with some defaults from\n        the application. See the linked Werkzeug docs for most of the\n        available arguments. Flask-specific behavior is listed here.\n\n        :param path: URL path being requested.\n        :param base_url: Base URL where the app is being served, which\n            ``path`` is relative to. If not given, built from\n            :data:`PREFERRED_URL_SCHEME`, ``subdomain``,\n            :data:`SERVER_NAME`, and :data:`APPLICATION_ROOT`.\n        :param subdomain: Subdomain name to append to\n            :data:`SERVER_NAME`.\n        :param url_scheme: Scheme to use instead of\n            :data:`PREFERRED_URL_SCHEME`.\n        :param data: The request body, either as a string or a dict of\n            form keys and values.\n        :param json: If given, this is serialized as JSON and passed as\n            ``data``. Also defaults ``content_type`` to\n            ``application/json``.\n        :param args: other positional arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        :param kwargs: other keyword arguments passed to\n            :class:`~werkzeug.test.EnvironBuilder`.\n        \"\"\"\n        from .testing import EnvironBuilder\n\n        builder = EnvironBuilder(self, *args, **kwargs)\n\n        try:\n            return self.request_context(builder.get_environ())\n        finally:\n            builder.close()\n\n"
     },
     {
       "function": "blueprint.send_static_file",
-      "filename": "",
-      "line": 0,
-      "caller": "test_default_static_max_age"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
+      "line": 308,
+      "caller": "test_default_static_max_age",
+      "source_code": "    def send_static_file(self, filename: str) -> Response:\n        \"\"\"The view function used to serve files from\n        :attr:`static_folder`. A route is automatically registered for\n        this view at :attr:`static_url_path` if :attr:`static_folder` is\n        set.\n\n        Note this is a duplicate of the same method in the Flask\n        class.\n\n        .. versionadded:: 0.5\n\n        \"\"\"\n        if not self.has_static_folder:\n            raise RuntimeError(\"'static_folder' must be set to serve static_files.\")\n\n        # send_file only knows to call get_send_file_max_age on the app,\n        # call it here so it works for blueprints too.\n        max_age = self.get_send_file_max_age(filename)\n        return send_from_directory(\n            t.cast(str, self.static_folder), filename, max_age=max_age\n        )\n\n"
     },
     {
       "function": "parse_cache_control_header",
       "filename": "",
       "line": 0,
-      "caller": "test_default_static_max_age"
+      "caller": "test_default_static_max_age",
+      "source_code": ""
     },
     {
       "function": "rv.close",
-      "filename": "",
-      "line": 0,
-      "caller": "test_default_static_max_age"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
+      "line": 274,
+      "caller": "test_default_static_max_age",
+      "source_code": "            def close(self):\n                called.append(42)\n\n"
     }
   ],
   "assertions": [

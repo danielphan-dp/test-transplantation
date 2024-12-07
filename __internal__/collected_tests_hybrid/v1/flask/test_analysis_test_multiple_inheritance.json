@@ -4,65 +4,70 @@
   "static_methods": [
     {
       "name": "app.add_url_rule",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def add_url_rule(\n        self,\n        rule: str,\n        endpoint: str | None = None,\n        view_func: ft.RouteCallable | None = None,\n        provide_automatic_options: bool | None = None,\n        **options: t.Any,\n    ) -> None:\n        if endpoint is None:\n            endpoint = _endpoint_from_view_func(view_func)  # type: ignore\n        options[\"endpoint\"] = endpoint\n        methods = options.pop(\"methods\", None)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line_number": 605
     },
     {
       "name": "sorted",
       "source_code": "",
-      "file_path": "",
+      "file_path": "<built-in>",
       "line_number": 0
     },
     {
       "name": "GetDeleteView.as_view",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def as_view(\n        cls, name: str, *class_args: t.Any, **class_kwargs: t.Any\n    ) -> ft.RouteCallable:\n        \"\"\"Convert the class into a view function that can be registered\n        for a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/views.py",
+      "line_number": 86
     },
     {
       "name": "client.get",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line_number": 88
     },
     {
       "name": "client.delete",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "def delete(id):\n    \"\"\"Delete a post.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
+      "line_number": 115
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.add_url_rule",
-      "filename": "",
-      "line": 0,
-      "caller": "test_multiple_inheritance"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/app.py",
+      "line": 605,
+      "caller": "test_multiple_inheritance",
+      "source_code": "    @setupmethod\n    def add_url_rule(\n        self,\n        rule: str,\n        endpoint: str | None = None,\n        view_func: ft.RouteCallable | None = None,\n        provide_automatic_options: bool | None = None,\n        **options: t.Any,\n"
     },
     {
       "function": "sorted",
-      "filename": "",
+      "filename": "<built-in>",
       "line": 0,
-      "caller": "test_multiple_inheritance"
+      "caller": "test_multiple_inheritance",
+      "source_code": ""
     },
     {
       "function": "GetDeleteView.as_view",
-      "filename": "",
-      "line": 0,
-      "caller": "test_multiple_inheritance"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/views.py",
+      "line": 86,
+      "caller": "test_multiple_inheritance",
+      "source_code": "    @classmethod\n    def as_view(\n        cls, name: str, *class_args: t.Any, **class_kwargs: t.Any\n"
     },
     {
       "function": "client.get",
-      "filename": "",
-      "line": 0,
-      "caller": "test_multiple_inheritance"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
+      "line": 88,
+      "caller": "test_multiple_inheritance",
+      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
     },
     {
       "function": "client.delete",
-      "filename": "",
-      "line": 0,
-      "caller": "test_multiple_inheritance"
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
+      "line": 115,
+      "caller": "test_multiple_inheritance",
+      "source_code": "@bp.route(\"/<int:id>/delete\", methods=(\"POST\",))\n@login_required\ndef delete(id):\n    \"\"\"Delete a post.\n\n    Ensures that the post exists and that the logged in user is the\n    author of the post.\n    \"\"\"\n    get_post(id)\n    db = get_db()\n    db.execute(\"DELETE FROM post WHERE id = ?\", (id,))\n    db.commit()\n    return redirect(url_for(\"blog.index\"))\n"
     }
   ],
   "assertions": [
