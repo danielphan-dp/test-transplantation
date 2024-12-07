@@ -17,6 +17,9 @@ from gluon.collect_tests.collect_unit_tests import collect_tests, TestCollection
 import click
 import warnings
 import subprocess
+from collections import Counter
+import statistics
+from typing import Dict, Set
 
 
 logger = logging.getLogger(__name__)
@@ -303,6 +306,165 @@ class TestAnalyzer:
         for mock in analysis["mocks"]:
             print(f"  - {mock}")
         print("=" * 80)
+
+
+def calculate_advanced_metrics(test_collection, analyses) -> Dict:
+    """Calculate advanced metrics from test analyses"""
+    metrics = {
+        # Basic metrics (from before)
+        "total_tests": len(test_collection.tests),
+        "successful_tests": 0,
+        "failed_tests": 0,
+        "total_assertions": 0,
+        "total_mocks": 0,
+        "total_static_methods": 0,
+        "total_dynamic_methods": 0,
+        "tests_with_docstrings": 0,
+        "tests_with_fixtures": 0,
+        "average_test_length": 0,
+        # New advanced metrics
+        "test_complexity": {
+            "simple": 0,  # 0-2 assertions
+            "moderate": 0,  # 3-5 assertions
+            "complex": 0,  # 6+ assertions
+        },
+        "most_tested_methods": Counter(),
+        "most_used_fixtures": Counter(),
+        "most_common_mocks": Counter(),
+        "test_lengths": [],
+        "assertion_density": 0.0,  # assertions per line
+        "mock_density": 0.0,  # mocks per test
+        "coverage_metrics": {"methods_with_multiple_tests": 0, "untested_methods": 0, "average_tests_per_method": 0.0},
+        "test_isolation": {
+            "fully_isolated": 0,  # tests with mocks for all external deps
+            "partially_isolated": 0,  # tests with some mocks
+            "no_isolation": 0,  # tests with no mocks
+        },
+    }
+
+    total_lines = 0
+    all_methods: Set[str] = set()
+    tested_methods: List[str] = []
+
+    for test_case in test_collection.tests:
+        analysis = next((a for a in analyses if a["test_name"] == test_case.name), None)
+        if not analysis:
+            continue
+
+        # Update basic metrics
+        metrics["successful_tests"] += 1 if analysis["success"] else 0
+        metrics["failed_tests"] += 0 if analysis["success"] else 1
+        num_assertions = len(analysis["assertions"])
+        metrics["total_assertions"] += num_assertions
+        num_mocks = len(analysis["mocks"])
+        metrics["total_mocks"] += num_mocks
+        metrics["total_static_methods"] += len(analysis["static_methods"])
+        metrics["total_dynamic_methods"] += len(analysis["dynamic_methods"])
+        metrics["tests_with_docstrings"] += 1 if test_case.docstring else 0
+        metrics["tests_with_fixtures"] += 1 if test_case.fixtures else 0
+
+        # Test complexity
+        if num_assertions <= 2:
+            metrics["test_complexity"]["simple"] += 1
+        elif num_assertions <= 5:
+            metrics["test_complexity"]["moderate"] += 1
+        else:
+            metrics["test_complexity"]["complex"] += 1
+
+        # Track methods under test
+        for method in analysis["static_methods"]:
+            metrics["most_tested_methods"][method["name"]] += 1
+            all_methods.add(method["name"])
+            tested_methods.append(method["name"])
+
+        # Track fixtures and mocks
+        for fixture in test_case.fixtures:
+            metrics["most_used_fixtures"][fixture] += 1
+        for mock in analysis["mocks"]:
+            metrics["most_common_mocks"][mock] += 1
+
+        # Test length and density metrics
+        test_length = test_case.end_line_number - test_case.line_number + 1
+        metrics["test_lengths"].append(test_length)
+        total_lines += test_length
+
+        # Test isolation
+        if num_mocks == 0:
+            metrics["test_isolation"]["no_isolation"] += 1
+        elif num_mocks >= len(analysis["dynamic_methods"]):
+            metrics["test_isolation"]["fully_isolated"] += 1
+        else:
+            metrics["test_isolation"]["partially_isolated"] += 1
+
+    # Calculate aggregate metrics
+    total_tests = metrics["total_tests"]
+    if total_tests > 0:
+        metrics["average_test_length"] = total_lines / total_tests
+        metrics["assertion_density"] = metrics["total_assertions"] / total_lines
+        metrics["mock_density"] = metrics["total_mocks"] / total_tests
+
+        # Test length statistics
+        metrics["test_length_stats"] = {
+            "min": min(metrics["test_lengths"]),
+            "max": max(metrics["test_lengths"]),
+            "median": statistics.median(metrics["test_lengths"]),
+            "std_dev": statistics.stdev(metrics["test_lengths"]) if len(metrics["test_lengths"]) > 1 else 0,
+        }
+
+        # Coverage metrics
+        method_test_counts = Counter(tested_methods)
+        metrics["coverage_metrics"].update(
+            {
+                "methods_with_multiple_tests": sum(1 for count in method_test_counts.values() if count > 1),
+                "untested_methods": len(all_methods) - len(method_test_counts),
+                "average_tests_per_method": len(tested_methods) / len(all_methods) if all_methods else 0,
+            }
+        )
+
+        # Keep only top 5 for each counter
+        metrics["most_tested_methods"] = dict(metrics["most_tested_methods"].most_common(5))
+        metrics["most_used_fixtures"] = dict(metrics["most_used_fixtures"].most_common(5))
+        metrics["most_common_mocks"] = dict(metrics["most_common_mocks"].most_common(5))
+
+    return metrics
+
+
+def print_metrics(metrics: Dict):
+    """Print formatted metrics"""
+    click.echo("\n" + "=" * 80)
+    click.echo("TEST ANALYSIS METRICS")
+    click.echo("=" * 80)
+
+    click.echo("\n📊 Basic Metrics:")
+    click.echo(f"Total Tests: {metrics['total_tests']}")
+    click.echo(f"✅ Successful Tests: {metrics['successful_tests']}")
+    click.echo(f"❌ Failed Tests: {metrics['failed_tests']}")
+    click.echo(f"Assertions: {metrics['total_assertions']}")
+    click.echo(f"Mocks: {metrics['total_mocks']}")
+
+    click.echo("\n📏 Test Size and Complexity:")
+    click.echo(f"Average Length: {metrics['average_test_length']:.2f} lines")
+    click.echo(f"Length Statistics:")
+    click.echo(f"  • Min: {metrics['test_length_stats']['min']} lines")
+    click.echo(f"  • Max: {metrics['test_length_stats']['max']} lines")
+    click.echo(f"  • Median: {metrics['test_length_stats']['median']} lines")
+    click.echo(f"  • Std Dev: {metrics['test_length_stats']['std_dev']:.2f} lines")
+    click.echo("\nComplexity Distribution:")
+    click.echo(f"  • Simple Tests (0-2 assertions): {metrics['test_complexity']['simple']}")
+    click.echo(f"  • Moderate Tests (3-5 assertions): {metrics['test_complexity']['moderate']}")
+    click.echo(f"  • Complex Tests (6+ assertions): {metrics['test_complexity']['complex']}")
+
+    click.echo("\n🎯 Coverage and Density:")
+    click.echo(f"Assertion Density: {metrics['assertion_density']:.2f} assertions per line")
+    click.echo(f"Mock Density: {metrics['mock_density']:.2f} mocks per test")
+    click.echo(f"Methods with Multiple Tests: {metrics['coverage_metrics']['methods_with_multiple_tests']}")
+    click.echo(f"Untested Methods: {metrics['coverage_metrics']['untested_methods']}")
+    click.echo(f"Average Tests per Method: {metrics['coverage_metrics']['average_tests_per_method']:.2f}")
+
+    click.echo("\n🔍 Test Isolation:")
+    click.echo(f"Fully Isolated: {metrics['test_isolation']['fully_isolated']}")
+    click.echo(f"Partially Isolated: {metrics['test_isolation']['partially_isolated']}")
+    click.echo(f"No Isolation: {metrics['test_isolation']['no_isolation']}")
 
 
 @click.command()
