@@ -1,0 +1,35 @@
+import pytest
+from typing import Any, Dict
+{{ imports }}
+
+@pytest.fixture
+def parser():
+    """Create request parser instance"""
+    {{ parser_setup }}
+
+class TestRequestParser{{ parser_name }}:
+    """Tests for {{ parser_name }} request parser"""
+    
+    @pytest.mark.parametrize("raw_data,expected_parsed", [
+        {{ parser_test_cases }}
+    ])
+    def test_parse_request(self, parser, raw_data, expected_parsed):
+        """Test request parsing"""
+        result = parser.parse(raw_data)
+        {{ parser_assertions }}
+    
+    def test_content_type_handling(self, parser):
+        """Test different content type handling"""
+        {{ content_type_tests }}
+    
+    def test_nested_data(self, parser):
+        """Test parsing nested data structures"""
+        {{ nested_data_tests }}
+    
+    def test_array_handling(self, parser):
+        """Test parsing array data"""
+        {{ array_tests }}
+    
+    def test_validation_rules(self, parser):
+        """Test validation rules"""
+        {{ validation_tests }} 

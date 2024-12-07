@@ -1,0 +1,52 @@
+import pytest
+from typing import Dict, Any
+{{ imports }}
+
+@pytest.fixture
+def app():
+    """Create test application instance"""
+    {{ app_setup }}
+    return app
+
+@pytest.fixture
+def client(app):
+    """Create test client"""
+    return app.test_client()
+
+@pytest.fixture
+def auth_headers() -> Dict[str, str]:
+    """Authentication headers for protected routes"""
+    {{ auth_headers_setup }}
+
+class TestRoute{{ endpoint_name }}:
+    """Tests for {{ endpoint_name }} route builder"""
+    
+    async def test_route_registration(self, app):
+        """Test route registration and URL rules"""
+        # Verify route is registered
+        routes = {{ get_routes }}
+        assert "/{{ endpoint_path }}" in routes
+        assert routes["/{{ endpoint_path }}"].methods == {{ allowed_methods }}
+    
+    async def test_middleware_chain(self, app):
+        """Test middleware registration and order"""
+        middleware = {{ get_middleware }}
+        assert len(middleware) == {{ expected_middleware_count }}
+        {{ middleware_assertions }}
+    
+    @pytest.mark.parametrize("input_data,expected_status,expected_response", [
+        {{ test_cases }}  {# LLM: Generate test cases #}
+    ])
+    async def test_endpoint_responses(self, client, input_data, expected_status, expected_response):
+        """Test endpoint responses for various inputs"""
+        response = await client.{{ method|lower }}("/{{ endpoint_path }}", json=input_data)
+        assert response.status_code == expected_status
+        {{ response_assertions }}
+    
+    async def test_error_handling(self, client):
+        """Test error handling middleware"""
+        {{ error_handling_tests }}
+    
+    async def test_request_validation(self, client):
+        """Test request validation"""
+        {{ validation_tests }} 

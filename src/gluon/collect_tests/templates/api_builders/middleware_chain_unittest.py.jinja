@@ -1,0 +1,39 @@
+import pytest
+from typing import List
+{{ imports }}
+
+@pytest.fixture
+def chain():
+    """Create middleware chain"""
+    {{ chain_setup }}
+
+@pytest.fixture
+def mock_request():
+    """Create mock request"""
+    {{ request_setup }}
+
+class TestMiddlewareChain{{ chain_name }}:
+    """Tests for {{ chain_name }} middleware chain"""
+    
+    async def test_middleware_order(self, chain):
+        """Test middleware execution order"""
+        order = []
+        {{ order_test_setup }}
+        await chain.process(mock_request)
+        assert order == {{ expected_order }}
+    
+    async def test_middleware_modification(self, chain, mock_request):
+        """Test request/response modification"""
+        {{ modification_tests }}
+    
+    async def test_error_propagation(self, chain, mock_request):
+        """Test error handling in middleware chain"""
+        {{ error_tests }}
+    
+    async def test_conditional_middleware(self, chain, mock_request):
+        """Test conditional middleware execution"""
+        {{ conditional_tests }}
+    
+    async def test_middleware_context(self, chain, mock_request):
+        """Test middleware context sharing"""
+        {{ context_tests }} 

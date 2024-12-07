@@ -1,0 +1,35 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def version_manager():
+    """Create API version manager"""
+    {{ manager_setup }}
+
+@pytest.fixture
+def client():
+    """Create test client"""
+    {{ client_setup }}
+
+class TestAPIVersionManager:
+    """Tests for API version management"""
+    
+    def test_version_routing(self, version_manager, client):
+        """Test version-based routing"""
+        {{ routing_tests }}
+    
+    def test_version_negotiation(self, version_manager, client):
+        """Test version negotiation"""
+        {{ negotiation_tests }}
+    
+    def test_version_deprecation(self, version_manager, client):
+        """Test version deprecation handling"""
+        {{ deprecation_tests }}
+    
+    def test_version_fallback(self, version_manager, client):
+        """Test version fallback behavior"""
+        {{ fallback_tests }}
+    
+    def test_version_headers(self, version_manager, client):
+        """Test version-related headers"""
+        {{ header_tests }} 

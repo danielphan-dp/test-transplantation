@@ -1,0 +1,35 @@
+import pytest
+{{ imports }}
+
+@pytest.fixture
+def builder():
+    """Create response builder instance"""
+    {{ builder_setup }}
+
+class TestResponseBuilder{{ builder_name }}:
+    """Tests for {{ builder_name }} response builder"""
+    
+    def test_success_response(self, builder):
+        """Test building success responses"""
+        response = builder.success({{ success_data }})
+        assert response.status_code == 200
+        {{ success_assertions }}
+    
+    def test_error_response(self, builder):
+        """Test building error responses"""
+        response = builder.error({{ error_data }})
+        assert response.status_code in [400, 401, 403, 404, 500]
+        {{ error_assertions }}
+    
+    def test_pagination(self, builder):
+        """Test pagination metadata"""
+        response = builder.paginated({{ paginated_data }})
+        {{ pagination_assertions }}
+    
+    def test_custom_headers(self, builder):
+        """Test custom header inclusion"""
+        {{ header_tests }}
+    
+    def test_content_negotiation(self, builder):
+        """Test content negotiation"""
+        {{ content_negotiation_tests }} 
