@@ -443,11 +443,13 @@ def print_metrics(metrics: Dict):
 
     click.echo("\n📏 Test Size and Complexity:")
     click.echo(f"Average Length: {metrics['average_test_length']:.2f} lines")
+
     click.echo(f"Length Statistics:")
     click.echo(f"  • Min: {metrics['test_length_stats']['min']} lines")
     click.echo(f"  • Max: {metrics['test_length_stats']['max']} lines")
     click.echo(f"  • Median: {metrics['test_length_stats']['median']} lines")
     click.echo(f"  • Std Dev: {metrics['test_length_stats']['std_dev']:.2f} lines")
+
     click.echo("\nComplexity Distribution:")
     click.echo(f"  • Simple Tests (0-2 assertions): {metrics['test_complexity']['simple']}")
     click.echo(f"  • Moderate Tests (3-5 assertions): {metrics['test_complexity']['moderate']}")
