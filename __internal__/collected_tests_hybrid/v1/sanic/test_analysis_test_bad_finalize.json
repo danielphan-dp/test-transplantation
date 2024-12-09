@@ -1,0 +1,40 @@
+{
+  "test_name": "test_bad_finalize",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signals.py",
+  "static_methods": [
+    {
+      "name": "app.signal",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n    ) -> Callable[[SignalHandler], SignalHandler]:\n        \"\"\"\n        For creating a signal handler, used similar to a route handler:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line_number": 20
+    },
+    {
+      "name": "app.signal_router.finalize",
+      "source_code": "    def finalize(self):\n        self._finalize_params()\n        if self.regex:\n            self._compile_regex()\n        self.requirements = Immutable(self.requirements)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/sanic_routing/route.py",
+      "line_number": 282
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line": 20,
+      "caller": "test_bad_finalize",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n"
+    },
+    {
+      "function": "app.signal_router.finalize",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/sanic_routing/route.py",
+      "line": 282,
+      "caller": "test_bad_finalize",
+      "source_code": "    def finalize(self):\n        self._finalize_params()\n        if self.regex:\n            self._compile_regex()\n        self.requirements = Immutable(self.requirements)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert counter == 0"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_bad_finalize(app):\n    counter = 0\n\n    @app.signal(\"foo.bar.baz\")\n    def sync_signal(amount):\n        nonlocal counter\n        counter += amount\n\n    with pytest.raises(\n        RuntimeError, match=\"Cannot finalize signals outside of event loop\"\n    ):\n        app.signal_router.finalize()\n\n    assert counter == 0"
+}

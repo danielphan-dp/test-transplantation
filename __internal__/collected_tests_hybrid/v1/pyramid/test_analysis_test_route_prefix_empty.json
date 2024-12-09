@@ -1,0 +1,41 @@
+{
+  "test_name": "test_route_prefix_empty",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+  "static_methods": [
+    {
+      "name": "self.config.route_prefix_context",
+      "source_code": "    def route_prefix_context(self, route_prefix):\n        \"\"\"\n        Return this configurator with a :term:`route prefix` temporarily set.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line_number": 569
+    },
+    {
+      "name": "self.config.route_prefix_context",
+      "source_code": "    def route_prefix_context(self, route_prefix):\n        \"\"\"\n        Return this configurator with a :term:`route prefix` temporarily set.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line_number": 569
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.config.route_prefix_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line": 569,
+      "caller": "test_route_prefix_empty",
+      "source_code": "    @contextlib.contextmanager\n    def route_prefix_context(self, route_prefix):\n        \"\"\"\n        Return this configurator with a :term:`route prefix` temporarily set.\n\n        When the context exits, the ``route_prefix`` is reset to the original.\n\n        ``route_prefix`` is a string suitable to be used as a route prefix,\n        or ``None``.\n\n        Example Usage:\n\n        .. code-block:: python\n\n            config = Configurator()\n            with config.route_prefix_context('foo'):\n                config.add_route('bar', '/bar')\n\n        .. versionadded:: 1.10\n\n        \"\"\"\n        original_route_prefix = self.route_prefix\n\n        if route_prefix is None:\n            route_prefix = ''\n\n        old_route_prefix = self.route_prefix\n        if old_route_prefix is None:\n            old_route_prefix = ''\n\n        route_prefix = '{}/{}'.format(\n            old_route_prefix.rstrip('/'), route_prefix.lstrip('/')\n        )\n\n        route_prefix = route_prefix.strip('/')\n\n        if not route_prefix:\n            route_prefix = None\n\n        self.begin()\n        try:\n            self.route_prefix = route_prefix\n            yield\n\n        finally:\n            self.route_prefix = original_route_prefix\n            self.end()\n"
+    },
+    {
+      "function": "self.config.route_prefix_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line": 569,
+      "caller": "test_route_prefix_empty",
+      "source_code": "    @contextlib.contextmanager\n    def route_prefix_context(self, route_prefix):\n        \"\"\"\n        Return this configurator with a :term:`route prefix` temporarily set.\n\n        When the context exits, the ``route_prefix`` is reset to the original.\n\n        ``route_prefix`` is a string suitable to be used as a route prefix,\n        or ``None``.\n\n        Example Usage:\n\n        .. code-block:: python\n\n            config = Configurator()\n            with config.route_prefix_context('foo'):\n                config.add_route('bar', '/bar')\n\n        .. versionadded:: 1.10\n\n        \"\"\"\n        original_route_prefix = self.route_prefix\n\n        if route_prefix is None:\n            route_prefix = ''\n\n        old_route_prefix = self.route_prefix\n        if old_route_prefix is None:\n            old_route_prefix = ''\n\n        route_prefix = '{}/{}'.format(\n            old_route_prefix.rstrip('/'), route_prefix.lstrip('/')\n        )\n\n        route_prefix = route_prefix.strip('/')\n\n        if not route_prefix:\n            route_prefix = None\n\n        self.begin()\n        try:\n            self.route_prefix = route_prefix\n            yield\n\n        finally:\n            self.route_prefix = original_route_prefix\n            self.end()\n"
+    }
+  ],
+  "assertions": [
+    "assert 'old_prefix' == self.config.route_prefix",
+    "assert 'old_prefix' == self.config.route_prefix"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_route_prefix_empty(self):\n        self.config.route_prefix = 'old_prefix'\n        with self.config.route_prefix_context(''):\n            assert 'old_prefix' == self.config.route_prefix\n\n        assert 'old_prefix' == self.config.route_prefix"
+}

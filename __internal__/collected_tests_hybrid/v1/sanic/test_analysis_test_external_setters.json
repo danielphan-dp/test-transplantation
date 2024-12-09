@@ -1,0 +1,54 @@
+{
+  "test_name": "test_external_setters",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+  "static_methods": [
+    {
+      "name": "patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_external_setters",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_external_setters",
+      "source_code": ""
+    },
+    {
+      "function": "patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_external_setters",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert dist.metadata.long_description_content_type == 'text/something'",
+    "assert dist.metadata.project_urls == {'Link One': 'https://example.com/one/', 'Link Two': 'https://example.com/two/'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_external_setters(self, mock_parent_init, tmpdir):\n        mock_parent_init.side_effect = self._fake_distribution_init\n\n        dist = Distribution(attrs={'project_urls': {'will_be': 'ignored'}})\n\n        assert dist.metadata.long_description_content_type == 'text/something'\n        assert dist.metadata.project_urls == {\n            'Link One': 'https://example.com/one/',\n            'Link Two': 'https://example.com/two/',\n        }"
+}

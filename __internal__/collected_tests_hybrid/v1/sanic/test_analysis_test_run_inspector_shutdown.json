@@ -1,0 +1,40 @@
+{
+  "test_name": "test_run_inspector_shutdown",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_inspector.py",
+  "static_methods": [
+    {
+      "name": "http_client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "publisher.send.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "http_client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_run_inspector_shutdown",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "publisher.send.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_inspector_shutdown",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_run_inspector_shutdown(publisher, http_client):\n    _, response = http_client.post(\"/shutdown\")\n    assert response.status == 200\n    publisher.send.assert_called_once_with(\"__TERMINATE__\")"
+}

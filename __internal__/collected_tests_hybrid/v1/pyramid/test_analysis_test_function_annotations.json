@@ -1,0 +1,64 @@
+{
+  "test_name": "test_function_annotations",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "getattr.update",
+      "source_code": "    def update(self, curval):\n        assert self.min <= curval\n        assert self.max is None or curval <= self.max\n        self.cur = curval\n        now = time.time()\n        if self.started is None:\n            self.started = now\n        else:\n            self.elapsed = now - self.started",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1290
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "getattr.update",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1290,
+      "caller": "test_function_annotations",
+      "source_code": "    def update(self, curval):\n        assert self.min <= curval\n        assert self.max is None or curval <= self.max\n        self.cur = curval\n        now = time.time()\n        if self.started is None:\n            self.started = now\n        else:\n            self.elapsed = now - self.started\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_function_annotations",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_function_annotations",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_function_annotations",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_function_annotations(self):\n        def foo(bar):\n            \"\"\" \"\"\"\n\n        # avoid SyntaxErrors in python2, this if effectively nop\n        getattr(foo, '__annotations__', {}).update({'bar': 'baz'})\n        self.assertTrue(self._callFUT(foo))"
+}

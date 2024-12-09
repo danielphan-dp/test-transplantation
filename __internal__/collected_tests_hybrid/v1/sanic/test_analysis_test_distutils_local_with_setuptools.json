@@ -1,0 +1,67 @@
+{
+  "test_name": "test_distutils_local_with_setuptools",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "find_distutils",
+      "source_code": "def find_distutils(venv, imports='distutils', env=None, **kwargs):\n    py_cmd = 'import {imports}; print(distutils.__file__)'.format(**locals())\n    cmd = ['python', '-c', py_cmd]\n    return venv.run(cmd, env=win_sr(env), **_TEXT_KWARGS, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line_number": 25
+    },
+    {
+      "name": "loc.split",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n    ) -> None:\n        \"\"\"Split the layout in to multiple sub-layouts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line_number": 262
+    },
+    {
+      "name": "count_meta_path",
+      "source_code": "def count_meta_path(venv, env=None):\n    py_cmd = textwrap.dedent(\n        \"\"\"\n        import sys\n        is_distutils = lambda finder: finder.__class__.__name__ == \"DistutilsMetaFinder\"\n        print(len(list(filter(is_distutils, sys.meta_path))))\n        \"\"\"\n    )\n    cmd = ['python', '-c', py_cmd]\n    return int(venv.run(cmd, env=win_sr(env), **_TEXT_KWARGS))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line_number": 31
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distutils_local_with_setuptools",
+      "source_code": ""
+    },
+    {
+      "function": "find_distutils",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line": 25,
+      "caller": "test_distutils_local_with_setuptools",
+      "source_code": "def find_distutils(venv, imports='distutils', env=None, **kwargs):\n    py_cmd = 'import {imports}; print(distutils.__file__)'.format(**locals())\n    cmd = ['python', '-c', py_cmd]\n    return venv.run(cmd, env=win_sr(env), **_TEXT_KWARGS, **kwargs)\n\n\n"
+    },
+    {
+      "function": "loc.split",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line": 262,
+      "caller": "test_distutils_local_with_setuptools",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n"
+    },
+    {
+      "function": "count_meta_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line": 31,
+      "caller": "test_distutils_local_with_setuptools",
+      "source_code": "def count_meta_path(venv, env=None):\n    py_cmd = textwrap.dedent(\n        \"\"\"\n        import sys\n        is_distutils = lambda finder: finder.__class__.__name__ == \"DistutilsMetaFinder\"\n        print(len(list(filter(is_distutils, sys.meta_path))))\n        \"\"\"\n    )\n    cmd = ['python', '-c', py_cmd]\n    return int(venv.run(cmd, env=win_sr(env), **_TEXT_KWARGS))\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert venv.name in loc.split(os.sep)",
+    "assert count_meta_path(venv, env=env) <= 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_distutils_local_with_setuptools(venv):\n    \"\"\"\n    Ensure local distutils is used when appropriate.\n    \"\"\"\n    env = dict(SETUPTOOLS_USE_DISTUTILS='local')\n    loc = find_distutils(venv, imports='setuptools, distutils', env=env)\n    assert venv.name in loc.split(os.sep)\n    assert count_meta_path(venv, env=env) <= 1"
+}

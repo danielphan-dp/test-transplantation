@@ -1,0 +1,67 @@
+{
+  "test_name": "test_dynamic_not_match",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    },
+    {
+      "name": "router.add_route",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n    ) -> \"ResourceRoute\":\n        for route_obj in self._routes:\n            if route_obj.method == method or route_obj.method == hdrs.METH_ANY:\n                raise RuntimeError(\n                    \"Added route will never be executed, \"\n                    \"method {route.method} is already \"\n                    \"registered\".format(route=route_obj)\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 327
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "route._match",
+      "source_code": "    def _match(self, path: str) -> Optional[Dict[str, str]]:\n        pass  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 369
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_dynamic_not_match",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    },
+    {
+      "function": "router.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 327,
+      "caller": "test_dynamic_not_match",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dynamic_not_match",
+      "source_code": ""
+    },
+    {
+      "function": "route._match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 369,
+      "caller": "test_dynamic_not_match",
+      "source_code": "    @abc.abstractmethod\n    def _match(self, path: str) -> Optional[Dict[str, str]]:\n        pass  # pragma: no cover\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(route, web.Resource)",
+    "assert route._match('/another/path') is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dynamic_not_match(router: web.UrlDispatcher) -> None:\n    handler = make_handler()\n    router.add_route(\"GET\", \"/get/{name}\", handler, name=\"name\")\n    route = router[\"name\"]\n    assert isinstance(route, web.Resource)\n    assert route._match(\"/another/path\") is None"
+}

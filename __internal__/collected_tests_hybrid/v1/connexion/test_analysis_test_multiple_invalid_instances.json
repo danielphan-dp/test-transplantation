@@ -1,0 +1,90 @@
+{
+  "test_name": "test_multiple_invalid_instances",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "self.assertOutputs",
+      "source_code": "    def assertOutputs(self, stdout=\"\", stderr=\"\", **kwargs):\n        self.assertEqual(\n            self.run_cli(**kwargs),\n            (dedent(stdout), dedent(stderr)),\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line_number": 98
+    },
+    {
+      "name": "ValidationError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ValidationError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ValidationError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "fake_validator",
+      "source_code": "def fake_validator(*errors):\n    errors = list(reversed(errors))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line_number": 28
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertOutputs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line": 98,
+      "caller": "test_multiple_invalid_instances",
+      "source_code": "    def assertOutputs(self, stdout=\"\", stderr=\"\", **kwargs):\n        self.assertEqual(\n            self.run_cli(**kwargs),\n            (dedent(stdout), dedent(stderr)),\n        )\n\n"
+    },
+    {
+      "function": "ValidationError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_invalid_instances",
+      "source_code": ""
+    },
+    {
+      "function": "ValidationError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_invalid_instances",
+      "source_code": ""
+    },
+    {
+      "function": "ValidationError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_invalid_instances",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_multiple_invalid_instances",
+      "source_code": ""
+    },
+    {
+      "function": "fake_validator",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line": 28,
+      "caller": "test_multiple_invalid_instances",
+      "source_code": "def fake_validator(*errors):\n    errors = list(reversed(errors))\n\n    class FakeValidator:\n        def __init__(self, *args, **kwargs):\n            pass\n\n        def iter_errors(self, instance):\n            if errors:\n                return errors.pop()\n            return []  # pragma: no cover\n\n        @classmethod\n        def check_schema(self, schema):\n            pass\n\n    return FakeValidator\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_multiple_invalid_instances(self):\n        first_instance = 12\n        first_errors = [\n            ValidationError(\"An error\", instance=first_instance),\n            ValidationError(\"Another error\", instance=first_instance),\n        ]\n        second_instance = \"foo\"\n        second_errors = [ValidationError(\"BOOM\", instance=second_instance)]\n\n        self.assertOutputs(\n            files=dict(\n                some_schema='{\"does not\": \"matter since it is stubbed\"}',\n                some_first_instance=json.dumps(first_instance),\n                some_second_instance=json.dumps(second_instance),\n            ),\n            validator=fake_validator(first_errors, second_errors),\n\n            argv=[\n                \"-i\", \"some_first_instance\",\n                \"-i\", \"some_second_instance\",\n                \"some_schema\",\n            ],\n\n            exit_code=1,\n            stderr=\"\"\"\\\n                12: An error\n                12: Another error\n                foo: BOOM\n            \"\"\",\n        )"
+}

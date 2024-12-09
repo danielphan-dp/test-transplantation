@@ -1,0 +1,70 @@
+{
+  "test_name": "test_parse_uri_utf8_percent_encoded",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "quote",
+      "source_code": "    def quote(s):\n        if isinstance(s, unicode):\n            s = s.encode('utf-8')\n        return _quote(s)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 29
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "quote",
+      "source_code": "    def quote(s):\n        if isinstance(s, unicode):\n            s = s.encode('utf-8')\n        return _quote(s)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 29
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_parse_uri_utf8_percent_encoded",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "quote",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 29,
+      "caller": "test_parse_uri_utf8_percent_encoded",
+      "source_code": "    def quote(s):\n        if isinstance(s, unicode):\n            s = s.encode('utf-8')\n        return _quote(s)\n\n"
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_uri_utf8_percent_encoded",
+      "source_code": ""
+    },
+    {
+      "function": "quote",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 29,
+      "caller": "test_parse_uri_utf8_percent_encoded",
+      "source_code": "    def quote(s):\n        if isinstance(s, unicode):\n            s = s.encode('utf-8')\n        return _quote(s)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert msg.path == quote('/\u043f\u0443\u0442\u044c?\u043a\u043b\u044e\u0447=\u0437\u043d\u0430\u0447#\u0444\u0440\u0430\u0433', safe='/?=#')",
+    "assert msg.url == URL('/\u043f\u0443\u0442\u044c?\u043a\u043b\u044e\u0447=\u0437\u043d\u0430\u0447#\u0444\u0440\u0430\u0433')",
+    "assert msg.url.path == '/\u043f\u0443\u0442\u044c'",
+    "assert msg.url.query == {'\u043a\u043b\u044e\u0447': '\u0437\u043d\u0430\u0447'}",
+    "assert msg.url.fragment == '\u0444\u0440\u0430\u0433'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_uri_utf8_percent_encoded(parser: HttpRequestParser) -> None:\n    text = (\n        \"GET %s HTTP/1.1\\r\\n\\r\\n\" % quote(\"/\u043f\u0443\u0442\u044c?\u043a\u043b\u044e\u0447=\u0437\u043d\u0430\u0447#\u0444\u0440\u0430\u0433\", safe=\"/?=#\")\n    ).encode()\n    messages, upgrade, tail = parser.feed_data(text)\n    msg = messages[0][0]\n\n    assert msg.path == quote(\"/\u043f\u0443\u0442\u044c?\u043a\u043b\u044e\u0447=\u0437\u043d\u0430\u0447#\u0444\u0440\u0430\u0433\", safe=\"/?=#\")\n    assert msg.url == URL(\"/\u043f\u0443\u0442\u044c?\u043a\u043b\u044e\u0447=\u0437\u043d\u0430\u0447#\u0444\u0440\u0430\u0433\")\n    assert msg.url.path == \"/\u043f\u0443\u0442\u044c\"\n    assert msg.url.query == {\"\u043a\u043b\u044e\u0447\": \"\u0437\u043d\u0430\u0447\"}\n    assert msg.url.fragment == \"\u0444\u0440\u0430\u0433\""
+}

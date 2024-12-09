@@ -1,0 +1,67 @@
+{
+  "test_name": "test_get_vc_env_unicode",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_msvccompiler.py",
+  "static_methods": [
+    {
+      "name": "_msvccompiler._get_vc_env",
+      "source_code": "def _get_vc_env(plat_spec):\n    if os.getenv(\"DISTUTILS_USE_SDK\"):\n        return {key.lower(): value for key, value in os.environ.items()}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_msvccompiler.py",
+      "line_number": 144
+    },
+    {
+      "name": "test_var.lower",
+      "source_code": "    def lower(self):\n        return super().lower()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line_number": 91
+    },
+    {
+      "name": "test_var.lower",
+      "source_code": "    def lower(self):\n        return super().lower()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line_number": 91
+    },
+    {
+      "name": "needs_winreg",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_msvccompiler._get_vc_env",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_msvccompiler.py",
+      "line": 144,
+      "caller": "test_get_vc_env_unicode",
+      "source_code": "def _get_vc_env(plat_spec):\n    if os.getenv(\"DISTUTILS_USE_SDK\"):\n        return {key.lower(): value for key, value in os.environ.items()}\n\n    vcvarsall, _ = _find_vcvarsall(plat_spec)\n    if not vcvarsall:\n        raise DistutilsPlatformError(\n            'Microsoft Visual C++ 14.0 or greater is required. '\n            'Get it with \"Microsoft C++ Build Tools\": '\n            'https://visualstudio.microsoft.com/visual-cpp-build-tools/'\n        )\n\n    try:\n        out = subprocess.check_output(\n            f'cmd /u /c \"{vcvarsall}\" {plat_spec} && set',\n            stderr=subprocess.STDOUT,\n        ).decode('utf-16le', errors='replace')\n    except subprocess.CalledProcessError as exc:\n        log.error(exc.output)\n        raise DistutilsPlatformError(f\"Error executing {exc.cmd}\")\n\n    env = {\n        key.lower(): value\n        for key, _, value in (line.partition('=') for line in out.splitlines())\n        if key and value\n    }\n\n    return env\n\n\n"
+    },
+    {
+      "function": "test_var.lower",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line": 91,
+      "caller": "test_get_vc_env_unicode",
+      "source_code": "    @method_cache\n    def lower(self):\n        return super().lower()\n\n"
+    },
+    {
+      "function": "test_var.lower",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line": 91,
+      "caller": "test_get_vc_env_unicode",
+      "source_code": "    @method_cache\n    def lower(self):\n        return super().lower()\n\n"
+    },
+    {
+      "function": "needs_winreg",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_vc_env_unicode",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert test_var.lower() in env",
+    "assert test_value == env[test_var.lower()]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_vc_env_unicode(self):\n        test_var = '\u1e70\u1e16\u1e64\u1e6a\u2505\u1e7c\u1ea8\u1e5c'\n        test_value = '\u2083\u2074\u2085'\n\n        # Ensure we don't early exit from _get_vc_env\n        old_distutils_use_sdk = os.environ.pop('DISTUTILS_USE_SDK', None)\n        os.environ[test_var] = test_value\n        try:\n            env = _msvccompiler._get_vc_env('x86')\n            assert test_var.lower() in env\n            assert test_value == env[test_var.lower()]\n        finally:\n            os.environ.pop(test_var)\n            if old_distutils_use_sdk:\n                os.environ['DISTUTILS_USE_SDK'] = old_distutils_use_sdk"
+}

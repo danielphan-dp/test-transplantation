@@ -1,0 +1,42 @@
+{
+  "test_name": "test_config_log_effective_level",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_config_log_effective_level",
+      "source_code": ""
+    },
+    {
+      "function": "config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_config_log_effective_level",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert logging.getLogger('uvicorn.error').getEffectiveLevel() == effective_level",
+    "assert logging.getLogger('uvicorn.access').getEffectiveLevel() == effective_level",
+    "assert logging.getLogger('uvicorn.asgi').getEffectiveLevel() == effective_level"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_config_log_effective_level(log_level: int, uvicorn_logger_level: int) -> None:\n    default_level = 30\n    log_config = {\n        \"version\": 1,\n        \"disable_existing_loggers\": False,\n        \"loggers\": {\n            \"uvicorn\": {\"level\": uvicorn_logger_level},\n        },\n    }\n    config = Config(app=asgi_app, log_level=log_level, log_config=log_config)\n    config.load()\n\n    effective_level = log_level or uvicorn_logger_level or default_level\n    assert logging.getLogger(\"uvicorn.error\").getEffectiveLevel() == effective_level\n    assert logging.getLogger(\"uvicorn.access\").getEffectiveLevel() == effective_level\n    assert logging.getLogger(\"uvicorn.asgi\").getEffectiveLevel() == effective_level"
+}

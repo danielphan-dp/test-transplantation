@@ -1,0 +1,116 @@
+{
+  "test_name": "test__override_already_registered",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_assets.py",
+  "static_methods": [
+    {
+      "name": "DummyPackage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyAssetSource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyPackageOverrides",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.registry.registerUtility",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1189
+    },
+    {
+      "name": "config._override",
+      "source_code": "    def _override(\n        self, package, path, override_source, PackageOverrides=PackageOverrides\n    ):\n        pkg_name = package.__name__\n        override = self.registry.queryUtility(IPackageOverrides, name=pkg_name)\n        if override is None:\n            override = PackageOverrides(package)\n            self.registry.registerUtility(\n                override, IPackageOverrides, name=pkg_name\n            )\n        override.insert(path, override_source)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/assets.py",
+      "line_number": 306
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyPackage",
+      "filename": "",
+      "line": 0,
+      "caller": "test__override_already_registered",
+      "source_code": ""
+    },
+    {
+      "function": "DummyAssetSource",
+      "filename": "",
+      "line": 0,
+      "caller": "test__override_already_registered",
+      "source_code": ""
+    },
+    {
+      "function": "DummyPackageOverrides",
+      "filename": "",
+      "line": 0,
+      "caller": "test__override_already_registered",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__override_already_registered",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.registry.registerUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1189,
+      "caller": "test__override_already_registered",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility\n\n        :param factory:\n           Factory for the component to be registered.\n\n        :param component:\n           The registered component\n\n        :param provided:\n           This is the interface provided by the utility.  If the\n           component provides a single interface, then this\n           argument is optional and the component-implemented\n           interface will be used.\n\n        :param name:\n           The utility name.\n\n        :param info:\n           An object that can be converted to a string to provide\n           information about the registration.\n\n        Only one of *component* and *factory* can be used.\n\n        A `IRegistered` event is generated with an `IUtilityRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "config._override",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/assets.py",
+      "line": 306,
+      "caller": "test__override_already_registered",
+      "source_code": "    def _override(\n        self, package, path, override_source, PackageOverrides=PackageOverrides\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__override_already_registered",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__override_already_registered",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__override_already_registered(self):\n        from pyramid.interfaces import IPackageOverrides\n\n        package = DummyPackage('package')\n        source = DummyAssetSource()\n        overrides = DummyPackageOverrides(package)\n        config = self._makeOne()\n        config.registry.registerUtility(\n            overrides, IPackageOverrides, name='package'\n        )\n        config._override(\n            package, 'path', source, PackageOverrides=DummyPackageOverrides\n        )\n        self.assertEqual(overrides.inserted, [('path', source)])\n        self.assertEqual(overrides.package, package)"
+}

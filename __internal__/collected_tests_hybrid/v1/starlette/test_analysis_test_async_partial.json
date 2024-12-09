@@ -1,0 +1,41 @@
+{
+  "test_name": "test_async_partial",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test__utils.py",
+  "static_methods": [
+    {
+      "name": "is_async_callable",
+      "source_code": "def is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 28
+    },
+    {
+      "name": "is_async_callable",
+      "source_code": "def is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 28
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "is_async_callable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 28,
+      "caller": "test_async_partial",
+      "source_code": "@typing.overload\ndef is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...\n\n\n"
+    },
+    {
+      "function": "is_async_callable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 28,
+      "caller": "test_async_partial",
+      "source_code": "@typing.overload\ndef is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert is_async_callable(partial)",
+    "assert not is_async_callable(partial)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_async_partial() -> None:\n    async def async_func(a: Any, b: Any) -> None: ...  # pragma: no cover\n\n    def func(a: Any, b: Any) -> None: ...  # pragma: no cover\n\n    partial = functools.partial(async_func, 1)\n    assert is_async_callable(partial)\n\n    partial = functools.partial(func, 1)  # type: ignore\n    assert not is_async_callable(partial)"
+}

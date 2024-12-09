@@ -1,0 +1,67 @@
+{
+  "test_name": "test_close_frame_invalid",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "out.exception",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line_number": 182
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_close_frame_invalid",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_close_frame_invalid",
+      "source_code": ""
+    },
+    {
+      "function": "out.exception",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line": 182,
+      "caller": "test_close_frame_invalid",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_close_frame_invalid",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(exc, WebSocketError)",
+    "assert exc.code == WSCloseCode.PROTOCOL_ERROR"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_close_frame_invalid(\n    out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader\n) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [(1, WSMsgType.CLOSE, b\"1\", False)]\n        parser.feed_data(b\"\")\n\n        exc = out.exception()\n        assert isinstance(exc, WebSocketError)\n        assert exc.code == WSCloseCode.PROTOCOL_ERROR"
+}

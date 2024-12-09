@@ -1,0 +1,64 @@
+{
+  "test_name": "test_set_locale_negotiator_dottedname",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_i18n.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.set_locale_negotiator",
+      "source_code": "    def set_locale_negotiator(self, negotiator):\n        \"\"\"\n        Set the :term:`locale negotiator` for this application.  The\n        :term:`locale negotiator` is a callable which accepts a\n        :term:`request` object and which returns a :term:`locale\n        name`.  The ``negotiator`` argument should be the locale\n        negotiator implementation or a :term:`dotted Python name`\n        which refers to such an implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/i18n.py",
+      "line_number": 9
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_set_locale_negotiator_dottedname",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.set_locale_negotiator",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/i18n.py",
+      "line": 9,
+      "caller": "test_set_locale_negotiator_dottedname",
+      "source_code": "    @action_method\n    def set_locale_negotiator(self, negotiator):\n        \"\"\"\n        Set the :term:`locale negotiator` for this application.  The\n        :term:`locale negotiator` is a callable which accepts a\n        :term:`request` object and which returns a :term:`locale\n        name`.  The ``negotiator`` argument should be the locale\n        negotiator implementation or a :term:`dotted Python name`\n        which refers to such an implementation.\n\n        Later calls to this method override earlier calls; there can\n        be only one locale negotiator active at a time within an\n        application.  See :ref:`activating_translation` for more\n        information.\n\n        .. note::\n\n           Using the ``locale_negotiator`` argument to the\n           :class:`pyramid.config.Configurator` constructor can be used to\n           achieve the same purpose.\n        \"\"\"\n\n        def register():\n            self._set_locale_negotiator(negotiator)\n\n        intr = self.introspectable(\n            'locale negotiator',\n            None,\n            self.object_description(negotiator),\n            'locale negotiator',\n        )\n        intr['negotiator'] = negotiator\n        self.action(ILocaleNegotiator, register, introspectables=(intr,))\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_locale_negotiator_dottedname",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_set_locale_negotiator_dottedname",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_locale_negotiator_dottedname(self):\n        from pyramid.interfaces import ILocaleNegotiator\n\n        config = self._makeOne(autocommit=True)\n        config.set_locale_negotiator('tests.test_config.dummyfactory')\n        self.assertEqual(\n            config.registry.getUtility(ILocaleNegotiator), dummyfactory\n        )"
+}

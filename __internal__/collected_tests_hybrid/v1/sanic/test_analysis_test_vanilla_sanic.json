@@ -1,0 +1,54 @@
+{
+  "test_name": "test_vanilla_sanic",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_naming.py",
+  "static_methods": [
+    {
+      "name": "factory",
+      "source_code": "        def factory() -> ClientConnection:\n            return self.protocol_factory(wsuri)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/asyncio/client.py",
+      "line_number": 350
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/asyncio/client.py",
+      "line": 350,
+      "caller": "test_vanilla_sanic",
+      "source_code": "        def factory() -> ClientConnection:\n            return self.protocol_factory(wsuri)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_vanilla_sanic",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_vanilla_sanic",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert foo_response.text == 'Foo.handler'",
+    "assert bar_response.text == 'Foo.Bar.handler'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_vanilla_sanic():\n    app = factory(Sanic, Blueprint)\n    _, foo_response = app.test_client.get(\"/\")\n    _, bar_response = app.test_client.get(\"/bar/\")\n\n    assert foo_response.text == \"Foo.handler\"\n    assert bar_response.text == \"Foo.Bar.handler\""
+}

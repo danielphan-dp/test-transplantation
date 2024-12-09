@@ -1,0 +1,51 @@
+{
+  "test_name": "test_partial_application_replace_host_with_port",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "request._partial_application_url",
+      "source_code": "    def _partial_application_url(self, scheme=None, host=None, port=None):\n        \"\"\"\n        Construct the URL defined by request.application_url, replacing any\n        of the default scheme, host, or port portions with user-supplied\n        variants.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/url.py",
+      "line_number": 63
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_partial_application_replace_host_with_port",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "request._partial_application_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/url.py",
+      "line": 63,
+      "caller": "test_partial_application_replace_host_with_port",
+      "source_code": "    def _partial_application_url(self, scheme=None, host=None, port=None):\n        \"\"\"\n        Construct the URL defined by request.application_url, replacing any\n        of the default scheme, host, or port portions with user-supplied\n        variants.\n\n        If ``scheme`` is passed as ``https``, and the ``port`` is *not*\n        passed, the ``port`` value is assumed to ``443``.  Likewise, if\n        ``scheme`` is passed as ``http`` and ``port`` is not passed, the\n        ``port`` value is assumed to be ``80``.\n\n        \"\"\"\n        e = self.environ\n        if scheme is None:\n            scheme = e['wsgi.url_scheme']\n        else:\n            if scheme == 'https':\n                if port is None:\n                    port = '443'\n            if scheme == 'http':\n                if port is None:\n                    port = '80'\n        if host is None:\n            host = e.get('HTTP_HOST')\n            if host is None:\n                host = e['SERVER_NAME']\n        if port is None:\n            if ':' in host:\n                host, port = host.split(':', 1)\n            else:\n                port = e['SERVER_PORT']\n        else:\n            port = str(port)\n            if ':' in host:\n                host, _ = host.split(':', 1)\n        if scheme == 'https':\n            if port == '443':\n                port = None\n        elif scheme == 'http':\n            if port == '80':\n                port = None\n        url = scheme + '://' + host\n        if port:\n            url += ':%s' % port\n\n        url_encoding = getattr(self, 'url_encoding', 'utf-8')  # webob 1.2b3+\n        bscript_name = bytes_(self.script_name, url_encoding)\n        return url + url_quote(bscript_name, PATH_SAFE)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_partial_application_replace_host_with_port",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_partial_application_replace_host_with_port(self):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'SERVER_NAME': 'example.com',\n            'SERVER_PORT': '8000',\n        }\n        request = self._makeOne(environ)\n        result = request._partial_application_url(\n            host='someotherhost.com:8080'\n        )\n        self.assertEqual(result, 'http://someotherhost.com:8080')"
+}

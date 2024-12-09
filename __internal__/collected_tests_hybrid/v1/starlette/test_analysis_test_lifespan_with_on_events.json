@@ -1,0 +1,58 @@
+{
+  "test_name": "test_lifespan_with_on_events",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_lifespan_with_on_events",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_with_on_events",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_lifespan_with_on_events",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    }
+  ],
+  "assertions": [
+    "assert not lifespan_called",
+    "assert not startup_called",
+    "assert not shutdown_called",
+    "assert lifespan_called",
+    "assert not startup_called",
+    "assert not shutdown_called"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_lifespan_with_on_events(test_client_factory: TestClientFactory) -> None:\n    lifespan_called = False\n    startup_called = False\n    shutdown_called = False\n\n    @contextlib.asynccontextmanager\n    async def lifespan(app: Starlette) -> typing.AsyncGenerator[None, None]:\n        nonlocal lifespan_called\n        lifespan_called = True\n        yield\n\n    # We do not expected, neither of run_startup nor run_shutdown to be called\n    # we thus mark them as #pragma: no cover, to fulfill test coverage\n    def run_startup() -> None:  # pragma: no cover\n        nonlocal startup_called\n        startup_called = True\n\n    def run_shutdown() -> None:  # pragma: no cover\n        nonlocal shutdown_called\n        shutdown_called = True\n\n    with pytest.deprecated_call(match=\"The on_startup and on_shutdown parameters are deprecated\"):\n        with pytest.warns(\n            UserWarning, match=\"The `lifespan` parameter cannot be used with `on_startup` or `on_shutdown`.\"\n        ):\n            app = Router(on_startup=[run_startup], on_shutdown=[run_shutdown], lifespan=lifespan)\n\n            assert not lifespan_called\n            assert not startup_called\n            assert not shutdown_called\n\n            # Triggers the lifespan events\n            with test_client_factory(app):\n                ...\n\n            assert lifespan_called\n            assert not startup_called\n            assert not shutdown_called"
+}

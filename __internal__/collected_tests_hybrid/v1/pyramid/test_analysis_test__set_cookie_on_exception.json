@@ -1,0 +1,77 @@
+{
+  "test_name": "test__set_cookie_on_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_session.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "session._set_cookie",
+      "source_code": "        def _set_cookie(self, response):\n            if not self._cookie_on_exception:\n                exception = getattr(self.request, 'exception', None)\n                if (\n                    exception is not None\n                ):  # dont set a cookie during exceptions\n                    return False\n            cookieval = text_(\n                serializer.dumps((self.accessed, self.created, dict(self)))\n            )\n            if len(cookieval) > 4064:\n                raise ValueError(\n                    'Cookie value is too long to store (%s bytes)'\n                    % len(cookieval)\n                )\n            response.set_cookie(\n                self._cookie_name,\n                value=cookieval,\n                max_age=self._cookie_max_age,\n                path=self._cookie_path,\n                domain=self._cookie_domain,\n                secure=self._cookie_secure,\n                httponly=self._cookie_httponly,\n                samesite=self._cookie_samesite,\n            )\n            return True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/session.py",
+      "line_number": 317
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test__set_cookie_on_exception",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__set_cookie_on_exception",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test__set_cookie_on_exception",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__set_cookie_on_exception",
+      "source_code": ""
+    },
+    {
+      "function": "session._set_cookie",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/session.py",
+      "line": 317,
+      "caller": "test__set_cookie_on_exception",
+      "source_code": "        def _set_cookie(self, response):\n            if not self._cookie_on_exception:\n                exception = getattr(self.request, 'exception', None)\n                if (\n                    exception is not None\n                ):  # dont set a cookie during exceptions\n                    return False\n            cookieval = text_(\n                serializer.dumps((self.accessed, self.created, dict(self)))\n            )\n            if len(cookieval) > 4064:\n                raise ValueError(\n                    'Cookie value is too long to store (%s bytes)'\n                    % len(cookieval)\n                )\n            response.set_cookie(\n                self._cookie_name,\n                value=cookieval,\n                max_age=self._cookie_max_age,\n                path=self._cookie_path,\n                domain=self._cookie_domain,\n                secure=self._cookie_secure,\n                httponly=self._cookie_httponly,\n                samesite=self._cookie_samesite,\n            )\n            return True\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__set_cookie_on_exception(self):\n        request = testing.DummyRequest()\n        request.exception = True\n        session = self._makeOne(request)\n        session._cookie_on_exception = False\n        response = DummyResponse()\n        self.assertEqual(session._set_cookie(response), False)"
+}

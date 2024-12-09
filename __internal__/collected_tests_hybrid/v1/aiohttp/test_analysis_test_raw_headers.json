@@ -1,0 +1,40 @@
+{
+  "test_name": "test_raw_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_request.py",
+  "static_methods": [
+    {
+      "name": "make_mocked_request",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 605
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_mocked_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 605,
+      "caller": "test_raw_headers",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,\n"
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raw_headers",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert req.raw_headers == ((b'X-HEADER', b'aaa'),)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_raw_headers() -> None:\n    req = make_mocked_request(\"GET\", \"/\", headers=CIMultiDict({\"X-HEADER\": \"aaa\"}))\n    assert req.raw_headers == ((b\"X-HEADER\", b\"aaa\"),)"
+}

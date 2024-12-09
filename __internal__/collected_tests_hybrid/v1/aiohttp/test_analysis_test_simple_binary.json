@@ -1,0 +1,53 @@
+{
+  "test_name": "test_simple_binary",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "WSMessageBinary",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_simple_binary",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_simple_binary",
+      "source_code": ""
+    },
+    {
+      "function": "WSMessageBinary",
+      "filename": "",
+      "line": 0,
+      "caller": "test_simple_binary",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == WSMessageBinary(data=b'binary', extra='')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_simple_binary(\n    out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader\n) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [(1, WSMsgType.BINARY, b\"binary\", False)]\n\n        parser.feed_data(b\"\")\n        res = out._buffer[0]\n        assert res == WSMessageBinary(data=b\"binary\", extra=\"\")"
+}

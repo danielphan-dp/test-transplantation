@@ -1,0 +1,38 @@
+{
+  "test_name": "test_reload_alias",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_multiplexer.py",
+  "static_methods": [
+    {
+      "name": "m.reload",
+      "source_code": "    def reload(self, reloaded_files):\n        message = f\"__ALL_PROCESSES__:{reloaded_files}\"\n        self._publisher.send(message)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/reloader.py",
+      "line_number": 76
+    },
+    {
+      "name": "monitor_publisher.send.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "m.reload",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/reloader.py",
+      "line": 76,
+      "caller": "test_reload_alias",
+      "source_code": "    def reload(self, reloaded_files):\n        message = f\"__ALL_PROCESSES__:{reloaded_files}\"\n        self._publisher.send(message)\n\n"
+    },
+    {
+      "function": "monitor_publisher.send.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_alias",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reload_alias(monitor_publisher: Mock, m: WorkerMultiplexer):\n    m.reload()\n    monitor_publisher.send.assert_called_once_with(\"Test:\")"
+}

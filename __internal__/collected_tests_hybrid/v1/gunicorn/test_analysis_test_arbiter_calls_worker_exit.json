@@ -1,0 +1,116 @@
+{
+  "test_name": "test_arbiter_calls_worker_exit",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_arbiter.py",
+  "static_methods": [
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "arbiter.cfg.worker_exit.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyApplication",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "arbiter.spawn_worker",
+      "source_code": "    def spawn_worker(self):\n        self.worker_age += 1\n        worker = self.worker_class(self.worker_age, self.pid, self.LISTENERS,\n                                   self.app, self.timeout / 2.0,\n                                   self.cfg, self.log)\n        self.cfg.pre_fork(self, worker)\n        pid = os.fork()\n        if pid != 0:\n            worker.pid = pid\n            self.WORKERS[pid] = worker\n            return pid",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/arbiter.py",
+      "line_number": 588
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": ""
+    },
+    {
+      "function": "arbiter.cfg.worker_exit.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": ""
+    },
+    {
+      "function": "DummyApplication",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": ""
+    },
+    {
+      "function": "arbiter.spawn_worker",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/arbiter.py",
+      "line": 588,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": "    def spawn_worker(self):\n        self.worker_age += 1\n        worker = self.worker_class(self.worker_age, self.pid, self.LISTENERS,\n                                   self.app, self.timeout / 2.0,\n                                   self.cfg, self.log)\n        self.cfg.pre_fork(self, worker)\n        pid = os.fork()\n        if pid != 0:\n            worker.pid = pid\n            self.WORKERS[pid] = worker\n            return pid\n\n        # Do not inherit the temporary files of other workers\n        for sibling in self.WORKERS.values():\n            sibling.tmp.close()\n\n        # Process Child\n        worker.pid = os.getpid()\n        try:\n            util._setproctitle(\"worker [%s]\" % self.proc_name)\n            self.log.info(\"Booting worker with pid: %s\", worker.pid)\n            if self.cfg.reuse_port:\n                worker.sockets = sock.create_sockets(self.cfg, self.log)\n            self.cfg.post_fork(self, worker)\n            worker.init_process()\n            sys.exit(0)\n        except SystemExit:\n            raise\n        except AppImportError as e:\n            self.log.debug(\"Exception while loading the application\",\n                           exc_info=True)\n            print(\"%s\" % e, file=sys.stderr)\n            sys.stderr.flush()\n            sys.exit(self.APP_LOAD_ERROR)\n        except Exception:\n            self.log.exception(\"Exception in worker process\")\n            if not worker.booted:\n                sys.exit(self.WORKER_BOOT_ERROR)\n            sys.exit(-1)\n        finally:\n            self.log.info(\"Worker exiting (pid: %s)\", worker.pid)\n            try:\n                worker.tmp.close()\n                self.cfg.worker_exit(self, worker)\n            except Exception:\n                self.log.warning(\"Exception during worker exit:\\n%s\",\n                                 traceback.format_exc())\n\n"
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_arbiter_calls_worker_exit",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_arbiter_calls_worker_exit(mock_os_fork):\n    mock_os_fork.return_value = 0\n\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.cfg.settings['worker_exit'] = mock.Mock()\n    arbiter.pid = None\n    mock_worker = mock.Mock()\n    arbiter.worker_class = mock.Mock(return_value=mock_worker)\n    try:\n        arbiter.spawn_worker()\n    except SystemExit:\n        pass\n    arbiter.cfg.worker_exit.assert_called_with(arbiter, mock_worker)"
+}

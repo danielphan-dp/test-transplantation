@@ -1,0 +1,80 @@
+{
+  "test_name": "test_handle_request_with_nested_exception_debug",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "response.text.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Exception",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_handle_request_with_nested_exception_debug",
+      "source_code": ""
+    },
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_handle_request_with_nested_exception_debug",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_handle_request_with_nested_exception_debug",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "response.text.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handle_request_with_nested_exception_debug",
+      "source_code": ""
+    },
+    {
+      "function": "Exception",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_handle_request_with_nested_exception_debug",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert response.text.startswith(f'Error while handling error: {err_msg}\\nStack: Traceback (most recent call last):\\n')"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_handle_request_with_nested_exception_debug(app: Sanic, monkeypatch):\n    err_msg = \"Mock Exception\"\n\n    def mock_error_handler_response(*args, **kwargs):\n        raise Exception(err_msg)\n\n    monkeypatch.setattr(\n        app.error_handler, \"response\", mock_error_handler_response\n    )\n\n    @app.get(\"/\")\n    def handler(request):\n        raise Exception\n\n    request, response = app.test_client.get(\"/\", debug=True)\n    assert response.status == 500\n    assert response.text.startswith(\n        f\"Error while handling error: {err_msg}\\n\"\n        \"Stack: Traceback (most recent call last):\\n\"\n    )"
+}

@@ -1,0 +1,25 @@
+{
+  "test_name": "test_bad_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_bad_headers",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bad_headers(parser: HttpRequestParser, hdr: str) -> None:\n    text = f\"POST / HTTP/1.1\\r\\n{hdr}\\r\\n\\r\\n\".encode()\n    with pytest.raises(http_exceptions.BadHttpMessage):\n        parser.feed_data(text)"
+}

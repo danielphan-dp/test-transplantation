@@ -1,0 +1,55 @@
+{
+  "test_name": "test_distinfo",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist_info.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "pkg_resources.find_distributions",
+      "source_code": "def find_distributions(path_item, only=False):\n    \"\"\"Yield distributions accessible via `path_item`\"\"\"\n    importer = get_importer(path_item)\n    finder = _find_adapter(_distribution_finders, importer)\n    return finder(importer, path_item, only)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 1967
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distinfo",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distinfo",
+      "source_code": ""
+    },
+    {
+      "function": "pkg_resources.find_distributions",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 1967,
+      "caller": "test_distinfo",
+      "source_code": "def find_distributions(path_item, only=False):\n    \"\"\"Yield distributions accessible via `path_item`\"\"\"\n    importer = get_importer(path_item)\n    finder = _find_adapter(_distribution_finders, importer)\n    return finder(importer, path_item, only)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(dists) == 2, dists",
+    "assert versioned.version == '2.718'",
+    "assert unversioned.version == '0.3'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_distinfo(self, metadata):\n        dists = dict(\n            (d.project_name, d) for d in pkg_resources.find_distributions(metadata)\n        )\n\n        assert len(dists) == 2, dists\n\n        unversioned = dists['UnversionedDistribution']\n        versioned = dists['VersionedDistribution']\n\n        assert versioned.version == '2.718'  # from filename\n        assert unversioned.version == '0.3'"
+}

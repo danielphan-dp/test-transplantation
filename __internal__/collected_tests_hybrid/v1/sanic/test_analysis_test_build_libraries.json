@@ -1,0 +1,77 @@
+{
+  "test_name": "test_build_libraries",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_clib.py",
+  "static_methods": [
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    },
+    {
+      "name": "build_clib",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FakeCompiler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "tuple",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_build_libraries",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    },
+    {
+      "function": "build_clib",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_libraries",
+      "source_code": ""
+    },
+    {
+      "function": "FakeCompiler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_libraries",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_libraries",
+      "source_code": ""
+    },
+    {
+      "function": "tuple",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_libraries",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_libraries(self):\n        pkg_dir, dist = self.create_dist()\n        cmd = build_clib(dist)\n\n        class FakeCompiler:\n            def compile(*args, **kw):\n                pass\n\n            create_static_lib = compile\n\n        cmd.compiler = FakeCompiler()\n\n        # build_libraries is also doing a bit of typo checking\n        lib = [('name', {'sources': 'notvalid'})]\n        with pytest.raises(DistutilsSetupError):\n            cmd.build_libraries(lib)\n\n        lib = [('name', {'sources': list()})]\n        cmd.build_libraries(lib)\n\n        lib = [('name', {'sources': tuple()})]\n        cmd.build_libraries(lib)"
+}

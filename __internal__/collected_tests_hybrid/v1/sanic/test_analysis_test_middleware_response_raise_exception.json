@@ -1,0 +1,107 @@
+{
+  "test_name": "test_middleware_response_raise_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.middleware",
+      "source_code": "    def middleware(self, *args, **kwargs):\n        \"\"\"A decorator that can be used to implement a Middleware for all blueprints in the group.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line_number": 940
+    },
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "Exception",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_middleware_response_raise_exception",
+      "source_code": ""
+    },
+    {
+      "function": "app.middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line": 940,
+      "caller": "test_middleware_response_raise_exception",
+      "source_code": "    def middleware(self, *args, **kwargs):\n        \"\"\"A decorator that can be used to implement a Middleware for all blueprints in the group.\n\n        In case of nested Blueprint Groups, the same middleware is applied\n        across each of the Blueprints recursively.\n\n        Args:\n            *args (Optional): Optional positional Parameters to be use middleware\n            **kwargs (Optional): Optional Keyword arg to use with Middleware\n\n        Returns:\n            Partial function to apply the middleware\n        \"\"\"  # noqa: E501\n\n        def register_middleware_for_blueprints(fn):\n            for blueprint in self.blueprints:\n                blueprint.middleware(fn, *args, **kwargs)\n\n        if args and callable(args[0]):\n            fn = args[0]\n            args = list(args)[1:]\n            return register_middleware_for_blueprints(fn)\n        return register_middleware_for_blueprints\n\n"
+    },
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_middleware_response_raise_exception",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "Exception",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_middleware_response_raise_exception",
+      "source_code": ""
+    },
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_middleware_response_raise_exception",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_middleware_response_raise_exception",
+      "source_code": ""
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_middleware_response_raise_exception",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 404",
+    "assert ('sanic.error', logging.ERROR, \"Exception occurred while handling uri: 'http://127.0.0.1:42101/'\") not in caplog.record_tuples",
+    "assert ('sanic.error', logging.ERROR, 'Exception occurred in one of response middleware handlers') in caplog.record_tuples"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_middleware_response_raise_exception(app, caplog):\n    @app.middleware(\"response\")\n    async def process_response(request, response):\n        raise Exception(\"Exception at response middleware\")\n\n    app.route(\"/\")(lambda x: x)\n    with caplog.at_level(logging.ERROR):\n        reqrequest, response = app.test_client.get(\"/fail\")\n\n    assert response.status == 404\n    # 404 errors are not logged\n    assert (\n        \"sanic.error\",\n        logging.ERROR,\n        \"Exception occurred while handling uri: 'http://127.0.0.1:42101/'\",\n    ) not in caplog.record_tuples\n    # Middleware exception ignored but logged\n    assert (\n        \"sanic.error\",\n        logging.ERROR,\n        \"Exception occurred in one of response middleware handlers\",\n    ) in caplog.record_tuples"
+}

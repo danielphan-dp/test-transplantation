@@ -1,0 +1,66 @@
+{
+  "test_name": "test_cross_platform_compilation_paths",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_msvccompiler.py",
+  "static_methods": [
+    {
+      "name": "_msvccompiler.MSVCCompiler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "compiler.initialize",
+      "source_code": "    def initialize(self, plat_name=None):\n        # multi-init means we would need to check platform same each time...\n        assert not self.initialized, \"don't init multiple times\"\n        if plat_name is None:\n            plat_name = get_platform()\n        # sanity check for platforms to prevent obscure errors later.\n        if plat_name not in _vcvars_names:\n            raise DistutilsPlatformError(\n                f\"--plat-name must be one of {tuple(_vcvars_names)}\"\n            )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_msvccompiler.py",
+      "line_number": 276
+    },
+    {
+      "name": "get_platform",
+      "source_code": "def get_platform():\n    if os.name != 'nt':\n        return get_host_platform()\n    cross_compilation_target = os.environ.get('VSCMD_ARG_TGT_ARCH')\n    if cross_compilation_target not in _TARGET_TO_PLAT:\n        return get_host_platform()\n    return _TARGET_TO_PLAT[cross_compilation_target]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1926
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_msvccompiler.MSVCCompiler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cross_platform_compilation_paths",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cross_platform_compilation_paths",
+      "source_code": ""
+    },
+    {
+      "function": "compiler.initialize",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_msvccompiler.py",
+      "line": 276,
+      "caller": "test_cross_platform_compilation_paths",
+      "source_code": "    def initialize(self, plat_name=None):\n        # multi-init means we would need to check platform same each time...\n        assert not self.initialized, \"don't init multiple times\"\n        if plat_name is None:\n            plat_name = get_platform()\n        # sanity check for platforms to prevent obscure errors later.\n        if plat_name not in _vcvars_names:\n            raise DistutilsPlatformError(\n                f\"--plat-name must be one of {tuple(_vcvars_names)}\"\n            )\n\n        plat_spec = _get_vcvars_spec(get_host_platform(), plat_name)\n\n        vc_env = _get_vc_env(plat_spec)\n        if not vc_env:\n            raise DistutilsPlatformError(\n                \"Unable to find a compatible Visual Studio installation.\"\n            )\n        self._configure(vc_env)\n\n        self._paths = vc_env.get('path', '')\n        paths = self._paths.split(os.pathsep)\n        self.cc = _find_exe(\"cl.exe\", paths)\n        self.linker = _find_exe(\"link.exe\", paths)\n        self.lib = _find_exe(\"lib.exe\", paths)\n        self.rc = _find_exe(\"rc.exe\", paths)  # resource compiler\n        self.mc = _find_exe(\"mc.exe\", paths)  # message compiler\n        self.mt = _find_exe(\"mt.exe\", paths)  # message compiler\n\n        self.preprocess_options = None\n        # bpo-38597: Always compile with dynamic linking\n        # Future releases of Python 3.x will include all past\n        # versions of vcruntime*.dll for compatibility.\n        self.compile_options = ['/nologo', '/O2', '/W3', '/GL', '/DNDEBUG', '/MD']\n\n        self.compile_options_debug = [\n            '/nologo',\n            '/Od',\n            '/MDd',\n            '/Zi',\n            '/W3',\n            '/D_DEBUG',\n        ]\n\n        ldflags = ['/nologo', '/INCREMENTAL:NO', '/LTCG']\n\n        ldflags_debug = ['/nologo', '/INCREMENTAL:NO', '/LTCG', '/DEBUG:FULL']\n\n        self.ldflags_exe = [*ldflags, '/MANIFEST:EMBED,ID=1']\n        self.ldflags_exe_debug = [*ldflags_debug, '/MANIFEST:EMBED,ID=1']\n        self.ldflags_shared = [\n            *ldflags,\n            '/DLL',\n            '/MANIFEST:EMBED,ID=2',\n            '/MANIFESTUAC:NO',\n        ]\n        self.ldflags_shared_debug = [\n            *ldflags_debug,\n            '/DLL',\n            '/MANIFEST:EMBED,ID=2',\n            '/MANIFESTUAC:NO',\n        ]\n        self.ldflags_static = [*ldflags]\n        self.ldflags_static_debug = [*ldflags_debug]\n\n        self._ldflags = {\n            (CCompiler.EXECUTABLE, None): self.ldflags_exe,\n            (CCompiler.EXECUTABLE, False): self.ldflags_exe,\n            (CCompiler.EXECUTABLE, True): self.ldflags_exe_debug,\n            (CCompiler.SHARED_OBJECT, None): self.ldflags_shared,\n            (CCompiler.SHARED_OBJECT, False): self.ldflags_shared,\n            (CCompiler.SHARED_OBJECT, True): self.ldflags_shared_debug,\n            (CCompiler.SHARED_LIBRARY, None): self.ldflags_static,\n            (CCompiler.SHARED_LIBRARY, False): self.ldflags_static,\n            (CCompiler.SHARED_LIBRARY, True): self.ldflags_static_debug,\n        }\n\n        self.initialized = True\n\n"
+    },
+    {
+      "function": "get_platform",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1926,
+      "caller": "test_cross_platform_compilation_paths",
+      "source_code": "def get_platform():\n    if os.name != 'nt':\n        return get_host_platform()\n    cross_compilation_target = os.environ.get('VSCMD_ARG_TGT_ARCH')\n    if cross_compilation_target not in _TARGET_TO_PLAT:\n        return get_host_platform()\n    return _TARGET_TO_PLAT[cross_compilation_target]\n"
+    }
+  ],
+  "assertions": [
+    "assert platform == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_cross_platform_compilation_paths(self, monkeypatch, plat_name, expected):\n        \"\"\"\n        Ensure a specified target platform is passed to _get_vcvars_spec.\n        \"\"\"\n        compiler = _msvccompiler.MSVCCompiler()\n\n        def _get_vcvars_spec(host_platform, platform):\n            assert platform == expected\n\n        monkeypatch.setattr(_msvccompiler, '_get_vcvars_spec', _get_vcvars_spec)\n        compiler.initialize(plat_name)"
+}

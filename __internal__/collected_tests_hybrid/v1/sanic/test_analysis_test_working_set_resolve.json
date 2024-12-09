@@ -1,0 +1,144 @@
+{
+  "test_name": "test_working_set_resolve",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_working_set.py",
+  "static_methods": [
+    {
+      "name": "parametrize_test_working_set_resolve",
+      "source_code": "def parametrize_test_working_set_resolve(*test_list):\n    idlist = []\n    argvalues = []\n    for test in test_list:\n        (\n            name,\n            installed_dists,\n            installable_dists,\n            requirements,\n            expected1,\n            expected2,\n        ) = (\n            strip_comments(s.lstrip())\n            for s in textwrap.dedent(test).lstrip().split('\\n\\n', 5)\n        )\n        installed_dists = list(parse_distributions(installed_dists))\n        installable_dists = list(parse_distributions(installable_dists))\n        requirements = list(pkg_resources.parse_requirements(requirements))\n        for id_, replace_conflicting, expected in (\n            (name, False, expected1),\n            (name + '_replace_conflicting', True, expected2),\n        ):\n            idlist.append(id_)\n            expected = strip_comments(expected.strip())\n            if re.match(r'\\w+$', expected):\n                expected = getattr(pkg_resources, expected)\n                assert issubclass(expected, Exception)\n            else:\n                expected = list(parse_distributions(expected))\n            argvalues.append(\n                pytest.param(\n                    installed_dists,\n                    installable_dists,\n                    requirements,\n                    replace_conflicting,\n                    expected,\n                )\n            )\n    return pytest.mark.parametrize(\n        'installed_dists,installable_dists,'\n        'requirements,replace_conflicting,'\n        'resolved_dists_or_exception',\n        argvalues,\n        ids=idlist,\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_working_set.py",
+      "line_number": 68
+    },
+    {
+      "name": "pkg_resources.WorkingSet",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "map",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "FakeInstaller",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resolve_call",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "resolve_call",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parametrize_test_working_set_resolve",
+      "source_code": "def parametrize_test_working_set_resolve(*test_list):\n    idlist = []\n    argvalues = []\n    for test in test_list:\n        (\n            name,\n            installed_dists,\n            installable_dists,\n            requirements,\n            expected1,\n            expected2,\n        ) = (\n            strip_comments(s.lstrip())\n            for s in textwrap.dedent(test).lstrip().split('\\n\\n', 5)\n        )\n        installed_dists = list(parse_distributions(installed_dists))\n        installable_dists = list(parse_distributions(installable_dists))\n        requirements = list(pkg_resources.parse_requirements(requirements))\n        for id_, replace_conflicting, expected in (\n            (name, False, expected1),\n            (name + '_replace_conflicting', True, expected2),\n        ):\n            idlist.append(id_)\n            expected = strip_comments(expected.strip())\n            if re.match(r'\\w+$', expected):\n                expected = getattr(pkg_resources, expected)\n                assert issubclass(expected, Exception)\n            else:\n                expected = list(parse_distributions(expected))\n            argvalues.append(\n                pytest.param(\n                    installed_dists,\n                    installable_dists,\n                    requirements,\n                    replace_conflicting,\n                    expected,\n                )\n            )\n    return pytest.mark.parametrize(\n        'installed_dists,installable_dists,'\n        'requirements,replace_conflicting,'\n        'resolved_dists_or_exception',\n        argvalues,\n        ids=idlist,\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_working_set.py",
+      "line_number": 68
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parametrize_test_working_set_resolve",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_working_set.py",
+      "line": 68,
+      "caller": "test_working_set_resolve",
+      "source_code": "def parametrize_test_working_set_resolve(*test_list):\n    idlist = []\n    argvalues = []\n    for test in test_list:\n        (\n            name,\n            installed_dists,\n            installable_dists,\n            requirements,\n            expected1,\n            expected2,\n        ) = (\n            strip_comments(s.lstrip())\n            for s in textwrap.dedent(test).lstrip().split('\\n\\n', 5)\n        )\n        installed_dists = list(parse_distributions(installed_dists))\n        installable_dists = list(parse_distributions(installable_dists))\n        requirements = list(pkg_resources.parse_requirements(requirements))\n        for id_, replace_conflicting, expected in (\n            (name, False, expected1),\n            (name + '_replace_conflicting', True, expected2),\n        ):\n            idlist.append(id_)\n            expected = strip_comments(expected.strip())\n            if re.match(r'\\w+$', expected):\n                expected = getattr(pkg_resources, expected)\n                assert issubclass(expected, Exception)\n            else:\n                expected = list(parse_distributions(expected))\n            argvalues.append(\n                pytest.param(\n                    installed_dists,\n                    installable_dists,\n                    requirements,\n                    replace_conflicting,\n                    expected,\n                )\n            )\n    return pytest.mark.parametrize(\n        'installed_dists,installable_dists,'\n        'requirements,replace_conflicting,'\n        'resolved_dists_or_exception',\n        argvalues,\n        ids=idlist,\n    )\n\n\n"
+    },
+    {
+      "function": "pkg_resources.WorkingSet",
+      "filename": "",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "map",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "FakeInstaller",
+      "filename": "",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "resolve_call",
+      "filename": "",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "sorted",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "sorted",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "resolve_call",
+      "filename": "",
+      "line": 0,
+      "caller": "test_working_set_resolve",
+      "source_code": ""
+    },
+    {
+      "function": "parametrize_test_working_set_resolve",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_working_set.py",
+      "line": 68,
+      "caller": "test_working_set_resolve",
+      "source_code": "def parametrize_test_working_set_resolve(*test_list):\n    idlist = []\n    argvalues = []\n    for test in test_list:\n        (\n            name,\n            installed_dists,\n            installable_dists,\n            requirements,\n            expected1,\n            expected2,\n        ) = (\n            strip_comments(s.lstrip())\n            for s in textwrap.dedent(test).lstrip().split('\\n\\n', 5)\n        )\n        installed_dists = list(parse_distributions(installed_dists))\n        installable_dists = list(parse_distributions(installable_dists))\n        requirements = list(pkg_resources.parse_requirements(requirements))\n        for id_, replace_conflicting, expected in (\n            (name, False, expected1),\n            (name + '_replace_conflicting', True, expected2),\n        ):\n            idlist.append(id_)\n            expected = strip_comments(expected.strip())\n            if re.match(r'\\w+$', expected):\n                expected = getattr(pkg_resources, expected)\n                assert issubclass(expected, Exception)\n            else:\n                expected = list(parse_distributions(expected))\n            argvalues.append(\n                pytest.param(\n                    installed_dists,\n                    installable_dists,\n                    requirements,\n                    replace_conflicting,\n                    expected,\n                )\n            )\n    return pytest.mark.parametrize(\n        'installed_dists,installable_dists,'\n        'requirements,replace_conflicting,'\n        'resolved_dists_or_exception',\n        argvalues,\n        ids=idlist,\n    )\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert sorted(resolve_call()) == sorted(resolved_dists_or_exception)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_working_set_resolve(\n    installed_dists,\n    installable_dists,\n    requirements,\n    replace_conflicting,\n    resolved_dists_or_exception,\n):\n    ws = pkg_resources.WorkingSet([])\n    list(map(ws.add, installed_dists))\n    resolve_call = functools.partial(\n        ws.resolve,\n        requirements,\n        installer=FakeInstaller(installable_dists),\n        replace_conflicting=replace_conflicting,\n    )\n    if inspect.isclass(resolved_dists_or_exception):\n        with pytest.raises(resolved_dists_or_exception):\n            resolve_call()\n    else:\n        assert sorted(resolve_call()) == sorted(resolved_dists_or_exception)"
+}

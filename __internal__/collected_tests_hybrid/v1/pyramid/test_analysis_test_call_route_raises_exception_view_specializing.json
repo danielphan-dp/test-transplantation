@@ -1,0 +1,220 @@
+{
+  "test_name": "test_call_route_raises_exception_view_specializing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+  "static_methods": [
+    {
+      "name": "self._registerRouteRequest",
+      "source_code": "    def _registerRouteRequest(self, name):\n        from pyramid.interfaces import IRouteRequest\n        from pyramid.request import route_request_iface",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line_number": 16
+    },
+    {
+      "name": "self._connectRoute",
+      "source_code": "    def _connectRoute(self, name, path, factory=None):\n        from pyramid.interfaces import IRoutesMapper\n        from pyramid.urldispatch import RoutesMapper",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line_number": 24
+    },
+    {
+      "name": "DummyView",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._registerView",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 16
+    },
+    {
+      "name": "DummyResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyView",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._registerView",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 16
+    },
+    {
+      "name": "DummyResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyView",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._registerView",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 16
+    },
+    {
+      "name": "self._makeEnviron",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 24
+    },
+    {
+      "name": "DummyStartResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._registerRouteRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line": 16,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": "    def _registerRouteRequest(self, name):\n        from pyramid.interfaces import IRouteRequest\n        from pyramid.request import route_request_iface\n\n        iface = route_request_iface(name)\n        self.registry.registerUtility(iface, IRouteRequest, name=name)\n        return iface\n\n"
+    },
+    {
+      "function": "self._connectRoute",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line": 24,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": "    def _connectRoute(self, name, path, factory=None):\n        from pyramid.interfaces import IRoutesMapper\n        from pyramid.urldispatch import RoutesMapper\n\n        mapper = self.registry.queryUtility(IRoutesMapper)\n        if mapper is None:\n            mapper = RoutesMapper()\n            self.registry.registerUtility(mapper, IRoutesMapper)\n        return mapper.connect(name, path, factory)\n\n"
+    },
+    {
+      "function": "DummyView",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "self._registerView",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 16,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier\n\n        for_ = (IViewClassifier, IRequest, IContext)\n        from pyramid.interfaces import IView\n\n        reg.registerAdapter(app, for_, IView, name)\n\n"
+    },
+    {
+      "function": "DummyResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "DummyView",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "self._registerView",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 16,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier\n\n        for_ = (IViewClassifier, IRequest, IContext)\n        from pyramid.interfaces import IView\n\n        reg.registerAdapter(app, for_, IView, name)\n\n"
+    },
+    {
+      "function": "DummyResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "DummyView",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "self._registerView",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 16,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier\n\n        for_ = (IViewClassifier, IRequest, IContext)\n        from pyramid.interfaces import IView\n\n        reg.registerAdapter(app, for_, IView, name)\n\n"
+    },
+    {
+      "function": "self._makeEnviron",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 24,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ\n\n"
+    },
+    {
+      "function": "DummyStartResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    },
+    {
+      "function": "DummyResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_route_raises_exception_view_specializing",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_call_route_raises_exception_view_specializing(self):\n        from pyramid.interfaces import (\n            IExceptionViewClassifier,\n            IRequest,\n            IViewClassifier,\n        )\n\n        req_iface = self._registerRouteRequest('foo')\n        self._connectRoute('foo', 'archives/:action/:article', None)\n        view = DummyView(DummyResponse(), raise_exception=RuntimeError)\n        self._registerView(view, '', IViewClassifier, req_iface, None)\n        response = DummyResponse()\n        response.app_iter = [\"Hello, world\"]\n        exception_view = DummyView(response)\n        self._registerView(\n            exception_view,\n            '',\n            IExceptionViewClassifier,\n            IRequest,\n            RuntimeError,\n        )\n        response_spec = DummyResponse()\n        response_spec.app_iter = [\"Hello, special world\"]\n        exception_view_spec = DummyView(response_spec)\n        self._registerView(\n            exception_view_spec,\n            '',\n            IExceptionViewClassifier,\n            req_iface,\n            RuntimeError,\n        )\n        environ = self._makeEnviron(PATH_INFO='/archives/action1/article1')\n        start_response = DummyStartResponse()\n        router = self._makeOne()\n        result = router(environ, start_response)\n        self.assertEqual(result, [\"Hello, special world\"])"
+}

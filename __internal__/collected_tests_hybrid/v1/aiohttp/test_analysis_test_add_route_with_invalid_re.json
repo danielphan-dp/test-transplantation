@@ -1,0 +1,67 @@
+{
+  "test_name": "test_add_route_with_invalid_re",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "s.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "router.add_route",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n    ) -> \"ResourceRoute\":\n        for route_obj in self._routes:\n            if route_obj.method == method or route_obj.method == hdrs.METH_ANY:\n                raise RuntimeError(\n                    \"Added route will never be executed, \"\n                    \"method {route.method} is already \"\n                    \"registered\".format(route=route_obj)\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 327
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_add_route_with_invalid_re",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_route_with_invalid_re",
+      "source_code": ""
+    },
+    {
+      "function": "s.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_route_with_invalid_re",
+      "source_code": ""
+    },
+    {
+      "function": "router.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 327,
+      "caller": "test_add_route_with_invalid_re",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert s.startswith(\"Bad pattern '\" + PATH_SEP + 'handler' + PATH_SEP + \"(?P<to>+++)': nothing to repeat\")",
+    "assert ctx.value.__cause__ is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_route_with_invalid_re(router: web.UrlDispatcher) -> None:\n    handler = make_handler()\n    with pytest.raises(ValueError) as ctx:\n        router.add_route(\"GET\", r\"/handler/{to:+++}\", handler)\n    s = str(ctx.value)\n    assert s.startswith(\n        \"Bad pattern '\"\n        + PATH_SEP\n        + \"handler\"\n        + PATH_SEP\n        + \"(?P<to>+++)': nothing to repeat\"\n    )\n    assert ctx.value.__cause__ is None"
+}

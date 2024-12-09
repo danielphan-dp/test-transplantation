@@ -1,0 +1,129 @@
+{
+  "test_name": "test_scanner",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/regex/test_regex.py",
+  "static_methods": [
+    {
+      "name": "regex.Scanner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "float",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "int",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "scanner.scan",
+      "source_code": "def scan(stream, Loader=Loader):\n    \"\"\"\n    Scan a YAML stream and produce scanning tokens.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        while loader.check_token():\n            yield loader.get_token()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 29
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "scanner.scanner.scanner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "regex.Scanner",
+      "filename": "",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    },
+    {
+      "function": "float",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    },
+    {
+      "function": "int",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    },
+    {
+      "function": "scanner.scan",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 29,
+      "caller": "test_scanner",
+      "source_code": "def scan(stream, Loader=Loader):\n    \"\"\"\n    Scan a YAML stream and produce scanning tokens.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        while loader.check_token():\n            yield loader.get_token()\n    finally:\n        loader.dispose()\n\n"
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    },
+    {
+      "function": "scanner.scanner.scanner",
+      "filename": "",
+      "line": 0,
+      "caller": "test_scanner",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_scanner(self):\n        def s_ident(scanner, token): return token\n        def s_operator(scanner, token): return \"op%s\" % token\n        def s_float(scanner, token): return float(token)\n        def s_int(scanner, token): return int(token)\n\n        scanner = regex.Scanner([(r\"[a-zA-Z_]\\w*\", s_ident), (r\"\\d+\\.\\d*\",\n          s_float), (r\"\\d+\", s_int), (r\"=|\\+|-|\\*|/\", s_operator), (r\"\\s+\",\n            None), ])\n\n        self.assertEqual(repr(type(scanner.scanner.scanner(\"\").pattern)),\n          self.PATTERN_CLASS)\n\n        self.assertEqual(scanner.scan(\"sum = 3*foo + 312.50 + bar\"), (['sum',\n          'op=', 3, 'op*', 'foo', 'op+', 312.5, 'op+', 'bar'], ''))"
+}

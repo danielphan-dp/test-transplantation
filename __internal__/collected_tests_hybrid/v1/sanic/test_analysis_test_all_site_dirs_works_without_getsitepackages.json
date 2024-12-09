@@ -1,0 +1,40 @@
+{
+  "test_name": "test_all_site_dirs_works_without_getsitepackages",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.delattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ei.get_site_dirs",
+      "source_code": "def get_site_dirs():\n    \"\"\"\n    Return a list of 'site' dirs\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 1420
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.delattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_all_site_dirs_works_without_getsitepackages",
+      "source_code": ""
+    },
+    {
+      "function": "ei.get_site_dirs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 1420,
+      "caller": "test_all_site_dirs_works_without_getsitepackages",
+      "source_code": "def get_site_dirs():\n    \"\"\"\n    Return a list of 'site' dirs\n    \"\"\"\n\n    sitedirs = []\n\n    # start with PYTHONPATH\n    sitedirs.extend(_pythonpath())\n\n    prefixes = [sys.prefix]\n    if sys.exec_prefix != sys.prefix:\n        prefixes.append(sys.exec_prefix)\n    for prefix in prefixes:\n        if not prefix:\n            continue\n\n        if sys.platform in ('os2emx', 'riscos'):\n            sitedirs.append(os.path.join(prefix, \"Lib\", \"site-packages\"))\n        elif os.sep == '/':\n            sitedirs.extend([\n                os.path.join(\n                    prefix,\n                    \"lib\",\n                    f\"python{sys.version_info.major}.{sys.version_info.minor}\",\n                    \"site-packages\",\n                ),\n                os.path.join(prefix, \"lib\", \"site-python\"),\n            ])\n        else:\n            sitedirs.extend([\n                prefix,\n                os.path.join(prefix, \"lib\", \"site-packages\"),\n            ])\n        if sys.platform != 'darwin':\n            continue\n\n        # for framework builds *only* we add the standard Apple\n        # locations. Currently only per-user, but /Library and\n        # /Network/Library could be added too\n        if 'Python.framework' not in prefix:\n            continue\n\n        home = os.environ.get('HOME')\n        if not home:\n            continue\n\n        home_sp = os.path.join(\n            home,\n            'Library',\n            'Python',\n            f'{sys.version_info.major}.{sys.version_info.minor}',\n            'site-packages',\n        )\n        sitedirs.append(home_sp)\n    lib_paths = get_path('purelib'), get_path('platlib')\n\n    sitedirs.extend(s for s in lib_paths if s not in sitedirs)\n\n    if site.ENABLE_USER_SITE:\n        sitedirs.append(site.USER_SITE)\n\n    with contextlib.suppress(AttributeError):\n        sitedirs.extend(site.getsitepackages())\n\n    return list(map(normalize_path, sitedirs))\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert ei.get_site_dirs()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_all_site_dirs_works_without_getsitepackages(self, monkeypatch):\n        monkeypatch.delattr(site, 'getsitepackages', raising=False)\n        assert ei.get_site_dirs()"
+}

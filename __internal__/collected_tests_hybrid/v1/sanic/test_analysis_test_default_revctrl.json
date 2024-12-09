@@ -1,0 +1,53 @@
+{
+  "test_name": "test_default_revctrl",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+  "static_methods": [
+    {
+      "name": "metadata.EntryPoints._from_text",
+      "source_code": "    def _from_text(text):\n        return (\n            EntryPoint(name=item.value.name, value=item.value.value, group=item.name)\n            for item in Sectioned.section_pairs(text or '')\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line_number": 303
+    },
+    {
+      "name": "ep.load",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line_number": 57
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "metadata.EntryPoints._from_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line": 303,
+      "caller": "test_default_revctrl",
+      "source_code": "    @staticmethod\n    def _from_text(text):\n        return (\n            EntryPoint(name=item.value.name, value=item.value.value, group=item.name)\n            for item in Sectioned.section_pairs(text or '')\n        )\n\n\n"
+    },
+    {
+      "function": "ep.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line": 57,
+      "caller": "test_default_revctrl",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)\n\n\n"
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_default_revctrl",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert hasattr(res, '__iter__')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_default_revctrl():\n    \"\"\"\n    When _default_revctrl was removed from the `setuptools.command.sdist`\n    module in 10.0, it broke some systems which keep an old install of\n    setuptools (Distribute) around. Those old versions require that the\n    setuptools package continue to implement that interface, so this\n    function provides that interface, stubbed. See #320 for details.\n\n    This interface must be maintained until Ubuntu 12.04 is no longer\n    supported (by Setuptools).\n    \"\"\"\n    (ep,) = metadata.EntryPoints._from_text(\n        \"\"\"\n        [setuptools.file_finders]\n        svn_cvs = setuptools.command.sdist:_default_revctrl\n        \"\"\"\n    )\n    res = ep.load()\n    assert hasattr(res, '__iter__')"
+}

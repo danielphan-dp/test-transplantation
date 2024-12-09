@@ -1,0 +1,27 @@
+{
+  "test_name": "test_parse_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "headers.parse_content_header",
+      "source_code": "def parse_content_header(value: str) -> Tuple[str, Options]:\n    \"\"\"Parse content-type and content-disposition header values.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 330
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "headers.parse_content_header",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 330,
+      "caller": "test_parse_headers",
+      "source_code": "def parse_content_header(value: str) -> Tuple[str, Options]:\n    \"\"\"Parse content-type and content-disposition header values.\n\n    E.g. `form-data; name=upload; filename=\"file.txt\"` to\n    ('form-data', {'name': 'upload', 'filename': 'file.txt'})\n\n    Mostly identical to cgi.parse_header and werkzeug.parse_options_header\n    but runs faster and handles special characters better.\n\n    Unescapes %22 to `\"` and %0D%0A to `\\n` in field values.\n\n    Args:\n        value (str): The header value to parse.\n\n    Returns:\n        Tuple[str, Options]: The header value and a dict of options.\n    \"\"\"\n    pos = value.find(\";\")\n    if pos == -1:\n        options: Dict[str, Union[int, str]] = {}\n    else:\n        options = {\n            m.group(1).lower(): (m.group(2) or m.group(3))\n            .replace(\"%22\", '\"')\n            .replace(\"%0D%0A\", \"\\n\")\n            for m in _param.finditer(value[pos:])\n        }\n        value = value[:pos]\n    return value.strip().lower(), options\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert headers.parse_content_header(input) == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_parse_headers(input, expected):\n    assert headers.parse_content_header(input) == expected"
+}

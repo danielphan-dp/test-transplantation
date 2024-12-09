@@ -1,0 +1,10 @@
+{
+  "test_name": "test_http_request_bad_status_line_whitespace",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_request_bad_status_line_whitespace(parser: HttpRequestParser) -> None:\n    text = b\"GET\\n/path\\fHTTP/1.1\\r\\n\\r\\n\"\n    with pytest.raises(http_exceptions.BadStatusLine):\n        parser.feed_data(text)"
+}

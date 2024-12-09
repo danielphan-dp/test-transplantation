@@ -1,0 +1,64 @@
+{
+  "test_name": "test_pluralizer_ungettext_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "self._makeTranslations",
+      "source_code": "    def _makeTranslations(self):\n        import os\n        here = os.path.abspath(os.path.dirname(__file__))\n        localedir = os.path.join(here, 'fixtures', 'locales')\n        return Translations.load(localedir, locales=['de'])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test_integration.py",
+      "line_number": 5
+    },
+    {
+      "name": "Pluralizer",
+      "source_code": "def Pluralizer(translations=None, policy=None):\n    \"\"\"\n    Return a pluralizer object based on the ``translations`` and\n    ``policy`` provided.  ``translations`` should be an object\n    supporting *at least* the Python :class:`gettext.NullTranslations`\n    API but ideally the :class:`babel.support.Translations` API, which\n    has support for domain lookups like dugettext.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line_number": 369
+    },
+    {
+      "name": "pluralizer",
+      "source_code": "    def pluralizer(singular, plural, n, domain=None, mapping=None, context=None):\n        \"\"\" Pluralize this object \"\"\"\n        translated = text_type(\n            policy(translations, singular, plural, n, domain, context))\n        if translated and '$' in translated and mapping:\n            return TranslationString(translated, mapping=mapping).interpolate()\n        return translated\n    return pluralizer",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line_number": 403
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeTranslations",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test_integration.py",
+      "line": 5,
+      "caller": "test_pluralizer_ungettext_policy",
+      "source_code": "    def _makeTranslations(self):\n        import os\n        here = os.path.abspath(os.path.dirname(__file__))\n        localedir = os.path.join(here, 'fixtures', 'locales')\n        return Translations.load(localedir, locales=['de'])\n\n"
+    },
+    {
+      "function": "Pluralizer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line": 369,
+      "caller": "test_pluralizer_ungettext_policy",
+      "source_code": "def Pluralizer(translations=None, policy=None):\n    \"\"\"\n    Return a pluralizer object based on the ``translations`` and\n    ``policy`` provided.  ``translations`` should be an object\n    supporting *at least* the Python :class:`gettext.NullTranslations`\n    API but ideally the :class:`babel.support.Translations` API, which\n    has support for domain lookups like dugettext.\n\n    ``policy`` should be a callable which accepts five arguments:\n    ``translations``, ``singular`` and ``plural``, ``n`` and\n    ``domain``.  It must perform the actual pluralization lookup.  If\n    ``policy`` is ``None``, the\n    :func:`translationstring.dungettext_policy` policy will be used.\n\n    The object returned will be a callable which has the following\n    signature::\n\n        def pluralizer(singular, plural, n, domain=None, mapping=None):\n            ...\n\n    The ``singular`` and ``plural`` objects passed may be translation\n    strings or unicode strings.  ``n`` represents the number of\n    elements.  ``domain`` is the translation domain to use to do the\n    pluralization, and ``mapping`` is the interpolation mapping that\n    should be used on the result.  Note that if the objects passed are\n    translation strings, their domains and mappings are ignored.  The\n    domain and mapping arguments must be used instead.  If the ``domain`` is\n    not supplied, a default domain is used (usually ``messages``).\n    \"\"\"\n\n    if policy is None:\n        policy = dungettext_policy\n    if translations is None:\n        translations = NullTranslations()\n    def pluralizer(singular, plural, n, domain=None, mapping=None, context=None):\n        \"\"\" Pluralize this object \"\"\"\n        translated = text_type(\n            policy(translations, singular, plural, n, domain, context))\n        if translated and '$' in translated and mapping:\n            return TranslationString(translated, mapping=mapping).interpolate()\n        return translated\n    return pluralizer\n"
+    },
+    {
+      "function": "pluralizer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line": 403,
+      "caller": "test_pluralizer_ungettext_policy",
+      "source_code": "    def pluralizer(singular, plural, n, domain=None, mapping=None, context=None):\n        \"\"\" Pluralize this object \"\"\"\n        translated = text_type(\n            policy(translations, singular, plural, n, domain, context))\n        if translated and '$' in translated and mapping:\n            return TranslationString(translated, mapping=mapping).interpolate()\n        return translated\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pluralizer_ungettext_policy",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_pluralizer_ungettext_policy(self):\n        translations = self._makeTranslations()\n        from translationstring import Pluralizer\n        from translationstring import ungettext_policy\n\n        pluralizer = Pluralizer(translations, ungettext_policy)\n\n        result = pluralizer('Unable to find user: ${users}',\n                            'Unable to find users: ${users}',\n                            1,\n                            mapping={'users':'users'})\n        self.assertEqual(result,\n                         \"Benutzer konnte nicht gefunden werden: users\")"
+}

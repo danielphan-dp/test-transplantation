@@ -1,0 +1,10 @@
+{
+  "test_name": "test_max_header_field_size",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_max_header_field_size(parser: HttpRequestParser, size: int) -> None:\n    name = b\"t\" * size\n    text = b\"GET /test HTTP/1.1\\r\\n\" + name + b\":data\\r\\n\\r\\n\"\n\n    match = f\"400, message:\\n  Got more than 8190 bytes \\\\({size}\\\\) when reading\"\n    with pytest.raises(http_exceptions.LineTooLong, match=match):\n        parser.feed_data(text)"
+}

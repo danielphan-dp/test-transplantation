@@ -1,0 +1,42 @@
+{
+  "test_name": "test_redirect_with_header_injection",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_redirect.py",
+  "static_methods": [
+    {
+      "name": "redirect_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "response.text.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "redirect_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_redirect_with_header_injection",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "response.text.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_redirect_with_header_injection",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 302",
+    "assert 'test-header' not in response.headers",
+    "assert not response.text.startswith('test-body')"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_redirect_with_header_injection(redirect_app):\n    \"\"\"\n    Test redirection to a URL with header and body injections.\n    \"\"\"\n    request, response = redirect_app.test_client.get(\n        \"/redirect_with_header_injection\", allow_redirects=False\n    )\n\n    assert response.status == 302\n    assert \"test-header\" not in response.headers\n    assert not response.text.startswith(\"test-body\")"
+}

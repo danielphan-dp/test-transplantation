@@ -1,0 +1,38 @@
+{
+  "test_name": "test_w_equal_names",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_sorting.py",
+  "static_methods": [
+    {
+      "name": "iface_list.sort",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 60
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "iface_list.sort",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 60,
+      "caller": "test_w_equal_names",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_equal_names",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_w_equal_names(self):\n        # interfaces with equal names but different modules should sort by\n        # module name\n        from zope.interface.tests.m1 import I1 as m1_I1\n        iface_list = [I1, m1_I1]\n        iface_list.sort()\n        self.assertEqual(iface_list, [m1_I1, I1])"
+}

@@ -1,0 +1,142 @@
+{
+  "test_name": "test_override_asset_directory_with_absdirectory",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_assets.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyUnderOverride",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.override_asset",
+      "source_code": "    def override_asset(self, to_override, override_with, _override=None):\n        \"\"\"Add a :app:`Pyramid` asset override to the current\n        configuration state.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/assets.py",
+      "line_number": 319
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "override.source.get_filename",
+      "source_code": "    def get_filename(fullname):\n        \"\"\"Return the value of '__file__' if the named module was loaded.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 1072
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyUnderOverride",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": ""
+    },
+    {
+      "function": "config.override_asset",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/assets.py",
+      "line": 319,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": "    @action_method\n    def override_asset(self, to_override, override_with, _override=None):\n        \"\"\"Add a :app:`Pyramid` asset override to the current\n        configuration state.\n\n        ``to_override`` is an :term:`asset specification` to the\n        asset being overridden.\n\n        ``override_with`` is an :term:`asset specification` to the\n        asset that is performing the override. This may also be an absolute\n        path.\n\n        See :ref:`assets_chapter` for more\n        information about asset overrides.\"\"\"\n        if to_override == override_with:\n            raise ConfigurationError(\n                'You cannot override an asset with itself'\n            )\n\n        package = to_override\n        path = ''\n        if ':' in to_override:\n            package, path = to_override.split(':', 1)\n\n        # *_isdir = override is package or directory\n        overridden_isdir = path == '' or path.endswith('/')\n\n        if os.path.isabs(override_with):\n            override_source = FSAssetSource(override_with)\n            if not os.path.exists(override_with):\n                raise ConfigurationError(\n                    'Cannot override asset with an absolute path that does '\n                    'not exist'\n                )\n            override_isdir = os.path.isdir(override_with)\n            override_package = None\n            override_prefix = override_with\n        else:\n            override_package = override_with\n            override_prefix = ''\n            if ':' in override_with:\n                override_package, override_prefix = override_with.split(':', 1)\n\n            __import__(override_package)\n            to_package = sys.modules[override_package]\n            override_source = PackageAssetSource(to_package, override_prefix)\n\n            override_isdir = override_prefix == '' or override_with.endswith(\n                '/'\n            )\n\n        if overridden_isdir and (not override_isdir):\n            raise ConfigurationError(\n                'A directory cannot be overridden with a file (put a '\n                'slash at the end of override_with if necessary)'\n            )\n\n        if (not overridden_isdir) and override_isdir:\n            raise ConfigurationError(\n                'A file cannot be overridden with a directory (put a '\n                'slash at the end of to_override if necessary)'\n            )\n\n        override = _override or self._override  # test jig\n\n        def register():\n            __import__(package)\n            from_package = sys.modules[package]\n            override(from_package, path, override_source)\n\n        intr = self.introspectable(\n            'asset overrides',\n            (package, override_package, path, override_prefix),\n            f'{to_override} -> {override_with}',\n            'asset override',\n        )\n        intr['to_override'] = to_override\n        intr['override_with'] = override_with\n        self.action(\n            None, register, introspectables=(intr,), order=PHASE1_CONFIG\n        )\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": ""
+    },
+    {
+      "function": "override.source.get_filename",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 1072,
+      "caller": "test_override_asset_directory_with_absdirectory",
+      "source_code": "    def get_filename(fullname):\n        \"\"\"Return the value of '__file__' if the named module was loaded.\n\n        If the module is not found, raise ImportError.\n        \"\"\"\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_override_asset_directory_with_absdirectory(self):\n        from pyramid.config.assets import FSAssetSource\n\n        config = self._makeOne(autocommit=True)\n        override = DummyUnderOverride()\n        abspath = os.path.join(\n            here, 'pkgs', 'asset', 'subpackage', 'templates'\n        )\n        config.override_asset(\n            'tests.test_config.pkgs.asset:templates/',\n            abspath,\n            _override=override,\n        )\n        from tests.test_config.pkgs import asset\n\n        self.assertEqual(override.package, asset)\n        self.assertEqual(override.path, 'templates/')\n        source = override.source\n        self.assertTrue(isinstance(source, FSAssetSource))\n        self.assertEqual(source.prefix, abspath)\n\n        resource_name = 'bar.pt'\n        expected = os.path.join(\n            here, 'pkgs', 'asset', 'subpackage', 'templates', 'bar.pt'\n        )\n        self.assertEqual(override.source.get_filename(resource_name), expected)"
+}

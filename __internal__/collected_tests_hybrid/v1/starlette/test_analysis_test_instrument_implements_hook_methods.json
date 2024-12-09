@@ -1,0 +1,80 @@
+{
+  "test_name": "test_instrument_implements_hook_methods",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_abc.py",
+  "static_methods": [
+    {
+      "name": "tabc.Instrument",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "callable",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "method",
+      "source_code": "    def method(self) -> int:\n        return 7",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_deprecate.py",
+      "line_number": 111
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tabc.Instrument",
+      "filename": "",
+      "line": 0,
+      "caller": "test_instrument_implements_hook_methods",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_instrument_implements_hook_methods",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_instrument_implements_hook_methods",
+      "source_code": ""
+    },
+    {
+      "function": "callable",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_instrument_implements_hook_methods",
+      "source_code": ""
+    },
+    {
+      "function": "method",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_deprecate.py",
+      "line": 111,
+      "caller": "test_instrument_implements_hook_methods",
+      "source_code": "    @deprecated(\"1.0\", issue=123, instead=\"crying\")\n    def method(self) -> int:\n        return 7\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert hasattr(mayonnaise, method_name)",
+    "assert callable(method)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_instrument_implements_hook_methods() -> None:\n    attrs = {\n        \"before_run\": (),\n        \"after_run\": (),\n        \"task_spawned\": (Task,),\n        \"task_scheduled\": (Task,),\n        \"before_task_step\": (Task,),\n        \"after_task_step\": (Task,),\n        \"task_exited\": (Task,),\n        \"before_io_wait\": (3.3,),\n        \"after_io_wait\": (3.3,),\n    }\n\n    mayonnaise = tabc.Instrument()\n\n    for method_name, args in attrs.items():\n        assert hasattr(mayonnaise, method_name)\n        method = getattr(mayonnaise, method_name)\n        assert callable(method)\n        method(*args)"
+}

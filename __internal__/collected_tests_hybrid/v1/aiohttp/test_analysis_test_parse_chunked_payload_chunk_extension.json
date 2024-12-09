@@ -1,0 +1,42 @@
+{
+  "test_name": "test_parse_chunked_payload_chunk_extension",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "payload.is_eof",
+      "source_code": "    def is_eof(self) -> bool:\n        \"\"\"Return True if  'feed_eof' was called.\"\"\"\n        return self._eof",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line_number": 233
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "payload.is_eof",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line": 233,
+      "caller": "test_parse_chunked_payload_chunk_extension",
+      "source_code": "    def is_eof(self) -> bool:\n        \"\"\"Return True if  'feed_eof' was called.\"\"\"\n        return self._eof\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_parse_chunked_payload_chunk_extension",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    }
+  ],
+  "assertions": [
+    "assert b'dataline' == b''.join((d for d in payload._buffer))",
+    "assert [4, 8] == payload._http_chunk_splits",
+    "assert payload.is_eof()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_chunked_payload_chunk_extension(parser: HttpRequestParser) -> None:\n    text = b\"GET /test HTTP/1.1\\r\\ntransfer-encoding: chunked\\r\\n\\r\\n\"\n    msg, payload = parser.feed_data(text)[0][0]\n\n    parser.feed_data(b\"4;test\\r\\ndata\\r\\n4\\r\\nline\\r\\n0\\r\\ntest: test\\r\\n\\r\\n\")\n\n    assert b\"dataline\" == b\"\".join(d for d in payload._buffer)\n    assert [4, 8] == payload._http_chunk_splits\n    assert payload.is_eof()"
+}

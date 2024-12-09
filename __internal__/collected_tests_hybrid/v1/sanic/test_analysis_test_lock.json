@@ -1,0 +1,41 @@
+{
+  "test_name": "test_lock",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_shared_ctx.py",
+  "static_methods": [
+    {
+      "name": "SharedContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.lock",
+      "source_code": "    def lock(self) -> None:\n        self._lock = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/types/shared_ctx.py",
+      "line_number": 56
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SharedContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lock",
+      "source_code": ""
+    },
+    {
+      "function": "ctx.lock",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/types/shared_ctx.py",
+      "line": 56,
+      "caller": "test_lock",
+      "source_code": "    def lock(self) -> None:\n        self._lock = True\n"
+    }
+  ],
+  "assertions": [
+    "assert ctx.is_locked is False",
+    "assert ctx.is_locked is True"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_lock():\n    ctx = SharedContext()\n\n    assert ctx.is_locked is False\n\n    ctx.lock()\n\n    assert ctx.is_locked is True\n\n    message = \"Cannot set item on locked SharedContext object\"\n    with pytest.raises(RuntimeError, match=message):\n        ctx.item = 1"
+}

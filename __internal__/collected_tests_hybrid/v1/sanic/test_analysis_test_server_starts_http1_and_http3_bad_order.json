@@ -1,0 +1,51 @@
+{
+  "test_name": "test_server_starts_http1_and_http3_bad_order",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_server.py",
+  "static_methods": [
+    {
+      "name": "app.prepare",
+      "source_code": "    def prepare(self):\n        \"\"\"Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it.\"\"\"\n        p = PreparedRequest()\n        p.prepare(\n            method=self.method,\n            url=self.url,\n            headers=self.headers,\n            files=self.files,\n            data=self.data,\n            json=self.json,\n            params=self.params,\n            auth=self.auth,\n            cookies=self.cookies,\n            hooks=self.hooks,\n        )\n        return p",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 296
+    },
+    {
+      "name": "app.stop",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1308
+    },
+    {
+      "name": "app.prepare",
+      "source_code": "    def prepare(self):\n        \"\"\"Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it.\"\"\"\n        p = PreparedRequest()\n        p.prepare(\n            method=self.method,\n            url=self.url,\n            headers=self.headers,\n            files=self.files,\n            data=self.data,\n            json=self.json,\n            params=self.params,\n            auth=self.auth,\n            cookies=self.cookies,\n            hooks=self.hooks,\n        )\n        return p",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 296
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.prepare",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 296,
+      "caller": "test_server_starts_http1_and_http3_bad_order",
+      "source_code": "    def prepare(self):\n        \"\"\"Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it.\"\"\"\n        p = PreparedRequest()\n        p.prepare(\n            method=self.method,\n            url=self.url,\n            headers=self.headers,\n            files=self.files,\n            data=self.data,\n            json=self.json,\n            params=self.params,\n            auth=self.auth,\n            cookies=self.cookies,\n            hooks=self.hooks,\n        )\n        return p\n\n\n"
+    },
+    {
+      "function": "app.stop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1308,
+      "caller": "test_server_starts_http1_and_http3_bad_order",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True\n\n"
+    },
+    {
+      "function": "app.prepare",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 296,
+      "caller": "test_server_starts_http1_and_http3_bad_order",
+      "source_code": "    def prepare(self):\n        \"\"\"Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it.\"\"\"\n        p = PreparedRequest()\n        p.prepare(\n            method=self.method,\n            url=self.url,\n            headers=self.headers,\n            files=self.files,\n            data=self.data,\n            json=self.json,\n            params=self.params,\n            auth=self.auth,\n            cookies=self.cookies,\n            hooks=self.hooks,\n        )\n        return p\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_server_starts_http1_and_http3_bad_order(app: Sanic, caplog):\n    @app.after_server_start\n    def shutdown(*_):\n        app.stop()\n\n    app.prepare(\n        version=1,\n        ssl={\n            \"cert\": localhost_dir / \"fullchain.pem\",\n            \"key\": localhost_dir / \"privkey.pem\",\n        },\n    )\n    message = (\n        \"Serving HTTP/3 instances as a secondary server is not supported. \"\n        \"There can only be a single HTTP/3 worker and it must be the first \"\n        \"instance prepared.\"\n    )\n    with pytest.raises(RuntimeError, match=message):\n        app.prepare(\n            version=3,\n            ssl={\n                \"cert\": localhost_dir / \"fullchain.pem\",\n                \"key\": localhost_dir / \"privkey.pem\",\n            },\n        )"
+}

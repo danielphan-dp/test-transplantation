@@ -1,0 +1,142 @@
+{
+  "test_name": "test_monitor_all_with_files",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_manager.py",
+  "static_methods": [
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WorkerManager",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "manager.monitor",
+      "source_code": "    def monitor(self):\n        \"\"\"Monitor the worker processes.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line_number": 278
+    },
+    {
+      "name": "manager.restart.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "WorkerManager",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "manager.monitor",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line": 278,
+      "caller": "test_monitor_all_with_files",
+      "source_code": "    def monitor(self):\n        \"\"\"Monitor the worker processes.\n\n        First, wait for all of the workers to acknowledge that they are ready.\n        Then, wait for messages from the workers. If a message is received\n        then it is processed and the state of the worker is updated.\n\n        Also used to restart, shutdown, and scale the workers.\n\n        Raises:\n            ServerKilled: Raised when a worker fails to come online.\n        \"\"\"\n        self.wait_for_ack()\n        while True:\n            try:\n                cycle = self._poll_monitor()\n                if cycle is MonitorCycle.BREAK:\n                    break\n                elif cycle is MonitorCycle.CONTINUE:\n                    continue\n                self._sync_states()\n                self._cleanup_non_tracked_workers()\n            except InterruptedError:\n                if not OS_IS_WINDOWS:\n                    raise\n                break\n\n"
+    },
+    {
+      "function": "manager.restart.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_monitor_all_with_files",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_monitor_all_with_files(zero_downtime):\n    p1 = Mock()\n    p2 = Mock()\n    sub = Mock()\n    incoming = (\n        \"__ALL_PROCESSES__:foo,bar:STARTUP_FIRST\"\n        if zero_downtime\n        else \"__ALL_PROCESSES__:foo,bar\"\n    )\n    sub.recv.side_effect = [incoming, \"\"]\n    context = Mock()\n    context.Process.side_effect = [p1, p2]\n    manager = WorkerManager(2, fake_serve, {}, context, (Mock(), sub), {})\n    manager.restart = Mock()  # type: ignore\n    manager.wait_for_ack = Mock()  # type: ignore\n    manager.monitor()\n\n    restart_order = (\n        RestartOrder.STARTUP_FIRST\n        if zero_downtime\n        else RestartOrder.SHUTDOWN_FIRST\n    )\n    manager.restart.assert_called_once_with(\n        process_names=None,\n        reloaded_files=\"foo,bar\",\n        restart_order=restart_order,\n    )"
+}

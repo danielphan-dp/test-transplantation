@@ -1,0 +1,68 @@
+{
+  "test_name": "test_test_client_port_default",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_test_client_port.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "SanicTestClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "request.transport.get_extra_info",
+      "source_code": "    def get_extra_info(self, info: str, default: Any = None) -> Any:\n        if (\n            info in (\"socket\", \"sockname\", \"peername\")\n            and self._protocol._transport\n        ):\n            return self._protocol._transport.get_extra_info(info, default)\n        elif info == \"network_paths\":\n            return self._protocol._quic._network_paths\n        elif info == \"ssl_context\":\n            return self._protocol.app.state.ssl\n        return default",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line_number": 73
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_test_client_port_default",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "SanicTestClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_test_client_port_default",
+      "source_code": ""
+    },
+    {
+      "function": "test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_test_client_port_default",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "request.transport.get_extra_info",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line": 73,
+      "caller": "test_test_client_port_default",
+      "source_code": "    def get_extra_info(self, info: str, default: Any = None) -> Any:\n        if (\n            info in (\"socket\", \"sockname\", \"peername\")\n            and self._protocol._transport\n        ):\n            return self._protocol._transport.get_extra_info(info, default)\n        elif info == \"network_paths\":\n            return self._protocol._quic._network_paths\n        elif info == \"ssl_context\":\n            return self._protocol.app.state.ssl\n        return default\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert test_client.port == PORT",
+    "assert test_client.port > 0",
+    "assert response.json == test_client.port"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_test_client_port_default(app):\n    @app.get(\"/get\")\n    def handler(request):\n        return json(request.transport.get_extra_info(\"sockname\")[1])\n\n    test_client = SanicTestClient(app)\n    assert test_client.port == PORT  # Can be None before request\n\n    request, response = test_client.get(\"/get\")\n    assert test_client.port > 0\n    assert response.json == test_client.port"
+}

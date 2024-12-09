@@ -1,0 +1,51 @@
+{
+  "test_name": "test_regular_package_with_nested_pep420_ns_packages",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+  "static_methods": [
+    {
+      "name": "self._touch",
+      "source_code": "    def _touch(self, path, dir_=None):\n        if dir_:\n            path = os.path.join(dir_, path)\n        open(path, 'wb').close()\n        return path",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line_number": 58
+    },
+    {
+      "name": "find_namespace_packages",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._assert_packages",
+      "source_code": "    def _assert_packages(self, actual, expected):\n        assert set(actual) == set(expected)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line_number": 127
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line": 58,
+      "caller": "test_regular_package_with_nested_pep420_ns_packages",
+      "source_code": "    def _touch(self, path, dir_=None):\n        if dir_:\n            path = os.path.join(dir_, path)\n        open(path, 'wb').close()\n        return path\n\n"
+    },
+    {
+      "function": "find_namespace_packages",
+      "filename": "",
+      "line": 0,
+      "caller": "test_regular_package_with_nested_pep420_ns_packages",
+      "source_code": ""
+    },
+    {
+      "function": "self._assert_packages",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line": 127,
+      "caller": "test_regular_package_with_nested_pep420_ns_packages",
+      "source_code": "    def _assert_packages(self, actual, expected):\n        assert set(actual) == set(expected)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_regular_package_with_nested_pep420_ns_packages(self):\n        self._touch('__init__.py', self.pkg_dir)\n        packages = find_namespace_packages(\n            self.dist_dir, exclude=['docs', 'pkg.subpkg.assets']\n        )\n        self._assert_packages(packages, ['pkg', 'pkg.nspkg', 'pkg.subpkg'])"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_from_contents_with_no_discernible_information_and_default",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Resource.from_contents",
+      "source_code": "    def from_contents(\n        cls,\n        contents: D,\n        default_specification: (\n            type[Specification[D]] | Specification[D]\n        ) = Specification,\n    ) -> Resource[D]:\n        \"\"\"\n        Create a resource guessing which specification applies to the contents.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 191
+    },
+    {
+      "name": "Resource.opaque",
+      "source_code": "    def opaque(cls, contents: D) -> Resource[D]:\n        \"\"\"\n        Create an opaque `Resource` -- i.e. one with opaque specification.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 214
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Resource.from_contents",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 191,
+      "caller": "test_from_contents_with_no_discernible_information_and_default",
+      "source_code": "    @classmethod\n    def from_contents(\n        cls,\n        contents: D,\n        default_specification: (\n            type[Specification[D]] | Specification[D]\n        ) = Specification,\n"
+    },
+    {
+      "function": "Resource.opaque",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 214,
+      "caller": "test_from_contents_with_no_discernible_information_and_default",
+      "source_code": "    @classmethod\n    def opaque(cls, contents: D) -> Resource[D]:\n        \"\"\"\n        Create an opaque `Resource` -- i.e. one with opaque specification.\n\n        See `Specification.OPAQUE` for details.\n        \"\"\"\n        return Specification.OPAQUE.create_resource(contents=contents)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert resource == Resource.opaque(contents={'foo': 'bar'})"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_from_contents_with_no_discernible_information_and_default(self):\n        resource = Resource.from_contents(\n            {\"foo\": \"bar\"},\n            default_specification=Specification.OPAQUE,\n        )\n        assert resource == Resource.opaque(contents={\"foo\": \"bar\"})"
+}

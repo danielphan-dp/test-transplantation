@@ -1,0 +1,137 @@
+{
+  "test_name": "test_mutable_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_datastructures.py",
+  "static_methods": [
+    {
+      "name": "MutableHeaders",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "h.setdefault",
+      "source_code": "    def setdefault(self, key: StashKey[T], default: T) -> T:\n        \"\"\"Return the value of key if already set, otherwise set the value\n        of key to default and return default.\"\"\"\n        try:\n            return self[key]\n        except KeyError:\n            self[key] = default\n            return default",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/stash.py",
+      "line_number": 94
+    },
+    {
+      "name": "h.setdefault",
+      "source_code": "    def setdefault(self, key: StashKey[T], default: T) -> T:\n        \"\"\"Return the value of key if already set, otherwise set the value\n        of key to default and return default.\"\"\"\n        try:\n            return self[key]\n        except KeyError:\n            self[key] = default\n            return default",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/stash.py",
+      "line_number": 94
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MutableHeaders",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mutable_headers",
+      "source_code": ""
+    },
+    {
+      "function": "h.setdefault",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/stash.py",
+      "line": 94,
+      "caller": "test_mutable_headers",
+      "source_code": "    def setdefault(self, key: StashKey[T], default: T) -> T:\n        \"\"\"Return the value of key if already set, otherwise set the value\n        of key to default and return default.\"\"\"\n        try:\n            return self[key]\n        except KeyError:\n            self[key] = default\n            return default\n\n"
+    },
+    {
+      "function": "h.setdefault",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/stash.py",
+      "line": 94,
+      "caller": "test_mutable_headers",
+      "source_code": "    def setdefault(self, key: StashKey[T], default: T) -> T:\n        \"\"\"Return the value of key if already set, otherwise set the value\n        of key to default and return default.\"\"\"\n        try:\n            return self[key]\n        except KeyError:\n            self[key] = default\n            return default\n\n"
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert dict(h) == {}",
+    "assert dict(h) == {'a': '1'}",
+    "assert dict(h) == {'a': '2'}",
+    "assert dict(h) == {'a': '2'}",
+    "assert dict(h) == {'a': '2', 'b': '4'}",
+    "assert dict(h) == {'b': '4'}",
+    "assert h.raw == [(b'b', b'4')]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_mutable_headers() -> None:\n    h = MutableHeaders()\n    assert dict(h) == {}\n    h[\"a\"] = \"1\"\n    assert dict(h) == {\"a\": \"1\"}\n    h[\"a\"] = \"2\"\n    assert dict(h) == {\"a\": \"2\"}\n    h.setdefault(\"a\", \"3\")\n    assert dict(h) == {\"a\": \"2\"}\n    h.setdefault(\"b\", \"4\")\n    assert dict(h) == {\"a\": \"2\", \"b\": \"4\"}\n    del h[\"a\"]\n    assert dict(h) == {\"b\": \"4\"}\n    assert h.raw == [(b\"b\", b\"4\")]"
+}

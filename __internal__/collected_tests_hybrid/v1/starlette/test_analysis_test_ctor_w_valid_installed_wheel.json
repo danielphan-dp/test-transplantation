@@ -1,0 +1,77 @@
+{
+  "test_name": "test_ctor_w_valid_installed_wheel",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_wheel.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 13
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._checkSample",
+      "source_code": "    def _checkSample(self, sdist, filename):\n        self.assertEqual(sdist.filename, filename)\n        self.assertEqual(sdist.name, 'mypackage')\n        self.assertEqual(sdist.version, '0.1')\n        self.assertEqual(sdist.keywords, None)\n        self.assertEqual(list(sdist.supported_platforms), [])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 18
+    },
+    {
+      "name": "self._checkClassifiers",
+      "source_code": "    def _checkClassifiers(self, sdist):\n        self.assertEqual(list(sdist.classifiers),\n                         ['Development Status :: 4 - Beta',\n                          'Environment :: Console (Text Based)',\n                         ])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 25
+    },
+    {
+      "name": "zipf.extractall",
+      "source_code": "    def extractall(self, path=\".\", members=None, *, numeric_owner=False,\n                   filter=None):\n        \"\"\"Extract all members from the archive to the current working\n           directory and set owner, modification time and permissions on\n           directories afterwards. 'path' specifies a different directory\n           to extract to. 'members' is optional and must be a subset of the\n           list returned by getmembers(). If 'numeric_owner' is True, only\n           the numbers for user/group names are used and not the names.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/backports/tarfile/__init__.py",
+      "line_number": 2273
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 13,
+      "caller": "test_ctor_w_valid_installed_wheel",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ctor_w_valid_installed_wheel",
+      "source_code": ""
+    },
+    {
+      "function": "self._checkSample",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 18,
+      "caller": "test_ctor_w_valid_installed_wheel",
+      "source_code": "    def _checkSample(self, sdist, filename):\n        self.assertEqual(sdist.filename, filename)\n        self.assertEqual(sdist.name, 'mypackage')\n        self.assertEqual(sdist.version, '0.1')\n        self.assertEqual(sdist.keywords, None)\n        self.assertEqual(list(sdist.supported_platforms), [])\n\n"
+    },
+    {
+      "function": "self._checkClassifiers",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 25,
+      "caller": "test_ctor_w_valid_installed_wheel",
+      "source_code": "    def _checkClassifiers(self, sdist):\n        self.assertEqual(list(sdist.classifiers),\n                         ['Development Status :: 4 - Beta',\n                          'Environment :: Console (Text Based)',\n                         ])\n\n"
+    },
+    {
+      "function": "zipf.extractall",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/backports/tarfile/__init__.py",
+      "line": 2273,
+      "caller": "test_ctor_w_valid_installed_wheel",
+      "source_code": "    def extractall(self, path=\".\", members=None, *, numeric_owner=False,\n                   filter=None):\n        \"\"\"Extract all members from the archive to the current working\n           directory and set owner, modification time and permissions on\n           directories afterwards. 'path' specifies a different directory\n           to extract to. 'members' is optional and must be a subset of the\n           list returned by getmembers(). If 'numeric_owner' is True, only\n           the numbers for user/group names are used and not the names.\n\n           The 'filter' function will be called on each member just\n           before extraction.\n           It can return a changed TarInfo or None to skip the member.\n           String names of common filters are accepted.\n        \"\"\"\n        directories = []\n\n        filter_function = self._get_filter_function(filter)\n        if members is None:\n            members = self\n\n        for member in members:\n            tarinfo = self._get_extract_tarinfo(member, filter_function, path)\n            if tarinfo is None:\n                continue\n            if tarinfo.isdir():\n                # For directories, delay setting attributes until later,\n                # since permissions can interfere with extraction and\n                # extracting contents can reset mtime.\n                directories.append(tarinfo)\n            self._extract_one(tarinfo, path, set_attrs=not tarinfo.isdir(),\n                              numeric_owner=numeric_owner)\n\n        # Reverse sort directories.\n        directories.sort(key=lambda a: a.name, reverse=True)\n\n        # Set correct owner, mtime and filemode on directories.\n        for tarinfo in directories:\n            dirpath = os.path.join(path, tarinfo.name)\n            try:\n                self.chown(tarinfo, dirpath, numeric_owner=numeric_owner)\n                self.utime(tarinfo, dirpath)\n                self.chmod(tarinfo, dirpath)\n            except ExtractError as e:\n                self._handle_nonfatal_error(e)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ctor_w_valid_installed_wheel(self):\n        import os\n        import shutil\n        import tempfile\n        import zipfile\n\n        d, _ = os.path.split(__file__)\n        filename = ('%s/../../docs/examples/'\n                    'mypackage-0.1-cp26-none-linux_x86_64.whl') % d\n\n        try:\n            # note: we mock a wheel installation by unzipping\n            test_dir = tempfile.mkdtemp()\n            with zipfile.ZipFile(filename) as zipf:\n                zipf.extractall(test_dir)\n            wheel = self._makeOne(filename)\n            self.assertEqual(wheel.metadata_version, '2.0')\n            self._checkSample(wheel, filename)\n            self._checkClassifiers(wheel)\n        finally:\n            if os.path.exists(test_dir):\n                shutil.rmtree(test_dir)"
+}

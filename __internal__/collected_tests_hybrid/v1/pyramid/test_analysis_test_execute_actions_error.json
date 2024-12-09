@@ -1,0 +1,64 @@
+{
+  "test_name": "test_execute_actions_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_actions.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "output.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_execute_actions_error",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_execute_actions_error",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_execute_actions_error",
+      "source_code": ""
+    },
+    {
+      "function": "output.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_execute_actions_error",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_execute_actions_error(self):\n        output = []\n\n        def f(*a, **k):\n            output.append(('f', a, k))\n\n        def bad():\n            raise NotImplementedError\n\n        c = self._makeOne()\n        c.actions = [\n            (1, f, (1,)),\n            (1, f, (11,), {}, ('x',)),\n            (2, f, (2,)),\n            (3, bad, (), {}, (), 'oops'),\n        ]\n        self.assertRaises(ConfigurationExecutionError, c.execute_actions)\n        self.assertEqual(output, [('f', (1,), {}), ('f', (2,), {})])"
+}

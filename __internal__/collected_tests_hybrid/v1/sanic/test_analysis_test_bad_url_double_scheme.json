@@ -1,0 +1,53 @@
+{
+  "test_name": "test_bad_url_double_scheme",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "index.open_url",
+      "source_code": "    def open_url(self, url, warning=None):  # noqa: C901  # is too complex (12)\n        if url.startswith('file:'):\n            return local_open(url)\n        try:\n            return open_with_auth(url, self.opener)\n        except (ValueError, http.client.InvalidURL) as v:\n            msg = ' '.join([str(arg) for arg in v.args])\n            if warning:\n                self.warn(warning, msg)\n            else:\n                raise DistutilsError('%s %s' % (url, msg)) from v\n        except urllib.error.HTTPError as v:\n            return v\n        except urllib.error.URLError as v:\n            if warning:\n                self.warn(warning, v.reason)\n            else:\n                raise DistutilsError(\n                    \"Download error for %s: %s\" % (url, v.reason)\n                ) from v\n        except http.client.BadStatusLine as v:\n            if warning:\n                self.warn(warning, v.line)\n            else:\n                raise DistutilsError(\n                    '%s returned a bad status line. The server might be '\n                    'down, %s' % (url, v.line)\n                ) from v\n        except (http.client.HTTPException, OSError) as v:\n            if warning:\n                self.warn(warning, v)\n            else:\n                raise DistutilsError(\"Download error for %s: %s\" % (url, v)) from v",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 786
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RuntimeError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bad_url_double_scheme",
+      "source_code": ""
+    },
+    {
+      "function": "index.open_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 786,
+      "caller": "test_bad_url_double_scheme",
+      "source_code": "    def open_url(self, url, warning=None):  # noqa: C901  # is too complex (12)\n        if url.startswith('file:'):\n            return local_open(url)\n        try:\n            return open_with_auth(url, self.opener)\n        except (ValueError, http.client.InvalidURL) as v:\n            msg = ' '.join([str(arg) for arg in v.args])\n            if warning:\n                self.warn(warning, msg)\n            else:\n                raise DistutilsError('%s %s' % (url, msg)) from v\n        except urllib.error.HTTPError as v:\n            return v\n        except urllib.error.URLError as v:\n            if warning:\n                self.warn(warning, v.reason)\n            else:\n                raise DistutilsError(\n                    \"Download error for %s: %s\" % (url, v.reason)\n                ) from v\n        except http.client.BadStatusLine as v:\n            if warning:\n                self.warn(warning, v.line)\n            else:\n                raise DistutilsError(\n                    '%s returned a bad status line. The server might be '\n                    'down, %s' % (url, v.line)\n                ) from v\n        except (http.client.HTTPException, OSError) as v:\n            if warning:\n                self.warn(warning, v)\n            else:\n                raise DistutilsError(\"Download error for %s: %s\" % (url, v)) from v\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bad_url_double_scheme",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'nonnumeric port' in msg or 'getaddrinfo failed' in msg or 'Name or service not known' in msg"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bad_url_double_scheme(self):\n        \"\"\"\n        A bad URL with a double scheme should raise a DistutilsError.\n        \"\"\"\n        index = setuptools.package_index.PackageIndex(hosts=('www.example.com',))\n\n        # issue 20\n        url = 'http://http://svn.pythonpaste.org/Paste/wphp/trunk'\n        try:\n            index.open_url(url)\n        except distutils.errors.DistutilsError as error:\n            msg = str(error)\n            assert (\n                'nonnumeric port' in msg\n                or 'getaddrinfo failed' in msg\n                or 'Name or service not known' in msg\n            )\n            return\n        raise RuntimeError(\"Did not raise\")"
+}

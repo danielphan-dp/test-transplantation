@@ -1,0 +1,107 @@
+{
+  "test_name": "test_preserve_unicode_metadata",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "def chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 424
+    },
+    {
+      "name": "egginfo.mkdir",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "simpler_bdist_wheel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cmd_obj.egg2dist",
+      "source_code": "    def egg2dist(self, egginfo_path, distinfo_path):\n        \"\"\"Convert an .egg-info directory into a .dist-info directory\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/bdist_wheel.py",
+      "line_number": 525
+    },
+    {
+      "name": "read_text",
+      "source_code": "    def read_text(\n        package: Package,\n        resource: Resource,\n        encoding: str = 'utf-8',\n        errors: str = 'strict'\n    ) -> str:\n        with open(where(), encoding=encoding) as data:\n            return data.read()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/certifi/core.py",
+      "line_number": 91
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.chdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 424,
+      "caller": "test_preserve_unicode_metadata",
+      "source_code": "@contextlib.contextmanager\ndef chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)\n\n\n"
+    },
+    {
+      "function": "egginfo.mkdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line": 123,
+      "caller": "test_preserve_unicode_metadata",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")\n\n"
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_preserve_unicode_metadata",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_preserve_unicode_metadata",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "simpler_bdist_wheel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_preserve_unicode_metadata",
+      "source_code": ""
+    },
+    {
+      "function": "cmd_obj.egg2dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/bdist_wheel.py",
+      "line": 525,
+      "caller": "test_preserve_unicode_metadata",
+      "source_code": "    def egg2dist(self, egginfo_path, distinfo_path):\n        \"\"\"Convert an .egg-info directory into a .dist-info directory\"\"\"\n\n        def adios(p):\n            \"\"\"Appropriately delete directory, file or link.\"\"\"\n            if os.path.exists(p) and not os.path.islink(p) and os.path.isdir(p):\n                shutil.rmtree(p)\n            elif os.path.exists(p):\n                os.unlink(p)\n\n        adios(distinfo_path)\n\n        if not os.path.exists(egginfo_path):\n            # There is no egg-info. This is probably because the egg-info\n            # file/directory is not named matching the distribution name used\n            # to name the archive file. Check for this case and report\n            # accordingly.\n            import glob\n\n            pat = os.path.join(os.path.dirname(egginfo_path), \"*.egg-info\")\n            possible = glob.glob(pat)\n            err = f\"Egg metadata expected at {egginfo_path} but not found\"\n            if possible:\n                alt = os.path.basename(possible[0])\n                err += f\" ({alt} found - possible misnamed archive file?)\"\n\n            raise ValueError(err)\n\n        if os.path.isfile(egginfo_path):\n            # .egg-info is a single file\n            pkginfo_path = egginfo_path\n            pkg_info = pkginfo_to_metadata(egginfo_path, egginfo_path)\n            os.mkdir(distinfo_path)\n        else:\n            # .egg-info is a directory\n            pkginfo_path = os.path.join(egginfo_path, \"PKG-INFO\")\n            pkg_info = pkginfo_to_metadata(egginfo_path, pkginfo_path)\n\n            # ignore common egg metadata that is useless to wheel\n            shutil.copytree(\n                egginfo_path,\n                distinfo_path,\n                ignore=lambda x, y: {\n                    \"PKG-INFO\",\n                    \"requires.txt\",\n                    \"SOURCES.txt\",\n                    \"not-zip-safe\",\n                },\n            )\n\n            # delete dependency_links if it is only whitespace\n            dependency_links_path = os.path.join(distinfo_path, \"dependency_links.txt\")\n            with open(dependency_links_path, encoding=\"utf-8\") as dependency_links_file:\n                dependency_links = dependency_links_file.read().strip()\n            if not dependency_links:\n                adios(dependency_links_path)\n\n        pkg_info_path = os.path.join(distinfo_path, \"METADATA\")\n        serialization_policy = EmailPolicy(\n            utf8=True,\n            mangle_from_=False,\n            max_line_length=0,\n        )\n        with open(pkg_info_path, \"w\", encoding=\"utf-8\") as out:\n            Generator(out, policy=serialization_policy).flatten(pkg_info)\n\n        for license_path in self.license_paths:\n            filename = os.path.basename(license_path)\n            shutil.copy(license_path, os.path.join(distinfo_path, filename))\n\n        adios(egginfo_path)\n"
+    },
+    {
+      "function": "read_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/certifi/core.py",
+      "line": 91,
+      "caller": "test_preserve_unicode_metadata",
+      "source_code": "    def read_text(\n        package: Package,\n        resource: Resource,\n        encoding: str = 'utf-8',\n        errors: str = 'strict'\n"
+    }
+  ],
+  "assertions": [
+    "assert 'Author-email: \"John X. \u00c3\u00f8r\u00e7e\u010d\"' in metadata",
+    "assert '\u0393\u03b1\u03bc\u03b1 \ufb47 \u6771 ' in metadata",
+    "assert 'UTF-8 \u63cf\u8ff0 \u8aac\u660e' in metadata"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_preserve_unicode_metadata(monkeypatch, tmp_path):\n    monkeypatch.chdir(tmp_path)\n    egginfo = tmp_path / \"dummy_dist.egg-info\"\n    distinfo = tmp_path / \"dummy_dist.dist-info\"\n\n    egginfo.mkdir()\n    (egginfo / \"PKG-INFO\").write_text(UTF8_PKG_INFO, encoding=\"utf-8\")\n    (egginfo / \"dependency_links.txt\").touch()\n\n    class simpler_bdist_wheel(bdist_wheel):\n        \"\"\"Avoid messing with setuptools/distutils internals\"\"\"\n\n        def __init__(self):\n            pass\n\n        @property\n        def license_paths(self):\n            return []\n\n    cmd_obj = simpler_bdist_wheel()\n    cmd_obj.egg2dist(egginfo, distinfo)\n\n    metadata = (distinfo / \"METADATA\").read_text(encoding=\"utf-8\")\n    assert 'Author-email: \"John X. \u00c3\u00f8r\u00e7e\u010d\"' in metadata\n    assert \"\u0393\u03b1\u03bc\u03b1 \ufb47 \u6771 \" in metadata\n    assert \"UTF-8 \u63cf\u8ff0 \u8aac\u660e\" in metadata"
+}

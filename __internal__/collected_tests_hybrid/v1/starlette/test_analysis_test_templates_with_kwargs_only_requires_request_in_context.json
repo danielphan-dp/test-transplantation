@@ -1,0 +1,51 @@
+{
+  "test_name": "test_templates_with_kwargs_only_requires_request_in_context",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_templates.py",
+  "static_methods": [
+    {
+      "name": "Jinja2Templates",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "templates.TemplateResponse",
+      "source_code": "    def TemplateResponse(\n        self,\n        request: Request,\n        name: str,\n        context: dict[str, typing.Any] | None = None,\n        status_code: int = 200,\n        headers: typing.Mapping[str, str] | None = None,\n        media_type: str | None = None,\n        background: BackgroundTask | None = None,\n    ) -> _TemplateResponse: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/templating.py",
+      "line_number": 134
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Jinja2Templates",
+      "filename": "",
+      "line": 0,
+      "caller": "test_templates_with_kwargs_only_requires_request_in_context",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_templates_with_kwargs_only_requires_request_in_context",
+      "source_code": ""
+    },
+    {
+      "function": "templates.TemplateResponse",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/templating.py",
+      "line": 134,
+      "caller": "test_templates_with_kwargs_only_requires_request_in_context",
+      "source_code": "    @typing.overload\n    def TemplateResponse(\n        self,\n        request: Request,\n        name: str,\n        context: dict[str, typing.Any] | None = None,\n        status_code: int = 200,\n        headers: typing.Mapping[str, str] | None = None,\n        media_type: str | None = None,\n        background: BackgroundTask | None = None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_templates_with_kwargs_only_requires_request_in_context(tmpdir: Path) -> None:\n    # MAINTAINERS: remove after 1.0\n\n    templates = Jinja2Templates(directory=str(tmpdir))\n    with pytest.warns(\n        DeprecationWarning,\n        match=\"requires the `request` argument\",\n    ):\n        with pytest.raises(ValueError):\n            templates.TemplateResponse(name=\"index.html\", context={\"a\": \"b\"})"
+}

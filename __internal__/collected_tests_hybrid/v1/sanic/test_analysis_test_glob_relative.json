@@ -1,0 +1,93 @@
+{
+  "test_name": "test_glob_relative",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_expand.py",
+  "static_methods": [
+    {
+      "name": "write_files",
+      "source_code": "    def write_files(self, base_dir):\n        log.info(f\"creating '{self.filename}' and adding '{base_dir}' to it\")\n        deferred = []\n        for root, dirnames, filenames in os.walk(base_dir):\n            # Sort the directory names so that `os.walk` will walk them in a\n            # defined order on the next iteration.\n            dirnames.sort()\n            for name in sorted(filenames):\n                path = os.path.normpath(os.path.join(root, name))\n                if os.path.isfile(path):\n                    arcname = os.path.relpath(path, base_dir).replace(os.path.sep, \"/\")\n                    if arcname == self.record_path:\n                        pass\n                    elif root.endswith(\".dist-info\"):\n                        deferred.append((path, arcname))\n                    else:\n                        self.write(path, arcname)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/wheelfile.py",
+      "line_number": 122
+    },
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "def chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 424
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "expand.glob_relative",
+      "source_code": "def glob_relative(\n    patterns: Iterable[str], root_dir: StrPath | None = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/expand.py",
+      "line_number": 79
+    },
+    {
+      "name": "expand.glob_relative",
+      "source_code": "def glob_relative(\n    patterns: Iterable[str], root_dir: StrPath | None = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/expand.py",
+      "line_number": 79
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "write_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/wheelfile.py",
+      "line": 122,
+      "caller": "test_glob_relative",
+      "source_code": "    def write_files(self, base_dir):\n        log.info(f\"creating '{self.filename}' and adding '{base_dir}' to it\")\n        deferred = []\n        for root, dirnames, filenames in os.walk(base_dir):\n            # Sort the directory names so that `os.walk` will walk them in a\n            # defined order on the next iteration.\n            dirnames.sort()\n            for name in sorted(filenames):\n                path = os.path.normpath(os.path.join(root, name))\n                if os.path.isfile(path):\n                    arcname = os.path.relpath(path, base_dir).replace(os.path.sep, \"/\")\n                    if arcname == self.record_path:\n                        pass\n                    elif root.endswith(\".dist-info\"):\n                        deferred.append((path, arcname))\n                    else:\n                        self.write(path, arcname)\n\n        deferred.sort()\n        for path, arcname in deferred:\n            self.write(path, arcname)\n\n"
+    },
+    {
+      "function": "monkeypatch.chdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 424,
+      "caller": "test_glob_relative",
+      "source_code": "@contextlib.contextmanager\ndef chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)\n\n\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_glob_relative",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_glob_relative",
+      "source_code": ""
+    },
+    {
+      "function": "expand.glob_relative",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/expand.py",
+      "line": 79,
+      "caller": "test_glob_relative",
+      "source_code": "def glob_relative(\n    patterns: Iterable[str], root_dir: StrPath | None = None\n"
+    },
+    {
+      "function": "expand.glob_relative",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/expand.py",
+      "line": 79,
+      "caller": "test_glob_relative",
+      "source_code": "def glob_relative(\n    patterns: Iterable[str], root_dir: StrPath | None = None\n"
+    }
+  ],
+  "assertions": [
+    "assert set(expand.glob_relative(patterns)) == files",
+    "assert set(expand.glob_relative(patterns, tmp_path)) == files"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_glob_relative(tmp_path, monkeypatch):\n    files = {\n        \"dir1/dir2/dir3/file1.txt\",\n        \"dir1/dir2/file2.txt\",\n        \"dir1/file3.txt\",\n        \"a.ini\",\n        \"b.ini\",\n        \"dir1/c.ini\",\n        \"dir1/dir2/a.ini\",\n    }\n\n    write_files({k: \"\" for k in files}, tmp_path)\n    patterns = [\"**/*.txt\", \"[ab].*\", \"**/[ac].ini\"]\n    monkeypatch.chdir(tmp_path)\n    assert set(expand.glob_relative(patterns)) == files\n    # Make sure the same APIs work outside cwd\n    assert set(expand.glob_relative(patterns, tmp_path)) == files"
+}

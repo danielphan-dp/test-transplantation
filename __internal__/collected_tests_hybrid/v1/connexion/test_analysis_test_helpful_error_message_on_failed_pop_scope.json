@@ -1,0 +1,103 @@
+{
+  "test_name": "test_helpful_error_message_on_failed_pop_scope",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validators._RefResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resolver.pop_scope",
+      "source_code": "    def pop_scope(self):\n        \"\"\"\n        Exit the most recent entered scope.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 994
+    },
+    {
+      "name": "self.assertIn",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resolver.pop_scope",
+      "source_code": "    def pop_scope(self):\n        \"\"\"\n        Exit the most recent entered scope.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 994
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_helpful_error_message_on_failed_pop_scope",
+      "source_code": ""
+    },
+    {
+      "function": "validators._RefResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_helpful_error_message_on_failed_pop_scope",
+      "source_code": ""
+    },
+    {
+      "function": "resolver.pop_scope",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 994,
+      "caller": "test_helpful_error_message_on_failed_pop_scope",
+      "source_code": "    def pop_scope(self):\n        \"\"\"\n        Exit the most recent entered scope.\n\n        Treats further dereferences as being performed underneath the\n        original scope.\n\n        Don't call this method more times than `push_scope` has been\n        called.\n        \"\"\"\n        try:\n            self._scopes_stack.pop()\n        except IndexError:\n            raise exceptions._RefResolutionError(\n                \"Failed to pop the scope from an empty stack. \"\n                \"`pop_scope()` should only be called once for every \"\n                \"`push_scope()`\",\n            ) from None\n\n"
+    },
+    {
+      "function": "self.assertIn",
+      "filename": "",
+      "line": 0,
+      "caller": "test_helpful_error_message_on_failed_pop_scope",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_helpful_error_message_on_failed_pop_scope",
+      "source_code": ""
+    },
+    {
+      "function": "resolver.pop_scope",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 994,
+      "caller": "test_helpful_error_message_on_failed_pop_scope",
+      "source_code": "    def pop_scope(self):\n        \"\"\"\n        Exit the most recent entered scope.\n\n        Treats further dereferences as being performed underneath the\n        original scope.\n\n        Don't call this method more times than `push_scope` has been\n        called.\n        \"\"\"\n        try:\n            self._scopes_stack.pop()\n        except IndexError:\n            raise exceptions._RefResolutionError(\n                \"Failed to pop the scope from an empty stack. \"\n                \"`pop_scope()` should only be called once for every \"\n                \"`push_scope()`\",\n            ) from None\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_helpful_error_message_on_failed_pop_scope",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_helpful_error_message_on_failed_pop_scope(self):\n        resolver = validators._RefResolver(\"\", {})\n        resolver.pop_scope()\n        with self.assertRaises(exceptions._RefResolutionError) as exc:\n            resolver.pop_scope()\n        self.assertIn(\"Failed to pop the scope\", str(exc.exception))"
+}

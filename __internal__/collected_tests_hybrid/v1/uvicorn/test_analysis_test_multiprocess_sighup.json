@@ -1,0 +1,92 @@
+{
+  "test_name": "test_multiprocess_sighup",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_multiprocess.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Multiprocess",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "supervisor.signal_queue.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "supervisor.signal_queue.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "supervisor.join_all",
+      "source_code": "    def join_all(self):\n        \"\"\"Join all the threads to the master thread.\"\"\"\n        for session_thread in self._pool:\n            session_thread.join()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/pool.py",
+      "line_number": 144
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiprocess_sighup",
+      "source_code": ""
+    },
+    {
+      "function": "Multiprocess",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiprocess_sighup",
+      "source_code": ""
+    },
+    {
+      "function": "supervisor.signal_queue.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_multiprocess_sighup",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "supervisor.signal_queue.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_multiprocess_sighup",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "supervisor.join_all",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/pool.py",
+      "line": 144,
+      "caller": "test_multiprocess_sighup",
+      "source_code": "    def join_all(self):\n        \"\"\"Join all the threads to the master thread.\"\"\"\n        for session_thread in self._pool:\n            session_thread.join()\n\n\n"
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_multiprocess_sighup",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert pids != [p.pid for p in supervisor.processes]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_multiprocess_sighup() -> None:\n    \"\"\"\n    Ensure that the SIGHUP signal is handled as expected.\n    \"\"\"\n    config = Config(app=app, workers=2)\n    supervisor = Multiprocess(config, target=run, sockets=[])\n    threading.Thread(target=supervisor.run, daemon=True).start()\n    time.sleep(1)\n    pids = [p.pid for p in supervisor.processes]\n    supervisor.signal_queue.append(signal.SIGHUP)\n    time.sleep(1)\n    assert pids != [p.pid for p in supervisor.processes]\n    supervisor.signal_queue.append(signal.SIGINT)\n    supervisor.join_all()"
+}

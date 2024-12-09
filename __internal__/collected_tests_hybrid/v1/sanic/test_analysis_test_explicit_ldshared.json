@@ -1,0 +1,79 @@
+{
+  "test_name": "test_explicit_ldshared",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_unixccompiler.py",
+  "static_methods": [
+    {
+      "name": "EnvironmentVarGuard",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_orig",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EnvironmentVarGuard",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "map",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "EnvironmentVarGuard",
+      "filename": "",
+      "line": 0,
+      "caller": "test_explicit_ldshared",
+      "source_code": ""
+    },
+    {
+      "function": "_orig",
+      "filename": "",
+      "line": 0,
+      "caller": "test_explicit_ldshared",
+      "source_code": ""
+    },
+    {
+      "function": "EnvironmentVarGuard",
+      "filename": "",
+      "line": 0,
+      "caller": "test_explicit_ldshared",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_explicit_ldshared",
+      "source_code": ""
+    },
+    {
+      "function": "map",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_explicit_ldshared",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert self.cc.linker_so[0] == 'my_ld'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_explicit_ldshared(self):\n        # Issue #18080:\n        # ensure that setting CC env variable does not change\n        #   explicit LDSHARED setting for linker\n        def gcv(v):\n            if v == 'LDSHARED':\n                return 'gcc-4.2 -bundle -undefined dynamic_lookup '\n            return 'gcc-4.2'\n\n        def gcvs(*args, _orig=sysconfig.get_config_vars):\n            if args:\n                return list(map(sysconfig.get_config_var, args))\n            return _orig()\n\n        sysconfig.get_config_var = gcv\n        sysconfig.get_config_vars = gcvs\n        with EnvironmentVarGuard() as env:\n            env['CC'] = 'my_cc'\n            env['LDSHARED'] = 'my_ld -bundle -dynamic'\n            sysconfig.customize_compiler(self.cc)\n        assert self.cc.linker_so[0] == 'my_ld'"
+}

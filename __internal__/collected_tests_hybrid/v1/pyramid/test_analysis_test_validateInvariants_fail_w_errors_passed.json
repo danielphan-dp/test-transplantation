@@ -1,0 +1,129 @@
+{
+  "test_name": "test_validateInvariants_fail_w_errors_passed",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "iface.setTaggedValue",
+      "source_code": "    def setTaggedValue(self, tag, value):\n        \"\"\" Associates 'value' with 'key'. \"\"\"\n        if self.__tagged_values is None:\n            self.__tagged_values = {}\n        self.__tagged_values[tag] = value",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_fail_called_with.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": ""
+    },
+    {
+      "function": "iface.setTaggedValue",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 120,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": "    def setTaggedValue(self, tag, value):\n        \"\"\" Associates 'value' with 'key'. \"\"\"\n        if self.__tagged_values is None:\n            self.__tagged_values = {}\n        self.__tagged_values[tag] = value\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": ""
+    },
+    {
+      "function": "_fail_called_with.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_validateInvariants_fail_w_errors_passed",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_validateInvariants_fail_w_errors_passed(self):\n        from zope.interface.exceptions import Invalid\n        _errors = []\n        _fail_called_with = []\n\n        def _fail(*args, **kw):\n            _fail_called_with.append((args, kw))\n            raise Invalid\n\n        iface = self._makeOne()\n        obj = object()\n        iface.setTaggedValue('invariants', [_fail])\n        self.assertRaises(Invalid, iface.validateInvariants, obj, _errors)\n        self.assertEqual(_fail_called_with, [((obj,), {})])\n        self.assertEqual(len(_errors), 1)\n        self.assertIsInstance(_errors[0], Invalid)"
+}

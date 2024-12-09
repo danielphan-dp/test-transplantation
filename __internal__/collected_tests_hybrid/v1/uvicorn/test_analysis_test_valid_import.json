@@ -1,0 +1,27 @@
+{
+  "test_name": "test_valid_import",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/importer/test_importer.py",
+  "static_methods": [
+    {
+      "name": "import_from_string",
+      "source_code": "def import_from_string(import_str: Any) -> Any:\n    if not isinstance(import_str, str):\n        return import_str",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/importer.py",
+      "line_number": 9
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "import_from_string",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/importer.py",
+      "line": 9,
+      "caller": "test_valid_import",
+      "source_code": "def import_from_string(import_str: Any) -> Any:\n    if not isinstance(import_str, str):\n        return import_str\n\n    module_str, _, attrs_str = import_str.partition(\":\")\n    if not module_str or not attrs_str:\n        message = 'Import string \"{import_str}\" must be in format \"<module>:<attribute>\".'\n        raise ImportFromStringError(message.format(import_str=import_str))\n\n    try:\n        module = importlib.import_module(module_str)\n    except ModuleNotFoundError as exc:\n        if exc.name != module_str:\n            raise exc from None\n        message = 'Could not import module \"{module_str}\".'\n        raise ImportFromStringError(message.format(module_str=module_str))\n\n    instance = module\n    try:\n        for attr_str in attrs_str.split(\".\"):\n            instance = getattr(instance, attr_str)\n    except AttributeError:\n        message = 'Attribute \"{attrs_str}\" not found in module \"{module_str}\".'\n        raise ImportFromStringError(message.format(attrs_str=attrs_str, module_str=module_str))\n\n    return instance\n"
+    }
+  ],
+  "assertions": [
+    "assert instance == TemporaryFile"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_valid_import() -> None:\n    instance = import_from_string(\"tempfile:TemporaryFile\")\n    from tempfile import TemporaryFile\n\n    assert instance == TemporaryFile"
+}

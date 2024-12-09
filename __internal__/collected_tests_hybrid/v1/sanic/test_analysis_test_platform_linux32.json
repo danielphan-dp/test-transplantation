@@ -1,0 +1,40 @@
+{
+  "test_name": "test_platform_linux32",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "bdist_wheel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_platform_linux32",
+      "source_code": ""
+    },
+    {
+      "function": "bdist_wheel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_platform_linux32",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert actual == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_platform_linux32(reported, expected, monkeypatch):\n    monkeypatch.setattr(struct, \"calcsize\", lambda x: 4)\n    dist = setuptools.Distribution()\n    cmd = bdist_wheel(dist)\n    cmd.plat_name = reported\n    cmd.root_is_pure = False\n    _, _, actual = cmd.get_tag()\n    assert actual == expected"
+}

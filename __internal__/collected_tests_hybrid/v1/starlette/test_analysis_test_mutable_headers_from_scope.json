@@ -1,0 +1,108 @@
+{
+  "test_name": "test_mutable_headers_from_scope",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_datastructures.py",
+  "static_methods": [
+    {
+      "name": "MutableHeaders",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "h.update",
+      "source_code": "    def update(self, length):\n        if self.raw_buffer is None:\n            return\n        self.buffer = self.buffer[self.pointer:]\n        self.pointer = 0\n        while len(self.buffer) < length:\n            if not self.eof:\n                self.update_raw()\n            if self.raw_decode is not None:\n                try:\n                    data, converted = self.raw_decode(self.raw_buffer,\n                            'strict', self.eof)\n                except UnicodeDecodeError as exc:\n                    character = self.raw_buffer[exc.start]\n                    if self.stream is not None:\n                        position = self.stream_pointer-len(self.raw_buffer)+exc.start\n                    else:\n                        position = exc.start\n                    raise ReaderError(self.name, position, character,\n                            exc.encoding, exc.reason)\n            else:\n                data = self.raw_buffer\n                converted = len(data)\n            self.check_printable(data)\n            self.buffer += data\n            self.raw_buffer = self.raw_buffer[converted:]\n            if self.eof:\n                self.buffer += '\\0'\n                self.raw_buffer = None\n                break",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/yaml/reader.py",
+      "line_number": 146
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "h.items",
+      "source_code": "    def items(self) -> Iterator[tuple[str, str]]:\n        for name in self:\n            yield name, self[name]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/iniconfig/__init__.py",
+      "line_number": 100
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MutableHeaders",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mutable_headers_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "h.update",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/yaml/reader.py",
+      "line": 146,
+      "caller": "test_mutable_headers_from_scope",
+      "source_code": "    def update(self, length):\n        if self.raw_buffer is None:\n            return\n        self.buffer = self.buffer[self.pointer:]\n        self.pointer = 0\n        while len(self.buffer) < length:\n            if not self.eof:\n                self.update_raw()\n            if self.raw_decode is not None:\n                try:\n                    data, converted = self.raw_decode(self.raw_buffer,\n                            'strict', self.eof)\n                except UnicodeDecodeError as exc:\n                    character = self.raw_buffer[exc.start]\n                    if self.stream is not None:\n                        position = self.stream_pointer-len(self.raw_buffer)+exc.start\n                    else:\n                        position = exc.start\n                    raise ReaderError(self.name, position, character,\n                            exc.encoding, exc.reason)\n            else:\n                data = self.raw_buffer\n                converted = len(data)\n            self.check_printable(data)\n            self.buffer += data\n            self.raw_buffer = self.raw_buffer[converted:]\n            if self.eof:\n                self.buffer += '\\0'\n                self.raw_buffer = None\n                break\n\n"
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mutable_headers_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "h.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/iniconfig/__init__.py",
+      "line": 100,
+      "caller": "test_mutable_headers_from_scope",
+      "source_code": "    def items(self) -> Iterator[tuple[str, str]]:\n        for name in self:\n            yield name, self[name]\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dict(h) == {'a': '1'}",
+    "assert dict(h) == {'a': '1', 'b': '2'}",
+    "assert list(h.items()) == [('a', '1'), ('b', '2')]",
+    "assert list(h.raw) == [(b'a', b'1'), (b'b', b'2')]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_mutable_headers_from_scope() -> None:\n    # \"headers\" in scope must not necessarily be a list\n    h = MutableHeaders(scope={\"headers\": ((b\"a\", b\"1\"),)})\n    assert dict(h) == {\"a\": \"1\"}\n    h.update({\"b\": \"2\"})\n    assert dict(h) == {\"a\": \"1\", \"b\": \"2\"}\n    assert list(h.items()) == [(\"a\", \"1\"), (\"b\", \"2\")]\n    assert list(h.raw) == [(b\"a\", b\"1\"), (b\"b\", b\"2\")]"
+}

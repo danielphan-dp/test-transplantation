@@ -1,0 +1,53 @@
+{
+  "test_name": "test_printable_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_resources.py",
+  "static_methods": [
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "EntryPoint.parse",
+      "source_code": "def parse(version: str) -> Union[\"LegacyVersion\", \"Version\"]:\n    \"\"\"\n    Parse the given version string and return either a :class:`Version` object\n    or a :class:`LegacyVersion` object depending on if the given version is\n    a valid PEP 440 version or a legacy version.\n    \"\"\"\n    try:\n        return Version(version)\n    except InvalidVersion:\n        return LegacyVersion(version)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 42
+    },
+    {
+      "name": "locals",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_printable_name",
+      "source_code": ""
+    },
+    {
+      "function": "EntryPoint.parse",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 42,
+      "caller": "test_printable_name",
+      "source_code": "def parse(version: str) -> Union[\"LegacyVersion\", \"Version\"]:\n    \"\"\"\n    Parse the given version string and return either a :class:`Version` object\n    or a :class:`LegacyVersion` object depending on if the given version is\n    a valid PEP 440 version or a legacy version.\n    \"\"\"\n    try:\n        return Version(version)\n    except InvalidVersion:\n        return LegacyVersion(version)\n\n\n"
+    },
+    {
+      "function": "locals",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_printable_name",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ep.name == name"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_printable_name(self):\n        \"\"\"\n        Allow any printable character in the name.\n        \"\"\"\n        # Create a name with all printable characters; strip the whitespace.\n        name = string.printable.strip()\n        spec = \"{name} = module:attr\".format(**locals())\n        ep = EntryPoint.parse(spec)\n        assert ep.name == name"
+}

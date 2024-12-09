@@ -1,0 +1,80 @@
+{
+  "test_name": "test_dist_default_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "ensure_files",
+      "source_code": "def ensure_files(root_path, files):\n    for file in files:\n        path = root_path / file\n        path.parent.mkdir(parents=True, exist_ok=True)\n        path.touch()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line_number": 214
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dist.set_defaults",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "dist.get_name",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line_number": 544
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ensure_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line": 214,
+      "caller": "test_dist_default_name",
+      "source_code": "def ensure_files(root_path, files):\n    for file in files:\n        path = root_path / file\n        path.parent.mkdir(parents=True, exist_ok=True)\n        path.touch()\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_name",
+      "source_code": ""
+    },
+    {
+      "function": "dist.set_defaults",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_name",
+      "source_code": ""
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_dist_default_name",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "dist.get_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line": 544,
+      "caller": "test_dist_default_name",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.\n\n        Example::\n\n            integer = Word(nums)\n            ssn_expr = Regex(r\"\\d\\d\\d-\\d\\d-\\d\\d\\d\\d\")\n            house_number_expr = Suppress('#') + Word(nums, alphanums)\n            user_data = (Group(house_number_expr)(\"house_number\")\n                        | Group(ssn_expr)(\"ssn\")\n                        | Group(integer)(\"age\"))\n            user_info = user_data[1, ...]\n\n            result = user_info.parse_string(\"22 111-22-3333 #221B\")\n            for item in result:\n                print(item.get_name(), ':', item[0])\n\n        prints::\n\n            age : 22\n            ssn : 111-22-3333\n            house_number : 221B\n        \"\"\"\n        if self._name:\n            return self._name\n        elif self._parent:\n            par = self._parent()\n\n            def find_in_parent(sub):\n                return next(\n                    (\n                        k\n                        for k, vlist in par._tokdict.items()\n                        for v, loc in vlist\n                        if sub is v\n                    ),\n                    None,\n                )\n\n            return find_in_parent(self) if par else None\n        elif (\n            len(self) == 1\n            and len(self._tokdict) == 1\n            and next(iter(self._tokdict.values()))[0][1] in (0, -1)\n        ):\n            return next(iter(self._tokdict.keys()))\n        else:\n            return None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dist.py_modules or dist.packages",
+    "assert dist.get_name() == dist_name"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dist_default_name(tmp_path, dist_name, package_dir, package_files):\n    \"\"\"Make sure dist.name is discovered from packages/py_modules\"\"\"\n    ensure_files(tmp_path, package_files)\n    attrs = {\n        **EXAMPLE_BASE_INFO,\n        \"src_root\": \"/\".join(os.path.split(tmp_path)),  # POSIX-style\n        \"package_dir\": package_dir,\n    }\n    del attrs[\"name\"]\n\n    dist = Distribution(attrs)\n    dist.set_defaults()\n    assert dist.py_modules or dist.packages\n    assert dist.get_name() == dist_name"
+}

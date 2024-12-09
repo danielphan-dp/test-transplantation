@@ -1,0 +1,90 @@
+{
+  "test_name": "test_array_limit",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_low_level.py",
+  "static_methods": [
+    {
+      "name": "Array",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "a.serialise",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 172
+    },
+    {
+      "name": "FixedType",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "fake_list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "a.serialise",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 172
+    },
+    {
+      "name": "fake_list",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Array",
+      "filename": "",
+      "line": 0,
+      "caller": "test_array_limit",
+      "source_code": ""
+    },
+    {
+      "function": "a.serialise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 172,
+      "caller": "test_array_limit",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())\n\n        if self.message_type:\n            pairs.append(('type', self.message_type.name))\n\n        if self.eavesdrop:\n            pairs.append(('eavesdrop', 'true'))\n\n        for argno, (val, kind) in self.arg_conditions.items():\n            if kind == 'string':\n                kind = ''\n            pairs.append((f'arg{argno}{kind}', val))\n\n        # Quoting rules: single quotes ('') needed if the value contains a comma.\n        # A literal ' can only be represented outside single quotes, by\n        # backslash-escaping it. No escaping inside the quotes.\n        # The simplest way to handle this is to use '' around every value, and\n        # use '\\'' (end quote, escaped ', restart quote) for literal ' .\n        return ','.join(\n            \"{}='{}'\".format(k, v.replace(\"'\", r\"'\\''\")) for (k, v) in pairs\n        )\n\n"
+    },
+    {
+      "function": "FixedType",
+      "filename": "",
+      "line": 0,
+      "caller": "test_array_limit",
+      "source_code": ""
+    },
+    {
+      "function": "fake_list",
+      "filename": "",
+      "line": 0,
+      "caller": "test_array_limit",
+      "source_code": ""
+    },
+    {
+      "function": "a.serialise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 172,
+      "caller": "test_array_limit",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())\n\n        if self.message_type:\n            pairs.append(('type', self.message_type.name))\n\n        if self.eavesdrop:\n            pairs.append(('eavesdrop', 'true'))\n\n        for argno, (val, kind) in self.arg_conditions.items():\n            if kind == 'string':\n                kind = ''\n            pairs.append((f'arg{argno}{kind}', val))\n\n        # Quoting rules: single quotes ('') needed if the value contains a comma.\n        # A literal ' can only be represented outside single quotes, by\n        # backslash-escaping it. No escaping inside the quotes.\n        # The simplest way to handle this is to use '' around every value, and\n        # use '\\'' (end quote, escaped ', restart quote) for literal ' .\n        return ','.join(\n            \"{}='{}'\".format(k, v.replace(\"'\", r\"'\\''\")) for (k, v) in pairs\n        )\n\n"
+    },
+    {
+      "function": "fake_list",
+      "filename": "",
+      "line": 0,
+      "caller": "test_array_limit",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_array_limit():\n    # The spec limits arrays to 64 MiB\n    a = Array(FixedType(8, 'Q'))  # 'at' - array of uint64\n    a.serialise(fake_list(100), 0, Endianness.little)\n    with pytest.raises(SizeLimitError):\n        a.serialise(fake_list(2**23 + 1), 0, Endianness.little)"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test__zope_dottedname_style_resolveable_absolute",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_path.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "typ._zope_dottedname_style",
+      "source_code": "    def _zope_dottedname_style(self, value, package):\n        \"\"\"package.module.attr style\"\"\"\n        module = getattr(package, '__name__', None)  # package may be None\n        if not module:\n            module = None\n        if value == '.':\n            if module is None:\n                raise ValueError(\n                    f'relative name {value!r} irresolveable without package'\n                )\n            name = module.split('.')\n        else:\n            name = value.split('.')\n            if not name[0]:\n                if module is None:\n                    raise ValueError(\n                        'relative name %r irresolveable without '\n                        'package' % (value,)\n                    )\n                module = module.split('.')\n                name.pop(0)\n                while not name[0]:\n                    module.pop()\n                    name.pop(0)\n                name = module + name",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/path.py",
+      "line_number": 362
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__zope_dottedname_style_resolveable_absolute",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "typ._zope_dottedname_style",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/path.py",
+      "line": 362,
+      "caller": "test__zope_dottedname_style_resolveable_absolute",
+      "source_code": "    def _zope_dottedname_style(self, value, package):\n        \"\"\"package.module.attr style\"\"\"\n        module = getattr(package, '__name__', None)  # package may be None\n        if not module:\n            module = None\n        if value == '.':\n            if module is None:\n                raise ValueError(\n                    f'relative name {value!r} irresolveable without package'\n                )\n            name = module.split('.')\n        else:\n            name = value.split('.')\n            if not name[0]:\n                if module is None:\n                    raise ValueError(\n                        'relative name %r irresolveable without '\n                        'package' % (value,)\n                    )\n                module = module.split('.')\n                name.pop(0)\n                while not name[0]:\n                    module.pop()\n                    name.pop(0)\n                name = module + name\n\n        used = name.pop(0)\n        found = __import__(used)\n        for n in name:\n            used += '.' + n\n            try:\n                found = getattr(found, n)\n            except AttributeError:\n                __import__(used)\n                found = getattr(found, n)  # pragma: no cover\n\n        return found\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__zope_dottedname_style_resolveable_absolute",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__zope_dottedname_style_resolveable_absolute(self):\n        typ = self._makeOne()\n        result = typ._zope_dottedname_style(\n            'tests.test_path.TestDottedNameResolver', None\n        )\n        self.assertEqual(result, self.__class__)"
+}

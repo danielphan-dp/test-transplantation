@@ -1,0 +1,142 @@
+{
+  "test_name": "test_add_static_view_here_no_utility_registered",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_static_view",
+      "source_code": "    def add_static_view(self, name, path, **kw):\n        \"\"\"Add a view used to render static assets such as images\n        and CSS files.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 1940
+    },
+    {
+      "name": "self._getRouteRequestIface",
+      "source_code": "    def _getRouteRequestIface(self, config, name):\n        from pyramid.interfaces import IRouteRequest",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+      "line_number": 82
+    },
+    {
+      "name": "self._assertRoute",
+      "source_code": "    def _assertRoute(self, config, name, path, num_predicates=0):\n        from pyramid.interfaces import IRoutesMapper",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_routes.py",
+      "line_number": 16
+    },
+    {
+      "name": "config.registry.adapters.lookup",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line_number": 61
+    },
+    {
+      "name": "Request.blank",
+      "source_code": "    def blank(cls, path, environ=None, base_url=None,\n              headers=None, POST=None, **kw):\n        \"\"\"\n        Create a blank request environ (and Request wrapper) with the\n        given path (path should be urlencoded), and any keys from\n        environ.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/request.py",
+      "line_number": 1330
+    },
+    {
+      "name": "wrapped",
+      "source_code": "    def wrapped(self: \"Specifier\", prospective: ParsedVersion, spec: str) -> bool:\n        if not isinstance(prospective, Version):\n            return False\n        return fn(self, prospective, spec)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/packaging/specifiers.py",
+      "line_number": 291
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result.body.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_static_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 1940,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": "    @action_method\n    def add_static_view(self, name, path, **kw):\n        \"\"\"Add a view used to render static assets such as images\n        and CSS files.\n\n        The ``name`` argument is a string representing an\n        application-relative local URL prefix.  It may alternately be a full\n        URL.\n\n        The ``path`` argument is the path on disk where the static files\n        reside.  This can be an absolute path, a package-relative path, or a\n        :term:`asset specification`.\n\n        The ``cache_max_age`` keyword argument is input to set the\n        ``Expires`` and ``Cache-Control`` headers for static assets served.\n        Note that this argument has no effect when the ``name`` is a *url\n        prefix*.  By default, this argument is ``None``, meaning that no\n        particular Expires or Cache-Control headers are set in the response.\n\n        The ``content_encodings`` keyword argument is a list of alternative\n        file encodings supported in the ``Accept-Encoding`` HTTP Header.\n        Alternative files are found using file extensions defined in\n        :attr:`mimetypes.encodings_map`. An encoded asset will be returned\n        with the ``Content-Encoding`` header set to the selected encoding.\n        If the asset contains alternative encodings then the\n        ``Accept-Encoding`` value will be added to the response's ``Vary``\n        header. By default, the list is empty and no alternatives will be\n        supported.\n\n        The ``permission`` keyword argument is used to specify the\n        :term:`permission` required by a user to execute the static view.  By\n        default, it is the string\n        :data:`pyramid.security.NO_PERMISSION_REQUIRED`, a special sentinel\n        which indicates that, even if a :term:`default permission` exists for\n        the current application, the static view should be renderered to\n        completely anonymous users.  This default value is permissive\n        because, in most web apps, static assets seldom need protection from\n        viewing.  If ``permission`` is specified, the security checking will\n        be performed against the default root factory ACL.\n\n        Any other keyword arguments sent to ``add_static_view`` are passed on\n        to :meth:`pyramid.config.Configurator.add_route` (e.g. ``factory``,\n        perhaps to define a custom factory with a custom ACL for this static\n        view).\n\n        *Usage*\n\n        The ``add_static_view`` function is typically used in conjunction\n        with the :meth:`pyramid.request.Request.static_url` method.\n        ``add_static_view`` adds a view which renders a static asset when\n        some URL is visited; :meth:`pyramid.request.Request.static_url`\n        generates a URL to that asset.\n\n        The ``name`` argument to ``add_static_view`` is usually a simple URL\n        prefix (e.g. ``'images'``).  When this is the case, the\n        :meth:`pyramid.request.Request.static_url` API will generate a URL\n        which points to a Pyramid view, which will serve up a set of assets\n        that live in the package itself. For example:\n\n        .. code-block:: python\n\n           add_static_view('images', 'mypackage:images/')\n\n        Code that registers such a view can generate URLs to the view via\n        :meth:`pyramid.request.Request.static_url`:\n\n        .. code-block:: python\n\n           request.static_url('mypackage:images/logo.png')\n\n        When ``add_static_view`` is called with a ``name`` argument that\n        represents a URL prefix, as it is above, subsequent calls to\n        :meth:`pyramid.request.Request.static_url` with paths that start with\n        the ``path`` argument passed to ``add_static_view`` will generate a\n        URL something like ``http://<Pyramid app URL>/images/logo.png``,\n        which will cause the ``logo.png`` file in the ``images`` subdirectory\n        of the ``mypackage`` package to be served.\n\n        ``add_static_view`` can alternately be used with a ``name`` argument\n        which is a *URL*, causing static assets to be served from an external\n        webserver.  This happens when the ``name`` argument is a fully\n        qualified URL (e.g. starts with ``http://`` or similar).  In this\n        mode, the ``name`` is used as the prefix of the full URL when\n        generating a URL using :meth:`pyramid.request.Request.static_url`.\n        Furthermore, if a protocol-relative URL (e.g. ``//example.com/images``)\n        is used as the ``name`` argument, the generated URL will use the\n        protocol of the request (http or https, respectively).\n\n        For example, if ``add_static_view`` is called like so:\n\n        .. code-block:: python\n\n           add_static_view('http://example.com/images', 'mypackage:images/')\n\n        Subsequently, the URLs generated by\n        :meth:`pyramid.request.Request.static_url` for that static view will\n        be prefixed with ``http://example.com/images`` (the external webserver\n        listening on ``example.com`` must be itself configured to respond\n        properly to such a request.):\n\n        .. code-block:: python\n\n           static_url('mypackage:images/logo.png', request)\n\n        See :ref:`static_assets_section` for more information.\n\n        .. versionchanged:: 2.0\n\n           Added the ``content_encodings`` argument.\n\n        \"\"\"\n        spec = self._make_spec(path)\n        info = self._get_static_info()\n        info.add(self, name, spec, **kw)\n\n"
+    },
+    {
+      "function": "self._getRouteRequestIface",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+      "line": 82,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": "    def _getRouteRequestIface(self, config, name):\n        from pyramid.interfaces import IRouteRequest\n\n        iface = config.registry.getUtility(IRouteRequest, name)\n        return iface\n\n"
+    },
+    {
+      "function": "self._assertRoute",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_routes.py",
+      "line": 16,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": "    def _assertRoute(self, config, name, path, num_predicates=0):\n        from pyramid.interfaces import IRoutesMapper\n\n        mapper = config.registry.getUtility(IRoutesMapper)\n        routes = mapper.get_routes()\n        route = routes[0]\n        self.assertEqual(len(routes), 1)\n        self.assertEqual(route.name, name)\n        self.assertEqual(route.path, path)\n        self.assertEqual(len(routes[0].predicates), num_predicates)\n        return route\n\n"
+    },
+    {
+      "function": "config.registry.adapters.lookup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line": 61,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.\n\n    :param label: A string.\n    :returns:\n        An :class:`Encoding` object, or :obj:`None` for an unknown label.\n\n    \"\"\"\n    # Only strip ASCII whitespace: U+0009, U+000A, U+000C, U+000D, and U+0020.\n    label = ascii_lower(label.strip('\\t\\n\\f\\r '))\n    name = LABELS.get(label)\n    if name is None:\n        return None\n    encoding = CACHE.get(name)\n    if encoding is None:\n        if name == 'x-user-defined':\n            from .x_user_defined import codec_info\n        else:\n            python_name = PYTHON_NAMES.get(name, name)\n            # Any python_name value that gets to here should be valid.\n            codec_info = codecs.lookup(python_name)\n        encoding = Encoding(name, codec_info)\n        CACHE[name] = encoding\n    return encoding\n\n\n"
+    },
+    {
+      "function": "Request.blank",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/request.py",
+      "line": 1330,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": "    @classmethod\n    def blank(cls, path, environ=None, base_url=None,\n              headers=None, POST=None, **kw):\n        \"\"\"\n        Create a blank request environ (and Request wrapper) with the\n        given path (path should be urlencoded), and any keys from\n        environ.\n\n        The path will become path_info, with any query string split\n        off and used.\n\n        All necessary keys will be added to the environ, but the\n        values you pass in will take precedence.  If you pass in\n        base_url then wsgi.url_scheme, HTTP_HOST, and SCRIPT_NAME will\n        be filled in from that value.\n\n        Any extra keyword will be passed to ``__init__``.\n        \"\"\"\n        env = environ_from_url(path)\n        if base_url:\n            scheme, netloc, path, query, fragment = urlparse.urlsplit(base_url)\n            if query or fragment:\n                raise ValueError(\n                    \"base_url (%r) cannot have a query or fragment\"\n                    % base_url)\n            if scheme:\n                env['wsgi.url_scheme'] = scheme\n            if netloc:\n                if ':' not in netloc:\n                    if scheme == 'http':\n                        netloc += ':80'\n                    elif scheme == 'https':\n                        netloc += ':443'\n                    else:\n                        raise ValueError(\n                            \"Unknown scheme: %r\" % scheme)\n                host, port = netloc.split(':', 1)\n                env['SERVER_PORT'] = port\n                env['SERVER_NAME'] = host\n                env['HTTP_HOST'] = netloc\n            if path:\n                env['SCRIPT_NAME'] = url_unquote(path)\n        if environ:\n            env.update(environ)\n        content_type = kw.get('content_type', env.get('CONTENT_TYPE'))\n        if headers and 'Content-Type' in headers:\n            content_type = headers['Content-Type']\n        if content_type is not None:\n            kw['content_type'] = content_type\n        environ_add_POST(env, POST, content_type=content_type)\n        obj = cls(env, **kw)\n        if headers is not None:\n            obj.headers.update(headers)\n        return obj\n\n"
+    },
+    {
+      "function": "wrapped",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/packaging/specifiers.py",
+      "line": 291,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": "    @functools.wraps(fn)\n    def wrapped(self: \"Specifier\", prospective: ParsedVersion, spec: str) -> bool:\n        if not isinstance(prospective, Version):\n            return False\n        return fn(self, prospective, spec)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": ""
+    },
+    {
+      "function": "result.body.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_static_view_here_no_utility_registered",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_static_view_here_no_utility_registered(self):\n        from zope.interface import Interface\n\n        from pyramid.interfaces import IView, IViewClassifier\n        from pyramid.renderers import null_renderer\n\n        config = self._makeOne(autocommit=True)\n        config.add_static_view('static', 'files', renderer=null_renderer)\n        request_type = self._getRouteRequestIface(config, '__static/')\n        self._assertRoute(config, '__static/', 'static/*subpath')\n        wrapped = config.registry.adapters.lookup(\n            (IViewClassifier, request_type, Interface), IView, name=''\n        )\n        from pyramid.request import Request\n\n        request = Request.blank('/static/minimal.txt')\n        request.subpath = ('minimal.txt',)\n        result = wrapped(None, request)\n        self.assertEqual(result.status, '200 OK')\n        self.assertTrue(result.body.startswith(b'<div'))"
+}

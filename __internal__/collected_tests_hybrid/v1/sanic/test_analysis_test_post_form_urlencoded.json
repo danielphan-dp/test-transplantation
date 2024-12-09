@@ -1,0 +1,80 @@
+{
+  "test_name": "test_post_form_urlencoded",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+  "static_methods": [
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "app.test_client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "text",
+      "source_code": "    def text(self):\n        \"\"\"Content of the response, in unicode.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 907
+    },
+    {
+      "name": "request.form.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "request.form.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_post_form_urlencoded",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "app.test_client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_post_form_urlencoded",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 907,
+      "caller": "test_post_form_urlencoded",
+      "source_code": "    @property\n    def text(self):\n        \"\"\"Content of the response, in unicode.\n\n        If Response.encoding is None, encoding will be guessed using\n        ``charset_normalizer`` or ``chardet``.\n\n        The encoding of the response content is determined based solely on HTTP\n        headers, following RFC 2616 to the letter. If you can take advantage of\n        non-HTTP knowledge to make a better guess at the encoding, you should\n        set ``r.encoding`` appropriately before accessing this property.\n        \"\"\"\n\n        # Try charset from content-type\n        content = None\n        encoding = self.encoding\n\n        if not self.content:\n            return \"\"\n\n        # Fallback to auto-detected encoding.\n        if self.encoding is None:\n            encoding = self.apparent_encoding\n\n        # Decode unicode from given encoding.\n        try:\n            content = str(self.content, encoding, errors=\"replace\")\n        except (LookupError, TypeError):\n            # A LookupError is raised if the encoding was not found which could\n            # indicate a misspelling or similar mistake.\n            #\n            # A TypeError can be raised if encoding is None\n            #\n            # So we try blindly encoding.\n            content = str(self.content, errors=\"replace\")\n\n        return content\n\n"
+    },
+    {
+      "function": "request.form.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_post_form_urlencoded",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "request.form.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_post_form_urlencoded",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert request.form.get('test') == 'OK'",
+    "assert request.form.get('test') == 'OK'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_post_form_urlencoded(app):\n    @app.route(\"/\", methods=[\"POST\"])\n    async def handler(request):\n        return text(\"OK\")\n\n    payload = \"test=OK\"\n    headers = {\"content-type\": \"application/x-www-form-urlencoded\"}\n\n    request, response = app.test_client.post(\n        \"/\", data=payload, headers=headers\n    )\n\n    assert request.form.get(\"test\") == \"OK\"\n    assert request.form.get(\"test\") == \"OK\""
+}

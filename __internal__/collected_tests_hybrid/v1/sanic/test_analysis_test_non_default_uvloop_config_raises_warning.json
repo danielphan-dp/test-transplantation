@@ -1,0 +1,79 @@
+{
+  "test_name": "test_non_default_uvloop_config_raises_warning",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_asgi.py",
+  "static_methods": [
+    {
+      "name": "CustomServer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "server.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_msg.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "get_port",
+      "source_code": "def get_port():\n    sock = socket.socket()\n    sock.bind(\n        (\"\", 0)\n    )  # Bind to 0 port, so os will pick available port for us.\n    return sock.getsockname()[1]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/conftest.py",
+      "line_number": 37
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "CustomServer",
+      "filename": "",
+      "line": 0,
+      "caller": "test_non_default_uvloop_config_raises_warning",
+      "source_code": ""
+    },
+    {
+      "function": "server.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_non_default_uvloop_config_raises_warning",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_non_default_uvloop_config_raises_warning",
+      "source_code": ""
+    },
+    {
+      "function": "_msg.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_non_default_uvloop_config_raises_warning",
+      "source_code": ""
+    },
+    {
+      "function": "get_port",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/conftest.py",
+      "line": 37,
+      "caller": "test_non_default_uvloop_config_raises_warning",
+      "source_code": "def get_port():\n    sock = socket.socket()\n    sock.bind(\n        (\"\", 0)\n    )  # Bind to 0 port, so os will pick available port for us.\n    return sock.getsockname()[1]\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert msg == 'You have set the USE_UVLOOP configuration option, but Sanic cannot control the event loop when running in ASGI mode.This option will be ignored.'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_non_default_uvloop_config_raises_warning(app):\n    app.config.USE_UVLOOP = True\n\n    class CustomServer(uvicorn.Server):\n        def install_signal_handlers(self):\n            pass\n\n    config = uvicorn.Config(\n        app=app, loop=\"asyncio\", limit_max_requests=0, port=get_port()\n    )\n    server = CustomServer(config=config)\n\n    with pytest.warns(UserWarning) as records:\n        server.run()\n\n    msg = \"\"\n    for record in records:\n        _msg = str(record.message)\n        if _msg.startswith(\"You have set the USE_UVLOOP configuration\"):\n            msg = _msg\n            break\n\n    assert msg == (\n        \"You have set the USE_UVLOOP configuration option, but Sanic \"\n        \"cannot control the event loop when running in ASGI mode.\"\n        \"This option will be ignored.\"\n    )"
+}

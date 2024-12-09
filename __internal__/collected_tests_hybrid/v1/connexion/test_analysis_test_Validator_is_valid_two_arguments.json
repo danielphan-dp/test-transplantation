@@ -1,0 +1,90 @@
+{
+  "test_name": "test_Validator_is_valid_two_arguments",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_deprecations.py",
+  "static_methods": [
+    {
+      "name": "self.assertWarnsRegex",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validators.Draft7Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertFalse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertWarnsRegex",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.is_valid",
+      "source_code": "        def is_valid(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.is_valid is deprecated \"\n                        \"and will be removed in a future release. Call \"\n                        \"validator.evolve(schema=new_schema).is_valid(...) \"\n                        \"instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                self = self.evolve(schema=_schema)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 486
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertWarnsRegex",
+      "filename": "",
+      "line": 0,
+      "caller": "test_Validator_is_valid_two_arguments",
+      "source_code": ""
+    },
+    {
+      "function": "validators.Draft7Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_Validator_is_valid_two_arguments",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertFalse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_Validator_is_valid_two_arguments",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_Validator_is_valid_two_arguments",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertWarnsRegex",
+      "filename": "",
+      "line": 0,
+      "caller": "test_Validator_is_valid_two_arguments",
+      "source_code": ""
+    },
+    {
+      "function": "validator.is_valid",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 486,
+      "caller": "test_Validator_is_valid_two_arguments",
+      "source_code": "        def is_valid(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.is_valid is deprecated \"\n                        \"and will be removed in a future release. Call \"\n                        \"validator.evolve(schema=new_schema).is_valid(...) \"\n                        \"instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                self = self.evolve(schema=_schema)\n\n            error = next(self.iter_errors(instance), None)\n            return error is None\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_Validator_is_valid_two_arguments(self):\n        \"\"\"\n        As of v4.0.0, calling is_valid with two arguments (to provide a\n        different schema) is deprecated.\n        \"\"\"\n\n        validator = validators.Draft7Validator({})\n        message = \"Passing a schema to Validator.is_valid is deprecated \"\n        with self.assertWarnsRegex(DeprecationWarning, message) as w:\n            result = validator.is_valid(\"foo\", {\"type\": \"number\"})\n\n        self.assertFalse(result)\n        self.assertEqual(w.filename, __file__)"
+}

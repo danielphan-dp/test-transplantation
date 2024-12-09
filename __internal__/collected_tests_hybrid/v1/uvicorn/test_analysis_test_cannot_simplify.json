@@ -1,0 +1,40 @@
+{
+  "test_name": "test_cannot_simplify",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_typeops.py",
+  "static_methods": [
+    {
+      "name": "RUnion.make_simplified_union",
+      "source_code": "    def make_simplified_union(items: list[RType]) -> RType:\n        \"\"\"Return a normalized union that covers the given items.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line_number": 866
+    },
+    {
+      "name": "RUnion",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RUnion.make_simplified_union",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line": 866,
+      "caller": "test_cannot_simplify",
+      "source_code": "    @staticmethod\n    def make_simplified_union(items: list[RType]) -> RType:\n        \"\"\"Return a normalized union that covers the given items.\n\n        Flatten nested unions and remove duplicate items.\n\n        Overlapping items are *not* simplified. For example,\n        [object, str] will not be simplified.\n        \"\"\"\n        items = flatten_nested_unions(items)\n        assert items\n\n        unique_items = dict.fromkeys(items)\n        if len(unique_items) > 1:\n            return RUnion(list(unique_items))\n        else:\n            return next(iter(unique_items))\n\n"
+    },
+    {
+      "function": "RUnion",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cannot_simplify",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert RUnion.make_simplified_union([int_rprimitive, str_rprimitive, object_rprimitive]) == RUnion([int_rprimitive, str_rprimitive, object_rprimitive])"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_cannot_simplify(self) -> None:\n        assert RUnion.make_simplified_union(\n            [int_rprimitive, str_rprimitive, object_rprimitive]\n        ) == RUnion([int_rprimitive, str_rprimitive, object_rprimitive])"
+}

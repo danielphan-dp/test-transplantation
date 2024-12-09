@@ -1,0 +1,77 @@
+{
+  "test_name": "test_queryMultiAdapter_errors_on_attribute_access",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+  "static_methods": [
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeRegistry",
+      "source_code": "    def _makeRegistry(self, depth):",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+      "line_number": 1377
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "MissingSomeAttrs.test_raises",
+      "source_code": "    def test_raises(cls, unittest, test_func, expected_missing, **other_attrs):\n        \"\"\"\n        Loop through various exceptions, calling *test_func* inside a\n        ``assertRaises`` block.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/__init__.py",
+      "line_number": 75
+    },
+    {
+      "name": "alb.queryMultiAdapter",
+      "source_code": "    def queryMultiAdapter(objects, provided, name='', default=None):\n        \"\"\"Adapt a sequence of objects to a named, provided, interface\n        \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 857
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_queryMultiAdapter_errors_on_attribute_access",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeRegistry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+      "line": 1377,
+      "caller": "test_queryMultiAdapter_errors_on_attribute_access",
+      "source_code": "    def _makeRegistry(self, depth):\n\n        class WithGeneration:\n            _generation = 1\n\n        class Registry:\n            def __init__(self, depth):\n                self.ro = [WithGeneration() for i in range(depth)]\n\n        return Registry(depth)\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_queryMultiAdapter_errors_on_attribute_access",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "MissingSomeAttrs.test_raises",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/__init__.py",
+      "line": 75,
+      "caller": "test_queryMultiAdapter_errors_on_attribute_access",
+      "source_code": "    @classmethod\n    def test_raises(cls, unittest, test_func, expected_missing, **other_attrs):\n        \"\"\"\n        Loop through various exceptions, calling *test_func* inside a\n        ``assertRaises`` block.\n\n        :param test_func: A callable of one argument, the instance of this\n            class.\n        :param str expected_missing: The attribute that should fail with the\n            exception.  This is used to ensure that we're testing the path we\n            think we are.\n        :param other_attrs: Attributes that should be provided on the test\n            object.  Must not contain *expected_missing*.\n        \"\"\"\n        assert isinstance(expected_missing, str)\n        assert expected_missing not in other_attrs\n        for exc in cls.EXCEPTION_CLASSES:\n            ob = cls(exc, **other_attrs)\n            with unittest.assertRaises(exc) as ex:\n                test_func(ob)\n\n            unittest.assertEqual(ex.exception.args[0], expected_missing)\n\n        # Now test that the AttributeError for that expected_missing is *not*\n        # raised.\n        ob = cls(AttributeError, **other_attrs)\n        try:\n            test_func(ob)\n        except AttributeError as e:\n            unittest.assertNotIn(expected_missing, str(e))\n        except Exception:  # pylint:disable=broad-except\n            pass\n\n"
+    },
+    {
+      "function": "alb.queryMultiAdapter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 857,
+      "caller": "test_queryMultiAdapter_errors_on_attribute_access",
+      "source_code": "    def queryMultiAdapter(objects, provided, name='', default=None):\n        \"\"\"Adapt a sequence of objects to a named, provided, interface\n        \"\"\"\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_queryMultiAdapter_errors_on_attribute_access(self):\n        # Any error on attribute access previously lead to using the _empty\n        # singleton as \"requires\" argument (See\n        # https://github.com/zopefoundation/zope.interface/issues/162)\n        # but after https://github.com/zopefoundation/zope.interface/issues/200\n        # they get propagated.\n        from zope.interface.interface import InterfaceClass\n        from zope.interface.tests import MissingSomeAttrs\n\n        IFoo = InterfaceClass('IFoo')\n        registry = self._makeRegistry()\n        alb = self._makeOne(registry)\n        alb.lookup = alb._uncached_lookup\n\n        def test(ob):\n            return alb.queryMultiAdapter(\n                (ob,),\n                IFoo,\n            )\n\n        MissingSomeAttrs.test_raises(self, test, expected_missing='__class__')"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test___call__raise_not_found_isnt_interpreted_as_pred_mismatch",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test___call__raise_not_found_isnt_interpreted_as_pred_mismatch",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call__raise_not_found_isnt_interpreted_as_pred_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call__raise_not_found_isnt_interpreted_as_pred_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call__raise_not_found_isnt_interpreted_as_pred_mismatch",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___call__raise_not_found_isnt_interpreted_as_pred_mismatch(self):\n        from pyramid.httpexceptions import HTTPNotFound\n\n        mv = self._makeOne()\n        context = DummyContext()\n        request = DummyRequest()\n        request.view_name = ''\n\n        def view1(context, request):\n            raise HTTPNotFound\n\n        def view2(context, request):\n            \"\"\" \"\"\"\n\n        mv.views = [(100, view1, None), (99, view2, None)]\n        self.assertRaises(HTTPNotFound, mv, context, request)"
+}

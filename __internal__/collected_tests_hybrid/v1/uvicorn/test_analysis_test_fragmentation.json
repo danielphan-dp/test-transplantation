@@ -1,0 +1,261 @@
+{
+  "test_name": "test_fragmentation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/protocols/test_http.py",
+  "static_methods": [
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Server",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "t.start",
+      "source_code": "    def start(self) -> None:\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 290
+    },
+    {
+      "name": "send_fragmented_req",
+      "source_code": "    def send_fragmented_req(path: str):\n        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n        sock.connect((\"127.0.0.1\", unused_tcp_port))\n        d = (f\"GET {path} HTTP/1.1\\r\\n\" \"Host: localhost\\r\\n\" \"Connection: close\\r\\n\\r\\n\").encode()\n        split = len(path) // 2\n        sock.sendall(d[:split])\n        time.sleep(0.01)\n        sock.sendall(d[split:])\n        resp = receive_all(sock)\n        # see https://github.com/kmonsoor/py-amqplib/issues/45\n        # we skip the error on bsd systems if python is too slow\n        try:\n            sock.shutdown(socket.SHUT_RDWR)\n        except Exception:  # pragma: no cover\n            pass\n        sock.close()\n        return resp",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/protocols/test_http.py",
+      "line_number": 914
+    },
+    {
+      "name": "t.join",
+      "source_code": "    def join(self, timeout: int) -> None:\n        if isinstance(self._p, SpawnProcess):\n            self._p.join(timeout)\n        else:\n            self._p.wait(timeout)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/watchfiles/run.py",
+      "line_number": 357
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, timeout: int) -> None:\n        if isinstance(self._p, SpawnProcess):\n            self._p.join(timeout)\n        else:\n            self._p.wait(timeout)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/watchfiles/run.py",
+      "line_number": 357
+    },
+    {
+      "name": "sock.connect",
+      "source_code": "    def connect(self, f, t):\n        \"\"\"Connect two existing vertices.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 50
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "sock.sendall",
+      "source_code": "    def sendall(self, data):\n        total_sent = 0\n        while total_sent < len(data):\n            sent = self.send(data[total_sent : total_sent + SSL_WRITE_BLOCKSIZE])\n            total_sent += sent",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 649
+    },
+    {
+      "name": "sock.sendall",
+      "source_code": "    def sendall(self, data):\n        total_sent = 0\n        while total_sent < len(data):\n            sent = self.send(data[total_sent : total_sent + SSL_WRITE_BLOCKSIZE])\n            total_sent += sent",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 649
+    },
+    {
+      "name": "receive_all",
+      "source_code": "    def receive_all(sock: socket.socket):\n        chunks: list[bytes] = []\n        while True:\n            chunk = sock.recv(1024)\n            if not chunk:\n                break\n            chunks.append(chunk)\n        return b\"\".join(chunks)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/protocols/test_http.py",
+      "line_number": 903
+    },
+    {
+      "name": "sock.close",
+      "source_code": "    def close(self) -> None:\n        self.session.close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line_number": 89
+    },
+    {
+      "name": "sock.recv",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 577
+    },
+    {
+      "name": "chunks.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "sock.shutdown",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 655
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "skip_if_no_httptools",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_fragmentation",
+      "source_code": ""
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_fragmentation",
+      "source_code": ""
+    },
+    {
+      "function": "Server",
+      "filename": "",
+      "line": 0,
+      "caller": "test_fragmentation",
+      "source_code": ""
+    },
+    {
+      "function": "t.start",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 290,
+      "caller": "test_fragmentation",
+      "source_code": "    @abc.abstractmethod\n    def start(self) -> None:\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "send_fragmented_req",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/protocols/test_http.py",
+      "line": 914,
+      "caller": "test_fragmentation",
+      "source_code": "    def send_fragmented_req(path: str):\n        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n        sock.connect((\"127.0.0.1\", unused_tcp_port))\n        d = (f\"GET {path} HTTP/1.1\\r\\n\" \"Host: localhost\\r\\n\" \"Connection: close\\r\\n\\r\\n\").encode()\n        split = len(path) // 2\n        sock.sendall(d[:split])\n        time.sleep(0.01)\n        sock.sendall(d[split:])\n        resp = receive_all(sock)\n        # see https://github.com/kmonsoor/py-amqplib/issues/45\n        # we skip the error on bsd systems if python is too slow\n        try:\n            sock.shutdown(socket.SHUT_RDWR)\n        except Exception:  # pragma: no cover\n            pass\n        sock.close()\n        return resp\n\n"
+    },
+    {
+      "function": "t.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/watchfiles/run.py",
+      "line": 357,
+      "caller": "test_fragmentation",
+      "source_code": "    def join(self, timeout: int) -> None:\n        if isinstance(self._p, SpawnProcess):\n            self._p.join(timeout)\n        else:\n            self._p.wait(timeout)\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/watchfiles/run.py",
+      "line": 357,
+      "caller": "test_fragmentation",
+      "source_code": "    def join(self, timeout: int) -> None:\n        if isinstance(self._p, SpawnProcess):\n            self._p.join(timeout)\n        else:\n            self._p.wait(timeout)\n\n"
+    },
+    {
+      "function": "sock.connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 50,
+      "caller": "test_fragmentation",
+      "source_code": "    def connect(self, f, t):\n        \"\"\"Connect two existing vertices.\n\n        Nothing happens if the vertices are already connected.\n        \"\"\"\n        if t not in self._vertices:\n            raise KeyError(t)\n        self._forwards[f].add(t)\n        self._backwards[t].add(f)\n\n"
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_fragmentation",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "sock.sendall",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 649,
+      "caller": "test_fragmentation",
+      "source_code": "    def sendall(self, data):\n        total_sent = 0\n        while total_sent < len(data):\n            sent = self.send(data[total_sent : total_sent + SSL_WRITE_BLOCKSIZE])\n            total_sent += sent\n\n"
+    },
+    {
+      "function": "sock.sendall",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 649,
+      "caller": "test_fragmentation",
+      "source_code": "    def sendall(self, data):\n        total_sent = 0\n        while total_sent < len(data):\n            sent = self.send(data[total_sent : total_sent + SSL_WRITE_BLOCKSIZE])\n            total_sent += sent\n\n"
+    },
+    {
+      "function": "receive_all",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/protocols/test_http.py",
+      "line": 903,
+      "caller": "test_fragmentation",
+      "source_code": "    def receive_all(sock: socket.socket):\n        chunks: list[bytes] = []\n        while True:\n            chunk = sock.recv(1024)\n            if not chunk:\n                break\n            chunks.append(chunk)\n        return b\"\".join(chunks)\n\n"
+    },
+    {
+      "function": "sock.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line": 89,
+      "caller": "test_fragmentation",
+      "source_code": "    def close(self) -> None:\n        self.session.close()\n\n"
+    },
+    {
+      "function": "sock.recv",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 577,
+      "caller": "test_fragmentation",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data\n\n"
+    },
+    {
+      "function": "chunks.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_fragmentation",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fragmentation",
+      "source_code": ""
+    },
+    {
+      "function": "sock.shutdown",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 655,
+      "caller": "test_fragmentation",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fragmentation",
+      "source_code": ""
+    },
+    {
+      "function": "skip_if_no_httptools",
+      "filename": "",
+      "line": 0,
+      "caller": "test_fragmentation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert bad_response != response[:len(bad_response)]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_fragmentation(unused_tcp_port: int):\n    def receive_all(sock: socket.socket):\n        chunks: list[bytes] = []\n        while True:\n            chunk = sock.recv(1024)\n            if not chunk:\n                break\n            chunks.append(chunk)\n        return b\"\".join(chunks)\n\n    app = Response(\"Hello, world\", media_type=\"text/plain\")\n\n    def send_fragmented_req(path: str):\n        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n        sock.connect((\"127.0.0.1\", unused_tcp_port))\n        d = (f\"GET {path} HTTP/1.1\\r\\n\" \"Host: localhost\\r\\n\" \"Connection: close\\r\\n\\r\\n\").encode()\n        split = len(path) // 2\n        sock.sendall(d[:split])\n        time.sleep(0.01)\n        sock.sendall(d[split:])\n        resp = receive_all(sock)\n        # see https://github.com/kmonsoor/py-amqplib/issues/45\n        # we skip the error on bsd systems if python is too slow\n        try:\n            sock.shutdown(socket.SHUT_RDWR)\n        except Exception:  # pragma: no cover\n            pass\n        sock.close()\n        return resp\n\n    config = Config(app=app, http=\"httptools\", port=unused_tcp_port)\n    server = Server(config=config)\n    t = threading.Thread(target=server.run)\n    t.daemon = True\n    t.start()\n    time.sleep(1)  # wait for uvicorn to start\n\n    path = \"/?param=\" + \"q\" * 10\n    response = send_fragmented_req(path)\n    bad_response = b\"HTTP/1.1 400 Bad Request\"\n    assert bad_response != response[: len(bad_response)]\n    server.should_exit = True\n    t.join()"
+}

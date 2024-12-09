@@ -1,0 +1,80 @@
+{
+  "test_name": "test_request_middleware_exception_on_404",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "count",
+      "source_code": "    def count(self, value):\n        return int(value in self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 2241
+    },
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "next",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "next",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "count",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 2241,
+      "caller": "test_request_middleware_exception_on_404",
+      "source_code": "    def count(self, value):\n        return int(value in self)\n\n"
+    },
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_request_middleware_exception_on_404",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_middleware_exception_on_404",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "next",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_middleware_exception_on_404",
+      "source_code": ""
+    },
+    {
+      "function": "next",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_middleware_exception_on_404",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert next(counter) == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_middleware_exception_on_404(app: Sanic):\n    \"\"\"See https://github.com/sanic-org/sanic/issues/2950\"\"\"\n    counter = count()\n\n    @app.on_request\n    def request_middleware(request):\n        next(counter)\n        raise Exception\n\n    @app.route(\"/\")\n    async def handler(request): ...\n\n    _, response = app.test_client.get(\"/not-found\")\n\n    assert response.status == 500\n    assert next(counter) == 1"
+}

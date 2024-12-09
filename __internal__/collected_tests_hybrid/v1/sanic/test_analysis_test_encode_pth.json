@@ -1,0 +1,40 @@
+{
+  "test_name": "test_encode_pth",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "_encode_pth",
+      "source_code": "def _encode_pth(content: str) -> bytes:\n    \"\"\"\n    Prior to Python 3.13 (see https://github.com/python/cpython/issues/77102),\n    .pth files are always read with 'locale' encoding, the recommendation\n    from the cpython core developers is to write them as ``open(path, \"w\")``\n    and ignore warnings (see python/cpython#77102, pypa/setuptools#3937).\n    This function tries to simulate this behaviour without having to create an\n    actual file, in a way that supports a range of active Python versions.\n    (There seems to be some variety in the way different version of Python handle\n    ``encoding=None``, not all of them use ``locale.getpreferredencoding(False)``\n    or ``locale.getencoding()``).\n    \"\"\"\n    with io.BytesIO() as buffer:\n        wrapper = io.TextIOWrapper(buffer, encoding=py312.PTH_ENCODING)\n        # TODO: Python 3.13 replace the whole function with `bytes(content, \"utf-8\")`\n        wrapper.write(content)\n        wrapper.flush()\n        buffer.seek(0)\n        return buffer.read()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line_number": 561
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_encode_pth",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line": 561,
+      "caller": "test_encode_pth",
+      "source_code": "def _encode_pth(content: str) -> bytes:\n    \"\"\"\n    Prior to Python 3.13 (see https://github.com/python/cpython/issues/77102),\n    .pth files are always read with 'locale' encoding, the recommendation\n    from the cpython core developers is to write them as ``open(path, \"w\")``\n    and ignore warnings (see python/cpython#77102, pypa/setuptools#3937).\n    This function tries to simulate this behaviour without having to create an\n    actual file, in a way that supports a range of active Python versions.\n    (There seems to be some variety in the way different version of Python handle\n    ``encoding=None``, not all of them use ``locale.getpreferredencoding(False)``\n    or ``locale.getencoding()``).\n    \"\"\"\n    with io.BytesIO() as buffer:\n        wrapper = io.TextIOWrapper(buffer, encoding=py312.PTH_ENCODING)\n        # TODO: Python 3.13 replace the whole function with `bytes(content, \"utf-8\")`\n        wrapper.write(content)\n        wrapper.flush()\n        buffer.seek(0)\n        return buffer.read()\n\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_encode_pth",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(content, bytes)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_encode_pth():\n    \"\"\"Ensure _encode_pth function does not produce encoding warnings\"\"\"\n    content = _encode_pth(\"tkmilan_\u00e7_utf8\")  # no warnings (would be turned into errors)\n    assert isinstance(content, bytes)"
+}

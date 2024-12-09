@@ -1,0 +1,79 @@
+{
+  "test_name": "test__wait_next_notify",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_worker.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.create_autospec",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "worker._wait_next_notify",
+      "source_code": "    def _wait_next_notify(self) -> \"asyncio.Future[bool]\":\n        self._notify_waiter_done()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line_number": 127
+    },
+    {
+      "name": "mloop.call_later.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__wait_next_notify",
+      "source_code": ""
+    },
+    {
+      "function": "mock.create_autospec",
+      "filename": "",
+      "line": 0,
+      "caller": "test__wait_next_notify",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__wait_next_notify",
+      "source_code": ""
+    },
+    {
+      "function": "worker._wait_next_notify",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line": 127,
+      "caller": "test__wait_next_notify",
+      "source_code": "    def _wait_next_notify(self) -> \"asyncio.Future[bool]\":\n        self._notify_waiter_done()\n\n        loop = self.loop\n        assert loop is not None\n        self._notify_waiter = waiter = loop.create_future()\n        self.loop.call_later(1.0, self._notify_waiter_done, waiter)\n\n        return waiter\n\n"
+    },
+    {
+      "function": "mloop.call_later.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test__wait_next_notify",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert worker._notify_waiter == fut"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__wait_next_notify(worker: base_worker.GunicornWebWorker) -> None:\n    worker.loop = mloop = mock.create_autospec(asyncio.AbstractEventLoop)\n    with mock.patch.object(worker, \"_notify_waiter_done\", autospec=True):\n        fut = worker._wait_next_notify()\n\n        assert worker._notify_waiter == fut\n        mloop.call_later.assert_called_with(1.0, worker._notify_waiter_done, fut)"
+}

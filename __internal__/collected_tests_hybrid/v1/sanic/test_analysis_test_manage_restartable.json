@@ -1,0 +1,71 @@
+{
+  "test_name": "test_manage_restartable",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_manager.py",
+  "static_methods": [
+    {
+      "name": "manager.manage",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n    ) -> None:\n        \"\"\"Manages the initiation and monitoring of a worker process.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line_number": 42
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "manager.manage",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line": 42,
+      "caller": "test_manage_restartable",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_manage_restartable",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_manage_restartable",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_manage_restartable",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(manager.transient) == 1",
+    "assert len(manager.durable) == 1",
+    "assert isinstance(worker_process, Worker)",
+    "assert worker_process.restartable is True",
+    "assert worker_process.tracked is True",
+    "assert worker_process.auto_start is False"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_manage_restartable(manager: WorkerManager):\n    manager.manage(\n        \"TEST\",\n        fake_serve,\n        kwargs={\"foo\": \"bar\"},\n        restartable=True,\n        auto_start=False,\n    )\n    assert len(manager.transient) == 1\n    assert len(manager.durable) == 1\n\n    worker_process = manager.durable[\"TEST\"]\n\n    assert isinstance(worker_process, Worker)\n    assert worker_process.restartable is True\n    assert worker_process.tracked is True\n    assert worker_process.auto_start is False"
+}

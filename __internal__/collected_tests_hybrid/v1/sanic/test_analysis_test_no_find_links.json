@@ -1,0 +1,67 @@
+{
+  "test_name": "test_no_find_links",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ei.easy_install",
+      "source_code": "    def easy_install(self, spec, deps: bool = False) -> Distribution | None:\n        with self._tmpdir() as tmpdir:\n            if not isinstance(spec, Requirement):\n                if URL_SCHEME(spec):\n                    # It's a url, download it to tmpdir and process\n                    self.not_editable(spec)\n                    dl = self.package_index.download(spec, tmpdir)\n                    return self.install_item(None, dl, tmpdir, deps, True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 675
+    },
+    {
+      "name": "ei.easy_install",
+      "source_code": "    def easy_install(self, spec, deps: bool = False) -> Distribution | None:\n        with self._tmpdir() as tmpdir:\n            if not isinstance(spec, Requirement):\n                if URL_SCHEME(spec):\n                    # It's a url, download it to tmpdir and process\n                    self.not_editable(spec)\n                    dl = self.package_index.download(spec, tmpdir)\n                    return self.install_item(None, dl, tmpdir, deps, True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 675
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_find_links",
+      "source_code": ""
+    },
+    {
+      "function": "ei.easy_install",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 675,
+      "caller": "test_no_find_links",
+      "source_code": "    def easy_install(self, spec, deps: bool = False) -> Distribution | None:\n        with self._tmpdir() as tmpdir:\n            if not isinstance(spec, Requirement):\n                if URL_SCHEME(spec):\n                    # It's a url, download it to tmpdir and process\n                    self.not_editable(spec)\n                    dl = self.package_index.download(spec, tmpdir)\n                    return self.install_item(None, dl, tmpdir, deps, True)\n\n                elif os.path.exists(spec):\n                    # Existing file or directory, just process it directly\n                    self.not_editable(spec)\n                    return self.install_item(None, spec, tmpdir, deps, True)\n                else:\n                    spec = parse_requirement_arg(spec)\n\n            self.check_editable(spec)\n            dist = self.package_index.fetch_distribution(\n                spec,\n                tmpdir,\n                self.upgrade,\n                self.editable,\n                not self.always_copy,\n                self.local_index,\n            )\n            if dist is None:\n                msg = \"Could not find suitable distribution for %r\" % spec\n                if self.always_copy:\n                    msg += \" (--always-copy skips system and development eggs)\"\n                raise DistutilsError(msg)\n            elif dist.precedence == DEVELOP_DIST:\n                # .egg-info dists don't need installing, just process deps\n                self.process_distribution(spec, dist, deps, \"Using\")\n                return dist\n            else:\n                return self.install_item(spec, dist.location, tmpdir, deps)\n\n"
+    },
+    {
+      "function": "ei.easy_install",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 675,
+      "caller": "test_no_find_links",
+      "source_code": "    def easy_install(self, spec, deps: bool = False) -> Distribution | None:\n        with self._tmpdir() as tmpdir:\n            if not isinstance(spec, Requirement):\n                if URL_SCHEME(spec):\n                    # It's a url, download it to tmpdir and process\n                    self.not_editable(spec)\n                    dl = self.package_index.download(spec, tmpdir)\n                    return self.install_item(None, dl, tmpdir, deps, True)\n\n                elif os.path.exists(spec):\n                    # Existing file or directory, just process it directly\n                    self.not_editable(spec)\n                    return self.install_item(None, spec, tmpdir, deps, True)\n                else:\n                    spec = parse_requirement_arg(spec)\n\n            self.check_editable(spec)\n            dist = self.package_index.fetch_distribution(\n                spec,\n                tmpdir,\n                self.upgrade,\n                self.editable,\n                not self.always_copy,\n                self.local_index,\n            )\n            if dist is None:\n                msg = \"Could not find suitable distribution for %r\" % spec\n                if self.always_copy:\n                    msg += \" (--always-copy skips system and development eggs)\"\n                raise DistutilsError(msg)\n            elif dist.precedence == DEVELOP_DIST:\n                # .egg-info dists don't need installing, just process deps\n                self.process_distribution(spec, dist, deps, \"Using\")\n                return dist\n            else:\n                return self.install_item(spec, dist.location, tmpdir, deps)\n\n"
+    },
+    {
+      "function": "sorted",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_find_links",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert cmd.package_index.scanned_urls == {}",
+    "assert keys == ['link1', 'link2']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_find_links(self):\n        # new option '--no-find-links', that blocks find-links added at\n        # the project level\n        dist = Distribution()\n        cmd = ei.easy_install(dist)\n        cmd.check_pth_processing = lambda: True\n        cmd.no_find_links = True\n        cmd.find_links = ['link1', 'link2']\n        cmd.install_dir = os.path.join(tempfile.mkdtemp(), 'ok')\n        cmd.args = ['ok']\n        cmd.ensure_finalized()\n        assert cmd.package_index.scanned_urls == {}\n\n        # let's try without it (default behavior)\n        cmd = ei.easy_install(dist)\n        cmd.check_pth_processing = lambda: True\n        cmd.find_links = ['link1', 'link2']\n        cmd.install_dir = os.path.join(tempfile.mkdtemp(), 'ok')\n        cmd.args = ['ok']\n        cmd.ensure_finalized()\n        keys = sorted(cmd.package_index.scanned_urls.keys())\n        assert keys == ['link1', 'link2']"
+}

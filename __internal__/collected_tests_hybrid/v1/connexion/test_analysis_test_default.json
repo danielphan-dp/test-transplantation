@@ -1,0 +1,90 @@
+{
+  "test_name": "test_default",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "make_operation",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line_number": 390
+    },
+    {
+      "name": "Swagger2Operation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_operation",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line_number": 390
+    },
+    {
+      "name": "Swagger2Operation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Resolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Resolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_operation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line": 390,
+      "caller": "test_default",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]\n\n\n"
+    },
+    {
+      "function": "Swagger2Operation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default",
+      "source_code": ""
+    },
+    {
+      "function": "make_operation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line": 390,
+      "caller": "test_default",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]\n\n\n"
+    },
+    {
+      "function": "Swagger2Operation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default",
+      "source_code": ""
+    },
+    {
+      "function": "Resolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default",
+      "source_code": ""
+    },
+    {
+      "function": "Resolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_default(api):\n    op_spec = make_operation(OPERATION4)\n    op_spec[\"parameters\"][1][\"default\"] = 1\n    Swagger2Operation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation=op_spec,\n        app_produces=[\"application/json\"],\n        app_consumes=[\"application/json\"],\n        definitions=DEFINITIONS,\n        resolver=Resolver(),\n    )\n    op_spec = make_operation(OPERATION6, parameters=False)\n    op_spec[\"parameters\"][0][\"default\"] = {\n        \"keep_stacks\": 1,\n        \"image_version\": \"one\",\n        \"senza_yaml\": \"senza.yaml\",\n        \"new_traffic\": 100,\n    }\n    Swagger2Operation(\n        method=\"POST\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation=op_spec,\n        app_produces=[\"application/json\"],\n        app_consumes=[\"application/json\"],\n        definitions=DEFINITIONS,\n        resolver=Resolver(),\n    )"
+}

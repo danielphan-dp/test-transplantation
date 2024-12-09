@@ -1,0 +1,83 @@
+{
+  "test_name": "test_html_traceback_output_in_debug_mode",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions_handler.py",
+  "static_methods": [
+    {
+      "name": "exception_handler_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "BeautifulSoup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "soup.select",
+      "source_code": "    def select(self, **params) -> EntryPoints:\n        \"\"\"\n        Select entry points from self that match the\n        given parameters (typically group and/or name).\n        \"\"\"\n        return EntryPoints(ep for ep in self if py39.ep_matches(ep, **params))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line_number": 277
+    },
+    {
+      "name": "soup.select",
+      "source_code": "    def select(self, **params) -> EntryPoints:\n        \"\"\"\n        Select entry points from self that match the\n        given parameters (typically group and/or name).\n        \"\"\"\n        return EntryPoints(ep for ep in self if py39.ep_matches(ep, **params))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line_number": 277
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "exception_handler_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_html_traceback_output_in_debug_mode",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "BeautifulSoup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_html_traceback_output_in_debug_mode",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_html_traceback_output_in_debug_mode",
+      "source_code": ""
+    },
+    {
+      "function": "soup.select",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line": 277,
+      "caller": "test_html_traceback_output_in_debug_mode",
+      "source_code": "    def select(self, **params) -> EntryPoints:\n        \"\"\"\n        Select entry points from self that match the\n        given parameters (typically group and/or name).\n        \"\"\"\n        return EntryPoints(ep for ep in self if py39.ep_matches(ep, **params))\n\n"
+    },
+    {
+      "function": "soup.select",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line": 277,
+      "caller": "test_html_traceback_output_in_debug_mode",
+      "source_code": "    def select(self, **params) -> EntryPoints:\n        \"\"\"\n        Select entry points from self that match the\n        given parameters (typically group and/or name).\n        \"\"\"\n        return EntryPoints(ep for ep in self if py39.ep_matches(ep, **params))\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert 'handler_4' in html",
+    "assert 'foo = bar' in html",
+    "assert \"NameError: name 'bar' is not defined\" == summary_text",
+    "assert 'GET /4' == request_text"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_html_traceback_output_in_debug_mode(exception_handler_app: Sanic):\n    request, response = exception_handler_app.test_client.get(\"/4\", debug=True)\n    assert response.status == 500\n    soup = BeautifulSoup(response.body, \"html.parser\")\n    html = str(soup)\n\n    assert \"handler_4\" in html\n    assert \"foo = bar\" in html\n\n    summary_text = soup.select(\"h3\")[0].text\n    assert \"NameError: name 'bar' is not defined\" == summary_text\n    request_text = soup.select(\"h2\")[-1].text\n    assert \"GET /4\" == request_text"
+}

@@ -1,0 +1,27 @@
+{
+  "test_name": "test_parse_http_date",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "parse_http_date",
+      "source_code": "def parse_http_date(date_str: Optional[str]) -> Optional[datetime.datetime]:\n    \"\"\"Process a date string, return a datetime object\"\"\"\n    if date_str is not None:\n        timetuple = parsedate(date_str)\n        if timetuple is not None:\n            with suppress(ValueError):\n                return datetime.datetime(*timetuple[:6], tzinfo=datetime.timezone.utc)\n    return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 1039
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_http_date",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 1039,
+      "caller": "test_parse_http_date",
+      "source_code": "def parse_http_date(date_str: Optional[str]) -> Optional[datetime.datetime]:\n    \"\"\"Process a date string, return a datetime object\"\"\"\n    if date_str is not None:\n        timetuple = parsedate(date_str)\n        if timetuple is not None:\n            with suppress(ValueError):\n                return datetime.datetime(*timetuple[:6], tzinfo=datetime.timezone.utc)\n    return None\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert parse_http_date(value) == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_http_date(value: str, expected: Optional[datetime.datetime]) -> None:\n    assert parse_http_date(value) == expected"
+}

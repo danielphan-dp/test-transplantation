@@ -1,0 +1,79 @@
+{
+  "test_name": "test_serialise_dict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_low_level.py",
+  "static_methods": [
+    {
+      "name": "Array",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "DictEntry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sig.serialise",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 172
+    },
+    {
+      "name": "sig.serialise",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 172
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Array",
+      "filename": "",
+      "line": 0,
+      "caller": "test_serialise_dict",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_serialise_dict",
+      "source_code": ""
+    },
+    {
+      "function": "DictEntry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_serialise_dict",
+      "source_code": ""
+    },
+    {
+      "function": "sig.serialise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 172,
+      "caller": "test_serialise_dict",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())\n\n        if self.message_type:\n            pairs.append(('type', self.message_type.name))\n\n        if self.eavesdrop:\n            pairs.append(('eavesdrop', 'true'))\n\n        for argno, (val, kind) in self.arg_conditions.items():\n            if kind == 'string':\n                kind = ''\n            pairs.append((f'arg{argno}{kind}', val))\n\n        # Quoting rules: single quotes ('') needed if the value contains a comma.\n        # A literal ' can only be represented outside single quotes, by\n        # backslash-escaping it. No escaping inside the quotes.\n        # The simplest way to handle this is to use '' around every value, and\n        # use '\\'' (end quote, escaped ', restart quote) for literal ' .\n        return ','.join(\n            \"{}='{}'\".format(k, v.replace(\"'\", r\"'\\''\")) for (k, v) in pairs\n        )\n\n"
+    },
+    {
+      "function": "sig.serialise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 172,
+      "caller": "test_serialise_dict",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())\n\n        if self.message_type:\n            pairs.append(('type', self.message_type.name))\n\n        if self.eavesdrop:\n            pairs.append(('eavesdrop', 'true'))\n\n        for argno, (val, kind) in self.arg_conditions.items():\n            if kind == 'string':\n                kind = ''\n            pairs.append((f'arg{argno}{kind}', val))\n\n        # Quoting rules: single quotes ('') needed if the value contains a comma.\n        # A literal ' can only be represented outside single quotes, by\n        # backslash-escaping it. No escaping inside the quotes.\n        # The simplest way to handle this is to use '' around every value, and\n        # use '\\'' (end quote, escaped ', restart quote) for literal ' .\n        return ','.join(\n            \"{}='{}'\".format(k, v.replace(\"'\", r\"'\\''\")) for (k, v) in pairs\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert sig.serialise(data, 0, Endianness.little) == b'\\x1e\\x00\\x00\\x00' + b'\\x00\\x00\\x00\\x00' + b'\\x01\\x00\\x00\\x00a\\x00\\x00\\x00' + b'\\x01\\x00\\x00\\x00b\\x00\\x00\\x00' + b'\\x02\\x00\\x00\\x00de\\x00\\x00' + b'\\x01\\x00\\x00\\x00f\\x00'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_serialise_dict():\n    data = {\n        'a': 'b',\n        'de': 'f',\n    }\n    string_type = simple_types['s']\n    sig = Array(DictEntry([string_type, string_type]))\n    print(sig.serialise(data, 0, Endianness.little))\n    assert sig.serialise(data, 0, Endianness.little) == (\n        b'\\x1e\\0\\0\\0' +  # Length\n        b'\\0\\0\\0\\0' +  # Padding\n        b'\\x01\\0\\0\\0a\\0\\0\\0' +\n        b'\\x01\\0\\0\\0b\\0\\0\\0' +\n        b'\\x02\\0\\0\\0de\\0\\0' +\n        b'\\x01\\0\\0\\0f\\0'\n    )"
+}

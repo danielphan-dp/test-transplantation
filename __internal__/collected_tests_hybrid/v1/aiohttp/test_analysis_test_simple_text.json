@@ -1,0 +1,40 @@
+{
+  "test_name": "test_simple_text",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "build_frame",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line_number": 36
+    },
+    {
+      "name": "WSMessageText",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line": 36,
+      "caller": "test_simple_text",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,\n"
+    },
+    {
+      "function": "WSMessageText",
+      "filename": "",
+      "line": 0,
+      "caller": "test_simple_text",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == WSMessageText(data='text', extra='')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_simple_text(\n    out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader\n) -> None:\n    data = build_frame(b\"text\", WSMsgType.TEXT)\n    parser._feed_data(data)\n    res = out._buffer[0]\n    assert res == WSMessageText(data=\"text\", extra=\"\")"
+}

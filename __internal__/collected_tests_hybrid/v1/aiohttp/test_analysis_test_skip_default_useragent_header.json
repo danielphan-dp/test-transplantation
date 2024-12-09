@@ -1,0 +1,40 @@
+{
+  "test_name": "test_skip_default_useragent_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    },
+    {
+      "name": "istr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_skip_default_useragent_header",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    },
+    {
+      "function": "istr",
+      "filename": "",
+      "line": 0,
+      "caller": "test_skip_default_useragent_header",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'User-Agent' not in req.headers"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_skip_default_useragent_header(make_request: _RequestMaker) -> None:\n    req = make_request(\n        \"get\", \"http://python.org/\", skip_auto_headers={istr(\"user-agent\")}\n    )\n\n    assert \"User-Agent\" not in req.headers"
+}

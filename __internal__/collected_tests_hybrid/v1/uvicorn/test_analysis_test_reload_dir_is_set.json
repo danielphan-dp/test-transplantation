@@ -1,0 +1,121 @@
+{
+  "test_name": "test_reload_dir_is_set",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "    def at_level(self, level: int | str, logger: str | None = None) -> Generator[None]:\n        \"\"\"Context manager that sets the level for capturing of logs. After\n        the end of the 'with' statement the level is restored to its original\n        value.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/logging.py",
+      "line_number": 557
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "    def at_level(self, level: int | str, logger: str | None = None) -> Generator[None]:\n        \"\"\"Context manager that sets the level for capturing of logs. After\n        the end of the 'with' statement the level is restored to its original\n        value.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/logging.py",
+      "line_number": 557
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/logging.py",
+      "line": 557,
+      "caller": "test_reload_dir_is_set",
+      "source_code": "    @contextmanager\n    def at_level(self, level: int | str, logger: str | None = None) -> Generator[None]:\n        \"\"\"Context manager that sets the level for capturing of logs. After\n        the end of the 'with' statement the level is restored to its original\n        value.\n\n        Will enable the requested logging level if it was disabled via :func:`logging.disable`.\n\n        :param level: The level.\n        :param logger: The logger to update. If not given, the root logger.\n        \"\"\"\n        logger_obj = logging.getLogger(logger)\n        orig_level = logger_obj.level\n        logger_obj.setLevel(level)\n        handler_orig_level = self.handler.level\n        self.handler.setLevel(level)\n        original_disable_level = self._force_enable_logging(level, logger_obj)\n        try:\n            yield\n        finally:\n            logger_obj.setLevel(orig_level)\n            self.handler.setLevel(handler_orig_level)\n            logging.disable(original_disable_level)\n\n"
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/logging.py",
+      "line": 557,
+      "caller": "test_reload_dir_is_set",
+      "source_code": "    @contextmanager\n    def at_level(self, level: int | str, logger: str | None = None) -> Generator[None]:\n        \"\"\"Context manager that sets the level for capturing of logs. After\n        the end of the 'with' statement the level is restored to its original\n        value.\n\n        Will enable the requested logging level if it was disabled via :func:`logging.disable`.\n\n        :param level: The level.\n        :param logger: The logger to update. If not given, the root logger.\n        \"\"\"\n        logger_obj = logging.getLogger(logger)\n        orig_level = logger_obj.level\n        logger_obj.setLevel(level)\n        handler_orig_level = self.handler.level\n        self.handler.setLevel(level)\n        original_disable_level = self._force_enable_logging(level, logger_obj)\n        try:\n            yield\n        finally:\n            logger_obj.setLevel(orig_level)\n            self.handler.setLevel(handler_orig_level)\n            logging.disable(original_disable_level)\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_dir_is_set",
+      "source_code": ""
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_dir_is_set",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_dir_is_set",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_dir_is_set",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_dir_is_set",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_dir_is_set",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(caplog.records) == 1",
+    "assert caplog.records[-1].message == f'Will watch for changes in these directories: {[str(app_dir)]}'",
+    "assert config.reload_dirs == [app_dir]",
+    "assert config.reload_dirs == [app_dir]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reload_dir_is_set(reload_directory_structure: Path, caplog: pytest.LogCaptureFixture) -> None:\n    app_dir = reload_directory_structure / \"app\"\n    with caplog.at_level(logging.INFO):\n        config = Config(app=\"tests.test_config:asgi_app\", reload=True, reload_dirs=[str(app_dir)])\n        assert len(caplog.records) == 1\n        assert caplog.records[-1].message == f\"Will watch for changes in these directories: {[str(app_dir)]}\"\n        assert config.reload_dirs == [app_dir]\n        config = Config(app=\"tests.test_config:asgi_app\", reload=True, reload_dirs=str(app_dir))\n        assert config.reload_dirs == [app_dir]"
+}

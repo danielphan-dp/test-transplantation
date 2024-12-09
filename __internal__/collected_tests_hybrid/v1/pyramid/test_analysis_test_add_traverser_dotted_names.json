@@ -1,0 +1,90 @@
+{
+  "test_name": "test_add_traverser_dotted_names",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_adapters.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_traverser",
+      "source_code": "    def add_traverser(self, adapter, iface=None):\n        \"\"\"\n        The superdefault :term:`traversal` algorithm that :app:`Pyramid` uses\n        is explained in :ref:`traversal_algorithm`.  Though it is rarely\n        necessary, this default algorithm can be swapped out selectively for\n        a different traversal pattern via configuration.  The section\n        entitled :ref:`changing_the_traverser` details how to create a\n        traverser class.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line_number": 202
+    },
+    {
+      "name": "DummyIface",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.getAdapter",
+      "source_code": "    def getAdapter(\n        object, interface, name=''\n    ):  # pylint:disable=redefined-builtin\n        \"\"\"Look for a named adapter to an interface for an object",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1020
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_traverser_dotted_names",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_traverser",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line": 202,
+      "caller": "test_add_traverser_dotted_names",
+      "source_code": "    @action_method\n    def add_traverser(self, adapter, iface=None):\n        \"\"\"\n        The superdefault :term:`traversal` algorithm that :app:`Pyramid` uses\n        is explained in :ref:`traversal_algorithm`.  Though it is rarely\n        necessary, this default algorithm can be swapped out selectively for\n        a different traversal pattern via configuration.  The section\n        entitled :ref:`changing_the_traverser` details how to create a\n        traverser class.\n\n        For example, to override the superdefault traverser used by Pyramid,\n        you might do something like this:\n\n        .. code-block:: python\n\n           from myapp.traversal import MyCustomTraverser\n           config.add_traverser(MyCustomTraverser)\n\n        This would cause the Pyramid superdefault traverser to never be used;\n        instead all traversal would be done using your ``MyCustomTraverser``\n        class, no matter which object was returned by the :term:`root\n        factory` of this application.  Note that we passed no arguments to\n        the ``iface`` keyword parameter.  The default value of ``iface``,\n        ``None`` represents that the registered traverser should be used when\n        no other more specific traverser is available for the object returned\n        by the root factory.\n\n        However, more than one traversal algorithm can be active at the same\n        time.  The traverser used can depend on the result of the :term:`root\n        factory`.  For instance, if your root factory returns more than one\n        type of object conditionally, you could claim that an alternate\n        traverser adapter should be used against one particular class or\n        interface returned by that root factory.  When the root factory\n        returned an object that implemented that class or interface, a custom\n        traverser would be used.  Otherwise, the default traverser would be\n        used.  The ``iface`` argument represents the class of the object that\n        the root factory might return or an :term:`interface` that the object\n        might implement.\n\n        To use a particular traverser only when the root factory returns a\n        particular class:\n\n        .. code-block:: python\n\n           config.add_traverser(MyCustomTraverser, MyRootClass)\n\n        When more than one traverser is active, the \"most specific\" traverser\n        will be used (the one that matches the class or interface of the\n        value returned by the root factory most closely).\n\n        Note that either ``adapter`` or ``iface`` can be a :term:`dotted\n        Python name` or a Python object.\n\n        See :ref:`changing_the_traverser` for more information.\n        \"\"\"\n        iface = self.maybe_dotted(iface)\n        adapter = self.maybe_dotted(adapter)\n\n        def register(iface=iface):\n            if iface is None:\n                iface = Interface\n            self.registry.registerAdapter(adapter, (iface,), ITraverser)\n\n        discriminator = ('traverser', iface)\n        intr = self.introspectable(\n            'traversers',\n            discriminator,\n            'traverser for %r' % iface,\n            'traverser',\n        )\n        intr['adapter'] = adapter\n        intr['iface'] = iface\n        self.action(discriminator, register, introspectables=(intr,))\n\n"
+    },
+    {
+      "function": "DummyIface",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_traverser_dotted_names",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.getAdapter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1020,
+      "caller": "test_add_traverser_dotted_names",
+      "source_code": "    def getAdapter(\n        object, interface, name=''\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_traverser_dotted_names",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_traverser_dotted_names",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_traverser_dotted_names(self):\n        from pyramid.interfaces import ITraverser\n\n        config = self._makeOne(autocommit=True)\n        config.add_traverser(\n            'tests.test_config.test_adapters.DummyTraverser',\n            'tests.test_config.test_adapters.DummyIface',\n        )\n        iface = DummyIface()\n        traverser = config.registry.getAdapter(iface, ITraverser)\n        self.assertEqual(traverser.__class__, DummyTraverser)\n        self.assertEqual(traverser.root, iface)"
+}

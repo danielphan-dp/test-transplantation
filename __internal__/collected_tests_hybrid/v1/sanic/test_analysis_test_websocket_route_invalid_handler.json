@@ -1,0 +1,40 @@
+{
+  "test_name": "test_websocket_route_invalid_handler",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_routes.py",
+  "static_methods": [
+    {
+      "name": "e.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "app.websocket",
+      "source_code": "    def websocket(\n        self,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols: Optional[List[str]] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        apply: bool = True,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ):\n        \"\"\"Decorate a function to be registered as a websocket route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 675
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "e.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_websocket_route_invalid_handler",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "app.websocket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 675,
+      "caller": "test_websocket_route_invalid_handler",
+      "source_code": "    def websocket(\n        self,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols: Optional[List[str]] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        apply: bool = True,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    }
+  ],
+  "assertions": [
+    "assert e.match('Required parameter `request` and/or `ws` missing in the handler\\\\(\\\\) route\\\\?')"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_websocket_route_invalid_handler(app):\n    with pytest.raises(ValueError) as e:\n\n        @app.websocket(\"/\")\n        async def handler(): ...\n\n    assert e.match(\n        r\"Required parameter `request` and/or `ws` missing in the \"\n        r\"handler\\(\\) route\\?\"\n    )"
+}

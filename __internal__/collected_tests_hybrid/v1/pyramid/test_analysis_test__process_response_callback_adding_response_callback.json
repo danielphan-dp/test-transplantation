@@ -1,0 +1,155 @@
+{
+  "test_name": "test__process_response_callback_adding_response_callback",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "inst.add_response_callback",
+      "source_code": "    def add_response_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called by the\n        :term:`router` at a point after a :term:`response` object is\n        successfully created.  :app:`Pyramid` does not have a\n        global response object: this functionality allows an\n        application to register an action to be performed against the\n        response once one is created.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 42
+    },
+    {
+      "name": "DummyResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inst._process_response_callbacks",
+      "source_code": "    def _process_response_callbacks(self, response):\n        callbacks = self.response_callbacks\n        while callbacks:\n            callback = callbacks.popleft()\n            callback(self, response)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 81
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.add_response_callback",
+      "source_code": "    def add_response_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called by the\n        :term:`router` at a point after a :term:`response` object is\n        successfully created.  :app:`Pyramid` does not have a\n        global response object: this functionality allows an\n        application to register an action to be performed against the\n        response once one is created.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 42
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "inst.add_response_callback",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 42,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": "    def add_response_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called by the\n        :term:`router` at a point after a :term:`response` object is\n        successfully created.  :app:`Pyramid` does not have a\n        global response object: this functionality allows an\n        application to register an action to be performed against the\n        response once one is created.\n\n        A 'callback' is a callable which accepts two positional\n        parameters: ``request`` and ``response``.  For example:\n\n        .. code-block:: python\n           :linenos:\n\n           def cache_callback(request, response):\n               'Set the cache_control max_age for the response'\n               response.cache_control.max_age = 360\n           request.add_response_callback(cache_callback)\n\n        Response callbacks are called in the order they're added\n        (first-to-most-recently-added).  No response callback is\n        called if an exception happens in application code, or if the\n        response object returned by :term:`view` code is invalid.\n\n        All response callbacks are called *after* the tweens and\n        *before* the :class:`pyramid.events.NewResponse` event is sent.\n\n        Errors raised by callbacks are not handled specially.  They\n        will be propagated to the caller of the :app:`Pyramid`\n        router application.\n\n        .. seealso::\n\n            See also :ref:`using_response_callbacks`.\n        \"\"\"\n\n        self.response_callbacks.append(callback)\n\n"
+    },
+    {
+      "function": "DummyResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": ""
+    },
+    {
+      "function": "inst._process_response_callbacks",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 81,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": "    def _process_response_callbacks(self, response):\n        callbacks = self.response_callbacks\n        while callbacks:\n            callback = callbacks.popleft()\n            callback(self, response)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": ""
+    },
+    {
+      "function": "request.add_response_callback",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 42,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": "    def add_response_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called by the\n        :term:`router` at a point after a :term:`response` object is\n        successfully created.  :app:`Pyramid` does not have a\n        global response object: this functionality allows an\n        application to register an action to be performed against the\n        response once one is created.\n\n        A 'callback' is a callable which accepts two positional\n        parameters: ``request`` and ``response``.  For example:\n\n        .. code-block:: python\n           :linenos:\n\n           def cache_callback(request, response):\n               'Set the cache_control max_age for the response'\n               response.cache_control.max_age = 360\n           request.add_response_callback(cache_callback)\n\n        Response callbacks are called in the order they're added\n        (first-to-most-recently-added).  No response callback is\n        called if an exception happens in application code, or if the\n        response object returned by :term:`view` code is invalid.\n\n        All response callbacks are called *after* the tweens and\n        *before* the :class:`pyramid.events.NewResponse` event is sent.\n\n        Errors raised by callbacks are not handled specially.  They\n        will be propagated to the caller of the :app:`Pyramid`\n        router application.\n\n        .. seealso::\n\n            See also :ref:`using_response_callbacks`.\n        \"\"\"\n\n        self.response_callbacks.append(callback)\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__process_response_callback_adding_response_callback",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__process_response_callback_adding_response_callback(self):\n        \"\"\"\n        When a response callback adds another callback, that new callback\n        should still be called.\n\n        See https://github.com/Pylons/pyramid/pull/1373\n        \"\"\"\n        inst = self._makeOne()\n\n        def callback1(request, response):\n            request.called1 = True\n            response.called1 = True\n            request.add_response_callback(callback2)\n\n        def callback2(request, response):\n            request.called2 = True\n            response.called2 = True\n\n        inst.add_response_callback(callback1)\n        response = DummyResponse()\n        inst._process_response_callbacks(response)\n        self.assertEqual(inst.called1, True)\n        self.assertEqual(inst.called2, True)\n        self.assertEqual(response.called1, True)\n        self.assertEqual(response.called2, True)\n        self.assertEqual(len(inst.response_callbacks), 0)"
+}

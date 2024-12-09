@@ -1,0 +1,67 @@
+{
+  "test_name": "test_async_method",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test__utils.py",
+  "static_methods": [
+    {
+      "name": "is_async_callable",
+      "source_code": "def is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 28
+    },
+    {
+      "name": "is_async_callable",
+      "source_code": "def is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 28
+    },
+    {
+      "name": "Async",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sync",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "is_async_callable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 28,
+      "caller": "test_async_method",
+      "source_code": "@typing.overload\ndef is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...\n\n\n"
+    },
+    {
+      "function": "is_async_callable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 28,
+      "caller": "test_async_method",
+      "source_code": "@typing.overload\ndef is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...\n\n\n"
+    },
+    {
+      "function": "Async",
+      "filename": "",
+      "line": 0,
+      "caller": "test_async_method",
+      "source_code": ""
+    },
+    {
+      "function": "Sync",
+      "filename": "",
+      "line": 0,
+      "caller": "test_async_method",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert is_async_callable(Async().method)",
+    "assert not is_async_callable(Sync().method)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_async_method() -> None:\n    class Async:\n        async def method(self) -> None: ...  # pragma: no cover\n\n    class Sync:\n        def method(self) -> None: ...  # pragma: no cover\n\n    assert is_async_callable(Async().method)\n    assert not is_async_callable(Sync().method)"
+}

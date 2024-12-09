@@ -1,0 +1,38 @@
+{
+  "test_name": "test_filesys_decode_fs_encoding_is_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_unicode_utils.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "unicode_utils.filesys_decode",
+      "source_code": "def filesys_decode(path):\n    \"\"\"\n    Ensure that the given path is decoded,\n    ``None`` when no expected encoding works\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/unicode_utils.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_filesys_decode_fs_encoding_is_None",
+      "source_code": ""
+    },
+    {
+      "function": "unicode_utils.filesys_decode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/unicode_utils.py",
+      "line": 22,
+      "caller": "test_filesys_decode_fs_encoding_is_None",
+      "source_code": "def filesys_decode(path):\n    \"\"\"\n    Ensure that the given path is decoded,\n    ``None`` when no expected encoding works\n    \"\"\"\n\n    if isinstance(path, str):\n        return path\n\n    fs_enc = sys.getfilesystemencoding() or 'utf-8'\n    candidates = fs_enc, 'utf-8'\n\n    for enc in candidates:\n        try:\n            return path.decode(enc)\n        except UnicodeDecodeError:\n            continue\n\n    return None\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_filesys_decode_fs_encoding_is_None(monkeypatch):\n    \"\"\"\n    Test filesys_decode does not raise TypeError when\n    getfilesystemencoding returns None.\n    \"\"\"\n    monkeypatch.setattr('sys.getfilesystemencoding', lambda: None)\n    unicode_utils.filesys_decode(b'test')"
+}

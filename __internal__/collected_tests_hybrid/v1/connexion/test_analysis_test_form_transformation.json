@@ -1,0 +1,40 @@
+{
+  "test_name": "test_form_transformation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Swagger2Operation._transform_form",
+      "source_code": "    def _transform_form(self, form_parameters: t.List[dict]) -> dict:\n        \"\"\"Translate Swagger2 form parameters into OpenAPI 3 jsonschema spec.\"\"\"\n        properties = {}\n        defaults = {}\n        required = []\n        encoding = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/operations/swagger2.py",
+      "line_number": 243
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_form_transformation",
+      "source_code": ""
+    },
+    {
+      "function": "Swagger2Operation._transform_form",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/operations/swagger2.py",
+      "line": 243,
+      "caller": "test_form_transformation",
+      "source_code": "    def _transform_form(self, form_parameters: t.List[dict]) -> dict:\n        \"\"\"Translate Swagger2 form parameters into OpenAPI 3 jsonschema spec.\"\"\"\n        properties = {}\n        defaults = {}\n        required = []\n        encoding = {}\n\n        for param in form_parameters:\n            prop = {}\n\n            if param[\"type\"] == \"file\":\n                prop.update(\n                    {\n                        \"type\": \"string\",\n                        \"format\": \"binary\",\n                    }\n                )\n            else:\n                prop[\"type\"] = param[\"type\"]\n\n                format_ = param.get(\"format\")\n                if format_ is not None:\n                    prop[\"format\"] = format_\n\n            default = param.get(\"default\")\n            if default is not None:\n                prop[\"default\"] = default\n                defaults[param[\"name\"]] = default\n\n            nullable = param.get(\"x-nullable\")\n            if nullable is not None:\n                prop[\"nullable\"] = nullable\n\n            if param[\"type\"] == \"array\":\n                prop[\"items\"] = param.get(\"items\", {})\n\n                collection_format = param.get(\"collectionFormat\", \"csv\")\n                try:\n                    encoding[param[\"name\"]] = COLLECTION_FORMAT_MAPPING[\n                        collection_format\n                    ]\n                except KeyError:\n                    raise InvalidSpecification(\n                        f\"The collection format ({collection_format}) is not supported by \"\n                        f\"Connexion as it cannot be mapped to OpenAPI 3.\"\n                    )\n\n            properties[param[\"name\"]] = prop\n\n            if param.get(\"required\", False):\n                required.append(param[\"name\"])\n\n        definition: t.Dict[str, t.Any] = {\n            \"schema\": {\n                \"type\": \"object\",\n                \"properties\": properties,\n                \"required\": required,\n            }\n        }\n        if defaults:\n            definition[\"schema\"][\"default\"] = defaults\n        if encoding:\n            definition[\"encoding\"] = encoding\n\n        return definition\n"
+    }
+  ],
+  "assertions": [
+    "assert Swagger2Operation._transform_form(mock_self, swagger_form_parameters) == openapi_expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_form_transformation(api):\n    mock_self = mock.Mock()\n\n    swagger_form_parameters = [\n        {\n            \"in\": \"formData\",\n            \"name\": \"param\",\n            \"type\": \"string\",\n            \"default\": \"foo@bar.com\",\n            \"required\": True,\n            \"format\": \"email\",\n        },\n        {\n            \"in\": \"formData\",\n            \"name\": \"array_param\",\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"integer\",\n            },\n            \"collectionFormat\": \"multi\",\n            \"x-nullable\": True,\n        },\n    ]\n\n    openapi_expected = {\n        \"schema\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"param\": {\n                    \"type\": \"string\",\n                    \"format\": \"email\",\n                    \"default\": \"foo@bar.com\",\n                },\n                \"array_param\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"integer\",\n                    },\n                    \"nullable\": True,\n                },\n            },\n            \"default\": {\"param\": \"foo@bar.com\"},\n            \"required\": [\"param\"],\n        },\n        \"encoding\": {\n            \"array_param\": {\n                \"style\": \"form\",\n                \"explode\": True,\n            }\n        },\n    }\n\n    assert (\n        Swagger2Operation._transform_form(mock_self, swagger_form_parameters)\n        == openapi_expected\n    )"
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_heterogeneous_properties_additionalProperties",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "self.message_for",
+      "source_code": "    def message_for(self, instance, schema, *args, **kwargs):\n        cls = kwargs.pop(\"cls\", validators._LATEST_VERSION)\n        cls.check_schema(schema)\n        validator = cls(schema, *args, **kwargs)\n        errors = list(validator.iter_errors(instance))\n        self.assertTrue(errors, msg=f\"No errors were raised for {instance!r}\")\n        self.assertEqual(\n            len(errors),\n            1,\n            msg=f\"Expected exactly one error, found {errors!r}\",\n        )\n        return errors[0].message",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+      "line_number": 307
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.message_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+      "line": 307,
+      "caller": "test_heterogeneous_properties_additionalProperties",
+      "source_code": "    def message_for(self, instance, schema, *args, **kwargs):\n        cls = kwargs.pop(\"cls\", validators._LATEST_VERSION)\n        cls.check_schema(schema)\n        validator = cls(schema, *args, **kwargs)\n        errors = list(validator.iter_errors(instance))\n        self.assertTrue(errors, msg=f\"No errors were raised for {instance!r}\")\n        self.assertEqual(\n            len(errors),\n            1,\n            msg=f\"Expected exactly one error, found {errors!r}\",\n        )\n        return errors[0].message\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_heterogeneous_properties_additionalProperties",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_heterogeneous_properties_additionalProperties(self):\n        \"\"\"\n        Not valid deserialized JSON, but this should not blow up.\n        \"\"\"\n        schema = {\"properties\": {\"foo\": {}}, \"additionalProperties\": False}\n        message = self.message_for(\n            instance={\"foo\": {}, \"a\": \"baz\", 37: 12},\n            schema=schema,\n        )\n        self.assertEqual(\n            message,\n            \"Additional properties are not allowed (37, 'a' were unexpected)\",\n        )"
+}

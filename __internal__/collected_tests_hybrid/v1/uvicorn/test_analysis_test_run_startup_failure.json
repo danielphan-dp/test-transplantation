@@ -1,0 +1,54 @@
+{
+  "test_name": "test_run_startup_failure",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_main.py",
+  "static_methods": [
+    {
+      "name": "run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "receive",
+      "source_code": "    def receive(self, *, timeout=None) -> Message:\n        \"\"\"Return the next available message from the connection",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line_number": 158
+    },
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_run_startup_failure",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "receive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line": 158,
+      "caller": "test_run_startup_failure",
+      "source_code": "    def receive(self, *, timeout=None) -> Message:\n        \"\"\"Return the next available message from the connection\n\n        If the data is ready, this will return immediately, even if timeout<=0.\n        Otherwise, it will wait for up to timeout seconds, or indefinitely if\n        timeout is None. If no message comes in time, it raises TimeoutError.\n        \"\"\"\n        return self._receive(timeout_to_deadline(timeout))\n\n"
+    },
+    {
+      "function": "RuntimeError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_startup_failure",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert exit_exception.value.code == 3",
+    "assert scope['type'] == 'lifespan'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_run_startup_failure(caplog: pytest.LogCaptureFixture) -> None:\n    async def app(scope, receive, send):\n        assert scope[\"type\"] == \"lifespan\"\n        message = await receive()\n        if message[\"type\"] == \"lifespan.startup\":\n            raise RuntimeError(\"Startup failed\")\n\n    with pytest.raises(SystemExit) as exit_exception:\n        run(app, lifespan=\"on\")\n    assert exit_exception.value.code == 3"
+}

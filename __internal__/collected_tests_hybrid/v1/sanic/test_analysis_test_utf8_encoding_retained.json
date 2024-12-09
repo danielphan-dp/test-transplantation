@@ -1,0 +1,132 @@
+{
+  "test_name": "test_utf8_encoding_retained",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_setopt.py",
+  "static_methods": [
+    {
+      "name": "tmpdir.join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "self.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "setopt.edit_config",
+      "source_code": "def edit_config(filename, settings, dry_run=False):\n    \"\"\"Edit a configuration file to include `settings`",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/setopt.py",
+      "line_number": 30
+    },
+    {
+      "name": "self.parse_config",
+      "source_code": "    def parse_config(filename):\n        parser = configparser.ConfigParser()\n        with open(filename, encoding='utf-8') as reader:\n            parser.read_file(reader)\n        return parser",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_setopt.py",
+      "line_number": 8
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tmpdir.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "self.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "setopt.edit_config",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/setopt.py",
+      "line": 30,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": "def edit_config(filename, settings, dry_run=False):\n    \"\"\"Edit a configuration file to include `settings`\n\n    `settings` is a dictionary of dictionaries or ``None`` values, keyed by\n    command/section name.  A ``None`` value means to delete the entire section,\n    while a dictionary lists settings to be changed or deleted in that section.\n    A setting of ``None`` means to delete that setting.\n    \"\"\"\n    log.debug(\"Reading configuration from %s\", filename)\n    opts = configparser.RawConfigParser()\n    opts.optionxform = lambda optionstr: optionstr  # type: ignore[method-assign] # overriding method\n    _cfg_read_utf8_with_fallback(opts, filename)\n\n    for section, options in settings.items():\n        if options is None:\n            log.info(\"Deleting section [%s] from %s\", section, filename)\n            opts.remove_section(section)\n        else:\n            if not opts.has_section(section):\n                log.debug(\"Adding new section [%s] to %s\", section, filename)\n                opts.add_section(section)\n            for option, value in options.items():\n                if value is None:\n                    log.debug(\"Deleting %s.%s from %s\", section, option, filename)\n                    opts.remove_option(section, option)\n                    if not opts.options(section):\n                        log.info(\n                            \"Deleting empty [%s] section from %s\", section, filename\n                        )\n                        opts.remove_section(section)\n                else:\n                    log.debug(\n                        \"Setting %s.%s to %r in %s\", section, option, value, filename\n                    )\n                    opts.set(section, option, value)\n\n    log.info(\"Writing %s\", filename)\n    if not dry_run:\n        with open(filename, 'w', encoding=\"utf-8\") as f:\n            opts.write(f)\n\n\n"
+    },
+    {
+      "function": "self.parse_config",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_setopt.py",
+      "line": 8,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": "    @staticmethod\n    def parse_config(filename):\n        parser = configparser.ConfigParser()\n        with open(filename, encoding='utf-8') as reader:\n            parser.read_file(reader)\n        return parser\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_utf8_encoding_retained",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert parser.get('names', 'jaraco') == '\u0434\u0436\u0430\u0440\u0430\u043a\u043e'",
+    "assert parser.get('names', 'other') == 'yes'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_utf8_encoding_retained(self, tmpdir):\n        \"\"\"\n        When editing a file, non-ASCII characters encoded in\n        UTF-8 should be retained.\n        \"\"\"\n        config = tmpdir.join('setup.cfg')\n        self.write_text(str(config), '[names]\\njaraco=\u0434\u0436\u0430\u0440\u0430\u043a\u043e')\n        setopt.edit_config(str(config), dict(names=dict(other='yes')))\n        parser = self.parse_config(str(config))\n        assert parser.get('names', 'jaraco') == '\u0434\u0436\u0430\u0440\u0430\u043a\u043e'\n        assert parser.get('names', 'other') == 'yes'"
+}

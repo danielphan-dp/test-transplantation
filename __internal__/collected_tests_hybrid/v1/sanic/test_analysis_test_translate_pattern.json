@@ -1,0 +1,108 @@
+{
+  "test_name": "test_translate_pattern",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_filelist.py",
+  "static_methods": [
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "translate_pattern.search",
+      "source_code": "    def search(self, terms, operator=None):  # pragma: no cover\n        if isinstance(terms, string_types):\n            terms = {'name': terms}\n        rpc_proxy = ServerProxy(self.url, timeout=3.0)\n        try:\n            return rpc_proxy.search(terms, operator or 'and')\n        finally:\n            rpc_proxy('close')()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 501
+    },
+    {
+      "name": "translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line_number": 38
+    },
+    {
+      "name": "translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line_number": 38
+    },
+    {
+      "name": "translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line_number": 38
+    },
+    {
+      "name": "translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line_number": 38
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_translate_pattern",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_translate_pattern",
+      "source_code": ""
+    },
+    {
+      "function": "translate_pattern.search",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 501,
+      "caller": "test_translate_pattern",
+      "source_code": "    def search(self, terms, operator=None):  # pragma: no cover\n        if isinstance(terms, string_types):\n            terms = {'name': terms}\n        rpc_proxy = ServerProxy(self.url, timeout=3.0)\n        try:\n            return rpc_proxy.search(terms, operator or 'and')\n        finally:\n            rpc_proxy('close')()\n"
+    },
+    {
+      "function": "translate_pattern",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line": 38,
+      "caller": "test_translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''\n\n    # This will split on '/' within [character classes]. This is deliberate.\n    chunks = glob.split(os.path.sep)\n\n    sep = re.escape(os.sep)\n    valid_char = '[^%s]' % (sep,)\n\n    for c, chunk in enumerate(chunks):\n        last_chunk = c == len(chunks) - 1\n\n        # Chunks that are a literal ** are globstars. They match anything.\n        if chunk == '**':\n            if last_chunk:\n                # Match anything if this is the last component\n                pat += '.*'\n            else:\n                # Match '(name/)*'\n                pat += '(?:%s+%s)*' % (valid_char, sep)\n            continue  # Break here as the whole path component has been handled\n\n        # Find any special characters in the remainder\n        i = 0\n        chunk_len = len(chunk)\n        while i < chunk_len:\n            char = chunk[i]\n            if char == '*':\n                # Match any number of name characters\n                pat += valid_char + '*'\n            elif char == '?':\n                # Match a name character\n                pat += valid_char\n            elif char == '[':\n                # Character class\n                inner_i = i + 1\n                # Skip initial !/] chars\n                if inner_i < chunk_len and chunk[inner_i] == '!':\n                    inner_i = inner_i + 1\n                if inner_i < chunk_len and chunk[inner_i] == ']':\n                    inner_i = inner_i + 1\n\n                # Loop till the closing ] is found\n                while inner_i < chunk_len and chunk[inner_i] != ']':\n                    inner_i = inner_i + 1\n\n                if inner_i >= chunk_len:\n                    # Got to the end of the string without finding a closing ]\n                    # Do not treat this as a matching group, but as a literal [\n                    pat += re.escape(char)\n                else:\n                    # Grab the insides of the [brackets]\n                    inner = chunk[i + 1 : inner_i]\n                    char_class = ''\n\n                    # Class negation\n                    if inner[0] == '!':\n                        char_class = '^'\n                        inner = inner[1:]\n\n                    char_class += re.escape(inner)\n                    pat += '[%s]' % (char_class,)\n\n                    # Skip to the end ]\n                    i = inner_i\n            else:\n                pat += re.escape(char)\n            i += 1\n\n        # Join each chunk with the dir separator\n        if not last_chunk:\n            pat += sep\n\n    pat += r'\\Z'\n    return re.compile(pat, flags=re.MULTILINE | re.DOTALL)\n\n\n"
+    },
+    {
+      "function": "translate_pattern",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line": 38,
+      "caller": "test_translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''\n\n    # This will split on '/' within [character classes]. This is deliberate.\n    chunks = glob.split(os.path.sep)\n\n    sep = re.escape(os.sep)\n    valid_char = '[^%s]' % (sep,)\n\n    for c, chunk in enumerate(chunks):\n        last_chunk = c == len(chunks) - 1\n\n        # Chunks that are a literal ** are globstars. They match anything.\n        if chunk == '**':\n            if last_chunk:\n                # Match anything if this is the last component\n                pat += '.*'\n            else:\n                # Match '(name/)*'\n                pat += '(?:%s+%s)*' % (valid_char, sep)\n            continue  # Break here as the whole path component has been handled\n\n        # Find any special characters in the remainder\n        i = 0\n        chunk_len = len(chunk)\n        while i < chunk_len:\n            char = chunk[i]\n            if char == '*':\n                # Match any number of name characters\n                pat += valid_char + '*'\n            elif char == '?':\n                # Match a name character\n                pat += valid_char\n            elif char == '[':\n                # Character class\n                inner_i = i + 1\n                # Skip initial !/] chars\n                if inner_i < chunk_len and chunk[inner_i] == '!':\n                    inner_i = inner_i + 1\n                if inner_i < chunk_len and chunk[inner_i] == ']':\n                    inner_i = inner_i + 1\n\n                # Loop till the closing ] is found\n                while inner_i < chunk_len and chunk[inner_i] != ']':\n                    inner_i = inner_i + 1\n\n                if inner_i >= chunk_len:\n                    # Got to the end of the string without finding a closing ]\n                    # Do not treat this as a matching group, but as a literal [\n                    pat += re.escape(char)\n                else:\n                    # Grab the insides of the [brackets]\n                    inner = chunk[i + 1 : inner_i]\n                    char_class = ''\n\n                    # Class negation\n                    if inner[0] == '!':\n                        char_class = '^'\n                        inner = inner[1:]\n\n                    char_class += re.escape(inner)\n                    pat += '[%s]' % (char_class,)\n\n                    # Skip to the end ]\n                    i = inner_i\n            else:\n                pat += re.escape(char)\n            i += 1\n\n        # Join each chunk with the dir separator\n        if not last_chunk:\n            pat += sep\n\n    pat += r'\\Z'\n    return re.compile(pat, flags=re.MULTILINE | re.DOTALL)\n\n\n"
+    },
+    {
+      "function": "translate_pattern",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line": 38,
+      "caller": "test_translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''\n\n    # This will split on '/' within [character classes]. This is deliberate.\n    chunks = glob.split(os.path.sep)\n\n    sep = re.escape(os.sep)\n    valid_char = '[^%s]' % (sep,)\n\n    for c, chunk in enumerate(chunks):\n        last_chunk = c == len(chunks) - 1\n\n        # Chunks that are a literal ** are globstars. They match anything.\n        if chunk == '**':\n            if last_chunk:\n                # Match anything if this is the last component\n                pat += '.*'\n            else:\n                # Match '(name/)*'\n                pat += '(?:%s+%s)*' % (valid_char, sep)\n            continue  # Break here as the whole path component has been handled\n\n        # Find any special characters in the remainder\n        i = 0\n        chunk_len = len(chunk)\n        while i < chunk_len:\n            char = chunk[i]\n            if char == '*':\n                # Match any number of name characters\n                pat += valid_char + '*'\n            elif char == '?':\n                # Match a name character\n                pat += valid_char\n            elif char == '[':\n                # Character class\n                inner_i = i + 1\n                # Skip initial !/] chars\n                if inner_i < chunk_len and chunk[inner_i] == '!':\n                    inner_i = inner_i + 1\n                if inner_i < chunk_len and chunk[inner_i] == ']':\n                    inner_i = inner_i + 1\n\n                # Loop till the closing ] is found\n                while inner_i < chunk_len and chunk[inner_i] != ']':\n                    inner_i = inner_i + 1\n\n                if inner_i >= chunk_len:\n                    # Got to the end of the string without finding a closing ]\n                    # Do not treat this as a matching group, but as a literal [\n                    pat += re.escape(char)\n                else:\n                    # Grab the insides of the [brackets]\n                    inner = chunk[i + 1 : inner_i]\n                    char_class = ''\n\n                    # Class negation\n                    if inner[0] == '!':\n                        char_class = '^'\n                        inner = inner[1:]\n\n                    char_class += re.escape(inner)\n                    pat += '[%s]' % (char_class,)\n\n                    # Skip to the end ]\n                    i = inner_i\n            else:\n                pat += re.escape(char)\n            i += 1\n\n        # Join each chunk with the dir separator\n        if not last_chunk:\n            pat += sep\n\n    pat += r'\\Z'\n    return re.compile(pat, flags=re.MULTILINE | re.DOTALL)\n\n\n"
+    },
+    {
+      "function": "translate_pattern",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line": 38,
+      "caller": "test_translate_pattern",
+      "source_code": "def translate_pattern(glob):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"\n    Translate a file path glob like '*.txt' in to a regular expression.\n    This differs from fnmatch.translate which allows wildcards to match\n    directory separators. It also knows about '**/' which matches any number of\n    directories.\n    \"\"\"\n    pat = ''\n\n    # This will split on '/' within [character classes]. This is deliberate.\n    chunks = glob.split(os.path.sep)\n\n    sep = re.escape(os.sep)\n    valid_char = '[^%s]' % (sep,)\n\n    for c, chunk in enumerate(chunks):\n        last_chunk = c == len(chunks) - 1\n\n        # Chunks that are a literal ** are globstars. They match anything.\n        if chunk == '**':\n            if last_chunk:\n                # Match anything if this is the last component\n                pat += '.*'\n            else:\n                # Match '(name/)*'\n                pat += '(?:%s+%s)*' % (valid_char, sep)\n            continue  # Break here as the whole path component has been handled\n\n        # Find any special characters in the remainder\n        i = 0\n        chunk_len = len(chunk)\n        while i < chunk_len:\n            char = chunk[i]\n            if char == '*':\n                # Match any number of name characters\n                pat += valid_char + '*'\n            elif char == '?':\n                # Match a name character\n                pat += valid_char\n            elif char == '[':\n                # Character class\n                inner_i = i + 1\n                # Skip initial !/] chars\n                if inner_i < chunk_len and chunk[inner_i] == '!':\n                    inner_i = inner_i + 1\n                if inner_i < chunk_len and chunk[inner_i] == ']':\n                    inner_i = inner_i + 1\n\n                # Loop till the closing ] is found\n                while inner_i < chunk_len and chunk[inner_i] != ']':\n                    inner_i = inner_i + 1\n\n                if inner_i >= chunk_len:\n                    # Got to the end of the string without finding a closing ]\n                    # Do not treat this as a matching group, but as a literal [\n                    pat += re.escape(char)\n                else:\n                    # Grab the insides of the [brackets]\n                    inner = chunk[i + 1 : inner_i]\n                    char_class = ''\n\n                    # Class negation\n                    if inner[0] == '!':\n                        char_class = '^'\n                        inner = inner[1:]\n\n                    char_class += re.escape(inner)\n                    pat += '[%s]' % (char_class,)\n\n                    # Skip to the end ]\n                    i = inner_i\n            else:\n                pat += re.escape(char)\n            i += 1\n\n        # Join each chunk with the dir separator\n        if not last_chunk:\n            pat += sep\n\n    pat += r'\\Z'\n    return re.compile(pat, flags=re.MULTILINE | re.DOTALL)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert hasattr(translate_pattern('a', anchor=True, is_regex=False), 'search')",
+    "assert translate_pattern(regex, anchor=True, is_regex=True) == regex",
+    "assert hasattr(translate_pattern('a', anchor=True, is_regex=True), 'search')",
+    "assert translate_pattern('*.py', anchor=True, is_regex=False).search('filelist.py')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_translate_pattern(self):\n        # not regex\n        assert hasattr(translate_pattern('a', anchor=True, is_regex=False), 'search')\n\n        # is a regex\n        regex = re.compile('a')\n        assert translate_pattern(regex, anchor=True, is_regex=True) == regex\n\n        # plain string flagged as regex\n        assert hasattr(translate_pattern('a', anchor=True, is_regex=True), 'search')\n\n        # glob support\n        assert translate_pattern('*.py', anchor=True, is_regex=False).search(\n            'filelist.py'\n        )"
+}

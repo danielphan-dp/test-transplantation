@@ -1,0 +1,103 @@
+{
+  "test_name": "test_decorator_with_subpath_and_view_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_wsgi.py",
+  "static_methods": [
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "decorator",
+      "source_code": "        def decorator(cls_or_fn):\n            cls_or_fn.__dataclass_transform__ = {\n                \"eq_default\": eq_default,\n                \"order_default\": order_default,\n                \"kw_only_default\": kw_only_default,\n                \"field_specifiers\": field_specifiers,\n                \"kwargs\": kwargs,\n            }\n            return cls_or_fn\n        return decorator",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/typing_extensions.py",
+      "line_number": 2069
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_decorator_with_subpath_and_view_name",
+      "source_code": ""
+    },
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_decorator_with_subpath_and_view_name",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_decorator_with_subpath_and_view_name",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "decorator",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/typing_extensions.py",
+      "line": 2069,
+      "caller": "test_decorator_with_subpath_and_view_name",
+      "source_code": "        def decorator(cls_or_fn):\n            cls_or_fn.__dataclass_transform__ = {\n                \"eq_default\": eq_default,\n                \"order_default\": order_default,\n                \"kw_only_default\": kw_only_default,\n                \"field_specifiers\": field_specifiers,\n                \"kwargs\": kwargs,\n            }\n            return cls_or_fn\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_decorator_with_subpath_and_view_name",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_decorator_with_subpath_and_view_name",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_decorator_with_subpath_and_view_name",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_decorator_with_subpath_and_view_name(self):\n        context = DummyContext()\n        request = DummyRequest()\n        request.subpath = ('subpath',)\n        request.environ = {\n            'SCRIPT_NAME': '/foo',\n            'PATH_INFO': '/b/view_name/subpath',\n        }\n        decorator = self._callFUT(dummyapp)\n        response = decorator(context, request)\n        self.assertEqual(response, dummyapp)\n        self.assertEqual(request.environ['PATH_INFO'], '/subpath')\n        self.assertEqual(request.environ['SCRIPT_NAME'], '/foo/b/view_name')"
+}

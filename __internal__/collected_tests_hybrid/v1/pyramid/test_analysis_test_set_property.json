@@ -1,0 +1,77 @@
+{
+  "test_name": "test_set_property",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "request.set_property",
+      "source_code": "    def set_property(cls, target, callable, name=None, reify=False):\n        \"\"\"A helper method to apply a single property to an instance.\"\"\"\n        prop = cls.make_property(callable, name=name, reify=reify)\n        cls.apply_properties(target, [prop])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line_number": 170
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "opts.pop",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 940
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_set_property",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "request.set_property",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line": 170,
+      "caller": "test_set_property",
+      "source_code": "    @classmethod\n    def set_property(cls, target, callable, name=None, reify=False):\n        \"\"\"A helper method to apply a single property to an instance.\"\"\"\n        prop = cls.make_property(callable, name=name, reify=reify)\n        cls.apply_properties(target, [prop])\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_property",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_property",
+      "source_code": ""
+    },
+    {
+      "function": "opts.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 940,
+      "caller": "test_set_property",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_property(self):\n        request = self._makeOne()\n        opts = [2, 1]\n\n        def connect(obj):\n            return opts.pop()\n\n        request.set_property(connect, name='db')\n        self.assertEqual(1, request.db)\n        self.assertEqual(2, request.db)"
+}

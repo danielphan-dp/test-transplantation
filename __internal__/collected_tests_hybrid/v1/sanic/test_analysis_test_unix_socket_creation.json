@@ -1,0 +1,96 @@
+{
+  "test_name": "test_unix_socket_creation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_unix_socket.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sock.bind",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.stop",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1308
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_socket_creation",
+      "source_code": ""
+    },
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_socket_creation",
+      "source_code": ""
+    },
+    {
+      "function": "sock.bind",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_socket_creation",
+      "source_code": ""
+    },
+    {
+      "function": "app.stop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1308,
+      "caller": "test_unix_socket_creation",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True\n\n"
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_socket_creation",
+      "source_code": ""
+    },
+    {
+      "function": "app.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_unix_socket_creation",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert os.path.exists(SOCKPATH)",
+    "assert ('sanic.root', logging.INFO, f\"Goin' Fast @ {SOCKPATH} http://...\") in caplog.record_tuples",
+    "assert not os.path.exists(SOCKPATH)",
+    "assert os.path.exists(SOCKPATH)",
+    "assert ino != os.stat(SOCKPATH).st_ino"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_unix_socket_creation(caplog: LogCaptureFixture):\n    from socket import AF_UNIX, socket\n\n    with socket(AF_UNIX) as sock:\n        sock.bind(SOCKPATH)\n    assert os.path.exists(SOCKPATH)\n    ino = os.stat(SOCKPATH).st_ino\n\n    app = Sanic(name=\"test\")\n\n    @app.after_server_start\n    def running(app: Sanic):\n        assert os.path.exists(SOCKPATH)\n        assert ino != os.stat(SOCKPATH).st_ino\n        app.stop()\n\n    with caplog.at_level(logging.INFO):\n        app.run(unix=SOCKPATH, single_process=True)\n\n    assert (\n        \"sanic.root\",\n        logging.INFO,\n        f\"Goin' Fast @ {SOCKPATH} http://...\",\n    ) in caplog.record_tuples\n    assert not os.path.exists(SOCKPATH)"
+}

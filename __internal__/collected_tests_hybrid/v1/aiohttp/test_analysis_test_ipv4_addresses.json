@@ -1,0 +1,27 @@
+{
+  "test_name": "test_ipv4_addresses",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.is_ip_address",
+      "source_code": "def is_ip_address(host: Optional[str]) -> bool:\n    \"\"\"Check if host looks like an IP Address.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 444
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.is_ip_address",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 444,
+      "caller": "test_ipv4_addresses",
+      "source_code": "def is_ip_address(host: Optional[str]) -> bool:\n    \"\"\"Check if host looks like an IP Address.\n\n    This check is only meant as a heuristic to ensure that\n    a host is not a domain name.\n    \"\"\"\n    if not host:\n        return False\n    # For a host to be an ipv4 address, it must be all numeric.\n    # The host must contain a colon to be an IPv6 address.\n    return \":\" in host or host.replace(\".\", \"\").isdigit()\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert helpers.is_ip_address(address)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ipv4_addresses() -> None:\n    ip_addresses = [\n        \"0.0.0.0\",\n        \"127.0.0.1\",\n        \"255.255.255.255\",\n    ]\n    for address in ip_addresses:\n        assert helpers.is_ip_address(address)"
+}

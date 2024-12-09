@@ -1,0 +1,90 @@
+{
+  "test_name": "test_unhook_zca",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "getSiteManager.sethook",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.unhook_zca",
+      "source_code": "    def unhook_zca(self):\n        \"\"\"Call :func:`zope.component.getSiteManager.reset` to undo the\n        action of :meth:`pyramid.config.Configurator.hook_zca`.\"\"\"\n        from zope.component import getSiteManager",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/zca.py",
+      "line_number": 17
+    },
+    {
+      "name": "getSiteManager",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertNotEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "getSiteManager.reset",
+      "source_code": "    def reset(\n        self,\n        task_id: TaskID,\n        *,\n        start: bool = True,\n        total: Optional[float] = None,\n        completed: int = 0,\n        visible: Optional[bool] = None,\n        description: Optional[str] = None,\n        **fields: Any,\n    ) -> None:\n        \"\"\"Reset a task so completed is 0 and the clock is reset.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line_number": 1467
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "getSiteManager.sethook",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unhook_zca",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_unhook_zca",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.unhook_zca",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/zca.py",
+      "line": 17,
+      "caller": "test_unhook_zca",
+      "source_code": "    def unhook_zca(self):\n        \"\"\"Call :func:`zope.component.getSiteManager.reset` to undo the\n        action of :meth:`pyramid.config.Configurator.hook_zca`.\"\"\"\n        from zope.component import getSiteManager\n\n        getSiteManager.reset()\n"
+    },
+    {
+      "function": "getSiteManager",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unhook_zca",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertNotEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unhook_zca",
+      "source_code": ""
+    },
+    {
+      "function": "getSiteManager.reset",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line": 1467,
+      "caller": "test_unhook_zca",
+      "source_code": "    def reset(\n        self,\n        task_id: TaskID,\n        *,\n        start: bool = True,\n        total: Optional[float] = None,\n        completed: int = 0,\n        visible: Optional[bool] = None,\n        description: Optional[str] = None,\n        **fields: Any,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unhook_zca(self):\n        from zope.component import getSiteManager\n\n        def foo():\n            '123'\n\n        try:\n            getSiteManager.sethook(foo)\n            config = self._makeOne()\n            config.unhook_zca()\n            sm = getSiteManager()\n            self.assertNotEqual(sm, '123')\n        finally:\n            getSiteManager.reset()"
+}

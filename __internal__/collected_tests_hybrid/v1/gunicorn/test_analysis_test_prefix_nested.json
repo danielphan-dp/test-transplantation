@@ -1,0 +1,79 @@
+{
+  "test_name": "test_prefix_nested",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_statsd.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Statsd",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "logger.info",
+      "source_code": "    def info(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        with ZipFile(pathname, 'r') as zf:\n            result = self.get_wheel_metadata(zf)\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 287
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_prefix_nested",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_prefix_nested",
+      "source_code": ""
+    },
+    {
+      "function": "Statsd",
+      "filename": "",
+      "line": 0,
+      "caller": "test_prefix_nested",
+      "source_code": ""
+    },
+    {
+      "function": "MockSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_prefix_nested",
+      "source_code": ""
+    },
+    {
+      "function": "logger.info",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 287,
+      "caller": "test_prefix_nested",
+      "source_code": "    @cached_property\n    def info(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        with ZipFile(pathname, 'r') as zf:\n            result = self.get_wheel_metadata(zf)\n        return result\n\n"
+    }
+  ],
+  "assertions": [
+    "assert logger.sock.msgs[0] == b'test.asdf.gunicorn.test:666|g'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_prefix_nested():\n    c = Config()\n    c.set(\"statsd_prefix\", \"test.asdf.\")\n    logger = Statsd(c)\n    logger.sock = MockSocket(False)\n\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"test.asdf.gunicorn.test:666|g\""
+}

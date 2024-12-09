@@ -1,0 +1,27 @@
+{
+  "test_name": "test_gen_netloc_all",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_gen_netloc_all",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    }
+  ],
+  "assertions": [
+    "assert req.headers['HOST'] == '12345678901234567890123456789' + '012345678901234567890:8080'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_gen_netloc_all(make_request: _RequestMaker) -> None:\n    req = make_request(\n        \"get\",\n        \"https://aiohttp:pwpwpw@\"\n        + \"12345678901234567890123456789\"\n        + \"012345678901234567890:8080\",\n    )\n    assert (\n        req.headers[\"HOST\"]\n        == \"12345678901234567890123456789\" + \"012345678901234567890:8080\"\n    )"
+}

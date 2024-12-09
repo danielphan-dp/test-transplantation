@@ -1,6 +1,6 @@
 {
   "test_name": "test_manual_context_binding",
-  "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
     {
       "name": "app.route",
@@ -16,27 +16,27 @@
     },
     {
       "name": "ctx.push",
-      "source_code": "    def push(self) -> None:\n        \"\"\"Binds the app context to the current context.\"\"\"\n        self._cv_tokens.append(_cv_app.set(self))\n        appcontext_pushed.send(self.app, _async_wrapper=self.app.ensure_sync)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line_number": 251
+      "source_code": "    def push(self, obj: T) -> list[T]:\n        \"\"\"Add a new item to the top of the stack.\"\"\"\n        stack = self._storage.get([]).copy()\n        stack.append(obj)\n        self._storage.set(stack)\n        return stack",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line_number": 140
     },
     {
       "name": "ctx.pop",
-      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line_number": 78
+      "source_code": "    def pop(self) -> T | None:\n        \"\"\"Remove the top item from the stack and return it. If the\n        stack is empty, return ``None``.\n        \"\"\"\n        stack = self._storage.get([])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line_number": 147
     },
     {
       "name": "index",
-      "source_code": "def index(js):\n    return render_template(f\"{js}.html\", js=js)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line_number": 10
+      "source_code": "    def index(self, key: str | tuple[str, float]) -> int:  # type: ignore[override]\n        \"\"\"Get the position of an entry or raise :exc:`ValueError`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line_number": 110
     },
     {
       "name": "index",
-      "source_code": "def index(js):\n    return render_template(f\"{js}.html\", js=js)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line_number": 10
+      "source_code": "    def index(self, key: str | tuple[str, float]) -> int:  # type: ignore[override]\n        \"\"\"Get the position of an entry or raise :exc:`ValueError`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line_number": 110
     }
   ],
   "dynamic_methods": [
@@ -56,31 +56,31 @@
     },
     {
       "function": "ctx.push",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line": 251,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line": 140,
       "caller": "test_manual_context_binding",
-      "source_code": "    def push(self) -> None:\n        \"\"\"Binds the app context to the current context.\"\"\"\n        self._cv_tokens.append(_cv_app.set(self))\n        appcontext_pushed.send(self.app, _async_wrapper=self.app.ensure_sync)\n\n"
+      "source_code": "    def push(self, obj: T) -> list[T]:\n        \"\"\"Add a new item to the top of the stack.\"\"\"\n        stack = self._storage.get([]).copy()\n        stack.append(obj)\n        self._storage.set(stack)\n        return stack\n\n"
     },
     {
       "function": "ctx.pop",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line": 78,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line": 147,
       "caller": "test_manual_context_binding",
-      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.\n\n        :param name: Name of attribute to pop.\n        :param default: Value to return if the attribute is not present,\n            instead of raising a ``KeyError``.\n\n        .. versionadded:: 0.11\n        \"\"\"\n        if default is _sentinel:\n            return self.__dict__.pop(name)\n        else:\n            return self.__dict__.pop(name, default)\n\n"
+      "source_code": "    def pop(self) -> T | None:\n        \"\"\"Remove the top item from the stack and return it. If the\n        stack is empty, return ``None``.\n        \"\"\"\n        stack = self._storage.get([])\n\n        if len(stack) == 0:\n            return None\n\n        rv = stack[-1]\n        self._storage.set(stack[:-1])\n        return rv\n\n"
     },
     {
       "function": "index",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line": 10,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line": 110,
       "caller": "test_manual_context_binding",
-      "source_code": "@app.route(\"/\", defaults={\"js\": \"fetch\"})\n@app.route(\"/<any(xhr, jquery, fetch):js>\")\ndef index(js):\n    return render_template(f\"{js}.html\", js=js)\n\n\n"
+      "source_code": "    def index(self, key: str | tuple[str, float]) -> int:  # type: ignore[override]\n        \"\"\"Get the position of an entry or raise :exc:`ValueError`.\n\n        :param key: The key to be looked up.\n\n        .. versionchanged:: 0.5\n           This used to raise :exc:`IndexError`, which was inconsistent\n           with the list API.\n        \"\"\"\n        if isinstance(key, str):\n            for idx, (item, _quality) in enumerate(self):\n                if self._value_matches(key, item):\n                    return idx\n            raise ValueError(key)\n        return list.index(self, key)\n\n"
     },
     {
       "function": "index",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line": 10,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line": 110,
       "caller": "test_manual_context_binding",
-      "source_code": "@app.route(\"/\", defaults={\"js\": \"fetch\"})\n@app.route(\"/<any(xhr, jquery, fetch):js>\")\ndef index(js):\n    return render_template(f\"{js}.html\", js=js)\n\n\n"
+      "source_code": "    def index(self, key: str | tuple[str, float]) -> int:  # type: ignore[override]\n        \"\"\"Get the position of an entry or raise :exc:`ValueError`.\n\n        :param key: The key to be looked up.\n\n        .. versionchanged:: 0.5\n           This used to raise :exc:`IndexError`, which was inconsistent\n           with the list API.\n        \"\"\"\n        if isinstance(key, str):\n            for idx, (item, _quality) in enumerate(self):\n                if self._value_matches(key, item):\n                    return idx\n            raise ValueError(key)\n        return list.index(self, key)\n\n"
     }
   ],
   "assertions": [

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_host_comes_first",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+  "static_methods": [
+    {
+      "name": "tw",
+      "source_code": "def tw(writer: Any, obj: Any, expected: Any) -> None:\n    got = dowrite(writer, obj)\n    assert got == expected",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line_number": 88
+    },
+    {
+      "name": "normalize_and_validate",
+      "source_code": "def normalize_and_validate(headers: Headers, _parsed: Literal[True]) -> Headers:\n    ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_headers.py",
+      "line_number": 134
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tw",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line": 88,
+      "caller": "test_host_comes_first",
+      "source_code": "def tw(writer: Any, obj: Any, expected: Any) -> None:\n    got = dowrite(writer, obj)\n    assert got == expected\n\n\n"
+    },
+    {
+      "function": "normalize_and_validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_headers.py",
+      "line": 134,
+      "caller": "test_host_comes_first",
+      "source_code": "@overload\ndef normalize_and_validate(headers: Headers, _parsed: Literal[True]) -> Headers:\n    ...\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_host_comes_first() -> None:\n    tw(\n        write_headers,\n        normalize_and_validate([(\"foo\", \"bar\"), (\"Host\", \"example.com\")]),\n        b\"Host: example.com\\r\\nfoo: bar\\r\\n\\r\\n\",\n    )"
+}

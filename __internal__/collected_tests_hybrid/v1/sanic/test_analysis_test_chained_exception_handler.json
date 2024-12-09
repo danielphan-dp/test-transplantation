@@ -1,0 +1,71 @@
+{
+  "test_name": "test_chained_exception_handler",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions_handler.py",
+  "static_methods": [
+    {
+      "name": "exception_handler_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "BeautifulSoup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "soup.select",
+      "source_code": "    def select(self, **params) -> EntryPoints:\n        \"\"\"\n        Select entry points from self that match the\n        given parameters (typically group and/or name).\n        \"\"\"\n        return EntryPoints(ep for ep in self if py39.ep_matches(ep, **params))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line_number": 277
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "exception_handler_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_chained_exception_handler",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "BeautifulSoup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_chained_exception_handler",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_chained_exception_handler",
+      "source_code": ""
+    },
+    {
+      "function": "soup.select",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/__init__.py",
+      "line": 277,
+      "caller": "test_chained_exception_handler",
+      "source_code": "    def select(self, **params) -> EntryPoints:\n        \"\"\"\n        Select entry points from self that match the\n        given parameters (typically group and/or name).\n        \"\"\"\n        return EntryPoints(ep for ep in self if py39.ep_matches(ep, **params))\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert 'handler_6' in html",
+    "assert 'foo = 1 / arg' in html",
+    "assert 'ValueError' in html",
+    "assert 'GET /6' in html",
+    "assert 'ZeroDivisionError: division by zero' == summary_text"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_chained_exception_handler(exception_handler_app: Sanic):\n    request, response = exception_handler_app.test_client.get(\n        \"/6/0\", debug=True\n    )\n    assert response.status == 500\n\n    soup = BeautifulSoup(response.body, \"html.parser\")\n    html = str(soup)\n\n    assert \"handler_6\" in html\n    assert \"foo = 1 / arg\" in html\n    assert \"ValueError\" in html\n    assert \"GET /6\" in html\n\n    summary_text = soup.select(\"h3\")[0].text\n    assert \"ZeroDivisionError: division by zero\" == summary_text"
+}

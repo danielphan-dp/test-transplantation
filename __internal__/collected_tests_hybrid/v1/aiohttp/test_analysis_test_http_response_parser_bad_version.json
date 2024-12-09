@@ -1,0 +1,25 @@
+{
+  "test_name": "test_http_response_parser_bad_version",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "response.feed_data",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n    ) -> Tuple[List[Tuple[_MsgT, StreamReader]], bool, bytes]:\n        messages = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line_number": 291
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "response.feed_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line": 291,
+      "caller": "test_http_response_parser_bad_version",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_response_parser_bad_version(response: HttpResponseParser) -> None:\n    with pytest.raises(http_exceptions.BadHttpMessage):\n        response.feed_data(b\"HT/11 200 Ok\\r\\n\\r\\n\")"
+}

@@ -1,0 +1,103 @@
+{
+  "test_name": "test_add_resource_url_adapter_dotted_names",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_adapters.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_resource_url_adapter",
+      "source_code": "    def add_resource_url_adapter(self, adapter, resource_iface=None):\n        \"\"\"\n        .. versionadded:: 1.3",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line_number": 276
+    },
+    {
+      "name": "DummyIface",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.getMultiAdapter",
+      "source_code": "    def getMultiAdapter(objects, interface, name=''):\n        \"\"\"Look for a multi-adapter to an interface for multiple objects",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1035
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_resource_url_adapter_dotted_names",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_resource_url_adapter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line": 276,
+      "caller": "test_add_resource_url_adapter_dotted_names",
+      "source_code": "    @action_method\n    def add_resource_url_adapter(self, adapter, resource_iface=None):\n        \"\"\"\n        .. versionadded:: 1.3\n\n        When you add a traverser as described in\n        :ref:`changing_the_traverser`, it's convenient to continue to use the\n        :meth:`pyramid.request.Request.resource_url` API.  However, since the\n        way traversal is done may have been modified, the URLs that\n        ``resource_url`` generates by default may be incorrect when resources\n        are returned by a custom traverser.\n\n        If you've added a traverser, you can change how\n        :meth:`~pyramid.request.Request.resource_url` generates a URL for a\n        specific type of resource by calling this method.\n\n        The ``adapter`` argument represents a class that implements the\n        :class:`~pyramid.interfaces.IResourceURL` interface.  The class\n        constructor should accept two arguments in its constructor (the\n        resource and the request) and the resulting instance should provide\n        the attributes detailed in that interface (``virtual_path`` and\n        ``physical_path``, in particular).\n\n        The ``resource_iface`` argument represents a class or interface that\n        the resource should possess for this url adapter to be used when\n        :meth:`pyramid.request.Request.resource_url` looks up a resource url\n        adapter.  If ``resource_iface`` is not passed, or it is passed as\n        ``None``, the url adapter will be used for every type of resource.\n\n        See :ref:`changing_resource_url` for more information.\n        \"\"\"\n        adapter = self.maybe_dotted(adapter)\n        resource_iface = self.maybe_dotted(resource_iface)\n\n        def register(resource_iface=resource_iface):\n            if resource_iface is None:\n                resource_iface = Interface\n            self.registry.registerAdapter(\n                adapter, (resource_iface, Interface), IResourceURL\n            )\n\n        discriminator = ('resource url adapter', resource_iface)\n        intr = self.introspectable(\n            'resource url adapters',\n            discriminator,\n            'resource url adapter for resource iface %r' % resource_iface,\n            'resource url adapter',\n        )\n        intr['adapter'] = adapter\n        intr['resource_iface'] = resource_iface\n        self.action(discriminator, register, introspectables=(intr,))\n\n\n"
+    },
+    {
+      "function": "DummyIface",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_resource_url_adapter_dotted_names",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.getMultiAdapter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1035,
+      "caller": "test_add_resource_url_adapter_dotted_names",
+      "source_code": "    def getMultiAdapter(objects, interface, name=''):\n        \"\"\"Look for a multi-adapter to an interface for multiple objects\n\n        If a matching adapter cannot be found, a `ComponentLookupError`\n        is raised.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_resource_url_adapter_dotted_names",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_resource_url_adapter_dotted_names",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_resource_url_adapter_dotted_names",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_resource_url_adapter_dotted_names(self):\n        from pyramid.interfaces import IResourceURL\n\n        config = self._makeOne(autocommit=True)\n        config.add_resource_url_adapter(\n            'tests.test_config.test_adapters.DummyResourceURL',\n            'tests.test_config.test_adapters.DummyIface',\n        )\n        iface = DummyIface()\n        adapter = config.registry.getMultiAdapter((iface, iface), IResourceURL)\n        self.assertEqual(adapter.__class__, DummyResourceURL)\n        self.assertEqual(adapter.resource, iface)\n        self.assertEqual(adapter.request, iface)"
+}

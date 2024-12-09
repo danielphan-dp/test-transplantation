@@ -1,6 +1,6 @@
 {
   "test_name": "test_async_before_after_request",
-  "test_file": "__internal__/_data/flask/tests/test_async.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_async.py",
   "static_methods": [
     {
       "name": "Flask",
@@ -40,15 +40,15 @@
     },
     {
       "name": "test_client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "test_client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     }
   ],
   "dynamic_methods": [
@@ -96,17 +96,17 @@
     },
     {
       "function": "test_client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_async_before_after_request",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "test_client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_async_before_after_request",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     }
   ],
   "assertions": [
@@ -116,6 +116,6 @@
     "assert bp_after_called"
   ],
   "mocks": [],
-  "success": false,
+  "success": true,
   "test_source_code": "def test_async_before_after_request():\n    app_before_called = False\n    app_after_called = False\n    bp_before_called = False\n    bp_after_called = False\n\n    app = Flask(__name__)\n\n    @app.route(\"/\")\n    def index():\n        return \"\"\n\n    @app.before_request\n    async def before():\n        nonlocal app_before_called\n        app_before_called = True\n\n    @app.after_request\n    async def after(response):\n        nonlocal app_after_called\n        app_after_called = True\n        return response\n\n    blueprint = Blueprint(\"bp\", __name__)\n\n    @blueprint.route(\"/\")\n    def bp_index():\n        return \"\"\n\n    @blueprint.before_request\n    async def bp_before():\n        nonlocal bp_before_called\n        bp_before_called = True\n\n    @blueprint.after_request\n    async def bp_after(response):\n        nonlocal bp_after_called\n        bp_after_called = True\n        return response\n\n    app.register_blueprint(blueprint, url_prefix=\"/bp\")\n\n    test_client = app.test_client()\n    test_client.get(\"/\")\n    assert app_before_called\n    assert app_after_called\n    test_client.get(\"/bp/\")\n    assert bp_before_called\n    assert bp_after_called"
 }

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_it_success_tuples",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_actions.py",
+  "static_methods": [
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it_success_tuples",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_it_success_tuples",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_success_tuples",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_success_tuples(self):\n        from . import dummyfactory as f\n\n        result = self._callFUT(\n            [\n                (None, f),\n                (1, f, (1,), {}, (), 'first'),\n                (1, f, (2,), {}, ('x',), 'second'),\n                (1, f, (3,), {}, ('y',), 'third'),\n                (4, f, (4,), {}, ('y',), 'should be last', 99999),\n                (3, f, (3,), {}, ('y',)),\n                (None, f, (5,), {}, ('y',)),\n            ]\n        )\n        result = list(result)\n        self.assertEqual(\n            result,\n            [\n                {\n                    'info': None,\n                    'args': (),\n                    'callable': f,\n                    'introspectables': (),\n                    'kw': {},\n                    'discriminator': None,\n                    'includepath': (),\n                    'order': 0,\n                },\n                {\n                    'info': 'first',\n                    'args': (1,),\n                    'callable': f,\n                    'introspectables': (),\n                    'kw': {},\n                    'discriminator': 1,\n                    'includepath': (),\n                    'order': 0,\n                },\n                {\n                    'info': None,\n                    'args': (3,),\n                    'callable': f,\n                    'introspectables': (),\n                    'kw': {},\n                    'discriminator': 3,\n                    'includepath': ('y',),\n                    'order': 0,\n                },\n                {\n                    'info': None,\n                    'args': (5,),\n                    'callable': f,\n                    'introspectables': (),\n                    'kw': {},\n                    'discriminator': None,\n                    'includepath': ('y',),\n                    'order': 0,\n                },\n                {\n                    'info': 'should be last',\n                    'args': (4,),\n                    'callable': f,\n                    'introspectables': (),\n                    'kw': {},\n                    'discriminator': 4,\n                    'includepath': ('y',),\n                    'order': 99999,\n                },\n            ],\n        )"
+}

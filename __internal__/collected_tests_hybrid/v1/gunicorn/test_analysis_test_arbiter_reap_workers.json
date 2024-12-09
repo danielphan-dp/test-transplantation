@@ -1,0 +1,116 @@
+{
+  "test_name": "test_arbiter_reap_workers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_arbiter.py",
+  "static_methods": [
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "arbiter.reap_workers",
+      "source_code": "    def reap_workers(self):\n        \"\"\"\\\n        Reap workers to avoid zombie processes\n        \"\"\"\n        try:\n            while True:\n                wpid, status = os.waitpid(-1, os.WNOHANG)\n                if not wpid:\n                    break\n                if self.reexec_pid == wpid:\n                    self.reexec_pid = 0\n                else:\n                    # A worker was terminated. If the termination reason was\n                    # that it could not boot, we'll shut it down to avoid\n                    # infinite start/stop cycles.\n                    exitcode = status >> 8\n                    if exitcode != 0:\n                        self.log.error('Worker (pid:%s) exited with code %s', wpid, exitcode)\n                    if exitcode == self.WORKER_BOOT_ERROR:\n                        reason = \"Worker failed to boot.\"\n                        raise HaltServer(reason, self.WORKER_BOOT_ERROR)\n                    if exitcode == self.APP_LOAD_ERROR:\n                        reason = \"App failed to load.\"\n                        raise HaltServer(reason, self.APP_LOAD_ERROR)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/arbiter.py",
+      "line_number": 511
+    },
+    {
+      "name": "mock_worker.tmp.close.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "arbiter.cfg.child_exit.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyApplication",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": ""
+    },
+    {
+      "function": "arbiter.reap_workers",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/arbiter.py",
+      "line": 511,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": "    def reap_workers(self):\n        \"\"\"\\\n        Reap workers to avoid zombie processes\n        \"\"\"\n        try:\n            while True:\n                wpid, status = os.waitpid(-1, os.WNOHANG)\n                if not wpid:\n                    break\n                if self.reexec_pid == wpid:\n                    self.reexec_pid = 0\n                else:\n                    # A worker was terminated. If the termination reason was\n                    # that it could not boot, we'll shut it down to avoid\n                    # infinite start/stop cycles.\n                    exitcode = status >> 8\n                    if exitcode != 0:\n                        self.log.error('Worker (pid:%s) exited with code %s', wpid, exitcode)\n                    if exitcode == self.WORKER_BOOT_ERROR:\n                        reason = \"Worker failed to boot.\"\n                        raise HaltServer(reason, self.WORKER_BOOT_ERROR)\n                    if exitcode == self.APP_LOAD_ERROR:\n                        reason = \"App failed to load.\"\n                        raise HaltServer(reason, self.APP_LOAD_ERROR)\n\n                    if exitcode > 0:\n                        # If the exit code of the worker is greater than 0,\n                        # let the user know.\n                        self.log.error(\"Worker (pid:%s) exited with code %s.\",\n                                       wpid, exitcode)\n                    elif status > 0:\n                        # If the exit code of the worker is 0 and the status\n                        # is greater than 0, then it was most likely killed\n                        # via a signal.\n                        try:\n                            sig_name = signal.Signals(status).name\n                        except ValueError:\n                            sig_name = \"code {}\".format(status)\n                        msg = \"Worker (pid:{}) was sent {}!\".format(\n                            wpid, sig_name)\n\n                        # Additional hint for SIGKILL\n                        if status == signal.SIGKILL:\n                            msg += \" Perhaps out of memory?\"\n                        self.log.error(msg)\n\n                    worker = self.WORKERS.pop(wpid, None)\n                    if not worker:\n                        continue\n                    worker.tmp.close()\n                    self.cfg.child_exit(self, worker)\n        except OSError as e:\n            if e.errno != errno.ECHILD:\n                raise\n\n"
+    },
+    {
+      "function": "mock_worker.tmp.close.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": ""
+    },
+    {
+      "function": "arbiter.cfg.child_exit.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": ""
+    },
+    {
+      "function": "DummyApplication",
+      "filename": "",
+      "line": 0,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_arbiter_reap_workers",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_arbiter_reap_workers(mock_os_waitpid):\n    mock_os_waitpid.side_effect = [(42, 0), (0, 0)]\n    arbiter = gunicorn.arbiter.Arbiter(DummyApplication())\n    arbiter.cfg.settings['child_exit'] = mock.Mock()\n    mock_worker = mock.Mock()\n    arbiter.WORKERS = {42: mock_worker}\n    arbiter.reap_workers()\n    mock_worker.tmp.close.assert_called_with()\n    arbiter.cfg.child_exit.assert_called_with(arbiter, mock_worker)"
+}

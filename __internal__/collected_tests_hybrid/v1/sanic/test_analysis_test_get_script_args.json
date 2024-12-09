@@ -1,0 +1,109 @@
+{
+  "test_name": "test_get_script_args",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "ei.CommandSpec.best.from_environment.as_header",
+      "source_code": "    def as_header(self):\n        return self._render(self + list(self.options))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 2084
+    },
+    {
+      "name": "FakeDist",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "next",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "script.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ei.ScriptWriter.get_args",
+      "source_code": "    def get_args(tp):\n        \"\"\"Get type arguments with all substitutions performed.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/typing_extensions.py",
+      "line_number": 1388
+    },
+    {
+      "name": "ei.CommandSpec.best.from_environment",
+      "source_code": "    def from_environment(cls):\n        return cls([cls._sys_executable()])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 2056
+    },
+    {
+      "name": "ei.CommandSpec.best",
+      "source_code": "    def best(cls):\n        \"\"\"\n        Choose the best CommandSpec class based on environmental conditions.\n        \"\"\"\n        return cls",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 2028
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ei.CommandSpec.best.from_environment.as_header",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 2084,
+      "caller": "test_get_script_args",
+      "source_code": "    def as_header(self):\n        return self._render(self + list(self.options))\n\n"
+    },
+    {
+      "function": "FakeDist",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_script_args",
+      "source_code": ""
+    },
+    {
+      "function": "next",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_script_args",
+      "source_code": ""
+    },
+    {
+      "function": "script.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_script_args",
+      "source_code": ""
+    },
+    {
+      "function": "ei.ScriptWriter.get_args",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/typing_extensions.py",
+      "line": 1388,
+      "caller": "test_get_script_args",
+      "source_code": "    def get_args(tp):\n        \"\"\"Get type arguments with all substitutions performed.\n\n        For unions, basic simplifications used by Union constructor are performed.\n        Examples::\n            get_args(Dict[str, int]) == (str, int)\n            get_args(int) == ()\n            get_args(Union[int, Union[T, int], str][int]) == (int, str)\n            get_args(Union[int, Tuple[T, int]][str]) == (int, Tuple[str, int])\n            get_args(Callable[[], T][int]) == ([], int)\n        \"\"\"\n        if isinstance(tp, _AnnotatedAlias):\n            return (tp.__origin__, *tp.__metadata__)\n        if isinstance(tp, (typing._GenericAlias, _typing_GenericAlias)):\n            if getattr(tp, \"_special\", False):\n                return ()\n            res = tp.__args__\n            if get_origin(tp) is collections.abc.Callable and res[0] is not Ellipsis:\n                res = (list(res[:-1]), res[-1])\n            return res\n        return ()\n\n\n"
+    },
+    {
+      "function": "ei.CommandSpec.best.from_environment",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 2056,
+      "caller": "test_get_script_args",
+      "source_code": "    @classmethod\n    def from_environment(cls):\n        return cls([cls._sys_executable()])\n\n"
+    },
+    {
+      "function": "ei.CommandSpec.best",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 2028,
+      "caller": "test_get_script_args",
+      "source_code": "    @classmethod\n    def best(cls):\n        \"\"\"\n        Choose the best CommandSpec class based on environmental conditions.\n        \"\"\"\n        return cls\n\n"
+    }
+  ],
+  "assertions": [
+    "assert script.startswith(header)",
+    "assert \"'spec'\" in script",
+    "assert \"'console_scripts'\" in script",
+    "assert \"'name'\" in script",
+    "assert re.search('^# EASY-INSTALL-ENTRY-SCRIPT', script, flags=re.MULTILINE)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_script_args(self):\n        header = ei.CommandSpec.best().from_environment().as_header()\n        dist = FakeDist()\n        args = next(ei.ScriptWriter.get_args(dist))\n        _name, script = itertools.islice(args, 2)\n        assert script.startswith(header)\n        assert \"'spec'\" in script\n        assert \"'console_scripts'\" in script\n        assert \"'name'\" in script\n        assert re.search('^# EASY-INSTALL-ENTRY-SCRIPT', script, flags=re.MULTILINE)"
+}

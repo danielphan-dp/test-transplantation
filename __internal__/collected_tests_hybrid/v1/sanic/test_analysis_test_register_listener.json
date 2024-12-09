@@ -1,0 +1,66 @@
+{
+  "test_name": "test_register_listener",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_server_events.py",
+  "static_methods": [
+    {
+      "name": "create_listener",
+      "source_code": "def create_listener(listener_name, in_list):\n    async def _listener(app, loop):\n        print(f\"DEBUG MESSAGE FOR PYTEST for {listener_name}\")\n        in_list.insert(0, app.name + listener_name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_server_events.py",
+      "line_number": 25
+    },
+    {
+      "name": "app.register_listener",
+      "source_code": "    def register_listener(\n        self,\n        listener: ListenerType[SanicVar],\n        event: str,\n        *,\n        priority: int = 0,\n    ) -> ListenerType[SanicVar]:\n        \"\"\"Register the listener for a given event.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 432
+    },
+    {
+      "name": "start_stop_app",
+      "source_code": "def start_stop_app(random_name_app, **run_kwargs):\n    @random_name_app.after_server_start\n    async def shutdown(app):\n        await asyncio.sleep(1.1)\n        app.stop()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_server_events.py",
+      "line_number": 41
+    },
+    {
+      "name": "output.pop",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 940
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "create_listener",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_server_events.py",
+      "line": 25,
+      "caller": "test_register_listener",
+      "source_code": "def create_listener(listener_name, in_list):\n    async def _listener(app, loop):\n        print(f\"DEBUG MESSAGE FOR PYTEST for {listener_name}\")\n        in_list.insert(0, app.name + listener_name)\n\n    return _listener\n\n\n"
+    },
+    {
+      "function": "app.register_listener",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 432,
+      "caller": "test_register_listener",
+      "source_code": "    def register_listener(\n        self,\n        listener: ListenerType[SanicVar],\n        event: str,\n        *,\n        priority: int = 0,\n"
+    },
+    {
+      "function": "start_stop_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_server_events.py",
+      "line": 41,
+      "caller": "test_register_listener",
+      "source_code": "def start_stop_app(random_name_app, **run_kwargs):\n    @random_name_app.after_server_start\n    async def shutdown(app):\n        await asyncio.sleep(1.1)\n        app.stop()\n\n    try:\n        random_name_app.run(\n            HOST, get_port(), single_process=True, **run_kwargs\n        )\n    except KeyboardInterrupt:\n        pass\n\n\n"
+    },
+    {
+      "function": "output.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 940,
+      "caller": "test_register_listener",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result\n\n"
+    }
+  ],
+  "assertions": [
+    "assert app.name + listener_name == output.pop()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_register_listener(app, listener_name):\n    \"\"\"\n    Test that listeners on their own work with\n    app.register_listener method\n    \"\"\"\n    output = []\n    # Register listener\n    listener = create_listener(listener_name, output)\n    app.register_listener(listener, event=listener_name)\n    start_stop_app(app)\n    assert app.name + listener_name == output.pop()"
+}

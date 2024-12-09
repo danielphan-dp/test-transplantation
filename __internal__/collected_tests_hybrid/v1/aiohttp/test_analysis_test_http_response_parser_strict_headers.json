@@ -1,0 +1,38 @@
+{
+  "test_name": "test_http_response_parser_strict_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "response.feed_data",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n    ) -> Tuple[List[Tuple[_MsgT, StreamReader]], bool, bytes]:\n        messages = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line_number": 291
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_http_response_parser_strict_headers",
+      "source_code": ""
+    },
+    {
+      "function": "response.feed_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line": 291,
+      "caller": "test_http_response_parser_strict_headers",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_response_parser_strict_headers(response: HttpResponseParser) -> None:\n    if isinstance(response, HttpResponseParserPy):\n        pytest.xfail(\"Py parser is lenient. May update py-parser later.\")\n    with pytest.raises(http_exceptions.BadHttpMessage):  # type: ignore[unreachable]\n        response.feed_data(b\"HTTP/1.1 200 test\\r\\nFoo: abc\\x01def\\r\\n\\r\\n\")"
+}

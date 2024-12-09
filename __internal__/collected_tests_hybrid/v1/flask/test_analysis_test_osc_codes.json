@@ -1,0 +1,92 @@
+{
+  "test_name": "test_osc_codes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/colorama/tests/ansitowin32_test.py",
+  "static_methods": [
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``PATCH``.\"\"\"\n        kw[\"method\"] = \"PATCH\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1179
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AnsiToWin32",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``PATCH``.\"\"\"\n        kw[\"method\"] = \"PATCH\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1179
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stream.write",
+      "source_code": "        def write(data: bytes) -> None:\n            nonlocal status_sent, headers_sent, chunk_response\n            assert status_set is not None, \"write() before start_response\"\n            assert headers_set is not None, \"write() before start_response\"\n            if status_sent is None:\n                status_sent = status_set\n                headers_sent = headers_set\n                try:\n                    code_str, msg = status_sent.split(None, 1)\n                except ValueError:\n                    code_str, msg = status_sent, \"\"\n                code = int(code_str)\n                self.send_response(code, msg)\n                header_keys = set()\n                for key, value in headers_sent:\n                    self.send_header(key, value)\n                    header_keys.add(key.lower())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/serving.py",
+      "line_number": 259
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1179,
+      "caller": "test_osc_codes",
+      "source_code": "    def patch(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``PATCH``.\"\"\"\n        kw[\"method\"] = \"PATCH\"\n        return self.open(*args, **kw)\n\n"
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_osc_codes",
+      "source_code": ""
+    },
+    {
+      "function": "AnsiToWin32",
+      "filename": "",
+      "line": 0,
+      "caller": "test_osc_codes",
+      "source_code": ""
+    },
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1179,
+      "caller": "test_osc_codes",
+      "source_code": "    def patch(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``PATCH``.\"\"\"\n        kw[\"method\"] = \"PATCH\"\n        return self.open(*args, **kw)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_osc_codes",
+      "source_code": ""
+    },
+    {
+      "function": "stream.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/serving.py",
+      "line": 259,
+      "caller": "test_osc_codes",
+      "source_code": "        def write(data: bytes) -> None:\n            nonlocal status_sent, headers_sent, chunk_response\n            assert status_set is not None, \"write() before start_response\"\n            assert headers_set is not None, \"write() before start_response\"\n            if status_sent is None:\n                status_sent = status_set\n                headers_sent = headers_set\n                try:\n                    code_str, msg = status_sent.split(None, 1)\n                except ValueError:\n                    code_str, msg = status_sent, \"\"\n                code = int(code_str)\n                self.send_response(code, msg)\n                header_keys = set()\n                for key, value in headers_sent:\n                    self.send_header(key, value)\n                    header_keys.add(key.lower())\n\n                # Use chunked transfer encoding if there is no content\n                # length. Do not use for 1xx and 204 responses. 304\n                # responses and HEAD requests are also excluded, which\n                # is the more conservative behavior and matches other\n                # parts of the code.\n                # https://httpwg.org/specs/rfc7230.html#rfc.section.3.3.1\n                if (\n                    not (\n                        \"content-length\" in header_keys\n                        or environ[\"REQUEST_METHOD\"] == \"HEAD\"\n                        or (100 <= code < 200)\n                        or code in {204, 304}\n                    )\n                    and self.protocol_version >= \"HTTP/1.1\"\n                ):\n                    chunk_response = True\n                    self.send_header(\"Transfer-Encoding\", \"chunked\")\n\n                # Always close the connection. This disables HTTP/1.1\n                # keep-alive connections. They aren't handled well by\n                # Python's http.server because it doesn't know how to\n                # drain the stream before the next request line.\n                self.send_header(\"Connection\", \"close\")\n                self.end_headers()\n\n            assert isinstance(data, bytes), \"applications must write bytes\"\n\n            if data:\n                if chunk_response:\n                    self.wfile.write(hex(len(data))[2:].encode())\n                    self.wfile.write(b\"\\r\\n\")\n\n                self.wfile.write(data)\n\n                if chunk_response:\n                    self.wfile.write(b\"\\r\\n\")\n\n            self.wfile.flush()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [
+    "patch('colorama.ansitowin32.winterm')"
+  ],
+  "success": false,
+  "test_source_code": "def test_osc_codes(self):\n        mockStdout = Mock()\n        stream = AnsiToWin32(mockStdout, convert=True)\n        with patch('colorama.ansitowin32.winterm') as winterm:\n            data = [\n                '\\033]0\\x07',                      # missing arguments\n                '\\033]0;foo\\x08',                  # wrong OSC command\n                '\\033]0;colorama_test_title\\x07',  # should work\n                '\\033]1;colorama_test_title\\x07',  # wrong set command\n                '\\033]2;colorama_test_title\\x07',  # should work\n                '\\033]' + ';' * 64 + '\\x08',       # see issue #247\n            ]\n            for code in data:\n                stream.write(code)\n            self.assertEqual(winterm.set_title.call_count, 2)"
+}

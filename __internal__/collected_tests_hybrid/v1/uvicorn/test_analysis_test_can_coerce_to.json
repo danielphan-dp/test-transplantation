@@ -1,0 +1,106 @@
+{
+  "test_name": "test_can_coerce_to",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+  "static_methods": [
+    {
+      "name": "ClassIR",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "can_coerce_to",
+      "source_code": "def can_coerce_to(src: RType, dest: RType) -> bool:\n    \"\"\"Check if src can be assigned to dest_rtype.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/analysis/ircheck.py",
+      "line_number": 184
+    },
+    {
+      "name": "RUnion",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RUnion",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "can_coerce_to",
+      "source_code": "def can_coerce_to(src: RType, dest: RType) -> bool:\n    \"\"\"Check if src can be assigned to dest_rtype.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/analysis/ircheck.py",
+      "line_number": 184
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ClassIR",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_coerce_to",
+      "source_code": ""
+    },
+    {
+      "function": "can_coerce_to",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/analysis/ircheck.py",
+      "line": 184,
+      "caller": "test_can_coerce_to",
+      "source_code": "def can_coerce_to(src: RType, dest: RType) -> bool:\n    \"\"\"Check if src can be assigned to dest_rtype.\n\n    Currently okay to have false positives.\n    \"\"\"\n    if isinstance(dest, RUnion):\n        return any(can_coerce_to(src, d) for d in dest.items)\n\n    if isinstance(dest, RPrimitive):\n        if isinstance(src, RPrimitive):\n            # If either src or dest is a disjoint type, then they must both be.\n            if src.name in disjoint_types and dest.name in disjoint_types:\n                return src.name == dest.name\n            return src.size == dest.size\n        if isinstance(src, RInstance):\n            return is_object_rprimitive(dest)\n        if isinstance(src, RUnion):\n            # IR doesn't have the ability to narrow unions based on\n            # control flow, so cannot be a strict all() here.\n            return any(can_coerce_to(s, dest) for s in src.items)\n        return False\n\n    return True\n\n\n"
+    },
+    {
+      "function": "RUnion",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_coerce_to",
+      "source_code": ""
+    },
+    {
+      "function": "RUnion",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_coerce_to",
+      "source_code": ""
+    },
+    {
+      "function": "RInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_coerce_to",
+      "source_code": ""
+    },
+    {
+      "function": "RInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_coerce_to",
+      "source_code": ""
+    },
+    {
+      "function": "can_coerce_to",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/analysis/ircheck.py",
+      "line": 184,
+      "caller": "test_can_coerce_to",
+      "source_code": "def can_coerce_to(src: RType, dest: RType) -> bool:\n    \"\"\"Check if src can be assigned to dest_rtype.\n\n    Currently okay to have false positives.\n    \"\"\"\n    if isinstance(dest, RUnion):\n        return any(can_coerce_to(src, d) for d in dest.items)\n\n    if isinstance(dest, RPrimitive):\n        if isinstance(src, RPrimitive):\n            # If either src or dest is a disjoint type, then they must both be.\n            if src.name in disjoint_types and dest.name in disjoint_types:\n                return src.name == dest.name\n            return src.size == dest.size\n        if isinstance(src, RInstance):\n            return is_object_rprimitive(dest)\n        if isinstance(src, RUnion):\n            # IR doesn't have the ability to narrow unions based on\n            # control flow, so cannot be a strict all() here.\n            return any(can_coerce_to(s, dest) for s in src.items)\n        return False\n\n    return True\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert can_coerce_to(src, dest)",
+    "assert not can_coerce_to(src, dest)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_can_coerce_to(self) -> None:\n        cls = ClassIR(name=\"Cls\", module_name=\"cls\")\n        valid_cases = [\n            (int64_rprimitive, int64_rprimitive),\n            (str_rprimitive, str_rprimitive),\n            (str_rprimitive, object_rprimitive),\n            (object_rprimitive, str_rprimitive),\n            (RUnion([bytes_rprimitive, str_rprimitive]), str_rprimitive),\n            (str_rprimitive, RUnion([bytes_rprimitive, str_rprimitive])),\n            (RInstance(cls), object_rprimitive),\n        ]\n\n        invalid_cases = [\n            (int64_rprimitive, int32_rprimitive),\n            (RInstance(cls), str_rprimitive),\n            (str_rprimitive, bytes_rprimitive),\n        ]\n\n        for src, dest in valid_cases:\n            assert can_coerce_to(src, dest)\n        for src, dest in invalid_cases:\n            assert not can_coerce_to(src, dest)"
+}

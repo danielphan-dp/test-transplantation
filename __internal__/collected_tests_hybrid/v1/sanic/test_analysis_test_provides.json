@@ -1,0 +1,96 @@
+{
+  "test_name": "test_provides",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.format_metadata",
+      "source_code": "    def format_metadata(self, dist):\n        sio = io.StringIO()\n        dist.metadata.write_pkg_file(sio)\n        return sio.getvalue()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+      "line_number": 265
+    },
+    {
+      "name": "dist.metadata.get_provides",
+      "source_code": "    def get_provides(self):\n        return self.provides or []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line_number": 1262
+    },
+    {
+      "name": "dist.get_provides",
+      "source_code": "    def get_provides(self):\n        return self.provides or []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line_number": 1262
+    },
+    {
+      "name": "meta.lower",
+      "source_code": "    def lower(self):\n        return super().lower()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line_number": 91
+    },
+    {
+      "name": "meta.lower",
+      "source_code": "    def lower(self):\n        return super().lower()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line_number": 91
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_provides",
+      "source_code": ""
+    },
+    {
+      "function": "self.format_metadata",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+      "line": 265,
+      "caller": "test_provides",
+      "source_code": "    def format_metadata(self, dist):\n        sio = io.StringIO()\n        dist.metadata.write_pkg_file(sio)\n        return sio.getvalue()\n\n"
+    },
+    {
+      "function": "dist.metadata.get_provides",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line": 1262,
+      "caller": "test_provides",
+      "source_code": "    def get_provides(self):\n        return self.provides or []\n\n"
+    },
+    {
+      "function": "dist.get_provides",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line": 1262,
+      "caller": "test_provides",
+      "source_code": "    def get_provides(self):\n        return self.provides or []\n\n"
+    },
+    {
+      "function": "meta.lower",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line": 91,
+      "caller": "test_provides",
+      "source_code": "    @method_cache\n    def lower(self):\n        return super().lower()\n\n"
+    },
+    {
+      "function": "meta.lower",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line": 91,
+      "caller": "test_provides",
+      "source_code": "    @method_cache\n    def lower(self):\n        return super().lower()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dist.metadata.get_provides() == ['package', 'package.sub']",
+    "assert dist.get_provides() == ['package', 'package.sub']",
+    "assert 'Metadata-Version: 1.1' in meta",
+    "assert 'requires:' not in meta.lower()",
+    "assert 'obsoletes:' not in meta.lower()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_provides(self):\n        attrs = {\n            \"name\": \"package\",\n            \"version\": \"1.0\",\n            \"provides\": [\"package\", \"package.sub\"],\n        }\n        dist = Distribution(attrs)\n        assert dist.metadata.get_provides() == [\"package\", \"package.sub\"]\n        assert dist.get_provides() == [\"package\", \"package.sub\"]\n        meta = self.format_metadata(dist)\n        assert \"Metadata-Version: 1.1\" in meta\n        assert \"requires:\" not in meta.lower()\n        assert \"obsoletes:\" not in meta.lower()"
+}

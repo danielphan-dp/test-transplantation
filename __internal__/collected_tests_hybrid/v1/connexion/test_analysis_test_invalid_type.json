@@ -1,0 +1,53 @@
+{
+  "test_name": "test_invalid_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/decorators/test_validation.py",
+  "static_methods": [
+    {
+      "name": "MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ParameterValidator.validate_parameter",
+      "source_code": "    def validate_parameter(parameter_type, value, param, param_name=None):\n        if is_nullable(param) and is_null(value):\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/validators/parameter.py",
+      "line_number": 46
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_type",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_invalid_type",
+      "source_code": ""
+    },
+    {
+      "function": "ParameterValidator.validate_parameter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/validators/parameter.py",
+      "line": 46,
+      "caller": "test_invalid_type",
+      "source_code": "    @staticmethod\n    def validate_parameter(parameter_type, value, param, param_name=None):\n        if is_nullable(param) and is_null(value):\n            return\n\n        elif value is not None:\n            param = copy.deepcopy(param)\n            param = param.get(\"schema\", param)\n            try:\n                Draft4Validator(param, format_checker=draft4_format_checker).validate(\n                    value\n                )\n            except ValidationError as exception:\n                return str(exception)\n\n        elif param.get(\"required\"):\n            return \"Missing {parameter_type} parameter '{param[name]}'\".format(\n                **locals()\n            )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert result == expected_result"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_invalid_type(monkeypatch):\n    logger = MagicMock()\n    monkeypatch.setattr(\"connexion.validators.parameter.logger\", logger)\n    result = ParameterValidator.validate_parameter(\n        \"formdata\", 20, {\"name\": \"foo\", \"type\": \"string\"}\n    )\n    expected_result = \"\"\"20 is not of type 'string'\n\nFailed validating 'type' in schema:\n    {'name': 'foo', 'type': 'string'}\n\nOn instance:\n    20\"\"\"\n    assert result == expected_result"
+}

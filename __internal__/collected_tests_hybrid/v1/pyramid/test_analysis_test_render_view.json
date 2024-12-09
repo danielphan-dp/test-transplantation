@@ -1,0 +1,51 @@
+{
+  "test_name": "test_render_view",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helper.render_view",
+      "source_code": "    def render_view(self, request, response, view, context):\n        system = {\n            'view': view,\n            'renderer_name': self.name,  # b/c\n            'renderer_info': self,\n            'context': context,\n            'request': request,\n            'req': request,\n            'get_csrf_token': partial(get_csrf_token, request),\n        }\n        return self.render_to_response(response, system, request=request)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 433
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_render_view",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_render_view",
+      "source_code": ""
+    },
+    {
+      "function": "helper.render_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 433,
+      "caller": "test_render_view",
+      "source_code": "    def render_view(self, request, response, view, context):\n        system = {\n            'view': view,\n            'renderer_name': self.name,  # b/c\n            'renderer_info': self,\n            'context': context,\n            'request': request,\n            'req': request,\n            'get_csrf_token': partial(get_csrf_token, request),\n        }\n        return self.render_to_response(response, system, request=request)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_render_view(self):\n        helper = self._makeOne()\n        self.assertEqual(helper.render_view(None, True, None, None), True)"
+}

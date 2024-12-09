@@ -1,0 +1,79 @@
+{
+  "test_name": "test_socket_bind",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    },
+    {
+      "name": "config.bind_socket",
+      "source_code": "    def bind_socket(self) -> socket.socket:\n        logger_args: list[str | int]\n        if self.uds:  # pragma: py-win32\n            path = self.uds\n            sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)\n            try:\n                sock.bind(path)\n                uds_perms = 0o666\n                os.chmod(self.uds, uds_perms)\n            except OSError as exc:  # pragma: full coverage\n                logger.error(exc)\n                sys.exit(1)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/config.py",
+      "line_number": 479
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "sock.close",
+      "source_code": "    def close(self) -> None:\n        self.session.close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line_number": 89
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_socket_bind",
+      "source_code": ""
+    },
+    {
+      "function": "config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_socket_bind",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    },
+    {
+      "function": "config.bind_socket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/config.py",
+      "line": 479,
+      "caller": "test_socket_bind",
+      "source_code": "    def bind_socket(self) -> socket.socket:\n        logger_args: list[str | int]\n        if self.uds:  # pragma: py-win32\n            path = self.uds\n            sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)\n            try:\n                sock.bind(path)\n                uds_perms = 0o666\n                os.chmod(self.uds, uds_perms)\n            except OSError as exc:  # pragma: full coverage\n                logger.error(exc)\n                sys.exit(1)\n\n            message = \"Uvicorn running on unix socket %s (Press CTRL+C to quit)\"\n            sock_name_format = \"%s\"\n            color_message = \"Uvicorn running on \" + click.style(sock_name_format, bold=True) + \" (Press CTRL+C to quit)\"\n            logger_args = [self.uds]\n        elif self.fd:  # pragma: py-win32\n            sock = socket.fromfd(self.fd, socket.AF_UNIX, socket.SOCK_STREAM)\n            message = \"Uvicorn running on socket %s (Press CTRL+C to quit)\"\n            fd_name_format = \"%s\"\n            color_message = \"Uvicorn running on \" + click.style(fd_name_format, bold=True) + \" (Press CTRL+C to quit)\"\n            logger_args = [sock.getsockname()]\n        else:\n            family = socket.AF_INET\n            addr_format = \"%s://%s:%d\"\n\n            if self.host and \":\" in self.host:  # pragma: full coverage\n                # It's an IPv6 address.\n                family = socket.AF_INET6\n                addr_format = \"%s://[%s]:%d\"\n\n            sock = socket.socket(family=family)\n            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)\n            try:\n                sock.bind((self.host, self.port))\n            except OSError as exc:  # pragma: full coverage\n                logger.error(exc)\n                sys.exit(1)\n\n            message = f\"Uvicorn running on {addr_format} (Press CTRL+C to quit)\"\n            color_message = \"Uvicorn running on \" + click.style(addr_format, bold=True) + \" (Press CTRL+C to quit)\"\n            protocol_name = \"https\" if self.is_ssl else \"http\"\n            logger_args = [protocol_name, self.host, sock.getsockname()[1]]\n        logger.info(message, *logger_args, extra={\"color_message\": color_message})\n        sock.set_inheritable(True)\n        return sock\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_socket_bind",
+      "source_code": ""
+    },
+    {
+      "function": "sock.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line": 89,
+      "caller": "test_socket_bind",
+      "source_code": "    def close(self) -> None:\n        self.session.close()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(sock, socket.socket)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_socket_bind() -> None:\n    config = Config(app=asgi_app)\n    config.load()\n    sock = config.bind_socket()\n    assert isinstance(sock, socket.socket)\n    sock.close()"
+}

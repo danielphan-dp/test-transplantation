@@ -1,0 +1,40 @@
+{
+  "test_name": "test_invalid_json",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+  "static_methods": [
+    {
+      "name": "app.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "app.test_client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_invalid_json",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "app.test_client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_invalid_json",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 400"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_invalid_json(app):\n    @app.post(\"/\")\n    async def handler(request):\n        return json(request.json)\n\n    data = \"I am not json\"\n    request, response = app.test_client.post(\"/\", data=data)\n\n    assert response.status == 400"
+}

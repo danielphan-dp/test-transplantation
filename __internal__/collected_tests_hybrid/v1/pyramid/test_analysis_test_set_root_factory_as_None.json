@@ -1,0 +1,103 @@
+{
+  "test_name": "test_set_root_factory_as_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_factories.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.set_root_factory",
+      "source_code": "    def set_root_factory(self, factory):\n        \"\"\"Add a :term:`root factory` to the current configuration\n        state.  If the ``factory`` argument is ``None`` a default root\n        factory will be registered.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/factories.py",
+      "line_number": 20
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.commit",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 639
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.queryUtility",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1063
+    },
+    {
+      "name": "config.registry.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_set_root_factory_as_None",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.set_root_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/factories.py",
+      "line": 20,
+      "caller": "test_set_root_factory_as_None",
+      "source_code": "    @action_method\n    def set_root_factory(self, factory):\n        \"\"\"Add a :term:`root factory` to the current configuration\n        state.  If the ``factory`` argument is ``None`` a default root\n        factory will be registered.\n\n        .. note::\n\n           Using the ``root_factory`` argument to the\n           :class:`pyramid.config.Configurator` constructor can be used to\n           achieve the same purpose.\n        \"\"\"\n        factory = self.maybe_dotted(factory)\n        if factory is None:\n            factory = DefaultRootFactory\n\n        def register():\n            self.registry.registerUtility(factory, IRootFactory)\n            self.registry.registerUtility(factory, IDefaultRootFactory)  # b/c\n\n        intr = self.introspectable(\n            'root factories',\n            None,\n            self.object_description(factory),\n            'root factory',\n        )\n        intr['factory'] = factory\n        self.action(IRootFactory, register, introspectables=(intr,))\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_root_factory_as_None",
+      "source_code": ""
+    },
+    {
+      "function": "config.commit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 639,
+      "caller": "test_set_root_factory_as_None",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_root_factory_as_None",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.queryUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1063,
+      "caller": "test_set_root_factory_as_None",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.\n\n        If one is not found, returns default.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "config.registry.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_set_root_factory_as_None",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_root_factory_as_None(self):\n        from pyramid.interfaces import IRootFactory\n        from pyramid.traversal import DefaultRootFactory\n\n        config = self._makeOne()\n        config.set_root_factory(None)\n        self.assertEqual(config.registry.queryUtility(IRootFactory), None)\n        config.commit()\n        self.assertEqual(\n            config.registry.getUtility(IRootFactory), DefaultRootFactory\n        )"
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_unix_socket_close_unlink",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_sock.py",
+  "static_methods": [
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sock.close_sockets",
+      "source_code": "def close_sockets(listeners, unlink=True):\n    for sock in listeners:\n        sock_name = sock.getsockname()\n        sock.close()\n        if unlink and _sock_type(sock_name) is UnixSocket:\n            os.unlink(sock_name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/sock.py",
+      "line_number": 207
+    },
+    {
+      "name": "listener.close.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "unlink.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_unix_socket_close_unlink",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_socket_close_unlink",
+      "source_code": ""
+    },
+    {
+      "function": "sock.close_sockets",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/sock.py",
+      "line": 207,
+      "caller": "test_unix_socket_close_unlink",
+      "source_code": "def close_sockets(listeners, unlink=True):\n    for sock in listeners:\n        sock_name = sock.getsockname()\n        sock.close()\n        if unlink and _sock_type(sock_name) is UnixSocket:\n            os.unlink(sock_name)\n\n\n"
+    },
+    {
+      "function": "listener.close.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_socket_close_unlink",
+      "source_code": ""
+    },
+    {
+      "function": "unlink.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_socket_close_unlink",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_unix_socket_close_unlink",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_unix_socket_close_unlink(unlink):\n    listener = mock.Mock()\n    listener.getsockname.return_value = '/var/run/test.sock'\n    sock.close_sockets([listener])\n    listener.close.assert_called_with()\n    unlink.assert_called_once_with('/var/run/test.sock')"
+}

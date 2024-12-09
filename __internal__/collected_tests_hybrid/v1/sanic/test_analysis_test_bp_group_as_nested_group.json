@@ -1,0 +1,79 @@
+{
+  "test_name": "test_bp_group_as_nested_group",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_blueprint_group.py",
+  "static_methods": [
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Blueprint.group",
+      "source_code": "def group(fit: bool = True) -> Callable[..., Callable[..., Group]]:\n    \"\"\"A decorator that turns an iterable of renderables in to a group.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 495
+    },
+    {
+      "name": "Blueprint.group",
+      "source_code": "def group(fit: bool = True) -> Callable[..., Callable[..., Group]]:\n    \"\"\"A decorator that turns an iterable of renderables in to a group.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 495
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Blueprint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bp_group_as_nested_group",
+      "source_code": ""
+    },
+    {
+      "function": "Blueprint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bp_group_as_nested_group",
+      "source_code": ""
+    },
+    {
+      "function": "Blueprint.group",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 495,
+      "caller": "test_bp_group_as_nested_group",
+      "source_code": "def group(fit: bool = True) -> Callable[..., Callable[..., Group]]:\n    \"\"\"A decorator that turns an iterable of renderables in to a group.\n\n    Args:\n        fit (bool, optional): Fit dimension of group to contents, or fill available space. Defaults to True.\n    \"\"\"\n\n    def decorator(\n        method: Callable[..., Iterable[RenderableType]]\n    ) -> Callable[..., Group]:\n        \"\"\"Convert a method that returns an iterable of renderables in to a Group.\"\"\"\n\n        @wraps(method)\n        def _replace(*args: Any, **kwargs: Any) -> Group:\n            renderables = method(*args, **kwargs)\n            return Group(*renderables, fit=fit)\n\n        return _replace\n\n    return decorator\n\n\n"
+    },
+    {
+      "function": "Blueprint.group",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 495,
+      "caller": "test_bp_group_as_nested_group",
+      "source_code": "def group(fit: bool = True) -> Callable[..., Callable[..., Group]]:\n    \"\"\"A decorator that turns an iterable of renderables in to a group.\n\n    Args:\n        fit (bool, optional): Fit dimension of group to contents, or fill available space. Defaults to True.\n    \"\"\"\n\n    def decorator(\n        method: Callable[..., Iterable[RenderableType]]\n    ) -> Callable[..., Group]:\n        \"\"\"Convert a method that returns an iterable of renderables in to a Group.\"\"\"\n\n        @wraps(method)\n        def _replace(*args: Any, **kwargs: Any) -> Group:\n            renderables = method(*args, **kwargs)\n            return Group(*renderables, fit=fit)\n\n        return _replace\n\n    return decorator\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bp_group_as_nested_group",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(blueprint_group_1) == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_bp_group_as_nested_group():\n    blueprint_1 = Blueprint(\"blueprint_1\", url_prefix=\"/bp1\")\n    blueprint_2 = Blueprint(\"blueprint_2\", url_prefix=\"/bp2\")\n    blueprint_group_1 = Blueprint.group(\n        Blueprint.group(blueprint_1, blueprint_2)\n    )\n    assert len(blueprint_group_1) == 1"
+}

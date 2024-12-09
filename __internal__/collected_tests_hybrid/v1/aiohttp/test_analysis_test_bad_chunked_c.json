@@ -1,0 +1,38 @@
+{
+  "test_name": "test_bad_chunked_c",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "HttpRequestParserC",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "HttpRequestParserC",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bad_chunked_c",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bad_chunked_c",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bad_chunked_c(loop: asyncio.AbstractEventLoop, protocol: BaseProtocol) -> None:\n    \"\"\"C parser behaves differently. Maybe we should align them later.\"\"\"\n    parser = HttpRequestParserC(\n        protocol,\n        loop,\n        2**16,\n        max_line_size=8190,\n        max_field_size=8190,\n    )\n    text = (\n        b\"GET / HTTP/1.1\\r\\nHost: a\\r\\nTransfer-Encoding: chunked\\r\\n\\r\\n0_2e\\r\\n\\r\\n\"\n        + b\"GET / HTTP/1.1\\r\\nHost: a\\r\\nContent-Length: 5\\r\\n\\r\\n0\\r\\n\\r\\n\"\n    )\n    with pytest.raises(http_exceptions.BadHttpMessage):\n        parser.feed_data(text)"
+}

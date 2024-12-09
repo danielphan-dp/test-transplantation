@@ -1,0 +1,40 @@
+{
+  "test_name": "test_enum_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/decorators/test_validation.py",
+  "static_methods": [
+    {
+      "name": "ParameterValidator.validate_parameter",
+      "source_code": "    def validate_parameter(parameter_type, value, param, param_name=None):\n        if is_nullable(param) and is_null(value):\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/validators/parameter.py",
+      "line_number": 46
+    },
+    {
+      "name": "result.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ParameterValidator.validate_parameter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/validators/parameter.py",
+      "line": 46,
+      "caller": "test_enum_error",
+      "source_code": "    @staticmethod\n    def validate_parameter(parameter_type, value, param, param_name=None):\n        if is_nullable(param) and is_null(value):\n            return\n\n        elif value is not None:\n            param = copy.deepcopy(param)\n            param = param.get(\"schema\", param)\n            try:\n                Draft4Validator(param, format_checker=draft4_format_checker).validate(\n                    value\n                )\n            except ValidationError as exception:\n                return str(exception)\n\n        elif param.get(\"required\"):\n            return \"Missing {parameter_type} parameter '{param[name]}'\".format(\n                **locals()\n            )\n\n"
+    },
+    {
+      "function": "result.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_enum_error",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert result.startswith(\"'INVALID' is not one of ['valid']\")"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_enum_error(monkeypatch):\n    value = \"INVALID\"\n    param = {\"schema\": {\"type\": \"string\", \"enum\": [\"valid\"]}, \"name\": \"test_path_param\"}\n    result = ParameterValidator.validate_parameter(\"path\", value, param)\n    assert result.startswith(\"'INVALID' is not one of ['valid']\")"
+}

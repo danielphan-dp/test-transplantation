@@ -1,0 +1,116 @@
+{
+  "test_name": "test_shutdown_signal",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_manager.py",
+  "static_methods": [
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WorkerManager",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "manager.shutdown_signal",
+      "source_code": "    def shutdown_signal(self, signal, frame):\n        \"\"\"Handle the shutdown signal.\"\"\"\n        if self._shutting_down:\n            logger.info(\"Shutdown interrupted. Killing.\")\n            with suppress(ServerKilled):\n                self.kill()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line_number": 378
+    },
+    {
+      "name": "pub.send.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "manager.shutdown.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_signal",
+      "source_code": ""
+    },
+    {
+      "function": "WorkerManager",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_signal",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_signal",
+      "source_code": ""
+    },
+    {
+      "function": "manager.shutdown_signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line": 378,
+      "caller": "test_shutdown_signal",
+      "source_code": "    def shutdown_signal(self, signal, frame):\n        \"\"\"Handle the shutdown signal.\"\"\"\n        if self._shutting_down:\n            logger.info(\"Shutdown interrupted. Killing.\")\n            with suppress(ServerKilled):\n                self.kill()\n\n        logger.info(\"Received signal %s. Shutting down.\", Signals(signal).name)\n        self.monitor_publisher.send(None)\n        self.shutdown()\n\n"
+    },
+    {
+      "function": "pub.send.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_signal",
+      "source_code": ""
+    },
+    {
+      "function": "manager.shutdown.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_signal",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_signal",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_signal",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_shutdown_signal():\n    pub = Mock()\n    manager = WorkerManager(1, fake_serve, {}, Mock(), (pub, Mock()), {})\n    manager.shutdown = Mock()  # type: ignore\n\n    manager.shutdown_signal(SIGINT, None)\n    pub.send.assert_called_with(None)\n    manager.shutdown.assert_called_once_with()"
+}

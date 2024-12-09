@@ -1,0 +1,98 @@
+{
+  "test_name": "test_remove_worker",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_manager.py",
+  "static_methods": [
+    {
+      "name": "manager.manage",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n    ) -> None:\n        \"\"\"Manages the initiation and monitoring of a worker process.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line_number": 42
+    },
+    {
+      "name": "manager.remove_worker",
+      "source_code": "    def remove_worker(self, worker: Worker) -> None:\n        if worker.tracked:\n            error_logger.error(\n                f\"Worker {worker.name} is tracked and cannot be removed.\"\n            )\n            return\n        if worker.has_alive_processes():\n            error_logger.error(\n                f\"Worker {worker.name} has alive processes and cannot be \"\n                \"removed.\"\n            )\n            return\n        self.transient.pop(worker.name, None)\n        self.durable.pop(worker.name, None)\n        for process in worker.processes:\n            self.worker_state.pop(process.name, None)\n        logger.info(\"Removed worker %s\", worker.name)\n        del worker",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line_number": 396
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "manager.manage",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line": 42,
+      "caller": "test_remove_worker",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n"
+    },
+    {
+      "function": "manager.remove_worker",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line": 396,
+      "caller": "test_remove_worker",
+      "source_code": "    def remove_worker(self, worker: Worker) -> None:\n        if worker.tracked:\n            error_logger.error(\n                f\"Worker {worker.name} is tracked and cannot be removed.\"\n            )\n            return\n        if worker.has_alive_processes():\n            error_logger.error(\n                f\"Worker {worker.name} has alive processes and cannot be \"\n                \"removed.\"\n            )\n            return\n        self.transient.pop(worker.name, None)\n        self.durable.pop(worker.name, None)\n        for process in worker.processes:\n            self.worker_state.pop(process.name, None)\n        logger.info(\"Removed worker %s\", worker.name)\n        del worker\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_remove_worker",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_remove_worker",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_remove_worker",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_remove_worker",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'Sanic-TEST-0' in worker.worker_state",
+    "assert len(manager.transient) == 1",
+    "assert len(manager.durable) == 1",
+    "assert 'Sanic-TEST-0' in worker.worker_state",
+    "assert len(manager.transient) == 1",
+    "assert len(manager.durable) == 1",
+    "assert ('sanic.error', 40, message) in caplog.record_tuples"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_remove_worker(manager: WorkerManager, caplog):\n    worker = manager.manage(\"TEST\", fake_serve, kwargs={})\n\n    assert \"Sanic-TEST-0\" in worker.worker_state\n    assert len(manager.transient) == 1\n    assert len(manager.durable) == 1\n\n    manager.remove_worker(worker)\n    message = \"Worker TEST is tracked and cannot be removed.\"\n\n    assert \"Sanic-TEST-0\" in worker.worker_state\n    assert len(manager.transient) == 1\n    assert len(manager.durable) == 1\n    assert (\"sanic.error\", 40, message) in caplog.record_tuples"
+}

@@ -1,0 +1,73 @@
+{
+  "test_name": "test_default_settings",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_install_scripts.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "support.DummyCommand",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "support.DummyCommand",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "install_scripts",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default_settings",
+      "source_code": ""
+    },
+    {
+      "function": "support.DummyCommand",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default_settings",
+      "source_code": ""
+    },
+    {
+      "function": "support.DummyCommand",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default_settings",
+      "source_code": ""
+    },
+    {
+      "function": "install_scripts",
+      "filename": "",
+      "line": 0,
+      "caller": "test_default_settings",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not cmd.force",
+    "assert not cmd.skip_build",
+    "assert cmd.build_dir is None",
+    "assert cmd.install_dir is None",
+    "assert cmd.force",
+    "assert cmd.skip_build",
+    "assert cmd.build_dir == '/foo/bar'",
+    "assert cmd.install_dir == '/splat/funk'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_default_settings(self):\n        dist = Distribution()\n        dist.command_obj[\"build\"] = support.DummyCommand(build_scripts=\"/foo/bar\")\n        dist.command_obj[\"install\"] = support.DummyCommand(\n            install_scripts=\"/splat/funk\",\n            force=True,\n            skip_build=True,\n        )\n        cmd = install_scripts(dist)\n        assert not cmd.force\n        assert not cmd.skip_build\n        assert cmd.build_dir is None\n        assert cmd.install_dir is None\n\n        cmd.finalize_options()\n\n        assert cmd.force\n        assert cmd.skip_build\n        assert cmd.build_dir == \"/foo/bar\"\n        assert cmd.install_dir == \"/splat/funk\""
+}

@@ -1,0 +1,77 @@
+{
+  "test_name": "test_if_a_version_is_provided_it_is_registered",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "validators.create",
+      "source_code": "    def create(\n        cls,\n        find_links: List[str],\n        index_urls: List[str],\n        no_index: bool,\n    ) -> \"SearchScope\":\n        \"\"\"\n        Create a SearchScope object after normalizing the `find_links`.\n        \"\"\"\n        # Build find_links. If an argument starts with ~, it may be\n        # a local file relative to a home directory. So try normalizing\n        # it and if it exists, use the normalized version.\n        # This is deliberately conservative - it might be fine just to\n        # blindly normalize anything starting with a ~...\n        built_find_links: List[str] = []\n        for link in find_links:\n            if link.startswith(\"~\"):\n                new_link = normalize_path(link)\n                if os.path.exists(new_link):\n                    link = new_link\n            built_find_links.append(link)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_internal/models/search_scope.py",
+      "line_number": 26
+    },
+    {
+      "name": "self.addCleanup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.addCleanup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validators.create",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_internal/models/search_scope.py",
+      "line": 26,
+      "caller": "test_if_a_version_is_provided_it_is_registered",
+      "source_code": "    @classmethod\n    def create(\n        cls,\n        find_links: List[str],\n        index_urls: List[str],\n        no_index: bool,\n"
+    },
+    {
+      "function": "self.addCleanup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_if_a_version_is_provided_it_is_registered",
+      "source_code": ""
+    },
+    {
+      "function": "self.addCleanup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_if_a_version_is_provided_it_is_registered",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_if_a_version_is_provided_it_is_registered",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_if_a_version_is_provided_it_is_registered",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_if_a_version_is_provided_it_is_registered(self):\n        Validator = validators.create(\n            meta_schema={\"$id\": \"something\"},\n            version=\"my version\",\n        )\n        self.addCleanup(validators._META_SCHEMAS.pop, \"something\")\n        self.addCleanup(validators._VALIDATORS.pop, \"my version\")\n        self.assertEqual(Validator.__name__, \"MyVersionValidator\")\n        self.assertEqual(Validator.__qualname__, \"MyVersionValidator\")"
+}

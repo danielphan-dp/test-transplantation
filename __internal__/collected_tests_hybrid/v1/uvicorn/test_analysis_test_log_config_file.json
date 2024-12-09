@@ -1,0 +1,51 @@
+{
+  "test_name": "test_log_config_file",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    },
+    {
+      "name": "mocked_logging_config_module.fileConfig.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_log_config_file",
+      "source_code": ""
+    },
+    {
+      "function": "config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_log_config_file",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    },
+    {
+      "function": "mocked_logging_config_module.fileConfig.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_log_config_file",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_log_config_file(\n    mocked_logging_config_module: MagicMock,\n    config_file: str | configparser.RawConfigParser | typing.IO[Any],\n) -> None:\n    \"\"\"\n    Test that one can load a configparser config from disk.\n    \"\"\"\n    config = Config(app=asgi_app, log_config=config_file)\n    config.load()\n\n    mocked_logging_config_module.fileConfig.assert_called_once_with(config_file, disable_existing_loggers=False)"
+}

@@ -1,0 +1,142 @@
+{
+  "test_name": "test_mixed_site_and_non_site",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_namespaces.py",
+  "static_methods": [
+    {
+      "name": "paths_on_pythonpath",
+      "source_code": "def paths_on_pythonpath(paths):\n    \"\"\"\n    Add the indicated paths to the head of the PYTHONPATH environment\n    variable so that subprocesses will also see the packages at\n    these paths.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_path.py",
+      "line_number": 50
+    },
+    {
+      "name": "namespaces.build_namespace_package",
+      "source_code": "def build_namespace_package(tmpdir, name, version=\"1.0\", impl=\"pkg_resources\"):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    setup_py = src_dir / 'setup.py'\n    namespace, _, rest = name.rpartition('.')\n    namespaces = list(iter_namespace_pkgs(namespace))\n    setup_args = {\n        \"name\": name,\n        \"version\": version,\n        \"packages\": namespaces,\n    }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line_number": 13
+    },
+    {
+      "name": "namespaces.build_namespace_package",
+      "source_code": "def build_namespace_package(tmpdir, name, version=\"1.0\", impl=\"pkg_resources\"):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    setup_py = src_dir / 'setup.py'\n    namespace, _, rest = name.rpartition('.')\n    namespaces = list(iter_namespace_pkgs(namespace))\n    setup_args = {\n        \"name\": name,\n        \"version\": version,\n        \"packages\": namespaces,\n    }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line_number": 13
+    },
+    {
+      "name": "namespaces.make_site_dir",
+      "source_code": "def make_site_dir(target):\n    \"\"\"\n    Add a sitecustomize.py module in target to cause\n    target to be added to site dirs such that .pth files\n    are processed there.\n    \"\"\"\n    sc = target / 'sitecustomize.py'\n    target_str = str(target)\n    tmpl = '__import__(\"site\").addsitedir({target_str!r})'\n    sc.write_text(tmpl.format(**locals()), encoding='utf-8')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line_number": 81
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "paths_on_pythonpath",
+      "source_code": "def paths_on_pythonpath(paths):\n    \"\"\"\n    Add the indicated paths to the head of the PYTHONPATH environment\n    variable so that subprocesses will also see the packages at\n    these paths.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_path.py",
+      "line_number": 50
+    },
+    {
+      "name": "map",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "paths_on_pythonpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_path.py",
+      "line": 50,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": "@contextlib.contextmanager\ndef paths_on_pythonpath(paths):\n    \"\"\"\n    Add the indicated paths to the head of the PYTHONPATH environment\n    variable so that subprocesses will also see the packages at\n    these paths.\n\n    Do this in a context that restores the value on exit.\n\n    >>> getfixture('monkeypatch').setenv('PYTHONPATH', 'anything')\n    >>> with paths_on_pythonpath(['foo', 'bar']):\n    ...     assert 'foo' in os.environ['PYTHONPATH']\n    ...     assert 'anything' in os.environ['PYTHONPATH']\n    >>> os.environ['PYTHONPATH']\n    'anything'\n\n    >>> getfixture('monkeypatch').delenv('PYTHONPATH')\n    >>> with paths_on_pythonpath(['foo', 'bar']):\n    ...     assert 'foo' in os.environ['PYTHONPATH']\n    >>> os.environ.get('PYTHONPATH')\n    \"\"\"\n    nothing = object()\n    orig_pythonpath = os.environ.get('PYTHONPATH', nothing)\n    current_pythonpath = os.environ.get('PYTHONPATH', '')\n    try:\n        prefix = os.pathsep.join(unique_everseen(paths))\n        to_join = filter(None, [prefix, current_pythonpath])\n        new_path = os.pathsep.join(to_join)\n        if new_path:\n            os.environ['PYTHONPATH'] = new_path\n        yield\n    finally:\n        if orig_pythonpath is nothing:\n            os.environ.pop('PYTHONPATH', None)\n        else:\n            os.environ['PYTHONPATH'] = orig_pythonpath\n"
+    },
+    {
+      "function": "namespaces.build_namespace_package",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line": 13,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": "def build_namespace_package(tmpdir, name, version=\"1.0\", impl=\"pkg_resources\"):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    setup_py = src_dir / 'setup.py'\n    namespace, _, rest = name.rpartition('.')\n    namespaces = list(iter_namespace_pkgs(namespace))\n    setup_args = {\n        \"name\": name,\n        \"version\": version,\n        \"packages\": namespaces,\n    }\n\n    if impl == \"pkg_resources\":\n        tmpl = '__import__(\"pkg_resources\").declare_namespace(__name__)'\n        setup_args[\"namespace_packages\"] = namespaces\n    elif impl == \"pkgutil\":\n        tmpl = '__path__ = __import__(\"pkgutil\").extend_path(__path__, __name__)'\n    else:\n        raise ValueError(f\"Cannot recognise {impl=} when creating namespaces\")\n\n    args = json.dumps(setup_args, indent=4)\n    assert ast.literal_eval(args)  # ensure it is valid Python\n\n    script = textwrap.dedent(\n        \"\"\"\\\n        import setuptools\n        args = {args}\n        setuptools.setup(**args)\n        \"\"\"\n    ).format(args=args)\n    setup_py.write_text(script, encoding='utf-8')\n\n    ns_pkg_dir = Path(src_dir, namespace.replace(\".\", \"/\"))\n    ns_pkg_dir.mkdir(parents=True)\n\n    for ns in namespaces:\n        pkg_init = src_dir / ns.replace(\".\", \"/\") / '__init__.py'\n        pkg_init.write_text(tmpl, encoding='utf-8')\n\n    pkg_mod = ns_pkg_dir / (rest + '.py')\n    some_functionality = 'name = {rest!r}'.format(**locals())\n    pkg_mod.write_text(some_functionality, encoding='utf-8')\n    return src_dir\n\n\n"
+    },
+    {
+      "function": "namespaces.build_namespace_package",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line": 13,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": "def build_namespace_package(tmpdir, name, version=\"1.0\", impl=\"pkg_resources\"):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    setup_py = src_dir / 'setup.py'\n    namespace, _, rest = name.rpartition('.')\n    namespaces = list(iter_namespace_pkgs(namespace))\n    setup_args = {\n        \"name\": name,\n        \"version\": version,\n        \"packages\": namespaces,\n    }\n\n    if impl == \"pkg_resources\":\n        tmpl = '__import__(\"pkg_resources\").declare_namespace(__name__)'\n        setup_args[\"namespace_packages\"] = namespaces\n    elif impl == \"pkgutil\":\n        tmpl = '__path__ = __import__(\"pkgutil\").extend_path(__path__, __name__)'\n    else:\n        raise ValueError(f\"Cannot recognise {impl=} when creating namespaces\")\n\n    args = json.dumps(setup_args, indent=4)\n    assert ast.literal_eval(args)  # ensure it is valid Python\n\n    script = textwrap.dedent(\n        \"\"\"\\\n        import setuptools\n        args = {args}\n        setuptools.setup(**args)\n        \"\"\"\n    ).format(args=args)\n    setup_py.write_text(script, encoding='utf-8')\n\n    ns_pkg_dir = Path(src_dir, namespace.replace(\".\", \"/\"))\n    ns_pkg_dir.mkdir(parents=True)\n\n    for ns in namespaces:\n        pkg_init = src_dir / ns.replace(\".\", \"/\") / '__init__.py'\n        pkg_init.write_text(tmpl, encoding='utf-8')\n\n    pkg_mod = ns_pkg_dir / (rest + '.py')\n    some_functionality = 'name = {rest!r}'.format(**locals())\n    pkg_mod.write_text(some_functionality, encoding='utf-8')\n    return src_dir\n\n\n"
+    },
+    {
+      "function": "namespaces.make_site_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line": 81,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": "def make_site_dir(target):\n    \"\"\"\n    Add a sitecustomize.py module in target to cause\n    target to be added to site dirs such that .pth files\n    are processed there.\n    \"\"\"\n    sc = target / 'sitecustomize.py'\n    target_str = str(target)\n    tmpl = '__import__(\"site\").addsitedir({target_str!r})'\n    sc.write_text(tmpl.format(**locals()), encoding='utf-8')\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": ""
+    },
+    {
+      "function": "paths_on_pythonpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_path.py",
+      "line": 50,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": "@contextlib.contextmanager\ndef paths_on_pythonpath(paths):\n    \"\"\"\n    Add the indicated paths to the head of the PYTHONPATH environment\n    variable so that subprocesses will also see the packages at\n    these paths.\n\n    Do this in a context that restores the value on exit.\n\n    >>> getfixture('monkeypatch').setenv('PYTHONPATH', 'anything')\n    >>> with paths_on_pythonpath(['foo', 'bar']):\n    ...     assert 'foo' in os.environ['PYTHONPATH']\n    ...     assert 'anything' in os.environ['PYTHONPATH']\n    >>> os.environ['PYTHONPATH']\n    'anything'\n\n    >>> getfixture('monkeypatch').delenv('PYTHONPATH')\n    >>> with paths_on_pythonpath(['foo', 'bar']):\n    ...     assert 'foo' in os.environ['PYTHONPATH']\n    >>> os.environ.get('PYTHONPATH')\n    \"\"\"\n    nothing = object()\n    orig_pythonpath = os.environ.get('PYTHONPATH', nothing)\n    current_pythonpath = os.environ.get('PYTHONPATH', '')\n    try:\n        prefix = os.pathsep.join(unique_everseen(paths))\n        to_join = filter(None, [prefix, current_pythonpath])\n        new_path = os.pathsep.join(to_join)\n        if new_path:\n            os.environ['PYTHONPATH'] = new_path\n        yield\n    finally:\n        if orig_pythonpath is nothing:\n            os.environ.pop('PYTHONPATH', None)\n        else:\n            os.environ['PYTHONPATH'] = orig_pythonpath\n"
+    },
+    {
+      "function": "map",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mixed_site_and_non_site",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_mixed_site_and_non_site(self, tmpdir):\n        \"\"\"\n        Installing two packages sharing the same namespace, one installed\n        to a site dir and the other installed just to a path on PYTHONPATH\n        should leave the namespace in tact and both packages reachable by\n        import.\n        \"\"\"\n        pkg_A = namespaces.build_namespace_package(tmpdir, 'myns.pkgA')\n        pkg_B = namespaces.build_namespace_package(tmpdir, 'myns.pkgB')\n        site_packages = tmpdir / 'site-packages'\n        path_packages = tmpdir / 'path-packages'\n        targets = site_packages, path_packages\n        # use pip to install to the target directory\n        install_cmd = [\n            sys.executable,\n            '-m',\n            'pip.__main__',\n            'install',\n            str(pkg_A),\n            '-t',\n            str(site_packages),\n        ]\n        subprocess.check_call(install_cmd)\n        namespaces.make_site_dir(site_packages)\n        install_cmd = [\n            sys.executable,\n            '-m',\n            'pip.__main__',\n            'install',\n            str(pkg_B),\n            '-t',\n            str(path_packages),\n        ]\n        subprocess.check_call(install_cmd)\n        try_import = [\n            sys.executable,\n            '-c',\n            'import myns.pkgA; import myns.pkgB',\n        ]\n        with paths_on_pythonpath(map(str, targets)):\n            subprocess.check_call(try_import)"
+}

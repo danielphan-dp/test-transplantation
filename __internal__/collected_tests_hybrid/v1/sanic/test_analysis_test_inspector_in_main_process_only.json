@@ -1,0 +1,12 @@
+{
+  "test_name": "test_inspector_in_main_process_only",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert app.inspector == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_inspector_in_main_process_only(app: Sanic):\n    message = \"Can only access the inspector from the main process\"\n\n    with pytest.raises(SanicException, match=message):\n        app.inspector\n\n    app._inspector = 1\n    environ[\"SANIC_WORKER_PROCESS\"] = \"ok\"\n\n    with pytest.raises(SanicException, match=message):\n        app.inspector\n\n    del environ[\"SANIC_WORKER_PROCESS\"]\n\n    assert app.inspector == 1"
+}

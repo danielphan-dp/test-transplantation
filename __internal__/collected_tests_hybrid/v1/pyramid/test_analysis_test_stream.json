@@ -1,0 +1,77 @@
+{
+  "test_name": "test_stream",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_path.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "inst.stream",
+      "source_code": "    def stream(self, amt=2 ** 16, decode_content=None):\n        \"\"\"\n        A generator wrapper for the read() method. A call will block until\n        ``amt`` bytes have been read from the connection or until the\n        connection is closed.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/response.py",
+      "line_number": 601
+    },
+    {
+      "name": "s.read",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line_number": 89
+    },
+    {
+      "name": "s.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_stream",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "inst.stream",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/response.py",
+      "line": 601,
+      "caller": "test_stream",
+      "source_code": "    def stream(self, amt=2 ** 16, decode_content=None):\n        \"\"\"\n        A generator wrapper for the read() method. A call will block until\n        ``amt`` bytes have been read from the connection or until the\n        connection is closed.\n\n        :param amt:\n            How much of the content to read. The generator will return up to\n            much data per iteration, but may return less. This is particularly\n            likely when using compressed data. However, the empty string will\n            never be returned.\n\n        :param decode_content:\n            If True, will attempt to decode the body based on the\n            'content-encoding' header.\n        \"\"\"\n        if self.chunked and self.supports_chunked_reads():\n            for line in self.read_chunked(amt, decode_content=decode_content):\n                yield line\n        else:\n            while not is_fp_closed(self._fp):\n                data = self.read(amt=amt, decode_content=decode_content)\n\n                if data:\n                    yield data\n\n"
+    },
+    {
+      "function": "s.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line": 89,
+      "caller": "test_stream",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()\n\n        return data\n\n"
+    },
+    {
+      "function": "s.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_stream",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_stream",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_stream(self):\n        inst = self._makeOne()\n        s = inst.stream()\n        val = s.read()\n        s.close()\n        self.assertTrue(b'asset' in val)"
+}

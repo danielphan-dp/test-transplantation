@@ -1,0 +1,94 @@
+{
+  "test_name": "test_no_body_requests",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_pipelining.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "ReusableClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "id",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_no_body_requests",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "ReusableClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_body_requests",
+      "source_code": ""
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_no_body_requests",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_no_body_requests",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_body_requests",
+      "source_code": ""
+    },
+    {
+      "function": "id",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_body_requests",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response1.status == response2.status == 200",
+    "assert response1.json['request_id'] != response2.json['request_id']",
+    "assert response1.json['connection_id'] == response2.json['connection_id']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_no_body_requests(app, port):\n    @app.get(\"/\")\n    async def handler(request):\n        return json(\n            {\n                \"request_id\": str(request.id),\n                \"connection_id\": id(request.conn_info),\n            }\n        )\n\n    client = ReusableClient(app, port=port)\n\n    with client:\n        _, response1 = client.get(\"/\")\n        _, response2 = client.get(\"/\")\n\n    assert response1.status == response2.status == 200\n    assert response1.json[\"request_id\"] != response2.json[\"request_id\"]\n    assert response1.json[\"connection_id\"] == response2.json[\"connection_id\"]"
+}

@@ -1,0 +1,92 @@
+{
+  "test_name": "test_dispatch_multipart",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "Stream",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDictProxy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Stream",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "reader._get_part_reader",
+      "source_code": "    def _get_part_reader(\n        self,\n        headers: \"CIMultiDictProxy[str]\",\n    ) -> Union[\"MultipartReader\", BodyPartReader]:\n        \"\"\"Dispatches the response by the `Content-Type` header.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line_number": 696
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Stream",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dispatch_multipart",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDictProxy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dispatch_multipart",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dispatch_multipart",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dispatch_multipart",
+      "source_code": ""
+    },
+    {
+      "function": "Stream",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dispatch_multipart",
+      "source_code": ""
+    },
+    {
+      "function": "reader._get_part_reader",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line": 696,
+      "caller": "test_dispatch_multipart",
+      "source_code": "    def _get_part_reader(\n        self,\n        headers: \"CIMultiDictProxy[str]\",\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(res, reader.__class__)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dispatch_multipart(self) -> None:\n        h = CIMultiDictProxy(\n            CIMultiDict({CONTENT_TYPE: \"multipart/related;boundary=--:--\"})\n        )\n        with Stream(\n            b\"----:--\\r\\n\"\n            b\"\\r\\n\"\n            b\"test\\r\\n\"\n            b\"----:--\\r\\n\"\n            b\"\\r\\n\"\n            b\"passed\\r\\n\"\n            b\"----:----\\r\\n\"\n            b\"--:--\"\n        ) as stream:\n            reader = aiohttp.MultipartReader(\n                {CONTENT_TYPE: 'multipart/related;boundary=\":\"'},\n                stream,\n            )\n            res = reader._get_part_reader(h)\n        assert isinstance(res, reader.__class__)"
+}

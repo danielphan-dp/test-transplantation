@@ -1,0 +1,38 @@
+{
+  "test_name": "test_parse_vars_good",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripts/test_common.py",
+  "static_methods": [
+    {
+      "name": "parse_vars",
+      "source_code": "def parse_vars(args):\n    \"\"\"\n    Given variables like ``['a=b', 'c=d']`` turns it into ``{'a':\n    'b', 'c': 'd'}``\n    \"\"\"\n    result = {}\n    for arg in args:\n        if '=' not in arg:\n            raise ValueError('Variable assignment %r invalid (no \"=\")' % arg)\n        name, value = arg.split('=', 1)\n        result[name] = value\n    return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripts/common.py",
+      "line_number": 4
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_vars",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripts/common.py",
+      "line": 4,
+      "caller": "test_parse_vars_good",
+      "source_code": "def parse_vars(args):\n    \"\"\"\n    Given variables like ``['a=b', 'c=d']`` turns it into ``{'a':\n    'b', 'c': 'd'}``\n    \"\"\"\n    result = {}\n    for arg in args:\n        if '=' not in arg:\n            raise ValueError('Variable assignment %r invalid (no \"=\")' % arg)\n        name, value = arg.split('=', 1)\n        result[name] = value\n    return result\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_vars_good",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_vars_good(self):\n        from pyramid.scripts.common import parse_vars\n\n        vars = ['a=1', 'b=2']\n        result = parse_vars(vars)\n        self.assertEqual(result, {'a': '1', 'b': '2'})"
+}

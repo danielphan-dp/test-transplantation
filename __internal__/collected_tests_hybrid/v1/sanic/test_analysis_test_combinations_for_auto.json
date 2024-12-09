@@ -1,0 +1,40 @@
+{
+  "test_name": "test_combinations_for_auto",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+  "static_methods": [
+    {
+      "name": "Exception",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "exception_response",
+      "source_code": "def exception_response(\n    request: Request,\n    exception: Exception,\n    debug: bool,\n    fallback: str,\n    base: t.Type[BaseRenderer],\n    renderer: t.Optional[t.Type[BaseRenderer]] = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line_number": 325
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Exception",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_combinations_for_auto",
+      "source_code": ""
+    },
+    {
+      "function": "exception_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line": 325,
+      "caller": "test_combinations_for_auto",
+      "source_code": "def exception_response(\n    request: Request,\n    exception: Exception,\n    debug: bool,\n    fallback: str,\n    base: t.Type[BaseRenderer],\n    renderer: t.Optional[t.Type[BaseRenderer]] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert response.content_type == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_combinations_for_auto(fake_request, accept, content_type, expected):\n    if accept:\n        fake_request.headers[\"accept\"] = accept\n    else:\n        del fake_request.headers[\"accept\"]\n\n    if content_type:\n        fake_request.headers[\"content-type\"] = content_type\n\n    try:\n        raise Exception(\"bad stuff\")\n    except Exception as e:\n        response = exception_response(\n            fake_request,\n            e,\n            True,\n            base=TextRenderer,\n            fallback=\"auto\",\n        )\n\n    assert response.content_type == expected"
+}

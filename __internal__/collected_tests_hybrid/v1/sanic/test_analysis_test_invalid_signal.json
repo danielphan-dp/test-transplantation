@@ -1,0 +1,25 @@
+{
+  "test_name": "test_invalid_signal",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signals.py",
+  "static_methods": [
+    {
+      "name": "app.signal",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n    ) -> Callable[[SignalHandler], SignalHandler]:\n        \"\"\"\n        For creating a signal handler, used similar to a route handler:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line_number": 20
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line": 20,
+      "caller": "test_invalid_signal",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_invalid_signal(app, signal):\n    with pytest.raises(InvalidSignal, match=f\"Invalid signal event: {signal}\"):\n\n        @app.signal(signal)\n        def handler(): ..."
+}

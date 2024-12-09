@@ -1,0 +1,64 @@
+{
+  "test_name": "test_with_missing_arg",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+  "static_methods": [
+    {
+      "name": "_makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "_registerSecurityPolicy",
+      "source_code": "    def _registerSecurityPolicy(self, permissive):\n        from pyramid.interfaces import ISecurityPolicy",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_viewderivers.py",
+      "line_number": 30
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_with_missing_arg",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "_registerSecurityPolicy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_viewderivers.py",
+      "line": 30,
+      "caller": "test_with_missing_arg",
+      "source_code": "    def _registerSecurityPolicy(self, permissive):\n        from pyramid.interfaces import ISecurityPolicy\n\n        policy = DummySecurityPolicy(permissive)\n        self.config.registry.registerUtility(policy, ISecurityPolicy)\n        return policy\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_missing_arg",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_with_missing_arg",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_with_missing_arg(self):\n        request = _makeRequest()\n        registry = request.registry\n        _registerSecurityPolicy(registry, 'yo')\n        self.assertRaises(TypeError, lambda: self._callFUT(request))"
+}

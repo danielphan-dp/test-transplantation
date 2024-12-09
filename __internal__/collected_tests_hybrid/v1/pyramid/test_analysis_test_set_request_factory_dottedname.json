@@ -1,0 +1,64 @@
+{
+  "test_name": "test_set_request_factory_dottedname",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_factories.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.set_request_factory",
+      "source_code": "    def set_request_factory(self, factory):\n        \"\"\"The object passed as ``factory`` should be an object (or a\n        :term:`dotted Python name` which refers to an object) which\n        will be used by the :app:`Pyramid` router to create all\n        request objects.  This factory object must have the same\n        methods and attributes as the\n        :class:`pyramid.request.Request` class (particularly\n        ``__call__``, and ``blank``).",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/factories.py",
+      "line_number": 78
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_set_request_factory_dottedname",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.set_request_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/factories.py",
+      "line": 78,
+      "caller": "test_set_request_factory_dottedname",
+      "source_code": "    @action_method\n    def set_request_factory(self, factory):\n        \"\"\"The object passed as ``factory`` should be an object (or a\n        :term:`dotted Python name` which refers to an object) which\n        will be used by the :app:`Pyramid` router to create all\n        request objects.  This factory object must have the same\n        methods and attributes as the\n        :class:`pyramid.request.Request` class (particularly\n        ``__call__``, and ``blank``).\n\n        See :meth:`pyramid.config.Configurator.add_request_method`\n        for a less intrusive way to extend the request objects with\n        custom methods and properties.\n\n        .. note::\n\n           Using the ``request_factory`` argument to the\n           :class:`pyramid.config.Configurator` constructor\n           can be used to achieve the same purpose.\n        \"\"\"\n        factory = self.maybe_dotted(factory)\n\n        def register():\n            self.registry.registerUtility(factory, IRequestFactory)\n\n        intr = self.introspectable(\n            'request factory',\n            None,\n            self.object_description(factory),\n            'request factory',\n        )\n        intr['factory'] = factory\n        self.action(IRequestFactory, register, introspectables=(intr,))\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_request_factory_dottedname",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_set_request_factory_dottedname",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_request_factory_dottedname(self):\n        from pyramid.interfaces import IRequestFactory\n\n        config = self._makeOne(autocommit=True)\n        config.set_request_factory('tests.test_config.dummyfactory')\n        self.assertEqual(\n            config.registry.getUtility(IRequestFactory), dummyfactory\n        )"
+}

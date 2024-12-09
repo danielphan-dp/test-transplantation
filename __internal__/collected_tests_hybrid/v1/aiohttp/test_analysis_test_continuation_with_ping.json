@@ -1,0 +1,106 @@
+{
+  "test_name": "test_continuation_with_ping",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "build_frame",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line_number": 36
+    },
+    {
+      "name": "build_frame",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line_number": 36
+    },
+    {
+      "name": "build_frame",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line_number": 36
+    },
+    {
+      "name": "WSMessagePing",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WSMessageText",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_continuation_with_ping",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_continuation_with_ping",
+      "source_code": ""
+    },
+    {
+      "function": "build_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line": 36,
+      "caller": "test_continuation_with_ping",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,\n"
+    },
+    {
+      "function": "build_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line": 36,
+      "caller": "test_continuation_with_ping",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,\n"
+    },
+    {
+      "function": "build_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line": 36,
+      "caller": "test_continuation_with_ping",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,\n"
+    },
+    {
+      "function": "WSMessagePing",
+      "filename": "",
+      "line": 0,
+      "caller": "test_continuation_with_ping",
+      "source_code": ""
+    },
+    {
+      "function": "WSMessageText",
+      "filename": "",
+      "line": 0,
+      "caller": "test_continuation_with_ping",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == WSMessagePing(data=b'', extra='')",
+    "assert res == WSMessageText(data='line1line2', extra='')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_continuation_with_ping(\n    out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader\n) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [\n            (0, WSMsgType.TEXT, b\"line1\", False),\n            (0, WSMsgType.PING, b\"\", False),\n            (1, WSMsgType.CONTINUATION, b\"line2\", False),\n        ]\n\n        data1 = build_frame(b\"line1\", WSMsgType.TEXT, is_fin=False)\n        parser._feed_data(data1)\n\n        data2 = build_frame(b\"\", WSMsgType.PING)\n        parser._feed_data(data2)\n\n        data3 = build_frame(b\"line2\", WSMsgType.CONTINUATION)\n        parser._feed_data(data3)\n\n        res = out._buffer[0]\n        assert res == WSMessagePing(data=b\"\", extra=\"\")\n        res = out._buffer[1]\n        assert res == WSMessageText(data=\"line1line2\", extra=\"\")"
+}

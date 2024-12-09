@@ -1,0 +1,25 @@
+{
+  "test_name": "test_get_app_does_not_exist",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [
+    {
+      "name": "Sanic.get_app",
+      "source_code": "    def get_app(\n        cls, name: Optional[str] = None, *, force_create: bool = False\n    ) -> Sanic:\n        \"\"\"Retrieve an instantiated Sanic instance by name.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 2176
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic.get_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 2176,
+      "caller": "test_get_app_does_not_exist",
+      "source_code": "    @classmethod\n    def get_app(\n        cls, name: Optional[str] = None, *, force_create: bool = False\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_app_does_not_exist():\n    with pytest.raises(\n        SanicException,\n        match=(\n            \"Sanic app name 'does-not-exist' not found.\\n\"\n            \"App instantiation must occur outside \"\n            \"if __name__ == '__main__' \"\n            \"block or by using an AppLoader.\\nSee \"\n            \"https://sanic.dev/en/guide/deployment/app-loader.html\"\n            \" for more details.\"\n        ),\n    ):\n        Sanic.get_app(\"does-not-exist\")"
+}

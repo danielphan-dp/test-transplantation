@@ -1,0 +1,25 @@
+{
+  "test_name": "test_catches_only_AttributeError_on_class",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "MissingSomeAttrs.test_raises",
+      "source_code": "    def test_raises(cls, unittest, test_func, expected_missing, **other_attrs):\n        \"\"\"\n        Loop through various exceptions, calling *test_func* inside a\n        ``assertRaises`` block.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/__init__.py",
+      "line_number": 75
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MissingSomeAttrs.test_raises",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/__init__.py",
+      "line": 75,
+      "caller": "test_catches_only_AttributeError_on_class",
+      "source_code": "    @classmethod\n    def test_raises(cls, unittest, test_func, expected_missing, **other_attrs):\n        \"\"\"\n        Loop through various exceptions, calling *test_func* inside a\n        ``assertRaises`` block.\n\n        :param test_func: A callable of one argument, the instance of this\n            class.\n        :param str expected_missing: The attribute that should fail with the\n            exception.  This is used to ensure that we're testing the path we\n            think we are.\n        :param other_attrs: Attributes that should be provided on the test\n            object.  Must not contain *expected_missing*.\n        \"\"\"\n        assert isinstance(expected_missing, str)\n        assert expected_missing not in other_attrs\n        for exc in cls.EXCEPTION_CLASSES:\n            ob = cls(exc, **other_attrs)\n            with unittest.assertRaises(exc) as ex:\n                test_func(ob)\n\n            unittest.assertEqual(ex.exception.args[0], expected_missing)\n\n        # Now test that the AttributeError for that expected_missing is *not*\n        # raised.\n        ob = cls(AttributeError, **other_attrs)\n        try:\n            test_func(ob)\n        except AttributeError as e:\n            unittest.assertNotIn(expected_missing, str(e))\n        except Exception:  # pylint:disable=broad-except\n            pass\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_catches_only_AttributeError_on_class(self):\n        # isinstance() tries to get the __class__, which is non-obvious,\n        # so it must be protected too.\n        MissingSomeAttrs.test_raises(\n            self, self._callFUT, expected_missing='__class__')"
+}

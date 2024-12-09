@@ -1,0 +1,32 @@
+{
+  "test_name": "test_motd_with_expected_info",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_motd.py",
+  "static_methods": [
+    {
+      "name": "run_startup",
+      "source_code": "def run_startup(caplog):\n    def run(app):\n        nonlocal caplog\n        loop = asyncio.new_event_loop()\n        asyncio.set_event_loop(loop)\n        with caplog.at_level(logging.DEBUG):\n            server = app.create_server(\n                debug=True, return_asyncio_server=True, port=PORT\n            )\n            loop._stopping = False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/conftest.py",
+      "line_number": 178
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "run_startup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/conftest.py",
+      "line": 178,
+      "caller": "test_motd_with_expected_info",
+      "source_code": "@pytest.fixture(scope=\"function\")\ndef run_startup(caplog):\n    def run(app):\n        nonlocal caplog\n        loop = asyncio.new_event_loop()\n        asyncio.set_event_loop(loop)\n        with caplog.at_level(logging.DEBUG):\n            server = app.create_server(\n                debug=True, return_asyncio_server=True, port=PORT\n            )\n            loop._stopping = False\n\n            _server = loop.run_until_complete(server)\n\n            _server.close()\n            loop.run_until_complete(_server.wait_closed())\n            app.stop()\n\n        return caplog.record_tuples\n\n    return run\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert logs[1][2] == f'Sanic v{__version__}'",
+    "assert logs[3][2] == 'app: test_motd_with_expected_info'",
+    "assert logs[4][2] == 'mode: debug, single worker'",
+    "assert logs[5][2] == 'server: sanic, HTTP/1.1'",
+    "assert logs[6][2] == f'python: {platform.python_version()}'",
+    "assert logs[7][2] == f'platform: {platform.platform()}'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_motd_with_expected_info(app, run_startup):\n    logs = run_startup(app)\n\n    assert logs[1][2] == f\"Sanic v{__version__}\"\n    assert logs[3][2] == \"app: test_motd_with_expected_info\"\n    assert logs[4][2] == \"mode: debug, single worker\"\n    assert logs[5][2] == \"server: sanic, HTTP/1.1\"\n    assert logs[6][2] == f\"python: {platform.python_version()}\"\n    assert logs[7][2] == f\"platform: {platform.platform()}\""
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_namedtuple_return",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authentication.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._get_func",
+      "source_code": "    def _get_func(self):\n        from pyramid.authentication import extract_http_basic_credentials",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authentication.py",
+      "line_number": 1760
+    },
+    {
+      "name": "fn",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bytes_",
+      "source_code": "def bytes_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, text_type):\n        return s.encode(encoding, errors)\n    return s",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line_number": 31
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namedtuple_return",
+      "source_code": ""
+    },
+    {
+      "function": "self._get_func",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authentication.py",
+      "line": 1760,
+      "caller": "test_namedtuple_return",
+      "source_code": "    def _get_func(self):\n        from pyramid.authentication import extract_http_basic_credentials\n\n        return extract_http_basic_credentials\n\n"
+    },
+    {
+      "function": "fn",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namedtuple_return",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namedtuple_return",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namedtuple_return",
+      "source_code": ""
+    },
+    {
+      "function": "bytes_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line": 31,
+      "caller": "test_namedtuple_return",
+      "source_code": "def bytes_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, text_type):\n        return s.encode(encoding, errors)\n    return s\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_namedtuple_return(self):\n        import base64\n\n        request = testing.DummyRequest()\n        request.headers['Authorization'] = 'Basic %s' % base64.b64encode(\n            bytes_('chrisr:pass')\n        ).decode('ascii')\n        fn = self._get_func()\n        result = fn(request)\n\n        self.assertEqual(result.username, 'chrisr')\n        self.assertEqual(result.password, 'pass')"
+}

@@ -1,0 +1,25 @@
+{
+  "test_name": "test_multiproc_atexit",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "log.info",
+      "source_code": "    def info(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        with ZipFile(pathname, 'r') as zf:\n            result = self.get_wheel_metadata(zf)\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 287
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "log.info",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 287,
+      "caller": "test_multiproc_atexit",
+      "source_code": "    @cached_property\n    def info(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        with ZipFile(pathname, 'r') as zf:\n            result = self.get_wheel_metadata(zf)\n        return result\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_multiproc_atexit(self):\n        pytest.importorskip('multiprocessing')\n\n        log = logging.getLogger('test_easy_install')\n        logging.basicConfig(level=logging.INFO, stream=sys.stderr)\n        log.info('this should not break')"
+}

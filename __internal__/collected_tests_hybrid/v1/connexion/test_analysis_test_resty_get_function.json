@@ -1,0 +1,40 @@
+{
+  "test_name": "test_resty_get_function",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_resolver.py",
+  "static_methods": [
+    {
+      "name": "RestyResolver.resolve_function_from_operation_id",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line_number": 62
+    },
+    {
+      "name": "RestyResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RestyResolver.resolve_function_from_operation_id",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line": 62,
+      "caller": "test_resty_get_function",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver\n\n        :type operation_id: str\n        \"\"\"\n        try:\n            return self.function_resolver(operation_id)\n        except ImportError as e:\n            msg = f'Cannot resolve operationId \"{operation_id}\"! Import error was \"{str(e)}\"'\n            raise ResolverError(msg)\n        except (AttributeError, ValueError) as e:\n            raise ResolverError(str(e))\n\n\n"
+    },
+    {
+      "function": "RestyResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resty_get_function",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert function == connexion.FlaskApp.add_error_handler"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resty_get_function():\n    function = RestyResolver(\"connexion\").resolve_function_from_operation_id(\n        \"connexion.FlaskApp.add_error_handler\"\n    )\n    assert function == connexion.FlaskApp.add_error_handler"
+}

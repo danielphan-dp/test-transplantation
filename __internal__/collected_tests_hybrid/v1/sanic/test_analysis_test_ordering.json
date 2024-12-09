@@ -1,0 +1,53 @@
+{
+  "test_name": "test_ordering",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_markers.py",
+  "static_methods": [
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "evaluate_marker",
+      "source_code": "def evaluate_marker(text, extra=None):\n    \"\"\"\n    Evaluate a PEP 508 environment marker.\n    Return a boolean indicating the marker result in this environment.\n    Raise SyntaxError if marker is invalid.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 1368
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_ordering",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "evaluate_marker",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 1368,
+      "caller": "test_ordering",
+      "source_code": "def evaluate_marker(text, extra=None):\n    \"\"\"\n    Evaluate a PEP 508 environment marker.\n    Return a boolean indicating the marker result in this environment.\n    Raise SyntaxError if marker is invalid.\n\n    This implementation uses the 'pyparsing' module.\n    \"\"\"\n    try:\n        marker = packaging.markers.Marker(text)\n        return marker.evaluate()\n    except packaging.markers.InvalidMarker as e:\n        raise SyntaxError(e)\n\n\n"
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_ordering",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert evaluate_marker(\"python_full_version > '2.7.3'\") is True"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ordering(python_version_mock):\n    assert evaluate_marker(\"python_full_version > '2.7.3'\") is True"
+}

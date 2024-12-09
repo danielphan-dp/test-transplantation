@@ -1,0 +1,70 @@
+{
+  "test_name": "test_inspector_inspect",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "capsys.readouterr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "capture",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 1083
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_inspector_inspect",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "capsys.readouterr",
+      "filename": "",
+      "line": 0,
+      "caller": "test_inspector_inspect",
+      "source_code": ""
+    },
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_inspector_inspect",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "capture",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 1083,
+      "caller": "test_inspector_inspect",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.\n\n        Example:\n            >>> from rich.console import Console\n            >>> console = Console()\n            >>> with console.capture() as capture:\n            ...     console.print(\"[bold magenta]Hello World[/]\")\n            >>> print(capture.get())\n\n        Returns:\n            Capture: Context manager with disables writing to the terminal.\n        \"\"\"\n        capture = Capture(self)\n        return capture\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'Inspecting @ http://localhost:6457' in captured.out",
+    "assert 'Worker-Name' in captured.out",
+    "assert captured.err == ''"
+  ],
+  "mocks": [
+    "patch('sys.argv', ['sanic', 'inspect'])"
+  ],
+  "success": true,
+  "test_source_code": "def test_inspector_inspect(urlopen, caplog, capsys):\n    urlopen.read.return_value = json.dumps(\n        {\n            \"result\": {\n                \"info\": {\n                    \"packages\": [\"foo\"],\n                },\n                \"extra\": {\n                    \"more\": \"data\",\n                },\n                \"workers\": {\"Worker-Name\": {\"some\": \"state\"}},\n            }\n        }\n    ).encode()\n    with patch(\"sys.argv\", [\"sanic\", \"inspect\"]):\n        capture([\"inspect\"], caplog)\n    captured = capsys.readouterr()\n    assert \"Inspecting @ http://localhost:6457\" in captured.out\n    assert \"Worker-Name\" in captured.out\n    assert captured.err == \"\""
+}

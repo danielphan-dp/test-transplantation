@@ -1,6 +1,6 @@
 {
   "test_name": "test_duplicate_tag",
-  "test_file": "__internal__/_data/flask/tests/test_json_tag.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_json_tag.py",
   "static_methods": [
     {
       "name": "TaggedJSONSerializer",
@@ -10,9 +10,9 @@
     },
     {
       "name": "s.register",
-      "source_code": "def register():\n    \"\"\"Register a new user.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
-      "line_number": 47
+      "source_code": "    def register(self, code: CodeType, source: str) -> None:\n        self._storage[id(code)] = source\n        # register code objects of wrapped functions too.\n        for var in code.co_consts:\n            if isinstance(var, CodeType):\n                self._storage[id(var)] = source",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/debug/console.py",
+      "line_number": 118
     },
     {
       "name": "isinstance",
@@ -37,10 +37,10 @@
     },
     {
       "function": "s.register",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
-      "line": 47,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/debug/console.py",
+      "line": 118,
       "caller": "test_duplicate_tag",
-      "source_code": "@bp.route(\"/register\", methods=(\"GET\", \"POST\"))\ndef register():\n    \"\"\"Register a new user.\n\n    Validates that the username is not already taken. Hashes the\n    password for security.\n    \"\"\"\n    if request.method == \"POST\":\n        username = request.form[\"username\"]\n        password = request.form[\"password\"]\n        db = get_db()\n        error = None\n\n        if not username:\n            error = \"Username is required.\"\n        elif not password:\n            error = \"Password is required.\"\n\n        if error is None:\n            try:\n                db.execute(\n                    \"INSERT INTO user (username, password) VALUES (?, ?)\",\n                    (username, generate_password_hash(password)),\n                )\n                db.commit()\n            except db.IntegrityError:\n                # The username was already taken, which caused the\n                # commit to fail. Show a validation error.\n                error = f\"User {username} is already registered.\"\n            else:\n                # Success, go to the login page.\n                return redirect(url_for(\"auth.login\"))\n\n        flash(error)\n\n    return render_template(\"auth/register.html\")\n\n\n"
+      "source_code": "    def register(self, code: CodeType, source: str) -> None:\n        self._storage[id(code)] = source\n        # register code objects of wrapped functions too.\n        for var in code.co_consts:\n            if isinstance(var, CodeType):\n                self._storage[id(var)] = source\n\n"
     },
     {
       "function": "isinstance",

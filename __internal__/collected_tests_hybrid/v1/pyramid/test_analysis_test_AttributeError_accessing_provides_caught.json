@@ -1,0 +1,64 @@
+{
+  "test_name": "test_AttributeError_accessing_provides_caught",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsNotNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Foo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_AttributeError_accessing_provides_caught",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_AttributeError_accessing_provides_caught",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsNotNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_AttributeError_accessing_provides_caught",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_AttributeError_accessing_provides_caught",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_AttributeError_accessing_provides_caught(self):\n\n        class MyException(Exception):\n            pass\n\n        class Foo:\n            __providedBy__ = self._makeOne()\n\n            @property\n            def __provides__(self):\n                raise AttributeError\n\n        foo = Foo()\n        provided = getattr(foo, '__providedBy__')\n        self.assertIsNotNone(provided)"
+}

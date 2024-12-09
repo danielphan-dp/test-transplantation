@@ -1,0 +1,157 @@
+{
+  "test_name": "test_nspkg_file_is_unique",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "installation_dir.mkdir",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "monkeypatch.context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "namespaces.build_namespace_package",
+      "source_code": "def build_namespace_package(tmpdir, name, version=\"1.0\", impl=\"pkg_resources\"):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    setup_py = src_dir / 'setup.py'\n    namespace, _, rest = name.rpartition('.')\n    namespaces = list(iter_namespace_pkgs(namespace))\n    setup_args = {\n        \"name\": name,\n        \"version\": version,\n        \"packages\": namespaces,\n    }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line_number": 13
+    },
+    {
+      "name": "installation_dir.glob",
+      "source_code": "def glob(pathname: AnyStr, recursive: bool = False) -> list[AnyStr]:\n    \"\"\"Return a list of paths matching a pathname pattern.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/glob.py",
+      "line_number": 23
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.context",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.chdir",
+      "source_code": "def chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 424
+    },
+    {
+      "name": "run_setup",
+      "source_code": "def run_setup(setup_script, args):\n    \"\"\"Run a distutils setup script, sandboxed in its directory\"\"\"\n    setup_dir = os.path.abspath(os.path.dirname(setup_script))\n    with setup_context(setup_dir):\n        try:\n            sys.argv[:] = [setup_script] + list(args)\n            sys.path.insert(0, setup_dir)\n            # reset to include setup dir, w/clean callback list\n            working_set.__init__()\n            working_set.callbacks.append(lambda dist: dist.activate())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line_number": 257
+    },
+    {
+      "name": "editable_wheel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "installation_dir.mkdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line": 123,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")\n\n"
+    },
+    {
+      "function": "monkeypatch.context",
+      "filename": "",
+      "line": 0,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": ""
+    },
+    {
+      "function": "namespaces.build_namespace_package",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line": 13,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": "def build_namespace_package(tmpdir, name, version=\"1.0\", impl=\"pkg_resources\"):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    setup_py = src_dir / 'setup.py'\n    namespace, _, rest = name.rpartition('.')\n    namespaces = list(iter_namespace_pkgs(namespace))\n    setup_args = {\n        \"name\": name,\n        \"version\": version,\n        \"packages\": namespaces,\n    }\n\n    if impl == \"pkg_resources\":\n        tmpl = '__import__(\"pkg_resources\").declare_namespace(__name__)'\n        setup_args[\"namespace_packages\"] = namespaces\n    elif impl == \"pkgutil\":\n        tmpl = '__path__ = __import__(\"pkgutil\").extend_path(__path__, __name__)'\n    else:\n        raise ValueError(f\"Cannot recognise {impl=} when creating namespaces\")\n\n    args = json.dumps(setup_args, indent=4)\n    assert ast.literal_eval(args)  # ensure it is valid Python\n\n    script = textwrap.dedent(\n        \"\"\"\\\n        import setuptools\n        args = {args}\n        setuptools.setup(**args)\n        \"\"\"\n    ).format(args=args)\n    setup_py.write_text(script, encoding='utf-8')\n\n    ns_pkg_dir = Path(src_dir, namespace.replace(\".\", \"/\"))\n    ns_pkg_dir.mkdir(parents=True)\n\n    for ns in namespaces:\n        pkg_init = src_dir / ns.replace(\".\", \"/\") / '__init__.py'\n        pkg_init.write_text(tmpl, encoding='utf-8')\n\n    pkg_mod = ns_pkg_dir / (rest + '.py')\n    some_functionality = 'name = {rest!r}'.format(**locals())\n    pkg_mod.write_text(some_functionality, encoding='utf-8')\n    return src_dir\n\n\n"
+    },
+    {
+      "function": "installation_dir.glob",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/glob.py",
+      "line": 23,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": "def glob(pathname: AnyStr, recursive: bool = False) -> list[AnyStr]:\n    \"\"\"Return a list of paths matching a pathname pattern.\n\n    The pattern may contain simple shell-style wildcards a la\n    fnmatch. However, unlike fnmatch, filenames starting with a\n    dot are special cases that are not matched by '*' and '?'\n    patterns.\n\n    If recursive is true, the pattern '**' will match any files and\n    zero or more directories and subdirectories.\n    \"\"\"\n    return list(iglob(pathname, recursive=recursive))\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.context",
+      "filename": "",
+      "line": 0,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": ""
+    },
+    {
+      "function": "ctx.chdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 424,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": "@contextlib.contextmanager\ndef chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)\n\n\n"
+    },
+    {
+      "function": "run_setup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line": 257,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": "def run_setup(setup_script, args):\n    \"\"\"Run a distutils setup script, sandboxed in its directory\"\"\"\n    setup_dir = os.path.abspath(os.path.dirname(setup_script))\n    with setup_context(setup_dir):\n        try:\n            sys.argv[:] = [setup_script] + list(args)\n            sys.path.insert(0, setup_dir)\n            # reset to include setup dir, w/clean callback list\n            working_set.__init__()\n            working_set.callbacks.append(lambda dist: dist.activate())\n\n            with DirectorySandbox(setup_dir):\n                ns = dict(__file__=setup_script, __name__='__main__')\n                _execfile(setup_script, ns)\n        except SystemExit as v:\n            if v.args and v.args[0]:\n                raise\n            # Normal exit, just return\n\n\n"
+    },
+    {
+      "function": "editable_wheel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_nspkg_file_is_unique",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(files) == len(examples)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_nspkg_file_is_unique(self, tmp_path, monkeypatch):\n        deprecation = pytest.warns(\n            SetuptoolsDeprecationWarning, match=\".*namespace_packages parameter.*\"\n        )\n        installation_dir = tmp_path / \".installation_dir\"\n        installation_dir.mkdir()\n        examples = (\n            \"myns.pkgA\",\n            \"myns.pkgB\",\n            \"myns.n.pkgA\",\n            \"myns.n.pkgB\",\n        )\n\n        for name in examples:\n            pkg = namespaces.build_namespace_package(tmp_path, name, version=\"42\")\n            with deprecation, monkeypatch.context() as ctx:\n                ctx.chdir(pkg)\n                dist = run_setup(\"setup.py\", stop_after=\"config\")\n                cmd = editable_wheel(dist)\n                cmd.finalize_options()\n                editable_name = cmd.get_finalized_command(\"dist_info\").name\n                cmd._install_namespaces(installation_dir, editable_name)\n\n        files = list(installation_dir.glob(\"*-nspkg.pth\"))\n        assert len(files) == len(examples)"
+}

@@ -1,0 +1,186 @@
+{
+  "test_name": "test_get_remote_addr_with_socket",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/protocols/test_utils.py",
+  "static_methods": [
+    {
+      "name": "MockTransport",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockTransport",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockTransport",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "get_remote_addr",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line_number": 12
+    },
+    {
+      "name": "get_remote_addr",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line_number": 12
+    },
+    {
+      "name": "get_remote_addr",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line_number": 12
+    },
+    {
+      "name": "MockTransport",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "get_remote_addr",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line_number": 12
+    },
+    {
+      "name": "MockSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MockTransport",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "MockTransport",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "MockTransport",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "get_remote_addr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line": 12,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None\n\n    info = transport.get_extra_info(\"peername\")\n    if info is not None and isinstance(info, (list, tuple)) and len(info) == 2:\n        return (str(info[0]), int(info[1]))\n    return None\n\n\n"
+    },
+    {
+      "function": "get_remote_addr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line": 12,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None\n\n    info = transport.get_extra_info(\"peername\")\n    if info is not None and isinstance(info, (list, tuple)) and len(info) == 2:\n        return (str(info[0]), int(info[1]))\n    return None\n\n\n"
+    },
+    {
+      "function": "get_remote_addr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line": 12,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None\n\n    info = transport.get_extra_info(\"peername\")\n    if info is not None and isinstance(info, (list, tuple)) and len(info) == 2:\n        return (str(info[0]), int(info[1]))\n    return None\n\n\n"
+    },
+    {
+      "function": "MockTransport",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "MockSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "MockSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "MockSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    },
+    {
+      "function": "get_remote_addr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/protocols/utils.py",
+      "line": 12,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": "def get_remote_addr(transport: asyncio.Transport) -> tuple[str, int] | None:\n    socket_info = transport.get_extra_info(\"socket\")\n    if socket_info is not None:\n        try:\n            info = socket_info.getpeername()\n            return (str(info[0]), int(info[1])) if isinstance(info, tuple) else None\n        except OSError:  # pragma: no cover\n            # This case appears to inconsistently occur with uvloop\n            # bound to a unix domain socket.\n            return None\n\n    info = transport.get_extra_info(\"peername\")\n    if info is not None and isinstance(info, (list, tuple)) and len(info) == 2:\n        return (str(info[0]), int(info[1]))\n    return None\n\n\n"
+    },
+    {
+      "function": "MockSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_remote_addr_with_socket",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert get_remote_addr(transport) is None",
+    "assert get_remote_addr(transport) == ('::1', 123)",
+    "assert get_remote_addr(transport) == ('123.45.6.7', 123)",
+    "assert get_remote_addr(transport) == ('127.0.0.1', 8000)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_remote_addr_with_socket():\n    transport = MockTransport({\"socket\": MockSocket(family=socket.AF_IPX)})\n    assert get_remote_addr(transport) is None\n\n    transport = MockTransport({\"socket\": MockSocket(family=socket.AF_INET6, peername=(\"::1\", 123))})\n    assert get_remote_addr(transport) == (\"::1\", 123)\n\n    transport = MockTransport({\"socket\": MockSocket(family=socket.AF_INET, peername=(\"123.45.6.7\", 123))})\n    assert get_remote_addr(transport) == (\"123.45.6.7\", 123)\n\n    if hasattr(socket, \"AF_UNIX\"):  # pragma: no cover\n        transport = MockTransport({\"socket\": MockSocket(family=socket.AF_UNIX, peername=(\"127.0.0.1\", 8000))})\n        assert get_remote_addr(transport) == (\"127.0.0.1\", 8000)"
+}

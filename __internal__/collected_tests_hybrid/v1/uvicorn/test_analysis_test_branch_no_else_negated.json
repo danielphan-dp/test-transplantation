@@ -1,0 +1,116 @@
+{
+  "test_name": "test_branch_no_else_negated",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+  "static_methods": [
+    {
+      "name": "BasicBlock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Branch",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assert_emit",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n    ) -> None:\n        block = BasicBlock(0)\n        block.ops.append(op)\n        value_names = generate_names_for_ir(self.registers, [block])\n        emitter = Emitter(self.context, value_names)\n        declarations = Emitter(self.context, value_names)\n        emitter.fragments = []\n        declarations.fragments = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line_number": 807
+    },
+    {
+      "name": "BasicBlock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Branch",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assert_emit",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n    ) -> None:\n        block = BasicBlock(0)\n        block.ops.append(op)\n        value_names = generate_names_for_ir(self.registers, [block])\n        emitter = Emitter(self.context, value_names)\n        declarations = Emitter(self.context, value_names)\n        emitter.fragments = []\n        declarations.fragments = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line_number": 807
+    },
+    {
+      "name": "BasicBlock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BasicBlock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "BasicBlock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_branch_no_else_negated",
+      "source_code": ""
+    },
+    {
+      "function": "Branch",
+      "filename": "",
+      "line": 0,
+      "caller": "test_branch_no_else_negated",
+      "source_code": ""
+    },
+    {
+      "function": "self.assert_emit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line": 807,
+      "caller": "test_branch_no_else_negated",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n"
+    },
+    {
+      "function": "BasicBlock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_branch_no_else_negated",
+      "source_code": ""
+    },
+    {
+      "function": "Branch",
+      "filename": "",
+      "line": 0,
+      "caller": "test_branch_no_else_negated",
+      "source_code": ""
+    },
+    {
+      "function": "self.assert_emit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line": 807,
+      "caller": "test_branch_no_else_negated",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n"
+    },
+    {
+      "function": "BasicBlock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_branch_no_else_negated",
+      "source_code": ""
+    },
+    {
+      "function": "BasicBlock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_branch_no_else_negated",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_branch_no_else_negated(self) -> None:\n        next_block = BasicBlock(1)\n        b = Branch(self.b, next_block, BasicBlock(2), Branch.BOOL)\n        self.assert_emit(b, \"\"\"if (!cpy_r_b) goto CPyL2;\"\"\", next_block=next_block)\n        next_block = BasicBlock(1)\n        b = Branch(self.b, next_block, BasicBlock(2), Branch.BOOL)\n        b.negated = True\n        self.assert_emit(b, \"\"\"if (cpy_r_b) goto CPyL2;\"\"\", next_block=next_block)"
+}

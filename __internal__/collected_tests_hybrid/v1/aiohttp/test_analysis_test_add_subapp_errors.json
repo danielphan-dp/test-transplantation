@@ -1,0 +1,38 @@
+{
+  "test_name": "test_add_subapp_errors",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "app.add_subapp",
+      "source_code": "    def add_subapp(self, prefix: str, subapp: \"Application\") -> PrefixedSubAppResource:\n        if not isinstance(prefix, str):\n            raise TypeError(\"Prefix must be str\")\n        prefix = prefix.rstrip(\"/\")\n        if not prefix:\n            raise ValueError(\"Prefix cannot be empty\")\n        factory = partial(PrefixedSubAppResource, prefix, subapp)\n        return self._add_subapp(factory, subapp)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_app.py",
+      "line_number": 291
+    },
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.add_subapp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_app.py",
+      "line": 291,
+      "caller": "test_add_subapp_errors",
+      "source_code": "    def add_subapp(self, prefix: str, subapp: \"Application\") -> PrefixedSubAppResource:\n        if not isinstance(prefix, str):\n            raise TypeError(\"Prefix must be str\")\n        prefix = prefix.rstrip(\"/\")\n        if not prefix:\n            raise ValueError(\"Prefix cannot be empty\")\n        factory = partial(PrefixedSubAppResource, prefix, subapp)\n        return self._add_subapp(factory, subapp)\n\n"
+    },
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_subapp_errors",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_subapp_errors(app: web.Application) -> None:\n    with pytest.raises(TypeError):\n        app.add_subapp(1, web.Application())"
+}

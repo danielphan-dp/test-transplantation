@@ -1,0 +1,90 @@
+{
+  "test_name": "test_set_security_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_security.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "config.set_security_policy",
+      "source_code": "    def set_security_policy(self, policy):\n        \"\"\"Override the :app:`Pyramid` :term:`security policy` in the current\n        configuration.  The ``policy`` argument must be an instance\n        of a security policy or a :term:`dotted Python name`\n        that points at an instance of a security policy.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line_number": 26
+    },
+    {
+      "name": "config.commit",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 639
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_set_security_policy",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_set_security_policy",
+      "source_code": ""
+    },
+    {
+      "function": "config.set_security_policy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line": 26,
+      "caller": "test_set_security_policy",
+      "source_code": "    @action_method\n    def set_security_policy(self, policy):\n        \"\"\"Override the :app:`Pyramid` :term:`security policy` in the current\n        configuration.  The ``policy`` argument must be an instance\n        of a security policy or a :term:`dotted Python name`\n        that points at an instance of a security policy.\n\n        .. note::\n\n           Using the ``security_policy`` argument to the\n           :class:`pyramid.config.Configurator` constructor can be used to\n           achieve the same purpose.\n\n        \"\"\"\n\n        def register():\n            self.registry.registerUtility(policy, ISecurityPolicy)\n\n        policy = self.maybe_dotted(policy)\n        intr = self.introspectable(\n            'security policy',\n            None,\n            self.object_description(policy),\n            'security policy',\n        )\n        intr['policy'] = policy\n        self.action(\n            ISecurityPolicy,\n            register,\n            order=PHASE2_CONFIG,\n            introspectables=(intr,),\n        )\n\n"
+    },
+    {
+      "function": "config.commit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 639,
+      "caller": "test_set_security_policy",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_security_policy",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_set_security_policy",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_security_policy(self):\n        from pyramid.interfaces import ISecurityPolicy\n\n        config = self._makeOne()\n        policy = object()\n        config.set_security_policy(policy)\n        config.commit()\n        self.assertEqual(config.registry.getUtility(ISecurityPolicy), policy)"
+}

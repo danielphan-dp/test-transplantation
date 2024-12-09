@@ -1,0 +1,51 @@
+{
+  "test_name": "test_signals_with_invalid_invocation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signal_handlers.py",
+  "static_methods": [
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "HTTPResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.listener",
+      "source_code": "    def listener(\n        self,\n        listener_or_event: ListenerType[Sanic],\n        event_or_none: str,\n        apply: bool = ...,\n        *,\n        priority: int = 0,\n    ) -> ListenerType[Sanic]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/listeners.py",
+      "line_number": 36
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_signals_with_invalid_invocation",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "HTTPResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_signals_with_invalid_invocation",
+      "source_code": ""
+    },
+    {
+      "function": "app.listener",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/listeners.py",
+      "line": 36,
+      "caller": "test_signals_with_invalid_invocation",
+      "source_code": "    @overload\n    def listener(\n        self,\n        listener_or_event: ListenerType[Sanic],\n        event_or_none: str,\n        apply: bool = ...,\n        *,\n        priority: int = 0,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_signals_with_invalid_invocation(app):\n    \"\"\"Test if sanic register fails with invalid invocation\"\"\"\n\n    @app.route(\"/hello\")\n    async def hello_route(request):\n        return HTTPResponse()\n\n    with pytest.raises(\n        BadRequest, match=\"Invalid event registration: Missing event name\"\n    ):\n        app.listener(stop)"
+}

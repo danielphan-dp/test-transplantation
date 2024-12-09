@@ -1,0 +1,38 @@
+{
+  "test_name": "test_allow_some_garbage_in_cookies",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+  "static_methods": [
+    {
+      "name": "tr",
+      "source_code": "def tr(reader: Any, data: bytes, expected: Any) -> None:\n    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line_number": 99
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line": 99,
+      "caller": "test_allow_some_garbage_in_cookies",
+      "source_code": "def tr(reader: Any, data: bytes, expected: Any) -> None:\n    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes\n\n    # Simple: consume whole thing\n    buf = makebuf(data)\n    check(reader(buf))\n    assert not buf\n\n    # Incrementally growing buffer\n    buf = ReceiveBuffer()\n    for i in range(len(data)):\n        assert reader(buf) is None\n        buf += data[i : i + 1]\n    check(reader(buf))\n\n    # Trailing data\n    buf = makebuf(data)\n    buf += b\"trailing\"\n    check(reader(buf))\n    assert bytes(buf) == b\"trailing\"\n\n\n"
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_allow_some_garbage_in_cookies",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_allow_some_garbage_in_cookies() -> None:\n    tr(\n        READERS[CLIENT, IDLE],\n        b\"HEAD /foo HTTP/1.1\\r\\n\"\n        b\"Host: foo\\r\\n\"\n        b\"Set-Cookie: ___utmvafIumyLc=kUd\\x01UpAt; path=/; Max-Age=900\\r\\n\"\n        b\"\\r\\n\",\n        Request(\n            method=\"HEAD\",\n            target=\"/foo\",\n            headers=[\n                (\"Host\", \"foo\"),\n                (\"Set-Cookie\", \"___utmvafIumyLc=kUd\\x01UpAt; path=/; Max-Age=900\"),\n            ],\n        ),\n    )"
+}

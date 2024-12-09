@@ -1,0 +1,103 @@
+{
+  "test_name": "test_registry_cannot_be_inited",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+  "static_methods": [
+    {
+      "name": "DummyRegistry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "manager.push",
+      "source_code": "    def push(self, item: T) -> None:\n        \"\"\"Push an item on to the stack (append in stack nomenclature).\"\"\"\n        self.append(item)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_stack.py",
+      "line_number": 14
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "manager.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.assertNotEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "manager.clear",
+      "source_code": "    def clear(self):\n        \"\"\"Helper for clearing all the keys in a database. Use with\n        caution!\"\"\"\n        for key in self.conn.keys():\n            self.conn.delete(key)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/redis_cache.py",
+      "line_number": 31
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRegistry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_registry_cannot_be_inited",
+      "source_code": ""
+    },
+    {
+      "function": "manager.push",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_stack.py",
+      "line": 14,
+      "caller": "test_registry_cannot_be_inited",
+      "source_code": "    def push(self, item: T) -> None:\n        \"\"\"Push an item on to the stack (append in stack nomenclature).\"\"\"\n        self.append(item)\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_registry_cannot_be_inited",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "manager.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_registry_cannot_be_inited",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "self.assertNotEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_registry_cannot_be_inited",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_registry_cannot_be_inited",
+      "source_code": ""
+    },
+    {
+      "function": "manager.clear",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/redis_cache.py",
+      "line": 31,
+      "caller": "test_registry_cannot_be_inited",
+      "source_code": "    def clear(self):\n        \"\"\"Helper for clearing all the keys in a database. Use with\n        caution!\"\"\"\n        for key in self.conn.keys():\n            self.conn.delete(key)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_registry_cannot_be_inited(self):\n        from pyramid.threadlocal import manager\n\n        registry = DummyRegistry()\n\n        def raiseit(name):\n            raise TypeError\n\n        registry.__init__ = raiseit\n        old = {'registry': registry}\n        try:\n            manager.push(old)\n            self._callFUT()  # doesn't blow up\n            current = manager.get()\n            self.assertNotEqual(current, old)\n            self.assertEqual(registry.inited, 1)\n        finally:\n            manager.clear()"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_format_checkers_come_with_defaults",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_format.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FormatChecker",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "checker.check",
+      "source_code": "    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line_number": 100
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_checkers_come_with_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "FormatChecker",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_checkers_come_with_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_checkers_come_with_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "checker.check",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line": 100,
+      "caller": "test_format_checkers_come_with_defaults",
+      "source_code": "    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_format_checkers_come_with_defaults(self):\n        # This is bad :/ but relied upon.\n        # The docs for quite awhile recommended people do things like\n        # validate(..., format_checker=FormatChecker())\n        # We should change that, but we can't without deprecation...\n        checker = FormatChecker()\n        with self.assertRaises(FormatError):\n            checker.check(instance=\"not-an-ipv4\", format=\"ipv4\")"
+}

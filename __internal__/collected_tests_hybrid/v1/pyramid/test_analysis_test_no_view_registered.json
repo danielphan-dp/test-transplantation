@@ -1,0 +1,90 @@
+{
+  "test_name": "test_no_view_registered",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "get_current_registry",
+      "source_code": "def get_current_registry(\n    context=None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/threadlocal.py",
+      "line_number": 57
+    },
+    {
+      "name": "reg.registerUtility",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1189
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_view_registered",
+      "source_code": ""
+    },
+    {
+      "function": "get_current_registry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/threadlocal.py",
+      "line": 57,
+      "caller": "test_no_view_registered",
+      "source_code": "def get_current_registry(\n    context=None,\n"
+    },
+    {
+      "function": "reg.registerUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1189,
+      "caller": "test_no_view_registered",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility\n\n        :param factory:\n           Factory for the component to be registered.\n\n        :param component:\n           The registered component\n\n        :param provided:\n           This is the interface provided by the utility.  If the\n           component provides a single interface, then this\n           argument is optional and the component-implemented\n           interface will be used.\n\n        :param name:\n           The utility name.\n\n        :param info:\n           An object that can be converted to a string to provide\n           information about the registration.\n\n        Only one of *component* and *factory* can be used.\n\n        A `IRegistered` event is generated with an `IUtilityRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_view_registered",
+      "source_code": ""
+    },
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_view_registered",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_view_registered",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_view_registered(self):\n        from pyramid.interfaces import ISettings\n        from pyramid.threadlocal import get_current_registry\n\n        settings = dict(debug_authorization=True)\n        reg = get_current_registry()\n        reg.registerUtility(settings, ISettings)\n        context = DummyContext()\n        request = testing.DummyRequest({})\n        self.assertRaises(TypeError, self._callFUT, context, request, '')"
+}

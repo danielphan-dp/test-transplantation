@@ -1,0 +1,116 @@
+{
+  "test_name": "test___add___overlapping_interface_implementedBy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "C3Setting",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "implementer",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 630
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "C3Setting",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "implementedBy",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 165
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "C3Setting",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": ""
+    },
+    {
+      "function": "implementer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 630,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.\n\n        A callable is returned that makes an implements declaration on\n        objects passed to it.\n\n        .. seealso:: :meth:`classImplements`\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": ""
+    },
+    {
+      "function": "C3Setting",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": ""
+    },
+    {
+      "function": "implementedBy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 165,
+      "caller": "test___add___overlapping_interface_implementedBy",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.\n\n        Raise TypeError if argument is neither a class nor a callable.\n        \"\"\"\n        spec = implementedBy(cls)\n        return self in spec._implied\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___add___overlapping_interface_implementedBy(self):\n        # Like test___add___overlapping_interface, but pulling\n        # in a realistic example. This one previously produced a\n        # C3 error, but the resulting legacy order was (somehow)\n        # correct.\n        from zope.interface import Interface\n        from zope.interface import implementedBy\n        from zope.interface import implementer\n        from zope.interface import ro\n        from zope.interface.tests.test_ro import C3Setting\n\n        class IBase(Interface):\n            pass\n\n        class IDerived(IBase):\n            pass\n\n        @implementer(IBase)\n        class Base:\n            pass\n\n        with C3Setting(ro.C3.STRICT_IRO, True):\n            after = implementedBy(Base) + IDerived\n\n        self.assertEqual(after.__sro__, (after, IDerived, IBase, Interface))\n        self.assertEqual(after.__bases__, (IDerived, IBase))\n        self.assertEqual(list(after), [IDerived, IBase])"
+}

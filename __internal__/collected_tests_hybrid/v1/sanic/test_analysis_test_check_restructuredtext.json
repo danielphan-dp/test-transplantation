@@ -1,0 +1,81 @@
+{
+  "test_name": "test_check_restructuredtext",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+  "static_methods": [
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    },
+    {
+      "name": "check",
+      "source_code": "    def check(self, strict=False):\n        \"\"\"Check if the metadata is compliant. If strict is True then raise if\n        no Name or Version are provided\"\"\"\n        self.set_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 517
+    },
+    {
+      "name": "self._run",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line_number": 22
+    },
+    {
+      "name": "self._run",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line_number": 22
+    },
+    {
+      "name": "self._run",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_check_restructuredtext",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    },
+    {
+      "function": "check",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 517,
+      "caller": "test_check_restructuredtext",
+      "source_code": "    def check(self, strict=False):\n        \"\"\"Check if the metadata is compliant. If strict is True then raise if\n        no Name or Version are provided\"\"\"\n        self.set_metadata_version()\n\n        # XXX should check the versions (if the file was loaded)\n        missing, warnings = [], []\n\n        for attr in ('Name', 'Version'):  # required by PEP 345\n            if attr not in self:\n                missing.append(attr)\n\n        if strict and missing != []:\n            msg = 'missing required metadata: %s' % ', '.join(missing)\n            raise MetadataMissingError(msg)\n\n        for attr in ('Home-page', 'Author'):\n            if attr not in self:\n                missing.append(attr)\n\n        # checking metadata 1.2 (XXX needs to check 1.1, 1.0)\n        if self['Metadata-Version'] != '1.2':\n            return missing, warnings\n\n        scheme = get_scheme(self.scheme)\n\n        def are_valid_constraints(value):\n            for v in value:\n                if not scheme.is_valid_matcher(v.split(';')[0]):\n                    return False\n            return True\n\n        for fields, controller in ((_PREDICATE_FIELDS, are_valid_constraints),\n                                   (_VERSIONS_FIELDS,\n                                    scheme.is_valid_constraint_list),\n                                   (_VERSION_FIELDS,\n                                    scheme.is_valid_version)):\n            for field in fields:\n                value = self.get(field, None)\n                if value is not None and not controller(value):\n                    warnings.append(\"Wrong value for '%s': %s\" % (field, value))\n\n        return missing, warnings\n\n"
+    },
+    {
+      "function": "self._run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line": 22,
+      "caller": "test_check_restructuredtext",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd\n\n"
+    },
+    {
+      "function": "self._run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line": 22,
+      "caller": "test_check_restructuredtext",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd\n\n"
+    },
+    {
+      "function": "self._run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line": 22,
+      "caller": "test_check_restructuredtext",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd\n\n"
+    }
+  ],
+  "assertions": [
+    "assert cmd._warnings == 1",
+    "assert cmd._warnings == 0",
+    "assert cmd._warnings == 0"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_check_restructuredtext(self):\n        pytest.importorskip('docutils')\n        # let's see if it detects broken rest in long_description\n        broken_rest = 'title\\n===\\n\\ntest'\n        pkg_info, dist = self.create_dist(long_description=broken_rest)\n        cmd = check(dist)\n        cmd.check_restructuredtext()\n        assert cmd._warnings == 1\n\n        # let's see if we have an error with strict=True\n        metadata = {\n            'url': 'xxx',\n            'author': 'xxx',\n            'author_email': 'xxx',\n            'name': 'xxx',\n            'version': 'xxx',\n            'long_description': broken_rest,\n        }\n        with pytest.raises(DistutilsSetupError):\n            self._run(metadata, **{'strict': 1, 'restructuredtext': 1})\n\n        # and non-broken rest, including a non-ASCII character to test #12114\n        metadata['long_description'] = 'title\\n=====\\n\\ntest \\u00df'\n        cmd = self._run(metadata, strict=True, restructuredtext=True)\n        assert cmd._warnings == 0\n\n        # check that includes work to test #31292\n        metadata['long_description'] = 'title\\n=====\\n\\n.. include:: includetest.rst'\n        cmd = self._run(metadata, cwd=HERE, strict=True, restructuredtext=True)\n        assert cmd._warnings == 0"
+}

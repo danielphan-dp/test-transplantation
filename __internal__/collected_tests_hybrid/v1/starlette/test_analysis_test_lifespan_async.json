@@ -1,0 +1,97 @@
+{
+  "test_name": "test_lifespan_async",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "PlainTextResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "Route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_lifespan_async",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "PlainTextResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_async",
+      "source_code": ""
+    },
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_async",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_lifespan_async",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_lifespan_async",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "Route",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_async",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not startup_complete",
+    "assert not shutdown_complete",
+    "assert startup_complete",
+    "assert shutdown_complete",
+    "assert startup_complete",
+    "assert not shutdown_complete"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_lifespan_async(test_client_factory: TestClientFactory) -> None:\n    startup_complete = False\n    shutdown_complete = False\n\n    async def hello_world(request: Request) -> PlainTextResponse:\n        return PlainTextResponse(\"hello, world\")\n\n    async def run_startup() -> None:\n        nonlocal startup_complete\n        startup_complete = True\n\n    async def run_shutdown() -> None:\n        nonlocal shutdown_complete\n        shutdown_complete = True\n\n    with pytest.deprecated_call(match=\"The on_startup and on_shutdown parameters are deprecated\"):\n        app = Router(\n            on_startup=[run_startup],\n            on_shutdown=[run_shutdown],\n            routes=[Route(\"/\", hello_world)],\n        )\n\n    assert not startup_complete\n    assert not shutdown_complete\n    with test_client_factory(app) as client:\n        assert startup_complete\n        assert not shutdown_complete\n        client.get(\"/\")\n    assert startup_complete\n    assert shutdown_complete"
+}

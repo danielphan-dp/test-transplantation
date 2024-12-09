@@ -1,0 +1,79 @@
+{
+  "test_name": "test_retrieve_first_checks_crawlable_resource",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "ID_AND_CHILDREN.create_resource",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 160
+    },
+    {
+      "name": "ID_AND_CHILDREN.create_resource",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 160
+    },
+    {
+      "name": "Registry.with_resource",
+      "source_code": "    def with_resource(self, uri: URI, resource: Resource[D]):\n        \"\"\"\n        Add the given `Resource` to the registry, without crawling it.\n        \"\"\"\n        return self.with_resources([(uri, resource)])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 509
+    },
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "registry.crawl",
+      "source_code": "    def crawl(self) -> Registry[D]:\n        \"\"\"\n        Crawl all added resources, discovering subresources.\n        \"\"\"\n        resources = self._resources\n        anchors = self._anchors\n        uncrawled = [(uri, resources[uri]) for uri in self._uncrawled]\n        while uncrawled:\n            uri, resource = uncrawled.pop()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 485
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ID_AND_CHILDREN.create_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 160,
+      "caller": "test_retrieve_first_checks_crawlable_resource",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)\n\n\n"
+    },
+    {
+      "function": "ID_AND_CHILDREN.create_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 160,
+      "caller": "test_retrieve_first_checks_crawlable_resource",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)\n\n\n"
+    },
+    {
+      "function": "Registry.with_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 509,
+      "caller": "test_retrieve_first_checks_crawlable_resource",
+      "source_code": "    def with_resource(self, uri: URI, resource: Resource[D]):\n        \"\"\"\n        Add the given `Resource` to the registry, without crawling it.\n        \"\"\"\n        return self.with_resources([(uri, resource)])\n\n"
+    },
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_retrieve_first_checks_crawlable_resource",
+      "source_code": ""
+    },
+    {
+      "function": "registry.crawl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 485,
+      "caller": "test_retrieve_first_checks_crawlable_resource",
+      "source_code": "    def crawl(self) -> Registry[D]:\n        \"\"\"\n        Crawl all added resources, discovering subresources.\n        \"\"\"\n        resources = self._resources\n        anchors = self._anchors\n        uncrawled = [(uri, resources[uri]) for uri in self._uncrawled]\n        while uncrawled:\n            uri, resource = uncrawled.pop()\n\n            id = resource.id()\n            if id is not None:\n                uri = urljoin(uri, id)\n                resources = resources.insert(uri, resource)\n            for each in resource.anchors():\n                anchors = anchors.insert((uri, each.name), each)\n            uncrawled.extend((uri, each) for each in resource.subresources())\n        return evolve(\n            self,\n            resources=resources,\n            anchors=anchors,\n            uncrawled=EMPTY_UNCRAWLED,\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert registry.crawl()['urn:child'] == child"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_retrieve_first_checks_crawlable_resource(self):\n        child = ID_AND_CHILDREN.create_resource({\"ID\": \"urn:child\", \"foo\": 12})\n        root = ID_AND_CHILDREN.create_resource({\"children\": [child.contents]})\n        registry = Registry(retrieve=blow_up).with_resource(\"urn:root\", root)\n        assert registry.crawl()[\"urn:child\"] == child"
+}

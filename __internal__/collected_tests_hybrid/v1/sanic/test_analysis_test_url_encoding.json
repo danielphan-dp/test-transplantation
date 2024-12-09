@@ -1,0 +1,54 @@
+{
+  "test_name": "test_url_encoding",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_http.py",
+  "static_methods": [
+    {
+      "name": "client.send",
+      "source_code": "    def send(self, request, cacheable_methods=None, **kw):\n        \"\"\"\n        Send a request. Use the request information to see if it\n        exists in the cache and cache the response if we need to and can.\n        \"\"\"\n        cacheable = cacheable_methods or self.cacheable_methods\n        if request.method in cacheable:\n            try:\n                cached_response = self.controller.cached_request(request)\n            except zlib.error:\n                cached_response = None\n            if cached_response:\n                return self.build_response(request, cached_response, from_cache=True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/adapter.py",
+      "line_number": 40
+    },
+    {
+      "name": "client.recv",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 577
+    },
+    {
+      "name": "response.rsplit",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "client.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/adapter.py",
+      "line": 40,
+      "caller": "test_url_encoding",
+      "source_code": "    def send(self, request, cacheable_methods=None, **kw):\n        \"\"\"\n        Send a request. Use the request information to see if it\n        exists in the cache and cache the response if we need to and can.\n        \"\"\"\n        cacheable = cacheable_methods or self.cacheable_methods\n        if request.method in cacheable:\n            try:\n                cached_response = self.controller.cached_request(request)\n            except zlib.error:\n                cached_response = None\n            if cached_response:\n                return self.build_response(request, cached_response, from_cache=True)\n\n            # check for etags and add headers if appropriate\n            request.headers.update(self.controller.conditional_headers(request))\n\n        resp = super(CacheControlAdapter, self).send(request, **kw)\n\n        return resp\n\n"
+    },
+    {
+      "function": "client.recv",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 577,
+      "caller": "test_url_encoding",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data\n\n"
+    },
+    {
+      "function": "response.rsplit",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_encoding",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert b'400 Bad Request' in headers",
+    "assert b'URL may only contain US-ASCII characters.' in body"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_url_encoding(client):\n    client.send(\n        \"\"\"\n        GET /invalid\\xa0url HTTP/1.1\n\n        \"\"\"\n    )\n    response = client.recv()\n    headers, body = response.rsplit(b\"\\r\\n\\r\\n\", 1)\n\n    assert b\"400 Bad Request\" in headers\n    assert b\"URL may only contain US-ASCII characters.\" in body"
+}

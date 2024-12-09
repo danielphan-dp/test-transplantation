@@ -1,0 +1,81 @@
+{
+  "test_name": "test_file_response_custom_filename",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response.py",
+  "static_methods": [
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "file",
+      "source_code": "    def file(self) -> IO[str]:\n        \"\"\"Get the file object to write to.\"\"\"\n        file = self._file or (sys.stderr if self.stderr else sys.stdout)\n        file = getattr(file, \"rich_proxied_file\", file)\n        if file is None:\n            file = NULL_FILE\n        return file",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 764
+    },
+    {
+      "name": "get_file_content",
+      "source_code": "def get_file_content(url: str, session: PipSession) -> Tuple[str, str]:\n    \"\"\"Gets the content of a file; it may be a filename, file: URL, or\n    http: URL.  Returns (location, content).  Content is unicode.\n    Respects # -*- coding: declarations on the retrieved files.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_file.py",
+      "line_number": 522
+    },
+    {
+      "name": "unquote",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_file_response_custom_filename",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_file_response_custom_filename",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 764,
+      "caller": "test_file_response_custom_filename",
+      "source_code": "    @property\n    def file(self) -> IO[str]:\n        \"\"\"Get the file object to write to.\"\"\"\n        file = self._file or (sys.stderr if self.stderr else sys.stdout)\n        file = getattr(file, \"rich_proxied_file\", file)\n        if file is None:\n            file = NULL_FILE\n        return file\n\n"
+    },
+    {
+      "function": "get_file_content",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_file.py",
+      "line": 522,
+      "caller": "test_file_response_custom_filename",
+      "source_code": "def get_file_content(url: str, session: PipSession) -> Tuple[str, str]:\n    \"\"\"Gets the content of a file; it may be a filename, file: URL, or\n    http: URL.  Returns (location, content).  Content is unicode.\n    Respects # -*- coding: declarations on the retrieved files.\n\n    :param url:         File path or url.\n    :param session:     PipSession instance.\n    \"\"\"\n    scheme = get_url_scheme(url)\n\n    # Pip has special support for file:// URLs (LocalFSAdapter).\n    if scheme in [\"http\", \"https\", \"file\"]:\n        resp = session.get(url)\n        raise_for_status(resp)\n        return resp.url, resp.text\n\n    # Assume this is a bare path.\n    try:\n        with open(url, \"rb\") as f:\n            content = auto_decode(f.read())\n    except OSError as exc:\n        raise InstallationError(f\"Could not open requirements file: {exc}\")\n    return url, content\n"
+    },
+    {
+      "function": "unquote",
+      "filename": "",
+      "line": 0,
+      "caller": "test_file_response_custom_filename",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200",
+    "assert response.body == get_file_content(static_file_directory, source)",
+    "assert response.headers['Content-Disposition'] == f'attachment; filename=\"{dest}\"'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_file_response_custom_filename(\n    app: Sanic, source, dest, static_file_directory\n):\n    @app.route(\"/files/<filename>\", methods=[\"GET\"])\n    def file_route(request, filename):\n        file_path = os.path.join(static_file_directory, filename)\n        file_path = os.path.abspath(unquote(file_path))\n        return file(file_path, filename=dest)\n\n    request, response = app.test_client.get(f\"/files/{source}\")\n    assert response.status == 200\n    assert response.body == get_file_content(static_file_directory, source)\n    assert (\n        response.headers[\"Content-Disposition\"]\n        == f'attachment; filename=\"{dest}\"'\n    )"
+}

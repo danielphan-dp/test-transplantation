@@ -1,0 +1,86 @@
+{
+  "test_name": "test_http_response_parser_utf8",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "response.feed_data",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n    ) -> Tuple[List[Tuple[_MsgT, StreamReader]], bool, bytes]:\n        messages = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line_number": 291
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_http_response_parser_utf8",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "response.feed_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line": 291,
+      "caller": "test_http_response_parser_utf8",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_http_response_parser_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_response_parser_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_http_response_parser_utf8",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(messages) == 1",
+    "assert msg.version == (1, 1)",
+    "assert msg.code == 200",
+    "assert msg.reason == 'Ok'",
+    "assert msg.headers == CIMultiDict([('X-TEST', '\u0442\u0435\u0441\u0442')])",
+    "assert msg.raw_headers == ((b'x-test', '\u0442\u0435\u0441\u0442'.encode()),)",
+    "assert not upgraded",
+    "assert not tail"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_response_parser_utf8(response: HttpResponseParser) -> None:\n    text = \"HTTP/1.1 200 Ok\\r\\nx-test:\u0442\u0435\u0441\u0442\\r\\n\\r\\n\".encode()\n\n    messages, upgraded, tail = response.feed_data(text)\n    assert len(messages) == 1\n    msg = messages[0][0]\n\n    assert msg.version == (1, 1)\n    assert msg.code == 200\n    assert msg.reason == \"Ok\"\n    assert msg.headers == CIMultiDict([(\"X-TEST\", \"\u0442\u0435\u0441\u0442\")])\n    assert msg.raw_headers == ((b\"x-test\", \"\u0442\u0435\u0441\u0442\".encode()),)\n    assert not upgraded\n    assert not tail"
+}

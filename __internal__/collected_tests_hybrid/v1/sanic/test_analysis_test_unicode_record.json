@@ -1,0 +1,79 @@
+{
+  "test_name": "test_unicode_record",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+  "static_methods": [
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "next",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "zf.read",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line_number": 89
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unicode_record",
+      "source_code": ""
+    },
+    {
+      "function": "next",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_unicode_record",
+      "source_code": ""
+    },
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unicode_record",
+      "source_code": ""
+    },
+    {
+      "function": "zf.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line": 89,
+      "caller": "test_unicode_record",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()\n\n        return data\n\n"
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_unicode_record",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert '\u00e5\u00e4\u00f6_\u65e5\u672c\u8a9e.py'.encode() in record"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unicode_record(wheel_paths):\n    path = next(path for path in wheel_paths if \"unicode.dist\" in path)\n    with ZipFile(path) as zf:\n        record = zf.read(\"unicode.dist-0.1.dist-info/RECORD\")\n\n    assert \"\u00e5\u00e4\u00f6_\u65e5\u672c\u8a9e.py\".encode() in record"
+}

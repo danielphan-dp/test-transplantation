@@ -1,0 +1,77 @@
+{
+  "test_name": "test_warning_checks",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_pytest_plugin.py",
+  "static_methods": [
+    {
+      "name": "testdir.makepyfile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.makeconftest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.runpytest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result.assert_outcomes",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bool",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testdir.makepyfile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_warning_checks",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.makeconftest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_warning_checks",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.runpytest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_warning_checks",
+      "source_code": ""
+    },
+    {
+      "function": "result.assert_outcomes",
+      "filename": "",
+      "line": 0,
+      "caller": "test_warning_checks",
+      "source_code": ""
+    },
+    {
+      "function": "bool",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_warning_checks",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_warning_checks(testdir: pytest.Testdir) -> None:\n    testdir.makepyfile(\n        \"\"\"\\\n\nasync def foobar():\n    return 123\n\nasync def test_good() -> None:\n    v = await foobar()\n    assert v == 123\n\nasync def test_bad() -> None:\n    foobar()\n\"\"\"\n    )\n    testdir.makeconftest(CONFTEST)\n    result = testdir.runpytest(\n        \"-p\", \"no:sugar\", \"-s\", \"-W\", \"default\", \"--aiohttp-loop=pyloop\"\n    )\n    expected_outcomes = (\n        {\"failed\": 0, \"passed\": 2}\n        if IS_PYPY and bool(os.environ.get(\"PYTHONASYNCIODEBUG\"))\n        else {\"failed\": 1, \"passed\": 1}\n    )\n    # Under PyPy \"coroutine 'foobar' was never awaited\" does not happen.\n    result.assert_outcomes(**expected_outcomes)"
+}

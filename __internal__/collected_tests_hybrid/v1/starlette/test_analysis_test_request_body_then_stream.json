@@ -1,0 +1,144 @@
+{
+  "test_name": "test_request_body_then_stream",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_requests.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.post",
+      "source_code": "    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line_number": 310
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.stream",
+      "source_code": "    def stream(self, amt=2 ** 16, decode_content=None):\n        \"\"\"\n        A generator wrapper for the read() method. A call will block until\n        ``amt`` bytes have been read from the connection or until the\n        connection is closed.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/response.py",
+      "line_number": 601
+    },
+    {
+      "name": "JSONResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response.json",
+      "source_code": "    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 944
+    },
+    {
+      "name": "request.body",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line_number": 482
+    },
+    {
+      "name": "response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "body.decode",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line_number": 122
+    },
+    {
+      "name": "chunks.decode",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line_number": 122
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_request_body_then_stream",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line": 310,
+      "caller": "test_request_body_then_stream",
+      "source_code": "    @property\n    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.\n\n        >>> print(Version(\"1.2.3\").post)\n        None\n        >>> Version(\"1.2.3.post1\").post\n        1\n        \"\"\"\n        return self._version.post[1] if self._version.post else None\n\n"
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_body_then_stream",
+      "source_code": ""
+    },
+    {
+      "function": "request.stream",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/response.py",
+      "line": 601,
+      "caller": "test_request_body_then_stream",
+      "source_code": "    def stream(self, amt=2 ** 16, decode_content=None):\n        \"\"\"\n        A generator wrapper for the read() method. A call will block until\n        ``amt`` bytes have been read from the connection or until the\n        connection is closed.\n\n        :param amt:\n            How much of the content to read. The generator will return up to\n            much data per iteration, but may return less. This is particularly\n            likely when using compressed data. However, the empty string will\n            never be returned.\n\n        :param decode_content:\n            If True, will attempt to decode the body based on the\n            'content-encoding' header.\n        \"\"\"\n        if self.chunked and self.supports_chunked_reads():\n            for line in self.read_chunked(amt, decode_content=decode_content):\n                yield line\n        else:\n            while not is_fp_closed(self._fp):\n                data = self.read(amt=amt, decode_content=decode_content)\n\n                if data:\n                    yield data\n\n"
+    },
+    {
+      "function": "JSONResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_body_then_stream",
+      "source_code": ""
+    },
+    {
+      "function": "response.json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 944,
+      "caller": "test_request_body_then_stream",
+      "source_code": "    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.\n\n        :param \\*\\*kwargs: Optional arguments that ``json.loads`` takes.\n        :raises requests.exceptions.JSONDecodeError: If the response body does not\n            contain valid json.\n        \"\"\"\n\n        if not self.encoding and self.content and len(self.content) > 3:\n            # No encoding set. JSON RFC 4627 section 3 states we should expect\n            # UTF-8, -16 or -32. Detect which one to use; If the detection or\n            # decoding fails, fall back to `self.text` (using charset_normalizer to make\n            # a best guess).\n            encoding = guess_json_utf(self.content)\n            if encoding is not None:\n                try:\n                    return complexjson.loads(self.content.decode(encoding), **kwargs)\n                except UnicodeDecodeError:\n                    # Wrong UTF codec detected; usually because it's not UTF-8\n                    # but some other 8-bit codec.  This is an RFC violation,\n                    # and the server didn't bother to tell us what codec *was*\n                    # used.\n                    pass\n                except JSONDecodeError as e:\n                    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n\n        try:\n            return complexjson.loads(self.text, **kwargs)\n        except JSONDecodeError as e:\n            # Catch JSON-related errors and raise as requests.JSONDecodeError\n            # This aliases json.JSONDecodeError and simplejson.JSONDecodeError\n            raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n\n"
+    },
+    {
+      "function": "request.body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line": 482,
+      "caller": "test_request_body_then_stream",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.\n\n        This default implementation simply prints a description of the\n        triggering requirement.\n\n        :param req: The InstallRequirement that provoked this error, with\n            its link already populated by the resolver's _populate_link().\n\n        \"\"\"\n        return f\"    {self._requirement_name()}\"\n\n"
+    },
+    {
+      "function": "response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_body_then_stream",
+      "source_code": ""
+    },
+    {
+      "function": "body.decode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line": 122,
+      "caller": "test_request_body_then_stream",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.\n\n        Args:\n            lines (Iterable[str]): An iterable of lines of terminal output.\n\n        Yields:\n            Text: Marked up Text.\n        \"\"\"\n        for line in terminal_text.splitlines():\n            yield self.decode_line(line)\n\n"
+    },
+    {
+      "function": "chunks.decode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line": 122,
+      "caller": "test_request_body_then_stream",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.\n\n        Args:\n            lines (Iterable[str]): An iterable of lines of terminal output.\n\n        Yields:\n            Text: Marked up Text.\n        \"\"\"\n        for line in terminal_text.splitlines():\n            yield self.decode_line(line)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.json() == {'body': 'abc', 'stream': 'abc'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_request_body_then_stream(test_client_factory: TestClientFactory) -> None:\n    async def app(scope: Scope, receive: Receive, send: Send) -> None:\n        request = Request(scope, receive)\n        body = await request.body()\n        chunks = b\"\"\n        async for chunk in request.stream():\n            chunks += chunk\n        response = JSONResponse({\"body\": body.decode(), \"stream\": chunks.decode()})\n        await response(scope, receive, send)\n\n    client = test_client_factory(app)\n\n    response = client.post(\"/\", data=\"abc\")  # type: ignore\n    assert response.json() == {\"body\": \"abc\", \"stream\": \"abc\"}"
+}

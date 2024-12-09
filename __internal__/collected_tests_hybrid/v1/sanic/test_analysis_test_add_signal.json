@@ -1,0 +1,40 @@
+{
+  "test_name": "test_add_signal",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signals.py",
+  "static_methods": [
+    {
+      "name": "app.add_signal",
+      "source_code": "    def add_signal(\n        self,\n        handler: Optional[Callable[..., Any]],\n        event: Union[str, Enum],\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n    ) -> Callable[..., Any]:\n        \"\"\"Registers a signal handler for a specific event.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line_number": 70
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.add_signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line": 70,
+      "caller": "test_add_signal",
+      "source_code": "    def add_signal(\n        self,\n        handler: Optional[Callable[..., Any]],\n        event: Union[str, Enum],\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_signal",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(app.signal_router.routes) == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_signal(app):\n    def sync_signal(*_): ...\n\n    app.add_signal(sync_signal, \"foo.bar.baz\")\n\n    assert len(app.signal_router.routes) == 1"
+}

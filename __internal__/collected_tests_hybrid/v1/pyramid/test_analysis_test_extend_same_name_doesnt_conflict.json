@@ -1,0 +1,116 @@
+{
+  "test_name": "test_extend_same_name_doesnt_conflict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "config.add_directive",
+      "source_code": "    def add_directive(self, name, directive, action_wrap=True):\n        \"\"\"\n        Add a directive method to the configurator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 670
+    },
+    {
+      "name": "config.add_directive",
+      "source_code": "    def add_directive(self, name, directive, action_wrap=True):\n        \"\"\"\n        Add a directive method to the configurator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 670
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.dummy_extend",
+      "source_code": "def dummy_extend(*args):\n    \"\"\"used to test Configurator.extend\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/__init__.py",
+      "line_number": 1
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.add_directive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 670,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": "    def add_directive(self, name, directive, action_wrap=True):\n        \"\"\"\n        Add a directive method to the configurator.\n\n        .. warning:: This method is typically only used by :app:`Pyramid`\n           framework extension authors, not by :app:`Pyramid` application\n           developers.\n\n        Framework extenders can add directive methods to a configurator by\n        instructing their users to call ``config.add_directive('somename',\n        'some.callable')``.  This will make ``some.callable`` accessible as\n        ``config.somename``.  ``some.callable`` should be a function which\n        accepts ``config`` as a first argument, and arbitrary positional and\n        keyword arguments following.  It should use config.action as\n        necessary to perform actions.  Directive methods can then be invoked\n        like 'built-in' directives such as ``add_view``, ``add_route``, etc.\n\n        The ``action_wrap`` argument should be ``True`` for directives which\n        perform ``config.action`` with potentially conflicting\n        discriminators.  ``action_wrap`` will cause the directive to be\n        wrapped in a decorator which provides more accurate conflict\n        cause information.\n\n        ``add_directive`` does not participate in conflict detection, and\n        later calls to ``add_directive`` will override earlier calls.\n        \"\"\"\n        name = get_callable_name(name)\n        c = self.maybe_dotted(directive)\n        if not hasattr(self.registry, '_directives'):\n            self.registry._directives = {}\n        self.registry._directives[name] = (c, action_wrap)\n\n"
+    },
+    {
+      "function": "config.add_directive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 670,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": "    def add_directive(self, name, directive, action_wrap=True):\n        \"\"\"\n        Add a directive method to the configurator.\n\n        .. warning:: This method is typically only used by :app:`Pyramid`\n           framework extension authors, not by :app:`Pyramid` application\n           developers.\n\n        Framework extenders can add directive methods to a configurator by\n        instructing their users to call ``config.add_directive('somename',\n        'some.callable')``.  This will make ``some.callable`` accessible as\n        ``config.somename``.  ``some.callable`` should be a function which\n        accepts ``config`` as a first argument, and arbitrary positional and\n        keyword arguments following.  It should use config.action as\n        necessary to perform actions.  Directive methods can then be invoked\n        like 'built-in' directives such as ``add_view``, ``add_route``, etc.\n\n        The ``action_wrap`` argument should be ``True`` for directives which\n        perform ``config.action`` with potentially conflicting\n        discriminators.  ``action_wrap`` will cause the directive to be\n        wrapped in a decorator which provides more accurate conflict\n        cause information.\n\n        ``add_directive`` does not participate in conflict detection, and\n        later calls to ``add_directive`` will override earlier calls.\n        \"\"\"\n        name = get_callable_name(name)\n        c = self.maybe_dotted(directive)\n        if not hasattr(self.registry, '_directives'):\n            self.registry._directives = {}\n        self.registry._directives[name] = (c, action_wrap)\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": ""
+    },
+    {
+      "function": "config.dummy_extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/__init__.py",
+      "line": 1,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": "def dummy_extend(*args):\n    \"\"\"used to test Configurator.extend\"\"\"\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_extend_same_name_doesnt_conflict",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_extend_same_name_doesnt_conflict(self):\n        config = self.config\n        config.add_directive('dummy_extend', dummy_extend)\n        config.add_directive('dummy_extend', dummy_extend2)\n        self.assertTrue(hasattr(config, 'dummy_extend'))\n        config.dummy_extend('discrim')\n        after = config.action_state\n        action = after.actions[-1]\n        self.assertEqual(action['discriminator'], 'discrim')\n        self.assertEqual(action['callable'], None)\n        self.assertEqual(action['args'], config.registry)"
+}

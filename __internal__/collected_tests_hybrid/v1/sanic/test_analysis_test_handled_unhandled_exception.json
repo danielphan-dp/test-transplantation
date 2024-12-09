@@ -1,0 +1,68 @@
+{
+  "test_name": "test_handled_unhandled_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "exception_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "BeautifulSoup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "soup.p.text.split",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n    ) -> None:\n        \"\"\"Split the layout in to multiple sub-layouts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line_number": 262
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "exception_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_handled_unhandled_exception",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "BeautifulSoup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handled_unhandled_exception",
+      "source_code": ""
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_handled_unhandled_exception",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "soup.p.text.split",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line": 262,
+      "caller": "test_handled_unhandled_exception",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert 'Internal Server Error' in soup.h1.text",
+    "assert 'The application encountered an unexpected error' in message"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_handled_unhandled_exception(exception_app):\n    \"\"\"Test that an exception not built into sanic is handled\"\"\"\n    request, response = exception_app.test_client.get(\"/divide_by_zero\")\n    assert response.status == 500\n    soup = BeautifulSoup(response.body, \"html.parser\")\n    assert \"Internal Server Error\" in soup.h1.text\n\n    message = \" \".join(soup.p.text.split())\n    assert \"The application encountered an unexpected error\" in message"
+}

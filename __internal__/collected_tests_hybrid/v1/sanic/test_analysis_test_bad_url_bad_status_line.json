@@ -1,0 +1,25 @@
+{
+  "test_name": "test_bad_url_bad_status_line",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "index.open_url",
+      "source_code": "    def open_url(self, url, warning=None):  # noqa: C901  # is too complex (12)\n        if url.startswith('file:'):\n            return local_open(url)\n        try:\n            return open_with_auth(url, self.opener)\n        except (ValueError, http.client.InvalidURL) as v:\n            msg = ' '.join([str(arg) for arg in v.args])\n            if warning:\n                self.warn(warning, msg)\n            else:\n                raise DistutilsError('%s %s' % (url, msg)) from v\n        except urllib.error.HTTPError as v:\n            return v\n        except urllib.error.URLError as v:\n            if warning:\n                self.warn(warning, v.reason)\n            else:\n                raise DistutilsError(\n                    \"Download error for %s: %s\" % (url, v.reason)\n                ) from v\n        except http.client.BadStatusLine as v:\n            if warning:\n                self.warn(warning, v.line)\n            else:\n                raise DistutilsError(\n                    '%s returned a bad status line. The server might be '\n                    'down, %s' % (url, v.line)\n                ) from v\n        except (http.client.HTTPException, OSError) as v:\n            if warning:\n                self.warn(warning, v)\n            else:\n                raise DistutilsError(\"Download error for %s: %s\" % (url, v)) from v",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 786
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "index.open_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 786,
+      "caller": "test_bad_url_bad_status_line",
+      "source_code": "    def open_url(self, url, warning=None):  # noqa: C901  # is too complex (12)\n        if url.startswith('file:'):\n            return local_open(url)\n        try:\n            return open_with_auth(url, self.opener)\n        except (ValueError, http.client.InvalidURL) as v:\n            msg = ' '.join([str(arg) for arg in v.args])\n            if warning:\n                self.warn(warning, msg)\n            else:\n                raise DistutilsError('%s %s' % (url, msg)) from v\n        except urllib.error.HTTPError as v:\n            return v\n        except urllib.error.URLError as v:\n            if warning:\n                self.warn(warning, v.reason)\n            else:\n                raise DistutilsError(\n                    \"Download error for %s: %s\" % (url, v.reason)\n                ) from v\n        except http.client.BadStatusLine as v:\n            if warning:\n                self.warn(warning, v.line)\n            else:\n                raise DistutilsError(\n                    '%s returned a bad status line. The server might be '\n                    'down, %s' % (url, v.line)\n                ) from v\n        except (http.client.HTTPException, OSError) as v:\n            if warning:\n                self.warn(warning, v)\n            else:\n                raise DistutilsError(\"Download error for %s: %s\" % (url, v)) from v\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bad_url_bad_status_line(self):\n        index = setuptools.package_index.PackageIndex(hosts=('www.example.com',))\n\n        def _urlopen(*args):\n            raise http.client.BadStatusLine('line')\n\n        index.opener = _urlopen\n        url = 'http://example.com'\n        with pytest.raises(Exception, match=r'line'):\n            index.open_url(url)"
+}

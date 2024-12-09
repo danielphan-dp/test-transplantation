@@ -1,0 +1,64 @@
+{
+  "test_name": "test_TrioToken_run_sync_soon_too_late",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "_core.current_trio_token",
+      "source_code": "    def current_trio_token(self) -> TrioToken:\n        \"\"\"Retrieve the :class:`TrioToken` for the current call to\n        :func:`trio.run`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1964
+    },
+    {
+      "name": "not_none.run_sync_soon",
+      "source_code": "    def run_sync_soon(\n        self,\n        sync_fn: Callable[[Unpack[PosArgsT]], object],\n        *args: Unpack[PosArgsT],\n        idempotent: bool = False,\n    ) -> None:\n        with self.lock:\n            if self.done:\n                raise _core.RunFinishedError(\"run() has exited\")\n            # We have to hold the lock all the way through here, because\n            # otherwise the main thread might exit *while* we're doing these\n            # calls, and then our queue item might not be processed, or the\n            # wakeup call might trigger an OSError b/c the IO manager has\n            # already been shut down.\n            if idempotent:\n                self.idempotent_queue[(sync_fn, args)] = None\n            else:\n                self.queue.append((sync_fn, args))\n            self.wakeup.wakeup_thread_and_signal_safe()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_entry_queue.py",
+      "line_number": 127
+    },
+    {
+      "name": "not_none",
+      "source_code": "def not_none(x: T | None) -> T:\n    \"\"\"Assert that this object is not None.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+      "line_number": 62
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_TrioToken_run_sync_soon_too_late",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "_core.current_trio_token",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1964,
+      "caller": "test_TrioToken_run_sync_soon_too_late",
+      "source_code": "    @_public\n    def current_trio_token(self) -> TrioToken:\n        \"\"\"Retrieve the :class:`TrioToken` for the current call to\n        :func:`trio.run`.\n\n        \"\"\"\n        if self.trio_token is None:\n            self.trio_token = TrioToken._create(self.entry_queue)\n        return self.trio_token\n\n"
+    },
+    {
+      "function": "not_none.run_sync_soon",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_entry_queue.py",
+      "line": 127,
+      "caller": "test_TrioToken_run_sync_soon_too_late",
+      "source_code": "    def run_sync_soon(\n        self,\n        sync_fn: Callable[[Unpack[PosArgsT]], object],\n        *args: Unpack[PosArgsT],\n        idempotent: bool = False,\n"
+    },
+    {
+      "function": "not_none",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+      "line": 62,
+      "caller": "test_TrioToken_run_sync_soon_too_late",
+      "source_code": "def not_none(x: T | None) -> T:\n    \"\"\"Assert that this object is not None.\n\n    This is just to satisfy type checkers, if this ever fails the test is broken.\n    \"\"\"\n    assert x is not None\n    return x\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_TrioToken_run_sync_soon_too_late() -> None:\n    token: _core.TrioToken | None = None\n\n    async def main() -> None:\n        nonlocal token\n        token = _core.current_trio_token()\n\n    _core.run(main)\n    with pytest.raises(_core.RunFinishedError):\n        not_none(token).run_sync_soon(lambda: None)"
+}

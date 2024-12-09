@@ -1,0 +1,25 @@
+{
+  "test_name": "test_invalid_decorator_usage",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_authentication.py",
+  "static_methods": [
+    {
+      "name": "requires",
+      "source_code": "    def requires(self, extras=()):\n        \"\"\"List of Requirements needed for this distro if `extras` are used\"\"\"\n        dm = self._dep_map\n        deps = []\n        deps.extend(dm.get(None, ()))\n        for ext in extras:\n            try:\n                deps.extend(dm[safe_extra(ext)])\n            except KeyError:\n                raise UnknownExtra(\n                    \"%s has no such extra feature %r\" % (self, ext)\n                )\n        return deps",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 2734
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "requires",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 2734,
+      "caller": "test_invalid_decorator_usage",
+      "source_code": "    def requires(self, extras=()):\n        \"\"\"List of Requirements needed for this distro if `extras` are used\"\"\"\n        dm = self._dep_map\n        deps = []\n        deps.extend(dm.get(None, ()))\n        for ext in extras:\n            try:\n                deps.extend(dm[safe_extra(ext)])\n            except KeyError:\n                raise UnknownExtra(\n                    \"%s has no such extra feature %r\" % (self, ext)\n                )\n        return deps\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_invalid_decorator_usage() -> None:\n    with pytest.raises(Exception):\n\n        @requires(\"authenticated\")\n        def foo() -> None:\n            pass"
+}

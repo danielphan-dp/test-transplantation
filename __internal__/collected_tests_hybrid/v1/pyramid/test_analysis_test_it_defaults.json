@@ -1,0 +1,129 @@
+{
+  "test_name": "test_it_defaults",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+  "static_methods": [
+    {
+      "name": "manager.push",
+      "source_code": "    def push(self, item: T) -> None:\n        \"\"\"Push an item on to the stack (append in stack nomenclature).\"\"\"\n        self.append(item)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_stack.py",
+      "line_number": 14
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "manager.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.assertFalse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._assertSMHook",
+      "source_code": "    def _assertSMHook(self, hook):\n        result = getSiteManager.sethook(None)\n        self.assertEqual(result, hook)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+      "line_number": 351
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "manager.push",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_stack.py",
+      "line": 14,
+      "caller": "test_it_defaults",
+      "source_code": "    def push(self, item: T) -> None:\n        \"\"\"Push an item on to the stack (append in stack nomenclature).\"\"\"\n        self.append(item)\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it_defaults",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "manager.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_it_defaults",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "self.assertFalse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "self._assertSMHook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+      "line": 351,
+      "caller": "test_it_defaults",
+      "source_code": "    def _assertSMHook(self, hook):\n        result = getSiteManager.sethook(None)\n        self.assertEqual(result, hook)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_defaults(self):\n        from pyramid.registry import Registry\n        from pyramid.threadlocal import get_current_registry, manager\n\n        old = True\n        manager.push(old)\n        config = self._callFUT()\n        current = manager.get()\n        self.assertFalse(current is old)\n        self.assertEqual(config.registry, current['registry'])\n        self.assertEqual(current['registry'].__class__, Registry)\n        self.assertEqual(current['request'], None)\n        self.assertEqual(config.package.__name__, 'tests')\n        self._assertSMHook(get_current_registry)"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_run_setup_defines_subclass",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "temp_file.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "dist.get_command_obj",
+      "source_code": "    def get_command_obj(self, command, create=True):\n        \"\"\"Return the command object for 'command'.  Normally this object\n        is cached on a previous call to 'get_command_obj()'; if no command\n        object for 'command' is in the cache, then we either create and\n        return it (if 'create' is true) or return None.\n        \"\"\"\n        cmd_obj = self.command_obj.get(command)\n        if not cmd_obj and create:\n            if DEBUG:\n                self.announce(\n                    \"Distribution.get_command_obj(): \"\n                    f\"creating '{command}' command object\"\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line_number": 832
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "temp_file.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_run_setup_defines_subclass",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "dist.get_command_obj",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line": 832,
+      "caller": "test_run_setup_defines_subclass",
+      "source_code": "    def get_command_obj(self, command, create=True):\n        \"\"\"Return the command object for 'command'.  Normally this object\n        is cached on a previous call to 'get_command_obj()'; if no command\n        object for 'command' is in the cache, then we either create and\n        return it (if 'create' is true) or return None.\n        \"\"\"\n        cmd_obj = self.command_obj.get(command)\n        if not cmd_obj and create:\n            if DEBUG:\n                self.announce(\n                    \"Distribution.get_command_obj(): \"\n                    f\"creating '{command}' command object\"\n                )\n\n            klass = self.get_command_class(command)\n            cmd_obj = self.command_obj[command] = klass(self)\n            self.have_run[command] = False\n\n            # Set any options that were supplied in config files\n            # or on the command line.  (NB. support for error\n            # reporting is lame here: any errors aren't reported\n            # until 'finalize_options()' is called, which means\n            # we won't report the source of the error.)\n            options = self.command_options.get(command)\n            if options:\n                self._set_command_options(cmd_obj, options)\n\n        return cmd_obj\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'cmd' in install.sub_commands"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_setup_defines_subclass(self, temp_file):\n        # Make sure the script can use __file__; if that's missing, the test\n        # setup.py script will raise NameError.\n        temp_file.write_text(setup_defines_subclass, encoding='utf-8')\n        dist = distutils.core.run_setup(temp_file)\n        install = dist.get_command_obj('install')\n        assert 'cmd' in install.sub_commands"
+}

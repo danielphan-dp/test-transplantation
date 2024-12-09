@@ -1,0 +1,25 @@
+{
+  "test_name": "test_deprecation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_deprecation.py",
+  "static_methods": [
+    {
+      "name": "deprecation",
+      "source_code": "def deprecation(message: str, version: float):  # no cov\n    \"\"\"\n    Add a deprecation notice",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/logging/deprecation.py",
+      "line_number": 7
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "deprecation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/logging/deprecation.py",
+      "line": 7,
+      "caller": "test_deprecation",
+      "source_code": "def deprecation(message: str, version: float):  # no cov\n    \"\"\"\n    Add a deprecation notice\n\n    Example when a feature is being removed. In this case, version\n    should be AT LEAST next version + 2\n\n    .. code-block:: python\n\n        deprecation(\"Helpful message\", 99.9)\n\n    Example when a feature is deprecated but not being removed:\n\n    .. code-block:: python\n\n        deprecation(\"Helpful message\", 0)\n\n    Args:\n        message (str): Deprecation message\n        version (float): Version when the feature will be removed\n    \"\"\"\n    version_display = f\" v{version}\" if version else \"\"\n    version_info = f\"[DEPRECATION{version_display}] \"\n    if is_atty():\n        version_info = f\"{Colors.RED}{version_info}\"\n        message = f\"{Colors.YELLOW}{message}{Colors.END}\"\n    warn(version_info + message, DeprecationWarning)\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_deprecation():\n    message = r\"\\[DEPRECATION v9\\.9\\] hello\"\n    with pytest.warns(DeprecationWarning, match=message):\n        deprecation(\"hello\", 9.9)"
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_restart_foo",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_multiplexer.py",
+  "static_methods": [
+    {
+      "name": "m.restart",
+      "source_code": "    def restart(\n        self,\n        transient_processes: List[WorkerProcess],\n        durable_processes: List[WorkerProcess],\n        process_names: Optional[List[str]] = None,\n        restart_order=RestartOrder.SHUTDOWN_FIRST,\n        **kwargs,\n    ) -> None:\n        \"\"\"Restart the worker processes.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/restarter.py",
+      "line_number": 9
+    },
+    {
+      "name": "monitor_publisher.send.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "m.restart",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/restarter.py",
+      "line": 9,
+      "caller": "test_restart_foo",
+      "source_code": "    def restart(\n        self,\n        transient_processes: List[WorkerProcess],\n        durable_processes: List[WorkerProcess],\n        process_names: Optional[List[str]] = None,\n        restart_order=RestartOrder.SHUTDOWN_FIRST,\n        **kwargs,\n"
+    },
+    {
+      "function": "monitor_publisher.send.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_restart_foo",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_restart_foo(monitor_publisher: Mock, m: WorkerMultiplexer):\n    m.restart(\"foo\")\n    monitor_publisher.send.assert_called_once_with(\"foo:\")"
+}

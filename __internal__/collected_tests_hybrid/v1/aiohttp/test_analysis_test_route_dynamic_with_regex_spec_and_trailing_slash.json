@@ -1,0 +1,66 @@
+{
+  "test_name": "test_route_dynamic_with_regex_spec_and_trailing_slash",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    },
+    {
+      "name": "router.add_route",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n    ) -> \"ResourceRoute\":\n        for route_obj in self._routes:\n            if route_obj.method == method or route_obj.method == hdrs.METH_ANY:\n                raise RuntimeError(\n                    \"Added route will never be executed, \"\n                    \"method {route.method} is already \"\n                    \"registered\".format(route=route_obj)\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 327
+    },
+    {
+      "name": "route.url_for",
+      "source_code": "    def url_for(self, **kwargs: str) -> URL:\n        \"\"\"Construct url for resource with additional params.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 136
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_route_dynamic_with_regex_spec_and_trailing_slash",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    },
+    {
+      "function": "router.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 327,
+      "caller": "test_route_dynamic_with_regex_spec_and_trailing_slash",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n"
+    },
+    {
+      "function": "route.url_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 136,
+      "caller": "test_route_dynamic_with_regex_spec_and_trailing_slash",
+      "source_code": "    @abc.abstractmethod  # pragma: no branch\n    def url_for(self, **kwargs: str) -> URL:\n        \"\"\"Construct url for resource with additional params.\"\"\"\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_route_dynamic_with_regex_spec_and_trailing_slash",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert '/get/123/' == str(url)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_route_dynamic_with_regex_spec_and_trailing_slash(\n    router: web.UrlDispatcher,\n) -> None:\n    handler = make_handler()\n    route = router.add_route(\"GET\", r\"/get/{num:^\\d+}/\", handler, name=\"name\")\n\n    url = route.url_for(num=\"123\")\n    assert \"/get/123/\" == str(url)"
+}

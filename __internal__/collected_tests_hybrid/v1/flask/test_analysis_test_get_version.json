@@ -1,6 +1,6 @@
 {
   "test_name": "test_get_version",
-  "test_file": "__internal__/_data/flask/tests/test_cli.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
     {
       "name": "MockCtx",
@@ -10,9 +10,9 @@
     },
     {
       "name": "get_version",
-      "source_code": "def get_version(ctx: click.Context, param: click.Parameter, value: t.Any) -> None:\n    if not value or ctx.resilient_parsing:\n        return",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line_number": 267
+      "source_code": "        def get_version(path_map, info_dir):\n            version = path = None\n            key = '%s/%s' % (info_dir, LEGACY_METADATA_FILENAME)\n            if key not in path_map:\n                key = '%s/PKG-INFO' % info_dir\n            if key in path_map:\n                path = path_map[key]\n                version = Metadata(path=path).version\n            return version, path",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 893
     },
     {
       "name": "capsys.readouterr",
@@ -31,10 +31,10 @@
     },
     {
       "function": "get_version",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line": 267,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 893,
       "caller": "test_get_version",
-      "source_code": "def get_version(ctx: click.Context, param: click.Parameter, value: t.Any) -> None:\n    if not value or ctx.resilient_parsing:\n        return\n\n    flask_version = importlib.metadata.version(\"flask\")\n    werkzeug_version = importlib.metadata.version(\"werkzeug\")\n\n    click.echo(\n        f\"Python {platform.python_version()}\\n\"\n        f\"Flask {flask_version}\\n\"\n        f\"Werkzeug {werkzeug_version}\",\n        color=ctx.color,\n    )\n    ctx.exit()\n\n\n"
+      "source_code": "        def get_version(path_map, info_dir):\n            version = path = None\n            key = '%s/%s' % (info_dir, LEGACY_METADATA_FILENAME)\n            if key not in path_map:\n                key = '%s/PKG-INFO' % info_dir\n            if key in path_map:\n                path = path_map[key]\n                version = Metadata(path=path).version\n            return version, path\n\n"
     },
     {
       "function": "capsys.readouterr",

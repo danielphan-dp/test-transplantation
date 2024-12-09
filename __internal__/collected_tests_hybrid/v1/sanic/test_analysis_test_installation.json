@@ -1,0 +1,105 @@
+{
+  "test_name": "test_installation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_install_scripts.py",
+  "static_methods": [
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    },
+    {
+      "name": "test_build_scripts.TestBuildScripts.write_sample_scripts",
+      "source_code": "    def write_sample_scripts(dir):\n        spec = {\n            'script1.py': textwrap.dedent(\"\"\"\n                #! /usr/bin/env python2.3\n                # bogus script w/ Python sh-bang\n                pass\n                \"\"\").lstrip(),\n            'script2.py': textwrap.dedent(\"\"\"\n                #!/usr/bin/python\n                # bogus script w/ Python sh-bang\n                pass\n                \"\"\").lstrip(),\n            'shell.sh': textwrap.dedent(\"\"\"\n                #!/bin/sh\n                # bogus shell script w/ sh-bang\n                exit 0\n                \"\"\").lstrip(),\n        }\n        jaraco.path.build(spec, dir)\n        return list(spec)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_scripts.py",
+      "line_number": 50
+    },
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "support.DummyCommand",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "support.DummyCommand",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "install_scripts",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_installation",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    },
+    {
+      "function": "test_build_scripts.TestBuildScripts.write_sample_scripts",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_scripts.py",
+      "line": 50,
+      "caller": "test_installation",
+      "source_code": "    @staticmethod\n    def write_sample_scripts(dir):\n        spec = {\n            'script1.py': textwrap.dedent(\"\"\"\n                #! /usr/bin/env python2.3\n                # bogus script w/ Python sh-bang\n                pass\n                \"\"\").lstrip(),\n            'script2.py': textwrap.dedent(\"\"\"\n                #!/usr/bin/python\n                # bogus script w/ Python sh-bang\n                pass\n                \"\"\").lstrip(),\n            'shell.sh': textwrap.dedent(\"\"\"\n                #!/bin/sh\n                # bogus shell script w/ sh-bang\n                exit 0\n                \"\"\").lstrip(),\n        }\n        jaraco.path.build(spec, dir)\n        return list(spec)\n\n"
+    },
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_installation",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_installation",
+      "source_code": ""
+    },
+    {
+      "function": "support.DummyCommand",
+      "filename": "",
+      "line": 0,
+      "caller": "test_installation",
+      "source_code": ""
+    },
+    {
+      "function": "support.DummyCommand",
+      "filename": "",
+      "line": 0,
+      "caller": "test_installation",
+      "source_code": ""
+    },
+    {
+      "function": "install_scripts",
+      "filename": "",
+      "line": 0,
+      "caller": "test_installation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert name in installed"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_installation(self):\n        source = self.mkdtemp()\n\n        expected = test_build_scripts.TestBuildScripts.write_sample_scripts(source)\n\n        target = self.mkdtemp()\n        dist = Distribution()\n        dist.command_obj[\"build\"] = support.DummyCommand(build_scripts=source)\n        dist.command_obj[\"install\"] = support.DummyCommand(\n            install_scripts=target,\n            force=True,\n            skip_build=True,\n        )\n        cmd = install_scripts(dist)\n        cmd.finalize_options()\n        cmd.run()\n\n        installed = os.listdir(target)\n        for name in expected:\n            assert name in installed"
+}

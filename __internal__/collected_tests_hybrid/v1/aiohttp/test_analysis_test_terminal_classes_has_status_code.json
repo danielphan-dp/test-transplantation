@@ -1,0 +1,133 @@
+{
+  "test_name": "test_terminal_classes_has_status_code",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_exceptions.py",
+  "static_methods": [
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "frozenset",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "issubclass",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "terminals.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "terminals.discard",
+      "source_code": "    def discard(self, key):\n        try:\n            del self[key]\n        except KeyError:\n            pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line_number": 209
+    },
+    {
+      "name": "codes.most_common",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": ""
+    },
+    {
+      "function": "frozenset",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": ""
+    },
+    {
+      "function": "issubclass",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": ""
+    },
+    {
+      "function": "terminals.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "terminals.discard",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line": 209,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": "    def discard(self, key):\n        try:\n            del self[key]\n        except KeyError:\n            pass\n\n"
+    },
+    {
+      "function": "codes.most_common",
+      "filename": "",
+      "line": 0,
+      "caller": "test_terminal_classes_has_status_code",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert None not in codes",
+    "assert 1 == codes.most_common(1)[0][1]",
+    "assert cls.status_code is not None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_terminal_classes_has_status_code() -> None:\n    terminals = set()\n    for name in dir(web):\n        obj = getattr(web, name)\n        if isinstance(obj, type) and issubclass(obj, web.HTTPException):\n            terminals.add(obj)\n\n    dup = frozenset(terminals)\n    for cls1 in dup:\n        for cls2 in dup:\n            if cls1 in cls2.__bases__:\n                terminals.discard(cls1)\n\n    for cls in terminals:\n        assert cls.status_code is not None\n    codes = collections.Counter(cls.status_code for cls in terminals)\n    assert None not in codes\n    assert 1 == codes.most_common(1)[0][1]"
+}

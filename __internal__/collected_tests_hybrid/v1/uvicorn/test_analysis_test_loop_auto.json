@@ -1,0 +1,67 @@
+{
+  "test_name": "test_loop_auto",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_auto_detection.py",
+  "static_methods": [
+    {
+      "name": "auto_loop_setup",
+      "source_code": "def auto_loop_setup(use_subprocess: bool = False) -> None:\n    try:\n        import uvloop  # noqa\n    except ImportError:  # pragma: no cover\n        from uvicorn.loops.asyncio import asyncio_setup as loop_setup",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/loops/auto.py",
+      "line_number": 1
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "type.__module__.startswith",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def endswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def replace(self, old: str, new: str, maxcount: int=...) -> str: ...\n    def encode(self, x: str=..., y: str=...) -> bytes: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line_number": 110
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "auto_loop_setup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/loops/auto.py",
+      "line": 1,
+      "caller": "test_loop_auto",
+      "source_code": "def auto_loop_setup(use_subprocess: bool = False) -> None:\n    try:\n        import uvloop  # noqa\n    except ImportError:  # pragma: no cover\n        from uvicorn.loops.asyncio import asyncio_setup as loop_setup\n\n        loop_setup(use_subprocess=use_subprocess)\n    else:  # pragma: no cover\n        from uvicorn.loops.uvloop import uvloop_setup\n\n        uvloop_setup(use_subprocess=use_subprocess)\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_loop_auto",
+      "source_code": ""
+    },
+    {
+      "function": "type.__module__.startswith",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line": 110,
+      "caller": "test_loop_auto",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n"
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_loop_auto",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(policy, asyncio.events.BaseDefaultEventLoopPolicy)",
+    "assert type(policy).__module__.startswith(expected_loop)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_loop_auto():\n    auto_loop_setup()\n    policy = asyncio.get_event_loop_policy()\n    assert isinstance(policy, asyncio.events.BaseDefaultEventLoopPolicy)\n    assert type(policy).__module__.startswith(expected_loop)"
+}

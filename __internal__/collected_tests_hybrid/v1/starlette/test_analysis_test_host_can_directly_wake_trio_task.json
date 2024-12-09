@@ -1,0 +1,66 @@
+{
+  "test_name": "test_host_can_directly_wake_trio_task",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+  "static_methods": [
+    {
+      "name": "trio.Event",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "in_host",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "trivial_guest_run",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line_number": 51
+    },
+    {
+      "name": "ev.wait",
+      "source_code": "    def wait(self, timeout: float | None = None) -> None:\n        if timeout == float(\"inf\"):  # pragma: no cover\n            timeout = None\n        if not self._event.wait(timeout=timeout):\n            raise PoolTimeout()  # pragma: nocover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpcore/_synchronization.py",
+      "line_number": 287
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "trio.Event",
+      "filename": "",
+      "line": 0,
+      "caller": "test_host_can_directly_wake_trio_task",
+      "source_code": ""
+    },
+    {
+      "function": "in_host",
+      "filename": "",
+      "line": 0,
+      "caller": "test_host_can_directly_wake_trio_task",
+      "source_code": ""
+    },
+    {
+      "function": "trivial_guest_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line": 51,
+      "caller": "test_host_can_directly_wake_trio_task",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,\n"
+    },
+    {
+      "function": "ev.wait",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpcore/_synchronization.py",
+      "line": 287,
+      "caller": "test_host_can_directly_wake_trio_task",
+      "source_code": "    def wait(self, timeout: float | None = None) -> None:\n        if timeout == float(\"inf\"):  # pragma: no cover\n            timeout = None\n        if not self._event.wait(timeout=timeout):\n            raise PoolTimeout()  # pragma: nocover\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert trivial_guest_run(trio_main) == 'ok'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_host_can_directly_wake_trio_task() -> None:\n    async def trio_main(in_host: InHost) -> str:\n        ev = trio.Event()\n        in_host(ev.set)\n        await ev.wait()\n        return \"ok\"\n\n    assert trivial_guest_run(trio_main) == \"ok\""
+}

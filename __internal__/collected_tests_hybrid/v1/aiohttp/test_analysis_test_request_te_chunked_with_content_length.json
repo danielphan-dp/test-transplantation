@@ -1,0 +1,10 @@
+{
+  "test_name": "test_request_te_chunked_with_content_length",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_request_te_chunked_with_content_length(parser: HttpRequestParser) -> None:\n    text = (\n        b\"GET /test HTTP/1.1\\r\\n\"\n        b\"content-length: 1234\\r\\n\"\n        b\"transfer-encoding: chunked\\r\\n\\r\\n\"\n    )\n    with pytest.raises(\n        http_exceptions.BadHttpMessage,\n        match=\"Transfer-Encoding can't be present with Content-Length\",\n    ):\n        parser.feed_data(text)"
+}

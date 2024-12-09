@@ -1,0 +1,27 @@
+{
+  "test_name": "test_simple_text_unicode_err",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "build_frame",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line_number": 36
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line": 36,
+      "caller": "test_simple_text_unicode_err",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,\n"
+    }
+  ],
+  "assertions": [
+    "assert ctx.value.code == WSCloseCode.INVALID_TEXT"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_simple_text_unicode_err(parser: WebSocketReader) -> None:\n    data = build_frame(b\"\\xf4\\x90\\x80\\x80\", WSMsgType.TEXT)\n\n    with pytest.raises(WebSocketError) as ctx:\n        parser._feed_data(data)\n\n    assert ctx.value.code == WSCloseCode.INVALID_TEXT"
+}

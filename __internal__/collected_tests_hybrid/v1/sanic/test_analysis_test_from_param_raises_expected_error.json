@@ -1,0 +1,53 @@
+{
+  "test_name": "test_from_param_raises_expected_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "ei.CommandSpec.from_param",
+      "source_code": "    def from_param(cls, value: \"WindowsCoordinates\") -> COORD:\n        \"\"\"Converts a WindowsCoordinates into a wintypes _COORD structure.\n        This classmethod is internally called by ctypes to perform the conversion.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 43
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ei.CommandSpec.from_param",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 43,
+      "caller": "test_from_param_raises_expected_error",
+      "source_code": "    @classmethod\n    def from_param(cls, value: \"WindowsCoordinates\") -> COORD:\n        \"\"\"Converts a WindowsCoordinates into a wintypes _COORD structure.\n        This classmethod is internally called by ctypes to perform the conversion.\n\n        Args:\n            value (WindowsCoordinates): The input coordinates to convert.\n\n        Returns:\n            wintypes._COORD: The converted coordinates struct.\n        \"\"\"\n        return COORD(value.col, value.row)\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_from_param_raises_expected_error",
+      "source_code": ""
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_from_param_raises_expected_error",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert str(exc_info.value) == \"Argument has an unsupported type <class 'object'>\", exc_info.value"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_from_param_raises_expected_error(self) -> None:\n        \"\"\"\n        from_param should raise its own TypeError when the argument's type is unsupported\n        \"\"\"\n        with pytest.raises(TypeError) as exc_info:\n            ei.CommandSpec.from_param(object())  # type: ignore[arg-type] # We want a type error here\n        assert (\n            str(exc_info.value) == \"Argument has an unsupported type <class 'object'>\"\n        ), exc_info.value"
+}

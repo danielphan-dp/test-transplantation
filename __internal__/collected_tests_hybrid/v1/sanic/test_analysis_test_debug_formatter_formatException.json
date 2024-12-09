@@ -1,0 +1,100 @@
+{
+  "test_name": "test_debug_formatter_formatException",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_logging.py",
+  "static_methods": [
+    {
+      "name": "DebugFormatter",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "output.splitlines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "lines.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "lines.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DebugFormatter",
+      "filename": "",
+      "line": 0,
+      "caller": "test_debug_formatter_formatException",
+      "source_code": ""
+    },
+    {
+      "function": "output.splitlines",
+      "filename": "",
+      "line": 0,
+      "caller": "test_debug_formatter_formatException",
+      "source_code": ""
+    },
+    {
+      "function": "lines.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_debug_formatter_formatException",
+      "source_code": ""
+    },
+    {
+      "function": "lines.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_debug_formatter_formatException",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_debug_formatter_formatException",
+      "source_code": ""
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_debug_formatter_formatException",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(lines) == 5 if sys.version_info >= (3, 11) else 4",
+    "assert ('\\x1b' in output) is expected",
+    "assert ('\\x1b[36m\\x1b[1m' in lines[1]) is expected",
+    "assert lines[1].endswith('\\x1b[34m\\x1b[1mtest_debug_formatter_formatException\\x1b[0m') is expected",
+    "assert lines[1].endswith('test_debug_formatter_formatException') is not expected",
+    "assert (lines[2] == '\\x1b[33m    1 / 0\\x1b[0m') is expected",
+    "assert (lines[2] == '    1 / 0') is not expected",
+    "assert (lines[-1] == '\\x1b[38;2;255;13;104m\\x1b[1mZeroDivisionError\\x1b[0m: \\x1b[1mdivision by zero\\x1b[0m') is expected",
+    "assert (lines[-1] == 'ZeroDivisionError: division by zero') is not expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_debug_formatter_formatException(atty, no_color, expected):\n    formatter = DebugFormatter()\n    formatter.ATTY = atty\n    formatter.NO_COLOR = no_color\n\n    try:\n        1 / 0\n    except Exception as e:\n        exc_info = (type(e), e, e.__traceback__)\n\n    output = formatter.formatException(exc_info)\n    lines = output.splitlines()\n\n    assert len(lines) == 5 if sys.version_info >= (3, 11) else 4\n    assert (\"\\033\" in output) is expected\n    assert (\"\\033[36m\\033[1m\" in lines[1]) is expected\n    assert (\n        lines[1].endswith(\n            \"\\033[34m\\033[1mtest_debug_formatter_formatException\\033[0m\"\n        )\n        is expected\n    )\n    assert (\n        lines[1].endswith(\"test_debug_formatter_formatException\")\n        is not expected\n    )\n    assert (lines[2] == \"\\033[33m    1 / 0\\033[0m\") is expected\n    assert (lines[2] == \"    1 / 0\") is not expected\n    assert (\n        lines[-1] == \"\\033[38;2;255;13;104m\\033[1mZeroDivisionError\\033[0m: \"\n        \"\\033[1mdivision by zero\\033[0m\"\n    ) is expected\n    assert (lines[-1] == \"ZeroDivisionError: division by zero\") is not expected"
+}

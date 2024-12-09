@@ -1,0 +1,80 @@
+{
+  "test_name": "test_download_git_with_rev",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "fp.register",
+      "source_code": "    def register(self, metadata):  # pragma: no cover\n        \"\"\"\n        Register a distribution on PyPI, using the provided metadata.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 107
+    },
+    {
+      "name": "fp.register",
+      "source_code": "    def register(self, metadata):  # pragma: no cover\n        \"\"\"\n        Register a distribution on PyPI, using the provided metadata.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 107
+    },
+    {
+      "name": "index.download",
+      "source_code": "    def download(self, spec, tmpdir):\n        \"\"\"Locate and/or download `spec` to `tmpdir`, returning a local path",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 567
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "fp.register",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 107,
+      "caller": "test_download_git_with_rev",
+      "source_code": "    def register(self, metadata):  # pragma: no cover\n        \"\"\"\n        Register a distribution on PyPI, using the provided metadata.\n\n        :param metadata: A :class:`Metadata` instance defining at least a name\n                         and version number for the distribution to be\n                         registered.\n        :return: The HTTP response received from PyPI upon submission of the\n                request.\n        \"\"\"\n        self.check_credentials()\n        metadata.validate()\n        d = metadata.todict()\n        d[':action'] = 'verify'\n        request = self.encode_request(d.items(), [])\n        response = self.send_request(request)\n        d[':action'] = 'submit'\n        request = self.encode_request(d.items(), [])\n        return self.send_request(request)\n\n"
+    },
+    {
+      "function": "fp.register",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 107,
+      "caller": "test_download_git_with_rev",
+      "source_code": "    def register(self, metadata):  # pragma: no cover\n        \"\"\"\n        Register a distribution on PyPI, using the provided metadata.\n\n        :param metadata: A :class:`Metadata` instance defining at least a name\n                         and version number for the distribution to be\n                         registered.\n        :return: The HTTP response received from PyPI upon submission of the\n                request.\n        \"\"\"\n        self.check_credentials()\n        metadata.validate()\n        d = metadata.todict()\n        d[':action'] = 'verify'\n        request = self.encode_request(d.items(), [])\n        response = self.send_request(request)\n        d[':action'] = 'submit'\n        request = self.encode_request(d.items(), [])\n        return self.send_request(request)\n\n"
+    },
+    {
+      "function": "index.download",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 567,
+      "caller": "test_download_git_with_rev",
+      "source_code": "    def download(self, spec, tmpdir):\n        \"\"\"Locate and/or download `spec` to `tmpdir`, returning a local path\n\n        `spec` may be a ``Requirement`` object, or a string containing a URL,\n        an existing local filename, or a project/version requirement spec\n        (i.e. the string form of a ``Requirement`` object).  If it is the URL\n        of a .py file with an unambiguous ``#egg=name-version`` tag (i.e., one\n        that escapes ``-`` as ``_`` throughout), a trivial ``setup.py`` is\n        automatically created alongside the downloaded file.\n\n        If `spec` is a ``Requirement`` object or a string containing a\n        project/version requirement spec, this method returns the location of\n        a matching distribution (possibly after downloading it to `tmpdir`).\n        If `spec` is a locally existing file or directory name, it is simply\n        returned unchanged.  If `spec` is a URL, it is downloaded to a subpath\n        of `tmpdir`, and the local filename is returned.  Various errors may be\n        raised if a problem occurs during downloading.\n        \"\"\"\n        if not isinstance(spec, Requirement):\n            scheme = URL_SCHEME(spec)\n            if scheme:\n                # It's a url, download it to tmpdir\n                found = self._download_url(spec, tmpdir)\n                base, fragment = egg_info_for_url(spec)\n                if base.endswith('.py'):\n                    found = self.gen_setup(found, fragment, tmpdir)\n                return found\n            elif os.path.exists(spec):\n                # Existing file or directory, just return it\n                return spec\n            else:\n                spec = parse_requirement_arg(spec)\n        return getattr(self.fetch_distribution(spec, tmpdir), 'location', None)\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_download_git_with_rev",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_download_git_with_rev",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert result == str(expected_dir)",
+    "assert len(fp.calls) == 2"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_download_git_with_rev(self, tmp_path, fp):\n        url = 'git+https://github.example/group/project@master#egg=foo'\n        index = setuptools.package_index.PackageIndex()\n\n        expected_dir = tmp_path / 'project@master'\n        fp.register([\n            'git',\n            'clone',\n            '--quiet',\n            'https://github.example/group/project',\n            expected_dir,\n        ])\n        fp.register(['git', '-C', expected_dir, 'checkout', '--quiet', 'master'])\n\n        result = index.download(url, tmp_path)\n\n        assert result == str(expected_dir)\n        assert len(fp.calls) == 2"
+}

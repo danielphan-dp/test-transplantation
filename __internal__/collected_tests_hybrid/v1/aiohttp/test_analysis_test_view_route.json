@@ -1,0 +1,27 @@
+{
+  "test_name": "test_view_route",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_resource",
+      "source_code": "    def add_resource(self, path: str, *, name: Optional[str] = None) -> Resource:\n        if path and not path.startswith(\"/\"):\n            raise ValueError(\"path should be started with / or be empty\")\n        # Reuse last added resource if path and name are the same\n        if self._resources:\n            resource = self._resources[-1]\n            if resource.name == name and resource.raw_match(path):\n                return cast(Resource, resource)\n        if not (\"{\" in path or \"}\" in path or ROUTE_RE.search(path)):\n            resource = PlainResource(path, name=name)\n            self.register_resource(resource)\n            return resource\n        resource = DynamicResource(path, name=name)\n        self.register_resource(resource)\n        return resource",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1124
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1124,
+      "caller": "test_view_route",
+      "source_code": "    def add_resource(self, path: str, *, name: Optional[str] = None) -> Resource:\n        if path and not path.startswith(\"/\"):\n            raise ValueError(\"path should be started with / or be empty\")\n        # Reuse last added resource if path and name are the same\n        if self._resources:\n            resource = self._resources[-1]\n            if resource.name == name and resource.raw_match(path):\n                return cast(Resource, resource)\n        if not (\"{\" in path or \"}\" in path or ROUTE_RE.search(path)):\n            resource = PlainResource(path, name=name)\n            self.register_resource(resource)\n            return resource\n        resource = DynamicResource(path, name=name)\n        self.register_resource(resource)\n        return resource\n\n"
+    }
+  ],
+  "assertions": [
+    "assert web.View is route.handler"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_view_route(router: web.UrlDispatcher) -> None:\n    resource = router.add_resource(\"/path\")\n\n    route = resource.add_route(\"*\", web.View)\n    assert web.View is route.handler"
+}

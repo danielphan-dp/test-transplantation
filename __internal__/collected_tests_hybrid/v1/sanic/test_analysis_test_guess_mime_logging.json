@@ -1,0 +1,79 @@
+{
+  "test_name": "test_guess_mime_logging",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FakeObject",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FakeObject",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "guess_mime",
+      "source_code": "def guess_mime(req: Request, fallback: str) -> str:\n    \"\"\"Guess the MIME type for the response based upon the request.\"\"\"\n    # Attempt to find a suitable MIME format for the response.\n    # Insertion-ordered map of formats[\"html\"] = \"source of that suggestion\"\n    formats = {}\n    name = \"\"\n    # Route error_format (by magic from handler code if auto, the default)\n    if req.route:\n        name = req.route.name\n        f = req.route.extra.error_format\n        if f in MIME_BY_CONFIG:\n            formats[f] = name",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line_number": 342
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guess_mime_logging",
+      "source_code": ""
+    },
+    {
+      "function": "FakeObject",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guess_mime_logging",
+      "source_code": ""
+    },
+    {
+      "function": "FakeObject",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guess_mime_logging",
+      "source_code": ""
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guess_mime_logging",
+      "source_code": ""
+    },
+    {
+      "function": "guess_mime",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line": 342,
+      "caller": "test_guess_mime_logging",
+      "source_code": "def guess_mime(req: Request, fallback: str) -> str:\n    \"\"\"Guess the MIME type for the response based upon the request.\"\"\"\n    # Attempt to find a suitable MIME format for the response.\n    # Insertion-ordered map of formats[\"html\"] = \"source of that suggestion\"\n    formats = {}\n    name = \"\"\n    # Route error_format (by magic from handler code if auto, the default)\n    if req.route:\n        name = req.route.name\n        f = req.route.extra.error_format\n        if f in MIME_BY_CONFIG:\n            formats[f] = name\n\n    if not formats and fallback in MIME_BY_CONFIG:\n        formats[fallback] = \"FALLBACK_ERROR_FORMAT\"\n\n    # If still not known, check for the request for clues of JSON\n    if not formats and fallback == \"auto\" and req.accept.match(JSON):\n        if JSON in req.accept:  # Literally, not wildcard\n            formats[\"json\"] = \"request.accept\"\n        elif JSON in req.headers.getone(\"content-type\", \"\"):\n            formats[\"json\"] = \"content-type\"\n        # DEPRECATION: Remove this block in 24.3\n        else:\n            c = None\n            try:\n                c = req.json\n            except BadRequest:\n                pass\n            if c:\n                formats[\"json\"] = \"request.json\"\n                deprecation(\n                    \"Response type was determined by the JSON content of \"\n                    \"the request. This behavior is deprecated and will be \"\n                    \"removed in v24.3. Please specify the format either by\\n\"\n                    f'  error_format=\"json\" on route {name}, by\\n'\n                    '  FALLBACK_ERROR_FORMAT = \"json\", or by adding header\\n'\n                    \"  accept: application/json to your requests.\",\n                    24.3,\n                )\n\n    # Any other supported formats\n    if fallback == \"auto\":\n        for k in MIME_BY_CONFIG:\n            if k not in formats:\n                formats[k] = \"any\"\n\n    mimes = [MIME_BY_CONFIG[k] for k in formats]\n    m = req.accept.match(*mimes)\n    if m:\n        format = CONFIG_BY_MIME[m.mime]\n        source = formats[format]\n        logger.debug(\n            \"Error Page: The client accepts %s, using '%s' from %s\",\n            m.header,\n            format,\n            source,\n        )\n    else:\n        logger.debug(\n            \"Error Page: No format found, the client accepts %s\",\n            repr(req.accept),\n        )\n    return m.mime\n"
+    }
+  ],
+  "assertions": [
+    "assert logmsg == f'Error Page: {expected}'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_guess_mime_logging(\n    caplog, fake_request, route_format, fallback, accept, expected\n):\n    class FakeObject:\n        pass\n\n    fake_request.route = FakeObject()\n    fake_request.route.name = \"fakeroute\"\n    fake_request.route.extra = FakeObject()\n    fake_request.route.extra.error_format = route_format\n    if accept is None:\n        del fake_request.headers[\"accept\"]\n    else:\n        fake_request.headers[\"accept\"] = accept\n\n    if \"content-type\" in expected:\n        fake_request.headers[\"content-type\"] = \"application/json\"\n\n    # Fake JSON content (DEPRECATED: remove in 24.3)\n    if \"request.json\" in expected:\n        fake_request.parsed_json = {\"foo\": \"bar\"}\n\n    with caplog.at_level(logging.DEBUG, logger=\"sanic.root\"):\n        guess_mime(fake_request, fallback)\n\n    (logmsg,) = [\n        r.message for r in caplog.records if r.funcName == \"guess_mime\"\n    ]\n\n    assert logmsg == f\"Error Page: {expected}\""
+}

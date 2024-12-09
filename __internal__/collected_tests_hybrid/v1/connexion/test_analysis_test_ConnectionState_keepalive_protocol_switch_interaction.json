@@ -1,0 +1,107 @@
+{
+  "test_name": "test_ConnectionState_keepalive_protocol_switch_interaction",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_state.py",
+  "static_methods": [
+    {
+      "name": "ConnectionState",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cs.process_client_switch_proposal",
+      "source_code": "    def process_client_switch_proposal(self, switch_event: Type[Sentinel]) -> None:\n        self.pending_switch_proposals.add(switch_event)\n        self._fire_state_triggered_transitions()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line_number": 271
+    },
+    {
+      "name": "cs.process_event",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n    ) -> None:\n        _event_type: Union[Type[Event], Tuple[Type[Event], Type[Sentinel]]] = event_type\n        if server_switch_event is not None:\n            assert role is SERVER\n            if server_switch_event not in self.pending_switch_proposals:\n                raise LocalProtocolError(\n                    \"Received server {} event without a pending proposal\".format(\n                        server_switch_event\n                    )\n                )\n            _event_type = (event_type, server_switch_event)\n        if server_switch_event is None and _event_type is Response:\n            self.pending_switch_proposals = set()\n        self._fire_event_triggered_transitions(role, _event_type)\n        # Special case: the server state does get to see Request\n        # events.\n        if _event_type is Request:\n            assert role is CLIENT\n            self._fire_event_triggered_transitions(SERVER, (Request, CLIENT))\n        self._fire_state_triggered_transitions()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line_number": 275
+    },
+    {
+      "name": "cs.process_keep_alive_disabled",
+      "source_code": "    def process_keep_alive_disabled(self) -> None:\n        self.keep_alive = False\n        self._fire_state_triggered_transitions()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line_number": 267
+    },
+    {
+      "name": "cs.process_event",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n    ) -> None:\n        _event_type: Union[Type[Event], Tuple[Type[Event], Type[Sentinel]]] = event_type\n        if server_switch_event is not None:\n            assert role is SERVER\n            if server_switch_event not in self.pending_switch_proposals:\n                raise LocalProtocolError(\n                    \"Received server {} event without a pending proposal\".format(\n                        server_switch_event\n                    )\n                )\n            _event_type = (event_type, server_switch_event)\n        if server_switch_event is None and _event_type is Response:\n            self.pending_switch_proposals = set()\n        self._fire_event_triggered_transitions(role, _event_type)\n        # Special case: the server state does get to see Request\n        # events.\n        if _event_type is Request:\n            assert role is CLIENT\n            self._fire_event_triggered_transitions(SERVER, (Request, CLIENT))\n        self._fire_state_triggered_transitions()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line_number": 275
+    },
+    {
+      "name": "cs.process_event",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n    ) -> None:\n        _event_type: Union[Type[Event], Tuple[Type[Event], Type[Sentinel]]] = event_type\n        if server_switch_event is not None:\n            assert role is SERVER\n            if server_switch_event not in self.pending_switch_proposals:\n                raise LocalProtocolError(\n                    \"Received server {} event without a pending proposal\".format(\n                        server_switch_event\n                    )\n                )\n            _event_type = (event_type, server_switch_event)\n        if server_switch_event is None and _event_type is Response:\n            self.pending_switch_proposals = set()\n        self._fire_event_triggered_transitions(role, _event_type)\n        # Special case: the server state does get to see Request\n        # events.\n        if _event_type is Request:\n            assert role is CLIENT\n            self._fire_event_triggered_transitions(SERVER, (Request, CLIENT))\n        self._fire_state_triggered_transitions()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line_number": 275
+    },
+    {
+      "name": "cs.process_event",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n    ) -> None:\n        _event_type: Union[Type[Event], Tuple[Type[Event], Type[Sentinel]]] = event_type\n        if server_switch_event is not None:\n            assert role is SERVER\n            if server_switch_event not in self.pending_switch_proposals:\n                raise LocalProtocolError(\n                    \"Received server {} event without a pending proposal\".format(\n                        server_switch_event\n                    )\n                )\n            _event_type = (event_type, server_switch_event)\n        if server_switch_event is None and _event_type is Response:\n            self.pending_switch_proposals = set()\n        self._fire_event_triggered_transitions(role, _event_type)\n        # Special case: the server state does get to see Request\n        # events.\n        if _event_type is Request:\n            assert role is CLIENT\n            self._fire_event_triggered_transitions(SERVER, (Request, CLIENT))\n        self._fire_state_triggered_transitions()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line_number": 275
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ConnectionState",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ConnectionState_keepalive_protocol_switch_interaction",
+      "source_code": ""
+    },
+    {
+      "function": "cs.process_client_switch_proposal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line": 271,
+      "caller": "test_ConnectionState_keepalive_protocol_switch_interaction",
+      "source_code": "    def process_client_switch_proposal(self, switch_event: Type[Sentinel]) -> None:\n        self.pending_switch_proposals.add(switch_event)\n        self._fire_state_triggered_transitions()\n\n"
+    },
+    {
+      "function": "cs.process_event",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line": 275,
+      "caller": "test_ConnectionState_keepalive_protocol_switch_interaction",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n"
+    },
+    {
+      "function": "cs.process_keep_alive_disabled",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line": 267,
+      "caller": "test_ConnectionState_keepalive_protocol_switch_interaction",
+      "source_code": "    def process_keep_alive_disabled(self) -> None:\n        self.keep_alive = False\n        self._fire_state_triggered_transitions()\n\n"
+    },
+    {
+      "function": "cs.process_event",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line": 275,
+      "caller": "test_ConnectionState_keepalive_protocol_switch_interaction",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n"
+    },
+    {
+      "function": "cs.process_event",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line": 275,
+      "caller": "test_ConnectionState_keepalive_protocol_switch_interaction",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n"
+    },
+    {
+      "function": "cs.process_event",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line": 275,
+      "caller": "test_ConnectionState_keepalive_protocol_switch_interaction",
+      "source_code": "    def process_event(\n        self,\n        role: Type[Sentinel],\n        event_type: Type[Event],\n        server_switch_event: Optional[Type[Sentinel]] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert cs.states == {CLIENT: SEND_BODY, SERVER: SEND_RESPONSE}",
+    "assert cs.states == {CLIENT: MIGHT_SWITCH_PROTOCOL, SERVER: SEND_RESPONSE}",
+    "assert cs.states == {CLIENT: MUST_CLOSE, SERVER: SEND_BODY}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_ConnectionState_keepalive_protocol_switch_interaction() -> None:\n    # keep_alive=False + pending_switch_proposals\n    cs = ConnectionState()\n    cs.process_client_switch_proposal(_SWITCH_UPGRADE)\n    cs.process_event(CLIENT, Request)\n    cs.process_keep_alive_disabled()\n    cs.process_event(CLIENT, Data)\n    assert cs.states == {CLIENT: SEND_BODY, SERVER: SEND_RESPONSE}\n\n    # the protocol switch \"wins\"\n    cs.process_event(CLIENT, EndOfMessage)\n    assert cs.states == {CLIENT: MIGHT_SWITCH_PROTOCOL, SERVER: SEND_RESPONSE}\n\n    # but when the server denies the request, keep_alive comes back into play\n    cs.process_event(SERVER, Response)\n    assert cs.states == {CLIENT: MUST_CLOSE, SERVER: SEND_BODY}"
+}

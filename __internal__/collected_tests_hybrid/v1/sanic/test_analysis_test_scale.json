@@ -1,0 +1,38 @@
+{
+  "test_name": "test_scale",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_multiplexer.py",
+  "static_methods": [
+    {
+      "name": "m.scale",
+      "source_code": "    def scale(self, num_workers: int):\n        \"\"\"Scale the number of workers.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line_number": 131
+    },
+    {
+      "name": "monitor_publisher.send.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "m.scale",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line": 131,
+      "caller": "test_scale",
+      "source_code": "    def scale(self, num_workers: int):\n        \"\"\"Scale the number of workers.\n\n        Args:\n            num_workers (int): The number of workers to scale to.\n        \"\"\"\n        message = f\"__SCALE__:{num_workers}\"\n        self._monitor_publisher.send(message)\n\n"
+    },
+    {
+      "function": "monitor_publisher.send.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_scale",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_scale(monitor_publisher: Mock, m: WorkerMultiplexer):\n    m.scale(99)\n    monitor_publisher.send.assert_called_once_with(\"__SCALE__:99\")"
+}

@@ -1,0 +1,116 @@
+{
+  "test_name": "test_connection_del_loop_debug",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_connector.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.set_debug",
+      "source_code": "    def set_debug(self, flag: bool = True) -> \"ParserElement\":\n        \"\"\"\n        Enable display of debugging messages while doing pattern matching.\n        Set ``flag`` to ``True`` to enable, ``False`` to disable.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/core.py",
+      "line_number": 1785
+    },
+    {
+      "name": "Connection",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.set_exception_handler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exc_handler.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": ""
+    },
+    {
+      "function": "loop.set_debug",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/core.py",
+      "line": 1785,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": "    def set_debug(self, flag: bool = True) -> \"ParserElement\":\n        \"\"\"\n        Enable display of debugging messages while doing pattern matching.\n        Set ``flag`` to ``True`` to enable, ``False`` to disable.\n\n        Example::\n\n            wd = Word(alphas).set_name(\"alphaword\")\n            integer = Word(nums).set_name(\"numword\")\n            term = wd | integer\n\n            # turn on debugging for wd\n            wd.set_debug()\n\n            term[1, ...].parse_string(\"abc 123 xyz 890\")\n\n        prints::\n\n            Match alphaword at loc 0(1,1)\n            Matched alphaword -> ['abc']\n            Match alphaword at loc 3(1,4)\n            Exception raised:Expected alphaword (at char 4), (line:1, col:5)\n            Match alphaword at loc 7(1,8)\n            Matched alphaword -> ['xyz']\n            Match alphaword at loc 11(1,12)\n            Exception raised:Expected alphaword (at char 12), (line:1, col:13)\n            Match alphaword at loc 15(1,16)\n            Exception raised:Expected alphaword (at char 15), (line:1, col:16)\n\n        The output shown is that produced by the default debug actions - custom debug actions can be\n        specified using :class:`set_debug_actions`. Prior to attempting\n        to match the ``wd`` expression, the debugging message ``\"Match <exprname> at loc <n>(<line>,<col>)\"``\n        is shown. Then if the parse succeeds, a ``\"Matched\"`` message is shown, or an ``\"Exception raised\"``\n        message is shown. Also note the use of :class:`set_name` to assign a human-readable name to the expression,\n        which makes debugging and exception messages easier to understand - for instance, the default\n        name created for the :class:`Word` expression without calling ``set_name`` is ``\"W:(A-Za-z)\"``.\n        \"\"\"\n        if flag:\n            self.set_debug_actions(\n                _default_start_debug_action,\n                _default_success_debug_action,\n                _default_exception_debug_action,\n            )\n        else:\n            self.debug = False\n        return self\n\n"
+    },
+    {
+      "function": "Connection",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": ""
+    },
+    {
+      "function": "loop.set_exception_handler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": ""
+    },
+    {
+      "function": "exc_handler.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connection_del_loop_debug",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_connection_del_loop_debug(loop: asyncio.AbstractEventLoop) -> None:\n    connector = mock.Mock()\n    key = mock.Mock()\n    protocol = mock.Mock()\n    loop.set_debug(True)\n    conn = Connection(connector, key, protocol, loop=loop)\n    exc_handler = mock.Mock()\n    loop.set_exception_handler(exc_handler)\n\n    with pytest.warns(ResourceWarning):\n        del conn\n        gc.collect()\n\n    msg = {\n        \"message\": mock.ANY,\n        \"client_connection\": mock.ANY,\n        \"source_traceback\": mock.ANY,\n    }\n    exc_handler.assert_called_with(loop, msg)"
+}

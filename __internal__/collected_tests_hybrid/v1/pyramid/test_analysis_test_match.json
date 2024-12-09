@@ -1,0 +1,51 @@
+{
+  "test_name": "test_match",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "route.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_match",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_match",
+      "source_code": ""
+    },
+    {
+      "function": "route.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_match(self):\n        route = self._makeOne('name', ':path')\n        self.assertEqual(route.match('/whatever'), {'path': 'whatever'})"
+}

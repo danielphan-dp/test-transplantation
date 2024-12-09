@@ -1,0 +1,116 @@
+{
+  "test_name": "test__default_app_iter_with_comment_plain",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+  "static_methods": [
+    {
+      "name": "self._getTargetSubclass",
+      "source_code": "    def _getTargetSubclass(\n        self,\n        code='200',\n        title='OK',\n        explanation='explanation',\n        empty_body=False,\n    ):\n        cls = self._getTargetClass()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+      "line_number": 91
+    },
+    {
+      "name": "cls",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_makeEnviron",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 24
+    },
+    {
+      "name": "DummyStartResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "exc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._getTargetSubclass",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+      "line": 91,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": "    def _getTargetSubclass(\n        self,\n        code='200',\n        title='OK',\n        explanation='explanation',\n        empty_body=False,\n"
+    },
+    {
+      "function": "cls",
+      "filename": "",
+      "line": 0,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": ""
+    },
+    {
+      "function": "_makeEnviron",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 24,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ\n\n"
+    },
+    {
+      "function": "DummyStartResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": ""
+    },
+    {
+      "function": "exc",
+      "filename": "",
+      "line": 0,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__default_app_iter_with_comment_plain",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__default_app_iter_with_comment_plain(self):\n        cls = self._getTargetSubclass()\n        exc = cls(comment='comment')\n        environ = _makeEnviron()\n        start_response = DummyStartResponse()\n        body = list(exc(environ, start_response))[0]\n        for header in start_response.headerlist:\n            if header[0] == 'Content-Type':\n                self.assertEqual(header[1], 'text/plain; charset=UTF-8')\n        self.assertEqual(body, b'200 OK\\n\\nexplanation\\n\\n\\n\\ncomment\\n')"
+}

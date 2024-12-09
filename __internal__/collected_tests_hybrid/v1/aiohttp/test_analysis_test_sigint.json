@@ -1,0 +1,66 @@
+{
+  "test_name": "test_sigint",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "skip_if_on_windows",
+      "source_code": "def skip_if_on_windows() -> None:\n    if platform.system() == \"Windows\":\n        pytest.skip(\"the test is not valid for Windows\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 72
+    },
+    {
+      "name": "proc.send_signal",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "line.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "proc.wait",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "skip_if_on_windows",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 72,
+      "caller": "test_sigint",
+      "source_code": "def skip_if_on_windows() -> None:\n    if platform.system() == \"Windows\":\n        pytest.skip(\"the test is not valid for Windows\")\n\n\n"
+    },
+    {
+      "function": "proc.send_signal",
+      "filename": "",
+      "line": 0,
+      "caller": "test_sigint",
+      "source_code": ""
+    },
+    {
+      "function": "line.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_sigint",
+      "source_code": ""
+    },
+    {
+      "function": "proc.wait",
+      "filename": "",
+      "line": 0,
+      "caller": "test_sigint",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert proc.wait() == 0"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_sigint() -> None:\n    skip_if_on_windows()\n\n    with subprocess.Popen(\n        [sys.executable, \"-u\", \"-c\", _script_test_signal],\n        stdout=subprocess.PIPE,\n    ) as proc:\n        for line in proc.stdout:  # type: ignore[union-attr]\n            if line.startswith(b\"======== Running on\"):\n                break\n        proc.send_signal(signal.SIGINT)\n        assert proc.wait() == 0"
+}

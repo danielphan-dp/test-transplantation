@@ -1,0 +1,29 @@
+{
+  "test_name": "test_basic_auth_from_url",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_basic_auth_from_url",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    }
+  ],
+  "assertions": [
+    "assert 'AUTHORIZATION' in req.headers",
+    "assert 'Basic bmtpbToxMjM0' == req.headers['AUTHORIZATION']",
+    "assert 'python.org' == req.host"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basic_auth_from_url(make_request: _RequestMaker) -> None:\n    req = make_request(\"get\", \"http://nkim:1234@python.org\")\n    assert \"AUTHORIZATION\" in req.headers\n    assert \"Basic bmtpbToxMjM0\" == req.headers[\"AUTHORIZATION\"]\n    assert \"python.org\" == req.host"
+}

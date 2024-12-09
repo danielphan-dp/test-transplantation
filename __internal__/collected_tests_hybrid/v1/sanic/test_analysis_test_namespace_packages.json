@@ -1,0 +1,64 @@
+{
+  "test_name": "test_namespace_packages",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "pyproject.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "cleandoc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "pyprojecttoml.apply_configuration",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 64
+    },
+    {
+      "name": "makedist",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line_number": 33
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pyproject.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_namespace_packages",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "cleandoc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namespace_packages",
+      "source_code": ""
+    },
+    {
+      "function": "pyprojecttoml.apply_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 64,
+      "caller": "test_namespace_packages",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,\n"
+    },
+    {
+      "function": "makedist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line": 33,
+      "caller": "test_namespace_packages",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_namespace_packages(self, tmp_path):\n        pyproject = tmp_path / \"pyproject.toml\"\n        config = \"\"\"\n        [project]\n        name = \"myproj\"\n        version = \"42\"\n        [tool.setuptools]\n        namespace-packages = [\"myproj.pkg\"]\n        \"\"\"\n        pyproject.write_text(cleandoc(config), encoding=\"utf-8\")\n        with pytest.raises(RemovedConfigError, match=\"namespace-packages\"):\n            pyprojecttoml.apply_configuration(makedist(tmp_path), pyproject)"
+}

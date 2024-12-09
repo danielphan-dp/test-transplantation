@@ -1,0 +1,90 @@
+{
+  "test_name": "test_two_child_crashes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "RaisesGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RaisesGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "_core.open_nursery",
+      "source_code": "def open_nursery(\n    strict_exception_groups: bool | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 985
+    },
+    {
+      "name": "nursery.start_soon",
+      "source_code": "    def start_soon(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n    ) -> None:\n        \"\"\"Creates a child task, scheduling ``await async_fn(*args)``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1152
+    },
+    {
+      "name": "nursery.start_soon",
+      "source_code": "    def start_soon(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n    ) -> None:\n        \"\"\"Creates a child task, scheduling ``await async_fn(*args)``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1152
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RaisesGroup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_two_child_crashes",
+      "source_code": ""
+    },
+    {
+      "function": "RaisesGroup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_two_child_crashes",
+      "source_code": ""
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_two_child_crashes",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "_core.open_nursery",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 985,
+      "caller": "test_two_child_crashes",
+      "source_code": "def open_nursery(\n    strict_exception_groups: bool | None = None,\n"
+    },
+    {
+      "function": "nursery.start_soon",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1152,
+      "caller": "test_two_child_crashes",
+      "source_code": "    def start_soon(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n"
+    },
+    {
+      "function": "nursery.start_soon",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1152,
+      "caller": "test_two_child_crashes",
+      "source_code": "    def start_soon(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_two_child_crashes() -> None:\n    async def crasher(etype: type[Exception]) -> NoReturn:\n        raise etype\n\n    async def main() -> None:\n        async with _core.open_nursery() as nursery:\n            nursery.start_soon(crasher, KeyError)\n            nursery.start_soon(crasher, ValueError)\n\n    with RaisesGroup(ValueError, KeyError):\n        _core.run(main)"
+}

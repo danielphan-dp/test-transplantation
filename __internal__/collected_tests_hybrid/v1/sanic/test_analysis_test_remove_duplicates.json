@@ -1,0 +1,53 @@
+{
+  "test_name": "test_remove_duplicates",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_filelist.py",
+  "static_methods": [
+    {
+      "name": "FileList",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "file_list.sort",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 61
+    },
+    {
+      "name": "file_list.remove_duplicates",
+      "source_code": "    def remove_duplicates(self):\n        # Assumes list has been sorted!\n        for i in range(len(self.files) - 1, 0, -1):\n            if self.files[i] == self.files[i - 1]:\n                del self.files[i]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 70
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FileList",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remove_duplicates",
+      "source_code": ""
+    },
+    {
+      "function": "file_list.sort",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 61,
+      "caller": "test_remove_duplicates",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))\n\n"
+    },
+    {
+      "function": "file_list.remove_duplicates",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 70,
+      "caller": "test_remove_duplicates",
+      "source_code": "    def remove_duplicates(self):\n        # Assumes list has been sorted!\n        for i in range(len(self.files) - 1, 0, -1):\n            if self.files[i] == self.files[i - 1]:\n                del self.files[i]\n\n"
+    }
+  ],
+  "assertions": [
+    "assert file_list.files == ['a', 'b', 'c', 'g']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_remove_duplicates(self):\n        file_list = FileList()\n        file_list.files = ['a', 'b', 'a', 'g', 'c', 'g']\n        # files must be sorted beforehand (sdist does it)\n        file_list.sort()\n        file_list.remove_duplicates()\n        assert file_list.files == ['a', 'b', 'c', 'g']"
+}

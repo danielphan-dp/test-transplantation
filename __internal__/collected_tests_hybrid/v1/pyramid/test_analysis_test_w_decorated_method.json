@@ -1,0 +1,77 @@
+{
+  "test_name": "test_w_decorated_method",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_verify.py",
+  "static_methods": [
+    {
+      "name": "implementer",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 630
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "property",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "NotImplementedError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "func.__get__",
+      "source_code": "    def __get__(self, obj, tp):\n        result = self._resolve()\n        setattr(obj, self.name, result)  # Invokes __set__.\n        try:\n            # This is a bit ugly, but it avoids running this again by\n            # removing this descriptor.\n            delattr(obj.__class__, self.name)\n        except AttributeError:\n            pass\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line_number": 96
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "implementer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 630,
+      "caller": "test_w_decorated_method",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.\n\n        A callable is returned that makes an implements declaration on\n        objects passed to it.\n\n        .. seealso:: :meth:`classImplements`\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_w_decorated_method",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "property",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_w_decorated_method",
+      "source_code": ""
+    },
+    {
+      "function": "NotImplementedError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_w_decorated_method",
+      "source_code": ""
+    },
+    {
+      "function": "func.__get__",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line": 96,
+      "caller": "test_w_decorated_method",
+      "source_code": "    def __get__(self, obj, tp):\n        result = self._resolve()\n        setattr(obj, self.name, result)  # Invokes __set__.\n        try:\n            # This is a bit ugly, but it avoids running this again by\n            # removing this descriptor.\n            delattr(obj.__class__, self.name)\n        except AttributeError:\n            pass\n        return result\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_w_decorated_method(self):\n        from zope.interface import Interface\n        from zope.interface import implementer\n\n        def decorator(func):\n            # this is, in fact, zope.proxy.non_overridable\n            return property(lambda self: func.__get__(self))\n\n        class ICurrent(Interface):\n\n            def method(a):\n                \"\"\"docstring\"\"\"\n\n        @implementer(ICurrent)\n        class Current:\n\n            @decorator\n            def method(self, a):\n                raise NotImplementedError()\n\n        self._callFUT(ICurrent, Current)"
+}

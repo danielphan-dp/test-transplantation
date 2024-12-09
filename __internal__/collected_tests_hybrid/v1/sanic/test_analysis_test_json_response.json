@@ -1,0 +1,57 @@
+{
+  "test_name": "test_json_response",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response.py",
+  "static_methods": [
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_dumps",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_json_response",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_json_response",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_dumps",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_response",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200",
+    "assert response.text == json_dumps(JSON_DATA)",
+    "assert response.json == JSON_DATA",
+    "assert response.status == 412",
+    "assert response.json == JSON_DATA"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_json_response(json_app):\n    from sanic.response import json_dumps\n\n    request, response = json_app.test_client.get(\"/\")\n    assert response.status == 200\n    assert response.text == json_dumps(JSON_DATA)\n    assert response.json == JSON_DATA\n\n    request, response = json_app.test_client.get(\"/precondition\")\n    assert response.status == 412\n    assert response.json == JSON_DATA"
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_reload_send",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+  "static_methods": [
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Reloader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "reloader.reload",
+      "source_code": "    def reload(self, reloaded_files):\n        message = f\"__ALL_PROCESSES__:{reloaded_files}\"\n        self._publisher.send(message)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/reloader.py",
+      "line_number": 76
+    },
+    {
+      "name": "publisher.send.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_send",
+      "source_code": ""
+    },
+    {
+      "function": "Reloader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_send",
+      "source_code": ""
+    },
+    {
+      "function": "reloader.reload",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/reloader.py",
+      "line": 76,
+      "caller": "test_reload_send",
+      "source_code": "    def reload(self, reloaded_files):\n        message = f\"__ALL_PROCESSES__:{reloaded_files}\"\n        self._publisher.send(message)\n\n"
+    },
+    {
+      "function": "publisher.send.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_send",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_send",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_send",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reload_send():\n    publisher = Mock()\n    reloader = Reloader(publisher, 0.1, set(), Mock())\n    reloader.reload(\"foobar\")\n    publisher.send.assert_called_once_with(\"__ALL_PROCESSES__:foobar\")"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_update_data",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/test_update_data.py",
+  "static_methods": [
+    {
+      "name": "_run_pytest_update_data",
+      "source_code": "def _run_pytest_update_data(data_suite: str) -> PytestResult:\n    \"\"\"\n    Runs a suite of data test cases through 'pytest --update-data' until either tests pass\n    or until a maximum number of attempts (needed for incremental tests).\n    \"\"\"\n    return run_pytest_data_suite(data_suite, extra_args=[\"--update-data\"], max_attempts=3)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/test_update_data.py",
+      "line_number": 11
+    },
+    {
+      "name": "dedent_docstring",
+      "source_code": "def dedent_docstring(s: str) -> str:\n    return textwrap.dedent(s).lstrip()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/_pytest.py",
+      "line_number": 21
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_run_pytest_update_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/test_update_data.py",
+      "line": 11,
+      "caller": "test_update_data",
+      "source_code": "def _run_pytest_update_data(data_suite: str) -> PytestResult:\n    \"\"\"\n    Runs a suite of data test cases through 'pytest --update-data' until either tests pass\n    or until a maximum number of attempts (needed for incremental tests).\n    \"\"\"\n    return run_pytest_data_suite(data_suite, extra_args=[\"--update-data\"], max_attempts=3)\n\n\n"
+    },
+    {
+      "function": "dedent_docstring",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/_pytest.py",
+      "line": 21,
+      "caller": "test_update_data",
+      "source_code": "def dedent_docstring(s: str) -> str:\n    return textwrap.dedent(s).lstrip()\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert result.input_updated == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_update_data(self) -> None:\n        # Note: We test multiple testcases rather than 'test case per test case'\n        #       so we could also exercise rewriting multiple testcases at once.\n        result = _run_pytest_update_data(\n            \"\"\"\n            [case testCorrect]\n            s: str = 42  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n            [case testWrong]\n            s: str = 42  # E: wrong error\n\n            [case testXfail-xfail]\n            s: str = 42  # E: wrong error\n\n            [case testWrongMultiline]\n            s: str = 42  # E: foo \\\n                         # N: bar\n\n            [case testMissingMultiline]\n            s: str = 42;  i: int = 'foo'\n\n            [case testExtraneous]\n            s: str = 'foo'  # E: wrong error\n\n            [case testExtraneousMultiline]\n            s: str = 'foo'  # E: foo \\\n                            # E: bar\n\n            [case testExtraneousMultilineNonError]\n            s: str = 'foo'  # W: foo \\\n                            # N: bar\n\n            [case testOutCorrect]\n            s: str = 42\n            [out]\n            main:1: error: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n            [case testOutWrong]\n            s: str = 42\n            [out]\n            main:1: error: foobar\n\n            [case testOutWrongIncremental]\n            s: str = 42\n            [out]\n            main:1: error: foobar\n            [out2]\n            main:1: error: foobar\n\n            [case testWrongMultipleFiles]\n            import a, b\n            s: str = 42  # E: foo\n            [file a.py]\n            s1: str = 42  # E: bar\n            [file b.py]\n            s2: str = 43  # E: baz\n            [builtins fixtures/list.pyi]\n            \"\"\"\n        )\n\n        # Assert\n        expected = dedent_docstring(\n            \"\"\"\n        [case testCorrect]\n        s: str = 42  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n        [case testWrong]\n        s: str = 42  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n        [case testXfail-xfail]\n        s: str = 42  # E: wrong error\n\n        [case testWrongMultiline]\n        s: str = 42  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n        [case testMissingMultiline]\n        s: str = 42;  i: int = 'foo'  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\") \\\\\n                                      # E: Incompatible types in assignment (expression has type \"str\", variable has type \"int\")\n\n        [case testExtraneous]\n        s: str = 'foo'\n\n        [case testExtraneousMultiline]\n        s: str = 'foo'\n\n        [case testExtraneousMultilineNonError]\n        s: str = 'foo'\n\n        [case testOutCorrect]\n        s: str = 42\n        [out]\n        main:1: error: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n        [case testOutWrong]\n        s: str = 42\n        [out]\n        main:1: error: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n        [case testOutWrongIncremental]\n        s: str = 42\n        [out]\n        main:1: error: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n        [out2]\n        main:1: error: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n\n        [case testWrongMultipleFiles]\n        import a, b\n        s: str = 42  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n        [file a.py]\n        s1: str = 42  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n        [file b.py]\n        s2: str = 43  # E: Incompatible types in assignment (expression has type \"int\", variable has type \"str\")\n        [builtins fixtures/list.pyi]\n        \"\"\"\n        )\n        assert result.input_updated == expected"
+}

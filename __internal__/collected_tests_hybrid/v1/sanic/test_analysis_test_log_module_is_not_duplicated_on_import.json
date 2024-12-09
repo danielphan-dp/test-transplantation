@@ -1,0 +1,40 @@
+{
+  "test_name": "test_log_module_is_not_duplicated_on_import",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "win_sr",
+      "source_code": "def win_sr(env):\n    \"\"\"\n    On Windows, SYSTEMROOT must be present to avoid",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line_number": 13
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_log_module_is_not_duplicated_on_import",
+      "source_code": ""
+    },
+    {
+      "function": "win_sr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line": 13,
+      "caller": "test_log_module_is_not_duplicated_on_import",
+      "source_code": "def win_sr(env):\n    \"\"\"\n    On Windows, SYSTEMROOT must be present to avoid\n\n    > Fatal Python error: _Py_HashRandomization_Init: failed to\n    > get random numbers to initialize Python\n    \"\"\"\n    if env and platform.system() == 'Windows':\n        env['SYSTEMROOT'] = os.environ['SYSTEMROOT']\n    return env\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert output == 'success'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_log_module_is_not_duplicated_on_import(distutils_version, venv):\n    env = dict(SETUPTOOLS_USE_DISTUTILS=distutils_version)\n    cmd = ['python', '-c', ENSURE_LOG_IMPORT_IS_NOT_DUPLICATED]\n    output = venv.run(cmd, env=win_sr(env), **_TEXT_KWARGS).strip()\n    assert output == \"success\""
+}

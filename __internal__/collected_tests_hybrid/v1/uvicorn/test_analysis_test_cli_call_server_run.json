@@ -1,0 +1,79 @@
+{
+  "test_name": "test_cli_call_server_run",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "CliRunner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock_run.assert_called_once",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n    ) -> Result:\n        \"\"\"Invokes a command in an isolated environment.  The arguments are\n        forwarded directly to the command line script, the `extra` keyword\n        arguments are passed to the :meth:`~clickpkg.Command.main` function of\n        the command.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/click/testing.py",
+      "line_number": 349
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cli_call_server_run",
+      "source_code": ""
+    },
+    {
+      "function": "CliRunner",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_call_server_run",
+      "source_code": ""
+    },
+    {
+      "function": "mock_run.assert_called_once",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_call_server_run",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cli_call_server_run",
+      "source_code": ""
+    },
+    {
+      "function": "runner.invoke",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/click/testing.py",
+      "line": 349,
+      "caller": "test_cli_call_server_run",
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n"
+    }
+  ],
+  "assertions": [
+    "assert result.exit_code == 3"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_cli_call_server_run() -> None:\n    runner = CliRunner()\n\n    with mock.patch.object(Server, \"run\") as mock_run:\n        result = runner.invoke(cli, [\"tests.test_cli:App\"])\n\n    assert result.exit_code == 3\n    mock_run.assert_called_once()"
+}

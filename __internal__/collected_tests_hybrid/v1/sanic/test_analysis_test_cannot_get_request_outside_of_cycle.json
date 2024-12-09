@@ -1,0 +1,25 @@
+{
+  "test_name": "test_cannot_get_request_outside_of_cycle",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "Request.get_current",
+      "source_code": "    def get_current(cls) -> Request:\n        \"\"\"Retrieve the current request object",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line_number": 224
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Request.get_current",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line": 224,
+      "caller": "test_cannot_get_request_outside_of_cycle",
+      "source_code": "    @classmethod\n    def get_current(cls) -> Request:\n        \"\"\"Retrieve the current request object\n\n        This implements [Context Variables](https://docs.python.org/3/library/contextvars.html)\n        to allow for accessing the current request from anywhere.\n\n        A typical usecase is when you want to access the current request\n        from a function that is not a handler, such as a logging function:\n\n        ```python\n        import logging\n\n        class LoggingFormater(logging.Formatter):\n            def format(self, record):\n                request = Request.get_current()\n                record.url = request.url\n                record.ip = request.ip\n                return super().format(record)\n        ```\n\n        Returns:\n            Request: The current request object\n\n        Raises:\n            sanic.exceptions.ServerError: If it is outside of a request\n                lifecycle.\n        \"\"\"  # noqa: E501\n        request = cls._current.get(None)\n        if not request:\n            raise ServerError(\"No current request\")\n        return request\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_cannot_get_request_outside_of_cycle():\n    with pytest.raises(SanicException, match=\"No current request\"):\n        Request.get_current()"
+}

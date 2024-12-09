@@ -1,0 +1,103 @@
+{
+  "test_name": "test_include_with_python_callable",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.include",
+      "source_code": "    def include(self, **attrs):\n        \"\"\"Add items to distribution that are named in keyword arguments",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line_number": 908
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_include_with_python_callable",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.include",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line": 908,
+      "caller": "test_include_with_python_callable",
+      "source_code": "    def include(self, **attrs):\n        \"\"\"Add items to distribution that are named in keyword arguments\n\n        For example, 'dist.include(py_modules=[\"x\"])' would add 'x' to\n        the distribution's 'py_modules' attribute, if it was not already\n        there.\n\n        Currently, this method only supports inclusion for attributes that are\n        lists or tuples.  If you need to add support for adding to other\n        attributes in this or a subclass, you can add an '_include_X' method,\n        where 'X' is the name of the attribute.  The method will be called with\n        the value passed to 'include()'.  So, 'dist.include(foo={\"bar\":\"baz\"})'\n        will try to call 'dist._include_foo({\"bar\":\"baz\"})', which can then\n        handle whatever special inclusion logic is needed.\n        \"\"\"\n        for k, v in attrs.items():\n            include = getattr(self, '_include_' + k, None)\n            if include:\n                include(v)\n            else:\n                self._include_misc(k, v)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_with_python_callable",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_with_python_callable",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_with_python_callable",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_with_python_callable",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_include_with_python_callable",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_include_with_python_callable(self):\n        from tests import test_config\n\n        config = self._makeOne()\n        config.include(dummy_include)\n        after = config.action_state\n        actions = after.actions\n        self.assertEqual(len(actions), 1)\n        action = actions[0]\n        self.assertEqual(action['discriminator'], 'discrim')\n        self.assertEqual(action['callable'], None)\n        self.assertEqual(action['args'], test_config)"
+}

@@ -1,0 +1,168 @@
+{
+  "test_name": "test_raise_most_specific",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/decorators/test_security.py",
+  "static_methods": [
+    {
+      "name": "SecurityHandlerFactory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "security_handler_factory._raise_most_specific",
+      "source_code": "    def _raise_most_specific(exceptions: t.List[Exception]) -> None:\n        \"\"\"Raises the most specific error from a list of exceptions by status code.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/security.py",
+      "line_number": 594
+    },
+    {
+      "name": "OAuthProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "OAuthProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "OAuthScopeProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "OAuthProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "OAuthScopeProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "OAuthProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "OAuthScopeProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BadRequestProblem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ConnexionException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ConnexionException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SecurityHandlerFactory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "security_handler_factory._raise_most_specific",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/security.py",
+      "line": 594,
+      "caller": "test_raise_most_specific",
+      "source_code": "    @staticmethod\n    def _raise_most_specific(exceptions: t.List[Exception]) -> None:\n        \"\"\"Raises the most specific error from a list of exceptions by status code.\n\n        The status codes are expected to be either in the `code`\n        or in the `status` attribute of the exceptions.\n\n        The order is as follows:\n            - 403: valid credentials but not enough privileges\n            - 401: no or invalid credentials\n            - for other status codes, the smallest one is selected\n\n        :param errors: List of exceptions.\n        :type errors: t.List[Exception]\n        \"\"\"\n        if not exceptions:\n            return\n        # We only use status code attributes from exceptions\n        # We use 600 as default because 599 is highest valid status code\n        status_to_exc = {\n            getattr(exc, \"status_code\", getattr(exc, \"status\", 600)): exc\n            for exc in exceptions\n        }\n        if 403 in status_to_exc:\n            raise status_to_exc[403]\n        elif 401 in status_to_exc:\n            raise status_to_exc[401]\n        else:\n            lowest_status_code = min(status_to_exc)\n            raise status_to_exc[lowest_status_code]\n"
+    },
+    {
+      "function": "OAuthProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "OAuthProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "OAuthScopeProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "OAuthProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "OAuthScopeProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "OAuthProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "OAuthScopeProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "BadRequestProblem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "ConnexionException",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    },
+    {
+      "function": "ConnexionException",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_most_specific",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_raise_most_specific(errors, most_specific):\n    \"\"\"Tests whether most specific exception is raised from a list.\"\"\"\n    security_handler_factory = SecurityHandlerFactory()\n    with pytest.raises(most_specific):\n        security_handler_factory._raise_most_specific(errors)"
+}

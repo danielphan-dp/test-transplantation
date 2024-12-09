@@ -1,0 +1,77 @@
+{
+  "test_name": "test_existing_cookie_csrf_does_not_set_cookie",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_csrf.py",
+  "static_methods": [
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "policy.get_csrf_token",
+      "source_code": "def get_csrf_token(request):\n    \"\"\"Get the currently active CSRF token for the request passed, generating\n    a new one using ``new_csrf_token(request)`` if one does not exist. This\n    calls the equivalent method in the chosen CSRF protection implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/csrf.py",
+      "line_number": 164
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_existing_cookie_csrf_does_not_set_cookie",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_existing_cookie_csrf_does_not_set_cookie",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "policy.get_csrf_token",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/csrf.py",
+      "line": 164,
+      "caller": "test_existing_cookie_csrf_does_not_set_cookie",
+      "source_code": "def get_csrf_token(request):\n    \"\"\"Get the currently active CSRF token for the request passed, generating\n    a new one using ``new_csrf_token(request)`` if one does not exist. This\n    calls the equivalent method in the chosen CSRF protection implementation.\n\n    .. versionadded :: 1.9\n\n    \"\"\"\n    registry = request.registry\n    csrf = registry.getUtility(ICSRFStoragePolicy)\n    return csrf.get_csrf_token(request)\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_existing_cookie_csrf_does_not_set_cookie",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_existing_cookie_csrf_does_not_set_cookie",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_existing_cookie_csrf_does_not_set_cookie(self):\n        request = DummyRequest()\n        request.cookies = {'csrf_token': 'e6f325fee5974f3da4315a8ccf4513d2'}\n\n        policy = self._makeOne()\n        token = policy.get_csrf_token(request)\n\n        self.assertEqual(token, 'e6f325fee5974f3da4315a8ccf4513d2')\n        self.assertIsNone(request.response_callback)"
+}

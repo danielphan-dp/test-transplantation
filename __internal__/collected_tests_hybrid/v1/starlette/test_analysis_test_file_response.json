@@ -1,0 +1,126 @@
+{
+  "test_name": "test_file_response",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_responses.py",
+  "static_methods": [
+    {
+      "name": "path.write_bytes",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BackgroundTask",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "FileResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "path.write_bytes",
+      "filename": "",
+      "line": 0,
+      "caller": "test_file_response",
+      "source_code": ""
+    },
+    {
+      "function": "BackgroundTask",
+      "filename": "",
+      "line": 0,
+      "caller": "test_file_response",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_file_response",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_file_response",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_file_response",
+      "source_code": ""
+    },
+    {
+      "function": "FileResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_file_response",
+      "source_code": ""
+    },
+    {
+      "function": "response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_file_response",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_file_response",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert filled_by_bg_task == ''",
+    "assert response.status_code == status.HTTP_200_OK",
+    "assert response.content == content",
+    "assert response.headers['content-type'] == 'image/png'",
+    "assert response.headers['content-disposition'] == expected_disposition",
+    "assert 'content-length' in response.headers",
+    "assert 'last-modified' in response.headers",
+    "assert 'etag' in response.headers",
+    "assert filled_by_bg_task == '6, 7, 8, 9'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_file_response(tmp_path: Path, test_client_factory: TestClientFactory) -> None:\n    path = tmp_path / \"xyz\"\n    content = b\"<file content>\" * 1000\n    path.write_bytes(content)\n\n    filled_by_bg_task = \"\"\n\n    async def numbers(minimum: int, maximum: int) -> AsyncIterator[str]:\n        for i in range(minimum, maximum + 1):\n            yield str(i)\n            if i != maximum:\n                yield \", \"\n            await anyio.sleep(0)\n\n    async def numbers_for_cleanup(start: int = 1, stop: int = 5) -> None:\n        nonlocal filled_by_bg_task\n        async for thing in numbers(start, stop):\n            filled_by_bg_task = filled_by_bg_task + thing\n\n    cleanup_task = BackgroundTask(numbers_for_cleanup, start=6, stop=9)\n\n    async def app(scope: Scope, receive: Receive, send: Send) -> None:\n        response = FileResponse(path=path, filename=\"example.png\", background=cleanup_task)\n        await response(scope, receive, send)\n\n    assert filled_by_bg_task == \"\"\n    client = test_client_factory(app)\n    response = client.get(\"/\")\n    expected_disposition = 'attachment; filename=\"example.png\"'\n    assert response.status_code == status.HTTP_200_OK\n    assert response.content == content\n    assert response.headers[\"content-type\"] == \"image/png\"\n    assert response.headers[\"content-disposition\"] == expected_disposition\n    assert \"content-length\" in response.headers\n    assert \"last-modified\" in response.headers\n    assert \"etag\" in response.headers\n    assert filled_by_bg_task == \"6, 7, 8, 9\""
+}

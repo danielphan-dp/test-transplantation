@@ -1,0 +1,64 @@
+{
+  "test_name": "test_settings_parameter_dict_is_never_updated",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_settings.py",
+  "static_methods": [
+    {
+      "name": "ReadOnlyDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config._set_settings",
+      "source_code": "    def _set_settings(self, settings):\n        self.registerUtility(settings, ISettings)\n        self._settings = settings",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/registry.py",
+      "line_number": 110
+    },
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ReadOnlyDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_settings_parameter_dict_is_never_updated",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_settings_parameter_dict_is_never_updated",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config._set_settings",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/registry.py",
+      "line": 110,
+      "caller": "test_settings_parameter_dict_is_never_updated",
+      "source_code": "    def _set_settings(self, settings):\n        self.registerUtility(settings, ISettings)\n        self._settings = settings\n\n"
+    },
+    {
+      "function": "RuntimeError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_settings_parameter_dict_is_never_updated",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_settings_parameter_dict_is_never_updated(self):\n        class ReadOnlyDict(dict):\n            def __readonly__(self, *args, **kwargs):  # pragma: no cover\n                raise RuntimeError(\"Cannot modify ReadOnlyDict\")\n\n            __setitem__ = __readonly__\n            __delitem__ = __readonly__\n            pop = __readonly__\n            popitem = __readonly__\n            clear = __readonly__\n            update = __readonly__\n            setdefault = __readonly__\n            del __readonly__\n\n        initial = ReadOnlyDict()\n        config = self._makeOne(settings=initial)\n        config._set_settings({'a': '1'})"
+}

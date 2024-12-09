@@ -1,0 +1,28 @@
+{
+  "test_name": "test_notfound_view",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/quick_tutorial/cookiecutters/tests/test_views.py",
+  "static_methods": [
+    {
+      "name": "notfound_view",
+      "source_code": "def notfound_view(request):\n    request.response.status = 404\n    return {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/narr/myproject/myproject/views/notfound.py",
+      "line_number": 5
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "notfound_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/narr/myproject/myproject/views/notfound.py",
+      "line": 5,
+      "caller": "test_notfound_view",
+      "source_code": "@notfound_view_config(renderer='myproject:templates/404.jinja2')\ndef notfound_view(request):\n    request.response.status = 404\n    return {}\n"
+    }
+  ],
+  "assertions": [
+    "assert app_request.response.status_int == 404",
+    "assert info == {}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_notfound_view(app_request):\n    info = notfound_view(app_request)\n    assert app_request.response.status_int == 404\n    assert info == {}"
+}

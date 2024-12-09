@@ -1,0 +1,92 @@
+{
+  "test_name": "test_state_to_json",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_inspector.py",
+  "static_methods": [
+    {
+      "name": "now.isoformat",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Inspector",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inspector._state_to_json",
+      "source_code": "    def _state_to_json(self) -> Dict[str, Any]:\n        output = {\"info\": self.app_info}\n        output[\"workers\"] = self._make_safe(dict(self.worker_state))\n        return output",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/inspector.py",
+      "line_number": 109
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Default",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Default",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "now.isoformat",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_to_json",
+      "source_code": ""
+    },
+    {
+      "function": "Inspector",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_to_json",
+      "source_code": ""
+    },
+    {
+      "function": "inspector._state_to_json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/inspector.py",
+      "line": 109,
+      "caller": "test_state_to_json",
+      "source_code": "    def _state_to_json(self) -> Dict[str, Any]:\n        output = {\"info\": self.app_info}\n        output[\"workers\"] = self._make_safe(dict(self.worker_state))\n        return output\n\n"
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_to_json",
+      "source_code": ""
+    },
+    {
+      "function": "Default",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_to_json",
+      "source_code": ""
+    },
+    {
+      "function": "Default",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_to_json",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert state == {'info': app_info, 'workers': {'Test': {'now': now_iso, 'nested': {'foo': now_iso}}}}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_state_to_json():\n    now = datetime.now()\n    now_iso = now.isoformat()\n    app_info = {\"app\": \"hello\"}\n    worker_state = {\"Test\": {\"now\": now, \"nested\": {\"foo\": now}}}\n    inspector = Inspector(\n        Mock(), app_info, worker_state, \"\", 0, \"\", Default(), Default()\n    )\n    state = inspector._state_to_json()\n\n    assert state == {\n        \"info\": app_info,\n        \"workers\": {\"Test\": {\"now\": now_iso, \"nested\": {\"foo\": now_iso}}},\n    }"
+}

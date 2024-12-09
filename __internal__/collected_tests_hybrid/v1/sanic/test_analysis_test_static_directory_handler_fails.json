@@ -1,0 +1,64 @@
+{
+  "test_name": "test_static_directory_handler_fails",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_static_directory.py",
+  "static_methods": [
+    {
+      "name": "DirectoryHandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.static",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n    ):\n        \"\"\"Register a root to serve files from. The input can either be a file or a directory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line_number": 31
+    },
+    {
+      "name": "app.static",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n    ):\n        \"\"\"Register a root to serve files from. The input can either be a file or a directory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line_number": 31
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DirectoryHandler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_static_directory_handler_fails",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_static_directory_handler_fails",
+      "source_code": ""
+    },
+    {
+      "function": "app.static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line": 31,
+      "caller": "test_static_directory_handler_fails",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n"
+    },
+    {
+      "function": "app.static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line": 31,
+      "caller": "test_static_directory_handler_fails",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_static_directory_handler_fails(app: Sanic):\n    dh = DirectoryHandler(\n        \"/static\",\n        Path(\"\"),\n        directory_view=True,\n        index=\"foo.txt\",\n    )\n    message = (\n        \"When explicitly setting directory_handler, you cannot \"\n        \"set either directory_view or index. Instead, pass \"\n        \"these arguments to your DirectoryHandler instance.\"\n    )\n    with pytest.raises(ValueError, match=message):\n        app.static(\"/static\", \"\", directory_handler=dh, directory_view=True)\n    with pytest.raises(ValueError, match=message):\n        app.static(\"/static\", \"\", directory_handler=dh, index=\"index.html\")"
+}

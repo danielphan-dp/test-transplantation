@@ -1,0 +1,81 @@
+{
+  "test_name": "test_get_bus",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_bus.py",
+  "static_methods": [
+    {
+      "name": "modified_env",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "modified_env",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bus.get_bus",
+      "source_code": "def get_bus(addr):\n    if addr == 'SESSION':\n        return find_session_bus()\n    elif addr == 'SYSTEM':\n        return find_system_bus()\n    else:\n        return next(get_connectable_addresses(addr))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus.py",
+      "line_number": 51
+    },
+    {
+      "name": "bus.get_bus",
+      "source_code": "def get_bus(addr):\n    if addr == 'SESSION':\n        return find_session_bus()\n    elif addr == 'SYSTEM':\n        return find_system_bus()\n    else:\n        return next(get_connectable_addresses(addr))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus.py",
+      "line_number": 51
+    },
+    {
+      "name": "bus.get_bus",
+      "source_code": "def get_bus(addr):\n    if addr == 'SESSION':\n        return find_session_bus()\n    elif addr == 'SYSTEM':\n        return find_system_bus()\n    else:\n        return next(get_connectable_addresses(addr))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus.py",
+      "line_number": 51
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "modified_env",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_bus",
+      "source_code": ""
+    },
+    {
+      "function": "modified_env",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_bus",
+      "source_code": ""
+    },
+    {
+      "function": "bus.get_bus",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus.py",
+      "line": 51,
+      "caller": "test_get_bus",
+      "source_code": "def get_bus(addr):\n    if addr == 'SESSION':\n        return find_session_bus()\n    elif addr == 'SYSTEM':\n        return find_system_bus()\n    else:\n        return next(get_connectable_addresses(addr))\n\n\n"
+    },
+    {
+      "function": "bus.get_bus",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus.py",
+      "line": 51,
+      "caller": "test_get_bus",
+      "source_code": "def get_bus(addr):\n    if addr == 'SESSION':\n        return find_session_bus()\n    elif addr == 'SYSTEM':\n        return find_system_bus()\n    else:\n        return next(get_connectable_addresses(addr))\n\n\n"
+    },
+    {
+      "function": "bus.get_bus",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/bus.py",
+      "line": 51,
+      "caller": "test_get_bus",
+      "source_code": "def get_bus(addr):\n    if addr == 'SESSION':\n        return find_session_bus()\n    elif addr == 'SYSTEM':\n        return find_system_bus()\n    else:\n        return next(get_connectable_addresses(addr))\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert bus.get_bus('unix:path=/run/user/1002/bus') == '/run/user/1002/bus'",
+    "assert bus.get_bus('SESSION') == '/run/user/1000/bus'",
+    "assert bus.get_bus('SYSTEM') == '/var/run/dbus/system_bus_socket'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_bus():\n    with modified_env({\n        'DBUS_SESSION_BUS_ADDRESS':'unix:path=/run/user/1000/bus',\n        'DBUS_SYSTEM_BUS_ADDRESS': 'unix:path=/var/run/dbus/system_bus_socket'\n    }):\n        assert bus.get_bus('SESSION') == '/run/user/1000/bus'\n        assert bus.get_bus('SYSTEM') == '/var/run/dbus/system_bus_socket'\n\n    assert bus.get_bus('unix:path=/run/user/1002/bus') == '/run/user/1002/bus'"
+}

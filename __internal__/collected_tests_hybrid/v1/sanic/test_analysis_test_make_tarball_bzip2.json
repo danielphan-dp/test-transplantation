@@ -1,0 +1,38 @@
+{
+  "test_name": "test_make_tarball_bzip2",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+  "static_methods": [
+    {
+      "name": "self._create_files",
+      "source_code": "    def _create_files(self):\n        # creating something to tar\n        tmpdir = self.mkdtemp()\n        dist = os.path.join(tmpdir, 'dist')\n        os.mkdir(dist)\n        self.write_file([dist, 'file1'], 'xxx')\n        self.write_file([dist, 'file2'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub'))\n        self.write_file([dist, 'sub', 'file3'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub2'))\n        return tmpdir",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "self._make_tarball",
+      "source_code": "    def _make_tarball(self, tmpdir, target_name, suffix, **kwargs):\n        tmpdir2 = self.mkdtemp()\n        if same_drive(tmpdir, tmpdir2):\n            pytest.skip(\"source and target should be on same drive\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._create_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line": 123,
+      "caller": "test_make_tarball_bzip2",
+      "source_code": "    def _create_files(self):\n        # creating something to tar\n        tmpdir = self.mkdtemp()\n        dist = os.path.join(tmpdir, 'dist')\n        os.mkdir(dist)\n        self.write_file([dist, 'file1'], 'xxx')\n        self.write_file([dist, 'file2'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub'))\n        self.write_file([dist, 'sub', 'file3'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub2'))\n        return tmpdir\n\n"
+    },
+    {
+      "function": "self._make_tarball",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line": 88,
+      "caller": "test_make_tarball_bzip2",
+      "source_code": "    def _make_tarball(self, tmpdir, target_name, suffix, **kwargs):\n        tmpdir2 = self.mkdtemp()\n        if same_drive(tmpdir, tmpdir2):\n            pytest.skip(\"source and target should be on same drive\")\n\n        base_name = os.path.join(tmpdir2, target_name)\n\n        # working with relative paths to avoid tar warnings\n        with path.Path(tmpdir):\n            make_tarball(splitdrive(base_name)[1], 'dist', **kwargs)\n\n        # check if the compressed tarball was created\n        tarball = base_name + suffix\n        assert os.path.exists(tarball)\n        assert self._tarinfo(tarball) == self._created_files\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_tarball_bzip2(self):\n        pytest.importorskip('bz2')\n        tmpdir = self._create_files()\n        self._make_tarball(tmpdir, 'archive', '.tar.bz2', compress='bzip2')"
+}

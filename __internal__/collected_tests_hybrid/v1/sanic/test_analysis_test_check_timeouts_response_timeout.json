@@ -1,0 +1,53 @@
+{
+  "test_name": "test_check_timeouts_response_timeout",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_timeout_logic.py",
+  "static_methods": [
+    {
+      "name": "protocol.check_timeouts",
+      "source_code": "    def check_timeouts(self):\n        \"\"\"\n        Runs itself periodically to enforce any expired timeouts.\n        \"\"\"\n        try:\n            if not self._task:\n                return\n            duration = current_time() - self._time\n            stage = self._http.stage\n            if stage is Stage.IDLE and duration > self.keep_alive_timeout:\n                logger.debug(\"KeepAlive Timeout. Closing connection.\")\n            elif stage is Stage.REQUEST and duration > self.request_timeout:\n                logger.debug(\"Request Timeout. Closing connection.\")\n                self._http.exception = RequestTimeout(\"Request Timeout\")\n            elif stage is Stage.HANDLER and self._http.upgrade_websocket:\n                websockets_logger.debug(\n                    \"Handling websocket. Timeouts disabled.\"\n                )\n                return\n            elif (\n                stage in (Stage.HANDLER, Stage.RESPONSE, Stage.FAILED)\n                and duration > self.response_timeout\n            ):\n                logger.debug(\"Response Timeout. Closing connection.\")\n                self._http.exception = ServiceUnavailable(\"Response Timeout\")\n            else:\n                interval = (\n                    min(\n                        self.keep_alive_timeout,\n                        self.request_timeout,\n                        self.response_timeout,\n                    )\n                    / 2\n                )\n                _interval = max(0.1, interval)\n                self._callback_check_timeouts = self.loop.call_later(\n                    _interval, self.check_timeouts\n                )\n                return\n            cancel_msg_args = ()\n            if sys.version_info >= (3, 9):\n                cancel_msg_args = (\"Cancel connection task with a timeout\",)\n            self._task.cancel(*cancel_msg_args)\n        except Exception:\n            error_logger.exception(\"protocol.check_timeouts\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/server/protocols/http_protocol.py",
+      "line_number": 207
+    },
+    {
+      "name": "protocol._task.cancel.assert_called_once",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "protocol.check_timeouts",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/server/protocols/http_protocol.py",
+      "line": 207,
+      "caller": "test_check_timeouts_response_timeout",
+      "source_code": "    def check_timeouts(self):\n        \"\"\"\n        Runs itself periodically to enforce any expired timeouts.\n        \"\"\"\n        try:\n            if not self._task:\n                return\n            duration = current_time() - self._time\n            stage = self._http.stage\n            if stage is Stage.IDLE and duration > self.keep_alive_timeout:\n                logger.debug(\"KeepAlive Timeout. Closing connection.\")\n            elif stage is Stage.REQUEST and duration > self.request_timeout:\n                logger.debug(\"Request Timeout. Closing connection.\")\n                self._http.exception = RequestTimeout(\"Request Timeout\")\n            elif stage is Stage.HANDLER and self._http.upgrade_websocket:\n                websockets_logger.debug(\n                    \"Handling websocket. Timeouts disabled.\"\n                )\n                return\n            elif (\n                stage in (Stage.HANDLER, Stage.RESPONSE, Stage.FAILED)\n                and duration > self.response_timeout\n            ):\n                logger.debug(\"Response Timeout. Closing connection.\")\n                self._http.exception = ServiceUnavailable(\"Response Timeout\")\n            else:\n                interval = (\n                    min(\n                        self.keep_alive_timeout,\n                        self.request_timeout,\n                        self.response_timeout,\n                    )\n                    / 2\n                )\n                _interval = max(0.1, interval)\n                self._callback_check_timeouts = self.loop.call_later(\n                    _interval, self.check_timeouts\n                )\n                return\n            cancel_msg_args = ()\n            if sys.version_info >= (3, 9):\n                cancel_msg_args = (\"Cancel connection task with a timeout\",)\n            self._task.cancel(*cancel_msg_args)\n        except Exception:\n            error_logger.exception(\"protocol.check_timeouts\")\n\n"
+    },
+    {
+      "function": "protocol._task.cancel.assert_called_once",
+      "filename": "",
+      "line": 0,
+      "caller": "test_check_timeouts_response_timeout",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_check_timeouts_response_timeout",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(protocol._http.exception, ServiceUnavailable)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_check_timeouts_response_timeout(protocol: HttpProtocol):\n    protocol._http.stage = Stage.RESPONSE\n    protocol._time = 0\n    protocol.check_timeouts()\n    protocol._task.cancel.assert_called_once()\n    assert isinstance(protocol._http.exception, ServiceUnavailable)"
+}

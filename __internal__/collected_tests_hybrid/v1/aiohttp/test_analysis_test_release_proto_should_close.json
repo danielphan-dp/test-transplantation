@@ -1,0 +1,57 @@
+{
+  "test_name": "test_release_proto_should_close",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_connection.py",
+  "static_methods": [
+    {
+      "name": "Connection",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "conn.release",
+      "source_code": "    def release(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 136
+    },
+    {
+      "name": "connector._release.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Connection",
+      "filename": "",
+      "line": 0,
+      "caller": "test_release_proto_should_close",
+      "source_code": ""
+    },
+    {
+      "function": "conn.release",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 136,
+      "caller": "test_release_proto_should_close",
+      "source_code": "    @property\n    def release(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "connector._release.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_release_proto_should_close",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not conn.closed",
+    "assert protocol.transport is not None",
+    "assert not protocol.transport.close.called",
+    "assert conn._protocol is None",
+    "assert conn.closed"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_release_proto_should_close(\n    connector: BaseConnector,\n    key: ConnectionKey,\n    protocol: ResponseHandler,\n    loop: asyncio.AbstractEventLoop,\n) -> None:\n    protocol.should_close = True  # type: ignore[misc]\n    conn = Connection(connector, key, protocol, loop)\n    assert not conn.closed\n    conn.release()\n    assert protocol.transport is not None\n    assert not protocol.transport.close.called  # type: ignore[attr-defined]\n    assert conn._protocol is None\n    connector._release.assert_called_with(key, protocol, should_close=True)  # type: ignore[attr-defined]\n    assert conn.closed"
+}

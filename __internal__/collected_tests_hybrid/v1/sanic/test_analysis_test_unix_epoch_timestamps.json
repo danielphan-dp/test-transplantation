@@ -1,0 +1,105 @@
+{
+  "test_name": "test_unix_epoch_timestamps",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+  "static_methods": [
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "def chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 424
+    },
+    {
+      "name": "bdist_wheel_cmd.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bdist_wheel_cmd",
+      "source_code": "def bdist_wheel_cmd(**kwargs):\n    \"\"\"Run command in the same process so that it is easier to collect coverage\"\"\"\n    dist_obj = (\n        run_setup(\"setup.py\", stop_after=\"init\")\n        if os.path.exists(\"setup.py\")\n        else Distribution({\"script_name\": \"%%build_meta%%\"})\n    )\n    dist_obj.parse_config_files()\n    cmd = bdist_wheel(dist_obj)\n    for attr, value in kwargs.items():\n        setattr(cmd, attr, value)\n    cmd.finalize_options()\n    return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+      "line_number": 202
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_epoch_timestamps",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setenv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_epoch_timestamps",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.chdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 424,
+      "caller": "test_unix_epoch_timestamps",
+      "source_code": "@contextlib.contextmanager\ndef chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)\n\n\n"
+    },
+    {
+      "function": "bdist_wheel_cmd.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_unix_epoch_timestamps",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unix_epoch_timestamps",
+      "source_code": ""
+    },
+    {
+      "function": "bdist_wheel_cmd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+      "line": 202,
+      "caller": "test_unix_epoch_timestamps",
+      "source_code": "def bdist_wheel_cmd(**kwargs):\n    \"\"\"Run command in the same process so that it is easier to collect coverage\"\"\"\n    dist_obj = (\n        run_setup(\"setup.py\", stop_after=\"init\")\n        if os.path.exists(\"setup.py\")\n        else Distribution({\"script_name\": \"%%build_meta%%\"})\n    )\n    dist_obj.parse_config_files()\n    cmd = bdist_wheel(dist_obj)\n    for attr, value in kwargs.items():\n        setattr(cmd, attr, value)\n    cmd.finalize_options()\n    return cmd\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_unix_epoch_timestamps",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert zinfo.date_time >= (1980, 1, 1, 0, 0, 0)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unix_epoch_timestamps(dummy_dist, monkeypatch, tmp_path):\n    monkeypatch.setenv(\"SOURCE_DATE_EPOCH\", \"0\")\n    monkeypatch.chdir(dummy_dist)\n    bdist_wheel_cmd(bdist_dir=str(tmp_path), build_number=\"2a\").run()\n    with ZipFile(\"dist/dummy_dist-1.0-2a-py3-none-any.whl\") as wf:\n        for zinfo in wf.filelist:\n            assert zinfo.date_time >= (1980, 1, 1, 0, 0, 0)"
+}

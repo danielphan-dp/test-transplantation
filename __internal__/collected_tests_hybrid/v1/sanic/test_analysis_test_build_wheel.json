@@ -1,0 +1,107 @@
+{
+  "test_name": "test_build_wheel",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_meta.py",
+  "static_methods": [
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "build_backend.build_wheel",
+      "source_code": "    def build_wheel(\n            self, wheel_directory, config_settings=None,\n            metadata_directory=None):\n        \"\"\"Build a wheel from this project.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line_number": 192
+    },
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "f.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "f.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_wheel",
+      "source_code": ""
+    },
+    {
+      "function": "build_backend.build_wheel",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line": 192,
+      "caller": "test_build_wheel",
+      "source_code": "    def build_wheel(\n            self, wheel_directory, config_settings=None,\n            metadata_directory=None):\n        \"\"\"Build a wheel from this project.\n\n        :returns:\n            The name of the newly created wheel within ``wheel_directory``.\n\n        .. admonition:: Interaction with fallback\n\n            If the ``build_wheel`` hook was called in the fallback for\n            :meth:`prepare_metadata_for_build_wheel`, the build backend would\n            not be invoked. Instead, the previously built wheel will be copied\n            to ``wheel_directory`` and the name of that file will be returned.\n        \"\"\"\n        if metadata_directory is not None:\n            metadata_directory = abspath(metadata_directory)\n        return self._call_hook('build_wheel', {\n            'wheel_directory': abspath(wheel_directory),\n            'config_settings': config_settings,\n            'metadata_directory': metadata_directory,\n        })\n\n"
+    },
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_wheel",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_wheel",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_wheel",
+      "source_code": ""
+    },
+    {
+      "function": "f.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_wheel",
+      "source_code": ""
+    },
+    {
+      "function": "f.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_wheel",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert os.path.isfile(wheel_file)",
+    "assert not os.path.isfile('world.py')",
+    "assert len(modules) == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_wheel(self, build_backend):\n        dist_dir = os.path.abspath('pip-wheel')\n        os.makedirs(dist_dir)\n        wheel_name = build_backend.build_wheel(dist_dir)\n\n        wheel_file = os.path.join(dist_dir, wheel_name)\n        assert os.path.isfile(wheel_file)\n\n        # Temporary files should be removed\n        assert not os.path.isfile('world.py')\n\n        with ZipFile(wheel_file) as zipfile:\n            wheel_contents = set(zipfile.namelist())\n\n        # Each one of the examples have a single module\n        # that should be included in the distribution\n        python_scripts = (f for f in wheel_contents if f.endswith('.py'))\n        modules = [f for f in python_scripts if not f.endswith('setup.py')]\n        assert len(modules) == 1"
+}

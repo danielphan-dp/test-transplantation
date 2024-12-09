@@ -1,0 +1,38 @@
+{
+  "test_name": "test_parse_bad_method_for_c_parser_raises",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "HttpRequestParserC",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "HttpRequestParserC",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_bad_method_for_c_parser_raises",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse_bad_method_for_c_parser_raises",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_bad_method_for_c_parser_raises(\n    loop: asyncio.AbstractEventLoop, protocol: BaseProtocol\n) -> None:\n    payload = b\"GET1 /test HTTP/1.1\\r\\n\\r\\n\"\n    parser = HttpRequestParserC(\n        protocol,\n        loop,\n        2**16,\n        max_line_size=8190,\n        max_field_size=8190,\n    )\n\n    with pytest.raises(aiohttp.http_exceptions.BadStatusLine):\n        messages, upgrade, tail = parser.feed_data(payload)"
+}

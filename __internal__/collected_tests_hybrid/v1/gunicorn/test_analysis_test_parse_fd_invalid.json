@@ -1,0 +1,40 @@
+{
+  "test_name": "test_parse_fd_invalid",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "util.parse_address",
+      "source_code": "def parse_address(netloc, default_port='8000'):\n    if re.match(r'unix:(//)?', netloc):\n        return re.split(r'unix:(//)?', netloc)[-1]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line_number": 222
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "util.parse_address",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line": 222,
+      "caller": "test_parse_fd_invalid",
+      "source_code": "def parse_address(netloc, default_port='8000'):\n    if re.match(r'unix:(//)?', netloc):\n        return re.split(r'unix:(//)?', netloc)[-1]\n\n    if netloc.startswith(\"fd://\"):\n        fd = netloc[5:]\n        try:\n            return int(fd)\n        except ValueError:\n            raise RuntimeError(\"%r is not a valid file descriptor.\" % fd) from None\n\n    if netloc.startswith(\"tcp://\"):\n        netloc = netloc.split(\"tcp://\")[1]\n    host, port = netloc, default_port\n\n    if '[' in netloc and ']' in netloc:\n        host = netloc.split(']')[0][1:]\n        port = (netloc.split(']:') + [default_port])[1]\n    elif ':' in netloc:\n        host, port = (netloc.split(':') + [default_port])[:2]\n    elif netloc == \"\":\n        host, port = \"0.0.0.0\", default_port\n\n    try:\n        port = int(port)\n    except ValueError:\n        raise RuntimeError(\"%r is not a valid port number.\" % port)\n\n    return host.lower(), port\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse_fd_invalid",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert \"'asd' is not a valid file descriptor.\" in str(exc_info.value)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_parse_fd_invalid():\n    with pytest.raises(RuntimeError) as exc_info:\n        util.parse_address('fd://asd')\n    assert \"'asd' is not a valid file descriptor.\" in str(exc_info.value)"
+}

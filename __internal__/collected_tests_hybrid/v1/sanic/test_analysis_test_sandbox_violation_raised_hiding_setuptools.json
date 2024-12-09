@@ -1,0 +1,84 @@
+{
+  "test_name": "test_sandbox_violation_raised_hiding_setuptools",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sandbox.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "write_file",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 391
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sandbox_violation_raised_hiding_setuptools",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sandbox_violation_raised_hiding_setuptools",
+      "source_code": ""
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sandbox_violation_raised_hiding_setuptools",
+      "source_code": ""
+    },
+    {
+      "function": "write_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 391,
+      "caller": "test_sandbox_violation_raised_hiding_setuptools",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()\n\n        for field in _version2fieldlist(self['Metadata-Version']):\n            values = self.get(field)\n            if skip_unknown and values in ('UNKNOWN', [], ['UNKNOWN']):\n                continue\n            if field in _ELEMENTSFIELD:\n                self._write_field(fileobject, field, ','.join(values))\n                continue\n            if field not in _LISTFIELDS:\n                if field == 'Description':\n                    if self.metadata_version in ('1.0', '1.1'):\n                        values = values.replace('\\n', '\\n        ')\n                    else:\n                        values = values.replace('\\n', '\\n       |')\n                values = [values]\n\n            if field in _LISTTUPLEFIELDS:\n                values = [','.join(value) for value in values]\n\n            for value in values:\n                self._write_field(fileobject, field, value)\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sandbox_violation_raised_hiding_setuptools",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert cmd == 'open'",
+    "assert args == ('/etc/foo', 'w')",
+    "assert kwargs == {'encoding': 'utf-8'}",
+    "assert 'open' in msg",
+    "assert \"('/etc/foo', 'w')\" in msg",
+    "assert \"{'encoding': 'utf-8'}\" in msg"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_sandbox_violation_raised_hiding_setuptools(self, tmpdir):\n        \"\"\"\n        When in a sandbox with setuptools hidden, a SandboxViolation\n        should reflect a proper exception and not be wrapped in\n        an UnpickleableException.\n        \"\"\"\n\n        def write_file():\n            \"Trigger a SandboxViolation by writing outside the sandbox\"\n            with open('/etc/foo', 'w', encoding=\"utf-8\"):\n                pass\n\n        with pytest.raises(setuptools.sandbox.SandboxViolation) as caught:\n            with setuptools.sandbox.save_modules():\n                setuptools.sandbox.hide_setuptools()\n                with setuptools.sandbox.DirectorySandbox(str(tmpdir)):\n                    write_file()\n\n        cmd, args, kwargs = caught.value.args\n        assert cmd == 'open'\n        assert args == ('/etc/foo', 'w')\n        assert kwargs == {\"encoding\": \"utf-8\"}\n\n        msg = str(caught.value)\n        assert 'open' in msg\n        assert \"('/etc/foo', 'w')\" in msg\n        assert \"{'encoding': 'utf-8'}\" in msg"
+}

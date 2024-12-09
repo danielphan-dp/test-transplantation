@@ -1,0 +1,92 @@
+{
+  "test_name": "test_system_task_crash_KeyboardInterrupt",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "RaisesGroup.matches",
+      "source_code": "    def matches(self, warning: warnings.WarningMessage) -> bool:\n        assert self.expected_warning is not None\n        return issubclass(warning.category, self.expected_warning) and bool(\n            self.match_expr is None or re.search(self.match_expr, str(warning.message))\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line_number": 285
+    },
+    {
+      "name": "_core.spawn_system_task",
+      "source_code": "    def spawn_system_task(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n        context: contextvars.Context | None = None,\n    ) -> Task:\n        \"\"\"Spawn a \"system\" task.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1855
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "sleep_forever",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RaisesGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RaisesGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RaisesGroup.matches",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line": 285,
+      "caller": "test_system_task_crash_KeyboardInterrupt",
+      "source_code": "    def matches(self, warning: warnings.WarningMessage) -> bool:\n        assert self.expected_warning is not None\n        return issubclass(warning.category, self.expected_warning) and bool(\n            self.match_expr is None or re.search(self.match_expr, str(warning.message))\n        )\n\n"
+    },
+    {
+      "function": "_core.spawn_system_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1855,
+      "caller": "test_system_task_crash_KeyboardInterrupt",
+      "source_code": "    @_public\n    def spawn_system_task(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n        context: contextvars.Context | None = None,\n"
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_system_task_crash_KeyboardInterrupt",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "sleep_forever",
+      "filename": "",
+      "line": 0,
+      "caller": "test_system_task_crash_KeyboardInterrupt",
+      "source_code": ""
+    },
+    {
+      "function": "RaisesGroup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_system_task_crash_KeyboardInterrupt",
+      "source_code": ""
+    },
+    {
+      "function": "RaisesGroup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_system_task_crash_KeyboardInterrupt",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert RaisesGroup(RaisesGroup(KeyboardInterrupt)).matches(excinfo.value.__cause__)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_system_task_crash_KeyboardInterrupt() -> None:\n    async def ki() -> NoReturn:\n        raise KeyboardInterrupt\n\n    async def main() -> None:\n        _core.spawn_system_task(ki)\n        await sleep_forever()\n\n    with pytest.raises(_core.TrioInternalError) as excinfo:\n        _core.run(main)\n    # \"Only\" double-wrapped since ki() doesn't create an exceptiongroup\n    assert RaisesGroup(RaisesGroup(KeyboardInterrupt)).matches(excinfo.value.__cause__)"
+}

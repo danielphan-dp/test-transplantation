@@ -1,0 +1,90 @@
+{
+  "test_name": "test_redefine_many",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_types.py",
+  "static_methods": [
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TypeChecker.redefine_many",
+      "source_code": "    def redefine_many(self, definitions=()) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given types redefined.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line_number": 138
+    },
+    {
+      "name": "TypeChecker.redefine",
+      "source_code": "    def redefine(self, type: str, fn) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given type redefined.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line_number": 118
+    },
+    {
+      "name": "TypeChecker",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TypeChecker.redefine",
+      "source_code": "    def redefine(self, type: str, fn) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given type redefined.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line_number": 118
+    },
+    {
+      "name": "TypeChecker",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_redefine_many",
+      "source_code": ""
+    },
+    {
+      "function": "TypeChecker.redefine_many",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line": 138,
+      "caller": "test_redefine_many",
+      "source_code": "    def redefine_many(self, definitions=()) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given types redefined.\n\n        Arguments:\n\n            definitions (dict):\n\n                A dictionary mapping types to their checking functions.\n\n        \"\"\"\n        type_checkers = self._type_checkers.update(definitions)\n        return evolve(self, type_checkers=type_checkers)\n\n"
+    },
+    {
+      "function": "TypeChecker.redefine",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line": 118,
+      "caller": "test_redefine_many",
+      "source_code": "    def redefine(self, type: str, fn) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given type redefined.\n\n        Arguments:\n\n            type:\n\n                The name of the type to check.\n\n            fn (collections.abc.Callable):\n\n                A callable taking exactly two parameters - the type\n                checker calling the function and the instance to check.\n                The function should return true if instance is of this\n                type and false otherwise.\n\n        \"\"\"\n        return self.redefine_many({type: fn})\n\n"
+    },
+    {
+      "function": "TypeChecker",
+      "filename": "",
+      "line": 0,
+      "caller": "test_redefine_many",
+      "source_code": ""
+    },
+    {
+      "function": "TypeChecker.redefine",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line": 118,
+      "caller": "test_redefine_many",
+      "source_code": "    def redefine(self, type: str, fn) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given type redefined.\n\n        Arguments:\n\n            type:\n\n                The name of the type to check.\n\n            fn (collections.abc.Callable):\n\n                A callable taking exactly two parameters - the type\n                checker calling the function and the instance to check.\n                The function should return true if instance is of this\n                type and false otherwise.\n\n        \"\"\"\n        return self.redefine_many({type: fn})\n\n"
+    },
+    {
+      "function": "TypeChecker",
+      "filename": "",
+      "line": 0,
+      "caller": "test_redefine_many",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_redefine_many(self):\n        self.assertEqual(\n            TypeChecker().redefine_many({\"foo\": int, \"bar\": str}),\n            TypeChecker().redefine(\"foo\", int).redefine(\"bar\", str),\n        )"
+}

@@ -1,0 +1,178 @@
+{
+  "test_name": "test_100_continue",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_connection.py",
+  "static_methods": [
+    {
+      "name": "setup",
+      "source_code": "    def setup(self, item: Item) -> None:\n        \"\"\"Setup objects along the collector chain to the item.\"\"\"\n        needed_collectors = item.listchain()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line_number": 498
+    },
+    {
+      "name": "p.send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "setup",
+      "source_code": "    def setup(self, item: Item) -> None:\n        \"\"\"Setup objects along the collector chain to the item.\"\"\"\n        needed_collectors = item.listchain()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line_number": 498
+    },
+    {
+      "name": "p.send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "setup",
+      "source_code": "    def setup(self, item: Item) -> None:\n        \"\"\"Setup objects along the collector chain to the item.\"\"\"\n        needed_collectors = item.listchain()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line_number": 498
+    },
+    {
+      "name": "p.send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "ConnectionPair",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "p.send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "InformationalResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Data",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "setup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line": 498,
+      "caller": "test_100_continue",
+      "source_code": "    def setup(self, item: Item) -> None:\n        \"\"\"Setup objects along the collector chain to the item.\"\"\"\n        needed_collectors = item.listchain()\n\n        # If a collector fails its setup, fail its entire subtree of items.\n        # The setup is not retried for each item - the same exception is used.\n        for col, (finalizers, exc) in self.stack.items():\n            assert col in needed_collectors, \"previous item was not torn down properly\"\n            if exc:\n                raise exc[0].with_traceback(exc[1])\n\n        for col in needed_collectors[len(self.stack) :]:\n            assert col not in self.stack\n            # Push onto the stack.\n            self.stack[col] = ([col.teardown], None)\n            try:\n                col.setup()\n            except TEST_OUTCOME as exc:\n                self.stack[col] = (self.stack[col][0], (exc, exc.__traceback__))\n                raise\n\n"
+    },
+    {
+      "function": "p.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_100_continue",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "setup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line": 498,
+      "caller": "test_100_continue",
+      "source_code": "    def setup(self, item: Item) -> None:\n        \"\"\"Setup objects along the collector chain to the item.\"\"\"\n        needed_collectors = item.listchain()\n\n        # If a collector fails its setup, fail its entire subtree of items.\n        # The setup is not retried for each item - the same exception is used.\n        for col, (finalizers, exc) in self.stack.items():\n            assert col in needed_collectors, \"previous item was not torn down properly\"\n            if exc:\n                raise exc[0].with_traceback(exc[1])\n\n        for col in needed_collectors[len(self.stack) :]:\n            assert col not in self.stack\n            # Push onto the stack.\n            self.stack[col] = ([col.teardown], None)\n            try:\n                col.setup()\n            except TEST_OUTCOME as exc:\n                self.stack[col] = (self.stack[col][0], (exc, exc.__traceback__))\n                raise\n\n"
+    },
+    {
+      "function": "p.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_100_continue",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "setup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line": 498,
+      "caller": "test_100_continue",
+      "source_code": "    def setup(self, item: Item) -> None:\n        \"\"\"Setup objects along the collector chain to the item.\"\"\"\n        needed_collectors = item.listchain()\n\n        # If a collector fails its setup, fail its entire subtree of items.\n        # The setup is not retried for each item - the same exception is used.\n        for col, (finalizers, exc) in self.stack.items():\n            assert col in needed_collectors, \"previous item was not torn down properly\"\n            if exc:\n                raise exc[0].with_traceback(exc[1])\n\n        for col in needed_collectors[len(self.stack) :]:\n            assert col not in self.stack\n            # Push onto the stack.\n            self.stack[col] = ([col.teardown], None)\n            try:\n                col.setup()\n            except TEST_OUTCOME as exc:\n                self.stack[col] = (self.stack[col][0], (exc, exc.__traceback__))\n                raise\n\n"
+    },
+    {
+      "function": "p.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_100_continue",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "ConnectionPair",
+      "filename": "",
+      "line": 0,
+      "caller": "test_100_continue",
+      "source_code": ""
+    },
+    {
+      "function": "p.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_100_continue",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "InformationalResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_100_continue",
+      "source_code": ""
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_100_continue",
+      "source_code": ""
+    },
+    {
+      "function": "Data",
+      "filename": "",
+      "line": 0,
+      "caller": "test_100_continue",
+      "source_code": ""
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_100_continue",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not p.conn[CLIENT].they_are_waiting_for_100_continue",
+    "assert p.conn[SERVER].they_are_waiting_for_100_continue",
+    "assert not conn.client_is_waiting_for_100_continue",
+    "assert not conn.they_are_waiting_for_100_continue",
+    "assert not conn.client_is_waiting_for_100_continue",
+    "assert not conn.they_are_waiting_for_100_continue",
+    "assert not conn.client_is_waiting_for_100_continue",
+    "assert not conn.they_are_waiting_for_100_continue",
+    "assert conn.client_is_waiting_for_100_continue"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_100_continue() -> None:\n    def setup() -> ConnectionPair:\n        p = ConnectionPair()\n        p.send(\n            CLIENT,\n            Request(\n                method=\"GET\",\n                target=\"/\",\n                headers=[\n                    (\"Host\", \"example.com\"),\n                    (\"Content-Length\", \"100\"),\n                    (\"Expect\", \"100-continue\"),\n                ],\n            ),\n        )\n        for conn in p.conns:\n            assert conn.client_is_waiting_for_100_continue\n        assert not p.conn[CLIENT].they_are_waiting_for_100_continue\n        assert p.conn[SERVER].they_are_waiting_for_100_continue\n        return p\n\n    # Disabled by 100 Continue\n    p = setup()\n    p.send(SERVER, InformationalResponse(status_code=100, headers=[]))  # type: ignore[arg-type]\n    for conn in p.conns:\n        assert not conn.client_is_waiting_for_100_continue\n        assert not conn.they_are_waiting_for_100_continue\n\n    # Disabled by a real response\n    p = setup()\n    p.send(\n        SERVER, Response(status_code=200, headers=[(\"Transfer-Encoding\", \"chunked\")])\n    )\n    for conn in p.conns:\n        assert not conn.client_is_waiting_for_100_continue\n        assert not conn.they_are_waiting_for_100_continue\n\n    # Disabled by the client going ahead and sending stuff anyway\n    p = setup()\n    p.send(CLIENT, Data(data=b\"12345\"))\n    for conn in p.conns:\n        assert not conn.client_is_waiting_for_100_continue\n        assert not conn.they_are_waiting_for_100_continue"
+}

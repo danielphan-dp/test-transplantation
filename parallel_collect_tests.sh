@@ -4,19 +4,21 @@ set -euo pipefail
 # -----------------------------
 # Configuration
 # -----------------------------
-readonly DATA_DIR="__internal__/data"
-readonly TESTS_DIR="__internal__/collected_tests"
+# Get the absolute path of the script's directory
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly DATA_DIR="${SCRIPT_DIR}/__internal__/data"
+readonly TESTS_DIR="${SCRIPT_DIR}/__internal__/collected_tests"
 declare -A REPO_MAP=(
     [connexion]="zalando"
     [fastapi]="tiangolo"
     [flask]="pallets"
     [gunicorn]="benoitc"
     [pyramid]="Pylons"
-    [django]="django"
+    # [django]="django"
     [starlette]="encode"
     [tornado]="tornadoweb"
     [sanic]="sanic-org"
-    [aiohttp]="aio-libs"
+    # [aiohttp]="aio-libs"
     [uvicorn]="encode"
 )
 
@@ -41,15 +43,15 @@ for repo in "${!REPO_MAP[@]}"; do
     export "REPO_OWNER_${repo}=${REPO_MAP[$repo]}"
 done
 
-# Clone repositories in parallel
+# Clone repositories in parallel (using absolute paths)
 printf '%s\n' "${!REPO_MAP[@]}" | \
     parallel --jobs 100% \
     '
-    if [ ! -d {} ]; then
+    if [ ! -d "'"${DATA_DIR}"'/{}" ]; then
         owner_var="REPO_OWNER_{}"
         owner="${!owner_var}"
         echo "Cloning {}: https://github.com/${owner}/{}"
-        git clone --depth 1 "https://github.com/${owner}/{}" || exit 1
+        git clone --depth 1 "https://github.com/${owner}/{}" "'"${DATA_DIR}"'/{}" || exit 1
     else
         echo "{} already exists"
     fi
@@ -69,8 +71,8 @@ log "Collecting tests..."
 printf '%s\n' "${!REPO_MAP[@]}" | \
     parallel --jobs -1 --bar \
     'python -m src.gluon.collect_tests.collect_unit_tests \
-        '"$DATA_DIR"'/{} \
-        '"$TESTS_DIR"'/collected_tests__{}.json \
+        '"${DATA_DIR}"'/{} \
+        '"${TESTS_DIR}"'/collected_tests__{}.json \
         --log-level INFO'
 
 log "✅ All collections completed!"

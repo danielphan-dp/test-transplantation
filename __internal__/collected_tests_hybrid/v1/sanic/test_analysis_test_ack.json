@@ -1,0 +1,27 @@
+{
+  "test_name": "test_ack",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_multiplexer.py",
+  "static_methods": [
+    {
+      "name": "m.ack",
+      "source_code": "    def ack(self) -> None:\n        \"\"\"Shorthand to send an ack message to the Server Manager.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 2410
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "m.ack",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 2410,
+      "caller": "test_ack",
+      "source_code": "    def ack(self) -> None:\n        \"\"\"Shorthand to send an ack message to the Server Manager.\n\n        In general, this should usually not need to be called manually.\n        It is used to tell the Manager that a process is operational and\n        ready to begin operation.\n        \"\"\"\n        if hasattr(self, \"multiplexer\"):\n            self.multiplexer.ack()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert worker_state['Test'] == {'foo': 'bar', 'state': 'ACKED'}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_ack(worker_state: Dict[str, Any], m: WorkerMultiplexer):\n    worker_state[\"Test\"] = {\"foo\": \"bar\"}\n    m.ack()\n    assert worker_state[\"Test\"] == {\"foo\": \"bar\", \"state\": \"ACKED\"}"
+}

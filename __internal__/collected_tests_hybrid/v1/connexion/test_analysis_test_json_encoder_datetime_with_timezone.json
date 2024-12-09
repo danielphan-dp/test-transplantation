@@ -1,0 +1,40 @@
+{
+  "test_name": "test_json_encoder_datetime_with_timezone",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_flask_encoder.py",
+  "static_methods": [
+    {
+      "name": "s.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyTimezone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "s.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_encoder_datetime_with_timezone",
+      "source_code": ""
+    },
+    {
+      "function": "DummyTimezone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_encoder_datetime_with_timezone",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert s.endswith('+00:00\"')"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_json_encoder_datetime_with_timezone():\n    json_encoder = json.JSONEncoder\n    json_encoder.default = FlaskJSONProvider.default\n\n    class DummyTimezone(datetime.tzinfo):\n        def utcoffset(self, dt):\n            return datetime.timedelta(0)\n\n        def dst(self, dt):\n            return datetime.timedelta(0)\n\n    s = json.dumps(datetime.datetime.now(DummyTimezone()), cls=json_encoder)\n    assert s.endswith('+00:00\"')"
+}

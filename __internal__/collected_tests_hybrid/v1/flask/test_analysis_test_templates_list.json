@@ -1,6 +1,6 @@
 {
   "test_name": "test_templates_list",
-  "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
     {
       "name": "sorted",
@@ -10,9 +10,9 @@
     },
     {
       "name": "app.jinja_env.list_templates",
-      "source_code": "    def list_templates(self) -> list[str]:\n        result = set()\n        loader = self.app.jinja_loader\n        if loader is not None:\n            result.update(loader.list_templates())",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/templating.py",
-      "line_number": 111
+      "source_code": "    def list_templates(self) -> t.List[str]:\n        \"\"\"Iterates over all templates.  If the loader does not support that\n        it should raise a :exc:`TypeError` which is the default behavior.\n        \"\"\"\n        raise TypeError(\"this loader cannot iterate over all templates\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/jinja2/loaders.py",
+      "line_number": 101
     }
   ],
   "dynamic_methods": [
@@ -25,10 +25,10 @@
     },
     {
       "function": "app.jinja_env.list_templates",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/templating.py",
-      "line": 111,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/jinja2/loaders.py",
+      "line": 101,
       "caller": "test_templates_list",
-      "source_code": "    def list_templates(self) -> list[str]:\n        result = set()\n        loader = self.app.jinja_loader\n        if loader is not None:\n            result.update(loader.list_templates())\n\n        for blueprint in self.app.iter_blueprints():\n            loader = blueprint.jinja_loader\n            if loader is not None:\n                for template in loader.list_templates():\n                    result.add(template)\n\n        return list(result)\n\n\n"
+      "source_code": "    def list_templates(self) -> t.List[str]:\n        \"\"\"Iterates over all templates.  If the loader does not support that\n        it should raise a :exc:`TypeError` which is the default behavior.\n        \"\"\"\n        raise TypeError(\"this loader cannot iterate over all templates\")\n\n"
     }
   ],
   "assertions": [

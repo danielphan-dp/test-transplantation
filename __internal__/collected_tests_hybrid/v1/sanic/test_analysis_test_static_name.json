@@ -1,0 +1,40 @@
+{
+  "test_name": "test_static_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_static.py",
+  "static_methods": [
+    {
+      "name": "app.static",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n    ):\n        \"\"\"Register a root to serve files from. The input can either be a file or a directory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line_number": 31
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line": 31,
+      "caller": "test_static_name",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_static_name",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_static_name(app, static_file_directory, static_name, file_name):\n    app.static(\"/static\", static_file_directory, name=static_name)\n\n    request, response = app.test_client.get(f\"/static/{file_name}\")\n\n    assert response.status == 200"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_get_script_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "ei.ScriptWriter.get_header",
+      "source_code": "    def get_header(self, name, default=None):\n        return self._r.headers.get(name, self._new_headers.get(name, default))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/cookies.py",
+      "line_number": 75
+    },
+    {
+      "name": "ei.nt_quote_arg",
+      "source_code": "def nt_quote_arg(arg):\n    \"\"\"Quote a command line argument according to Windows parsing rules\"\"\"\n    return subprocess.list2cmdline([arg])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 1995
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ei.ScriptWriter.get_header",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/cookies.py",
+      "line": 75,
+      "caller": "test_get_script_header",
+      "source_code": "    def get_header(self, name, default=None):\n        return self._r.headers.get(name, self._new_headers.get(name, default))\n\n"
+    },
+    {
+      "function": "ei.nt_quote_arg",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 1995,
+      "caller": "test_get_script_header",
+      "source_code": "def nt_quote_arg(arg):\n    \"\"\"Quote a command line argument according to Windows parsing rules\"\"\"\n    return subprocess.list2cmdline([arg])\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert actual == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_script_header(self):\n        expected = '#!%s\\n' % ei.nt_quote_arg(os.path.normpath(sys.executable))\n        actual = ei.ScriptWriter.get_header('#!/usr/local/bin/python')\n        assert actual == expected"
+}

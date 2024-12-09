@@ -1,0 +1,64 @@
+{
+  "test_name": "test_it_unicode",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "text_",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line_number": 26
+    },
+    {
+      "name": "renderer",
+      "source_code": "    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 424
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it_unicode",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "text_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line": 26,
+      "caller": "test_it_unicode",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s\n\n"
+    },
+    {
+      "function": "renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 424,
+      "caller": "test_it_unicode",
+      "source_code": "    @reify\n    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_unicode",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_unicode(self):\n        renderer = self._callFUT(None)\n        value = text_('La Pe\\xc3\\xb1a', 'utf-8')\n        result = renderer(value, {})\n        self.assertEqual(result, value)"
+}

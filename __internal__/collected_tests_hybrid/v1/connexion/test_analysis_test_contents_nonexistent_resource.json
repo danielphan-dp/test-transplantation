@@ -1,0 +1,53 @@
+{
+  "test_name": "test_contents_nonexistent_resource",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "registry.contents",
+      "source_code": "    def contents() -> str:\n        return files(\"pip._vendor.certifi\").joinpath(\"cacert.pem\").read_text(encoding=\"ascii\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/certifi/core.py",
+      "line_number": 41
+    },
+    {
+      "name": "exceptions.NoSuchResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contents_nonexistent_resource",
+      "source_code": ""
+    },
+    {
+      "function": "registry.contents",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/certifi/core.py",
+      "line": 41,
+      "caller": "test_contents_nonexistent_resource",
+      "source_code": "    def contents() -> str:\n        return files(\"pip._vendor.certifi\").joinpath(\"cacert.pem\").read_text(encoding=\"ascii\")\n\n"
+    },
+    {
+      "function": "exceptions.NoSuchResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contents_nonexistent_resource",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert e.value == exceptions.NoSuchResource(ref='urn:example')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_contents_nonexistent_resource(self):\n        registry = Registry()\n        with pytest.raises(exceptions.NoSuchResource) as e:\n            registry.contents(\"urn:example\")\n        assert e.value == exceptions.NoSuchResource(ref=\"urn:example\")"
+}

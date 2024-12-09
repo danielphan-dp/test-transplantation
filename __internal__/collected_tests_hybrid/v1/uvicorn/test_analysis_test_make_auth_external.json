@@ -1,0 +1,40 @@
+{
+  "test_name": "test_make_auth_external",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_auth.py",
+  "static_methods": [
+    {
+      "name": "auth.make_auth_external",
+      "source_code": "def make_auth_external() -> bytes:\n    \"\"\"Prepare an AUTH command line with the current effective user ID.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/auth.py",
+      "line_number": 6
+    },
+    {
+      "name": "b.startswith",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def endswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def replace(self, old: str, new: str, maxcount: int=...) -> str: ...\n    def encode(self, x: str=..., y: str=...) -> bytes: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line_number": 110
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "auth.make_auth_external",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/auth.py",
+      "line": 6,
+      "caller": "test_make_auth_external",
+      "source_code": "def make_auth_external() -> bytes:\n    \"\"\"Prepare an AUTH command line with the current effective user ID.\n\n    This is the preferred authentication method for typical D-Bus connections\n    over a Unix domain socket.\n    \"\"\"\n    hex_uid = hexlify(str(os.geteuid()).encode('ascii'))\n    return b'AUTH EXTERNAL %b\\r\\n' % hex_uid\n\n"
+    },
+    {
+      "function": "b.startswith",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line": 110,
+      "caller": "test_make_auth_external",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n"
+    }
+  ],
+  "assertions": [
+    "assert b.startswith(b'AUTH EXTERNAL')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_auth_external():\n    b = auth.make_auth_external()\n    assert b.startswith(b'AUTH EXTERNAL')"
+}

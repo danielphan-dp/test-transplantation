@@ -1,0 +1,105 @@
+{
+  "test_name": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_blueprints.py",
+  "static_methods": [
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "bp.copy",
+      "source_code": "    def copy(self):\n        \"\"\"Return a copy of itself.\"\"\"\n        return MultiDict(self.items())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 162
+    },
+    {
+      "name": "all",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "expected.items",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 105
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Blueprint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+      "source_code": ""
+    },
+    {
+      "function": "bp.copy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 162,
+      "caller": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+      "source_code": "    def copy(self):\n        \"\"\"Return a copy of itself.\"\"\"\n        return MultiDict(self.items())\n\n\n"
+    },
+    {
+      "function": "all",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+      "source_code": ""
+    },
+    {
+      "function": "expected.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 105,
+      "caller": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)\n\n"
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_blueprint_copy_returns_blueprint_with_overwritten_properties",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert all((value == getattr(actual, key) for (key, value) in expected.items() if hasattr(actual, key)))"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_blueprint_copy_returns_blueprint_with_overwritten_properties(\n    app: Sanic,\n):\n    # arrange\n    bp = Blueprint(\"bp\")\n    to_override_attrs = expected = dict(\n        url_prefix=\"v2\",\n        version=\"v2\",\n        version_prefix=\"v2\",\n        allow_route_overwrite=True,\n        strict_slashes=True,\n    )\n\n    # act\n    actual = bp.copy(\n        \"new_bp_name\",\n        **to_override_attrs,\n    )\n\n    # assert\n    assert all(\n        value == getattr(actual, key)\n        for key, value in expected.items()\n        if hasattr(actual, key)\n    )"
+}

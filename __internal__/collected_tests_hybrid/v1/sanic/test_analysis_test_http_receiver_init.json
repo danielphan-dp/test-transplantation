@@ -1,0 +1,32 @@
+{
+  "test_name": "test_http_receiver_init",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+  "static_methods": [
+    {
+      "name": "generate_http_receiver",
+      "source_code": "def generate_http_receiver(app, http_request) -> HTTPReceiver:\n    protocol = generate_protocol(app)\n    receiver = HTTPReceiver(\n        protocol.transmit,\n        protocol,\n        http_request,\n    )\n    http_request.stream = receiver\n    return receiver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+      "line_number": 60
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "generate_http_receiver",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+      "line": 60,
+      "caller": "test_http_receiver_init",
+      "source_code": "def generate_http_receiver(app, http_request) -> HTTPReceiver:\n    protocol = generate_protocol(app)\n    receiver = HTTPReceiver(\n        protocol.transmit,\n        protocol,\n        http_request,\n    )\n    http_request.stream = receiver\n    return receiver\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert receiver.request_body is None",
+    "assert receiver.stage is Stage.IDLE",
+    "assert receiver.headers_sent is False",
+    "assert receiver.response is None",
+    "assert receiver.request_max_size == DEFAULT_CONFIG['REQUEST_MAX_SIZE']",
+    "assert receiver.request_bytes == 0"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_receiver_init(app: Sanic, http_request: Request):\n    receiver = generate_http_receiver(app, http_request)\n    assert receiver.request_body is None\n    assert receiver.stage is Stage.IDLE\n    assert receiver.headers_sent is False\n    assert receiver.response is None\n    assert receiver.request_max_size == DEFAULT_CONFIG[\"REQUEST_MAX_SIZE\"]\n    assert receiver.request_bytes == 0"
+}

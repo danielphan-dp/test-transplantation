@@ -1,0 +1,64 @@
+{
+  "test_name": "test___call___duplicate_with_meta_and_fields",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_commandline.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 13
+    },
+    {
+      "name": "_Meta",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "def assertRaises(typ: type, msg: str = '') -> Iterator[None]:\n    try:\n        yield\n    except Exception as e:\n        assert isinstance(e, typ), f\"{e!r} is not a {typ.__name__}\"\n        assert msg in str(e), f'Message \"{e}\" does not match \"{msg}\"'\n    else:\n        assert False, f\"Expected {typ.__name__} but got no exception\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/testutil.py",
+      "line_number": 44
+    },
+    {
+      "name": "_Options",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 13,
+      "caller": "test___call___duplicate_with_meta_and_fields",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)\n\n"
+    },
+    {
+      "function": "_Meta",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call___duplicate_with_meta_and_fields",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/testutil.py",
+      "line": 44,
+      "caller": "test___call___duplicate_with_meta_and_fields",
+      "source_code": "@contextmanager\ndef assertRaises(typ: type, msg: str = '') -> Iterator[None]:\n    try:\n        yield\n    except Exception as e:\n        assert isinstance(e, typ), f\"{e!r} is not a {typ.__name__}\"\n        assert msg in str(e), f'Message \"{e}\" does not match \"{msg}\"'\n    else:\n        assert False, f\"Expected {typ.__name__} but got no exception\"\n\n"
+    },
+    {
+      "function": "_Options",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call___duplicate_with_meta_and_fields",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___call___duplicate_with_meta_and_fields(self):\n        json = self._makeOne(_Options(fields=('name',)))\n        meta = _Meta(name='foo', version='0.1', foo='Foo')\n        json._mapping['name'] = 'foo'\n        self.assertRaises(ValueError, json, meta)"
+}

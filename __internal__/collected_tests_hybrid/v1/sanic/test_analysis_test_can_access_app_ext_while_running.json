@@ -1,0 +1,64 @@
+{
+  "test_name": "test_can_access_app_ext_while_running",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_ext_integration.py",
+  "static_methods": [
+    {
+      "name": "app.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "ext_instance.injection.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.ext.injection",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.stop",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1308
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_can_access_app_ext_while_running",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "ext_instance.injection.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_access_app_ext_while_running",
+      "source_code": ""
+    },
+    {
+      "function": "app.ext.injection",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_access_app_ext_while_running",
+      "source_code": ""
+    },
+    {
+      "function": "app.stop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1308,
+      "caller": "test_can_access_app_ext_while_running",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_can_access_app_ext_while_running(\n    app: Sanic, mock_sanic_ext, ext_instance, port\n):\n    class IceCream:\n        flavor: str\n\n    @app.before_server_start\n    async def injections(*_):\n        app.ext.injection(IceCream)\n        app.stop()\n\n    app.run(single_process=True, port=port)\n    ext_instance.injection.assert_called_with(IceCream)"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_mock_clock_autojump_preset",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_mock_clock.py",
+  "static_methods": [
+    {
+      "name": "MockClock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MockClock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_clock_autojump_preset",
+      "source_code": ""
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_mock_clock_autojump_preset",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    }
+  ],
+  "assertions": [
+    "assert time.perf_counter() - real_start < 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_mock_clock_autojump_preset() -> None:\n    # Check that we can set the autojump_threshold before the clock is\n    # actually in use, and it gets picked up\n    mock_clock = MockClock(autojump_threshold=0.1)\n    mock_clock.autojump_threshold = 0.01\n    real_start = time.perf_counter()\n    _core.run(sleep, 10000, clock=mock_clock)\n    assert time.perf_counter() - real_start < 1"
+}

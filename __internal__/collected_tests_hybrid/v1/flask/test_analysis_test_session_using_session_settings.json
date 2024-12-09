@@ -1,12 +1,12 @@
 {
   "test_name": "test_session_using_session_settings",
-  "test_file": "__internal__/_data/flask/tests/test_basic.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
     {
       "name": "app.config.update",
-      "source_code": "def update(id):\n    \"\"\"Update a post if the current user is the author.\"\"\"\n    post = get_post(id)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
-      "line_number": 88
+      "source_code": "    def update(\n        self,\n        arg: (\n            Headers\n            | MultiDict[str, t.Any]\n            | cabc.Mapping[\n                str, t.Any | list[t.Any] | tuple[t.Any, ...] | cabc.Set[t.Any]\n            ]\n            | cabc.Iterable[tuple[str, t.Any]]\n            | None\n        ) = None,\n        /,\n        **kwargs: t.Any | list[t.Any] | tuple[t.Any, ...] | cabc.Set[t.Any],\n    ) -> None:\n        \"\"\"Replace headers in this object with items from another\n        headers object and keyword arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line_number": 489
     },
     {
       "name": "app.route",
@@ -22,36 +22,36 @@
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "rv.headers.lower",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def lower(self):\n        return super().lower()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/importlib_metadata/_text.py",
+      "line_number": 91
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "rv.headers.lower",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def lower(self):\n        return super().lower()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/importlib_metadata/_text.py",
+      "line_number": 91
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.config.update",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line": 489,
       "caller": "test_session_using_session_settings",
-      "source_code": "@bp.route(\"/<int:id>/update\", methods=(\"GET\", \"POST\"))\n@login_required\ndef update(id):\n    \"\"\"Update a post if the current user is the author.\"\"\"\n    post = get_post(id)\n\n    if request.method == \"POST\":\n        title = request.form[\"title\"]\n        body = request.form[\"body\"]\n        error = None\n\n        if not title:\n            error = \"Title is required.\"\n\n        if error is not None:\n            flash(error)\n        else:\n            db = get_db()\n            db.execute(\n                \"UPDATE post SET title = ?, body = ? WHERE id = ?\", (title, body, id)\n            )\n            db.commit()\n            return redirect(url_for(\"blog.index\"))\n\n    return render_template(\"blog/update.html\", post=post)\n\n\n"
+      "source_code": "    def update(\n        self,\n        arg: (\n            Headers\n            | MultiDict[str, t.Any]\n            | cabc.Mapping[\n                str, t.Any | list[t.Any] | tuple[t.Any, ...] | cabc.Set[t.Any]\n            ]\n            | cabc.Iterable[tuple[str, t.Any]]\n            | None\n        ) = None,\n        /,\n        **kwargs: t.Any | list[t.Any] | tuple[t.Any, ...] | cabc.Set[t.Any],\n"
     },
     {
       "function": "app.route",
@@ -69,31 +69,31 @@
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_session_using_session_settings",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "rv.headers.lower",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/importlib_metadata/_text.py",
+      "line": 91,
       "caller": "test_session_using_session_settings",
-      "source_code": ""
+      "source_code": "    @method_cache\n    def lower(self):\n        return super().lower()\n\n"
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_session_using_session_settings",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "rv.headers.lower",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/importlib_metadata/_text.py",
+      "line": 91,
       "caller": "test_session_using_session_settings",
-      "source_code": ""
+      "source_code": "    @method_cache\n    def lower(self):\n        return super().lower()\n\n"
     }
   ],
   "assertions": [

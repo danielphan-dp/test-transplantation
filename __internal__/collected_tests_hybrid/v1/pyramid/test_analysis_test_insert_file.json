@@ -1,0 +1,103 @@
+{
+  "test_name": "test_insert_file",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_assets.py",
+  "static_methods": [
+    {
+      "name": "DummyPackage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "po.insert",
+      "source_code": "    def insert(self, index, ins_string):\n        \"\"\"\n        Inserts new element at location index in the list of parsed tokens.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line_number": 349
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyAssetSource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyPackage",
+      "filename": "",
+      "line": 0,
+      "caller": "test_insert_file",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_insert_file",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "po.insert",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line": 349,
+      "caller": "test_insert_file",
+      "source_code": "    def insert(self, index, ins_string):\n        \"\"\"\n        Inserts new element at location index in the list of parsed tokens.\n\n        Similar to ``list.insert()``.\n\n        Example::\n\n            numlist = Word(nums)[...]\n            print(numlist.parse_string(\"0 123 321\")) # -> ['0', '123', '321']\n\n            # use a parse action to insert the parse location in the front of the parsed results\n            def insert_locn(locn, tokens):\n                tokens.insert(0, locn)\n            numlist.add_parse_action(insert_locn)\n            print(numlist.parse_string(\"0 123 321\")) # -> [0, '0', '123', '321']\n        \"\"\"\n        self._toklist.insert(index, ins_string)\n        # fixup indices in token dictionary\n        for name, occurrences in self._tokdict.items():\n            for k, (value, position) in enumerate(occurrences):\n                occurrences[k] = _ParseResultsWithOffset(\n                    value, position + (position > index)\n                )\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_insert_file",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_insert_file",
+      "source_code": ""
+    },
+    {
+      "function": "DummyAssetSource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_insert_file",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_insert_file",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_insert_file(self):\n        from pyramid.config.assets import FileOverride\n\n        package = DummyPackage('package')\n        po = self._makeOne(package)\n        po.overrides = [None]\n        po.insert('foo.pt', DummyAssetSource())\n        self.assertEqual(len(po.overrides), 2)\n        override = po.overrides[0]\n        self.assertEqual(override.__class__, FileOverride)"
+}

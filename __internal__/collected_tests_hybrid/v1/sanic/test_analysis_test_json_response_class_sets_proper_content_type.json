@@ -1,0 +1,53 @@
+{
+  "test_name": "test_json_response_class_sets_proper_content_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response_json.py",
+  "static_methods": [
+    {
+      "name": "json_app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "JSONResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "json_app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_json_response_class_sets_proper_content_type",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_json_response_class_sets_proper_content_type",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "JSONResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_response_class_sets_proper_content_type",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert resp.headers['content-type'] == 'application/json'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_json_response_class_sets_proper_content_type(json_app: Sanic):\n    @json_app.get(\"/json-class\")\n    async def handler(request: Request):\n        return JSONResponse(JSON_BODY)\n\n    _, resp = json_app.test_client.get(\"/json-class\")\n    assert resp.headers[\"content-type\"] == \"application/json\""
+}

@@ -1,0 +1,27 @@
+{
+  "test_name": "test_appmaker",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki/src/tests/tests/test_models.py",
+  "static_methods": [
+    {
+      "name": "models.appmaker",
+      "source_code": "def appmaker(zodb_root):\n    if 'app_root' not in zodb_root:\n        app_root = Wiki()\n        frontpage = Page('This is the front page')\n        app_root['FrontPage'] = frontpage\n        frontpage.__name__ = 'FrontPage'\n        frontpage.__parent__ = app_root\n        zodb_root['app_root'] = app_root\n    return zodb_root['app_root']",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki/src/tests/tutorial/models/__init__.py",
+      "line_number": 21
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "models.appmaker",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki/src/tests/tutorial/models/__init__.py",
+      "line": 21,
+      "caller": "test_appmaker",
+      "source_code": "def appmaker(zodb_root):\n    if 'app_root' not in zodb_root:\n        app_root = Wiki()\n        frontpage = Page('This is the front page')\n        app_root['FrontPage'] = frontpage\n        frontpage.__name__ = 'FrontPage'\n        frontpage.__parent__ = app_root\n        zodb_root['app_root'] = app_root\n    return zodb_root['app_root']\n"
+    }
+  ],
+  "assertions": [
+    "assert root['app_root']['FrontPage'].data == 'This is the front page'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_appmaker():\n    root = {}\n    models.appmaker(root)\n    assert root['app_root']['FrontPage'].data == 'This is the front page'"
+}

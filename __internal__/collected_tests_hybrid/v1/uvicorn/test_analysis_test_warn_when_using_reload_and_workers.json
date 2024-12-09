@@ -1,0 +1,41 @@
+{
+  "test_name": "test_warn_when_using_reload_and_workers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_warn_when_using_reload_and_workers",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_warn_when_using_reload_and_workers",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(caplog.records) == 1",
+    "assert '\"workers\" flag is ignored when reloading is enabled.' in caplog.records[0].message"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_warn_when_using_reload_and_workers(caplog: pytest.LogCaptureFixture) -> None:\n    Config(app=asgi_app, reload=True, workers=2)\n    assert len(caplog.records) == 1\n    assert '\"workers\" flag is ignored when reloading is enabled.' in caplog.records[0].message"
+}

@@ -1,0 +1,103 @@
+{
+  "test_name": "test_derive_view_with_default_renderer_no_explicit_renderer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_renderer",
+      "source_code": "    def add_renderer(self, name, factory):\n        \"\"\"\n        Add a :app:`Pyramid` :term:`renderer` factory to the\n        current configuration state.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/rendering.py",
+      "line_number": 17
+    },
+    {
+      "name": "config.commit",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 639
+    },
+    {
+      "name": "config.derive_view",
+      "source_code": "    def derive_view(self, view, attr=None, renderer=None):\n        \"\"\"\n        Create a :term:`view callable` using the function, instance,\n        or class (or :term:`dotted Python name` referring to the same)\n        provided as ``view`` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 1446
+    },
+    {
+      "name": "self.assertFalse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result",
+      "source_code": "    def result(self):\n        if not self.done:\n            raise RuntimeError('Function has not yet completed')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 3480
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_derive_view_with_default_renderer_no_explicit_renderer",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/rendering.py",
+      "line": 17,
+      "caller": "test_derive_view_with_default_renderer_no_explicit_renderer",
+      "source_code": "    @action_method\n    def add_renderer(self, name, factory):\n        \"\"\"\n        Add a :app:`Pyramid` :term:`renderer` factory to the\n        current configuration state.\n\n        The ``name`` argument is the renderer name.  Use ``None`` to\n        represent the default renderer (a renderer which will be used for all\n        views unless they name another renderer specifically).\n\n        The ``factory`` argument is Python reference to an\n        implementation of a :term:`renderer` factory or a\n        :term:`dotted Python name` to same.\n        \"\"\"\n        factory = self.maybe_dotted(factory)\n        # if name is None or the empty string, we're trying to register\n        # a default renderer, but registerUtility is too dumb to accept None\n        # as a name\n        if not name:\n            name = ''\n\n        def register():\n            self.registry.registerUtility(factory, IRendererFactory, name=name)\n\n        intr = self.introspectable(\n            'renderer factories',\n            name,\n            self.object_description(factory),\n            'renderer factory',\n        )\n        intr['factory'] = factory\n        intr['name'] = name\n        # we need to register renderers early (in phase 1) because they are\n        # used during view configuration (which happens in phase 3)\n        self.action(\n            (IRendererFactory, name),\n            register,\n            order=PHASE1_CONFIG,\n            introspectables=(intr,),\n        )\n"
+    },
+    {
+      "function": "config.commit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 639,
+      "caller": "test_derive_view_with_default_renderer_no_explicit_renderer",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result\n\n"
+    },
+    {
+      "function": "config.derive_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 1446,
+      "caller": "test_derive_view_with_default_renderer_no_explicit_renderer",
+      "source_code": "    def derive_view(self, view, attr=None, renderer=None):\n        \"\"\"\n        Create a :term:`view callable` using the function, instance,\n        or class (or :term:`dotted Python name` referring to the same)\n        provided as ``view`` object.\n\n        .. warning::\n\n           This method is typically only used by :app:`Pyramid` framework\n           extension authors, not by :app:`Pyramid` application developers.\n\n        This is API is useful to framework extenders who create\n        pluggable systems which need to register 'proxy' view\n        callables for functions, instances, or classes which meet the\n        requirements of being a :app:`Pyramid` view callable.  For\n        example, a ``some_other_framework`` function in another\n        framework may want to allow a user to supply a view callable,\n        but he may want to wrap the view callable in his own before\n        registering the wrapper as a :app:`Pyramid` view callable.\n        Because a :app:`Pyramid` view callable can be any of a\n        number of valid objects, the framework extender will not know\n        how to call the user-supplied object.  Running it through\n        ``derive_view`` normalizes it to a callable which accepts two\n        arguments: ``context`` and ``request``.\n\n        For example:\n\n        .. code-block:: python\n\n           def some_other_framework(user_supplied_view):\n               config = Configurator(reg)\n               proxy_view = config.derive_view(user_supplied_view)\n               def my_wrapper(context, request):\n                   do_something_that_mutates(request)\n                   return proxy_view(context, request)\n               config.add_view(my_wrapper)\n\n        The ``view`` object provided should be one of the following:\n\n        - A function or another non-class callable object that accepts\n          a :term:`request` as a single positional argument and which\n          returns a :term:`response` object.\n\n        - A function or other non-class callable object that accepts\n          two positional arguments, ``context, request`` and which\n          returns a :term:`response` object.\n\n        - A class which accepts a single positional argument in its\n          constructor named ``request``, and which has a ``__call__``\n          method that accepts no arguments that returns a\n          :term:`response` object.\n\n        - A class which accepts two positional arguments named\n          ``context, request``, and which has a ``__call__`` method\n          that accepts no arguments that returns a :term:`response`\n          object.\n\n        - A :term:`dotted Python name` which refers to any of the\n          kinds of objects above.\n\n        This API returns a callable which accepts the arguments\n        ``context, request`` and which returns the result of calling\n        the provided ``view`` object.\n\n        The ``attr`` keyword argument is most useful when the view\n        object is a class.  It names the method that should be used as\n        the callable.  If ``attr`` is not provided, the attribute\n        effectively defaults to ``__call__``.  See\n        :ref:`class_as_view` for more information.\n\n        The ``renderer`` keyword argument should be a renderer\n        name. If supplied, it will cause the returned callable to use\n        a :term:`renderer` to convert the user-supplied view result to\n        a :term:`response` object.  If a ``renderer`` argument is not\n        supplied, the user-supplied view must itself return a\n        :term:`response` object.\"\"\"\n        return self._derive_view(view, attr=attr, renderer=renderer)\n\n"
+    },
+    {
+      "function": "self.assertFalse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_derive_view_with_default_renderer_no_explicit_renderer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_derive_view_with_default_renderer_no_explicit_renderer",
+      "source_code": ""
+    },
+    {
+      "function": "result",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 3480,
+      "caller": "test_derive_view_with_default_renderer_no_explicit_renderer",
+      "source_code": "    @property\n    def result(self):\n        if not self.done:\n            raise RuntimeError('Function has not yet completed')\n\n        return self._future.result()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_derive_view_with_default_renderer_no_explicit_renderer(self):\n        config = self._makeOne()\n\n        class moo:\n            def __init__(self, view):\n                pass\n\n            def __call__(self, *arg, **kw):\n                return 'moo'\n\n        config.add_renderer(None, moo)\n        config.commit()\n\n        def view(request):\n            return 'OK'\n\n        result = config.derive_view(view)\n        self.assertFalse(result is view)\n        self.assertEqual(result(None, None).body, b'moo')"
+}

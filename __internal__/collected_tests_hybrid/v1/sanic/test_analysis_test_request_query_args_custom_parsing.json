@@ -1,0 +1,149 @@
+{
+  "test_name": "test_request_query_args_custom_parsing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "text",
+      "source_code": "    def text(self):\n        \"\"\"Content of the response, in unicode.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 907
+    },
+    {
+      "name": "request.get_query_args",
+      "source_code": "    def get_query_args(\n        self,\n        keep_blank_values: bool = False,\n        strict_parsing: bool = False,\n        encoding: str = \"utf-8\",\n        errors: str = \"replace\",\n    ) -> list:\n        \"\"\"Parse `query_string` using `urllib.parse.parse_qsl`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line_number": 758
+    },
+    {
+      "name": "request.get_query_args",
+      "source_code": "    def get_query_args(\n        self,\n        keep_blank_values: bool = False,\n        strict_parsing: bool = False,\n        encoding: str = \"utf-8\",\n        errors: str = \"replace\",\n    ) -> list:\n        \"\"\"Parse `query_string` using `urllib.parse.parse_qsl`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line_number": 758
+    },
+    {
+      "name": "request.get_args",
+      "source_code": "    def get_args(tp):\n        \"\"\"Get type arguments with all substitutions performed.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/typing_extensions.py",
+      "line_number": 1388
+    },
+    {
+      "name": "RequestParameters",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RequestParameters",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.get_args",
+      "source_code": "    def get_args(tp):\n        \"\"\"Get type arguments with all substitutions performed.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/typing_extensions.py",
+      "line_number": 1388
+    },
+    {
+      "name": "RequestParameters",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 907,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": "    @property\n    def text(self):\n        \"\"\"Content of the response, in unicode.\n\n        If Response.encoding is None, encoding will be guessed using\n        ``charset_normalizer`` or ``chardet``.\n\n        The encoding of the response content is determined based solely on HTTP\n        headers, following RFC 2616 to the letter. If you can take advantage of\n        non-HTTP knowledge to make a better guess at the encoding, you should\n        set ``r.encoding`` appropriately before accessing this property.\n        \"\"\"\n\n        # Try charset from content-type\n        content = None\n        encoding = self.encoding\n\n        if not self.content:\n            return \"\"\n\n        # Fallback to auto-detected encoding.\n        if self.encoding is None:\n            encoding = self.apparent_encoding\n\n        # Decode unicode from given encoding.\n        try:\n            content = str(self.content, encoding, errors=\"replace\")\n        except (LookupError, TypeError):\n            # A LookupError is raised if the encoding was not found which could\n            # indicate a misspelling or similar mistake.\n            #\n            # A TypeError can be raised if encoding is None\n            #\n            # So we try blindly encoding.\n            content = str(self.content, errors=\"replace\")\n\n        return content\n\n"
+    },
+    {
+      "function": "request.get_query_args",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line": 758,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": "    def get_query_args(\n        self,\n        keep_blank_values: bool = False,\n        strict_parsing: bool = False,\n        encoding: str = \"utf-8\",\n        errors: str = \"replace\",\n"
+    },
+    {
+      "function": "request.get_query_args",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line": 758,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": "    def get_query_args(\n        self,\n        keep_blank_values: bool = False,\n        strict_parsing: bool = False,\n        encoding: str = \"utf-8\",\n        errors: str = \"replace\",\n"
+    },
+    {
+      "function": "request.get_args",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/typing_extensions.py",
+      "line": 1388,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": "    def get_args(tp):\n        \"\"\"Get type arguments with all substitutions performed.\n\n        For unions, basic simplifications used by Union constructor are performed.\n        Examples::\n            get_args(Dict[str, int]) == (str, int)\n            get_args(int) == ()\n            get_args(Union[int, Union[T, int], str][int]) == (int, str)\n            get_args(Union[int, Tuple[T, int]][str]) == (int, Tuple[str, int])\n            get_args(Callable[[], T][int]) == ([], int)\n        \"\"\"\n        if isinstance(tp, _AnnotatedAlias):\n            return (tp.__origin__, *tp.__metadata__)\n        if isinstance(tp, (typing._GenericAlias, _typing_GenericAlias)):\n            if getattr(tp, \"_special\", False):\n                return ()\n            res = tp.__args__\n            if get_origin(tp) is collections.abc.Callable and res[0] is not Ellipsis:\n                res = (list(res[:-1]), res[-1])\n            return res\n        return ()\n\n\n"
+    },
+    {
+      "function": "RequestParameters",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "RequestParameters",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "request.get_args",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/typing_extensions.py",
+      "line": 1388,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": "    def get_args(tp):\n        \"\"\"Get type arguments with all substitutions performed.\n\n        For unions, basic simplifications used by Union constructor are performed.\n        Examples::\n            get_args(Dict[str, int]) == (str, int)\n            get_args(int) == ()\n            get_args(Union[int, Union[T, int], str][int]) == (int, str)\n            get_args(Union[int, Tuple[T, int]][str]) == (int, Tuple[str, int])\n            get_args(Callable[[], T][int]) == ([], int)\n        \"\"\"\n        if isinstance(tp, _AnnotatedAlias):\n            return (tp.__origin__, *tp.__metadata__)\n        if isinstance(tp, (typing._GenericAlias, _typing_GenericAlias)):\n            if getattr(tp, \"_special\", False):\n                return ()\n            res = tp.__args__\n            if get_origin(tp) is collections.abc.Callable and res[0] is not Ellipsis:\n                res = (list(res[:-1]), res[-1])\n            return res\n        return ()\n\n\n"
+    },
+    {
+      "function": "RequestParameters",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_query_args_custom_parsing",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert request.get_query_args(keep_blank_values=True) == [('test1', 'value1'), ('test2', ''), ('test3', 'value3')]",
+    "assert request.query_args == [('test1', 'value1'), ('test3', 'value3')]",
+    "assert request.get_query_args(keep_blank_values=False) == [('test1', 'value1'), ('test3', 'value3')]",
+    "assert request.get_args(keep_blank_values=True) == RequestParameters({'test1': ['value1'], 'test2': [''], 'test3': ['value3']})",
+    "assert request.args == RequestParameters({'test1': ['value1'], 'test3': ['value3']})",
+    "assert request.get_args(keep_blank_values=False) == RequestParameters({'test1': ['value1'], 'test3': ['value3']})"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_query_args_custom_parsing(app):\n    @app.get(\"/\")\n    def handler(request):\n        return text(\"pass\")\n\n    request, response = app.test_client.get(\n        \"/?test1=value1&test2=&test3=value3\"\n    )\n\n    assert request.get_query_args(keep_blank_values=True) == [\n        (\"test1\", \"value1\"),\n        (\"test2\", \"\"),\n        (\"test3\", \"value3\"),\n    ]\n    assert request.query_args == [(\"test1\", \"value1\"), (\"test3\", \"value3\")]\n    assert request.get_query_args(keep_blank_values=False) == [\n        (\"test1\", \"value1\"),\n        (\"test3\", \"value3\"),\n    ]\n\n    assert request.get_args(keep_blank_values=True) == RequestParameters(\n        {\"test1\": [\"value1\"], \"test2\": [\"\"], \"test3\": [\"value3\"]}\n    )\n\n    assert request.args == RequestParameters(\n        {\"test1\": [\"value1\"], \"test3\": [\"value3\"]}\n    )\n\n    assert request.get_args(keep_blank_values=False) == RequestParameters(\n        {\"test1\": [\"value1\"], \"test3\": [\"value3\"]}\n    )"
+}

@@ -1,0 +1,27 @@
+{
+  "test_name": "test_non_chunked_streaming_returns_correct_content",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response.py",
+  "static_methods": [
+    {
+      "name": "non_chunked_streaming_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "non_chunked_streaming_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_non_chunked_streaming_returns_correct_content",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.text == 'foo,bar'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_non_chunked_streaming_returns_correct_content(\n    non_chunked_streaming_app,\n):\n    request, response = non_chunked_streaming_app.test_client.get(\"/\")\n    assert response.text == \"foo,bar\""
+}

@@ -1,0 +1,54 @@
+{
+  "test_name": "test_multiple",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_low_level.py",
+  "static_methods": [
+    {
+      "name": "Parser.feed",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line_number": 84
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Parser",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Parser.feed",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line": 84,
+      "caller": "test_multiple",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state\n\n        return self.state\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "Parser",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(msgs) == 6",
+    "assert msg.header.fields[HeaderFields.member] == 'Hello'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_multiple():\n    msgs = Parser().feed(HELLO_METHOD_CALL * 6)\n    assert len(msgs) == 6\n    for msg in msgs:\n        assert msg.header.fields[HeaderFields.member] == 'Hello'"
+}

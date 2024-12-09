@@ -1,0 +1,66 @@
+{
+  "test_name": "test_wheel_is_compatible",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_wheel.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Wheel.is_compatible",
+      "source_code": "    def is_compatible(self):\n        \"\"\"\n        Determine if a wheel is compatible with the running system.\n        \"\"\"\n        return is_compatible(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 775
+    },
+    {
+      "name": "Wheel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_tag",
+      "source_code": "def parse_tag(tag: str) -> FrozenSet[Tag]:\n    \"\"\"\n    Parses the provided tag (e.g. `py3-none-any`) into a frozenset of Tag instances.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/tags.py",
+      "line_number": 96
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_wheel_is_compatible",
+      "source_code": ""
+    },
+    {
+      "function": "Wheel.is_compatible",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 775,
+      "caller": "test_wheel_is_compatible",
+      "source_code": "    def is_compatible(self):\n        \"\"\"\n        Determine if a wheel is compatible with the running system.\n        \"\"\"\n        return is_compatible(self)\n\n"
+    },
+    {
+      "function": "Wheel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_wheel_is_compatible",
+      "source_code": ""
+    },
+    {
+      "function": "parse_tag",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/tags.py",
+      "line": 96,
+      "caller": "test_wheel_is_compatible",
+      "source_code": "def parse_tag(tag: str) -> FrozenSet[Tag]:\n    \"\"\"\n    Parses the provided tag (e.g. `py3-none-any`) into a frozenset of Tag instances.\n\n    Returning a set is required due to the possibility that the tag is a\n    compressed tag set.\n    \"\"\"\n    tags = set()\n    interpreters, abis, platforms = tag.split(\"-\")\n    for interpreter in interpreters.split(\".\"):\n        for abi in abis.split(\".\"):\n            for platform_ in platforms.split(\".\"):\n                tags.add(Tag(interpreter, abi, platform_))\n    return frozenset(tags)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert Wheel('onnxruntime-0.1.2-cp36-cp36m-manylinux1_x86_64.whl').is_compatible()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_wheel_is_compatible(monkeypatch):\n    def sys_tags():\n        return {\n            (t.interpreter, t.abi, t.platform)\n            for t in parse_tag('cp36-cp36m-manylinux1_x86_64')\n        }\n\n    monkeypatch.setattr('setuptools.wheel._get_supported_tags', sys_tags)\n    assert Wheel('onnxruntime-0.1.2-cp36-cp36m-manylinux1_x86_64.whl').is_compatible()"
+}

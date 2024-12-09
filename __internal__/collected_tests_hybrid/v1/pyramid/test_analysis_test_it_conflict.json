@@ -1,0 +1,38 @@
+{
+  "test_name": "test_it_conflict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_actions.py",
+  "static_methods": [
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it_conflict",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_conflict",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_conflict(self):\n        from . import dummyfactory as f\n\n        result = self._callFUT(\n            [\n                (None, f),\n                (1, f, (2,), {}, ('x',), 'eek'),  # will conflict\n                (1, f, (3,), {}, ('y',), 'ack'),  # will conflict\n                (4, f, (4,), {}, ('y',)),\n                (3, f, (3,), {}, ('y',)),\n                (None, f, (5,), {}, ('y',)),\n            ]\n        )\n        self.assertRaises(ConfigurationConflictError, list, result)"
+}

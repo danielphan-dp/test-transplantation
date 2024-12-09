@@ -1,0 +1,80 @@
+{
+  "test_name": "test_zipped_egg",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_find_distributions.py",
+  "static_methods": [
+    {
+      "name": "pkg_resources.find_distributions",
+      "source_code": "def find_distributions(path_item, only=False):\n    \"\"\"Yield distributions accessible via `path_item`\"\"\"\n    importer = get_importer(path_item)\n    finder = _find_adapter(_distribution_finders, importer)\n    return finder(importer, path_item, only)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 1967
+    },
+    {
+      "name": "pkg_resources.find_distributions",
+      "source_code": "def find_distributions(path_item, only=False):\n    \"\"\"Yield distributions accessible via `path_item`\"\"\"\n    importer = get_importer(path_item)\n    finder = _find_adapter(_distribution_finders, importer)\n    return finder(importer, path_item, only)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 1967
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pkg_resources.find_distributions",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 1967,
+      "caller": "test_zipped_egg",
+      "source_code": "def find_distributions(path_item, only=False):\n    \"\"\"Yield distributions accessible via `path_item`\"\"\"\n    importer = get_importer(path_item)\n    finder = _find_adapter(_distribution_finders, importer)\n    return finder(importer, path_item, only)\n\n\n"
+    },
+    {
+      "function": "pkg_resources.find_distributions",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 1967,
+      "caller": "test_zipped_egg",
+      "source_code": "def find_distributions(path_item, only=False):\n    \"\"\"Yield distributions accessible via `path_item`\"\"\"\n    importer = get_importer(path_item)\n    finder = _find_adapter(_distribution_finders, importer)\n    return finder(importer, path_item, only)\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_zipped_egg",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_zipped_egg",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_zipped_egg",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert [dist.project_name for dist in dists] == ['my-test-package']",
+    "assert not list(dists)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_zipped_egg(self, target_dir):\n        shutil.copytree(\n            TESTS_DATA_DIR / 'my-test-package_zipped-egg',\n            target_dir,\n            dirs_exist_ok=True,\n        )\n        dists = pkg_resources.find_distributions(str(target_dir))\n        assert [dist.project_name for dist in dists] == ['my-test-package']\n        dists = pkg_resources.find_distributions(str(target_dir), only=True)\n        assert not list(dists)"
+}

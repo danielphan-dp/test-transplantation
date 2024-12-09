@@ -1,0 +1,64 @@
+{
+  "test_name": "test_trio_test",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_testing.py",
+  "static_methods": [
+    {
+      "name": "trio_test",
+      "source_code": "def trio_test(fn: Callable[ArgsT, Awaitable[RetT]]) -> Callable[ArgsT, RetT]:\n    \"\"\"Converts an async test function to be synchronous, running via Trio.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/testing/_trio_test.py",
+      "line_number": 20
+    },
+    {
+      "name": "trio_test",
+      "source_code": "def trio_test(fn: Callable[ArgsT, Awaitable[RetT]]) -> Callable[ArgsT, RetT]:\n    \"\"\"Converts an async test function to be synchronous, running via Trio.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/testing/_trio_test.py",
+      "line_number": 20
+    },
+    {
+      "name": "MockClock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockClock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "trio_test",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/testing/_trio_test.py",
+      "line": 20,
+      "caller": "test_trio_test",
+      "source_code": "def trio_test(fn: Callable[ArgsT, Awaitable[RetT]]) -> Callable[ArgsT, RetT]:\n    \"\"\"Converts an async test function to be synchronous, running via Trio.\n\n    Usage::\n\n        @trio_test\n        async def test_whatever():\n            await ...\n\n    If a pytest fixture is passed in that subclasses the :class:`~trio.abc.Clock` or\n    :class:`~trio.abc.Instrument` ABCs, then those are passed to :meth:`trio.run()`.\n    \"\"\"\n\n    @wraps(fn)\n    def wrapper(*args: ArgsT.args, **kwargs: ArgsT.kwargs) -> RetT:\n        __tracebackhide__ = True\n        clocks = [c for c in kwargs.values() if isinstance(c, Clock)]\n        if not clocks:\n            clock = None\n        elif len(clocks) == 1:\n            clock = clocks[0]\n        else:\n            raise ValueError(\"too many clocks spoil the broth!\")\n        instruments = [i for i in kwargs.values() if isinstance(i, Instrument)]\n        return _core.run(\n            partial(fn, *args, **kwargs), clock=clock, instruments=instruments\n        )\n\n    return wrapper\n"
+    },
+    {
+      "function": "trio_test",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/testing/_trio_test.py",
+      "line": 20,
+      "caller": "test_trio_test",
+      "source_code": "def trio_test(fn: Callable[ArgsT, Awaitable[RetT]]) -> Callable[ArgsT, RetT]:\n    \"\"\"Converts an async test function to be synchronous, running via Trio.\n\n    Usage::\n\n        @trio_test\n        async def test_whatever():\n            await ...\n\n    If a pytest fixture is passed in that subclasses the :class:`~trio.abc.Clock` or\n    :class:`~trio.abc.Instrument` ABCs, then those are passed to :meth:`trio.run()`.\n    \"\"\"\n\n    @wraps(fn)\n    def wrapper(*args: ArgsT.args, **kwargs: ArgsT.kwargs) -> RetT:\n        __tracebackhide__ = True\n        clocks = [c for c in kwargs.values() if isinstance(c, Clock)]\n        if not clocks:\n            clock = None\n        elif len(clocks) == 1:\n            clock = clocks[0]\n        else:\n            raise ValueError(\"too many clocks spoil the broth!\")\n        instruments = [i for i in kwargs.values() if isinstance(i, Instrument)]\n        return _core.run(\n            partial(fn, *args, **kwargs), clock=clock, instruments=instruments\n        )\n\n    return wrapper\n"
+    },
+    {
+      "function": "MockClock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trio_test",
+      "source_code": ""
+    },
+    {
+      "function": "MockClock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trio_test",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_trio_test() -> None:\n    async def busy_kitchen(\n        *, mock_clock: object, autojump_clock: object\n    ) -> None: ...  # pragma: no cover\n\n    with pytest.raises(ValueError, match=\"^too many clocks spoil the broth!$\"):\n        trio_test(busy_kitchen)(\n            mock_clock=MockClock(), autojump_clock=MockClock(autojump_threshold=0)\n        )"
+}

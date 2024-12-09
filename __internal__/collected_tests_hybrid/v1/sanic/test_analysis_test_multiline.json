@@ -1,0 +1,59 @@
+{
+  "test_name": "test_multiline",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+  "static_methods": [
+    {
+      "name": "get_dist",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line_number": 568
+    },
+    {
+      "name": "fake_env",
+      "source_code": "def fake_env(\n    tmpdir, setup_cfg, setup_py=None, encoding='ascii', package_path='fake_package'",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+      "line_number": 36
+    },
+    {
+      "name": "get_dist",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line_number": 568
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "get_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line": 568,
+      "caller": "test_multiline",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )\n\n"
+    },
+    {
+      "function": "fake_env",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+      "line": 36,
+      "caller": "test_multiline",
+      "source_code": "def fake_env(\n    tmpdir, setup_cfg, setup_py=None, encoding='ascii', package_path='fake_package'\n"
+    },
+    {
+      "function": "get_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line": 568,
+      "caller": "test_multiline",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dist.package_dir == {'': 'src', 'b': 'c'}",
+    "assert dist.packages == ['pack_a', 'pack_b.subpack']",
+    "assert dist.namespace_packages == ['pack1', 'pack2']",
+    "assert dist.scripts == ['bin/one.py', 'bin/two.py']",
+    "assert dist.dependency_links == ['http://some.com/here/1', 'http://some.com/there/2']",
+    "assert dist.install_requires == ['docutils>=0.3', 'pack==1.1,==1.3', 'hey']",
+    "assert dist.setup_requires == ['docutils>=0.3', 'spack ==1.1, ==1.3', 'there']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_multiline(self, tmpdir):\n        fake_env(\n            tmpdir,\n            '[options]\\n'\n            'package_dir = \\n'\n            '  b=c\\n'\n            '  =src\\n'\n            'packages = \\n'\n            '  pack_a\\n'\n            '  pack_b.subpack\\n'\n            'namespace_packages = \\n'\n            '  pack1\\n'\n            '  pack2\\n'\n            'scripts = \\n'\n            '  bin/one.py\\n'\n            '  bin/two.py\\n'\n            'eager_resources = \\n'\n            '  bin/one.py\\n'\n            '  bin/two.py\\n'\n            'install_requires = \\n'\n            '  docutils>=0.3\\n'\n            '  pack ==1.1, ==1.3\\n'\n            '  hey\\n'\n            'setup_requires = \\n'\n            '  docutils>=0.3\\n'\n            '  spack ==1.1, ==1.3\\n'\n            '  there\\n'\n            'dependency_links = \\n'\n            '  http://some.com/here/1\\n'\n            '  http://some.com/there/2\\n',\n        )\n        deprec = pytest.warns(SetuptoolsDeprecationWarning, match=\"namespace_packages\")\n        with deprec, get_dist(tmpdir) as dist:\n            assert dist.package_dir == {'': 'src', 'b': 'c'}\n            assert dist.packages == ['pack_a', 'pack_b.subpack']\n            assert dist.namespace_packages == ['pack1', 'pack2']\n            assert dist.scripts == ['bin/one.py', 'bin/two.py']\n            assert dist.dependency_links == ([\n                'http://some.com/here/1',\n                'http://some.com/there/2',\n            ])\n            assert dist.install_requires == ([\n                'docutils>=0.3',\n                'pack==1.1,==1.3',\n                'hey',\n            ])\n            assert dist.setup_requires == ([\n                'docutils>=0.3',\n                'spack ==1.1, ==1.3',\n                'there',\n            ])"
+}

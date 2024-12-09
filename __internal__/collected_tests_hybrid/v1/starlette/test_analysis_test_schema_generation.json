@@ -1,0 +1,27 @@
+{
+  "test_name": "test_schema_generation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_schemas.py",
+  "static_methods": [
+    {
+      "name": "schemas.get_schema",
+      "source_code": "def get_schema(cls: type) -> PlainConfigSchema:\n    \"\"\"Extract ConfigOptions defined in a class (used just as a container) and put them into a schema tuple.\"\"\"\n    if issubclass(cls, Config):\n        return cls._schema\n    return tuple((k, v) for k, v in cls.__dict__.items() if isinstance(v, BaseConfigOption))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mkdocs/config/base.py",
+      "line_number": 274
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "schemas.get_schema",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mkdocs/config/base.py",
+      "line": 274,
+      "caller": "test_schema_generation",
+      "source_code": "@functools.lru_cache(maxsize=None)\ndef get_schema(cls: type) -> PlainConfigSchema:\n    \"\"\"Extract ConfigOptions defined in a class (used just as a container) and put them into a schema tuple.\"\"\"\n    if issubclass(cls, Config):\n        return cls._schema\n    return tuple((k, v) for k, v in cls.__dict__.items() if isinstance(v, BaseConfigOption))\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert schema == {'openapi': '3.0.0', 'info': {'title': 'Example API', 'version': '1.0'}, 'paths': {'/orgs': {'get': {'responses': {200: {'description': 'A list of organisations.', 'examples': [{'name': 'Foo Corp.'}, {'name': 'Acme Ltd.'}]}}}, 'post': {'responses': {200: {'description': 'An organisation.', 'examples': {'name': 'Foo Corp.'}}}}}, '/regular-docstring-and-schema': {'get': {'responses': {200: {'description': 'This is included in the schema.'}}}}, '/subapp/subapp-endpoint': {'get': {'responses': {200: {'description': 'This endpoint is part of a subapp.'}}}}, '/subapp2/subapp-endpoint': {'get': {'responses': {200: {'description': 'This endpoint is part of a subapp.'}}}}, '/users': {'get': {'responses': {200: {'description': 'A list of users.', 'examples': [{'username': 'tom'}, {'username': 'lucy'}]}}}, 'post': {'responses': {200: {'description': 'A user.', 'examples': {'username': 'tom'}}}}}, '/users/{id}': {'get': {'responses': {200: {'description': 'A user.', 'examples': {'username': 'tom'}}}}}}}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_schema_generation() -> None:\n    schema = schemas.get_schema(routes=app.routes)\n    assert schema == {\n        \"openapi\": \"3.0.0\",\n        \"info\": {\"title\": \"Example API\", \"version\": \"1.0\"},\n        \"paths\": {\n            \"/orgs\": {\n                \"get\": {\n                    \"responses\": {\n                        200: {\n                            \"description\": \"A list of organisations.\",\n                            \"examples\": [{\"name\": \"Foo Corp.\"}, {\"name\": \"Acme Ltd.\"}],\n                        }\n                    }\n                },\n                \"post\": {\n                    \"responses\": {\n                        200: {\n                            \"description\": \"An organisation.\",\n                            \"examples\": {\"name\": \"Foo Corp.\"},\n                        }\n                    }\n                },\n            },\n            \"/regular-docstring-and-schema\": {\n                \"get\": {\"responses\": {200: {\"description\": \"This is included in the schema.\"}}}\n            },\n            \"/subapp/subapp-endpoint\": {\n                \"get\": {\"responses\": {200: {\"description\": \"This endpoint is part of a subapp.\"}}}\n            },\n            \"/subapp2/subapp-endpoint\": {\n                \"get\": {\"responses\": {200: {\"description\": \"This endpoint is part of a subapp.\"}}}\n            },\n            \"/users\": {\n                \"get\": {\n                    \"responses\": {\n                        200: {\n                            \"description\": \"A list of users.\",\n                            \"examples\": [{\"username\": \"tom\"}, {\"username\": \"lucy\"}],\n                        }\n                    }\n                },\n                \"post\": {\"responses\": {200: {\"description\": \"A user.\", \"examples\": {\"username\": \"tom\"}}}},\n            },\n            \"/users/{id}\": {\n                \"get\": {\n                    \"responses\": {\n                        200: {\n                            \"description\": \"A user.\",\n                            \"examples\": {\"username\": \"tom\"},\n                        }\n                    }\n                },\n            },\n        },\n    }"
+}

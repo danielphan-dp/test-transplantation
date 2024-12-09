@@ -1,0 +1,67 @@
+{
+  "test_name": "test_alignment",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_rarray.py",
+  "static_methods": [
+    {
+      "name": "RArray",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RArray",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "compute_rtype_alignment",
+      "source_code": "def compute_rtype_alignment(typ: RType) -> int:\n    \"\"\"Compute alignment of a given type based on platform alignment rule\"\"\"\n    platform_alignment = PLATFORM_SIZE\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RInstance):\n        return platform_alignment\n    elif isinstance(typ, RUnion):\n        return platform_alignment\n    elif isinstance(typ, RArray):\n        return compute_rtype_alignment(typ.item_type)\n    else:\n        if isinstance(typ, RTuple):\n            items = list(typ.types)\n        elif isinstance(typ, RStruct):\n            items = typ.types\n        else:\n            assert False, \"invalid rtype for computing alignment\"\n        max_alignment = max(compute_rtype_alignment(item) for item in items)\n        return max_alignment",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line_number": 679
+    },
+    {
+      "name": "compute_rtype_alignment",
+      "source_code": "def compute_rtype_alignment(typ: RType) -> int:\n    \"\"\"Compute alignment of a given type based on platform alignment rule\"\"\"\n    platform_alignment = PLATFORM_SIZE\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RInstance):\n        return platform_alignment\n    elif isinstance(typ, RUnion):\n        return platform_alignment\n    elif isinstance(typ, RArray):\n        return compute_rtype_alignment(typ.item_type)\n    else:\n        if isinstance(typ, RTuple):\n            items = list(typ.types)\n        elif isinstance(typ, RStruct):\n            items = typ.types\n        else:\n            assert False, \"invalid rtype for computing alignment\"\n        max_alignment = max(compute_rtype_alignment(item) for item in items)\n        return max_alignment",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line_number": 679
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RArray",
+      "filename": "",
+      "line": 0,
+      "caller": "test_alignment",
+      "source_code": ""
+    },
+    {
+      "function": "RArray",
+      "filename": "",
+      "line": 0,
+      "caller": "test_alignment",
+      "source_code": ""
+    },
+    {
+      "function": "compute_rtype_alignment",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line": 679,
+      "caller": "test_alignment",
+      "source_code": "def compute_rtype_alignment(typ: RType) -> int:\n    \"\"\"Compute alignment of a given type based on platform alignment rule\"\"\"\n    platform_alignment = PLATFORM_SIZE\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RInstance):\n        return platform_alignment\n    elif isinstance(typ, RUnion):\n        return platform_alignment\n    elif isinstance(typ, RArray):\n        return compute_rtype_alignment(typ.item_type)\n    else:\n        if isinstance(typ, RTuple):\n            items = list(typ.types)\n        elif isinstance(typ, RStruct):\n            items = typ.types\n        else:\n            assert False, \"invalid rtype for computing alignment\"\n        max_alignment = max(compute_rtype_alignment(item) for item in items)\n        return max_alignment\n\n\n"
+    },
+    {
+      "function": "compute_rtype_alignment",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line": 679,
+      "caller": "test_alignment",
+      "source_code": "def compute_rtype_alignment(typ: RType) -> int:\n    \"\"\"Compute alignment of a given type based on platform alignment rule\"\"\"\n    platform_alignment = PLATFORM_SIZE\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RInstance):\n        return platform_alignment\n    elif isinstance(typ, RUnion):\n        return platform_alignment\n    elif isinstance(typ, RArray):\n        return compute_rtype_alignment(typ.item_type)\n    else:\n        if isinstance(typ, RTuple):\n            items = list(typ.types)\n        elif isinstance(typ, RStruct):\n            items = typ.types\n        else:\n            assert False, \"invalid rtype for computing alignment\"\n        max_alignment = max(compute_rtype_alignment(item) for item in items)\n        return max_alignment\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert compute_rtype_alignment(a) == PLATFORM_SIZE",
+    "assert compute_rtype_alignment(b) == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_alignment(self) -> None:\n        a = RArray(int_rprimitive, 10)\n        assert compute_rtype_alignment(a) == PLATFORM_SIZE\n        b = RArray(bool_rprimitive, 55)\n        assert compute_rtype_alignment(b) == 1"
+}

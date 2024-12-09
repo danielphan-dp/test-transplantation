@@ -1,0 +1,93 @@
+{
+  "test_name": "test_include_dirs_after_multiple_compile_calls",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_ccompiler.py",
+  "static_methods": [
+    {
+      "name": "ccompiler.new_compiler",
+      "source_code": "def new_compiler(plat=None, compiler=None, verbose=False, dry_run=False, force=False):\n    \"\"\"Generate an instance of some CCompiler subclass for the supplied\n    platform/compiler combination.  'plat' defaults to 'os.name'\n    (eg. 'posix', 'nt'), and 'compiler' defaults to the default compiler\n    for that platform.  Currently only 'posix' and 'nt' are supported, and\n    the default compilers are \"traditional Unix interface\" (UnixCCompiler\n    class) and Visual C++ (MSVCCompiler class).  Note that it's perfectly\n    possible to ask for a Unix compiler object under Windows, and a\n    Microsoft compiler object under Unix -- if you supply a value for\n    'compiler', 'plat' is ignored.\n    \"\"\"\n    if plat is None:\n        plat = os.name",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/ccompiler.py",
+      "line_number": 1136
+    },
+    {
+      "name": "compiler.set_include_dirs",
+      "source_code": "    def set_include_dirs(self, dirs):\n        \"\"\"Set the list of directories that will be searched to 'dirs' (a\n        list of strings).  Overrides any preceding calls to\n        'add_include_dir()'; subsequence calls to 'add_include_dir()' add\n        to the list passed to 'set_include_dirs()'.  This does not affect\n        any list of standard include directories that the compiler may\n        search by default.\n        \"\"\"\n        self.include_dirs = dirs[:]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/ccompiler.py",
+      "line_number": 259
+    },
+    {
+      "name": "compiler.compile",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "compiler.compile",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_make_strs",
+      "source_code": "def _make_strs(paths):\n    \"\"\"\n    Convert paths to strings for legacy compatibility.\n    \"\"\"\n    if sys.version_info > (3, 8) and platform.system() != \"Windows\":\n        return paths\n    return list(map(os.fspath, paths))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_ccompiler.py",
+      "line_number": 11
+    },
+    {
+      "name": "_make_strs",
+      "source_code": "def _make_strs(paths):\n    \"\"\"\n    Convert paths to strings for legacy compatibility.\n    \"\"\"\n    if sys.version_info > (3, 8) and platform.system() != \"Windows\":\n        return paths\n    return list(map(os.fspath, paths))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_ccompiler.py",
+      "line_number": 11
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ccompiler.new_compiler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/ccompiler.py",
+      "line": 1136,
+      "caller": "test_include_dirs_after_multiple_compile_calls",
+      "source_code": "def new_compiler(plat=None, compiler=None, verbose=False, dry_run=False, force=False):\n    \"\"\"Generate an instance of some CCompiler subclass for the supplied\n    platform/compiler combination.  'plat' defaults to 'os.name'\n    (eg. 'posix', 'nt'), and 'compiler' defaults to the default compiler\n    for that platform.  Currently only 'posix' and 'nt' are supported, and\n    the default compilers are \"traditional Unix interface\" (UnixCCompiler\n    class) and Visual C++ (MSVCCompiler class).  Note that it's perfectly\n    possible to ask for a Unix compiler object under Windows, and a\n    Microsoft compiler object under Unix -- if you supply a value for\n    'compiler', 'plat' is ignored.\n    \"\"\"\n    if plat is None:\n        plat = os.name\n\n    try:\n        if compiler is None:\n            compiler = get_default_compiler(plat)\n\n        (module_name, class_name, long_description) = compiler_class[compiler]\n    except KeyError:\n        msg = f\"don't know how to compile C/C++ code on platform '{plat}'\"\n        if compiler is not None:\n            msg = msg + f\" with '{compiler}' compiler\"\n        raise DistutilsPlatformError(msg)\n\n    try:\n        module_name = \"distutils.\" + module_name\n        __import__(module_name)\n        module = sys.modules[module_name]\n        klass = vars(module)[class_name]\n    except ImportError:\n        raise DistutilsModuleError(\n            f\"can't compile C/C++ code: unable to load module '{module_name}'\"\n        )\n    except KeyError:\n        raise DistutilsModuleError(\n            f\"can't compile C/C++ code: unable to find class '{class_name}' \"\n            f\"in module '{module_name}'\"\n        )\n\n    # XXX The None is necessary to preserve backwards compatibility\n    # with classes that expect verbose to be the first positional\n    # argument.\n    return klass(None, dry_run, force)\n\n\n"
+    },
+    {
+      "function": "compiler.set_include_dirs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/ccompiler.py",
+      "line": 259,
+      "caller": "test_include_dirs_after_multiple_compile_calls",
+      "source_code": "    def set_include_dirs(self, dirs):\n        \"\"\"Set the list of directories that will be searched to 'dirs' (a\n        list of strings).  Overrides any preceding calls to\n        'add_include_dir()'; subsequence calls to 'add_include_dir()' add\n        to the list passed to 'set_include_dirs()'.  This does not affect\n        any list of standard include directories that the compiler may\n        search by default.\n        \"\"\"\n        self.include_dirs = dirs[:]\n\n"
+    },
+    {
+      "function": "compiler.compile",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_include_dirs_after_multiple_compile_calls",
+      "source_code": ""
+    },
+    {
+      "function": "compiler.compile",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_include_dirs_after_multiple_compile_calls",
+      "source_code": ""
+    },
+    {
+      "function": "_make_strs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_ccompiler.py",
+      "line": 11,
+      "caller": "test_include_dirs_after_multiple_compile_calls",
+      "source_code": "def _make_strs(paths):\n    \"\"\"\n    Convert paths to strings for legacy compatibility.\n    \"\"\"\n    if sys.version_info > (3, 8) and platform.system() != \"Windows\":\n        return paths\n    return list(map(os.fspath, paths))\n\n\n"
+    },
+    {
+      "function": "_make_strs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_ccompiler.py",
+      "line": 11,
+      "caller": "test_include_dirs_after_multiple_compile_calls",
+      "source_code": "def _make_strs(paths):\n    \"\"\"\n    Convert paths to strings for legacy compatibility.\n    \"\"\"\n    if sys.version_info > (3, 8) and platform.system() != \"Windows\":\n        return paths\n    return list(map(os.fspath, paths))\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert compiler.include_dirs == [python]",
+    "assert compiler.include_dirs == [python]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_include_dirs_after_multiple_compile_calls(c_file):\n    \"\"\"\n    Calling compile multiple times should not change the include dirs\n    (regression test for setuptools issue #3591).\n    \"\"\"\n    compiler = ccompiler.new_compiler()\n    python = sysconfig.get_paths()['include']\n    compiler.set_include_dirs([python])\n    compiler.compile(_make_strs([c_file]))\n    assert compiler.include_dirs == [python]\n    compiler.compile(_make_strs([c_file]))\n    assert compiler.include_dirs == [python]"
+}

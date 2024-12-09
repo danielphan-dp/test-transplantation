@@ -1,0 +1,79 @@
+{
+  "test_name": "test_timer_context_not_cancelled",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.TimerContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctx.timeout",
+      "source_code": "    def timeout(self) -> ClientTimeout:\n        \"\"\"Timeout for the session.\"\"\"\n        return self._timeout",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client.py",
+      "line_number": 1231
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_timer_context_not_cancelled",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_timer_context_not_cancelled",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_timer_context_not_cancelled",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.TimerContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_timer_context_not_cancelled",
+      "source_code": ""
+    },
+    {
+      "function": "ctx.timeout",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client.py",
+      "line": 1231,
+      "caller": "test_timer_context_not_cancelled",
+      "source_code": "    @property\n    def timeout(self) -> ClientTimeout:\n        \"\"\"Timeout for the session.\"\"\"\n        return self._timeout\n\n"
+    }
+  ],
+  "assertions": [
+    "assert not m_asyncio.current_task.return_value.cancel.called"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_timer_context_not_cancelled() -> None:\n    with mock.patch(\"aiohttp.helpers.asyncio\") as m_asyncio:\n        m_asyncio.TimeoutError = asyncio.TimeoutError\n        loop = mock.Mock()\n        ctx = helpers.TimerContext(loop)\n        ctx.timeout()\n\n        with pytest.raises(asyncio.TimeoutError):\n            with ctx:\n                pass\n\n        assert not m_asyncio.current_task.return_value.cancel.called"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_mixed_dynamic_optional_dependencies",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml_dynamic_deps.py",
+  "static_methods": [
+    {
+      "name": "path.build",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 363
+    },
+    {
+      "name": "cleandoc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "apply_configuration",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 64
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "path.build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 363,
+      "caller": "test_mixed_dynamic_optional_dependencies",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}\n\n        libkey = list(filter(lambda o: o in paths, ('purelib', 'platlib')))[0]\n        if libkey == 'platlib':\n            is_pure = 'false'\n            default_pyver = [IMPVER]\n            default_abi = [ABI]\n            default_arch = [ARCH]\n        else:\n            is_pure = 'true'\n            default_pyver = [PYVER]\n            default_abi = ['none']\n            default_arch = ['any']\n\n        self.pyver = tags.get('pyver', default_pyver)\n        self.abi = tags.get('abi', default_abi)\n        self.arch = tags.get('arch', default_arch)\n\n        libdir = paths[libkey]\n\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        archive_paths = []\n\n        # First, stuff which is not in site-packages\n        for key in ('data', 'headers', 'scripts'):\n            if key not in paths:\n                continue\n            path = paths[key]\n            if os.path.isdir(path):\n                for root, dirs, files in os.walk(path):\n                    for fn in files:\n                        p = fsdecode(os.path.join(root, fn))\n                        rp = os.path.relpath(p, path)\n                        ap = to_posix(os.path.join(data_dir, key, rp))\n                        archive_paths.append((ap, p))\n                        if key == 'scripts' and not p.endswith('.exe'):\n                            with open(p, 'rb') as f:\n                                data = f.read()\n                            data = self.process_shebang(data)\n                            with open(p, 'wb') as f:\n                                f.write(data)\n\n        # Now, stuff which is in site-packages, other than the\n        # distinfo stuff.\n        path = libdir\n        distinfo = None\n        for root, dirs, files in os.walk(path):\n            if root == path:\n                # At the top level only, save distinfo for later\n                # and skip it for now\n                for i, dn in enumerate(dirs):\n                    dn = fsdecode(dn)\n                    if dn.endswith('.dist-info'):\n                        distinfo = os.path.join(root, dn)\n                        del dirs[i]\n                        break\n                assert distinfo, '.dist-info directory expected, not found'\n\n            for fn in files:\n                # comment out next suite to leave .pyc files in\n                if fsdecode(fn).endswith(('.pyc', '.pyo')):\n                    continue\n                p = os.path.join(root, fn)\n                rp = to_posix(os.path.relpath(p, path))\n                archive_paths.append((rp, p))\n\n        # Now distinfo. Assumed to be flat, i.e. os.listdir is enough.\n        files = os.listdir(distinfo)\n        for fn in files:\n            if fn not in ('RECORD', 'INSTALLER', 'SHARED', 'WHEEL'):\n                p = fsdecode(os.path.join(distinfo, fn))\n                ap = to_posix(os.path.join(info_dir, fn))\n                archive_paths.append((ap, p))\n\n        wheel_metadata = [\n            'Wheel-Version: %d.%d' % (wheel_version or self.wheel_version),\n            'Generator: distlib %s' % __version__,\n            'Root-Is-Purelib: %s' % is_pure,\n        ]\n        for pyver, abi, arch in self.tags:\n            wheel_metadata.append('Tag: %s-%s-%s' % (pyver, abi, arch))\n        p = os.path.join(distinfo, 'WHEEL')\n        with open(p, 'w') as f:\n            f.write('\\n'.join(wheel_metadata))\n        ap = to_posix(os.path.join(info_dir, 'WHEEL'))\n        archive_paths.append((ap, p))\n\n        # sort the entries by archive path. Not needed by any spec, but it\n        # keeps the archive listing and RECORD tidier than they would otherwise\n        # be. Use the number of path segments to keep directory entries together,\n        # and keep the dist-info stuff at the end.\n        def sorter(t):\n            ap = t[0]\n            n = ap.count('/')\n            if '.dist-info' in ap:\n                n += 10000\n            return (n, ap)\n        archive_paths = sorted(archive_paths, key=sorter)\n\n        # Now, at last, RECORD.\n        # Paths in here are archive paths - nothing else makes sense.\n        self.write_records((distinfo, info_dir), libdir, archive_paths)\n        # Now, ready to build the zip file\n        pathname = os.path.join(self.dirname, self.filename)\n        self.build_zip(pathname, archive_paths)\n        return pathname\n\n"
+    },
+    {
+      "function": "cleandoc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mixed_dynamic_optional_dependencies",
+      "source_code": ""
+    },
+    {
+      "function": "apply_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 64,
+      "caller": "test_mixed_dynamic_optional_dependencies",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mixed_dynamic_optional_dependencies",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_mixed_dynamic_optional_dependencies(tmp_path):\n    \"\"\"\n    Test that if PEP 621 was loosened to allow mixing of dynamic and static\n    configurations in the case of fields containing sub-fields (groups),\n    things would work out.\n    \"\"\"\n    files = {\n        \"requirements-images.txt\": \"pillow~=42.0\\n  # comment\\n\",\n        \"pyproject.toml\": cleandoc(\n            \"\"\"\n            [project]\n            name = \"myproj\"\n            version = \"1.0\"\n            dynamic = [\"optional-dependencies\"]\n\n            [project.optional-dependencies]\n            docs = [\"sphinx\"]\n\n            [tool.setuptools.dynamic.optional-dependencies.images]\n            file = [\"requirements-images.txt\"]\n            \"\"\"\n        ),\n    }\n\n    path.build(files, prefix=tmp_path)\n    pyproject = tmp_path / \"pyproject.toml\"\n    with pytest.raises(ValueError, match=\"project.optional-dependencies\"):\n        apply_configuration(Distribution(), pyproject)"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_not_modified",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "self.testapp.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "httpdate",
+      "source_code": "def httpdate(ts):\n    return ts.strftime(\"%a, %d %b %Y %H:%M:%S GMT\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line_number": 1007
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.testapp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_not_modified",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_not_modified",
+      "source_code": ""
+    },
+    {
+      "function": "httpdate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line": 1007,
+      "caller": "test_not_modified",
+      "source_code": "def httpdate(ts):\n    return ts.strftime(\"%a, %d %b %Y %H:%M:%S GMT\")\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_not_modified(self):\n        self.testapp.extra_environ = {\n            'HTTP_IF_MODIFIED_SINCE': httpdate(fiveyrsfuture)\n        }\n        res = self.testapp.get('/minimal.txt', status=304)\n        self.assertEqual(res.body, b'')"
+}

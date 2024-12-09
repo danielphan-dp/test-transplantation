@@ -1,0 +1,66 @@
+{
+  "test_name": "test_remove_double_slashes_defined_on_register",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_blueprints.py",
+  "static_methods": [
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.blueprint",
+      "source_code": "    def blueprint(\n        self,\n        blueprint: Union[Blueprint, Iterable[Blueprint], BlueprintGroup],\n        *,\n        url_prefix: Optional[str] = None,\n        version: Optional[Union[int, float, str]] = None,\n        strict_slashes: Optional[bool] = None,\n        version_prefix: Optional[str] = None,\n        name_prefix: Optional[str] = None,\n    ) -> None:\n        \"\"\"Register a blueprint on the application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 856
+    },
+    {
+      "name": "app.router.finalize",
+      "source_code": "    def finalize(self):\n        self._finalize_params()\n        if self.regex:\n            self._compile_regex()\n        self.requirements = Immutable(self.requirements)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/sanic_routing/route.py",
+      "line_number": 282
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Blueprint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remove_double_slashes_defined_on_register",
+      "source_code": ""
+    },
+    {
+      "function": "bp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_remove_double_slashes_defined_on_register",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.blueprint",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 856,
+      "caller": "test_remove_double_slashes_defined_on_register",
+      "source_code": "    def blueprint(\n        self,\n        blueprint: Union[Blueprint, Iterable[Blueprint], BlueprintGroup],\n        *,\n        url_prefix: Optional[str] = None,\n        version: Optional[Union[int, float, str]] = None,\n        strict_slashes: Optional[bool] = None,\n        version_prefix: Optional[str] = None,\n        name_prefix: Optional[str] = None,\n"
+    },
+    {
+      "function": "app.router.finalize",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/sanic_routing/route.py",
+      "line": 282,
+      "caller": "test_remove_double_slashes_defined_on_register",
+      "source_code": "    def finalize(self):\n        self._finalize_params()\n        if self.regex:\n            self._compile_regex()\n        self.requirements = Immutable(self.requirements)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert app.router.routes[0].path == 'foo/'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_remove_double_slashes_defined_on_register(app: Sanic):\n    bp = Blueprint(\"bp\")\n\n    @bp.get(\"/\")\n    async def index(_): ...\n\n    app.blueprint(bp, url_prefix=\"/foo/\", strict_slashes=True)\n    app.router.finalize()\n\n    assert app.router.routes[0].path == \"foo/\""
+}

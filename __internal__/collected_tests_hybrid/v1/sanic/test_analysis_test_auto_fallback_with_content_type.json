@@ -1,0 +1,43 @@
+{
+  "test_name": "test_auto_fallback_with_content_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+  "static_methods": [
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_auto_fallback_with_content_type",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_auto_fallback_with_content_type",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert response.content_type == 'application/json'",
+    "assert response.status == 500",
+    "assert response.content_type == 'text/plain; charset=utf-8'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_auto_fallback_with_content_type(app):\n    app.config.FALLBACK_ERROR_FORMAT = \"auto\"\n\n    _, response = app.test_client.get(\n        \"/error\", headers={\"content-type\": \"application/json\", \"accept\": \"*/*\"}\n    )\n    assert response.status == 500\n    assert response.content_type == \"application/json\"\n\n    _, response = app.test_client.get(\n        \"/error\", headers={\"content-type\": \"foo/bar\", \"accept\": \"*/*\"}\n    )\n    assert response.status == 500\n    assert response.content_type == \"text/plain; charset=utf-8\""
+}

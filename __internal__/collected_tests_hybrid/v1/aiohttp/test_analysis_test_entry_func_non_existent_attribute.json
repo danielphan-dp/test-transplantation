@@ -1,0 +1,90 @@
+{
+  "test_name": "test_entry_func_non_existent_attribute",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_cli.py",
+  "static_methods": [
+    {
+      "name": "mocker.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mocker.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "import_module",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "error.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.main",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line_number": 6
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mocker.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_entry_func_non_existent_attribute",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mocker.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_entry_func_non_existent_attribute",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "import_module",
+      "filename": "",
+      "line": 0,
+      "caller": "test_entry_func_non_existent_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "error.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_entry_func_non_existent_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "web.main",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line": 6,
+      "caller": "test_entry_func_non_existent_attribute",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.\n\n    For additional details, see https://github.com/pypa/pip/issues/7498.\n    \"\"\"\n    from pip._internal.utils.entrypoints import _wrapper\n\n    return _wrapper(args)\n"
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_entry_func_non_existent_attribute",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_entry_func_non_existent_attribute(mocker: MockerFixture) -> None:\n    argv = [\"alpha.beta:func\"]\n    import_module = mocker.patch(\"aiohttp.web.import_module\")\n    error = mocker.patch(\"aiohttp.web.ArgumentParser.error\", side_effect=SystemExit)\n    module = import_module(\"alpha.beta\")\n    del module.func\n\n    with pytest.raises(SystemExit):\n        web.main(argv)\n\n    error.assert_called_with(\n        \"module {!r} has no attribute {!r}\".format(\"alpha.beta\", \"func\")\n    )"
+}

@@ -1,0 +1,67 @@
+{
+  "test_name": "test_create_tree_verbosity",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+  "static_methods": [
+    {
+      "name": "create_tree",
+      "source_code": "def create_tree(base_dir, files, mode=0o777, verbose=True, dry_run=False):\n    \"\"\"Create all the empty directories under 'base_dir' needed to put 'files'\n    there.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 79
+    },
+    {
+      "name": "remove_tree",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 215
+    },
+    {
+      "name": "create_tree",
+      "source_code": "def create_tree(base_dir, files, mode=0o777, verbose=True, dry_run=False):\n    \"\"\"Create all the empty directories under 'base_dir' needed to put 'files'\n    there.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 79
+    },
+    {
+      "name": "remove_tree",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 215
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "create_tree",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 79,
+      "caller": "test_create_tree_verbosity",
+      "source_code": "def create_tree(base_dir, files, mode=0o777, verbose=True, dry_run=False):\n    \"\"\"Create all the empty directories under 'base_dir' needed to put 'files'\n    there.\n\n    'base_dir' is just the name of a directory which doesn't necessarily\n    exist yet; 'files' is a list of filenames to be interpreted relative to\n    'base_dir'.  'base_dir' + the directory portion of every file in 'files'\n    will be created if it doesn't already exist.  'mode', 'verbose' and\n    'dry_run' flags are as for 'mkpath()'.\n    \"\"\"\n    # First get the list of directories to create\n    need_dir = set(os.path.join(base_dir, os.path.dirname(file)) for file in files)\n\n    # Now create them\n    for dir in sorted(need_dir):\n        mkpath(dir, mode, verbose=verbose, dry_run=dry_run)\n\n\n"
+    },
+    {
+      "function": "remove_tree",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 215,
+      "caller": "test_create_tree_verbosity",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.\n\n    Any errors are ignored (apart from being reported to stdout if 'verbose'\n    is true).\n    \"\"\"\n    if verbose >= 1:\n        log.info(\"removing '%s' (and everything under it)\", directory)\n    if dry_run:\n        return\n    cmdtuples = []\n    _build_cmdtuple(directory, cmdtuples)\n    for cmd in cmdtuples:\n        try:\n            cmd[0](cmd[1])\n            # Clear the cache\n            SkipRepeatAbsolutePaths.clear()\n        except OSError as exc:\n            log.warning(\"error removing %s: %s\", directory, exc)\n\n\n"
+    },
+    {
+      "function": "create_tree",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 79,
+      "caller": "test_create_tree_verbosity",
+      "source_code": "def create_tree(base_dir, files, mode=0o777, verbose=True, dry_run=False):\n    \"\"\"Create all the empty directories under 'base_dir' needed to put 'files'\n    there.\n\n    'base_dir' is just the name of a directory which doesn't necessarily\n    exist yet; 'files' is a list of filenames to be interpreted relative to\n    'base_dir'.  'base_dir' + the directory portion of every file in 'files'\n    will be created if it doesn't already exist.  'mode', 'verbose' and\n    'dry_run' flags are as for 'mkpath()'.\n    \"\"\"\n    # First get the list of directories to create\n    need_dir = set(os.path.join(base_dir, os.path.dirname(file)) for file in files)\n\n    # Now create them\n    for dir in sorted(need_dir):\n        mkpath(dir, mode, verbose=verbose, dry_run=dry_run)\n\n\n"
+    },
+    {
+      "function": "remove_tree",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 215,
+      "caller": "test_create_tree_verbosity",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.\n\n    Any errors are ignored (apart from being reported to stdout if 'verbose'\n    is true).\n    \"\"\"\n    if verbose >= 1:\n        log.info(\"removing '%s' (and everything under it)\", directory)\n    if dry_run:\n        return\n    cmdtuples = []\n    _build_cmdtuple(directory, cmdtuples)\n    for cmd in cmdtuples:\n        try:\n            cmd[0](cmd[1])\n            # Clear the cache\n            SkipRepeatAbsolutePaths.clear()\n        except OSError as exc:\n            log.warning(\"error removing %s: %s\", directory, exc)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert caplog.messages == []",
+    "assert caplog.messages == wanted"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_create_tree_verbosity(self, caplog):\n        create_tree(self.root_target, ['one', 'two', 'three'], verbose=False)\n        assert caplog.messages == []\n        remove_tree(self.root_target, verbose=False)\n\n        wanted = [f'creating {self.root_target}']\n        create_tree(self.root_target, ['one', 'two', 'three'], verbose=True)\n        assert caplog.messages == wanted\n\n        remove_tree(self.root_target, verbose=False)"
+}

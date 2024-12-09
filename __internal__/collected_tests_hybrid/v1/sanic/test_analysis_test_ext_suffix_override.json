@@ -1,0 +1,54 @@
+{
+  "test_name": "test_ext_suffix_override",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "build_ext",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 90
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ext_suffix_override",
+      "source_code": ""
+    },
+    {
+      "function": "build_ext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 90,
+      "caller": "test_ext_suffix_override",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)\n\n"
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ext_suffix_override",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'normal.test-suffix' == res",
+    "assert expect == res"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ext_suffix_override(self):\n        \"\"\"\n        SETUPTOOLS_EXT_SUFFIX variable always overrides\n        default extension options.\n        \"\"\"\n        dist = Distribution()\n        cmd = build_ext(dist)\n        cmd.ext_map['for_abi3'] = ext = Extension(\n            'for_abi3',\n            ['s.c'],\n            # Override shouldn't affect abi3 modules\n            py_limited_api=True,\n        )\n        # Mock value needed to pass tests\n        ext._links_to_dynamic = False\n\n        if not IS_PYPY:\n            expect = cmd.get_ext_filename('for_abi3')\n        else:\n            # PyPy builds do not use ABI3 tag, so they will\n            # also get the overridden suffix.\n            expect = 'for_abi3.test-suffix'\n\n        try:\n            os.environ['SETUPTOOLS_EXT_SUFFIX'] = '.test-suffix'\n            res = cmd.get_ext_filename('normal')\n            assert 'normal.test-suffix' == res\n            res = cmd.get_ext_filename('for_abi3')\n            assert expect == res\n        finally:\n            del os.environ['SETUPTOOLS_EXT_SUFFIX']"
+}

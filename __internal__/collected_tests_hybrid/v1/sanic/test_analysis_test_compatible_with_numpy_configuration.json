@@ -1,0 +1,67 @@
+{
+  "test_name": "test_compatible_with_numpy_configuration",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+  "static_methods": [
+    {
+      "name": "_populate_project_dir",
+      "source_code": "def _populate_project_dir(root, files, options):\n    # NOTE: Currently pypa/build will refuse to build the project if no\n    # `pyproject.toml` or `setup.py` is found. So it is impossible to do\n    # completely \"config-less\" projects.\n    basic = {\n        \"setup.py\": \"import setuptools\\nsetuptools.setup()\",\n        \"README.md\": \"# Example Package\",\n        \"LICENSE\": \"Copyright (c) 2018\",\n    }\n    jaraco.path.build(basic, prefix=root)\n    _write_setupcfg(root, options)\n    paths = (root / f for f in files)\n    for path in paths:\n        path.parent.mkdir(exist_ok=True, parents=True)\n        path.touch()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line_number": 571
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dist.set_defaults",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_populate_project_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line": 571,
+      "caller": "test_compatible_with_numpy_configuration",
+      "source_code": "def _populate_project_dir(root, files, options):\n    # NOTE: Currently pypa/build will refuse to build the project if no\n    # `pyproject.toml` or `setup.py` is found. So it is impossible to do\n    # completely \"config-less\" projects.\n    basic = {\n        \"setup.py\": \"import setuptools\\nsetuptools.setup()\",\n        \"README.md\": \"# Example Package\",\n        \"LICENSE\": \"Copyright (c) 2018\",\n    }\n    jaraco.path.build(basic, prefix=root)\n    _write_setupcfg(root, options)\n    paths = (root / f for f in files)\n    for path in paths:\n        path.parent.mkdir(exist_ok=True, parents=True)\n        path.touch()\n\n\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_compatible_with_numpy_configuration",
+      "source_code": ""
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_compatible_with_numpy_configuration",
+      "source_code": ""
+    },
+    {
+      "function": "dist.set_defaults",
+      "filename": "",
+      "line": 0,
+      "caller": "test_compatible_with_numpy_configuration",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert dist.py_modules is None",
+    "assert dist.packages is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_compatible_with_numpy_configuration(tmp_path):\n    files = [\n        \"dir1/__init__.py\",\n        \"dir2/__init__.py\",\n        \"file.py\",\n    ]\n    _populate_project_dir(tmp_path, files, {})\n    dist = Distribution({})\n    dist.configuration = object()\n    dist.set_defaults()\n    assert dist.py_modules is None\n    assert dist.packages is None"
+}

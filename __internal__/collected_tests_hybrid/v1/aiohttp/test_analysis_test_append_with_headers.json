@@ -1,0 +1,42 @@
+{
+  "test_name": "test_append_with_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "writer.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "writer.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_append_with_headers",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_append_with_headers",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 1 == len(writer)",
+    "assert 'x-foo' in writer._parts[0][0].headers",
+    "assert writer._parts[0][0].headers['x-foo'] == 'bar'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_append_with_headers(self, writer: aiohttp.MultipartWriter) -> None:\n        writer.append(\"hello, world!\", {\"x-foo\": \"bar\"})\n        assert 1 == len(writer)\n        assert \"x-foo\" in writer._parts[0][0].headers\n        assert writer._parts[0][0].headers[\"x-foo\"] == \"bar\""
+}

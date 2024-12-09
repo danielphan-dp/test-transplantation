@@ -1,0 +1,95 @@
+{
+  "test_name": "test_mock_resolver_no_example_nested_in_list_openapi",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_mock.py",
+  "static_methods": [
+    {
+      "name": "MockResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "OpenAPIOperation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resolver.mock_operation",
+      "source_code": "    def mock_operation(self, operation, *args, **kwargs):\n        resp, code = operation.example_response()\n        if resp is not None:\n            return resp, code\n        return (\n            \"No example response defined in the API, and response \"\n            \"auto-generation disabled. To enable response auto-generation, \"\n            \"install connexion using the mock extra (connexion[mock])\",\n            501,\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/mock.py",
+      "line_number": 50
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "all",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MockResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_resolver_no_example_nested_in_list_openapi",
+      "source_code": ""
+    },
+    {
+      "function": "OpenAPIOperation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_resolver_no_example_nested_in_list_openapi",
+      "source_code": ""
+    },
+    {
+      "function": "resolver.mock_operation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/mock.py",
+      "line": 50,
+      "caller": "test_mock_resolver_no_example_nested_in_list_openapi",
+      "source_code": "    def mock_operation(self, operation, *args, **kwargs):\n        resp, code = operation.example_response()\n        if resp is not None:\n            return resp, code\n        return (\n            \"No example response defined in the API, and response \"\n            \"auto-generation disabled. To enable response auto-generation, \"\n            \"install connexion using the mock extra (connexion[mock])\",\n            501,\n        )\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mock_resolver_no_example_nested_in_list_openapi",
+      "source_code": ""
+    },
+    {
+      "function": "all",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mock_resolver_no_example_nested_in_list_openapi",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_mock_resolver_no_example_nested_in_list_openapi",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert operation.operation_id == 'mock-1'",
+    "assert status_code == 202",
+    "assert isinstance(response, list)",
+    "assert all((isinstance(c, str) for c in response))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_mock_resolver_no_example_nested_in_list_openapi():\n    resolver = MockResolver(mock_all=True)\n\n    responses = {\n        \"202\": {\n            \"content\": {\n                \"application/json\": {\n                    \"schema\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"string\",\n                        },\n                    }\n                }\n            }\n        }\n    }\n\n    operation = OpenAPIOperation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation={\"responses\": responses},\n        resolver=resolver,\n    )\n    assert operation.operation_id == \"mock-1\"\n\n    response, status_code = resolver.mock_operation(operation)\n    assert status_code == 202\n    assert isinstance(response, list)\n    assert all(isinstance(c, str) for c in response)"
+}

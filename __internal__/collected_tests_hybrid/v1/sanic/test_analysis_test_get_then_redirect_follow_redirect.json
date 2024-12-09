@@ -1,0 +1,28 @@
+{
+  "test_name": "test_get_then_redirect_follow_redirect",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_redirect.py",
+  "static_methods": [
+    {
+      "name": "redirect_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "redirect_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_get_then_redirect_follow_redirect",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200",
+    "assert response.text == 'OK'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_then_redirect_follow_redirect(redirect_app):\n    \"\"\"\n    With `allow_redirects` we expect a 200.\n    \"\"\"\n    request, response = redirect_app.test_client.get(\n        \"/redirect_init\", allow_redirects=True\n    )\n\n    assert response.status == 200\n    assert response.text == \"OK\""
+}

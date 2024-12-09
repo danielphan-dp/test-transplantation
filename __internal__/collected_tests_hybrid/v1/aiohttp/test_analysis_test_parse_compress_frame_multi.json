@@ -1,0 +1,14 @@
+{
+  "test_name": "test_parse_compress_frame_multi",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert (0, 1, b'1234', True) == (fin, opcode, payload, not not compress)",
+    "assert (1, 1, b'1234', True) == (fin, opcode, payload, not not compress)",
+    "assert (1, 1, b'1234', False) == (fin, opcode, payload, not not compress)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_compress_frame_multi(parser: WebSocketReader) -> None:\n    parser.parse_frame(struct.pack(\"!BB\", 0b01000001, 126))\n    parser.parse_frame(struct.pack(\"!H\", 4))\n    res = parser.parse_frame(b\"1234\")\n    fin, opcode, payload, compress = res[0]\n    assert (0, 1, b\"1234\", True) == (fin, opcode, payload, not not compress)\n\n    parser.parse_frame(struct.pack(\"!BB\", 0b10000001, 126))\n    parser.parse_frame(struct.pack(\"!H\", 4))\n    res = parser.parse_frame(b\"1234\")\n    fin, opcode, payload, compress = res[0]\n    assert (1, 1, b\"1234\", True) == (fin, opcode, payload, not not compress)\n\n    parser.parse_frame(struct.pack(\"!BB\", 0b10000001, 126))\n    parser.parse_frame(struct.pack(\"!H\", 4))\n    res = parser.parse_frame(b\"1234\")\n    fin, opcode, payload, compress = res[0]\n    assert (1, 1, b\"1234\", False) == (fin, opcode, payload, not not compress)"
+}

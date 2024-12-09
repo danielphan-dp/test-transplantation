@@ -1,0 +1,27 @@
+{
+  "test_name": "test_parse_no_length_payload",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "payload.is_eof",
+      "source_code": "    def is_eof(self) -> bool:\n        \"\"\"Return True if  'feed_eof' was called.\"\"\"\n        return self._eof",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line_number": 233
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "payload.is_eof",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line": 233,
+      "caller": "test_parse_no_length_payload",
+      "source_code": "    def is_eof(self) -> bool:\n        \"\"\"Return True if  'feed_eof' was called.\"\"\"\n        return self._eof\n\n"
+    }
+  ],
+  "assertions": [
+    "assert payload.is_eof()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_no_length_payload(parser: HttpRequestParser) -> None:\n    text = b\"PUT / HTTP/1.1\\r\\n\\r\\n\"\n    msg, payload = parser.feed_data(text)[0][0]\n    assert payload.is_eof()"
+}

@@ -1,0 +1,25 @@
+{
+  "test_name": "test_invalid_linebreak",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "HttpRequestParserC",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "HttpRequestParserC",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_linebreak",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_invalid_linebreak(\n    loop: asyncio.AbstractEventLoop,\n    protocol: BaseProtocol,\n    request: pytest.FixtureRequest,\n) -> None:\n    parser = HttpRequestParserC(\n        protocol,\n        loop,\n        2**16,\n        max_line_size=8190,\n        max_field_size=8190,\n    )\n    text = b\"GET /world HTTP/1.1\\r\\nHost: 127.0.0.1\\n\\r\\n\"\n    error_detail = re.escape(\n        r\"\"\":\n\n    b'Host: 127.0.0.1\\n'\n                     ^\"\"\"\n    )\n    with pytest.raises(http_exceptions.BadHttpMessage, match=error_detail):\n        parser.feed_data(text)"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_long_description",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.format_metadata",
+      "source_code": "    def format_metadata(self, dist):\n        sio = io.StringIO()\n        dist.metadata.write_pkg_file(sio)\n        return sio.getvalue()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+      "line_number": 265
+    },
+    {
+      "name": "meta.replace",
+      "source_code": "    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line_number": 58
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_long_description",
+      "source_code": ""
+    },
+    {
+      "function": "self.format_metadata",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+      "line": 265,
+      "caller": "test_long_description",
+      "source_code": "    def format_metadata(self, dist):\n        sio = io.StringIO()\n        dist.metadata.write_pkg_file(sio)\n        return sio.getvalue()\n\n"
+    },
+    {
+      "function": "meta.replace",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line": 58,
+      "caller": "test_long_description",
+      "source_code": "    @classmethod\n    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.\n\n        Args:\n            text (str): A string with emojis codes, e.g. \"Hello :smiley:!\"\n\n        Returns:\n            str: A string with emoji codes replaces with actual emoji.\n        \"\"\"\n        return _emoji_replace(text)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert long_desc in meta"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_long_description(self):\n        long_desc = textwrap.dedent(\n            \"\"\"\\\n        example::\n              We start here\n            and continue here\n          and end here.\"\"\"\n        )\n        attrs = {\"name\": \"package\", \"version\": \"1.0\", \"long_description\": long_desc}\n\n        dist = Distribution(attrs)\n        meta = self.format_metadata(dist)\n        meta = meta.replace('\\n' + 8 * ' ', '\\n')\n        assert long_desc in meta"
+}

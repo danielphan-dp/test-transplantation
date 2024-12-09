@@ -1,0 +1,51 @@
+{
+  "test_name": "test_testcase_no_app",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_test_utils.py",
+  "static_methods": [
+    {
+      "name": "testdir.makepyfile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.runpytest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result.stdout.fnmatch_lines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testdir.makepyfile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_testcase_no_app",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.runpytest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_testcase_no_app",
+      "source_code": ""
+    },
+    {
+      "function": "result.stdout.fnmatch_lines",
+      "filename": "",
+      "line": 0,
+      "caller": "test_testcase_no_app",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_testcase_no_app(\n    testdir: pytest.Testdir, loop: asyncio.AbstractEventLoop\n) -> None:\n    testdir.makepyfile(\n        \"\"\"\n        from aiohttp.test_utils import AioHTTPTestCase\n\n\n        class InvalidTestCase(AioHTTPTestCase):\n            def test_noop(self) -> None:\n                pass\n        \"\"\"\n    )\n    result = testdir.runpytest()\n    result.stdout.fnmatch_lines([\"*TypeError*\"])"
+}

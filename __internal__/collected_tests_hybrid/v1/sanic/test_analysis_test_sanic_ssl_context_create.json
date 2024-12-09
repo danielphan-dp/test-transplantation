@@ -1,0 +1,41 @@
+{
+  "test_name": "test_sanic_ssl_context_create",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+  "static_methods": [
+    {
+      "name": "SanicSSLContext.create_from_ssl_context",
+      "source_code": "    def create_from_ssl_context(cls, context: ssl.SSLContext):\n        context.__class__ = cls\n        return context",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/context.py",
+      "line_number": 148
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SanicSSLContext.create_from_ssl_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/context.py",
+      "line": 148,
+      "caller": "test_sanic_ssl_context_create",
+      "source_code": "    @classmethod\n    def create_from_ssl_context(cls, context: ssl.SSLContext):\n        context.__class__ = cls\n        return context\n\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sanic_ssl_context_create",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert sanic_context is context",
+    "assert isinstance(sanic_context, SanicSSLContext)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_sanic_ssl_context_create():\n    context = ssl.SSLContext()\n    sanic_context = SanicSSLContext.create_from_ssl_context(context)\n\n    assert sanic_context is context\n    assert isinstance(sanic_context, SanicSSLContext)"
+}

@@ -1,0 +1,66 @@
+{
+  "test_name": "test_win_build_venv_from_source_tree",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+  "static_methods": [
+    {
+      "name": "jaraco.envs.VEnv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "env.ensure_env",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "env.exe",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "casefold",
+      "source_code": "    def casefold(self):\n        return super().casefold()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/jaraco/text/__init__.py",
+      "line_number": 124
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "jaraco.envs.VEnv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_win_build_venv_from_source_tree",
+      "source_code": ""
+    },
+    {
+      "function": "env.ensure_env",
+      "filename": "",
+      "line": 0,
+      "caller": "test_win_build_venv_from_source_tree",
+      "source_code": ""
+    },
+    {
+      "function": "env.exe",
+      "filename": "",
+      "line": 0,
+      "caller": "test_win_build_venv_from_source_tree",
+      "source_code": ""
+    },
+    {
+      "function": "casefold",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/jaraco/text/__init__.py",
+      "line": 124,
+      "caller": "test_win_build_venv_from_source_tree",
+      "source_code": "    @method_cache\n    def casefold(self):\n        return super().casefold()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert out == 'True'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_win_build_venv_from_source_tree(self, tmp_path):\n        \"\"\"Ensure distutils.sysconfig detects venvs from source tree builds.\"\"\"\n        env = jaraco.envs.VEnv()\n        env.create_opts = env.clean_opts\n        env.root = tmp_path\n        env.ensure_env()\n        cmd = [\n            env.exe(),\n            \"-c\",\n            \"import distutils.sysconfig; print(distutils.sysconfig.python_build)\",\n        ]\n        distutils_path = os.path.dirname(os.path.dirname(distutils.__file__))\n        out = subprocess.check_output(\n            cmd, env={**os.environ, \"PYTHONPATH\": distutils_path}\n        )\n        assert out == \"True\""
+}

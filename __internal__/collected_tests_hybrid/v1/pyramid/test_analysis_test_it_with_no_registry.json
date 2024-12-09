@@ -1,0 +1,90 @@
+{
+  "test_name": "test_it_with_no_registry",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripting.py",
+  "static_methods": [
+    {
+      "name": "self._makeRegistry",
+      "source_code": "    def _makeRegistry(self, depth):",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+      "line_number": 1377
+    },
+    {
+      "name": "global_registries.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "global_registries.empty",
+      "source_code": "    def empty(cls) -> \"Constraint\":\n        return Constraint(SpecifierSet(), Hashes(), frozenset())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_internal/resolution/resolvelib/base.py",
+      "line_number": 31
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeRegistry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+      "line": 1377,
+      "caller": "test_it_with_no_registry",
+      "source_code": "    def _makeRegistry(self, depth):\n\n        class WithGeneration:\n            _generation = 1\n\n        class Registry:\n            def __init__(self, depth):\n                self.ro = [WithGeneration() for i in range(depth)]\n\n        return Registry(depth)\n\n"
+    },
+    {
+      "function": "global_registries.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_it_with_no_registry",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it_with_no_registry",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_with_no_registry",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_with_no_registry",
+      "source_code": ""
+    },
+    {
+      "function": "global_registries.empty",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_internal/resolution/resolvelib/base.py",
+      "line": 31,
+      "caller": "test_it_with_no_registry",
+      "source_code": "    @classmethod\n    def empty(cls) -> \"Constraint\":\n        return Constraint(SpecifierSet(), Hashes(), frozenset())\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_with_no_registry(self):\n        from pyramid.config import global_registries\n\n        registry = self._makeRegistry()\n        global_registries.add(registry)\n        try:\n            request = self._callFUT('/hello')\n            self.assertEqual(request.environ['path'], '/hello')\n            self.assertEqual(request.registry, registry)\n        finally:\n            global_registries.empty()"
+}

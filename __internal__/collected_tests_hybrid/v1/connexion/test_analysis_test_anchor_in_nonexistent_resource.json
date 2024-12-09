@@ -1,0 +1,53 @@
+{
+  "test_name": "test_anchor_in_nonexistent_resource",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "registry.anchor",
+      "source_code": "    def anchor(self) -> str:\n        return self._path.anchor",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/anyio/_core/_fileio.py",
+      "line_number": 341
+    },
+    {
+      "name": "exceptions.NoSuchResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_anchor_in_nonexistent_resource",
+      "source_code": ""
+    },
+    {
+      "function": "registry.anchor",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/anyio/_core/_fileio.py",
+      "line": 341,
+      "caller": "test_anchor_in_nonexistent_resource",
+      "source_code": "    @property\n    def anchor(self) -> str:\n        return self._path.anchor\n\n"
+    },
+    {
+      "function": "exceptions.NoSuchResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_anchor_in_nonexistent_resource",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert e.value == exceptions.NoSuchResource(ref='urn:example')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_anchor_in_nonexistent_resource(self):\n        registry = Registry()\n        with pytest.raises(exceptions.NoSuchResource) as e:\n            registry.anchor(\"urn:example\", \"foo\")\n        assert e.value == exceptions.NoSuchResource(ref=\"urn:example\")"
+}

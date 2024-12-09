@@ -1,0 +1,67 @@
+{
+  "test_name": "test_can_raise_in_handler",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cancellederror.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.exception",
+      "source_code": "    def exception(self) -> Exception | None:  # pragma: no cover\n        warnings.warn(  # deprecated in 10.3 - 2022-04-17\n            \"Request.exception is deprecated; \"\n            \"use ServerProtocol.handshake_exc instead\",\n            DeprecationWarning,\n        )\n        return self._exception",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/http11.py",
+      "line_number": 90
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "CancelledError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_can_raise_in_handler",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.exception",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/http11.py",
+      "line": 90,
+      "caller": "test_can_raise_in_handler",
+      "source_code": "    @property\n    def exception(self) -> Exception | None:  # pragma: no cover\n        warnings.warn(  # deprecated in 10.3 - 2022-04-17\n            \"Request.exception is deprecated; \"\n            \"use ServerProtocol.handshake_exc instead\",\n            DeprecationWarning,\n        )\n        return self._exception\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_can_raise_in_handler",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "CancelledError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_raise_in_handler",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 418",
+    "assert response.json['message'] == 'STOP!!'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_can_raise_in_handler(app: Sanic):\n    @app.get(\"/\")\n    async def handler(request: Request):\n        raise CancelledError(\"STOP!!\")\n\n    @app.exception(CancelledError)\n    async def handle_cancel(request: Request, exc: CancelledError):\n        return json({\"message\": exc.args[0]}, status=418)\n\n    _, response = app.test_client.get(\"/\")\n    assert response.status == 418\n    assert response.json[\"message\"] == \"STOP!!\""
+}

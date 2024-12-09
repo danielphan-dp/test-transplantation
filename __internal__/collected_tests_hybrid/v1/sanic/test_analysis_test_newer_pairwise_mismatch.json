@@ -1,0 +1,51 @@
+{
+  "test_name": "test_newer_pairwise_mismatch",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_modified.py",
+  "static_methods": [
+    {
+      "name": "self._setup_1234",
+      "source_code": "    def _setup_1234(self):\n        tmpdir = self.mkdtemp()\n        sources = os.path.join(tmpdir, 'sources')\n        targets = os.path.join(tmpdir, 'targets')\n        os.mkdir(sources)\n        os.mkdir(targets)\n        one = os.path.join(sources, 'one')\n        two = os.path.join(sources, 'two')\n        three = os.path.abspath(__file__)  # I am the old file\n        four = os.path.join(targets, 'four')\n        self.write_file(one)\n        self.write_file(two)\n        self.write_file(four)\n        return one, two, three, four",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_modified.py",
+      "line_number": 32
+    },
+    {
+      "name": "newer_pairwise",
+      "source_code": "def newer_pairwise(sources, targets, newer=newer):\n    \"\"\"\n    Filter filenames where sources are newer than targets.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line_number": 33
+    },
+    {
+      "name": "newer_pairwise",
+      "source_code": "def newer_pairwise(sources, targets, newer=newer):\n    \"\"\"\n    Filter filenames where sources are newer than targets.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line_number": 33
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._setup_1234",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_modified.py",
+      "line": 32,
+      "caller": "test_newer_pairwise_mismatch",
+      "source_code": "    def _setup_1234(self):\n        tmpdir = self.mkdtemp()\n        sources = os.path.join(tmpdir, 'sources')\n        targets = os.path.join(tmpdir, 'targets')\n        os.mkdir(sources)\n        os.mkdir(targets)\n        one = os.path.join(sources, 'one')\n        two = os.path.join(sources, 'two')\n        three = os.path.abspath(__file__)  # I am the old file\n        four = os.path.join(targets, 'four')\n        self.write_file(one)\n        self.write_file(two)\n        self.write_file(four)\n        return one, two, three, four\n\n"
+    },
+    {
+      "function": "newer_pairwise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line": 33,
+      "caller": "test_newer_pairwise_mismatch",
+      "source_code": "def newer_pairwise(sources, targets, newer=newer):\n    \"\"\"\n    Filter filenames where sources are newer than targets.\n\n    Walk two filename iterables in parallel, testing if each source is newer\n    than its corresponding target.  Returns a pair of lists (sources,\n    targets) where source is newer than target, according to the semantics\n    of 'newer()'.\n    \"\"\"\n    newer_pairs = filter(splat(newer), zip_strict(sources, targets))\n    return tuple(map(list, zip(*newer_pairs))) or ([], [])\n\n\n"
+    },
+    {
+      "function": "newer_pairwise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line": 33,
+      "caller": "test_newer_pairwise_mismatch",
+      "source_code": "def newer_pairwise(sources, targets, newer=newer):\n    \"\"\"\n    Filter filenames where sources are newer than targets.\n\n    Walk two filename iterables in parallel, testing if each source is newer\n    than its corresponding target.  Returns a pair of lists (sources,\n    targets) where source is newer than target, according to the semantics\n    of 'newer()'.\n    \"\"\"\n    newer_pairs = filter(splat(newer), zip_strict(sources, targets))\n    return tuple(map(list, zip(*newer_pairs))) or ([], [])\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_newer_pairwise_mismatch(self):\n        one, two, three, four = self._setup_1234()\n\n        with pytest.raises(ValueError):\n            newer_pairwise([one], [three, four])\n\n        with pytest.raises(ValueError):\n            newer_pairwise([one, two], [three])"
+}

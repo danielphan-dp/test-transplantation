@@ -1,0 +1,64 @@
+{
+  "test_name": "test_names_simple",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Attribute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ISimple.names",
+      "source_code": "    def names(self, all=False):  # pylint:disable=redefined-builtin\n        \"\"\"Return the attribute names defined by the interface.\"\"\"\n        if not all:\n            return self.__attrs.keys()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 846
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_names_simple",
+      "source_code": ""
+    },
+    {
+      "function": "Attribute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_names_simple",
+      "source_code": ""
+    },
+    {
+      "function": "sorted",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_names_simple",
+      "source_code": ""
+    },
+    {
+      "function": "ISimple.names",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 846,
+      "caller": "test_names_simple",
+      "source_code": "    def names(self, all=False):  # pylint:disable=redefined-builtin\n        \"\"\"Return the attribute names defined by the interface.\"\"\"\n        if not all:\n            return self.__attrs.keys()\n\n        r = self.__attrs.copy()\n\n        for base in self.__bases__:\n            r.update(dict.fromkeys(base.names(all)))\n\n        return r.keys()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_names_simple(self):\n        from zope.interface import Attribute\n        from zope.interface import Interface\n\n        class ISimple(Interface):\n            attr = Attribute('My attr')\n\n            def method():\n                \"\"\"docstring\"\"\"\n\n        self.assertEqual(sorted(ISimple.names()), ['attr', 'method'])"
+}

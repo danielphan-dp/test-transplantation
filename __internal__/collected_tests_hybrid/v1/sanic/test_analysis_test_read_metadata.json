@@ -1,0 +1,73 @@
+{
+  "test_name": "test_read_metadata",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "metadata.write_pkg_file",
+      "source_code": "def write_pkg_file(self, file):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n    version = self.get_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_core_metadata.py",
+      "line_number": 148
+    },
+    {
+      "name": "PKG_INFO.seek",
+      "source_code": "    def seek(self, __offset: int, __whence: int = 1) -> int:\n        return 0",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_null_file.py",
+      "line_number": 38
+    },
+    {
+      "name": "metadata.read_pkg_file",
+      "source_code": "def read_pkg_file(self, file):\n    \"\"\"Reads the metadata values from a file object.\"\"\"\n    msg = message_from_file(file)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_core_metadata.py",
+      "line_number": 74
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_read_metadata",
+      "source_code": ""
+    },
+    {
+      "function": "metadata.write_pkg_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_core_metadata.py",
+      "line": 148,
+      "caller": "test_read_metadata",
+      "source_code": "def write_pkg_file(self, file):  # noqa: C901  # is too complex (14)  # FIXME\n    \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n    version = self.get_metadata_version()\n\n    def write_field(key, value):\n        file.write(\"%s: %s\\n\" % (key, value))\n\n    write_field('Metadata-Version', str(version))\n    write_field('Name', self.get_name())\n    write_field('Version', self.get_version())\n\n    summary = self.get_description()\n    if summary:\n        write_field('Summary', single_line(summary))\n\n    optional_fields = (\n        ('Home-page', 'url'),\n        ('Download-URL', 'download_url'),\n        ('Author', 'author'),\n        ('Author-email', 'author_email'),\n        ('Maintainer', 'maintainer'),\n        ('Maintainer-email', 'maintainer_email'),\n    )\n\n    for field, attr in optional_fields:\n        attr_val = getattr(self, attr, None)\n        if attr_val is not None:\n            write_field(field, attr_val)\n\n    license = self.get_license()\n    if license:\n        write_field('License', rfc822_escape(license))\n\n    for project_url in self.project_urls.items():\n        write_field('Project-URL', '%s, %s' % project_url)\n\n    keywords = ','.join(self.get_keywords())\n    if keywords:\n        write_field('Keywords', keywords)\n\n    platforms = self.get_platforms() or []\n    for platform in platforms:\n        write_field('Platform', platform)\n\n    self._write_list(file, 'Classifier', self.get_classifiers())\n\n    # PEP 314\n    self._write_list(file, 'Requires', self.get_requires())\n    self._write_list(file, 'Provides', self.get_provides())\n    self._write_list(file, 'Obsoletes', self.get_obsoletes())\n\n    # Setuptools specific for PEP 345\n    if hasattr(self, 'python_requires'):\n        write_field('Requires-Python', self.python_requires)\n\n    # PEP 566\n    if self.long_description_content_type:\n        write_field('Description-Content-Type', self.long_description_content_type)\n\n    self._write_list(file, 'License-File', self.license_files or [])\n    _write_requirements(self, file)\n\n    long_description = self.get_long_description()\n    if long_description:\n        file.write(\"\\n%s\" % long_description)\n        if not long_description.endswith(\"\\n\"):\n            file.write(\"\\n\")\n\n\n"
+    },
+    {
+      "function": "PKG_INFO.seek",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_null_file.py",
+      "line": 38,
+      "caller": "test_read_metadata",
+      "source_code": "    def seek(self, __offset: int, __whence: int = 1) -> int:\n        return 0\n\n"
+    },
+    {
+      "function": "metadata.read_pkg_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_core_metadata.py",
+      "line": 74,
+      "caller": "test_read_metadata",
+      "source_code": "def read_pkg_file(self, file):\n    \"\"\"Reads the metadata values from a file object.\"\"\"\n    msg = message_from_file(file)\n\n    self.metadata_version = Version(msg['metadata-version'])\n    self.name = _read_field_from_msg(msg, 'name')\n    self.version = _read_field_from_msg(msg, 'version')\n    self.description = _read_field_from_msg(msg, 'summary')\n    # we are filling author only.\n    self.author = _read_field_from_msg(msg, 'author')\n    self.maintainer = None\n    self.author_email = _read_field_from_msg(msg, 'author-email')\n    self.maintainer_email = None\n    self.url = _read_field_from_msg(msg, 'home-page')\n    self.download_url = _read_field_from_msg(msg, 'download-url')\n    self.license = _read_field_unescaped_from_msg(msg, 'license')\n\n    self.long_description = _read_field_unescaped_from_msg(msg, 'description')\n    if self.long_description is None and self.metadata_version >= Version('2.1'):\n        self.long_description = _read_payload_from_msg(msg)\n    self.description = _read_field_from_msg(msg, 'summary')\n\n    if 'keywords' in msg:\n        self.keywords = _read_field_from_msg(msg, 'keywords').split(',')\n\n    self.platforms = _read_list_from_msg(msg, 'platform')\n    self.classifiers = _read_list_from_msg(msg, 'classifier')\n\n    # PEP 314 - these fields only exist in 1.1\n    if self.metadata_version == Version('1.1'):\n        self.requires = _read_list_from_msg(msg, 'requires')\n        self.provides = _read_list_from_msg(msg, 'provides')\n        self.obsoletes = _read_list_from_msg(msg, 'obsoletes')\n    else:\n        self.requires = None\n        self.provides = None\n        self.obsoletes = None\n\n    self.license_files = _read_list_from_msg(msg, 'license-file')\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert metadata.name == 'package'",
+    "assert metadata.version == '1.0'",
+    "assert metadata.description == 'xxx'",
+    "assert metadata.download_url == 'http://example.com'",
+    "assert metadata.keywords == ['one', 'two']",
+    "assert metadata.platforms is None",
+    "assert metadata.obsoletes is None",
+    "assert metadata.requires == ['foo']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_read_metadata(self):\n        attrs = {\n            \"name\": \"package\",\n            \"version\": \"1.0\",\n            \"long_description\": \"desc\",\n            \"description\": \"xxx\",\n            \"download_url\": \"http://example.com\",\n            \"keywords\": ['one', 'two'],\n            \"requires\": ['foo'],\n        }\n\n        dist = Distribution(attrs)\n        metadata = dist.metadata\n\n        # write it then reloads it\n        PKG_INFO = io.StringIO()\n        metadata.write_pkg_file(PKG_INFO)\n        PKG_INFO.seek(0)\n        metadata.read_pkg_file(PKG_INFO)\n\n        assert metadata.name == \"package\"\n        assert metadata.version == \"1.0\"\n        assert metadata.description == \"xxx\"\n        assert metadata.download_url == 'http://example.com'\n        assert metadata.keywords == ['one', 'two']\n        assert metadata.platforms is None\n        assert metadata.obsoletes is None\n        assert metadata.requires == ['foo']"
+}

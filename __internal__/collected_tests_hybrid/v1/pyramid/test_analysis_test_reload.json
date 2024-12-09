@@ -1,0 +1,129 @@
+{
+  "test_name": "test_reload",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_static.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "fut",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "fut",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "fut",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "fut",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_reload",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    },
+    {
+      "function": "fut",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    },
+    {
+      "function": "fut",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    },
+    {
+      "function": "fut",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    },
+    {
+      "function": "fut",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reload(self):\n        manifest_path = os.path.join(here, 'fixtures', 'manifest.json')\n        new_manifest_path = os.path.join(here, 'fixtures', 'manifest2.json')\n        inst = self._makeOne('foo', reload=True)\n        inst.getmtime = lambda *args, **kwargs: 0\n        fut = inst\n\n        # test without a valid manifest\n        self.assertEqual(fut('foo', 'css/main.css', {}), ('css/main.css', {}))\n\n        # swap to a real manifest, setting mtime to 0\n        inst.manifest_path = manifest_path\n        self.assertEqual(\n            fut('foo', 'css/main.css', {}), ('css/main-test.css', {})\n        )\n\n        # ensure switching the path doesn't change the result\n        inst.manifest_path = new_manifest_path\n        self.assertEqual(\n            fut('foo', 'css/main.css', {}), ('css/main-test.css', {})\n        )\n\n        # update mtime, should cause a reload\n        inst.getmtime = lambda *args, **kwargs: 1\n        self.assertEqual(\n            fut('foo', 'css/main.css', {}), ('css/main-678b7c80.css', {})\n        )"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_add_conflicting_priority_named",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware_priority.py",
+  "static_methods": [
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_named_middleware",
+      "source_code": "    def register_named_middleware(\n        self,\n        middleware: MiddlewareType,\n        route_names: Iterable[str],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n    ):\n        \"\"\"Used to register named middleqare (middleware typically on blueprints)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 515
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_conflicting_priority_named",
+      "source_code": ""
+    },
+    {
+      "function": "app.register_named_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 515,
+      "caller": "test_add_conflicting_priority_named",
+      "source_code": "    def register_named_middleware(\n        self,\n        middleware: MiddlewareType,\n        route_names: Iterable[str],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n"
+    }
+  ],
+  "assertions": [
+    "assert app.named_request_middleware['foo'][0].priority == 999"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_conflicting_priority_named(app: Sanic):\n    def foo(*_): ...\n\n    middleware = Middleware(foo, MiddlewareLocation.REQUEST, priority=998)\n    app.register_named_middleware(\n        middleware=middleware, route_names=[\"foo\"], priority=999\n    )\n    assert app.named_request_middleware[\"foo\"][0].priority == 999  # type: ignore\n    middleware.priority == 998"
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_accessed_set",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_session.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummySessionFactory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "wrapper",
+      "source_code": "    def wrapper(cls):\n        orig_vars = cls.__dict__.copy()\n        slots = orig_vars.get('__slots__')\n        if slots is not None:\n            if isinstance(slots, str):\n                slots = [slots]\n            for slots_var in slots:\n                orig_vars.pop(slots_var)\n        orig_vars.pop('__dict__', None)\n        orig_vars.pop('__weakref__', None)\n        if hasattr(cls, '__qualname__'):\n            orig_vars['__qualname__'] = cls.__qualname__\n        return metaclass(cls.__name__, cls.__bases__, orig_vars)\n    return wrapper",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line_number": 882
+    },
+    {
+      "name": "self.assertNotEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_accessed_set",
+      "source_code": ""
+    },
+    {
+      "function": "DummySessionFactory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_accessed_set",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_accessed_set",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "wrapper",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line": 882,
+      "caller": "test_accessed_set",
+      "source_code": "    def wrapper(cls):\n        orig_vars = cls.__dict__.copy()\n        slots = orig_vars.get('__slots__')\n        if slots is not None:\n            if isinstance(slots, str):\n                slots = [slots]\n            for slots_var in slots:\n                orig_vars.pop(slots_var)\n        orig_vars.pop('__dict__', None)\n        orig_vars.pop('__weakref__', None)\n        if hasattr(cls, '__qualname__'):\n            orig_vars['__qualname__'] = cls.__qualname__\n        return metaclass(cls.__name__, cls.__bases__, orig_vars)\n"
+    },
+    {
+      "function": "self.assertNotEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_accessed_set",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_accessed_set",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_accessed_set(self):\n        request = testing.DummyRequest()\n        session = DummySessionFactory(request)\n        session.renewed = 0\n        wrapper = self._makeOne(session.__class__.get)\n        wrapper(session, 'a')\n        self.assertNotEqual(session.accessed, None)\n        self.assertTrue(session._dirty)"
+}

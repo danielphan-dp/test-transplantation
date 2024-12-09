@@ -1,0 +1,90 @@
+{
+  "test_name": "test_setup_registry_debug_logger_non_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.setup_registry",
+      "source_code": "    def setup_registry(\n        self,\n        settings=None,\n        root_factory=None,\n        security_policy=None,\n        authentication_policy=None,\n        authorization_policy=None,\n        renderers=None,\n        debug_logger=None,\n        locale_negotiator=None,\n        request_factory=None,\n        response_factory=None,\n        default_permission=None,\n        session_factory=None,\n        default_view_mapper=None,\n        exceptionresponse_view=default_exceptionresponse_view,\n    ):\n        \"\"\"When you pass a non-``None`` ``registry`` argument to the\n        :term:`Configurator` constructor, no initial setup is performed\n        against the registry.  This is because the registry you pass in may\n        have already been initialized for use under :app:`Pyramid` via a\n        different configurator.  However, in some circumstances (such as when\n        you want to use a global registry instead of a registry created as a\n        result of the Configurator constructor), or when you want to reset\n        the initial setup of a registry, you *do* want to explicitly\n        initialize the registry associated with a Configurator for use under\n        :app:`Pyramid`.  Use ``setup_registry`` to do this initialization.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 320
+    },
+    {
+      "name": "reg.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_setup_registry_debug_logger_non_None",
+      "source_code": ""
+    },
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_registry_debug_logger_non_None",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_setup_registry_debug_logger_non_None",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.setup_registry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 320,
+      "caller": "test_setup_registry_debug_logger_non_None",
+      "source_code": "    def setup_registry(\n        self,\n        settings=None,\n        root_factory=None,\n        security_policy=None,\n        authentication_policy=None,\n        authorization_policy=None,\n        renderers=None,\n        debug_logger=None,\n        locale_negotiator=None,\n        request_factory=None,\n        response_factory=None,\n        default_permission=None,\n        session_factory=None,\n        default_view_mapper=None,\n        exceptionresponse_view=default_exceptionresponse_view,\n"
+    },
+    {
+      "function": "reg.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_setup_registry_debug_logger_non_None",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_registry_debug_logger_non_None",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_setup_registry_debug_logger_non_None(self):\n        from pyramid.interfaces import IDebugLogger\n        from pyramid.registry import Registry\n\n        logger = object()\n        reg = Registry()\n        config = self._makeOne(reg)\n        config.setup_registry(debug_logger=logger)\n        result = reg.getUtility(IDebugLogger)\n        self.assertEqual(logger, result)"
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_invalid_paths",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_unix_socket.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_paths",
+      "source_code": ""
+    },
+    {
+      "function": "app.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_invalid_paths",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_invalid_paths(path: str):\n    app = Sanic(name=\"test\")\n    #\n    with pytest.raises((FileExistsError, FileNotFoundError)):\n        app.run(unix=path, single_process=True)"
+}

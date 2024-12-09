@@ -1,0 +1,81 @@
+{
+  "test_name": "test_to_raw_fd",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+  "static_methods": [
+    {
+      "name": "FileDescriptor",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "wfd.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    },
+    {
+      "name": "wfd.to_raw_fd",
+      "source_code": "    def to_raw_fd(self):\n        \"\"\"Convert to the low-level integer file descriptor::",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line_number": 81
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "wfd.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FileDescriptor",
+      "filename": "",
+      "line": 0,
+      "caller": "test_to_raw_fd",
+      "source_code": ""
+    },
+    {
+      "function": "wfd.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_to_raw_fd",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    },
+    {
+      "function": "wfd.to_raw_fd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line": 81,
+      "caller": "test_to_raw_fd",
+      "source_code": "    def to_raw_fd(self):\n        \"\"\"Convert to the low-level integer file descriptor::\n\n            raw_fd = fd.to_raw_fd()\n            os.write(raw_fd, b'xyz')\n            os.close(raw_fd)\n\n        The :class:`FileDescriptor` can't be used after calling this. The caller\n        is responsible for closing the file descriptor.\n        \"\"\"\n        self._check()\n        self._fd, fd = self._CONVERTED, self._fd\n        return fd\n\n"
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_to_raw_fd",
+      "source_code": ""
+    },
+    {
+      "function": "wfd.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_to_raw_fd",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    }
+  ],
+  "assertions": [
+    "assert wfd.fileno() == fd",
+    "assert wfd.to_raw_fd() == fd",
+    "assert 'converted' in repr(wfd)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_to_raw_fd(tmp_path):\n    fd = os.open(tmp_path / 'a', os.O_CREAT)\n    wfd = FileDescriptor(fd)\n    assert wfd.fileno() == fd\n\n    assert wfd.to_raw_fd() == fd\n\n    try:\n        assert 'converted' in repr(wfd)\n        with pytest.raises(NoFDError):\n            wfd.fileno()\n    finally:\n        os.close(fd)"
+}

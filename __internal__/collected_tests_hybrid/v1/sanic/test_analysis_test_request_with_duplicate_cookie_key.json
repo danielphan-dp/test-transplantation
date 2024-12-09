@@ -1,0 +1,108 @@
+{
+  "test_name": "test_request_with_duplicate_cookie_key",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cookies.py",
+  "static_methods": [
+    {
+      "name": "Header",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.cookies.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "request.cookies.getlist",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line_number": 259
+    },
+    {
+      "name": "request.cookies.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Header",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_with_duplicate_cookie_key",
+      "source_code": ""
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_with_duplicate_cookie_key",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_with_duplicate_cookie_key",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_with_duplicate_cookie_key",
+      "source_code": ""
+    },
+    {
+      "function": "request.cookies.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_with_duplicate_cookie_key",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "request.cookies.getlist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line": 259,
+      "caller": "test_request_with_duplicate_cookie_key",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]\n\n"
+    },
+    {
+      "function": "request.cookies.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_with_duplicate_cookie_key",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert request.cookies['foo'] == 'one'",
+    "assert request.cookies.get('foo') == 'one'",
+    "assert request.cookies.getlist('foo') == ['one', 'two']",
+    "assert request.cookies.get('bar') is None"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_with_duplicate_cookie_key(value):\n    headers = Header({\"Cookie\": value})\n    request = Request(b\"/\", headers, \"1.1\", \"GET\", Mock(), Mock())\n\n    assert request.cookies[\"foo\"] == \"one\"\n    assert request.cookies.get(\"foo\") == \"one\"\n    assert request.cookies.getlist(\"foo\") == [\"one\", \"two\"]\n    assert request.cookies.get(\"bar\") is None"
+}

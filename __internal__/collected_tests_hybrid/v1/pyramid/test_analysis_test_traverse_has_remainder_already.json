@@ -1,0 +1,103 @@
+{
+  "test_name": "test_traverse_has_remainder_already",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_predicates.py",
+  "static_methods": [
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "pred",
+      "source_code": "        def pred(info, request):\n            self.assertEqual(info['match'], {'action': 'action1'})\n            self.assertEqual(info['route'], mapper.routes['foo'])\n            return True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_urldispatch.py",
+      "line_number": 200
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_traverse_has_remainder_already",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_traverse_has_remainder_already",
+      "source_code": ""
+    },
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_traverse_has_remainder_already",
+      "source_code": ""
+    },
+    {
+      "function": "pred",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_urldispatch.py",
+      "line": 200,
+      "caller": "test_traverse_has_remainder_already",
+      "source_code": "        def pred(info, request):\n            self.assertEqual(info['match'], {'action': 'action1'})\n            self.assertEqual(info['route'], mapper.routes['foo'])\n            return True\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_traverse_has_remainder_already",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_traverse_has_remainder_already",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_traverse_has_remainder_already",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_traverse_has_remainder_already(self):\n        order, predicates, phash = self._callFUT(traverse='/1/:a/:b')\n        self.assertEqual(len(predicates), 1)\n        pred = predicates[0]\n        info = {'traverse': 'abc'}\n        request = DummyRequest()\n        result = pred(info, request)\n        self.assertEqual(result, True)\n        self.assertEqual(info, {'traverse': 'abc'})"
+}

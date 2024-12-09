@@ -1,0 +1,51 @@
+{
+  "test_name": "test_resolve_not_a_string",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_path.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.config_exc",
+      "source_code": "    def config_exc(self, func, *arg, **kw):\n        try:\n            func(*arg, **kw)\n        except ValueError as e:\n            return e\n        else:\n            raise AssertionError('Invalid not raised')  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_path.py",
+      "line_number": 432
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_resolve_not_a_string",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.config_exc",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_path.py",
+      "line": 432,
+      "caller": "test_resolve_not_a_string",
+      "source_code": "    def config_exc(self, func, *arg, **kw):\n        try:\n            func(*arg, **kw)\n        except ValueError as e:\n            return e\n        else:\n            raise AssertionError('Invalid not raised')  # pragma: no cover\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resolve_not_a_string",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resolve_not_a_string(self):\n        typ = self._makeOne()\n        e = self.config_exc(typ.resolve, None)\n        self.assertEqual(e.args[0], 'None is not a string')"
+}

@@ -1,0 +1,27 @@
+{
+  "test_name": "test_user_safe_decode_ignores_wrong_charset",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_formparsers.py",
+  "static_methods": [
+    {
+      "name": "_user_safe_decode",
+      "source_code": "def _user_safe_decode(src: bytes | bytearray, codec: str) -> str:\n    try:\n        return src.decode(codec)\n    except (UnicodeDecodeError, LookupError):\n        return src.decode(\"latin-1\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/formparsers.py",
+      "line_number": 44
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_user_safe_decode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/formparsers.py",
+      "line": 44,
+      "caller": "test_user_safe_decode_ignores_wrong_charset",
+      "source_code": "def _user_safe_decode(src: bytes | bytearray, codec: str) -> str:\n    try:\n        return src.decode(codec)\n    except (UnicodeDecodeError, LookupError):\n        return src.decode(\"latin-1\")\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert result == 'abc'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_user_safe_decode_ignores_wrong_charset() -> None:\n    result = _user_safe_decode(b\"abc\", \"latin-8\")\n    assert result == \"abc\""
+}

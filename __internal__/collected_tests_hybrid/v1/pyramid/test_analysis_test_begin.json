@@ -1,0 +1,77 @@
+{
+  "test_name": "test_begin",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "Configurator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyThreadLocalManager",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.begin",
+      "source_code": "    def begin(self) -> None:\n        self.statistics.clear()\n        self.statistics[\"start_time\"] = time.monotonic()\n        self.statistics[\"attempt_number\"] = 1\n        self.statistics[\"idle_for\"] = 0",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/__init__.py",
+      "line_number": 338
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Configurator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_begin",
+      "source_code": ""
+    },
+    {
+      "function": "DummyThreadLocalManager",
+      "filename": "",
+      "line": 0,
+      "caller": "test_begin",
+      "source_code": ""
+    },
+    {
+      "function": "config.begin",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/__init__.py",
+      "line": 338,
+      "caller": "test_begin",
+      "source_code": "    def begin(self) -> None:\n        self.statistics.clear()\n        self.statistics[\"start_time\"] = time.monotonic()\n        self.statistics[\"attempt_number\"] = 1\n        self.statistics[\"idle_for\"] = 0\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_begin",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_begin",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_begin(self):\n        from pyramid.config import Configurator\n\n        config = Configurator()\n        manager = DummyThreadLocalManager()\n        config.manager = manager\n        config.begin()\n        self.assertEqual(\n            manager.pushed, {'registry': config.registry, 'request': None}\n        )\n        self.assertEqual(manager.popped, False)"
+}

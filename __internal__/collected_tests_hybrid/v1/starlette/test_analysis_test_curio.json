@@ -1,0 +1,94 @@
+{
+  "test_name": "test_curio",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_tests/test_sniffio.py",
+  "static_methods": [
+    {
+      "name": "curio.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "current_async_library",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line_number": 25
+    },
+    {
+      "name": "ran.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "current_async_library",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line_number": 25
+    },
+    {
+      "name": "current_async_library",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line_number": 25
+    },
+    {
+      "name": "current_async_library",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line_number": 25
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "curio.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_curio",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "current_async_library",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line": 25,
+      "caller": "test_curio",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.\n\n    The following libraries are currently supported:\n\n    ================   ===========  ============================\n    Library             Requires     Magic string\n    ================   ===========  ============================\n    **Trio**            Trio v0.6+   ``\"trio\"``\n    **Curio**           -            ``\"curio\"``\n    **asyncio**                      ``\"asyncio\"``\n    **Trio-asyncio**    v0.8.2+     ``\"trio\"`` or ``\"asyncio\"``,\n                                    depending on current mode\n    ================   ===========  ============================\n\n    Returns:\n      A string like ``\"trio\"``.\n\n    Raises:\n      AsyncLibraryNotFoundError: if called from synchronous context,\n        or if the current async library was not recognized.\n\n    Examples:\n\n        .. code-block:: python3\n\n           from sniffio import current_async_library\n\n           async def generic_sleep(seconds):\n               library = current_async_library()\n               if library == \"trio\":\n                   import trio\n                   await trio.sleep(seconds)\n               elif library == \"asyncio\":\n                   import asyncio\n                   await asyncio.sleep(seconds)\n               # ... and so on ...\n               else:\n                   raise RuntimeError(f\"Unsupported library {library!r}\")\n\n    \"\"\"\n    value = thread_local.name\n    if value is not None:\n        return value\n\n    value = current_async_library_cvar.get()\n    if value is not None:\n        return value\n\n    # Need to sniff for asyncio\n    if \"asyncio\" in sys.modules:\n        import asyncio\n        try:\n            current_task = asyncio.current_task  # type: ignore[attr-defined]\n        except AttributeError:\n            current_task = asyncio.Task.current_task  # type: ignore[attr-defined]\n        try:\n            if current_task() is not None:\n                return \"asyncio\"\n        except RuntimeError:\n            pass\n\n    # Sniff for curio (for now)\n    if 'curio' in sys.modules:\n        from curio.meta import curio_running\n        if curio_running():\n            return 'curio'\n\n    raise AsyncLibraryNotFoundError(\n        \"unknown async library, or not in async context\"\n    )\n"
+    },
+    {
+      "function": "ran.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_curio",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "current_async_library",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line": 25,
+      "caller": "test_curio",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.\n\n    The following libraries are currently supported:\n\n    ================   ===========  ============================\n    Library             Requires     Magic string\n    ================   ===========  ============================\n    **Trio**            Trio v0.6+   ``\"trio\"``\n    **Curio**           -            ``\"curio\"``\n    **asyncio**                      ``\"asyncio\"``\n    **Trio-asyncio**    v0.8.2+     ``\"trio\"`` or ``\"asyncio\"``,\n                                    depending on current mode\n    ================   ===========  ============================\n\n    Returns:\n      A string like ``\"trio\"``.\n\n    Raises:\n      AsyncLibraryNotFoundError: if called from synchronous context,\n        or if the current async library was not recognized.\n\n    Examples:\n\n        .. code-block:: python3\n\n           from sniffio import current_async_library\n\n           async def generic_sleep(seconds):\n               library = current_async_library()\n               if library == \"trio\":\n                   import trio\n                   await trio.sleep(seconds)\n               elif library == \"asyncio\":\n                   import asyncio\n                   await asyncio.sleep(seconds)\n               # ... and so on ...\n               else:\n                   raise RuntimeError(f\"Unsupported library {library!r}\")\n\n    \"\"\"\n    value = thread_local.name\n    if value is not None:\n        return value\n\n    value = current_async_library_cvar.get()\n    if value is not None:\n        return value\n\n    # Need to sniff for asyncio\n    if \"asyncio\" in sys.modules:\n        import asyncio\n        try:\n            current_task = asyncio.current_task  # type: ignore[attr-defined]\n        except AttributeError:\n            current_task = asyncio.Task.current_task  # type: ignore[attr-defined]\n        try:\n            if current_task() is not None:\n                return \"asyncio\"\n        except RuntimeError:\n            pass\n\n    # Sniff for curio (for now)\n    if 'curio' in sys.modules:\n        from curio.meta import curio_running\n        if curio_running():\n            return 'curio'\n\n    raise AsyncLibraryNotFoundError(\n        \"unknown async library, or not in async context\"\n    )\n"
+    },
+    {
+      "function": "current_async_library",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line": 25,
+      "caller": "test_curio",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.\n\n    The following libraries are currently supported:\n\n    ================   ===========  ============================\n    Library             Requires     Magic string\n    ================   ===========  ============================\n    **Trio**            Trio v0.6+   ``\"trio\"``\n    **Curio**           -            ``\"curio\"``\n    **asyncio**                      ``\"asyncio\"``\n    **Trio-asyncio**    v0.8.2+     ``\"trio\"`` or ``\"asyncio\"``,\n                                    depending on current mode\n    ================   ===========  ============================\n\n    Returns:\n      A string like ``\"trio\"``.\n\n    Raises:\n      AsyncLibraryNotFoundError: if called from synchronous context,\n        or if the current async library was not recognized.\n\n    Examples:\n\n        .. code-block:: python3\n\n           from sniffio import current_async_library\n\n           async def generic_sleep(seconds):\n               library = current_async_library()\n               if library == \"trio\":\n                   import trio\n                   await trio.sleep(seconds)\n               elif library == \"asyncio\":\n                   import asyncio\n                   await asyncio.sleep(seconds)\n               # ... and so on ...\n               else:\n                   raise RuntimeError(f\"Unsupported library {library!r}\")\n\n    \"\"\"\n    value = thread_local.name\n    if value is not None:\n        return value\n\n    value = current_async_library_cvar.get()\n    if value is not None:\n        return value\n\n    # Need to sniff for asyncio\n    if \"asyncio\" in sys.modules:\n        import asyncio\n        try:\n            current_task = asyncio.current_task  # type: ignore[attr-defined]\n        except AttributeError:\n            current_task = asyncio.Task.current_task  # type: ignore[attr-defined]\n        try:\n            if current_task() is not None:\n                return \"asyncio\"\n        except RuntimeError:\n            pass\n\n    # Sniff for curio (for now)\n    if 'curio' in sys.modules:\n        from curio.meta import curio_running\n        if curio_running():\n            return 'curio'\n\n    raise AsyncLibraryNotFoundError(\n        \"unknown async library, or not in async context\"\n    )\n"
+    },
+    {
+      "function": "current_async_library",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sniffio/_impl.py",
+      "line": 25,
+      "caller": "test_curio",
+      "source_code": "def current_async_library() -> str:\n    \"\"\"Detect which async library is currently running.\n\n    The following libraries are currently supported:\n\n    ================   ===========  ============================\n    Library             Requires     Magic string\n    ================   ===========  ============================\n    **Trio**            Trio v0.6+   ``\"trio\"``\n    **Curio**           -            ``\"curio\"``\n    **asyncio**                      ``\"asyncio\"``\n    **Trio-asyncio**    v0.8.2+     ``\"trio\"`` or ``\"asyncio\"``,\n                                    depending on current mode\n    ================   ===========  ============================\n\n    Returns:\n      A string like ``\"trio\"``.\n\n    Raises:\n      AsyncLibraryNotFoundError: if called from synchronous context,\n        or if the current async library was not recognized.\n\n    Examples:\n\n        .. code-block:: python3\n\n           from sniffio import current_async_library\n\n           async def generic_sleep(seconds):\n               library = current_async_library()\n               if library == \"trio\":\n                   import trio\n                   await trio.sleep(seconds)\n               elif library == \"asyncio\":\n                   import asyncio\n                   await asyncio.sleep(seconds)\n               # ... and so on ...\n               else:\n                   raise RuntimeError(f\"Unsupported library {library!r}\")\n\n    \"\"\"\n    value = thread_local.name\n    if value is not None:\n        return value\n\n    value = current_async_library_cvar.get()\n    if value is not None:\n        return value\n\n    # Need to sniff for asyncio\n    if \"asyncio\" in sys.modules:\n        import asyncio\n        try:\n            current_task = asyncio.current_task  # type: ignore[attr-defined]\n        except AttributeError:\n            current_task = asyncio.Task.current_task  # type: ignore[attr-defined]\n        try:\n            if current_task() is not None:\n                return \"asyncio\"\n        except RuntimeError:\n            pass\n\n    # Sniff for curio (for now)\n    if 'curio' in sys.modules:\n        from curio.meta import curio_running\n        if curio_running():\n            return 'curio'\n\n    raise AsyncLibraryNotFoundError(\n        \"unknown async library, or not in async context\"\n    )\n"
+    }
+  ],
+  "assertions": [
+    "assert ran == [True]",
+    "assert current_async_library() == 'curio'",
+    "assert current_async_library() == 'curio'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_curio():\n    import curio\n\n    with pytest.raises(AsyncLibraryNotFoundError):\n        current_async_library()\n\n    ran = []\n\n    async def this_is_curio():\n        assert current_async_library() == \"curio\"\n        # Call it a second time to exercise the caching logic\n        assert current_async_library() == \"curio\"\n        ran.append(True)\n\n    curio.run(this_is_curio)\n    assert ran == [True]\n\n    with pytest.raises(AsyncLibraryNotFoundError):\n        current_async_library()"
+}

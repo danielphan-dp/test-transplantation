@@ -1,0 +1,106 @@
+{
+  "test_name": "test_from_response",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "Stream",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDictProxy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Stream",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Stream",
+      "filename": "",
+      "line": 0,
+      "caller": "test_from_response",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDictProxy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_from_response",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_from_response",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_from_response",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_from_response",
+      "source_code": ""
+    },
+    {
+      "function": "Stream",
+      "filename": "",
+      "line": 0,
+      "caller": "test_from_response",
+      "source_code": ""
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_from_response",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(res, MultipartResponseWrapper)",
+    "assert isinstance(res.stream, aiohttp.MultipartReader)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_from_response(self) -> None:\n        h = CIMultiDictProxy(\n            CIMultiDict({CONTENT_TYPE: 'multipart/related;boundary=\":\"'})\n        )\n        with Stream(b\"--:\\r\\n\\r\\nhello\\r\\n--:--\") as stream:\n            resp = Response(h, stream)\n            res = aiohttp.MultipartReader.from_response(resp)  # type: ignore[arg-type]\n        assert isinstance(res, MultipartResponseWrapper)\n        assert isinstance(res.stream, aiohttp.MultipartReader)"
+}

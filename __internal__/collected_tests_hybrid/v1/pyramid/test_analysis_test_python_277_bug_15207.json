@@ -1,0 +1,103 @@
+{
+  "test_name": "test_python_277_bug_15207",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_response.py",
+  "static_methods": [
+    {
+      "name": "FakeMimetypesModule",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._getPath",
+      "source_code": "    def _getPath(self, suffix='txt'):\n        here = os.path.dirname(__file__)\n        return os.path.join(here, 'fixtures', f'minimal.{suffix}')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_response.py",
+      "line_number": 34
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "text_",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line_number": 26
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FakeMimetypesModule",
+      "filename": "",
+      "line": 0,
+      "caller": "test_python_277_bug_15207",
+      "source_code": ""
+    },
+    {
+      "function": "self._getPath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_response.py",
+      "line": 34,
+      "caller": "test_python_277_bug_15207",
+      "source_code": "    def _getPath(self, suffix='txt'):\n        here = os.path.dirname(__file__)\n        return os.path.join(here, 'fixtures', f'minimal.{suffix}')\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_python_277_bug_15207",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_python_277_bug_15207",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_python_277_bug_15207",
+      "source_code": ""
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_python_277_bug_15207",
+      "source_code": ""
+    },
+    {
+      "function": "text_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line": 26,
+      "caller": "test_python_277_bug_15207",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_python_277_bug_15207(self):\n        # python 2.7.7 on windows has a bug where its mimetypes.guess_type\n        # function returns Unicode for the content_type, unlike any previous\n        # version of Python.  See https://github.com/Pylons/pyramid/issues/1360\n        # for more information.\n        import mimetypes as old_mimetypes\n\n        from pyramid import response\n        from pyramid.util import text_\n\n        class FakeMimetypesModule:\n            def guess_type(self, *arg, **kw):\n                return text_('foo/bar'), None\n\n        fake_mimetypes = FakeMimetypesModule()\n        try:\n            response.mimetypes = fake_mimetypes\n            path = self._getPath('xml')\n            r = self._makeOne(path)\n            self.assertEqual(r.content_type, 'foo/bar')\n            self.assertEqual(type(r.content_type), str)\n        finally:\n            response.mimetypes = old_mimetypes"
+}

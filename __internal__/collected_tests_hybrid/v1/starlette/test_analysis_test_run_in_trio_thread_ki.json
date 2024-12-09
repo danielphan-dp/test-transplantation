@@ -1,0 +1,314 @@
+{
+  "test_name": "test_run_in_trio_thread_ki",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_threads.py",
+  "static_methods": [
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "_core.current_trio_token",
+      "source_code": "    def current_trio_token(self) -> TrioToken:\n        \"\"\"Retrieve the :class:`TrioToken` for the current call to\n        :func:`trio.run`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1964
+    },
+    {
+      "name": "thread.start",
+      "source_code": "    def start(self) -> None:\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 290
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "thread.is_alive",
+      "source_code": "    def is_alive(self):\n        \"\"\"Proxy to the thread's ``is_alive`` method.\"\"\"\n        return self._worker.is_alive()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/thread.py",
+      "line_number": 47
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "thread.join",
+      "source_code": "    def join(self, *args: os.PathLike[str], abs: bool = False) -> LocalPath:\n        \"\"\"Return a new path by appending all 'args' as path\n        components.  if abs=1 is used restart from root if any\n        of the args is an absolute path.\n        \"\"\"\n        sep = self.sep\n        strargs = [os.fspath(arg) for arg in args]\n        strpath = self.strpath\n        if abs:\n            newargs: list[str] = []\n            for arg in reversed(strargs):\n                if isabs(arg):\n                    strpath = arg\n                    strargs = newargs\n                    break\n                newargs.insert(0, arg)\n        # special case for when we have e.g. strpath == \"/\"\n        actual_sep = \"\" if strpath.endswith(sep) else sep\n        for arg in strargs:\n            arg = arg.strip(sep)\n            if iswin32:\n                # allow unix style paths even on windows.\n                arg = arg.strip(\"/\")\n                arg = arg.replace(\"/\", sep)\n            strpath = strpath + actual_sep + arg\n            actual_sep = sep\n        obj = object.__new__(self.__class__)\n        obj.strpath = normpath(strpath)\n        return obj",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 719
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "trio_thread_fn",
+      "source_code": "        def trio_thread_fn() -> None:\n            print(\"in Trio thread\")\n            assert not _core.currently_ki_protected()\n            print(\"ki_self\")\n            try:\n                ki_self()\n            finally:\n                import sys",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_threads.py",
+      "line_number": 138
+    },
+    {
+      "name": "_core.currently_ki_protected",
+      "source_code": "def currently_ki_protected() -> bool:\n    r\"\"\"Check whether the calling code has :exc:`KeyboardInterrupt` protection\n    enabled.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_ki.py",
+      "line_number": 104
+    },
+    {
+      "name": "ki_self",
+      "source_code": "def ki_self() -> None:\n    signal_raise(signal.SIGINT)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_ki.py",
+      "line_number": 29
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "from_thread_run_sync",
+      "source_code": "def from_thread_run_sync(\n    fn: Callable[..., RetT],\n    *args: object,\n    trio_token: TrioToken | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line_number": 562
+    },
+    {
+      "name": "from_thread_run",
+      "source_code": "def from_thread_run(\n    afn: Callable[..., Awaitable[RetT]],\n    *args: object,\n    trio_token: TrioToken | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line_number": 518
+    },
+    {
+      "name": "sleep",
+      "source_code": "def sleep(seconds: float) -> None:\n    \"\"\"\n    Sleep strategy that delays execution for a given number of seconds.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/nap.py",
+      "line_number": 25
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "record.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "record.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "_core.current_trio_token",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1964,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "    @_public\n    def current_trio_token(self) -> TrioToken:\n        \"\"\"Retrieve the :class:`TrioToken` for the current call to\n        :func:`trio.run`.\n\n        \"\"\"\n        if self.trio_token is None:\n            self.trio_token = TrioToken._create(self.entry_queue)\n        return self.trio_token\n\n"
+    },
+    {
+      "function": "thread.start",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 290,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "    @abc.abstractmethod\n    def start(self) -> None:\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "thread.is_alive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/thread.py",
+      "line": 47,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "    def is_alive(self):\n        \"\"\"Proxy to the thread's ``is_alive`` method.\"\"\"\n        return self._worker.is_alive()\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "thread.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 719,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "    def join(self, *args: os.PathLike[str], abs: bool = False) -> LocalPath:\n        \"\"\"Return a new path by appending all 'args' as path\n        components.  if abs=1 is used restart from root if any\n        of the args is an absolute path.\n        \"\"\"\n        sep = self.sep\n        strargs = [os.fspath(arg) for arg in args]\n        strpath = self.strpath\n        if abs:\n            newargs: list[str] = []\n            for arg in reversed(strargs):\n                if isabs(arg):\n                    strpath = arg\n                    strargs = newargs\n                    break\n                newargs.insert(0, arg)\n        # special case for when we have e.g. strpath == \"/\"\n        actual_sep = \"\" if strpath.endswith(sep) else sep\n        for arg in strargs:\n            arg = arg.strip(sep)\n            if iswin32:\n                # allow unix style paths even on windows.\n                arg = arg.strip(\"/\")\n                arg = arg.replace(\"/\", sep)\n            strpath = strpath + actual_sep + arg\n            actual_sep = sep\n        obj = object.__new__(self.__class__)\n        obj.strpath = normpath(strpath)\n        return obj\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "trio_thread_fn",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_threads.py",
+      "line": 138,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "        def trio_thread_fn() -> None:\n            print(\"in Trio thread\")\n            assert not _core.currently_ki_protected()\n            print(\"ki_self\")\n            try:\n                ki_self()\n            finally:\n                import sys\n\n                print(\"finally\", sys.exc_info())\n\n"
+    },
+    {
+      "function": "_core.currently_ki_protected",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_ki.py",
+      "line": 104,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "def currently_ki_protected() -> bool:\n    r\"\"\"Check whether the calling code has :exc:`KeyboardInterrupt` protection\n    enabled.\n\n    It's surprisingly easy to think that one's :exc:`KeyboardInterrupt`\n    protection is enabled when it isn't, or vice-versa. This function tells\n    you what Trio thinks of the matter, which makes it useful for ``assert``\\s\n    and unit tests.\n\n    Returns:\n      bool: True if protection is enabled, and False otherwise.\n\n    \"\"\"\n    return ki_protection_enabled(sys._getframe())\n\n\n"
+    },
+    {
+      "function": "ki_self",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_ki.py",
+      "line": 29,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "def ki_self() -> None:\n    signal_raise(signal.SIGINT)\n\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "from_thread_run_sync",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line": 562,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "def from_thread_run_sync(\n    fn: Callable[..., RetT],\n    *args: object,\n    trio_token: TrioToken | None = None,\n"
+    },
+    {
+      "function": "from_thread_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line": 518,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "def from_thread_run(\n    afn: Callable[..., Awaitable[RetT]],\n    *args: object,\n    trio_token: TrioToken | None = None,\n"
+    },
+    {
+      "function": "sleep",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/nap.py",
+      "line": 25,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "def sleep(seconds: float) -> None:\n    \"\"\"\n    Sleep strategy that delays execution for a given number of seconds.\n\n    This is the default strategy, and may be mocked out for unit testing.\n    \"\"\"\n    time.sleep(seconds)\n\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "record.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": ""
+    },
+    {
+      "function": "record.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_run_in_trio_thread_ki",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert record == {'ok1', 'ok2'}",
+    "assert not _core.currently_ki_protected()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_run_in_trio_thread_ki() -> None:\n    # if we get a control-C during a run_in_trio_thread, then it propagates\n    # back to the caller (slick!)\n    record = set()\n\n    async def check_run_in_trio_thread() -> None:\n        token = _core.current_trio_token()\n\n        def trio_thread_fn() -> None:\n            print(\"in Trio thread\")\n            assert not _core.currently_ki_protected()\n            print(\"ki_self\")\n            try:\n                ki_self()\n            finally:\n                import sys\n\n                print(\"finally\", sys.exc_info())\n\n        async def trio_thread_afn() -> None:\n            trio_thread_fn()\n\n        def external_thread_fn() -> None:\n            try:\n                print(\"running\")\n                from_thread_run_sync(trio_thread_fn, trio_token=token)\n            except KeyboardInterrupt:\n                print(\"ok1\")\n                record.add(\"ok1\")\n            try:\n                from_thread_run(trio_thread_afn, trio_token=token)\n            except KeyboardInterrupt:\n                print(\"ok2\")\n                record.add(\"ok2\")\n\n        thread = threading.Thread(target=external_thread_fn)\n        thread.start()\n        print(\"waiting\")\n        while thread.is_alive():  # noqa: ASYNC110\n            await sleep(0.01)  # Fine to poll in tests.\n        print(\"waited, joining\")\n        thread.join()\n        print(\"done\")\n\n    _core.run(check_run_in_trio_thread)\n    assert record == {\"ok1\", \"ok2\"}"
+}

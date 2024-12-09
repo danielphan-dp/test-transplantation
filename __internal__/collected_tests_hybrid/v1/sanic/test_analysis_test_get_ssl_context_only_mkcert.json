@@ -1,0 +1,116 @@
+{
+  "test_name": "test_get_ssl_context_only_mkcert",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "get_ssl_context",
+      "source_code": "def get_ssl_context(\n    app: Sanic, ssl: Optional[ssl.SSLContext]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line_number": 63
+    },
+    {
+      "name": "MockMkcertCreator.generate_cert.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockMkcertCreator.generate_cert.assert_not_called",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockTrustmeCreator.generate_cert.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockTrustmeCreator.generate_cert.assert_not_called",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "get_ssl_context",
+      "source_code": "def get_ssl_context(\n    app: Sanic, ssl: Optional[ssl.SSLContext]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line_number": 63
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": ""
+    },
+    {
+      "function": "get_ssl_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line": 63,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": "def get_ssl_context(\n    app: Sanic, ssl: Optional[ssl.SSLContext]\n"
+    },
+    {
+      "function": "MockMkcertCreator.generate_cert.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": ""
+    },
+    {
+      "function": "MockMkcertCreator.generate_cert.assert_not_called",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": ""
+    },
+    {
+      "function": "MockTrustmeCreator.generate_cert.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": ""
+    },
+    {
+      "function": "MockTrustmeCreator.generate_cert.assert_not_called",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": ""
+    },
+    {
+      "function": "get_ssl_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line": 63,
+      "caller": "test_get_ssl_context_only_mkcert",
+      "source_code": "def get_ssl_context(\n    app: Sanic, ssl: Optional[ssl.SSLContext]\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_ssl_context_only_mkcert(\n    app,\n    monkeypatch,\n    MockMkcertCreator,\n    MockTrustmeCreator,\n    requirement,\n    mk_supported,\n    trustme_supported,\n    mk_called,\n    trustme_called,\n    err,\n):\n    app.state.mode = Mode.DEBUG\n    app.config.LOCAL_CERT_CREATOR = requirement\n    monkeypatch.setattr(\n        sanic.http.tls.creators, \"MkcertCreator\", MockMkcertCreator\n    )\n    monkeypatch.setattr(\n        sanic.http.tls.creators, \"TrustmeCreator\", MockTrustmeCreator\n    )\n    MockMkcertCreator.SUPPORTED = mk_supported\n    MockTrustmeCreator.SUPPORTED = trustme_supported\n\n    if err:\n        with pytest.raises(SanicException, match=err):\n            get_ssl_context(app, None)\n    else:\n        get_ssl_context(app, None)\n\n    if mk_called:\n        MockMkcertCreator.generate_cert.assert_called_once_with(\"localhost\")\n    else:\n        MockMkcertCreator.generate_cert.assert_not_called()\n    if trustme_called:\n        MockTrustmeCreator.generate_cert.assert_called_once_with(\"localhost\")\n    else:\n        MockTrustmeCreator.generate_cert.assert_not_called()"
+}

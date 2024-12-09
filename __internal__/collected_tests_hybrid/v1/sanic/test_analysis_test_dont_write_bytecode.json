@@ -1,0 +1,40 @@
+{
+  "test_name": "test_dont_write_bytecode",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_py.py",
+  "static_methods": [
+    {
+      "name": "build_py",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_py",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dont_write_bytecode",
+      "source_code": ""
+    },
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_dont_write_bytecode",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'byte-compiling is disabled' in caplog.records[0].message"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dont_write_bytecode(self, caplog):\n        # makes sure byte_compile is not used\n        dist = self.create_dist()[1]\n        cmd = build_py(dist)\n        cmd.compile = True\n        cmd.optimize = 1\n\n        old_dont_write_bytecode = sys.dont_write_bytecode\n        sys.dont_write_bytecode = True\n        try:\n            cmd.byte_compile([])\n        finally:\n            sys.dont_write_bytecode = old_dont_write_bytecode\n\n        assert 'byte-compiling is disabled' in caplog.records[0].message"
+}

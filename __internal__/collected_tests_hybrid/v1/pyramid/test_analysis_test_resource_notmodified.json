@@ -1,0 +1,142 @@
+{
+  "test_name": "test_resource_notmodified",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_static.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inst",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyStartResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response",
+      "source_code": "    def response(self):\n        f = _get_response_factory(self.registry)\n        return f(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line_number": 398
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app_iter.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_resource_notmodified",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_resource_notmodified",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_notmodified",
+      "source_code": ""
+    },
+    {
+      "function": "inst",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_notmodified",
+      "source_code": ""
+    },
+    {
+      "function": "DummyStartResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_notmodified",
+      "source_code": ""
+    },
+    {
+      "function": "response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line": 398,
+      "caller": "test_resource_notmodified",
+      "source_code": "    @reify\n    def response(self):\n        f = _get_response_factory(self.registry)\n        return f(self)\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_notmodified",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_notmodified",
+      "source_code": ""
+    },
+    {
+      "function": "app_iter.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_resource_notmodified",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_resource_notmodified",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resource_notmodified(self):\n        inst = self._makeOne('tests:fixtures/static')\n        request = self._makeRequest()\n        request.if_modified_since = fiveyrsfuture\n        request.subpath = ('index.html',)\n        context = DummyContext()\n        response = inst(context, request)\n        start_response = DummyStartResponse()\n        app_iter = response(request.environ, start_response)\n        try:\n            self.assertEqual(start_response.status, '304 Not Modified')\n            self.assertEqual(list(app_iter), [])\n        finally:\n            app_iter.close()"
+}

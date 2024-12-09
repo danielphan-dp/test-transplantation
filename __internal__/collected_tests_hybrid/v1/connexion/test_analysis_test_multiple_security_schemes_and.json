@@ -1,0 +1,105 @@
+{
+  "test_name": "test_multiple_security_schemes_and",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "SecurityHandlerFactory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SecurityOperation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "verify_api_key.assert_any_call",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "verify_api_key.assert_any_call",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "verify_multiple.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SecurityHandlerFactory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_security_schemes_and",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_security_schemes_and",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_security_schemes_and",
+      "source_code": ""
+    },
+    {
+      "function": "SecurityOperation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_security_schemes_and",
+      "source_code": ""
+    },
+    {
+      "function": "verify_api_key.assert_any_call",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_security_schemes_and",
+      "source_code": ""
+    },
+    {
+      "function": "verify_api_key.assert_any_call",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_security_schemes_and",
+      "source_code": ""
+    },
+    {
+      "function": "verify_multiple.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_security_schemes_and",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert verify_api_key.call_count == 2"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_multiple_security_schemes_and():\n    \"\"\"Tests an operation with multiple security schemes in AND fashion.\"\"\"\n\n    def return_api_key_name(func, in_, name, scopes):\n        return name\n\n    class MockApiKeyHandler(ApiKeySecurityHandler):\n        \"\"\"Mock\"\"\"\n\n    security_handler_factory = SecurityHandlerFactory({\"apiKey\": MockApiKeyHandler})\n    apikey_security_handler = security_handler_factory.security_handlers[\"apiKey\"]\n    verify_api_key = mock.MagicMock(side_effect=return_api_key_name)\n    apikey_security_handler._get_verify_func = verify_api_key\n    verify_multiple = mock.MagicMock(return_value=\"verify_multiple_result\")\n    security_handler_factory.verify_multiple_schemes = verify_multiple\n\n    security = [{\"key1\": [], \"key2\": []}]\n\n    SecurityOperation(\n        next_app=mock.Mock,\n        security_handler_factory=security_handler_factory,\n        security=security,\n        security_schemes=SECURITY_DEFINITIONS_2_KEYS,\n    )\n\n    assert verify_api_key.call_count == 2\n    verify_api_key.assert_any_call(math.ceil, \"header\", \"X-Auth-1\", [])\n    verify_api_key.assert_any_call(math.ceil, \"header\", \"X-Auth-2\", [])\n    # Assert verify_multiple_schemes is called with mapping from scheme name\n    # to result of security_handler_factory.verify_api_key()\n    verify_multiple.assert_called_with({\"key1\": \"X-Auth-1\", \"key2\": \"X-Auth-2\"})"
+}

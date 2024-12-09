@@ -1,0 +1,56 @@
+{
+  "test_name": "test_header_casing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_events.py",
+  "static_methods": [
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "r.headers.raw_items",
+      "source_code": "    def raw_items(self) -> List[Tuple[bytes, bytes]]:\n        return [(raw_name, value) for raw_name, _, value in self._full_items]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_headers.py",
+      "line_number": 121
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_header_casing",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_header_casing",
+      "source_code": ""
+    },
+    {
+      "function": "r.headers.raw_items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_headers.py",
+      "line": 121,
+      "caller": "test_header_casing",
+      "source_code": "    def raw_items(self) -> List[Tuple[bytes, bytes]]:\n        return [(raw_name, value) for raw_name, _, value in self._full_items]\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(r.headers) == 2",
+    "assert r.headers[0] == (b'host', b'example.org')",
+    "assert r.headers == [(b'host', b'example.org'), (b'connection', b'keep-alive')]",
+    "assert r.headers.raw_items() == [(b'Host', b'example.org'), (b'Connection', b'keep-alive')]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_header_casing() -> None:\n    r = Request(\n        method=\"GET\",\n        target=\"/\",\n        headers=[(\"Host\", \"example.org\"), (\"Connection\", \"keep-alive\")],\n        http_version=\"1.1\",\n    )\n    assert len(r.headers) == 2\n    assert r.headers[0] == (b\"host\", b\"example.org\")\n    assert r.headers == [(b\"host\", b\"example.org\"), (b\"connection\", b\"keep-alive\")]\n    assert r.headers.raw_items() == [\n        (b\"Host\", b\"example.org\"),\n        (b\"Connection\", b\"keep-alive\"),\n    ]"
+}

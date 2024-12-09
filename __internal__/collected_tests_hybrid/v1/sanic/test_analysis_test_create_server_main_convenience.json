@@ -1,0 +1,79 @@
+{
+  "test_name": "test_create_server_main_convenience",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.main_process_start",
+      "source_code": "    def main_process_start(app, loop):\n        logger.info(\"main_process_start\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_multiprocessing.py",
+      "line_number": 148
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.create_server",
+      "source_code": "    def create_server(self) -> Worker:\n        \"\"\"Create a new server process.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line_number": 147
+    },
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_create_server_main_convenience",
+      "source_code": ""
+    },
+    {
+      "function": "app.main_process_start",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_multiprocessing.py",
+      "line": 148,
+      "caller": "test_create_server_main_convenience",
+      "source_code": "    @app.listener(\"main_process_start\")\n    def main_process_start(app, loop):\n        logger.info(\"main_process_start\")\n\n"
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_create_server_main_convenience",
+      "source_code": ""
+    },
+    {
+      "function": "app.create_server",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/manager.py",
+      "line": 147,
+      "caller": "test_create_server_main_convenience",
+      "source_code": "    def create_server(self) -> Worker:\n        \"\"\"Create a new server process.\n\n        Returns:\n            Worker: The Worker instance\n        \"\"\"\n        server_number = next(self._server_count)\n        return self.manage(\n            f\"{WorkerProcess.SERVER_LABEL}-{server_number}\",\n            self._serve,\n            self._server_settings,\n            transient=True,\n            restartable=True,\n            ident=f\"{WorkerProcess.SERVER_IDENTIFIER}{server_number:2}\",\n        )\n\n"
+    },
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_create_server_main_convenience",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ('sanic.root', 30, 'Listener events for the main process are not available with create_server()') in caplog.record_tuples"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_create_server_main_convenience(app: Sanic, caplog, port):\n    app.main_process_start(lambda *_: ...)\n    loop = asyncio.get_event_loop()\n    with caplog.at_level(logging.INFO):\n        asyncio_srv_coro = app.create_server(\n            return_asyncio_server=True, port=port\n        )\n        loop.run_until_complete(asyncio_srv_coro)\n    assert (\n        \"sanic.root\",\n        30,\n        \"Listener events for the main process are not available with \"\n        \"create_server()\",\n    ) in caplog.record_tuples"
+}

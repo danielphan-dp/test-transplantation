@@ -1,0 +1,27 @@
+{
+  "test_name": "test_split_quoted",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "split_quoted",
+      "source_code": "def split_quoted(s):\n    \"\"\"Split a string up according to Unix shell-like rules for quotes and\n    backslashes.  In short: words are delimited by spaces, as long as those\n    spaces are not escaped by a backslash, or inside a quoted string.\n    Single and double quotes are equivalent, and the quote characters can\n    be backslash-escaped.  The backslash is stripped from any two-character\n    escape sequence, leaving only the escaped character.  The quote\n    characters are stripped from any quoted string.  Returns a list of\n    words.\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line_number": 244
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "split_quoted",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line": 244,
+      "caller": "test_split_quoted",
+      "source_code": "def split_quoted(s):\n    \"\"\"Split a string up according to Unix shell-like rules for quotes and\n    backslashes.  In short: words are delimited by spaces, as long as those\n    spaces are not escaped by a backslash, or inside a quoted string.\n    Single and double quotes are equivalent, and the quote characters can\n    be backslash-escaped.  The backslash is stripped from any two-character\n    escape sequence, leaving only the escaped character.  The quote\n    characters are stripped from any quoted string.  Returns a list of\n    words.\n    \"\"\"\n\n    # This is a nice algorithm for splitting up a single string, since it\n    # doesn't require character-by-character examination.  It was a little\n    # bit of a brain-bender to get it working right, though...\n    if _wordchars_re is None:\n        _init_regex()\n\n    s = s.strip()\n    words = []\n    pos = 0\n\n    while s:\n        m = _wordchars_re.match(s, pos)\n        end = m.end()\n        if end == len(s):\n            words.append(s[:end])\n            break\n\n        if s[end] in string.whitespace:\n            # unescaped, unquoted whitespace: now\n            # we definitely have a word delimiter\n            words.append(s[:end])\n            s = s[end:].lstrip()\n            pos = 0\n\n        elif s[end] == '\\\\':\n            # preserve whatever is being escaped;\n            # will become part of the current word\n            s = s[:end] + s[end + 1 :]\n            pos = end + 1\n\n        else:\n            if s[end] == \"'\":  # slurp singly-quoted string\n                m = _squote_re.match(s, end)\n            elif s[end] == '\"':  # slurp doubly-quoted string\n                m = _dquote_re.match(s, end)\n            else:\n                raise RuntimeError(\"this can't happen (bad char '%c')\" % s[end])\n\n            if m is None:\n                raise ValueError(f\"bad string (mismatched {s[end]} quotes?)\")\n\n            (beg, end) = m.span()\n            s = s[:beg] + s[beg + 1 : end - 1] + s[end:]\n            pos = m.end() - 2\n\n        if pos >= len(s):\n            words.append(s)\n            break\n\n    return words\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert split_quoted('\"\"one\"\" \"two\" \\'three\\' \\\\four') == ['one', 'two', 'three', 'four']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_split_quoted(self):\n        assert split_quoted('\"\"one\"\" \"two\" \\'three\\' \\\\four') == [\n            'one',\n            'two',\n            'three',\n            'four',\n        ]"
+}

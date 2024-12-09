@@ -1,0 +1,93 @@
+{
+  "test_name": "test_wrap_non_iobase",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_file_io.py",
+  "static_methods": [
+    {
+      "name": "FakeFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "trio.wrap_file",
+      "source_code": "def wrap_file(\n    file: BinaryIO,\n    total: int,\n    *,\n    description: str = \"Reading...\",\n    auto_refresh: bool = True,\n    console: Optional[Console] = None,\n    transient: bool = False,\n    get_time: Optional[Callable[[], float]] = None,\n    refresh_per_second: float = 10,\n    style: StyleType = \"bar.back\",\n    complete_style: StyleType = \"bar.complete\",\n    finished_style: StyleType = \"bar.finished\",\n    pulse_style: StyleType = \"bar.pulse\",\n    disable: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line_number": 294
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "trio.wrap_file",
+      "source_code": "def wrap_file(\n    file: BinaryIO,\n    total: int,\n    *,\n    description: str = \"Reading...\",\n    auto_refresh: bool = True,\n    console: Optional[Console] = None,\n    transient: bool = False,\n    get_time: Optional[Callable[[], float]] = None,\n    refresh_per_second: float = 10,\n    style: StyleType = \"bar.back\",\n    complete_style: StyleType = \"bar.complete\",\n    finished_style: StyleType = \"bar.finished\",\n    pulse_style: StyleType = \"bar.pulse\",\n    disable: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line_number": 294
+    },
+    {
+      "name": "FakeFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FakeFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_wrap_non_iobase",
+      "source_code": ""
+    },
+    {
+      "function": "trio.wrap_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line": 294,
+      "caller": "test_wrap_non_iobase",
+      "source_code": "def wrap_file(\n    file: BinaryIO,\n    total: int,\n    *,\n    description: str = \"Reading...\",\n    auto_refresh: bool = True,\n    console: Optional[Console] = None,\n    transient: bool = False,\n    get_time: Optional[Callable[[], float]] = None,\n    refresh_per_second: float = 10,\n    style: StyleType = \"bar.back\",\n    complete_style: StyleType = \"bar.complete\",\n    finished_style: StyleType = \"bar.finished\",\n    pulse_style: StyleType = \"bar.pulse\",\n    disable: bool = False,\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_wrap_non_iobase",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_wrap_non_iobase",
+      "source_code": ""
+    },
+    {
+      "function": "trio.wrap_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line": 294,
+      "caller": "test_wrap_non_iobase",
+      "source_code": "def wrap_file(\n    file: BinaryIO,\n    total: int,\n    *,\n    description: str = \"Reading...\",\n    auto_refresh: bool = True,\n    console: Optional[Console] = None,\n    transient: bool = False,\n    get_time: Optional[Callable[[], float]] = None,\n    refresh_per_second: float = 10,\n    style: StyleType = \"bar.back\",\n    complete_style: StyleType = \"bar.complete\",\n    finished_style: StyleType = \"bar.finished\",\n    pulse_style: StyleType = \"bar.pulse\",\n    disable: bool = False,\n"
+    },
+    {
+      "function": "FakeFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_wrap_non_iobase",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not isinstance(wrapped, io.IOBase)",
+    "assert isinstance(async_file, AsyncIOWrapper)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_wrap_non_iobase() -> None:\n    class FakeFile:\n        def close(self) -> None:  # pragma: no cover\n            pass\n\n        def write(self) -> None:  # pragma: no cover\n            pass\n\n    wrapped = FakeFile()\n    assert not isinstance(wrapped, io.IOBase)\n\n    async_file = trio.wrap_file(wrapped)\n    assert isinstance(async_file, AsyncIOWrapper)\n\n    del FakeFile.write\n\n    with pytest.raises(TypeError):\n        trio.wrap_file(FakeFile())"
+}

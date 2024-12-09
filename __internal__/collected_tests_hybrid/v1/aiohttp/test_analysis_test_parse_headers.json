@@ -1,0 +1,58 @@
+{
+  "test_name": "test_parse_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "msg.headers.items",
+      "source_code": "        def items(self):\n            'od.items() -> list of (key, value) pairs in od'\n            return [(key, self[key]) for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 753
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse_headers",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse_headers",
+      "source_code": ""
+    },
+    {
+      "function": "msg.headers.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 753,
+      "caller": "test_parse_headers",
+      "source_code": "        def items(self):\n            'od.items() -> list of (key, value) pairs in od'\n            return [(key, self[key]) for key in self]\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(messages) == 1",
+    "assert list(msg.headers.items()) == [('test', 'a line'), ('test2', 'data')]",
+    "assert msg.raw_headers == ((b'test', b'a line'), (b'test2', b'data'))",
+    "assert not msg.should_close",
+    "assert msg.compression is None",
+    "assert not msg.upgrade"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_headers(parser: HttpRequestParser) -> None:\n    text = b\"\"\"GET /test HTTP/1.1\\r\ntest: a line\\r\ntest2: data\\r\n\\r\n\"\"\"\n    messages, upgrade, tail = parser.feed_data(text)\n    assert len(messages) == 1\n    msg = messages[0][0]\n\n    assert list(msg.headers.items()) == [(\"test\", \"a line\"), (\"test2\", \"data\")]\n    assert msg.raw_headers == ((b\"test\", b\"a line\"), (b\"test2\", b\"data\"))\n    assert not msg.should_close\n    assert msg.compression is None\n    assert not msg.upgrade"
+}

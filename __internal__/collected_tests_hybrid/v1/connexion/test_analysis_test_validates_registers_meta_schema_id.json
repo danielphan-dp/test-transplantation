@@ -1,0 +1,77 @@
+{
+  "test_name": "test_validates_registers_meta_schema_id",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "validators.create",
+      "source_code": "    def create(\n        cls,\n        find_links: List[str],\n        index_urls: List[str],\n        no_index: bool,\n    ) -> \"SearchScope\":\n        \"\"\"\n        Create a SearchScope object after normalizing the `find_links`.\n        \"\"\"\n        # Build find_links. If an argument starts with ~, it may be\n        # a local file relative to a home directory. So try normalizing\n        # it and if it exists, use the normalized version.\n        # This is deliberately conservative - it might be fine just to\n        # blindly normalize anything starting with a ~...\n        built_find_links: List[str] = []\n        for link in find_links:\n            if link.startswith(\"~\"):\n                new_link = normalize_path(link)\n                if os.path.exists(new_link):\n                    link = new_link\n            built_find_links.append(link)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_internal/models/search_scope.py",
+      "line_number": 26
+    },
+    {
+      "name": "self.addCleanup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.addCleanup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIn",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "s.get",
+      "source_code": "    def get(  # type: ignore[override]\n        self,\n        url: httpx._types.URLTypes,\n        *,\n        params: httpx._types.QueryParamTypes | None = None,\n        headers: httpx._types.HeaderTypes | None = None,\n        cookies: httpx._types.CookieTypes | None = None,\n        auth: httpx._types.AuthTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        follow_redirects: bool | None = None,\n        allow_redirects: bool | None = None,\n        timeout: httpx._types.TimeoutTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        extensions: dict[str, typing.Any] | None = None,\n    ) -> httpx.Response:\n        redirect = self._choose_redirect_arg(follow_redirects, allow_redirects)\n        return super().get(\n            url,\n            params=params,\n            headers=headers,\n            cookies=cookies,\n            auth=auth,\n            follow_redirects=redirect,\n            timeout=timeout,\n            extensions=extensions,\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 500
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validators.create",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_internal/models/search_scope.py",
+      "line": 26,
+      "caller": "test_validates_registers_meta_schema_id",
+      "source_code": "    @classmethod\n    def create(\n        cls,\n        find_links: List[str],\n        index_urls: List[str],\n        no_index: bool,\n"
+    },
+    {
+      "function": "self.addCleanup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_validates_registers_meta_schema_id",
+      "source_code": ""
+    },
+    {
+      "function": "self.addCleanup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_validates_registers_meta_schema_id",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIn",
+      "filename": "",
+      "line": 0,
+      "caller": "test_validates_registers_meta_schema_id",
+      "source_code": ""
+    },
+    {
+      "function": "s.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 500,
+      "caller": "test_validates_registers_meta_schema_id",
+      "source_code": "    def get(  # type: ignore[override]\n        self,\n        url: httpx._types.URLTypes,\n        *,\n        params: httpx._types.QueryParamTypes | None = None,\n        headers: httpx._types.HeaderTypes | None = None,\n        cookies: httpx._types.CookieTypes | None = None,\n        auth: httpx._types.AuthTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        follow_redirects: bool | None = None,\n        allow_redirects: bool | None = None,\n        timeout: httpx._types.TimeoutTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        extensions: dict[str, typing.Any] | None = None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_validates_registers_meta_schema_id(self):\n        meta_schema_key = \"meta schema id\"\n        my_meta_schema = {\"id\": meta_schema_key}\n\n        validators.create(\n            meta_schema=my_meta_schema,\n            version=\"my version\",\n            id_of=lambda s: s.get(\"id\", \"\"),\n        )\n        self.addCleanup(validators._META_SCHEMAS.pop, meta_schema_key)\n        self.addCleanup(validators._VALIDATORS.pop, \"my version\")\n\n        self.assertIn(meta_schema_key, validators._META_SCHEMAS)"
+}

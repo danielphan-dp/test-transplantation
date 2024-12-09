@@ -1,0 +1,64 @@
+{
+  "test_name": "test_invalid_header_spacing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "_pad.keys",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 745
+    },
+    {
+      "name": "_pad.keys",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 745
+    },
+    {
+      "name": "_pad.values",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 749
+    },
+    {
+      "name": "_pad.values",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 749
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_pad.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 745,
+      "caller": "test_invalid_header_spacing",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)\n\n"
+    },
+    {
+      "function": "_pad.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 745,
+      "caller": "test_invalid_header_spacing",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)\n\n"
+    },
+    {
+      "function": "_pad.values",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 749,
+      "caller": "test_invalid_header_spacing",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]\n\n"
+    },
+    {
+      "function": "_pad.values",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 749,
+      "caller": "test_invalid_header_spacing",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_invalid_header_spacing(\n    parser: HttpRequestParser, pad1: bytes, pad2: bytes, hdr: bytes\n) -> None:\n    text = b\"GET /test HTTP/1.1\\r\\n%s%s%s: value\\r\\n\\r\\n\" % (pad1, hdr, pad2)\n    if pad1 == pad2 == b\"\" and hdr != b\"\":\n        # one entry in param matrix is correct: non-empty name, not padded\n        parser.feed_data(text)\n        return\n\n    with pytest.raises(http_exceptions.BadHttpMessage):\n        parser.feed_data(text)"
+}

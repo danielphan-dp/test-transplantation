@@ -1,0 +1,64 @@
+{
+  "test_name": "test_reentrant_action_without_clear",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_actions.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "c.execute_actions",
+      "source_code": "    def execute_actions(self, clear=True, introspector=None):\n        \"\"\"Execute the configuration actions",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/actions.py",
+      "line_number": 209
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.actions.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_reentrant_action_without_clear",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "c.execute_actions",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/actions.py",
+      "line": 209,
+      "caller": "test_reentrant_action_without_clear",
+      "source_code": "    def execute_actions(self, clear=True, introspector=None):\n        \"\"\"Execute the configuration actions\n\n        This calls the action callables after resolving conflicts\n\n        For example:\n\n        >>> output = []\n        >>> def f(*a, **k):\n        ...    output.append(('f', a, k))\n        >>> context = ActionState()\n        >>> context.actions = [\n        ...   (1, f, (1,)),\n        ...   (1, f, (11,), {}, ('x', )),\n        ...   (2, f, (2,)),\n        ...   ]\n        >>> context.execute_actions()\n        >>> output\n        [('f', (1,), {}), ('f', (2,), {})]\n\n        If the action raises an error, we convert it to a\n        ConfigurationExecutionError.\n\n        >>> output = []\n        >>> def bad():\n        ...    bad.xxx\n        >>> context.actions = [\n        ...   (1, f, (1,)),\n        ...   (1, f, (11,), {}, ('x', )),\n        ...   (2, f, (2,)),\n        ...   (3, bad, (), {}, (), 'oops')\n        ...   ]\n        >>> try:\n        ...    v = context.execute_actions()\n        ... except ConfigurationExecutionError, v:\n        ...    pass\n        >>> print(v)\n        exceptions.AttributeError: 'function' object has no attribute 'xxx'\n          in:\n          oops\n\n        Note that actions executed before the error still have an effect:\n\n        >>> output\n        [('f', (1,), {}), ('f', (2,), {})]\n\n        The execution is re-entrant such that actions may be added by other\n        actions with the one caveat that the order of any added actions must\n        be equal to or larger than the current action.\n\n        >>> output = []\n        >>> def f(*a, **k):\n        ...   output.append(('f', a, k))\n        ...   context.actions.append((3, g, (8,), {}))\n        >>> def g(*a, **k):\n        ...    output.append(('g', a, k))\n        >>> context.actions = [\n        ...   (1, f, (1,)),\n        ...   ]\n        >>> context.execute_actions()\n        >>> output\n        [('f', (1,), {}), ('g', (8,), {})]\n\n        \"\"\"\n        try:\n            all_actions = []\n            executed_actions = []\n            action_iter = iter([])\n            conflict_state = ConflictResolverState()\n\n            while True:\n                # We clear the actions list prior to execution so if there\n                # are some new actions then we add them to the mix and resolve\n                # conflicts again. This orders the new actions as well as\n                # ensures that the previously executed actions have no new\n                # conflicts.\n                if self.actions:\n                    all_actions.extend(self.actions)\n                    action_iter = resolveConflicts(\n                        self.actions, state=conflict_state\n                    )\n                    self.actions = []\n\n                action = next(action_iter, None)\n                if action is None:\n                    # we are done!\n                    break\n\n                callable = action['callable']\n                args = action['args']\n                kw = action['kw']\n                info = action['info']\n                # we use \"get\" below in case an action was added via a ZCML\n                # directive that did not know about introspectables\n                introspectables = action.get('introspectables', ())\n\n                try:\n                    if callable is not None:\n                        callable(*args, **kw)\n                except Exception:\n                    t, v, tb = sys.exc_info()\n                    try:\n                        reraise(\n                            ConfigurationExecutionError,\n                            ConfigurationExecutionError(t, v, info),\n                            tb,\n                        )\n                    finally:\n                        del t, v, tb\n\n                if introspector is not None:\n                    for introspectable in introspectables:\n                        introspectable.register(introspector, info)\n\n                executed_actions.append(action)\n\n            self.actions = all_actions\n            return executed_actions\n\n        finally:\n            if clear:\n                self.actions = []\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reentrant_action_without_clear",
+      "source_code": ""
+    },
+    {
+      "function": "c.actions.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_reentrant_action_without_clear",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reentrant_action_without_clear(self):\n        c = self._makeOne()\n\n        def f(*a, **k):\n            c.actions.append((3, g, (8,)))\n\n        def g(*a, **k):\n            pass\n\n        c.actions = [(1, f, (1,))]\n        c.execute_actions(clear=False)\n        self.assertEqual(c.actions, [(1, f, (1,)), (3, g, (8,))])"
+}

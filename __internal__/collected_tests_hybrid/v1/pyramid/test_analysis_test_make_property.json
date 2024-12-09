@@ -1,0 +1,77 @@
+{
+  "test_name": "test_make_property",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "self._getTargetClass",
+      "source_code": "    def _getTargetClass(self):\n        from zope.interface.interface import Element\n        return Element",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 116
+    },
+    {
+      "name": "helper.make_property",
+      "source_code": "    def make_property(cls, callable, name=None, reify=False):\n        \"\"\"Convert a callable into one suitable for adding to the\n        instance. This will return a 2-tuple containing the computed\n        (name, property) pair.\n        \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line_number": 104
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._getTargetClass",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 116,
+      "caller": "test_make_property",
+      "source_code": "    def _getTargetClass(self):\n        from zope.interface.interface import Element\n        return Element\n\n"
+    },
+    {
+      "function": "helper.make_property",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line": 104,
+      "caller": "test_make_property",
+      "source_code": "    @classmethod\n    def make_property(cls, callable, name=None, reify=False):\n        \"\"\"Convert a callable into one suitable for adding to the\n        instance. This will return a 2-tuple containing the computed\n        (name, property) pair.\n        \"\"\"\n\n        if name is None:\n            if not hasattr(callable, '__name__'):\n                raise ValueError(\n                    'missing __name__, must specify \"name\" for property'\n                )\n            name = callable.__name__\n        name = get_callable_name(name)\n        is_data_descriptor = inspect.isdatadescriptor(callable)\n        if reify and is_data_descriptor:\n            raise ValueError('cannot reify a data descriptor')\n        if is_data_descriptor:\n            fn = callable\n        else:\n            wrapped = lambda this: callable(this)\n            wrapped.__name__ = name\n            wrapped.__doc__ = callable.__doc__\n\n            if reify:\n                import pyramid.decorator  # avoid circular import\n\n                fn = pyramid.decorator.reify(wrapped)\n            else:\n                fn = SettableProperty(wrapped)\n\n        return name, fn\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_property",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_property",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_make_property",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_property(self):\n        from pyramid.decorator import reify\n\n        helper = self._getTargetClass()\n        name, fn = helper.make_property(lambda x: 1, name='x', reify=True)\n        self.assertEqual(name, 'x')\n        self.assertTrue(isinstance(fn, reify))"
+}

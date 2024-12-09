@@ -1,0 +1,27 @@
+{
+  "test_name": "test_get_script_header_non_ascii_exe",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "ei.ScriptWriter.get_header",
+      "source_code": "    def get_header(self, name, default=None):\n        return self._r.headers.get(name, self._new_headers.get(name, default))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/cookies.py",
+      "line_number": 75
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ei.ScriptWriter.get_header",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/cookies.py",
+      "line": 75,
+      "caller": "test_get_script_header_non_ascii_exe",
+      "source_code": "    def get_header(self, name, default=None):\n        return self._r.headers.get(name, self._new_headers.get(name, default))\n\n"
+    }
+  ],
+  "assertions": [
+    "assert actual == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_script_header_non_ascii_exe(self):\n        actual = ei.ScriptWriter.get_header(\n            '#!/usr/bin/python', executable=self.non_ascii_exe\n        )\n        expected = '#!%s -x\\n' % self.non_ascii_exe\n        assert actual == expected"
+}

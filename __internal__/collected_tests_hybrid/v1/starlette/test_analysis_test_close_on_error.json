@@ -1,0 +1,106 @@
+{
+  "test_name": "test_close_on_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_highlevel_open_unix_stream.py",
+  "static_methods": [
+    {
+      "name": "close_on_error",
+      "source_code": "def close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line_number": 30
+    },
+    {
+      "name": "close_on_error",
+      "source_code": "def close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line_number": 30
+    },
+    {
+      "name": "close_on_error",
+      "source_code": "def close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line_number": 30
+    },
+    {
+      "name": "CloseMe",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "close_on_error",
+      "source_code": "def close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line_number": 30
+    },
+    {
+      "name": "CloseMe",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "skip_if_not_unix",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "close_on_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line": 30,
+      "caller": "test_close_on_error",
+      "source_code": "@contextmanager\ndef close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise\n\n\n"
+    },
+    {
+      "function": "close_on_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line": 30,
+      "caller": "test_close_on_error",
+      "source_code": "@contextmanager\ndef close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise\n\n\n"
+    },
+    {
+      "function": "close_on_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line": 30,
+      "caller": "test_close_on_error",
+      "source_code": "@contextmanager\ndef close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise\n\n\n"
+    },
+    {
+      "function": "CloseMe",
+      "filename": "",
+      "line": 0,
+      "caller": "test_close_on_error",
+      "source_code": ""
+    },
+    {
+      "function": "close_on_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_highlevel_open_unix_stream.py",
+      "line": 30,
+      "caller": "test_close_on_error",
+      "source_code": "@contextmanager\ndef close_on_error(obj: CloseT) -> Generator[CloseT, None, None]:\n    try:\n        yield obj\n    except:\n        obj.close()\n        raise\n\n\n"
+    },
+    {
+      "function": "CloseMe",
+      "filename": "",
+      "line": 0,
+      "caller": "test_close_on_error",
+      "source_code": ""
+    },
+    {
+      "function": "skip_if_not_unix",
+      "filename": "",
+      "line": 0,
+      "caller": "test_close_on_error",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not c.closed",
+    "assert c.closed"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_close_on_error() -> None:\n    class CloseMe:\n        closed = False\n\n        def close(self) -> None:\n            self.closed = True\n\n    with close_on_error(CloseMe()) as c:\n        pass\n    assert not c.closed\n\n    with pytest.raises(RuntimeError):\n        with close_on_error(CloseMe()) as c:\n            raise RuntimeError\n    assert c.closed"
+}

@@ -1,0 +1,103 @@
+{
+  "test_name": "test_error_in_run_loop",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "ignore_coroutine_never_awaited_warnings",
+      "source_code": "def ignore_coroutine_never_awaited_warnings() -> Generator[None, None, None]:\n    with warnings.catch_warnings():\n        warnings.filterwarnings(\"ignore\", message=\"coroutine '.*' was never awaited\")\n        try:\n            yield\n        finally:\n            # Make sure to trigger any coroutine __del__ methods now, before\n            # we leave the context manager.\n            gc_collect_harder()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 67
+    },
+    {
+      "name": "restore_unraisablehook",
+      "source_code": "def restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 83
+    },
+    {
+      "name": "_core.current_task",
+      "source_code": "def current_task() -> Task:\n    \"\"\"Return the :class:`Task` object representing the current task.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 2730
+    },
+    {
+      "name": "ignore_coroutine_never_awaited_warnings",
+      "source_code": "def ignore_coroutine_never_awaited_warnings() -> Generator[None, None, None]:\n    with warnings.catch_warnings():\n        warnings.filterwarnings(\"ignore\", message=\"coroutine '.*' was never awaited\")\n        try:\n            yield\n        finally:\n            # Make sure to trigger any coroutine __del__ methods now, before\n            # we leave the context manager.\n            gc_collect_harder()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 67
+    },
+    {
+      "name": "_core.checkpoint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "restore_unraisablehook",
+      "source_code": "def restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 83
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ignore_coroutine_never_awaited_warnings",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 67,
+      "caller": "test_error_in_run_loop",
+      "source_code": "@contextmanager\ndef ignore_coroutine_never_awaited_warnings() -> Generator[None, None, None]:\n    with warnings.catch_warnings():\n        warnings.filterwarnings(\"ignore\", message=\"coroutine '.*' was never awaited\")\n        try:\n            yield\n        finally:\n            # Make sure to trigger any coroutine __del__ methods now, before\n            # we leave the context manager.\n            gc_collect_harder()\n\n\n"
+    },
+    {
+      "function": "restore_unraisablehook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 83,
+      "caller": "test_error_in_run_loop",
+      "source_code": "@contextmanager\ndef restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev\n\n\n"
+    },
+    {
+      "function": "_core.current_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 2730,
+      "caller": "test_error_in_run_loop",
+      "source_code": "def current_task() -> Task:\n    \"\"\"Return the :class:`Task` object representing the current task.\n\n    Returns:\n      Task: the :class:`Task` that called :func:`current_task`.\n\n    \"\"\"\n\n    try:\n        return GLOBAL_RUN_CONTEXT.task\n    except AttributeError:\n        raise RuntimeError(\"must be called from async context\") from None\n\n\n"
+    },
+    {
+      "function": "ignore_coroutine_never_awaited_warnings",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 67,
+      "caller": "test_error_in_run_loop",
+      "source_code": "@contextmanager\ndef ignore_coroutine_never_awaited_warnings() -> Generator[None, None, None]:\n    with warnings.catch_warnings():\n        warnings.filterwarnings(\"ignore\", message=\"coroutine '.*' was never awaited\")\n        try:\n            yield\n        finally:\n            # Make sure to trigger any coroutine __del__ methods now, before\n            # we leave the context manager.\n            gc_collect_harder()\n\n\n"
+    },
+    {
+      "function": "_core.checkpoint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_error_in_run_loop",
+      "source_code": ""
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_error_in_run_loop",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "restore_unraisablehook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 83,
+      "caller": "test_error_in_run_loop",
+      "source_code": "@contextmanager\ndef restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_error_in_run_loop() -> None:\n    # Blow stuff up real good to check we at least get a TrioInternalError\n    async def main() -> None:\n        task = _core.current_task()\n        task._schedule_points = \"hello!\"  # type: ignore\n        await _core.checkpoint()\n\n    with ignore_coroutine_never_awaited_warnings():\n        with pytest.raises(_core.TrioInternalError):\n            _core.run(main)"
+}

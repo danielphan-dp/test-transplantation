@@ -1,0 +1,40 @@
+{
+  "test_name": "test_read_setup_file",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_extension.py",
+  "static_methods": [
+    {
+      "name": "read_setup_file",
+      "source_code": "def read_setup_file(filename):  # noqa: C901\n    \"\"\"Reads a Setup file and returns Extension instances.\"\"\"\n    from distutils.sysconfig import _variable_rx, expand_makefile_vars, parse_makefile\n    from distutils.text_file import TextFile\n    from distutils.util import split_quoted",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/extension.py",
+      "line_number": 145
+    },
+    {
+      "name": "names.sort",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 61
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "read_setup_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/extension.py",
+      "line": 145,
+      "caller": "test_read_setup_file",
+      "source_code": "def read_setup_file(filename):  # noqa: C901\n    \"\"\"Reads a Setup file and returns Extension instances.\"\"\"\n    from distutils.sysconfig import _variable_rx, expand_makefile_vars, parse_makefile\n    from distutils.text_file import TextFile\n    from distutils.util import split_quoted\n\n    # First pass over the file to gather \"VAR = VALUE\" assignments.\n    vars = parse_makefile(filename)\n\n    # Second pass to gobble up the real content: lines of the form\n    #   <module> ... [<sourcefile> ...] [<cpparg> ...] [<library> ...]\n    file = TextFile(\n        filename,\n        strip_comments=True,\n        skip_blanks=True,\n        join_lines=True,\n        lstrip_ws=True,\n        rstrip_ws=True,\n    )\n    try:\n        extensions = []\n\n        while True:\n            line = file.readline()\n            if line is None:  # eof\n                break\n            if _variable_rx.match(line):  # VAR=VALUE, handled in first pass\n                continue\n\n            if line[0] == line[-1] == \"*\":\n                file.warn(f\"'{line}' lines not handled yet\")\n                continue\n\n            line = expand_makefile_vars(line, vars)\n            words = split_quoted(line)\n\n            # NB. this parses a slightly different syntax than the old\n            # makesetup script: here, there must be exactly one extension per\n            # line, and it must be the first word of the line.  I have no idea\n            # why the old syntax supported multiple extensions per line, as\n            # they all wind up being the same.\n\n            module = words[0]\n            ext = Extension(module, [])\n            append_next_word = None\n\n            for word in words[1:]:\n                if append_next_word is not None:\n                    append_next_word.append(word)\n                    append_next_word = None\n                    continue\n\n                suffix = os.path.splitext(word)[1]\n                switch = word[0:2]\n                value = word[2:]\n\n                if suffix in (\".c\", \".cc\", \".cpp\", \".cxx\", \".c++\", \".m\", \".mm\"):\n                    # hmm, should we do something about C vs. C++ sources?\n                    # or leave it up to the CCompiler implementation to\n                    # worry about?\n                    ext.sources.append(word)\n                elif switch == \"-I\":\n                    ext.include_dirs.append(value)\n                elif switch == \"-D\":\n                    equals = value.find(\"=\")\n                    if equals == -1:  # bare \"-DFOO\" -- no value\n                        ext.define_macros.append((value, None))\n                    else:  # \"-DFOO=blah\"\n                        ext.define_macros.append((value[0:equals], value[equals + 2 :]))\n                elif switch == \"-U\":\n                    ext.undef_macros.append(value)\n                elif switch == \"-C\":  # only here 'cause makesetup has it!\n                    ext.extra_compile_args.append(word)\n                elif switch == \"-l\":\n                    ext.libraries.append(value)\n                elif switch == \"-L\":\n                    ext.library_dirs.append(value)\n                elif switch == \"-R\":\n                    ext.runtime_library_dirs.append(value)\n                elif word == \"-rpath\":\n                    append_next_word = ext.runtime_library_dirs\n                elif word == \"-Xlinker\":\n                    append_next_word = ext.extra_link_args\n                elif word == \"-Xcompiler\":\n                    append_next_word = ext.extra_compile_args\n                elif switch == \"-u\":\n                    ext.extra_link_args.append(word)\n                    if not value:\n                        append_next_word = ext.extra_link_args\n                elif suffix in (\".a\", \".so\", \".sl\", \".o\", \".dylib\"):\n                    # NB. a really faithful emulation of makesetup would\n                    # append a .o file to extra_objects only if it\n                    # had a slash in it; otherwise, it would s/.o/.c/\n                    # and append it to sources.  Hmmmm.\n                    ext.extra_objects.append(word)\n                else:\n                    file.warn(f\"unrecognized argument '{word}'\")\n\n            extensions.append(ext)\n    finally:\n        file.close()\n\n    return extensions\n"
+    },
+    {
+      "function": "names.sort",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 61,
+      "caller": "test_read_setup_file",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))\n\n"
+    }
+  ],
+  "assertions": [
+    "assert names == wanted"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_read_setup_file(self):\n        # trying to read a Setup file\n        # (sample extracted from the PyGame project)\n        setup = os.path.join(os.path.dirname(__file__), 'Setup.sample')\n\n        exts = read_setup_file(setup)\n        names = [ext.name for ext in exts]\n        names.sort()\n\n        # here are the extensions read_setup_file should have created\n        # out of the file\n        wanted = [\n            '_arraysurfarray',\n            '_camera',\n            '_numericsndarray',\n            '_numericsurfarray',\n            'base',\n            'bufferproxy',\n            'cdrom',\n            'color',\n            'constants',\n            'display',\n            'draw',\n            'event',\n            'fastevent',\n            'font',\n            'gfxdraw',\n            'image',\n            'imageext',\n            'joystick',\n            'key',\n            'mask',\n            'mixer',\n            'mixer_music',\n            'mouse',\n            'movie',\n            'overlay',\n            'pixelarray',\n            'pypm',\n            'rect',\n            'rwobject',\n            'scrap',\n            'surface',\n            'surflock',\n            'time',\n            'transform',\n        ]\n\n        assert names == wanted"
+}

@@ -1,0 +1,116 @@
+{
+  "test_name": "test_guest_warns_if_abandoned",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+  "static_methods": [
+    {
+      "name": "restore_unraisablehook",
+      "source_code": "def restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 83
+    },
+    {
+      "name": "do_abandoned_guest_run",
+      "source_code": "    def do_abandoned_guest_run() -> None:\n        async def abandoned_main(in_host: InHost) -> None:\n            in_host(lambda: 1 / 0)\n            while True:\n                await trio.lowlevel.checkpoint()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line_number": 395
+    },
+    {
+      "name": "gc_collect_harder",
+      "source_code": "def gc_collect_harder() -> None:\n    # In the test suite we sometimes want to call gc.collect() to make sure\n    # that any objects with noisy __del__ methods (e.g. unawaited coroutines)\n    # get collected before we continue, so their noise doesn't leak into\n    # unrelated tests.\n    #\n    # On PyPy, coroutine objects (for example) can survive at least 1 round of\n    # garbage collection, because executing their __del__ method to print the\n    # warning can cause them to be resurrected. So we call collect a few times\n    # to make sure.\n    for _ in range(5):\n        gc.collect()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 48
+    },
+    {
+      "name": "in_host",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "trivial_guest_run",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line_number": 51
+    },
+    {
+      "name": "trio.current_time",
+      "source_code": "    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line_number": 33
+    },
+    {
+      "name": "trio.lowlevel.checkpoint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "restore_unraisablehook",
+      "source_code": "def restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 83
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "restore_unraisablehook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 83,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": "@contextmanager\ndef restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev\n\n\n"
+    },
+    {
+      "function": "do_abandoned_guest_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line": 395,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": "    def do_abandoned_guest_run() -> None:\n        async def abandoned_main(in_host: InHost) -> None:\n            in_host(lambda: 1 / 0)\n            while True:\n                await trio.lowlevel.checkpoint()\n\n        with pytest.raises(ZeroDivisionError):\n            trivial_guest_run(abandoned_main)\n\n"
+    },
+    {
+      "function": "gc_collect_harder",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 48,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": "def gc_collect_harder() -> None:\n    # In the test suite we sometimes want to call gc.collect() to make sure\n    # that any objects with noisy __del__ methods (e.g. unawaited coroutines)\n    # get collected before we continue, so their noise doesn't leak into\n    # unrelated tests.\n    #\n    # On PyPy, coroutine objects (for example) can survive at least 1 round of\n    # garbage collection, because executing their __del__ method to print the\n    # warning can cause them to be resurrected. So we call collect a few times\n    # to make sure.\n    for _ in range(5):\n        gc.collect()\n\n\n"
+    },
+    {
+      "function": "in_host",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": ""
+    },
+    {
+      "function": "trivial_guest_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line": 51,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,\n"
+    },
+    {
+      "function": "trio.current_time",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line": 33,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": "    @abstractmethod\n    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.\n\n        This is used to implement functions like :func:`trio.current_time` and\n        :func:`trio.move_on_after`.\n\n        Returns:\n            float: The current time.\n\n        \"\"\"\n\n"
+    },
+    {
+      "function": "trio.lowlevel.checkpoint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": ""
+    },
+    {
+      "function": "restore_unraisablehook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 83,
+      "caller": "test_guest_warns_if_abandoned",
+      "source_code": "@contextmanager\ndef restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_guest_warns_if_abandoned() -> None:\n    # This warning is emitted from the garbage collector. So we have to make\n    # sure that our abandoned run is garbage. The easiest way to do this is to\n    # put it into a function, so that we're sure all the local state,\n    # traceback frames, etc. are garbage once it returns.\n    def do_abandoned_guest_run() -> None:\n        async def abandoned_main(in_host: InHost) -> None:\n            in_host(lambda: 1 / 0)\n            while True:\n                await trio.lowlevel.checkpoint()\n\n        with pytest.raises(ZeroDivisionError):\n            trivial_guest_run(abandoned_main)\n\n    with pytest.warns(RuntimeWarning, match=\"Trio guest run got abandoned\"):\n        do_abandoned_guest_run()\n        gc_collect_harder()\n\n        # If you have problems some day figuring out what's holding onto a\n        # reference to the unrolled_run generator and making this test fail,\n        # then this might be useful to help track it down. (It assumes you\n        # also hack start_guest_run so that it does 'global W; W =\n        # weakref(unrolled_run_gen)'.)\n        #\n        # import gc\n        # print(trio._core._run.W)\n        # targets = [trio._core._run.W()]\n        # for i in range(15):\n        #     new_targets = []\n        #     for target in targets:\n        #         new_targets += gc.get_referrers(target)\n        #         new_targets.remove(targets)\n        #     print(\"#####################\")\n        #     print(f\"depth {i}: {len(new_targets)}\")\n        #     print(new_targets)\n        #     targets = new_targets\n\n        with pytest.raises(RuntimeError):\n            trio.current_time()"
+}

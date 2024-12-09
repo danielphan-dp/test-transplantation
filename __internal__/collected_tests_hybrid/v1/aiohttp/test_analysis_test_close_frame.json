@@ -1,0 +1,53 @@
+{
+  "test_name": "test_close_frame",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "WSMessageClose",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_close_frame",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_close_frame",
+      "source_code": ""
+    },
+    {
+      "function": "WSMessageClose",
+      "filename": "",
+      "line": 0,
+      "caller": "test_close_frame",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == WSMessageClose(data=0, extra='')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_close_frame(\n    out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader\n) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [(1, WSMsgType.CLOSE, b\"\", False)]\n\n        parser.feed_data(b\"\")\n        res = out._buffer[0]\n        assert res == WSMessageClose(data=0, extra=\"\")"
+}

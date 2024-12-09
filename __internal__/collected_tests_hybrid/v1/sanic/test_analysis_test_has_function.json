@@ -1,0 +1,38 @@
+{
+  "test_name": "test_has_function",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_unixccompiler.py",
+  "static_methods": [
+    {
+      "name": "self.cc.has_function",
+      "source_code": "    def has_function(  # noqa: C901\n        self,\n        funcname,\n        includes=None,\n        include_dirs=None,\n        libraries=None,\n        library_dirs=None,\n    ):\n        \"\"\"Return a boolean indicating whether funcname is provided as\n        a symbol on the current platform.  The optional arguments can\n        be used to augment the compilation environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/ccompiler.py",
+      "line_number": 826
+    },
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.cc.has_function",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/ccompiler.py",
+      "line": 826,
+      "caller": "test_has_function",
+      "source_code": "    def has_function(  # noqa: C901\n        self,\n        funcname,\n        includes=None,\n        include_dirs=None,\n        libraries=None,\n        library_dirs=None,\n"
+    },
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_has_function",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_has_function(self):\n        # Issue https://github.com/pypa/distutils/issues/64:\n        # ensure that setting output_dir does not raise\n        # FileNotFoundError: [Errno 2] No such file or directory: 'a.out'\n        self.cc.output_dir = 'scratch'\n        os.chdir(self.mkdtemp())\n        self.cc.has_function('abort')"
+}

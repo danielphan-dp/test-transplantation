@@ -1,0 +1,64 @@
+{
+  "test_name": "test_dont_skip_discovery_with_pyproject_metadata",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+  "static_methods": [
+    {
+      "name": "self._simulate_package_with_extension",
+      "source_code": "    def _simulate_package_with_extension(self, tmp_path):\n        # This example is based on: https://github.com/nucleic/kiwi/tree/1.4.0\n        files = [\n            \"benchmarks/file.py\",\n            \"docs/Makefile\",\n            \"docs/requirements.txt\",\n            \"docs/source/conf.py\",\n            \"proj/header.h\",\n            \"proj/file.py\",\n            \"py/proj.cpp\",\n            \"py/other.cpp\",\n            \"py/file.py\",\n            \"py/py.typed\",\n            \"py/tests/test_proj.py\",\n            \"README.rst\",\n        ]\n        _populate_project_dir(tmp_path, files, {})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line_number": 334
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "DALS",
+      "source_code": "def DALS(s):\n    \"dedent and left-strip\"\n    return textwrap.dedent(s).lstrip()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/textwrap.py",
+      "line_number": 4
+    },
+    {
+      "name": "_get_dist",
+      "source_code": "def _get_dist(dist_path, attrs):\n    root = \"/\".join(os.path.split(dist_path))  # POSIX-style",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line_number": 616
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._simulate_package_with_extension",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line": 334,
+      "caller": "test_dont_skip_discovery_with_pyproject_metadata",
+      "source_code": "    def _simulate_package_with_extension(self, tmp_path):\n        # This example is based on: https://github.com/nucleic/kiwi/tree/1.4.0\n        files = [\n            \"benchmarks/file.py\",\n            \"docs/Makefile\",\n            \"docs/requirements.txt\",\n            \"docs/source/conf.py\",\n            \"proj/header.h\",\n            \"proj/file.py\",\n            \"py/proj.cpp\",\n            \"py/other.cpp\",\n            \"py/file.py\",\n            \"py/py.typed\",\n            \"py/tests/test_proj.py\",\n            \"README.rst\",\n        ]\n        _populate_project_dir(tmp_path, files, {})\n\n        setup_script = \"\"\"\n            from setuptools import Extension, setup\n\n            ext_modules = [\n                Extension(\n                    \"proj\",\n                    [\"py/proj.cpp\", \"py/other.cpp\"],\n                    include_dirs=[\".\"],\n                    language=\"c++\",\n                ),\n            ]\n            setup(ext_modules=ext_modules)\n        \"\"\"\n        (tmp_path / \"setup.py\").write_text(DALS(setup_script), encoding=\"utf-8\")\n\n"
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_dont_skip_discovery_with_pyproject_metadata",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "DALS",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/textwrap.py",
+      "line": 4,
+      "caller": "test_dont_skip_discovery_with_pyproject_metadata",
+      "source_code": "def DALS(s):\n    \"dedent and left-strip\"\n    return textwrap.dedent(s).lstrip()\n"
+    },
+    {
+      "function": "_get_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line": 616,
+      "caller": "test_dont_skip_discovery_with_pyproject_metadata",
+      "source_code": "def _get_dist(dist_path, attrs):\n    root = \"/\".join(os.path.split(dist_path))  # POSIX-style\n\n    script = dist_path / 'setup.py'\n    if script.exists():\n        with Path(dist_path):\n            dist = cast(\n                Distribution,\n                distutils.core.run_setup(\"setup.py\", {}, stop_after=\"init\"),\n            )\n    else:\n        dist = Distribution(attrs)\n\n    dist.src_root = root\n    dist.script_name = \"setup.py\"\n    with Path(dist_path):\n        dist.parse_config_files()\n\n    dist.set_defaults()\n    return dist\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dont_skip_discovery_with_pyproject_metadata(self, tmp_path):\n        \"\"\"When opting-in to pyproject.toml metadata, auto-discovery will be active if\n        the package lists C-extensions, but does not configure py-modules or packages.\n\n        This way we ensure users with complex package layouts that would lead to the\n        discovery of multiple top-level modules/packages see errors and are forced to\n        explicitly set ``packages`` or ``py-modules``.\n        \"\"\"\n        self._simulate_package_with_extension(tmp_path)\n\n        pyproject = \"\"\"\n            [project]\n            name = 'proj'\n            version = '42'\n        \"\"\"\n        (tmp_path / \"pyproject.toml\").write_text(DALS(pyproject), encoding=\"utf-8\")\n        with pytest.raises(PackageDiscoveryError, match=\"multiple (packages|modules)\"):\n            _get_dist(tmp_path, {})"
+}

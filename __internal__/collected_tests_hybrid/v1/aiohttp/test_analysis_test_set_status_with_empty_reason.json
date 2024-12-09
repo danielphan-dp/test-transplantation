@@ -1,0 +1,41 @@
+{
+  "test_name": "test_set_status_with_empty_reason",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_response.py",
+  "static_methods": [
+    {
+      "name": "web.StreamResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resp.set_status",
+      "source_code": "    def set_status(\n        self,\n        status: int,\n        reason: Optional[str] = None,\n    ) -> None:\n        assert (\n            not self.prepared\n        ), \"Cannot change the response status code after the headers have been sent\"\n        self._set_status(status, reason)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_response.py",
+      "line_number": 158
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.StreamResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_status_with_empty_reason",
+      "source_code": ""
+    },
+    {
+      "function": "resp.set_status",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_response.py",
+      "line": 158,
+      "caller": "test_set_status_with_empty_reason",
+      "source_code": "    def set_status(\n        self,\n        status: int,\n        reason: Optional[str] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert resp.status == 200",
+    "assert resp.reason == ''"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_status_with_empty_reason() -> None:\n    resp = web.StreamResponse()\n\n    resp.set_status(200, \"\")\n    assert resp.status == 200\n    assert resp.reason == \"\""
+}

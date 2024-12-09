@@ -1,0 +1,103 @@
+{
+  "test_name": "test_different_custom_predicates_with_same_hash",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_predicates.py",
+  "static_methods": [
+    {
+      "name": "PredicateWithHash",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "PredicateWithHash",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "predvalseq",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "predvalseq",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "PredicateWithHash",
+      "filename": "",
+      "line": 0,
+      "caller": "test_different_custom_predicates_with_same_hash",
+      "source_code": ""
+    },
+    {
+      "function": "PredicateWithHash",
+      "filename": "",
+      "line": 0,
+      "caller": "test_different_custom_predicates_with_same_hash",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_different_custom_predicates_with_same_hash",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_different_custom_predicates_with_same_hash",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_different_custom_predicates_with_same_hash",
+      "source_code": ""
+    },
+    {
+      "function": "predvalseq",
+      "filename": "",
+      "line": 0,
+      "caller": "test_different_custom_predicates_with_same_hash",
+      "source_code": ""
+    },
+    {
+      "function": "predvalseq",
+      "filename": "",
+      "line": 0,
+      "caller": "test_different_custom_predicates_with_same_hash",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_different_custom_predicates_with_same_hash(self):\n        from pyramid.config.predicates import predvalseq\n\n        class PredicateWithHash:\n            def __hash__(self):\n                return 1\n\n        a = PredicateWithHash()\n        b = PredicateWithHash()\n        _, _, a_phash = self._callFUT(custom=predvalseq([a]))\n        _, _, b_phash = self._callFUT(custom=predvalseq([b]))\n        self.assertEqual(a_phash, b_phash)"
+}

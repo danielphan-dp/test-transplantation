@@ -1,0 +1,27 @@
+{
+  "test_name": "test_basicauth_from_netrc_present_untrusted_env",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_basicauth_from_netrc_present_untrusted_env",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    }
+  ],
+  "assertions": [
+    "assert hdrs.AUTHORIZATION not in req.headers"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basicauth_from_netrc_present_untrusted_env(\n    make_request: _RequestMaker,\n) -> None:\n    \"\"\"Test no authorization header is sent via netrc if trust_env is False\"\"\"\n    req = make_request(\"get\", \"http://example.com\", trust_env=False)\n    assert hdrs.AUTHORIZATION not in req.headers"
+}

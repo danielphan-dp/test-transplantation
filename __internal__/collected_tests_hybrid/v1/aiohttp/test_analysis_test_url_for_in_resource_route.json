@@ -1,0 +1,66 @@
+{
+  "test_name": "test_url_for_in_resource_route",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_route",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n    ) -> \"ResourceRoute\":\n        for route_obj in self._routes:\n            if route_obj.method == method or route_obj.method == hdrs.METH_ANY:\n                raise RuntimeError(\n                    \"Added route will never be executed, \"\n                    \"method {route.method} is already \"\n                    \"registered\".format(route=route_obj)\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 327
+    },
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "route.url_for",
+      "source_code": "    def url_for(self, **kwargs: str) -> URL:\n        \"\"\"Construct url for resource with additional params.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 136
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 327,
+      "caller": "test_url_for_in_resource_route",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n"
+    },
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_url_for_in_resource_route",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_for_in_resource_route",
+      "source_code": ""
+    },
+    {
+      "function": "route.url_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 136,
+      "caller": "test_url_for_in_resource_route",
+      "source_code": "    @abc.abstractmethod  # pragma: no branch\n    def url_for(self, **kwargs: str) -> URL:\n        \"\"\"Construct url for resource with additional params.\"\"\"\n\n"
+    }
+  ],
+  "assertions": [
+    "assert URL('/get/John') == route.url_for(name='John')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_url_for_in_resource_route(router: web.UrlDispatcher) -> None:\n    route = router.add_route(\"GET\", \"/get/{name}\", make_handler(), name=\"name\")\n    assert URL(\"/get/John\") == route.url_for(name=\"John\")"
+}

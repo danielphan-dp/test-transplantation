@@ -1,0 +1,64 @@
+{
+  "test_name": "test_it_prioritizes_matching_union_types",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "self.best_match_of",
+      "source_code": "    def best_match_of(self, instance, schema):\n        errors = list(_LATEST_VERSION(schema).iter_errors(instance))\n        msg =  f\"No errors found for {instance} under {schema!r}!\"\n        self.assertTrue(errors, msg=msg)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+      "line_number": 9
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.best_match_of",
+      "source_code": "    def best_match_of(self, instance, schema):\n        errors = list(_LATEST_VERSION(schema).iter_errors(instance))\n        msg =  f\"No errors found for {instance} under {schema!r}!\"\n        self.assertTrue(errors, msg=msg)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+      "line_number": 9
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.best_match_of",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+      "line": 9,
+      "caller": "test_it_prioritizes_matching_union_types",
+      "source_code": "    def best_match_of(self, instance, schema):\n        errors = list(_LATEST_VERSION(schema).iter_errors(instance))\n        msg =  f\"No errors found for {instance} under {schema!r}!\"\n        self.assertTrue(errors, msg=msg)\n\n        best = exceptions.best_match(iter(errors))\n        reversed_best = exceptions.best_match(reversed(errors))\n\n        self.assertEqual(\n            best._contents(),\n            reversed_best._contents(),\n            f\"No consistent best match!\\nGot: {best}\\n\\nThen: {reversed_best}\",\n        )\n        return best\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_prioritizes_matching_union_types",
+      "source_code": ""
+    },
+    {
+      "function": "self.best_match_of",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+      "line": 9,
+      "caller": "test_it_prioritizes_matching_union_types",
+      "source_code": "    def best_match_of(self, instance, schema):\n        errors = list(_LATEST_VERSION(schema).iter_errors(instance))\n        msg =  f\"No errors found for {instance} under {schema!r}!\"\n        self.assertTrue(errors, msg=msg)\n\n        best = exceptions.best_match(iter(errors))\n        reversed_best = exceptions.best_match(reversed(errors))\n\n        self.assertEqual(\n            best._contents(),\n            reversed_best._contents(),\n            f\"No consistent best match!\\nGot: {best}\\n\\nThen: {reversed_best}\",\n        )\n        return best\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_prioritizes_matching_union_types",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_prioritizes_matching_union_types(self):\n        schema = {\n            \"properties\": {\n                \"foo\": {\n                    \"anyOf\": [\n                        {\"type\": [\"array\", \"object\"], \"minItems\": 2},\n                        {\"type\": [\"integer\", \"string\"], \"minLength\": 10},\n                    ],\n                },\n            },\n        }\n        best = self.best_match_of(instance={\"foo\": \"bar\"}, schema=schema)\n        self.assertEqual(best.validator, \"minLength\")\n\n        reordered = {\n            \"properties\": {\n                \"foo\": {\n                    \"anyOf\": [\n                        {\"type\": \"string\", \"minLength\": 10},\n                        {\"type\": \"array\", \"minItems\": 2},\n                    ],\n                },\n            },\n        }\n        best = self.best_match_of(instance={\"foo\": \"bar\"}, schema=reordered)\n        self.assertEqual(best.validator, \"minLength\")"
+}

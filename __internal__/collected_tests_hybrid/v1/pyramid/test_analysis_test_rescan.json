@@ -1,0 +1,103 @@
+{
+  "test_name": "test_rescan",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "self.config.scan",
+      "source_code": "    def scan(self, pattern):\n        \"\"\"\n        Scan the text for the given pattern and update pos/match\n        and related fields. The return value is a boolean that\n        indicates if the pattern matched. The matched value is\n        stored on the instance as ``match``, the last value is\n        stored as ``last``. ``start_pos`` is the position of the\n        pointer before the pattern was matched, ``pos`` is the\n        end position.\n        \"\"\"\n        if self.eos:\n            raise EndOfText()\n        if pattern not in self._re_cache:\n            self._re_cache[pattern] = re.compile(pattern, self.flags)\n        self.last = self.match\n        m = self._re_cache[pattern].match(self.data, self.pos)\n        if m is None:\n            return False\n        self.start_pos = m.start()\n        self.pos = m.end()\n        self.match = m.group()\n        return True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pygments/scanner.py",
+      "line_number": 72
+    },
+    {
+      "name": "self.config.make_wsgi_app",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 884
+    },
+    {
+      "name": "TestApp",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testapp.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testapp.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.config.scan",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pygments/scanner.py",
+      "line": 72,
+      "caller": "test_rescan",
+      "source_code": "    def scan(self, pattern):\n        \"\"\"\n        Scan the text for the given pattern and update pos/match\n        and related fields. The return value is a boolean that\n        indicates if the pattern matched. The matched value is\n        stored on the instance as ``match``, the last value is\n        stored as ``last``. ``start_pos`` is the position of the\n        pointer before the pattern was matched, ``pos`` is the\n        end position.\n        \"\"\"\n        if self.eos:\n            raise EndOfText()\n        if pattern not in self._re_cache:\n            self._re_cache[pattern] = re.compile(pattern, self.flags)\n        self.last = self.match\n        m = self._re_cache[pattern].match(self.data, self.pos)\n        if m is None:\n            return False\n        self.start_pos = m.start()\n        self.pos = m.end()\n        self.match = m.group()\n        return True\n\n"
+    },
+    {
+      "function": "self.config.make_wsgi_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 884,
+      "caller": "test_rescan",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)\n\n        # Allow tools like \"pshell development.ini\" to find the 'last'\n        # registry configured.\n        global_registries.add(self.registry)\n\n        # Push the registry onto the stack in case any code that depends on\n        # the registry threadlocal APIs used in listeners subscribed to the\n        # IApplicationCreated event.\n        self.begin()\n        try:\n            self.registry.notify(ApplicationCreated(app))\n        finally:\n            self.end()\n\n        return app\n\n\n"
+    },
+    {
+      "function": "TestApp",
+      "filename": "",
+      "line": 0,
+      "caller": "test_rescan",
+      "source_code": ""
+    },
+    {
+      "function": "testapp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_rescan",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_rescan",
+      "source_code": ""
+    },
+    {
+      "function": "testapp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_rescan",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_rescan",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_rescan(self):\n        self.config.scan('tests.pkgs.rendererscanapp')\n        app = self.config.make_wsgi_app()\n        testapp = TestApp(app)\n        res = testapp.get('/one', status=200)\n        self.assertTrue(b'One!' in res.body)\n        res = testapp.get('/two', status=200)\n        self.assertTrue(b'Two!' in res.body)"
+}

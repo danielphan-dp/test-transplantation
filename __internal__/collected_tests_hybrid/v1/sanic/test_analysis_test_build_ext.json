@@ -1,0 +1,142 @@
+{
+  "test_name": "test_build_ext",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "safe_extension_import",
+      "source_code": "def safe_extension_import(name, path):\n    with import_helper.CleanImport(name):\n        with extension_redirect(name, path) as new_path:\n            with import_helper.DirsOnSysPath(new_path):\n                yield",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 60
+    },
+    {
+      "name": "missing_compiler_executable",
+      "source_code": "def missing_compiler_executable(cmd_names: Sequence[str] = []):  # pragma: no cover\n    \"\"\"Check if the compiler components used to build the interpreter exist.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/__init__.py",
+      "line_number": 14
+    },
+    {
+      "name": "copy_xxmodule_c",
+      "source_code": "def copy_xxmodule_c(directory):\n    \"\"\"Helper for tests that need the xxmodule.c source file.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 66
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.build_ext",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 90
+    },
+    {
+      "name": "fixup_build_ext",
+      "source_code": "def fixup_build_ext(cmd):\n    \"\"\"Function needed to make build_ext tests pass.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 86
+    },
+    {
+      "name": "StringIO",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "safe_extension_import",
+      "source_code": "def safe_extension_import(name, path):\n    with import_helper.CleanImport(name):\n        with extension_redirect(name, path) as new_path:\n            with import_helper.DirsOnSysPath(new_path):\n                yield",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 60
+    },
+    {
+      "name": "self._test_xx",
+      "source_code": "    def _test_xx():\n        import xx",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 119
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "safe_extension_import",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 60,
+      "caller": "test_build_ext",
+      "source_code": "@contextlib.contextmanager\ndef safe_extension_import(name, path):\n    with import_helper.CleanImport(name):\n        with extension_redirect(name, path) as new_path:\n            with import_helper.DirsOnSysPath(new_path):\n                yield\n\n\n"
+    },
+    {
+      "function": "missing_compiler_executable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/__init__.py",
+      "line": 14,
+      "caller": "test_build_ext",
+      "source_code": "def missing_compiler_executable(cmd_names: Sequence[str] = []):  # pragma: no cover\n    \"\"\"Check if the compiler components used to build the interpreter exist.\n\n    Check for the existence of the compiler executables whose names are listed\n    in 'cmd_names' or all the compiler executables when 'cmd_names' is empty\n    and return the first missing executable or None when none is found\n    missing.\n\n    \"\"\"\n    from distutils import ccompiler, errors, sysconfig\n\n    compiler = ccompiler.new_compiler()\n    sysconfig.customize_compiler(compiler)\n    if compiler.compiler_type == \"msvc\":\n        # MSVC has no executables, so check whether initialization succeeds\n        try:\n            compiler.initialize()\n        except errors.DistutilsPlatformError:\n            return \"msvc\"\n    for name in compiler.executables:\n        if cmd_names and name not in cmd_names:\n            continue\n        cmd = getattr(compiler, name)\n        if cmd_names:\n            assert cmd is not None, f\"the '{name}' executable is not configured\"\n        elif not cmd:\n            continue\n        if shutil.which(cmd[0]) is None:\n            return cmd[0]\n"
+    },
+    {
+      "function": "copy_xxmodule_c",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 66,
+      "caller": "test_build_ext",
+      "source_code": "def copy_xxmodule_c(directory):\n    \"\"\"Helper for tests that need the xxmodule.c source file.\n\n    Example use:\n\n        def test_compile(self):\n            copy_xxmodule_c(self.tmpdir)\n            self.assertIn('xxmodule.c', os.listdir(self.tmpdir))\n\n    If the source file can be found, it will be copied to *directory*.  If not,\n    the test will be skipped.  Errors during copy are not caught.\n    \"\"\"\n    shutil.copy(_get_xxmodule_path(), os.path.join(directory, 'xxmodule.c'))\n\n\n"
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_ext",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_ext",
+      "source_code": ""
+    },
+    {
+      "function": "self.build_ext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 90,
+      "caller": "test_build_ext",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)\n\n"
+    },
+    {
+      "function": "fixup_build_ext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 86,
+      "caller": "test_build_ext",
+      "source_code": "def fixup_build_ext(cmd):\n    \"\"\"Function needed to make build_ext tests pass.\n\n    When Python was built with --enable-shared on Unix, -L. is not enough to\n    find libpython<blah>.so, because regrtest runs in a tempdir, not in the\n    source directory where the .so lives.\n\n    When Python was built with in debug mode on Windows, build_ext commands\n    need their debug attribute set, and it is not done automatically for\n    some reason.\n\n    This function handles both of these things.  Example use:\n\n        cmd = build_ext(dist)\n        support.fixup_build_ext(cmd)\n        cmd.ensure_finalized()\n\n    Unlike most other Unix platforms, Mac OS X embeds absolute paths\n    to shared libraries into executables, so the fixup is not needed there.\n    \"\"\"\n    if os.name == 'nt':\n        cmd.debug = sys.executable.endswith('_d.exe')\n    elif sysconfig.get_config_var('Py_ENABLE_SHARED'):\n        # To further add to the shared builds fun on Unix, we can't just add\n        # library_dirs to the Extension() instance because that doesn't get\n        # plumbed through to the final compiler command.\n        runshared = sysconfig.get_config_var('RUNSHARED')\n        if runshared is None:\n            cmd.library_dirs = ['.']\n        else:\n            if sys.platform == 'darwin':\n                cmd.library_dirs = []\n            else:\n                name, equals, value = runshared.partition('=')\n                cmd.library_dirs = [d for d in value.split(os.pathsep) if d]\n\n\n"
+    },
+    {
+      "function": "StringIO",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_ext",
+      "source_code": ""
+    },
+    {
+      "function": "safe_extension_import",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 60,
+      "caller": "test_build_ext",
+      "source_code": "@contextlib.contextmanager\ndef safe_extension_import(name, path):\n    with import_helper.CleanImport(name):\n        with extension_redirect(name, path) as new_path:\n            with import_helper.DirsOnSysPath(new_path):\n                yield\n\n\n"
+    },
+    {
+      "function": "self._test_xx",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 119,
+      "caller": "test_build_ext",
+      "source_code": "    @staticmethod\n    def _test_xx():\n        import xx\n\n        for attr in ('error', 'foo', 'new', 'roj'):\n            assert hasattr(xx, attr)\n\n        assert xx.foo(2, 5) == 7\n        assert xx.foo(13, 15) == 28\n        assert xx.new().demo() is None\n        if support.HAVE_DOCSTRINGS:\n            doc = 'This is a template module just for instruction.'\n            assert xx.__doc__ == doc\n        assert isinstance(xx.Null(), xx.Null)\n        assert isinstance(xx.Str(), xx.Str)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_ext(self):\n        missing_compiler_executable()\n        copy_xxmodule_c(self.tmp_dir)\n        xx_c = os.path.join(self.tmp_dir, 'xxmodule.c')\n        xx_ext = Extension('xx', [xx_c])\n        dist = Distribution({'name': 'xx', 'ext_modules': [xx_ext]})\n        dist.package_dir = self.tmp_dir\n        cmd = self.build_ext(dist)\n        fixup_build_ext(cmd)\n        cmd.build_lib = self.tmp_dir\n        cmd.build_temp = self.tmp_dir\n\n        old_stdout = sys.stdout\n        if not support.verbose:\n            # silence compiler output\n            sys.stdout = StringIO()\n        try:\n            cmd.ensure_finalized()\n            cmd.run()\n        finally:\n            sys.stdout = old_stdout\n\n        with safe_extension_import('xx', self.tmp_dir):\n            self._test_xx()"
+}

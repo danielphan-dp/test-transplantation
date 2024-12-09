@@ -1,0 +1,38 @@
+{
+  "test_name": "test_c_unit_test",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_external.py",
+  "static_methods": [
+    {
+      "name": "join",
+      "source_code": "    def join(self, *args: os.PathLike[str], abs: bool = False) -> LocalPath:\n        \"\"\"Return a new path by appending all 'args' as path\n        components.  if abs=1 is used restart from root if any\n        of the args is an absolute path.\n        \"\"\"\n        sep = self.sep\n        strargs = [os.fspath(arg) for arg in args]\n        strpath = self.strpath\n        if abs:\n            newargs: list[str] = []\n            for arg in reversed(strargs):\n                if isabs(arg):\n                    strpath = arg\n                    strargs = newargs\n                    break\n                newargs.insert(0, arg)\n        # special case for when we have e.g. strpath == \"/\"\n        actual_sep = \"\" if strpath.endswith(sep) else sep\n        for arg in strargs:\n            arg = arg.strip(sep)\n            if iswin32:\n                # allow unix style paths even on windows.\n                arg = arg.strip(\"/\")\n                arg = arg.replace(\"/\", sep)\n            strpath = strpath + actual_sep + arg\n            actual_sep = sep\n        obj = object.__new__(self.__class__)\n        obj.strpath = normpath(strpath)\n        return obj",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 719
+    },
+    {
+      "name": "AssertionError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 719,
+      "caller": "test_c_unit_test",
+      "source_code": "    def join(self, *args: os.PathLike[str], abs: bool = False) -> LocalPath:\n        \"\"\"Return a new path by appending all 'args' as path\n        components.  if abs=1 is used restart from root if any\n        of the args is an absolute path.\n        \"\"\"\n        sep = self.sep\n        strargs = [os.fspath(arg) for arg in args]\n        strpath = self.strpath\n        if abs:\n            newargs: list[str] = []\n            for arg in reversed(strargs):\n                if isabs(arg):\n                    strpath = arg\n                    strargs = newargs\n                    break\n                newargs.insert(0, arg)\n        # special case for when we have e.g. strpath == \"/\"\n        actual_sep = \"\" if strpath.endswith(sep) else sep\n        for arg in strargs:\n            arg = arg.strip(sep)\n            if iswin32:\n                # allow unix style paths even on windows.\n                arg = arg.strip(\"/\")\n                arg = arg.replace(\"/\", sep)\n            strpath = strpath + actual_sep + arg\n            actual_sep = sep\n        obj = object.__new__(self.__class__)\n        obj.strpath = normpath(strpath)\n        return obj\n\n"
+    },
+    {
+      "function": "AssertionError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_c_unit_test",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_c_unit_test(self) -> None:\n        \"\"\"Run C unit tests in a subprocess.\"\"\"\n        cppflags: list[str] = []\n        env = os.environ.copy()\n        if sys.platform == \"darwin\":\n            cppflags += [\"-mmacosx-version-min=10.10\", \"-stdlib=libc++\"]\n        env[\"CPPFLAGS\"] = \" \".join(cppflags)\n        # Build Python wrapper for C unit tests.\n\n        with tempfile.TemporaryDirectory() as tmpdir:\n            status = subprocess.check_call(\n                [\n                    sys.executable,\n                    \"setup.py\",\n                    \"build_ext\",\n                    f\"--build-lib={tmpdir}\",\n                    f\"--build-temp={tmpdir}\",\n                ],\n                env=env,\n                cwd=os.path.join(base_dir, \"mypyc\", \"lib-rt\"),\n            )\n            # Run C unit tests.\n            env = os.environ.copy()\n            if \"GTEST_COLOR\" not in os.environ:\n                env[\"GTEST_COLOR\"] = \"yes\"  # Use fancy colors\n            status = subprocess.call(\n                [sys.executable, \"-c\", \"import sys, test_capi; sys.exit(test_capi.run_tests())\"],\n                env=env,\n                cwd=tmpdir,\n            )\n            if status != 0:\n                raise AssertionError(\"make test: C unit test failure\")"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_get_valid_parameter_with_enum_array_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/decorators/test_validation.py",
+  "static_methods": [
+    {
+      "name": "coerce_type",
+      "source_code": "def coerce_type(param, value, parameter_type, parameter_name=None):\n    # TODO: clean up\n    TYPE_MAP = {\"integer\": int, \"number\": float, \"boolean\": boolean, \"object\": dict}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line_number": 344
+    },
+    {
+      "name": "ParameterValidator.validate_parameter",
+      "source_code": "    def validate_parameter(parameter_type, value, param, param_name=None):\n        if is_nullable(param) and is_null(value):\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/validators/parameter.py",
+      "line_number": 46
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "coerce_type",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line": 344,
+      "caller": "test_get_valid_parameter_with_enum_array_header",
+      "source_code": "def coerce_type(param, value, parameter_type, parameter_name=None):\n    # TODO: clean up\n    TYPE_MAP = {\"integer\": int, \"number\": float, \"boolean\": boolean, \"object\": dict}\n\n    def make_type(value, type_literal):\n        type_func = TYPE_MAP.get(type_literal)\n        return type_func(value)\n\n    param_schema = param.get(\"schema\", param)\n    if is_nullable(param_schema) and is_null(value):\n        return None\n\n    param_type = param_schema.get(\"type\")\n    parameter_name = parameter_name if parameter_name else param.get(\"name\")\n    if param_type == \"array\":\n        converted_params = []\n        if parameter_type == \"header\":\n            value = value.split(\",\")\n        for v in value:\n            try:\n                converted = make_type(v, param_schema[\"items\"][\"type\"])\n            except (ValueError, TypeError):\n                converted = v\n            converted_params.append(converted)\n        return converted_params\n    elif param_type == \"object\":\n        if param_schema.get(\"properties\"):\n\n            def cast_leaves(d, schema):\n                if type(d) is not dict:\n                    try:\n                        return make_type(d, schema[\"type\"])\n                    except (ValueError, TypeError):\n                        return d\n                for k, v in d.items():\n                    if k in schema[\"properties\"]:\n                        d[k] = cast_leaves(v, schema[\"properties\"][k])\n                return d\n\n            return cast_leaves(value, param_schema)\n        return value\n    else:\n        try:\n            return make_type(value, param_type)\n        except ValueError:\n            raise TypeValidationError(param_type, parameter_type, parameter_name)\n        except TypeError:\n            return value\n\n\n"
+    },
+    {
+      "function": "ParameterValidator.validate_parameter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/validators/parameter.py",
+      "line": 46,
+      "caller": "test_get_valid_parameter_with_enum_array_header",
+      "source_code": "    @staticmethod\n    def validate_parameter(parameter_type, value, param, param_name=None):\n        if is_nullable(param) and is_null(value):\n            return\n\n        elif value is not None:\n            param = copy.deepcopy(param)\n            param = param.get(\"schema\", param)\n            try:\n                Draft4Validator(param, format_checker=draft4_format_checker).validate(\n                    value\n                )\n            except ValidationError as exception:\n                return str(exception)\n\n        elif param.get(\"required\"):\n            return \"Missing {parameter_type} parameter '{param[name]}'\".format(\n                **locals()\n            )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert result is None"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_valid_parameter_with_enum_array_header():\n    value = \"VALUE1,VALUE2\"\n    param = {\n        \"schema\": {\n            \"type\": \"array\",\n            \"items\": {\"type\": \"string\", \"enum\": [\"VALUE1\", \"VALUE2\"]},\n        },\n        \"name\": \"test_header_param\",\n    }\n    value = coerce_type(param, value, \"header\", \"test_header_param\")\n    result = ParameterValidator.validate_parameter(\"header\", value, param)\n    assert result is None"
+}

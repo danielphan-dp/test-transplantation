@@ -1,0 +1,40 @@
+{
+  "test_name": "test_unpaired_surrogate_in_header_py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "HttpRequestParserPy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "e.message.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "HttpRequestParserPy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unpaired_surrogate_in_header_py",
+      "source_code": ""
+    },
+    {
+      "function": "e.message.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_unpaired_surrogate_in_header_py",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert message is not None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unpaired_surrogate_in_header_py(\n    loop: asyncio.AbstractEventLoop, protocol: BaseProtocol\n) -> None:\n    parser = HttpRequestParserPy(\n        protocol,\n        loop,\n        2**16,\n        max_line_size=8190,\n        max_field_size=8190,\n    )\n    text = b\"POST / HTTP/1.1\\r\\n\\xff\\r\\n\\r\\n\"\n    message = None\n    try:\n        parser.feed_data(text)\n    except http_exceptions.InvalidHeader as e:\n        message = e.message.encode(\"utf-8\")\n    assert message is not None"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_dynamic_resource_canonical",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "canonicals.items",
+      "source_code": "        def items(self):\n            'od.items() -> list of (key, value) pairs in od'\n            return [(key, self[key]) for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 753
+    },
+    {
+      "name": "web.DynamicResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "canonicals.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 753,
+      "caller": "test_dynamic_resource_canonical",
+      "source_code": "        def items(self):\n            'od.items() -> list of (key, value) pairs in od'\n            return [(key, self[key]) for key in self]\n\n"
+    },
+    {
+      "function": "web.DynamicResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dynamic_resource_canonical",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res.canonical == canonical"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dynamic_resource_canonical() -> None:\n    canonicals = {\n        \"/get/{name}\": \"/get/{name}\",\n        r\"/get/{num:^\\d+}\": \"/get/{num}\",\n        r\"/handler/{to:\\d+}\": r\"/handler/{to}\",\n        r\"/{one}/{two:.+}\": r\"/{one}/{two}\",\n    }\n    for pattern, canonical in canonicals.items():\n        res = web.DynamicResource(path=pattern)\n        assert res.canonical == canonical"
+}

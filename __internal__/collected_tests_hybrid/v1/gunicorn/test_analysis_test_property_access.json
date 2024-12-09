@@ -1,0 +1,74 @@
+{
+  "test_name": "test_property_access",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "config.Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Baz",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_property_access",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_property_access",
+      "source_code": ""
+    },
+    {
+      "function": "Baz",
+      "filename": "",
+      "line": 0,
+      "caller": "test_property_access",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_property_access",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert c.worker_class == SyncWorker",
+    "assert c.logger_class == glogging.Logger",
+    "assert c.workers == 1",
+    "assert c.workers == 3",
+    "assert c.address == [('127.0.0.1', 8000)]",
+    "assert os.geteuid() == c.uid",
+    "assert os.getegid() == c.gid",
+    "assert 'gunicorn' == c.proc_name",
+    "assert c.foo == 3.14"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_property_access():\n    c = config.Config()\n    for s in config.KNOWN_SETTINGS:\n        getattr(c, s.name)\n\n    # Class was loaded\n    assert c.worker_class == SyncWorker\n\n    # logger class was loaded\n    assert c.logger_class == glogging.Logger\n\n    # Workers defaults to 1\n    assert c.workers == 1\n    c.set(\"workers\", 3)\n    assert c.workers == 3\n\n    # Address is parsed\n    assert c.address == [(\"127.0.0.1\", 8000)]\n\n    # User and group defaults\n    assert os.geteuid() == c.uid\n    assert os.getegid() == c.gid\n\n    # Proc name\n    assert \"gunicorn\" == c.proc_name\n\n    # Not a config property\n    pytest.raises(AttributeError, getattr, c, \"foo\")\n    # Force to be not an error\n    class Baz:\n        def get(self):\n            return 3.14\n    c.settings[\"foo\"] = Baz()\n    assert c.foo == 3.14\n\n    # Attempt to set a cfg not via c.set\n    pytest.raises(AttributeError, setattr, c, \"proc_name\", \"baz\")\n\n    # No setting for name\n    pytest.raises(AttributeError, c.set, \"baz\", \"bar\")"
+}

@@ -1,0 +1,54 @@
+{
+  "test_name": "test_warn_dash_deprecation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+  "static_methods": [
+    {
+      "name": "fake_env",
+      "source_code": "def fake_env(\n    tmpdir, setup_cfg, setup_py=None, encoding='ascii', package_path='fake_package'",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+      "line_number": 36
+    },
+    {
+      "name": "get_dist",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line_number": 568
+    },
+    {
+      "name": "get_dist",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line_number": 568
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "fake_env",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+      "line": 36,
+      "caller": "test_warn_dash_deprecation",
+      "source_code": "def fake_env(\n    tmpdir, setup_cfg, setup_py=None, encoding='ascii', package_path='fake_package'\n"
+    },
+    {
+      "function": "get_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line": 568,
+      "caller": "test_warn_dash_deprecation",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )\n\n"
+    },
+    {
+      "function": "get_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_install.py",
+      "line": 568,
+      "caller": "test_warn_dash_deprecation",
+      "source_code": "    def get_dist(self) -> BaseDistribution:\n        if self.metadata_directory:\n            return get_directory_distribution(self.metadata_directory)\n        elif self.local_file_path and self.is_wheel:\n            return get_wheel_distribution(\n                FilesystemWheel(self.local_file_path), canonicalize_name(self.name)\n            )\n        raise AssertionError(\n            f\"InstallRequirement {self} has no metadata directory and no wheel: \"\n            f\"can't make a distribution.\"\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert metadata.author_email == 'test@test.com'",
+    "assert metadata.maintainer_email == 'foo@foo.com'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_warn_dash_deprecation(self, tmpdir):\n        # warn_dash_deprecation() is a method in setuptools.dist\n        # remove this test and the method when no longer needed\n        fake_env(\n            tmpdir,\n            '[metadata]\\n'\n            'author-email = test@test.com\\n'\n            'maintainer_email = foo@foo.com\\n',\n        )\n        msg = \"Usage of dash-separated 'author-email' will not be supported\"\n        with pytest.warns(SetuptoolsDeprecationWarning, match=msg):\n            with get_dist(tmpdir) as dist:\n                metadata = dist.metadata\n\n        assert metadata.author_email == 'test@test.com'\n        assert metadata.maintainer_email == 'foo@foo.com'"
+}

@@ -1,0 +1,25 @@
+{
+  "test_name": "test_bad_accessor",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(headers) -> Request:\n    return Request(b\"/\", headers, \"1.1\", \"GET\", None, None)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+      "line_number": 11
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+      "line": 11,
+      "caller": "test_bad_accessor",
+      "source_code": "def make_request(headers) -> Request:\n    return Request(b\"/\", headers, \"1.1\", \"GET\", None, None)\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_bad_accessor():\n    request = make_request({})\n    msg = \"'Header' object has no attribute '_foo'\"\n    with pytest.raises(AttributeError, match=msg):\n        request.headers._foo"
+}

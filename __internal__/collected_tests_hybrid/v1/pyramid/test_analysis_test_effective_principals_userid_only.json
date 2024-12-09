@@ -1,0 +1,64 @@
+{
+  "test_name": "test_effective_principals_userid_only",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authentication.py",
+  "static_methods": [
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "policy.effective_principals",
+      "source_code": "    def effective_principals(request):\n        \"\"\"Return a sequence representing the effective principals\n        typically including the :term:`userid` and any groups belonged\n        to by the current user, always including 'system' groups such\n        as ``pyramid.authorization.Everyone`` and\n        ``pyramid.authorization.Authenticated``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 573
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_effective_principals_userid_only",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_effective_principals_userid_only",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_effective_principals_userid_only",
+      "source_code": ""
+    },
+    {
+      "function": "policy.effective_principals",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 573,
+      "caller": "test_effective_principals_userid_only",
+      "source_code": "    def effective_principals(request):\n        \"\"\"Return a sequence representing the effective principals\n        typically including the :term:`userid` and any groups belonged\n        to by the current user, always including 'system' groups such\n        as ``pyramid.authorization.Everyone`` and\n        ``pyramid.authorization.Authenticated``.\n\n        \"\"\"\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_effective_principals_userid_only(self):\n        from pyramid.authorization import Authenticated, Everyone\n\n        request = DummyRequest(\n            {'repoze.who.identity': {'repoze.who.userid': 'fred'}}\n        )\n        policy = self._makeOne()\n        self.assertEqual(\n            policy.effective_principals(request),\n            [Everyone, Authenticated, 'fred'],\n        )"
+}

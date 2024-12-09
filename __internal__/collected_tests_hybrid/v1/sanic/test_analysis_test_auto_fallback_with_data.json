@@ -1,0 +1,58 @@
+{
+  "test_name": "test_auto_fallback_with_data",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+  "static_methods": [
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "app.test_client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_auto_fallback_with_data",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_auto_fallback_with_data",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "app.test_client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_auto_fallback_with_data",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert response.content_type == 'text/plain; charset=utf-8'",
+    "assert response.status == 500",
+    "assert response.content_type == 'application/json'",
+    "assert response.status == 500",
+    "assert response.content_type == 'text/plain; charset=utf-8'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_auto_fallback_with_data(app):\n    app.config.FALLBACK_ERROR_FORMAT = \"auto\"\n\n    _, response = app.test_client.get(\"/error\")\n    assert response.status == 500\n    assert response.content_type == \"text/plain; charset=utf-8\"\n\n    _, response = app.test_client.post(\"/error\", json={\"foo\": \"bar\"})\n    assert response.status == 500\n    assert response.content_type == \"application/json\"\n\n    _, response = app.test_client.post(\"/error\", data={\"foo\": \"bar\"})\n    assert response.status == 500\n    assert response.content_type == \"text/plain; charset=utf-8\""
+}

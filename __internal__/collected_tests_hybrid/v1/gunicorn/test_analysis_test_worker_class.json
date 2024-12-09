@@ -1,0 +1,67 @@
+{
+  "test_name": "test_worker_class",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "config.Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "load_class",
+      "source_code": "def load_class(uri, default=\"gunicorn.workers.sync.SyncWorker\",\n               section=\"gunicorn.workers\"):\n    if inspect.isclass(uri):\n        return uri\n    if uri.startswith(\"egg:\"):\n        # uses entry points\n        entry_str = uri.split(\"egg:\")[1]\n        try:\n            dist, name = entry_str.rsplit(\"#\", 1)\n        except ValueError:\n            dist = entry_str\n            name = default",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line_number": 68
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_worker_class",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_worker_class",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_worker_class",
+      "source_code": ""
+    },
+    {
+      "function": "load_class",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line": 68,
+      "caller": "test_worker_class",
+      "source_code": "def load_class(uri, default=\"gunicorn.workers.sync.SyncWorker\",\n               section=\"gunicorn.workers\"):\n    if inspect.isclass(uri):\n        return uri\n    if uri.startswith(\"egg:\"):\n        # uses entry points\n        entry_str = uri.split(\"egg:\")[1]\n        try:\n            dist, name = entry_str.rsplit(\"#\", 1)\n        except ValueError:\n            dist = entry_str\n            name = default\n\n        try:\n            return load_entry_point(dist, section, name)\n        except Exception:\n            exc = traceback.format_exc()\n            msg = \"class uri %r invalid or not found: \\n\\n[%s]\"\n            raise RuntimeError(msg % (uri, exc))\n    else:\n        components = uri.split('.')\n        if len(components) == 1:\n            while True:\n                if uri.startswith(\"#\"):\n                    uri = uri[1:]\n\n                if uri in SUPPORTED_WORKERS:\n                    components = SUPPORTED_WORKERS[uri].split(\".\")\n                    break\n\n                try:\n                    return load_entry_point(\n                        \"gunicorn\", section, uri\n                    )\n                except Exception:\n                    exc = traceback.format_exc()\n                    msg = \"class uri %r invalid or not found: \\n\\n[%s]\"\n                    raise RuntimeError(msg % (uri, exc))\n\n        klass = components.pop(-1)\n\n        try:\n            mod = importlib.import_module('.'.join(components))\n        except Exception:\n            exc = traceback.format_exc()\n            msg = \"class uri %r invalid or not found: \\n\\n[%s]\"\n            raise RuntimeError(msg % (uri, exc))\n        return getattr(mod, klass)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert c.worker_class == CustomWorker",
+    "assert isinstance(load_class(c.worker_class), object)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_worker_class():\n\n    c = config.Config()\n    c.set(\"worker_class\", CustomWorker)\n    assert c.worker_class == CustomWorker\n\n    try:\n        assert isinstance(load_class(c.worker_class), object)\n    except AttributeError:\n        pytest.fail(\"'load_class doesn't support type class argument'\")"
+}

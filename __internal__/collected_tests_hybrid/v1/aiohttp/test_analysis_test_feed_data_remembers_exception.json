@@ -1,0 +1,15 @@
+{
+  "test_name": "test_feed_data_remembers_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert error is True",
+    "assert data == b''",
+    "assert error is True",
+    "assert data == b''"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_feed_data_remembers_exception(parser: WebSocketReader) -> None:\n    \"\"\"Verify that feed_data remembers an exception was already raised internally.\"\"\"\n    error, data = parser.feed_data(struct.pack(\"!BB\", 0b01100000, 0b00000000))\n    assert error is True\n    assert data == b\"\"\n\n    error, data = parser.feed_data(b\"\")\n    assert error is True\n    assert data == b\"\""
+}

@@ -1,0 +1,106 @@
+{
+  "test_name": "test_submit_works",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+  "static_methods": [
+    {
+      "name": "makeUser",
+      "source_code": "def makeUser(name, role):\n    return models.User(name=name, role=role)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line_number": 7
+    },
+    {
+      "name": "makePage",
+      "source_code": "def makePage(name, data, creator):\n    return models.Page(name=name, data=data, creator=creator)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line_number": 16
+    },
+    {
+      "name": "dbsession.add_all",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._addRoutes",
+      "source_code": "    def _addRoutes(self, config):\n        config.add_route('view_page', '/{pagename}')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line_number": 24
+    },
+    {
+      "name": "setUser",
+      "source_code": "def setUser(config, user):\n    config.set_security_policy(\n        DummySecurityPolicy(identity=user)\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line_number": 11
+    },
+    {
+      "name": "self._makeContext",
+      "source_code": "    def _makeContext(self):\n        from zope.interface import directlyProvides",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 45
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "makeUser",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line": 7,
+      "caller": "test_submit_works",
+      "source_code": "def makeUser(name, role):\n    return models.User(name=name, role=role)\n\n\n"
+    },
+    {
+      "function": "makePage",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line": 16,
+      "caller": "test_submit_works",
+      "source_code": "def makePage(name, data, creator):\n    return models.Page(name=name, data=data, creator=creator)\n\n"
+    },
+    {
+      "function": "dbsession.add_all",
+      "filename": "",
+      "line": 0,
+      "caller": "test_submit_works",
+      "source_code": ""
+    },
+    {
+      "function": "self._addRoutes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line": 24,
+      "caller": "test_submit_works",
+      "source_code": "    def _addRoutes(self, config):\n        config.add_route('view_page', '/{pagename}')\n\n"
+    },
+    {
+      "function": "setUser",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_views.py",
+      "line": 11,
+      "caller": "test_submit_works",
+      "source_code": "def setUser(config, user):\n    config.set_security_policy(\n        DummySecurityPolicy(identity=user)\n    )\n\n"
+    },
+    {
+      "function": "self._makeContext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 45,
+      "caller": "test_submit_works",
+      "source_code": "    def _makeContext(self):\n        from zope.interface import directlyProvides\n\n        context = DummyContext()\n        directlyProvides(context, IContext)\n        return context\n\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_submit_works",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.location == 'http://example.com/abc'",
+    "assert page.data == 'Hello yo!'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_submit_works(self, dummy_config, dummy_request, dbsession):\n        user = makeUser('foo', 'editor')\n        page = makePage('abc', 'hello', user)\n        dbsession.add_all([page, user])\n\n        self._addRoutes(dummy_config)\n        dummy_request.method = 'POST'\n        dummy_request.POST['body'] = 'Hello yo!'\n        setUser(dummy_config, user)\n        dummy_request.context = self._makeContext(page)\n        response = self._callFUT(dummy_request)\n        assert response.location == 'http://example.com/abc'\n        assert page.data == 'Hello yo!'"
+}

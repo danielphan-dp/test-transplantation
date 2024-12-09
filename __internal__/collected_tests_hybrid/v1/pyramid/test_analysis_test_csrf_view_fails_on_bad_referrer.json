@@ -1,0 +1,64 @@
+{
+  "test_name": "test_csrf_view_fails_on_bad_referrer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_viewderivers.py",
+  "static_methods": [
+    {
+      "name": "self._makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "self.config._derive_view",
+      "source_code": "    def _derive_view(\n        self,\n        view,\n        permission=None,\n        predicates=(),\n        attr=None,\n        renderer=None,\n        wrapper_viewname=None,\n        viewname=None,\n        accept=None,\n        order=MAX_ORDER,\n        phash=DEFAULT_PHASH,\n        decorator=None,\n        route_name=None,\n        mapper=None,\n        http_cache=None,\n        context=None,\n        require_csrf=None,\n        exception_only=False,\n        extra_options=None,\n    ):\n        view = self.maybe_dotted(view)\n        mapper = self.maybe_dotted(mapper)\n        if isinstance(renderer, str):\n            renderer = renderers.RendererHelper(\n                name=renderer, package=self.package, registry=self.registry\n            )\n        if renderer is None:\n            # use default renderer if one exists\n            if self.registry.queryUtility(IRendererFactory) is not None:\n                renderer = renderers.RendererHelper(\n                    name=None, package=self.package, registry=self.registry\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 1525
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "view",
+      "source_code": "                def view(context, request):\n                    return {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 826
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_csrf_view_fails_on_bad_referrer",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "self.config._derive_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 1525,
+      "caller": "test_csrf_view_fails_on_bad_referrer",
+      "source_code": "    def _derive_view(\n        self,\n        view,\n        permission=None,\n        predicates=(),\n        attr=None,\n        renderer=None,\n        wrapper_viewname=None,\n        viewname=None,\n        accept=None,\n        order=MAX_ORDER,\n        phash=DEFAULT_PHASH,\n        decorator=None,\n        route_name=None,\n        mapper=None,\n        http_cache=None,\n        context=None,\n        require_csrf=None,\n        exception_only=False,\n        extra_options=None,\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_csrf_view_fails_on_bad_referrer",
+      "source_code": ""
+    },
+    {
+      "function": "view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 826,
+      "caller": "test_csrf_view_fails_on_bad_referrer",
+      "source_code": "                def view(context, request):\n                    return {}\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_csrf_view_fails_on_bad_referrer(self):\n        from pyramid.exceptions import BadCSRFOrigin\n\n        def inner_view(request):  # pragma: no cover\n            pass\n\n        request = self._makeRequest()\n        request.method = \"POST\"\n        request.scheme = \"https\"\n        request.host_port = \"443\"\n        request.domain = \"example.com\"\n        request.referrer = \"https://not-example.com/evil/\"\n        request.registry.settings = {}\n        view = self.config._derive_view(inner_view, require_csrf=True)\n        self.assertRaises(BadCSRFOrigin, lambda: view(None, request))"
+}

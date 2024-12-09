@@ -1,0 +1,54 @@
+{
+  "test_name": "test_statsd_host_with_unix_as_hostname",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "config.Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_statsd_host_with_unix_as_hostname",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_statsd_host_with_unix_as_hostname",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_statsd_host_with_unix_as_hostname",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert c.statsd_host == ('unix', 7777)",
+    "assert c.statsd_host == 'some.socket'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_statsd_host_with_unix_as_hostname():\n    # This is a regression test for major release 20. After this release\n    # we should consider modifying the behavior of util.parse_address to\n    # simplify gunicorn's code\n    c = config.Config()\n    c.set(\"statsd_host\", \"unix:7777\")\n    assert c.statsd_host == (\"unix\", 7777)\n    c.set(\"statsd_host\", \"unix://some.socket\")\n    assert c.statsd_host == \"some.socket\""
+}

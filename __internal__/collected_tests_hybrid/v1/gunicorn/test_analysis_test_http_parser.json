@@ -1,0 +1,64 @@
+{
+  "test_name": "test_http_parser",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_valid_requests.py",
+  "static_methods": [
+    {
+      "name": "treq.load_py",
+      "source_code": "def load_py(fname):\n    module_name = '__config__'\n    mod = types.ModuleType(module_name)\n    setattr(mod, 'uri', uri)\n    setattr(mod, 'cfg', Config())\n    loader = importlib.machinery.SourceFileLoader(module_name, fname)\n    loader.exec_module(mod)\n    return vars(mod)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/treq.py",
+      "line_number": 32
+    },
+    {
+      "name": "treq.request",
+      "source_code": "    def request(\n        self,\n        method,\n        url,\n        params=None,\n        data=None,\n        headers=None,\n        cookies=None,\n        files=None,\n        auth=None,\n        timeout=None,\n        allow_redirects=True,\n        proxies=None,\n        hooks=None,\n        stream=None,\n        verify=None,\n        cert=None,\n        json=None,\n    ):\n        \"\"\"Constructs a :class:`Request <Request>`, prepares it and sends it.\n        Returns :class:`Response <Response>` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 500
+    },
+    {
+      "name": "req.gen_cases",
+      "source_code": "    def gen_cases(self, cfg):\n        def get_funs(p):\n            return [v for k, v in inspect.getmembers(self) if k.startswith(p)]\n        senders = get_funs(\"send_\")\n        sizers = get_funs(\"size_\")\n        matchers = get_funs(\"match_\")\n        cfgs = [\n            (mt, sz, sn)\n            for mt in matchers\n            for sz in sizers\n            for sn in senders\n        ]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/treq.py",
+      "line_number": 217
+    },
+    {
+      "name": "case",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "treq.load_py",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/treq.py",
+      "line": 32,
+      "caller": "test_http_parser",
+      "source_code": "def load_py(fname):\n    module_name = '__config__'\n    mod = types.ModuleType(module_name)\n    setattr(mod, 'uri', uri)\n    setattr(mod, 'cfg', Config())\n    loader = importlib.machinery.SourceFileLoader(module_name, fname)\n    loader.exec_module(mod)\n    return vars(mod)\n\n\n"
+    },
+    {
+      "function": "treq.request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 500,
+      "caller": "test_http_parser",
+      "source_code": "    def request(\n        self,\n        method,\n        url,\n        params=None,\n        data=None,\n        headers=None,\n        cookies=None,\n        files=None,\n        auth=None,\n        timeout=None,\n        allow_redirects=True,\n        proxies=None,\n        hooks=None,\n        stream=None,\n        verify=None,\n        cert=None,\n        json=None,\n"
+    },
+    {
+      "function": "req.gen_cases",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/treq.py",
+      "line": 217,
+      "caller": "test_http_parser",
+      "source_code": "    def gen_cases(self, cfg):\n        def get_funs(p):\n            return [v for k, v in inspect.getmembers(self) if k.startswith(p)]\n        senders = get_funs(\"send_\")\n        sizers = get_funs(\"size_\")\n        matchers = get_funs(\"match_\")\n        cfgs = [\n            (mt, sz, sn)\n            for mt in matchers\n            for sz in sizers\n            for sn in senders\n        ]\n\n        ret = []\n        for (mt, sz, sn) in cfgs:\n            if hasattr(mt, 'funcname'):\n                mtn = mt.func_name[6:]\n                szn = sz.func_name[5:]\n                snn = sn.func_name[5:]\n            else:\n                mtn = mt.__name__[6:]\n                szn = sz.__name__[5:]\n                snn = sn.__name__[5:]\n\n            def test_req(sn, sz, mt):\n                self.check(cfg, sn, sz, mt)\n            desc = \"%s: MT: %s SZ: %s SN: %s\" % (self.name, mtn, szn, snn)\n            test_req.description = desc\n            ret.append((test_req, sn, sz, mt))\n        return ret\n\n"
+    },
+    {
+      "function": "case",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_parser",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_http_parser(fname):\n    env = treq.load_py(os.path.splitext(fname)[0] + \".py\")\n\n    expect = env['request']\n    cfg = env['cfg']\n    req = treq.request(fname, expect)\n\n    for case in req.gen_cases(cfg):\n        case[0](*case[1:])"
+}

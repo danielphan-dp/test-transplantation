@@ -1,0 +1,67 @@
+{
+  "test_name": "test_concurrent_safe_fallback",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_msvccompiler.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_msvccompiler.MSVCCompiler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "compiler.spawn",
+      "source_code": "    def spawn(self, cmd, search_path=True, level=1):\n        \"\"\"Spawn an external command respecting dry-run flag.\"\"\"\n        from distutils.spawn import spawn",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/cmd.py",
+      "line_number": 390
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_concurrent_safe_fallback",
+      "source_code": ""
+    },
+    {
+      "function": "_msvccompiler.MSVCCompiler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_concurrent_safe_fallback",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_concurrent_safe_fallback",
+      "source_code": ""
+    },
+    {
+      "function": "compiler.spawn",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/cmd.py",
+      "line": 390,
+      "caller": "test_concurrent_safe_fallback",
+      "source_code": "    def spawn(self, cmd, search_path=True, level=1):\n        \"\"\"Spawn an external command respecting dry-run flag.\"\"\"\n        from distutils.spawn import spawn\n\n        spawn(cmd, search_path, dry_run=self.dry_run)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert os.environ.get('PATH') != 'expected'",
+    "assert os.environ['PATH'] == 'expected'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_concurrent_safe_fallback(self):\n        \"\"\"\n        If CCompiler.spawn has been monkey-patched without support\n        for an env, it should still execute.\n        \"\"\"\n        from distutils import ccompiler\n\n        compiler = _msvccompiler.MSVCCompiler()\n        compiler._paths = \"expected\"\n\n        def CCompiler_spawn(self, cmd):\n            \"A spawn without an env argument.\"\n            assert os.environ[\"PATH\"] == \"expected\"\n\n        with mock.patch.object(ccompiler.CCompiler, 'spawn', CCompiler_spawn):\n            compiler.spawn([\"n/a\"])\n\n        assert os.environ.get(\"PATH\") != \"expected\""
+}

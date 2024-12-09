@@ -1,0 +1,90 @@
+{
+  "test_name": "test_cast_and_branch_no_merge_1",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+  "static_methods": [
+    {
+      "name": "Cast",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Branch",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assert_emit",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n    ) -> None:\n        block = BasicBlock(0)\n        block.ops.append(op)\n        value_names = generate_names_for_ir(self.registers, [block])\n        emitter = Emitter(self.context, value_names)\n        declarations = Emitter(self.context, value_names)\n        emitter.fragments = []\n        declarations.fragments = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line_number": 807
+    },
+    {
+      "name": "BasicBlock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BasicBlock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BasicBlock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Cast",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cast_and_branch_no_merge_1",
+      "source_code": ""
+    },
+    {
+      "function": "Branch",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cast_and_branch_no_merge_1",
+      "source_code": ""
+    },
+    {
+      "function": "self.assert_emit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line": 807,
+      "caller": "test_cast_and_branch_no_merge_1",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n"
+    },
+    {
+      "function": "BasicBlock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cast_and_branch_no_merge_1",
+      "source_code": ""
+    },
+    {
+      "function": "BasicBlock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cast_and_branch_no_merge_1",
+      "source_code": ""
+    },
+    {
+      "function": "BasicBlock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cast_and_branch_no_merge_1",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_cast_and_branch_no_merge_1(self) -> None:\n        op = Cast(self.r, dict_rprimitive, 1)\n        branch = Branch(op, BasicBlock(8), BasicBlock(9), Branch.IS_ERROR)\n        branch.traceback_entry = (\"foobar\", 123)\n        self.assert_emit(\n            op,\n            \"\"\"\\\n            if (likely(PyDict_Check(cpy_r_r)))\n                cpy_r_r0 = cpy_r_r;\n            else {\n                CPy_TypeError(\"dict\", cpy_r_r);\n                cpy_r_r0 = NULL;\n            }\n            \"\"\",\n            next_block=BasicBlock(10),\n            next_branch=branch,\n            skip_next=False,\n        )"
+}

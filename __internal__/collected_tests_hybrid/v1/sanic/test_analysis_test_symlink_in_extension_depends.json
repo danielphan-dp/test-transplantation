@@ -1,0 +1,79 @@
+{
+  "test_name": "test_symlink_in_extension_depends",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+  "static_methods": [
+    {
+      "name": "self.files_for_symlink_in_extension_depends",
+      "source_code": "    def files_for_symlink_in_extension_depends(tmp_path, dep_path):\n        return {\n            \"external\": {\n                \"dir\": {\"file.h\": \"\"},\n            },\n            \"project\": {\n                \"setup.py\": cleandoc(\n                    f\"\"\"\n                    from setuptools import Extension, setup\n                    setup(\n                        name=\"myproj\",\n                        version=\"42\",\n                        ext_modules=[\n                            Extension(\n                                \"hello\", sources=[\"hello.pyx\"],\n                                depends=[{dep_path!r}]\n                            )\n                        ],\n                    )\n                    \"\"\"\n                ),\n                \"hello.pyx\": \"\",\n                \"MANIFEST.in\": \"global-include *.h\",\n            },\n        }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line_number": 870
+    },
+    {
+      "name": "jaraco.path.build",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 363
+    },
+    {
+      "name": "symlink_or_skip_test",
+      "source_code": "def symlink_or_skip_test(src, dst):\n    try:\n        os.symlink(src, dst)\n    except (OSError, NotImplementedError):\n        pytest.skip(\"symlink not supported in OS\")\n        return None\n    return dst",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line_number": 123
+    },
+    {
+      "name": "run_sdist",
+      "source_code": "def run_sdist(monkeypatch, project):\n    \"\"\"Given a project directory, run the sdist and return its contents\"\"\"\n    monkeypatch.chdir(project)\n    with quiet():\n        run_setup(\"setup.py\", [\"sdist\"])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line_number": 958
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.files_for_symlink_in_extension_depends",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line": 870,
+      "caller": "test_symlink_in_extension_depends",
+      "source_code": "    @staticmethod\n    def files_for_symlink_in_extension_depends(tmp_path, dep_path):\n        return {\n            \"external\": {\n                \"dir\": {\"file.h\": \"\"},\n            },\n            \"project\": {\n                \"setup.py\": cleandoc(\n                    f\"\"\"\n                    from setuptools import Extension, setup\n                    setup(\n                        name=\"myproj\",\n                        version=\"42\",\n                        ext_modules=[\n                            Extension(\n                                \"hello\", sources=[\"hello.pyx\"],\n                                depends=[{dep_path!r}]\n                            )\n                        ],\n                    )\n                    \"\"\"\n                ),\n                \"hello.pyx\": \"\",\n                \"MANIFEST.in\": \"global-include *.h\",\n            },\n        }\n\n"
+    },
+    {
+      "function": "jaraco.path.build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 363,
+      "caller": "test_symlink_in_extension_depends",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}\n\n        libkey = list(filter(lambda o: o in paths, ('purelib', 'platlib')))[0]\n        if libkey == 'platlib':\n            is_pure = 'false'\n            default_pyver = [IMPVER]\n            default_abi = [ABI]\n            default_arch = [ARCH]\n        else:\n            is_pure = 'true'\n            default_pyver = [PYVER]\n            default_abi = ['none']\n            default_arch = ['any']\n\n        self.pyver = tags.get('pyver', default_pyver)\n        self.abi = tags.get('abi', default_abi)\n        self.arch = tags.get('arch', default_arch)\n\n        libdir = paths[libkey]\n\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        archive_paths = []\n\n        # First, stuff which is not in site-packages\n        for key in ('data', 'headers', 'scripts'):\n            if key not in paths:\n                continue\n            path = paths[key]\n            if os.path.isdir(path):\n                for root, dirs, files in os.walk(path):\n                    for fn in files:\n                        p = fsdecode(os.path.join(root, fn))\n                        rp = os.path.relpath(p, path)\n                        ap = to_posix(os.path.join(data_dir, key, rp))\n                        archive_paths.append((ap, p))\n                        if key == 'scripts' and not p.endswith('.exe'):\n                            with open(p, 'rb') as f:\n                                data = f.read()\n                            data = self.process_shebang(data)\n                            with open(p, 'wb') as f:\n                                f.write(data)\n\n        # Now, stuff which is in site-packages, other than the\n        # distinfo stuff.\n        path = libdir\n        distinfo = None\n        for root, dirs, files in os.walk(path):\n            if root == path:\n                # At the top level only, save distinfo for later\n                # and skip it for now\n                for i, dn in enumerate(dirs):\n                    dn = fsdecode(dn)\n                    if dn.endswith('.dist-info'):\n                        distinfo = os.path.join(root, dn)\n                        del dirs[i]\n                        break\n                assert distinfo, '.dist-info directory expected, not found'\n\n            for fn in files:\n                # comment out next suite to leave .pyc files in\n                if fsdecode(fn).endswith(('.pyc', '.pyo')):\n                    continue\n                p = os.path.join(root, fn)\n                rp = to_posix(os.path.relpath(p, path))\n                archive_paths.append((rp, p))\n\n        # Now distinfo. Assumed to be flat, i.e. os.listdir is enough.\n        files = os.listdir(distinfo)\n        for fn in files:\n            if fn not in ('RECORD', 'INSTALLER', 'SHARED', 'WHEEL'):\n                p = fsdecode(os.path.join(distinfo, fn))\n                ap = to_posix(os.path.join(info_dir, fn))\n                archive_paths.append((ap, p))\n\n        wheel_metadata = [\n            'Wheel-Version: %d.%d' % (wheel_version or self.wheel_version),\n            'Generator: distlib %s' % __version__,\n            'Root-Is-Purelib: %s' % is_pure,\n        ]\n        for pyver, abi, arch in self.tags:\n            wheel_metadata.append('Tag: %s-%s-%s' % (pyver, abi, arch))\n        p = os.path.join(distinfo, 'WHEEL')\n        with open(p, 'w') as f:\n            f.write('\\n'.join(wheel_metadata))\n        ap = to_posix(os.path.join(info_dir, 'WHEEL'))\n        archive_paths.append((ap, p))\n\n        # sort the entries by archive path. Not needed by any spec, but it\n        # keeps the archive listing and RECORD tidier than they would otherwise\n        # be. Use the number of path segments to keep directory entries together,\n        # and keep the dist-info stuff at the end.\n        def sorter(t):\n            ap = t[0]\n            n = ap.count('/')\n            if '.dist-info' in ap:\n                n += 10000\n            return (n, ap)\n        archive_paths = sorted(archive_paths, key=sorter)\n\n        # Now, at last, RECORD.\n        # Paths in here are archive paths - nothing else makes sense.\n        self.write_records((distinfo, info_dir), libdir, archive_paths)\n        # Now, ready to build the zip file\n        pathname = os.path.join(self.dirname, self.filename)\n        self.build_zip(pathname, archive_paths)\n        return pathname\n\n"
+    },
+    {
+      "function": "symlink_or_skip_test",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line": 123,
+      "caller": "test_symlink_in_extension_depends",
+      "source_code": "def symlink_or_skip_test(src, dst):\n    try:\n        os.symlink(src, dst)\n    except (OSError, NotImplementedError):\n        pytest.skip(\"symlink not supported in OS\")\n        return None\n    return dst\n\n\n"
+    },
+    {
+      "function": "run_sdist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line": 958,
+      "caller": "test_symlink_in_extension_depends",
+      "source_code": "def run_sdist(monkeypatch, project):\n    \"\"\"Given a project directory, run the sdist and return its contents\"\"\"\n    monkeypatch.chdir(project)\n    with quiet():\n        run_setup(\"setup.py\", [\"sdist\"])\n\n    archive = next((project / \"dist\").glob(\"*.tar.gz\"))\n    with tarfile.open(str(archive)) as tar:\n        return set(tar.getnames())\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_symlink_in_extension_depends",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert expected in members"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_symlink_in_extension_depends(self, monkeypatch, tmp_path, dep_path):\n        # Given a project with a symlinked dir and a \"depends\" targeting that dir\n        files = self.files_for_symlink_in_extension_depends(tmp_path, dep_path)\n        jaraco.path.build(files, prefix=str(tmp_path))\n        symlink_or_skip_test(tmp_path / \"external\", tmp_path / \"project/myheaders\")\n\n        # When `sdist` runs, there should be no error\n        members = run_sdist(monkeypatch, tmp_path / \"project\")\n        # and the sdist should contain the symlinked files\n        for expected in (\n            \"myproj-42/hello.pyx\",\n            \"myproj-42/myheaders/dir/file.h\",\n        ):\n            assert expected in members"
+}

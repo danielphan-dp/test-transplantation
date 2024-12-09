@@ -1,0 +1,40 @@
+{
+  "test_name": "test_continuation_with_close_bad_payload",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_continuation_with_close_bad_payload",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_continuation_with_close_bad_payload",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ctx.value.code, WSCloseCode.PROTOCOL_ERROR"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_continuation_with_close_bad_payload(\n    out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader\n) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [\n            (0, WSMsgType.TEXT, b\"line1\", False),\n            (0, WSMsgType.CLOSE, b\"1\", False),\n            (1, WSMsgType.CONTINUATION, b\"line2\", False),\n        ]\n\n        with pytest.raises(WebSocketError) as ctx:\n            parser._feed_data(b\"\")\n\n        assert ctx.value.code, WSCloseCode.PROTOCOL_ERROR"
+}

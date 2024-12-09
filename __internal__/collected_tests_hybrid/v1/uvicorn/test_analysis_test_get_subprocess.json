@@ -1,0 +1,92 @@
+{
+  "test_name": "test_get_subprocess",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_subprocess.py",
+  "static_methods": [
+    {
+      "name": "fdsock.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    },
+    {
+      "name": "get_subprocess",
+      "source_code": "def get_subprocess(\n    config: Config,\n    target: Callable[..., None],\n    sockets: list[socket],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/_subprocess.py",
+      "line_number": 21
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "fdsock.close",
+      "source_code": "    def close(self) -> None:\n        self.session.close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line_number": 89
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "fdsock.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_get_subprocess",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_subprocess",
+      "source_code": ""
+    },
+    {
+      "function": "config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_get_subprocess",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    },
+    {
+      "function": "get_subprocess",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/_subprocess.py",
+      "line": 21,
+      "caller": "test_get_subprocess",
+      "source_code": "def get_subprocess(\n    config: Config,\n    target: Callable[..., None],\n    sockets: list[socket],\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_subprocess",
+      "source_code": ""
+    },
+    {
+      "function": "fdsock.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line": 89,
+      "caller": "test_get_subprocess",
+      "source_code": "    def close(self) -> None:\n        self.session.close()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(process, SpawnProcess)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_subprocess() -> None:\n    fdsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n    fd = fdsock.fileno()\n    config = Config(app=app, fd=fd)\n    config.load()\n\n    process = get_subprocess(config, server_run, [fdsock])\n    assert isinstance(process, SpawnProcess)\n\n    fdsock.close()"
+}

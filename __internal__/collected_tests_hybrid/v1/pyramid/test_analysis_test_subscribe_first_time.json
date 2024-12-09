@@ -1,0 +1,90 @@
+{
+  "test_name": "test_subscribe_first_time",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyDependent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "spec.subscribe",
+      "source_code": "    def subscribe(self, callback, existing=True):\n        \"\"\"Invoke `callback` for all distributions",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 907
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_subscribe_first_time",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyDependent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subscribe_first_time",
+      "source_code": ""
+    },
+    {
+      "function": "spec.subscribe",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 907,
+      "caller": "test_subscribe_first_time",
+      "source_code": "    def subscribe(self, callback, existing=True):\n        \"\"\"Invoke `callback` for all distributions\n\n        If `existing=True` (default),\n        call on all existing ones, as well.\n        \"\"\"\n        if callback in self.callbacks:\n            return\n        self.callbacks.append(callback)\n        if not existing:\n            return\n        for dist in self:\n            callback(dist)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subscribe_first_time",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subscribe_first_time",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subscribe_first_time",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_subscribe_first_time(self):\n        spec = self._makeOne()\n        dep = DummyDependent()\n        spec.subscribe(dep)\n        self.assertEqual(len(spec.dependents), 1)\n        self.assertEqual(spec.dependents[dep], 1)"
+}

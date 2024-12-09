@@ -1,0 +1,145 @@
+{
+  "test_name": "test_the_trio_scheduler_is_deterministic_if_seeded",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_scheduler_determinism.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "trio._core._run._r.getstate",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "trio._core._run._r.seed",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "traces.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "trio._core._run._r.setstate",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "trio.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "trio._core._run._r.getstate",
+      "filename": "",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "trio._core._run._r.seed",
+      "filename": "",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "traces.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "trio._core._run._r.setstate",
+      "filename": "",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": ""
+    },
+    {
+      "function": "trio.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_the_trio_scheduler_is_deterministic_if_seeded",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    }
+  ],
+  "assertions": [
+    "assert len(traces) == 10",
+    "assert len(set(traces)) == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_the_trio_scheduler_is_deterministic_if_seeded(\n    monkeypatch: pytest.MonkeyPatch,\n) -> None:\n    monkeypatch.setattr(trio._core._run, \"_ALLOW_DETERMINISTIC_SCHEDULING\", True)\n    traces = []\n    for _ in range(10):\n        state = trio._core._run._r.getstate()\n        try:\n            trio._core._run._r.seed(0)\n            traces.append(trio.run(scheduler_trace))\n        finally:\n            trio._core._run._r.setstate(state)\n\n    assert len(traces) == 10\n    assert len(set(traces)) == 1"
+}

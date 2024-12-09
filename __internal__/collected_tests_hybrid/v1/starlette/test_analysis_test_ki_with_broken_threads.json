@@ -1,0 +1,27 @@
+{
+  "test_name": "test_ki_with_broken_threads",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_ki.py",
+  "static_methods": [
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_ki_with_broken_threads",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    }
+  ],
+  "assertions": [
+    "assert signal.getsignal(signal.SIGINT) != signal.default_int_handler"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_ki_with_broken_threads() -> None:\n    thread = threading.main_thread()\n\n    # scary!\n    original = threading._active[thread.ident]  # type: ignore[attr-defined]\n\n    # put this in a try finally so we don't have a chance of cascading a\n    # breakage down to everything else\n    try:\n        del threading._active[thread.ident]  # type: ignore[attr-defined]\n\n        @_core.enable_ki_protection\n        async def inner() -> None:\n            assert signal.getsignal(signal.SIGINT) != signal.default_int_handler\n\n        _core.run(inner)\n    finally:\n        threading._active[thread.ident] = original"
+}

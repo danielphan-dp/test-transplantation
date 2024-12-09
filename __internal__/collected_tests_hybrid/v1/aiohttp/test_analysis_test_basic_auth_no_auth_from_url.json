@@ -1,0 +1,40 @@
+{
+  "test_name": "test_basic_auth_no_auth_from_url",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.BasicAuth.from_url",
+      "source_code": "    def from_url(cls, url):\n        \"Construct a (possibly null) ContentChecker from a URL\"\n        fragment = urllib.parse.urlparse(url)[-1]\n        if not fragment:\n            return ContentChecker()\n        match = cls.pattern.search(fragment)\n        if not match:\n            return ContentChecker()\n        return cls(**match.groupdict())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 260
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic_auth_no_auth_from_url",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.BasicAuth.from_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 260,
+      "caller": "test_basic_auth_no_auth_from_url",
+      "source_code": "    @classmethod\n    def from_url(cls, url):\n        \"Construct a (possibly null) ContentChecker from a URL\"\n        fragment = urllib.parse.urlparse(url)[-1]\n        if not fragment:\n            return ContentChecker()\n        match = cls.pattern.search(fragment)\n        if not match:\n            return ContentChecker()\n        return cls(**match.groupdict())\n\n"
+    }
+  ],
+  "assertions": [
+    "assert auth is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basic_auth_no_auth_from_url() -> None:\n    url = URL(\"http://example.com\")\n    auth = helpers.BasicAuth.from_url(url)\n    assert auth is None"
+}

@@ -1,0 +1,131 @@
+{
+  "test_name": "test_websocket_blocking_receive",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_testclient.py",
+  "static_methods": [
+    {
+      "name": "client.websocket_connect",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n    ) -> WebSocketTestSession:\n        url = urljoin(\"ws://testserver\", url)\n        headers = kwargs.get(\"headers\", {})\n        headers.setdefault(\"connection\", \"upgrade\")\n        headers.setdefault(\"sec-websocket-key\", \"testserver==\")\n        headers.setdefault(\"sec-websocket-version\", \"13\")\n        if subprotocols is not None:\n            headers.setdefault(\"sec-websocket-protocol\", \", \".join(subprotocols))\n        kwargs[\"headers\"] = headers\n        try:\n            super().request(\"GET\", url, **kwargs)\n        except _Upgrade as exc:\n            session = exc.session\n        else:\n            raise RuntimeError(\"Expected WebSocket upgrade\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 699
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n    ) -> WebSocketTestSession:\n        url = urljoin(\"ws://testserver\", url)\n        headers = kwargs.get(\"headers\", {})\n        headers.setdefault(\"connection\", \"upgrade\")\n        headers.setdefault(\"sec-websocket-key\", \"testserver==\")\n        headers.setdefault(\"sec-websocket-version\", \"13\")\n        if subprotocols is not None:\n            headers.setdefault(\"sec-websocket-protocol\", \", \".join(subprotocols))\n        kwargs[\"headers\"] = headers\n        try:\n            super().request(\"GET\", url, **kwargs)\n        except _Upgrade as exc:\n            session = exc.session\n        else:\n            raise RuntimeError(\"Expected WebSocket upgrade\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 699
+    },
+    {
+      "name": "websocket.receive_json",
+      "source_code": "    def receive_json(self, mode: typing.Literal[\"text\", \"binary\"] = \"text\") -> typing.Any:\n        message = self.receive()\n        self._raise_on_close(message)\n        if mode == \"text\":\n            text = message[\"text\"]\n        else:\n            text = message[\"bytes\"].decode(\"utf-8\")\n        return json.loads(text)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 220
+    },
+    {
+      "name": "WebSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.send_json",
+      "source_code": "    def send_json(self, data: typing.Any, mode: typing.Literal[\"text\", \"binary\"] = \"text\") -> None:\n        text = json.dumps(data, separators=(\",\", \":\"), ensure_ascii=False)\n        if mode == \"text\":\n            self.send({\"type\": \"websocket.receive\", \"text\": text})\n        else:\n            self.send({\"type\": \"websocket.receive\", \"bytes\": text.encode(\"utf-8\")})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 194
+    },
+    {
+      "name": "websocket.accept",
+      "source_code": "    def accept(self, type: TokenType, *, reject: Literal[True]) -> Token: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/mark/expression.py",
+      "line_number": 142
+    },
+    {
+      "name": "task_group.start_soon",
+      "source_code": "    def start_soon(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n    ) -> None:\n        \"\"\"Creates a child task, scheduling ``await async_fn(*args)``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1152
+    },
+    {
+      "name": "websocket.receive_json",
+      "source_code": "    def receive_json(self, mode: typing.Literal[\"text\", \"binary\"] = \"text\") -> typing.Any:\n        message = self.receive()\n        self._raise_on_close(message)\n        if mode == \"text\":\n            text = message[\"text\"]\n        else:\n            text = message[\"bytes\"].decode(\"utf-8\")\n        return json.loads(text)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 220
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "client.websocket_connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 699,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n"
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 699,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n"
+    },
+    {
+      "function": "websocket.receive_json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 220,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "    def receive_json(self, mode: typing.Literal[\"text\", \"binary\"] = \"text\") -> typing.Any:\n        message = self.receive()\n        self._raise_on_close(message)\n        if mode == \"text\":\n            text = message[\"text\"]\n        else:\n            text = message[\"bytes\"].decode(\"utf-8\")\n        return json.loads(text)\n\n\n"
+    },
+    {
+      "function": "WebSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.send_json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 194,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "    def send_json(self, data: typing.Any, mode: typing.Literal[\"text\", \"binary\"] = \"text\") -> None:\n        text = json.dumps(data, separators=(\",\", \":\"), ensure_ascii=False)\n        if mode == \"text\":\n            self.send({\"type\": \"websocket.receive\", \"text\": text})\n        else:\n            self.send({\"type\": \"websocket.receive\", \"bytes\": text.encode(\"utf-8\")})\n\n"
+    },
+    {
+      "function": "websocket.accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/mark/expression.py",
+      "line": 142,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "    @overload\n    def accept(self, type: TokenType, *, reject: Literal[True]) -> Token: ...\n\n"
+    },
+    {
+      "function": "task_group.start_soon",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1152,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "    def start_soon(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n"
+    },
+    {
+      "function": "websocket.receive_json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 220,
+      "caller": "test_websocket_blocking_receive",
+      "source_code": "    def receive_json(self, mode: typing.Literal[\"text\", \"binary\"] = \"text\") -> typing.Any:\n        message = self.receive()\n        self._raise_on_close(message)\n        if mode == \"text\":\n            text = message[\"text\"]\n        else:\n            text = message[\"bytes\"].decode(\"utf-8\")\n        return json.loads(text)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert data == {'message': 'test'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_websocket_blocking_receive(test_client_factory: TestClientFactory) -> None:\n    def app(scope: Scope) -> ASGIInstance:\n        async def respond(websocket: WebSocket) -> None:\n            await websocket.send_json({\"message\": \"test\"})\n\n        async def asgi(receive: Receive, send: Send) -> None:\n            websocket = WebSocket(scope, receive=receive, send=send)\n            await websocket.accept()\n            async with anyio.create_task_group() as task_group:\n                task_group.start_soon(respond, websocket)\n                try:\n                    # this will block as the client does not send us data\n                    # it should not prevent `respond` from executing though\n                    await websocket.receive_json()\n                except WebSocketDisconnect:\n                    pass\n\n        return asgi\n\n    client = test_client_factory(app)  # type: ignore\n    with client.websocket_connect(\"/\") as websocket:\n        data = websocket.receive_json()\n        assert data == {\"message\": \"test\"}"
+}

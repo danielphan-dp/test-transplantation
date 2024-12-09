@@ -1,0 +1,67 @@
+{
+  "test_name": "test_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_streams.py",
+  "static_methods": [
+    {
+      "name": "ValueError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "buffer.set_exception",
+      "source_code": "    def set_exception(self, exc_info: t.Tuple[t.Type[BaseException], BaseException, \"types.TracebackType\"]) -> None:\n        ts = time.monotonic()\n        fut = Future(self.attempt_number)\n        fut.set_exception(exc_info[1])\n        self.outcome, self.outcome_timestamp = fut, ts",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/__init__.py",
+      "line_number": 496
+    },
+    {
+      "name": "buffer.exception",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line_number": 182
+    },
+    {
+      "name": "buffer.exception",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line_number": 182
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ValueError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_exception",
+      "source_code": ""
+    },
+    {
+      "function": "buffer.set_exception",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/__init__.py",
+      "line": 496,
+      "caller": "test_exception",
+      "source_code": "    def set_exception(self, exc_info: t.Tuple[t.Type[BaseException], BaseException, \"types.TracebackType\"]) -> None:\n        ts = time.monotonic()\n        fut = Future(self.attempt_number)\n        fut.set_exception(exc_info[1])\n        self.outcome, self.outcome_timestamp = fut, ts\n\n"
+    },
+    {
+      "function": "buffer.exception",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line": 182,
+      "caller": "test_exception",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception\n\n"
+    },
+    {
+      "function": "buffer.exception",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line": 182,
+      "caller": "test_exception",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception\n\n"
+    }
+  ],
+  "assertions": [
+    "assert buffer.exception() is None",
+    "assert buffer.exception() is exc"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_exception(self, buffer: streams.DataQueue[bytes]) -> None:\n        assert buffer.exception() is None\n\n        exc = ValueError()\n        buffer.set_exception(exc)\n        assert buffer.exception() is exc"
+}

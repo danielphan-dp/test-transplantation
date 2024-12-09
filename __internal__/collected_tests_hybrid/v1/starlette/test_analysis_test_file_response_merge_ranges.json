@@ -1,0 +1,55 @@
+{
+  "test_name": "test_file_response_merge_ranges",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_responses.py",
+  "static_methods": [
+    {
+      "name": "file_response_client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "README.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "file_response_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_file_response_merge_ranges",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_file_response_merge_ranges",
+      "source_code": ""
+    },
+    {
+      "function": "README.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_file_response_merge_ranges",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 206",
+    "assert response.headers['content-length'] == '201'",
+    "assert response.headers['content-range'] == f\"bytes 0-200/{len(README.encode('utf8'))}\""
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_file_response_merge_ranges(file_response_client: TestClient) -> None:\n    response = file_response_client.get(\"/\", headers={\"Range\": \"bytes=0-100, 50-200\"})\n    assert response.status_code == 206\n    assert response.headers[\"content-length\"] == \"201\"\n    assert response.headers[\"content-range\"] == f\"bytes 0-200/{len(README.encode('utf8'))}\""
+}

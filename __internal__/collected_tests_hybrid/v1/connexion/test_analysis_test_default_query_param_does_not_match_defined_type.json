@@ -1,0 +1,38 @@
+{
+  "test_name": "test_default_query_param_does_not_match_defined_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/api/test_bootstrap.py",
+  "static_methods": [
+    {
+      "name": "build_app_from_fixture",
+      "source_code": "def build_app_from_fixture(\n    api_spec_folder, *, app_class, spec_file, middlewares=None, **kwargs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/conftest.py",
+      "line_number": 75
+    },
+    {
+      "name": "app.middleware._build_middleware_stack",
+      "source_code": "    def _build_middleware_stack(self) -> t.Tuple[ASGIApp, t.Iterable[ASGIApp]]:\n        \"\"\"Apply all middlewares to the provided app.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/middleware/main.py",
+      "line_number": 315
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_app_from_fixture",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/conftest.py",
+      "line": 75,
+      "caller": "test_default_query_param_does_not_match_defined_type",
+      "source_code": "def build_app_from_fixture(\n    api_spec_folder, *, app_class, spec_file, middlewares=None, **kwargs\n"
+    },
+    {
+      "function": "app.middleware._build_middleware_stack",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/middleware/main.py",
+      "line": 315,
+      "caller": "test_default_query_param_does_not_match_defined_type",
+      "source_code": "    def _build_middleware_stack(self) -> t.Tuple[ASGIApp, t.Iterable[ASGIApp]]:\n        \"\"\"Apply all middlewares to the provided app.\n\n        :return: Tuple of the outer middleware wrapping the application and a list of the wrapped\n            middlewares, including the wrapped application.\n        \"\"\"\n        # Include the wrapped application in the returned list.\n        app = self.app\n        apps = [app]\n        for middleware in reversed(self.middlewares):\n            arguments, _ = inspect_function_arguments(middleware)\n            if \"lifespan\" in arguments:\n                app = middleware(app, lifespan=self.lifespan)  # type: ignore\n            else:\n                app = middleware(app)  # type: ignore\n            apps.append(app)\n\n        # We sort the APIs by base path so that the most specific APIs are registered first.\n        # This is due to the way Starlette matches routes.\n        self.apis = utils.sort_apis_by_basepath(self.apis)\n        for app in apps:\n            if isinstance(app, SpecMiddleware):\n                for api in self.apis:\n                    app.add_api(\n                        api.specification,\n                        base_path=api.base_path,\n                        **api.kwargs,\n                    )\n\n            if isinstance(app, ExceptionMiddleware):\n                for error_handler in self.error_handlers:\n                    app.add_exception_handler(*error_handler)\n\n        return app, list(reversed(apps))\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_default_query_param_does_not_match_defined_type(\n    default_param_error_spec_dir, app_class, spec\n):\n    with pytest.raises(InvalidSpecification):\n        app = build_app_from_fixture(\n            default_param_error_spec_dir,\n            app_class=app_class,\n            spec_file=spec,\n            validate_responses=True,\n        )\n        app.middleware._build_middleware_stack()"
+}

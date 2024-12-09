@@ -1,0 +1,77 @@
+{
+  "test_name": "test_with_authorization_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+  "static_methods": [
+    {
+      "name": "get_current_registry",
+      "source_code": "def get_current_registry(\n    context=None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/threadlocal.py",
+      "line_number": 57
+    },
+    {
+      "name": "_registerAuthorizationPolicy",
+      "source_code": "def _registerAuthorizationPolicy(reg, result):\n    from pyramid.interfaces import IAuthorizationPolicy",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+      "line_number": 637
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "get_current_registry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/threadlocal.py",
+      "line": 57,
+      "caller": "test_with_authorization_policy",
+      "source_code": "def get_current_registry(\n    context=None,\n"
+    },
+    {
+      "function": "_registerAuthorizationPolicy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+      "line": 637,
+      "caller": "test_with_authorization_policy",
+      "source_code": "def _registerAuthorizationPolicy(reg, result):\n    from pyramid.interfaces import IAuthorizationPolicy\n\n    policy = DummyAuthorizationPolicy(result)\n    reg.registerUtility(policy, IAuthorizationPolicy)\n    return policy\n\n\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_authorization_policy",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_with_authorization_policy",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_authorization_policy",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_with_authorization_policy(self):\n        from pyramid.threadlocal import get_current_registry\n\n        registry = get_current_registry()\n        _registerAuthorizationPolicy(registry, 'yo')\n        context = DummyContext()\n        result = self._callFUT(context, 'view')\n        self.assertEqual(result, 'yo')"
+}

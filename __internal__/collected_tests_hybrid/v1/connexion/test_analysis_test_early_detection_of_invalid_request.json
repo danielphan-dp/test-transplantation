@@ -1,0 +1,51 @@
+{
+  "test_name": "test_early_detection_of_invalid_request",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_connection.py",
+  "static_methods": [
+    {
+      "name": "Connection",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.receive_data",
+      "source_code": "    def receive_data(self, data: bytes | None) -> None:\n        if data is None:\n            self.complete = True\n        elif (\n            self.max_form_memory_size is not None\n            and len(self.buffer) + len(data) > self.max_form_memory_size\n        ):\n            # Ensure that data within single event does not exceed limit.\n            # Also checked across accumulated events in MultiPartParser.\n            raise RequestEntityTooLarge()\n        else:\n            self.buffer.extend(data)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line_number": 136
+    },
+    {
+      "name": "c.next_event",
+      "source_code": "    def next_event(self) -> Event:\n        event: Event = NEED_DATA",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line_number": 149
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Connection",
+      "filename": "",
+      "line": 0,
+      "caller": "test_early_detection_of_invalid_request",
+      "source_code": ""
+    },
+    {
+      "function": "c.receive_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line": 136,
+      "caller": "test_early_detection_of_invalid_request",
+      "source_code": "    def receive_data(self, data: bytes | None) -> None:\n        if data is None:\n            self.complete = True\n        elif (\n            self.max_form_memory_size is not None\n            and len(self.buffer) + len(data) > self.max_form_memory_size\n        ):\n            # Ensure that data within single event does not exceed limit.\n            # Also checked across accumulated events in MultiPartParser.\n            raise RequestEntityTooLarge()\n        else:\n            self.buffer.extend(data)\n\n"
+    },
+    {
+      "function": "c.next_event",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line": 149,
+      "caller": "test_early_detection_of_invalid_request",
+      "source_code": "    def next_event(self) -> Event:\n        event: Event = NEED_DATA\n\n        if self.state == State.PREAMBLE:\n            match = self.preamble_re.search(self.buffer, self._search_position)\n            if match is not None:\n                if match.group(1).startswith(b\"--\"):\n                    self.state = State.EPILOGUE\n                else:\n                    self.state = State.PART\n                data = bytes(self.buffer[: match.start()])\n                del self.buffer[: match.end()]\n                event = Preamble(data=data)\n                self._search_position = 0\n            else:\n                # Update the search start position to be equal to the\n                # current buffer length (already searched) minus a\n                # safe buffer for part of the search target.\n                self._search_position = max(\n                    0, len(self.buffer) - len(self.boundary) - SEARCH_EXTRA_LENGTH\n                )\n\n        elif self.state == State.PART:\n            match = BLANK_LINE_RE.search(self.buffer, self._search_position)\n            if match is not None:\n                headers = self._parse_headers(self.buffer[: match.start()])\n                # The final header ends with a single CRLF, however a\n                # blank line indicates the start of the\n                # body. Therefore the end is after the first CRLF.\n                headers_end = (match.start() + match.end()) // 2\n                del self.buffer[:headers_end]\n\n                if \"content-disposition\" not in headers:\n                    raise ValueError(\"Missing Content-Disposition header\")\n\n                disposition, extra = parse_options_header(\n                    headers[\"content-disposition\"]\n                )\n                name = t.cast(str, extra.get(\"name\"))\n                filename = extra.get(\"filename\")\n                if filename is not None:\n                    event = File(\n                        filename=filename,\n                        headers=headers,\n                        name=name,\n                    )\n                else:\n                    event = Field(\n                        headers=headers,\n                        name=name,\n                    )\n                self.state = State.DATA_START\n                self._search_position = 0\n                self._parts_decoded += 1\n\n                if self.max_parts is not None and self._parts_decoded > self.max_parts:\n                    raise RequestEntityTooLarge()\n            else:\n                # Update the search start position to be equal to the\n                # current buffer length (already searched) minus a\n                # safe buffer for part of the search target.\n                self._search_position = max(0, len(self.buffer) - SEARCH_EXTRA_LENGTH)\n\n        elif self.state == State.DATA_START:\n            data, del_index, more_data = self._parse_data(self.buffer, start=True)\n            del self.buffer[:del_index]\n            event = Data(data=data, more_data=more_data)\n            if more_data:\n                self.state = State.DATA\n\n        elif self.state == State.DATA:\n            data, del_index, more_data = self._parse_data(self.buffer, start=False)\n            del self.buffer[:del_index]\n            if data or not more_data:\n                event = Data(data=data, more_data=more_data)\n\n        elif self.state == State.EPILOGUE and self.complete:\n            event = Epilogue(data=bytes(self.buffer))\n            del self.buffer[:]\n            self.state = State.COMPLETE\n\n        if self.complete and isinstance(event, NeedData):\n            raise ValueError(f\"Invalid form-data cannot parse beyond {self.state}\")\n\n        return event\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_early_detection_of_invalid_request(data: bytes) -> None:\n    c = Connection(SERVER)\n    # Early detection should occur before even receiving a `\\r\\n`\n    c.receive_data(data)\n    with pytest.raises(RemoteProtocolError):\n        c.next_event()"
+}

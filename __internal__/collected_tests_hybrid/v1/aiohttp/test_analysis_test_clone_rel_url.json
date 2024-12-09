@@ -1,0 +1,66 @@
+{
+  "test_name": "test_clone_rel_url",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_request.py",
+  "static_methods": [
+    {
+      "name": "make_mocked_request",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 605
+    },
+    {
+      "name": "req.clone",
+      "source_code": "    def clone(self):\n        \"\"\"Create a copy of the timeout object",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/util/timeout.py",
+      "line_number": 181
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_mocked_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 605,
+      "caller": "test_clone_rel_url",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,\n"
+    },
+    {
+      "function": "req.clone",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/util/timeout.py",
+      "line": 181,
+      "caller": "test_clone_rel_url",
+      "source_code": "    def clone(self):\n        \"\"\"Create a copy of the timeout object\n\n        Timeout properties are stored per-pool but each request needs a fresh\n        Timeout object to ensure each one has its own start/stop configured.\n\n        :return: a copy of the timeout object\n        :rtype: :class:`Timeout`\n        \"\"\"\n        # We can't use copy.deepcopy because that will also create a new object\n        # for _GLOBAL_DEFAULT_TIMEOUT, which socket.py uses as a sentinel to\n        # detect the user default.\n        return Timeout(connect=self._connect, read=self._read, total=self.total)\n\n"
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_clone_rel_url",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_clone_rel_url",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert req2.rel_url == URL('/path2')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_clone_rel_url() -> None:\n    req = make_mocked_request(\"GET\", \"/path\")\n    req2 = req.clone(rel_url=URL(\"/path2\"))\n    assert req2.rel_url == URL(\"/path2\")"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_extend_with_args",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_ext_integration.py",
+  "static_methods": [
+    {
+      "name": "stoppable_app.extend",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 226
+    },
+    {
+      "name": "stoppable_app.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "mock_sanic_ext.Extend.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "stoppable_app.extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 226,
+      "caller": "test_extend_with_args",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.\n\n        This method must be used instead of update.\n        \"\"\"\n        self._extend(args, kwargs, \"extend\", self._extend_items)\n\n"
+    },
+    {
+      "function": "stoppable_app.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_extend_with_args",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "mock_sanic_ext.Extend.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extend_with_args",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_extend_with_args(stoppable_app: Sanic, mock_sanic_ext, port):\n    stoppable_app.extend(built_in_extensions=False)\n    stoppable_app.run(single_process=True, port=port)\n    mock_sanic_ext.Extend.assert_called_once_with(\n        stoppable_app, built_in_extensions=False, config=None, extensions=None\n    )"
+}

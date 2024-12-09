@@ -1,0 +1,51 @@
+{
+  "test_name": "test_msgid_text_type_translator_is_not_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test__init__.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "translate",
+      "source_code": "    def translate(msgid, domain=None, mapping=None, context=None,\n                 target_language=None, default=None):",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line_number": 185
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_msgid_text_type_translator_is_not_None",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "translate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line": 185,
+      "caller": "test_msgid_text_type_translator_is_not_None",
+      "source_code": "    def translate(msgid, domain=None, mapping=None, context=None,\n                 target_language=None, default=None):\n\n        # NB: note that both TranslationString._init__ and\n        # TranslationString.interpolate are careful to never lose the\n        # *identity* of an empty but non-``None`` ``default`` value we\n        # provide to them.  For example, neither of those functions\n        # are permitted to run an empty but non-``None`` ``default``\n        # through ``unicode`` and throw the original default value\n        # away afterwards.\n\n        # This has a dubious cause: for Chameleon API reasons we must\n        # ensure that, after translation, if ( (translated == msgid)\n        # and (not default) and (default is not None) ) that we return\n        # the ``default`` value provided to us *unmodified*, because\n        # Chameleon uses it as a sentinel (it compares the return\n        # value of this function by identity to what it passed in as\n        # ``default``; this marker is a\n        # chameleon.core.i18n.StringMarker instance, a subclass of str\n        # that == '').  This is, of course, totally absurd, because\n        # Chameleon *also* wants us to use ``default`` as the input to\n        # a translation string in some cases, and maintaining the\n        # identity of this object through translation operations isn't\n        # a contract it spells out in its docs.\n\n        # Chameleon's use of ``default`` to represent both a sentinel\n        # and input to a translation string is a Chameleon i18n\n        # extensibility design bug.  Until we overhaul its hook point\n        # for translation extensibility, we need to appease it by\n        # preserving ``default`` in the aforementioned case.  So we\n        # spray these indignant comments all over this module. ;-)\n\n        if not isinstance(msgid, string_types):\n            if msgid is not None:\n                msgid = text_type(msgid)\n            return msgid\n\n        tstring = msgid\n\n        if not hasattr(tstring, 'interpolate'):\n            tstring = TranslationString(msgid, domain, default, mapping, context)\n        if translator is None:\n            result = tstring.interpolate()\n        else:\n            result = translator(tstring)\n\n        return result\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_msgid_text_type_translator_is_not_None",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_msgid_text_type_translator_is_not_None(self):\n        msgid = 'foo'\n        def translator(msg):\n            return msg\n        translate = self._makeOne(translator)\n        result = translate(msgid)\n        self.assertEqual(result, msgid)"
+}

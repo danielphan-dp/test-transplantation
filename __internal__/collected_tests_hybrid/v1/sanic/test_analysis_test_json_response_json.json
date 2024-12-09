@@ -1,0 +1,28 @@
+{
+  "test_name": "test_json_response_json",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_json_encoding.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_response_json",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert sys.getsizeof(response.body) == 54",
+    "assert sys.getsizeof(response.body) == 54"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_json_response_json():\n    \"\"\"One of the easiest ways to tell the difference is that ujson cannot\n    serialize over 64 bits\"\"\"\n    too_big_for_ujson = 111111111111111111111\n\n    with pytest.raises(OverflowError, match=\"int too big to convert\"):\n        json(too_big_for_ujson)\n\n    response = json(too_big_for_ujson, dumps=sdumps)\n    assert sys.getsizeof(response.body) == 54\n\n    Sanic(\"Test\", dumps=sdumps)\n    response = json(too_big_for_ujson)\n    assert sys.getsizeof(response.body) == 54"
+}

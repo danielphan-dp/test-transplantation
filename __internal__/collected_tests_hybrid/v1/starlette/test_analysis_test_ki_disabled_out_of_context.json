@@ -1,0 +1,27 @@
+{
+  "test_name": "test_ki_disabled_out_of_context",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_ki.py",
+  "static_methods": [
+    {
+      "name": "_core.currently_ki_protected",
+      "source_code": "def currently_ki_protected() -> bool:\n    r\"\"\"Check whether the calling code has :exc:`KeyboardInterrupt` protection\n    enabled.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_ki.py",
+      "line_number": 104
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_core.currently_ki_protected",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_ki.py",
+      "line": 104,
+      "caller": "test_ki_disabled_out_of_context",
+      "source_code": "def currently_ki_protected() -> bool:\n    r\"\"\"Check whether the calling code has :exc:`KeyboardInterrupt` protection\n    enabled.\n\n    It's surprisingly easy to think that one's :exc:`KeyboardInterrupt`\n    protection is enabled when it isn't, or vice-versa. This function tells\n    you what Trio thinks of the matter, which makes it useful for ``assert``\\s\n    and unit tests.\n\n    Returns:\n      bool: True if protection is enabled, and False otherwise.\n\n    \"\"\"\n    return ki_protection_enabled(sys._getframe())\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert _core.currently_ki_protected()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_ki_disabled_out_of_context() -> None:\n    assert _core.currently_ki_protected()"
+}

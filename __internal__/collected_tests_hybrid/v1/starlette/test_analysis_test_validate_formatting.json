@@ -1,0 +1,94 @@
+{
+  "test_name": "test_validate_formatting",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 380
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 380
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 380
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 380,
+      "caller": "test_validate_formatting",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)\n\n        if ((res.tzoffset == 0 and not res.tzname) or\n             (res.tzname == 'Z' or res.tzname == 'z')):\n            res.tzname = \"UTC\"\n            res.tzoffset = 0\n        elif res.tzoffset != 0 and res.tzname and self.utczone(res.tzname):\n            res.tzoffset = 0\n        return True\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_validate_formatting",
+      "source_code": ""
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 380,
+      "caller": "test_validate_formatting",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)\n\n        if ((res.tzoffset == 0 and not res.tzname) or\n             (res.tzname == 'Z' or res.tzname == 'z')):\n            res.tzname = \"UTC\"\n            res.tzoffset = 0\n        elif res.tzoffset != 0 and res.tzname and self.utczone(res.tzname):\n            res.tzoffset = 0\n        return True\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_validate_formatting",
+      "source_code": ""
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 380,
+      "caller": "test_validate_formatting",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)\n\n        if ((res.tzoffset == 0 and not res.tzname) or\n             (res.tzname == 'Z' or res.tzname == 'z')):\n            res.tzname = \"UTC\"\n            res.tzoffset = 0\n        elif res.tzoffset != 0 and res.tzname and self.utczone(res.tzname):\n            res.tzoffset = 0\n        return True\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_validate_formatting",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'oops' in str(excinfo.value)",
+    "assert 'oops {}' in str(excinfo.value)",
+    "assert 'oops 10 xx' in str(excinfo.value)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_validate_formatting() -> None:\n    my_re = re.compile(rb\"foo\")\n\n    with pytest.raises(LocalProtocolError) as excinfo:\n        validate(my_re, b\"\", \"oops\")\n    assert \"oops\" in str(excinfo.value)\n\n    with pytest.raises(LocalProtocolError) as excinfo:\n        validate(my_re, b\"\", \"oops {}\")\n    assert \"oops {}\" in str(excinfo.value)\n\n    with pytest.raises(LocalProtocolError) as excinfo:\n        validate(my_re, b\"\", \"oops {} xx\", 10)\n    assert \"oops 10 xx\" in str(excinfo.value)"
+}

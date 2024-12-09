@@ -1,0 +1,51 @@
+{
+  "test_name": "test_get_settings_withsettings",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_settings.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.get_settings",
+      "source_code": "def get_settings(config_uri, section=None, defaults=None):\n    \"\"\"\n    Load the settings from a named section.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/plaster/loaders.py",
+      "line_number": 34
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_get_settings_withsettings",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_settings_withsettings",
+      "source_code": ""
+    },
+    {
+      "function": "config.get_settings",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/plaster/loaders.py",
+      "line": 34,
+      "caller": "test_get_settings_withsettings",
+      "source_code": "def get_settings(config_uri, section=None, defaults=None):\n    \"\"\"\n    Load the settings from a named section.\n\n    .. code-block:: python\n\n        settings = plaster.get_settings(...)\n        print(settings['foo'])\n\n    :param config_uri: Anything that can be parsed by\n        :func:`plaster.parse_uri`.\n\n    :param section: The name of the section in the config file. If this is\n        ``None`` then it is up to the loader to determine a sensible default\n        usually derived from the fragment in the ``path#name`` syntax of the\n        ``config_uri``.\n\n    :param defaults: A ``dict`` of default values used to populate the\n        settings and support variable interpolation. Any values in ``defaults``\n        may be overridden by the loader prior to returning the final\n        configuration dictionary.\n\n    :returns: A ``dict`` of settings. This should return a dictionary object\n        even if no data is available.\n\n    \"\"\"\n    loader = get_loader(config_uri)\n\n    return loader.get_settings(section, defaults)\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_settings_withsettings(self):\n        settings = {'a': 1}\n        config = self._makeOne()\n        config.registry.settings = settings\n        self.assertEqual(config.get_settings(), settings)"
+}

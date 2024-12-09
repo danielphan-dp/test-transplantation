@@ -1,0 +1,64 @@
+{
+  "test_name": "test_check_list",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitwrapper.py",
+  "static_methods": [
+    {
+      "name": "Emitter",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "generate_arg_check",
+      "source_code": "def generate_arg_check(\n    name: str,\n    typ: RType,\n    emitter: Emitter,\n    error: ErrorHandler | None = None,\n    *,\n    optional: bool = False,\n    raise_exception: bool = True,\n    bitmap_arg_index: int = 0,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitwrapper.py",
+      "line_number": 773
+    },
+    {
+      "name": "self.assert_lines",
+      "source_code": "    def assert_lines(self, expected: list[str], actual: list[str]) -> None:\n        actual = [line.rstrip(\"\\n\") for line in actual]\n        assert_string_arrays_equal(expected, actual, \"Invalid output\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitwrapper.py",
+      "line_number": 58
+    },
+    {
+      "name": "ReturnHandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Emitter",
+      "filename": "",
+      "line": 0,
+      "caller": "test_check_list",
+      "source_code": ""
+    },
+    {
+      "function": "generate_arg_check",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitwrapper.py",
+      "line": 773,
+      "caller": "test_check_list",
+      "source_code": "def generate_arg_check(\n    name: str,\n    typ: RType,\n    emitter: Emitter,\n    error: ErrorHandler | None = None,\n    *,\n    optional: bool = False,\n    raise_exception: bool = True,\n    bitmap_arg_index: int = 0,\n"
+    },
+    {
+      "function": "self.assert_lines",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitwrapper.py",
+      "line": 58,
+      "caller": "test_check_list",
+      "source_code": "    def assert_lines(self, expected: list[str], actual: list[str]) -> None:\n        actual = [line.rstrip(\"\\n\") for line in actual]\n        assert_string_arrays_equal(expected, actual, \"Invalid output\")\n"
+    },
+    {
+      "function": "ReturnHandler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_check_list",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_check_list(self) -> None:\n        emitter = Emitter(self.context)\n        generate_arg_check(\"x\", list_rprimitive, emitter, ReturnHandler(\"NULL\"))\n        lines = emitter.fragments\n        self.assert_lines(\n            [\n                \"PyObject *arg_x;\",\n                \"if (likely(PyList_Check(obj_x)))\",\n                \"    arg_x = obj_x;\",\n                \"else {\",\n                '    CPy_TypeError(\"list\", obj_x);',\n                \"    return NULL;\",\n                \"}\",\n            ],\n            lines,\n        )"
+}

@@ -1,0 +1,77 @@
+{
+  "test_name": "test__fix_registry_adds__lock",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "DummyRegistry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config._fix_registry",
+      "source_code": "    def _fix_registry(self):\n        \"\"\"Fix up a ZCA component registry that is not a\n        pyramid.registry.Registry by adding analogues of ``has_listeners``,\n        ``notify``, ``queryAdapterOrSelf``, and ``registerSelfAdapter``\n        through monkey-patching.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 452
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRegistry",
+      "filename": "",
+      "line": 0,
+      "caller": "test__fix_registry_adds__lock",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__fix_registry_adds__lock",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config._fix_registry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 452,
+      "caller": "test__fix_registry_adds__lock",
+      "source_code": "    def _fix_registry(self):\n        \"\"\"Fix up a ZCA component registry that is not a\n        pyramid.registry.Registry by adding analogues of ``has_listeners``,\n        ``notify``, ``queryAdapterOrSelf``, and ``registerSelfAdapter``\n        through monkey-patching.\"\"\"\n\n        _registry = self.registry\n\n        if not hasattr(_registry, 'notify'):\n\n            def notify(*events):\n                [_ for _ in _registry.subscribers(events, None)]\n\n            _registry.notify = notify\n\n        if not hasattr(_registry, 'has_listeners'):\n            _registry.has_listeners = True\n\n        if not hasattr(_registry, 'queryAdapterOrSelf'):\n\n            def queryAdapterOrSelf(object, interface, default=None):\n                if not interface.providedBy(object):\n                    return _registry.queryAdapter(\n                        object, interface, default=default\n                    )\n                return object\n\n            _registry.queryAdapterOrSelf = queryAdapterOrSelf\n\n        if not hasattr(_registry, 'registerSelfAdapter'):\n\n            def registerSelfAdapter(\n                required=None, provided=None, name='', info='', event=True\n            ):\n                return _registry.registerAdapter(\n                    lambda x: x,\n                    required=required,\n                    provided=provided,\n                    name=name,\n                    info=info,\n                    event=event,\n                )\n\n            _registry.registerSelfAdapter = registerSelfAdapter\n\n        if not hasattr(_registry, '_lock'):\n            _registry._lock = threading.Lock()\n\n        if not hasattr(_registry, '_clear_view_lookup_cache'):\n\n            def _clear_view_lookup_cache():\n                _registry._view_lookup_cache = {}\n\n            _registry._clear_view_lookup_cache = _clear_view_lookup_cache\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test__fix_registry_adds__lock",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__fix_registry_adds__lock",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__fix_registry_adds__lock(self):\n        reg = DummyRegistry()\n        config = self._makeOne(reg)\n        config._fix_registry()\n        self.assertTrue(hasattr(reg, '_lock'))"
+}

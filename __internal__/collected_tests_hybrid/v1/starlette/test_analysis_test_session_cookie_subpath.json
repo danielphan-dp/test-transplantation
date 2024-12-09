@@ -1,0 +1,120 @@
+{
+  "test_name": "test_session_cookie_subpath",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_session.py",
+  "static_methods": [
+    {
+      "name": "Starlette",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Starlette",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.post",
+      "source_code": "    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line_number": 310
+    },
+    {
+      "name": "cookie_path_match.groups",
+      "source_code": "    def groups(self):\n        return (self._text,)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/pygments/lexer.py",
+      "line_number": 297
+    },
+    {
+      "name": "Route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Starlette",
+      "filename": "",
+      "line": 0,
+      "caller": "test_session_cookie_subpath",
+      "source_code": ""
+    },
+    {
+      "function": "Starlette",
+      "filename": "",
+      "line": 0,
+      "caller": "test_session_cookie_subpath",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_session_cookie_subpath",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line": 310,
+      "caller": "test_session_cookie_subpath",
+      "source_code": "    @property\n    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.\n\n        >>> print(Version(\"1.2.3\").post)\n        None\n        >>> Version(\"1.2.3.post1\").post\n        1\n        \"\"\"\n        return self._version.post[1] if self._version.post else None\n\n"
+    },
+    {
+      "function": "cookie_path_match.groups",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/pygments/lexer.py",
+      "line": 297,
+      "caller": "test_session_cookie_subpath",
+      "source_code": "    def groups(self):\n        return (self._text,)\n\n"
+    },
+    {
+      "function": "Route",
+      "filename": "",
+      "line": 0,
+      "caller": "test_session_cookie_subpath",
+      "source_code": ""
+    },
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_session_cookie_subpath",
+      "source_code": ""
+    },
+    {
+      "function": "Mount",
+      "filename": "",
+      "line": 0,
+      "caller": "test_session_cookie_subpath",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 200",
+    "assert cookie_path_match is not None",
+    "assert cookie_path == '/second_app'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_session_cookie_subpath(test_client_factory: TestClientFactory) -> None:\n    second_app = Starlette(\n        routes=[\n            Route(\"/update_session\", endpoint=update_session, methods=[\"POST\"]),\n        ],\n        middleware=[Middleware(SessionMiddleware, secret_key=\"example\", path=\"/second_app\")],\n    )\n    app = Starlette(routes=[Mount(\"/second_app\", app=second_app)])\n    client = test_client_factory(app, base_url=\"http://testserver/second_app\")\n    response = client.post(\"/update_session\", json={\"some\": \"data\"})\n    assert response.status_code == 200\n    cookie = response.headers[\"set-cookie\"]\n    cookie_path_match = re.search(r\"; path=(\\S+);\", cookie)\n    assert cookie_path_match is not None\n    cookie_path = cookie_path_match.groups()[0]\n    assert cookie_path == \"/second_app\""
+}

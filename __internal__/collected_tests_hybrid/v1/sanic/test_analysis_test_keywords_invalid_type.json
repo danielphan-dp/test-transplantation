@@ -1,0 +1,55 @@
+{
+  "test_name": "test_keywords_invalid_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_keywords_invalid_type",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_keywords_invalid_type",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_keywords_invalid_type",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'should be a list' in caplog.messages[0]",
+    "assert isinstance(d.metadata.keywords, list)",
+    "assert d.metadata.keywords == list(attrs['keywords'])"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_keywords_invalid_type(self, caplog):\n        attrs = {\n            'name': 'Monty',\n            'version': '1.0',\n            'keywords': ('spam', 'eggs', 'life of brian'),\n        }\n        d = Distribution(attrs)\n        # should have warning about passing a non-list\n        assert 'should be a list' in caplog.messages[0]\n        # should be converted to a list\n        assert isinstance(d.metadata.keywords, list)\n        assert d.metadata.keywords == list(attrs['keywords'])"
+}

@@ -1,0 +1,29 @@
+{
+  "test_name": "test_load_from_object_string",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "app.config.load",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line_number": 57
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line": 57,
+      "caller": "test_load_from_object_string",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'CONFIG_VALUE' in app.config",
+    "assert app.config.CONFIG_VALUE == 'should be used'",
+    "assert 'not_for_config' not in app.config"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_load_from_object_string(app: Sanic):\n    app.config.load(\"tests.test_config.ConfigTest\")\n    assert \"CONFIG_VALUE\" in app.config\n    assert app.config.CONFIG_VALUE == \"should be used\"\n    assert \"not_for_config\" not in app.config"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_copy_tree_exception_in_listdir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+  "static_methods": [
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "dir_util.copy_tree",
+      "source_code": "    def copy_tree(\n        self,\n        infile: StrPath,\n        outfile: str,\n        # override: Using actual booleans\n        preserve_mode: bool = True,  # type: ignore[override]\n        preserve_times: bool = True,  # type: ignore[override]\n        preserve_symlinks: bool = False,  # type: ignore[override]\n        level: object = 1,\n    ) -> list[str]:\n        assert preserve_mode\n        assert preserve_times\n        assert not preserve_symlinks\n        exclude = self.get_exclusions()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/install_lib.py",
+      "line_number": 94
+    },
+    {
+      "name": "OSError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_copy_tree_exception_in_listdir",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_copy_tree_exception_in_listdir",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "dir_util.copy_tree",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/install_lib.py",
+      "line": 94,
+      "caller": "test_copy_tree_exception_in_listdir",
+      "source_code": "    def copy_tree(\n        self,\n        infile: StrPath,\n        outfile: str,\n        # override: Using actual booleans\n        preserve_mode: bool = True,  # type: ignore[override]\n        preserve_times: bool = True,  # type: ignore[override]\n        preserve_symlinks: bool = False,  # type: ignore[override]\n        level: object = 1,\n"
+    },
+    {
+      "function": "OSError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_copy_tree_exception_in_listdir",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_copy_tree_exception_in_listdir(self):\n        \"\"\"\n        An exception in listdir should raise a DistutilsFileError\n        \"\"\"\n        with mock.patch(\"os.listdir\", side_effect=OSError()), pytest.raises(\n            errors.DistutilsFileError\n        ):\n            src = self.tempdirs[-1]\n            dir_util.copy_tree(src, None)"
+}

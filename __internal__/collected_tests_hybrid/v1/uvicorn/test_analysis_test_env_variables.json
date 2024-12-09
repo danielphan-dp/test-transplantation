@@ -1,0 +1,92 @@
+{
+  "test_name": "test_env_variables",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "load_env_var",
+      "source_code": "def load_env_var(key: str, value: str) -> Iterator[None]:\n    old_environ = dict(os.environ)\n    os.environ[key] = value\n    yield\n    os.environ.clear()\n    os.environ.update(old_environ)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_cli.py",
+      "line_number": 25
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "load_env_var",
+      "source_code": "def load_env_var(key: str, value: str) -> Iterator[None]:\n    old_environ = dict(os.environ)\n    os.environ[key] = value\n    yield\n    os.environ.clear()\n    os.environ.update(old_environ)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_cli.py",
+      "line_number": 25
+    },
+    {
+      "name": "CliRunner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n    ) -> Result:\n        \"\"\"Invokes a command in an isolated environment.  The arguments are\n        forwarded directly to the command line script, the `extra` keyword\n        arguments are passed to the :meth:`~clickpkg.Command.main` function of\n        the command.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/click/testing.py",
+      "line_number": 349
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "load_env_var",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_cli.py",
+      "line": 25,
+      "caller": "test_env_variables",
+      "source_code": "@contextlib.contextmanager\ndef load_env_var(key: str, value: str) -> Iterator[None]:\n    old_environ = dict(os.environ)\n    os.environ[key] = value\n    yield\n    os.environ.clear()\n    os.environ.update(old_environ)\n\n\n"
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_env_variables",
+      "source_code": ""
+    },
+    {
+      "function": "load_env_var",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_cli.py",
+      "line": 25,
+      "caller": "test_env_variables",
+      "source_code": "@contextlib.contextmanager\ndef load_env_var(key: str, value: str) -> Iterator[None]:\n    old_environ = dict(os.environ)\n    os.environ[key] = value\n    yield\n    os.environ.clear()\n    os.environ.update(old_environ)\n\n\n"
+    },
+    {
+      "function": "CliRunner",
+      "filename": "",
+      "line": 0,
+      "caller": "test_env_variables",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_env_variables",
+      "source_code": ""
+    },
+    {
+      "function": "runner.invoke",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/click/testing.py",
+      "line": 349,
+      "caller": "test_env_variables",
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n"
+    }
+  ],
+  "assertions": [
+    "assert kwargs['http'] == http_protocol"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_env_variables(http_protocol: str):\n    with load_env_var(\"UVICORN_HTTP\", http_protocol):\n        runner = CliRunner(env=os.environ)\n        with mock.patch.object(main, \"run\") as mock_run:\n            runner.invoke(cli, [\"tests.test_cli:App\"])\n            _, kwargs = mock_run.call_args\n            assert kwargs[\"http\"] == http_protocol"
+}

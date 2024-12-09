@@ -1,0 +1,90 @@
+{
+  "test_name": "test___call__wo_fields_wo_list",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_commandline.py",
+  "static_methods": [
+    {
+      "name": "_Meta",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 13
+    },
+    {
+      "name": "self._capture_output",
+      "source_code": "    def _capture_output(self, func, *args, **kw):\n        buf = io.StringIO()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_commandline.py",
+      "line_number": 48
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_Options",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_Meta",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call__wo_fields_wo_list",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 13,
+      "caller": "test___call__wo_fields_wo_list",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)\n\n"
+    },
+    {
+      "function": "self._capture_output",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_commandline.py",
+      "line": 48,
+      "caller": "test___call__wo_fields_wo_list",
+      "source_code": "    def _capture_output(self, func, *args, **kw):\n        buf = io.StringIO()\n\n        with _Monkey(sys, stdout=buf):\n            func(*args, **kw)\n        return buf.getvalue()\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call__wo_fields_wo_list",
+      "source_code": ""
+    },
+    {
+      "function": "_Options",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call__wo_fields_wo_list",
+      "source_code": ""
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test___call__wo_fields_wo_list",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___call__wo_fields_wo_list(self):\n        meta = _Meta(foo='Foo', bar='Bar')\n        csv = self._makeOne(\n            _Options(fields=None,\n                     sequence_delim=object()))  # raise if used\n        output = self._capture_output(csv, meta)\n        self.assertEqual(output, 'bar,foo\\r\\nBar,Foo\\r\\n')"
+}

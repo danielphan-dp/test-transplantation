@@ -1,0 +1,181 @@
+{
+  "test_name": "test_date_parsing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_cookiejar.py",
+  "static_methods": [
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parse_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    },
+    {
+      "function": "parse_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_date_parsing",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert parse_func('') is None",
+    "assert parse_func('Tue, 1 Jan 70 00:00:00 GMT') == datetime.datetime(1970, 1, 1, tzinfo=utc).timestamp()",
+    "assert parse_func('Tue, 1 Jan 10 00:00:00 GMT') == datetime.datetime(2010, 1, 1, tzinfo=utc).timestamp()",
+    "assert parse_func('1 Jan 1970 00:00:00 GMT') == datetime.datetime(1970, 1, 1, tzinfo=utc).timestamp()",
+    "assert parse_func('Tue, 1 Jan 1970 00:00:00') == datetime.datetime(1970, 1, 1, tzinfo=utc).timestamp()",
+    "assert parse_func('Tue, 1 Jan 00:00:00 GMT') is None",
+    "assert parse_func('Tue, 1 1970 00:00:00 GMT') is None",
+    "assert parse_func('Tue, Jan 1970 00:00:00 GMT') is None",
+    "assert parse_func('Tue, 1 Jan 1970 GMT') is None",
+    "assert parse_func('Tue, 0 Jan 1970 00:00:00 GMT') is None",
+    "assert parse_func('Tue, 1 Jan 1500 00:00:00 GMT') is None",
+    "assert parse_func('Tue, 1 Jan 1970 77:88:99 GMT') is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_date_parsing() -> None:\n    parse_func = CookieJar._parse_date\n    utc = datetime.timezone.utc\n\n    assert parse_func(\"\") is None\n\n    # 70 -> 1970\n    assert (\n        parse_func(\"Tue, 1 Jan 70 00:00:00 GMT\")\n        == datetime.datetime(1970, 1, 1, tzinfo=utc).timestamp()\n    )\n\n    # 10 -> 2010\n    assert (\n        parse_func(\"Tue, 1 Jan 10 00:00:00 GMT\")\n        == datetime.datetime(2010, 1, 1, tzinfo=utc).timestamp()\n    )\n\n    # No day of week string\n    assert (\n        parse_func(\"1 Jan 1970 00:00:00 GMT\")\n        == datetime.datetime(1970, 1, 1, tzinfo=utc).timestamp()\n    )\n\n    # No timezone string\n    assert (\n        parse_func(\"Tue, 1 Jan 1970 00:00:00\")\n        == datetime.datetime(1970, 1, 1, tzinfo=utc).timestamp()\n    )\n\n    # No year\n    assert parse_func(\"Tue, 1 Jan 00:00:00 GMT\") is None\n\n    # No month\n    assert parse_func(\"Tue, 1 1970 00:00:00 GMT\") is None\n\n    # No day of month\n    assert parse_func(\"Tue, Jan 1970 00:00:00 GMT\") is None\n\n    # No time\n    assert parse_func(\"Tue, 1 Jan 1970 GMT\") is None\n\n    # Invalid day of month\n    assert parse_func(\"Tue, 0 Jan 1970 00:00:00 GMT\") is None\n\n    # Invalid year\n    assert parse_func(\"Tue, 1 Jan 1500 00:00:00 GMT\") is None\n\n    # Invalid time\n    assert parse_func(\"Tue, 1 Jan 1970 77:88:99 GMT\") is None"
+}

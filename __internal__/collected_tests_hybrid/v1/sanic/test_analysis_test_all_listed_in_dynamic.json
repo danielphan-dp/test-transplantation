@@ -1,0 +1,97 @@
+{
+  "test_name": "test_all_listed_in_dynamic",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "self.write_entry_points",
+      "source_code": "    def write_entry_points(self, tmp_path):\n        entry_points = ConfigParser()\n        entry_points.read_dict(ENTRY_POINTS)\n        with open(tmp_path / \"entry-points.txt\", \"w\", encoding=\"utf-8\") as f:\n            entry_points.write(f)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line_number": 182
+    },
+    {
+      "name": "expand_configuration",
+      "source_code": "def expand_configuration(\n    config: dict,\n    root_dir: StrPath | None = None,\n    ignore_option_errors: bool = False,\n    dist: Distribution | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 149
+    },
+    {
+      "name": "self.pyproject",
+      "source_code": "    def pyproject(self, dynamic=None):\n        project = {\"dynamic\": dynamic or [\"scripts\", \"gui-scripts\", \"entry-points\"]}\n        tool = {\"dynamic\": {\"entry-points\": {\"file\": \"entry-points.txt\"}}}\n        return {\"project\": project, \"tool\": {\"setuptools\": tool}}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line_number": 188
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.write_entry_points",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line": 182,
+      "caller": "test_all_listed_in_dynamic",
+      "source_code": "    def write_entry_points(self, tmp_path):\n        entry_points = ConfigParser()\n        entry_points.read_dict(ENTRY_POINTS)\n        with open(tmp_path / \"entry-points.txt\", \"w\", encoding=\"utf-8\") as f:\n            entry_points.write(f)\n\n"
+    },
+    {
+      "function": "expand_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 149,
+      "caller": "test_all_listed_in_dynamic",
+      "source_code": "def expand_configuration(\n    config: dict,\n    root_dir: StrPath | None = None,\n    ignore_option_errors: bool = False,\n    dist: Distribution | None = None,\n"
+    },
+    {
+      "function": "self.pyproject",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line": 188,
+      "caller": "test_all_listed_in_dynamic",
+      "source_code": "    def pyproject(self, dynamic=None):\n        project = {\"dynamic\": dynamic or [\"scripts\", \"gui-scripts\", \"entry-points\"]}\n        tool = {\"dynamic\": {\"entry-points\": {\"file\": \"entry-points.txt\"}}}\n        return {\"project\": project, \"tool\": {\"setuptools\": tool}}\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_all_listed_in_dynamic",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_all_listed_in_dynamic",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_all_listed_in_dynamic",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(expanded_project['scripts']) == 1",
+    "assert expanded_project['scripts']['a'] == 'mod.a:func'",
+    "assert len(expanded_project['gui-scripts']) == 1",
+    "assert expanded_project['gui-scripts']['b'] == 'mod.b:func'",
+    "assert len(expanded_project['entry-points']) == 1",
+    "assert expanded_project['entry-points']['other']['c'] == 'mod.c:func [extra]'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_all_listed_in_dynamic(self, tmp_path):\n        self.write_entry_points(tmp_path)\n        expanded = expand_configuration(self.pyproject(), tmp_path)\n        expanded_project = expanded[\"project\"]\n        assert len(expanded_project[\"scripts\"]) == 1\n        assert expanded_project[\"scripts\"][\"a\"] == \"mod.a:func\"\n        assert len(expanded_project[\"gui-scripts\"]) == 1\n        assert expanded_project[\"gui-scripts\"][\"b\"] == \"mod.b:func\"\n        assert len(expanded_project[\"entry-points\"]) == 1\n        assert expanded_project[\"entry-points\"][\"other\"][\"c\"] == \"mod.c:func [extra]\""
+}

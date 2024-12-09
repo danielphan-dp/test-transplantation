@@ -1,0 +1,68 @@
+{
+  "test_name": "test_make_archive_bztar",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+  "static_methods": [
+    {
+      "name": "self._create_files",
+      "source_code": "    def _create_files(self):\n        # creating something to tar\n        tmpdir = self.mkdtemp()\n        dist = os.path.join(tmpdir, 'dist')\n        os.mkdir(dist)\n        self.write_file([dist, 'file1'], 'xxx')\n        self.write_file([dist, 'file2'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub'))\n        self.write_file([dist, 'sub', 'file3'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub2'))\n        return tmpdir",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "make_archive",
+      "source_code": "def make_archive(\n    base_name,\n    format,\n    root_dir=None,\n    base_dir=None,\n    verbose=False,\n    dry_run=False,\n    owner=None,\n    group=None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/archive_util.py",
+      "line_number": 207
+    },
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    },
+    {
+      "name": "self._tarinfo",
+      "source_code": "    def _tarinfo(self, path):\n        tar = tarfile.open(path)\n        try:\n            names = tar.getnames()\n            names.sort()\n            return names\n        finally:\n            tar.close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line_number": 104
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._create_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line": 123,
+      "caller": "test_make_archive_bztar",
+      "source_code": "    def _create_files(self):\n        # creating something to tar\n        tmpdir = self.mkdtemp()\n        dist = os.path.join(tmpdir, 'dist')\n        os.mkdir(dist)\n        self.write_file([dist, 'file1'], 'xxx')\n        self.write_file([dist, 'file2'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub'))\n        self.write_file([dist, 'sub', 'file3'], 'xxx')\n        os.mkdir(os.path.join(dist, 'sub2'))\n        return tmpdir\n\n"
+    },
+    {
+      "function": "make_archive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/archive_util.py",
+      "line": 207,
+      "caller": "test_make_archive_bztar",
+      "source_code": "def make_archive(\n    base_name,\n    format,\n    root_dir=None,\n    base_dir=None,\n    verbose=False,\n    dry_run=False,\n    owner=None,\n    group=None,\n"
+    },
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_make_archive_bztar",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    },
+    {
+      "function": "self._tarinfo",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+      "line": 104,
+      "caller": "test_make_archive_bztar",
+      "source_code": "    def _tarinfo(self, path):\n        tar = tarfile.open(path)\n        try:\n            names = tar.getnames()\n            names.sort()\n            return names\n        finally:\n            tar.close()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert os.path.exists(res)",
+    "assert os.path.basename(res) == 'archive.tar.bz2'",
+    "assert self._tarinfo(res) == self._created_files"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_archive_bztar(self):\n        pytest.importorskip('bz2')\n        base_dir = self._create_files()\n        base_name = os.path.join(self.mkdtemp(), 'archive')\n        res = make_archive(base_name, 'bztar', base_dir, 'dist')\n        assert os.path.exists(res)\n        assert os.path.basename(res) == 'archive.tar.bz2'\n        assert self._tarinfo(res) == self._created_files"
+}

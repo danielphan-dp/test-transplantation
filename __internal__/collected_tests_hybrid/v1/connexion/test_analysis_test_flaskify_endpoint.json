@@ -1,0 +1,95 @@
+{
+  "test_name": "test_flaskify_endpoint",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_flask_utils.py",
+  "static_methods": [
+    {
+      "name": "flask_utils.flaskify_endpoint",
+      "source_code": "def flaskify_endpoint(identifier, randomize=None):\n    \"\"\"\n    Converts the provided identifier in a valid flask endpoint name",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/frameworks/flask.py",
+      "line_number": 70
+    },
+    {
+      "name": "res.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "flask_utils.flaskify_endpoint",
+      "source_code": "def flaskify_endpoint(identifier, randomize=None):\n    \"\"\"\n    Converts the provided identifier in a valid flask endpoint name",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/frameworks/flask.py",
+      "line_number": 70
+    },
+    {
+      "name": "flask_utils.flaskify_endpoint",
+      "source_code": "def flaskify_endpoint(identifier, randomize=None):\n    \"\"\"\n    Converts the provided identifier in a valid flask endpoint name",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/frameworks/flask.py",
+      "line_number": 70
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "flask_utils.flaskify_endpoint",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/frameworks/flask.py",
+      "line": 70,
+      "caller": "test_flaskify_endpoint",
+      "source_code": "def flaskify_endpoint(identifier, randomize=None):\n    \"\"\"\n    Converts the provided identifier in a valid flask endpoint name\n\n    :type identifier: str\n    :param randomize: If specified, add this many random characters (upper case\n        and digits) to the endpoint name, separated by a pipe character.\n    :type randomize: int | None\n    :rtype: str\n\n    \"\"\"\n    result = identifier.replace(\".\", \"_\")\n    if randomize is None:\n        return result\n\n    chars = string.ascii_uppercase + string.digits\n    return \"{result}|{random_string}\".format(\n        result=result,\n        random_string=\"\".join(\n            random.SystemRandom().choice(chars) for _ in range(randomize)\n        ),\n    )\n\n\n"
+    },
+    {
+      "function": "res.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_flaskify_endpoint",
+      "source_code": ""
+    },
+    {
+      "function": "flask_utils.flaskify_endpoint",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/frameworks/flask.py",
+      "line": 70,
+      "caller": "test_flaskify_endpoint",
+      "source_code": "def flaskify_endpoint(identifier, randomize=None):\n    \"\"\"\n    Converts the provided identifier in a valid flask endpoint name\n\n    :type identifier: str\n    :param randomize: If specified, add this many random characters (upper case\n        and digits) to the endpoint name, separated by a pipe character.\n    :type randomize: int | None\n    :rtype: str\n\n    \"\"\"\n    result = identifier.replace(\".\", \"_\")\n    if randomize is None:\n        return result\n\n    chars = string.ascii_uppercase + string.digits\n    return \"{result}|{random_string}\".format(\n        result=result,\n        random_string=\"\".join(\n            random.SystemRandom().choice(chars) for _ in range(randomize)\n        ),\n    )\n\n\n"
+    },
+    {
+      "function": "flask_utils.flaskify_endpoint",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/frameworks/flask.py",
+      "line": 70,
+      "caller": "test_flaskify_endpoint",
+      "source_code": "def flaskify_endpoint(identifier, randomize=None):\n    \"\"\"\n    Converts the provided identifier in a valid flask endpoint name\n\n    :type identifier: str\n    :param randomize: If specified, add this many random characters (upper case\n        and digits) to the endpoint name, separated by a pipe character.\n    :type randomize: int | None\n    :rtype: str\n\n    \"\"\"\n    result = identifier.replace(\".\", \"_\")\n    if randomize is None:\n        return result\n\n    chars = string.ascii_uppercase + string.digits\n    return \"{result}|{random_string}\".format(\n        result=result,\n        random_string=\"\".join(\n            random.SystemRandom().choice(chars) for _ in range(randomize)\n        ),\n    )\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_flaskify_endpoint",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_flaskify_endpoint",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert flask_utils.flaskify_endpoint('module.function') == 'module_function'",
+    "assert flask_utils.flaskify_endpoint('function') == 'function'",
+    "assert res.startswith('module_function')",
+    "assert len(res) == len(name) + 1 + randlen"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_flaskify_endpoint():\n    assert flask_utils.flaskify_endpoint(\"module.function\") == \"module_function\"\n    assert flask_utils.flaskify_endpoint(\"function\") == \"function\"\n\n    name = \"module.function\"\n    randlen = 6\n    res = flask_utils.flaskify_endpoint(name, randlen)\n    assert res.startswith(\"module_function\")\n    assert len(res) == len(name) + 1 + randlen"
+}

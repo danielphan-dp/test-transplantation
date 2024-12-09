@@ -1,0 +1,41 @@
+{
+  "test_name": "test_append_form",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "writer.append_form",
+      "source_code": "    def append_form(\n        self,\n        obj: Union[Sequence[Tuple[str, str]], Mapping[str, str]],\n        headers: Optional[Mapping[str, str]] = None,\n    ) -> Payload:\n        \"\"\"Helper to append form urlencoded part.\"\"\"\n        assert isinstance(obj, (Sequence, Mapping))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line_number": 941
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "writer.append_form",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line": 941,
+      "caller": "test_append_form",
+      "source_code": "    def append_form(\n        self,\n        obj: Union[Sequence[Tuple[str, str]], Mapping[str, str]],\n        headers: Optional[Mapping[str, str]] = None,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_append_form",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 1 == len(writer)",
+    "assert part.headers[CONTENT_TYPE] == 'test/passed'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_append_form(self, writer: aiohttp.MultipartWriter) -> None:\n        writer.append_form({\"foo\": \"bar\"}, {CONTENT_TYPE: \"test/passed\"})\n        assert 1 == len(writer)\n        part = writer._parts[0][0]\n        assert part.headers[CONTENT_TYPE] == \"test/passed\""
+}

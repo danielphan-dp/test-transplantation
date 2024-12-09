@@ -1,0 +1,103 @@
+{
+  "test_name": "test_send_one_hundred_websocket_text_messages_with_mask",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_benchmarks_http_websocket.py",
+  "static_methods": [
+    {
+      "name": "WebSocketWriter",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockProtocol",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockTransport",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_send_one_hundred_websocket_text_messages",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "writer.send_frame",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "WebSocketWriter",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_one_hundred_websocket_text_messages_with_mask",
+      "source_code": ""
+    },
+    {
+      "function": "MockProtocol",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_one_hundred_websocket_text_messages_with_mask",
+      "source_code": ""
+    },
+    {
+      "function": "MockTransport",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_one_hundred_websocket_text_messages_with_mask",
+      "source_code": ""
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_send_one_hundred_websocket_text_messages_with_mask",
+      "source_code": ""
+    },
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_one_hundred_websocket_text_messages_with_mask",
+      "source_code": ""
+    },
+    {
+      "function": "_send_one_hundred_websocket_text_messages",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_one_hundred_websocket_text_messages_with_mask",
+      "source_code": ""
+    },
+    {
+      "function": "writer.send_frame",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_one_hundred_websocket_text_messages_with_mask",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_send_one_hundred_websocket_text_messages_with_mask(\n    loop: asyncio.AbstractEventLoop, benchmark: BenchmarkFixture\n) -> None:\n    \"\"\"Benchmark sending 100 masked WebSocket text messages.\"\"\"\n    writer = WebSocketWriter(MockProtocol(loop=loop), MockTransport(), use_mask=True)\n    raw_message = b\"Hello, World!\" * 100\n\n    async def _send_one_hundred_websocket_text_messages() -> None:\n        for _ in range(100):\n            await writer.send_frame(raw_message, WSMsgType.TEXT)\n\n    @benchmark\n    def _run() -> None:\n        loop.run_until_complete(_send_one_hundred_websocket_text_messages())"
+}

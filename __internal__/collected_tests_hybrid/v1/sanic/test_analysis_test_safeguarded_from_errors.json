@@ -1,0 +1,29 @@
+{
+  "test_name": "test_safeguarded_from_errors",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "install_project",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line_number": 1242
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "install_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line": 1242,
+      "caller": "test_safeguarded_from_errors",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'SetuptoolsDeprecationWarning' in out",
+    "assert 'ValueError: TEST_RAISE' in out",
+    "assert '42' in out"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_safeguarded_from_errors(self, tmp_path, venv):\n        \"\"\"Ensure that errors in custom build_py are reported as warnings\"\"\"\n        # Warnings should show up\n        _, out = install_project(\"mypkg\", venv, tmp_path, self.FILES)\n        assert \"SetuptoolsDeprecationWarning\" in out\n        assert \"ValueError: TEST_RAISE\" in out\n        # but installation should be successful\n        out = venv.run([\"python\", \"-c\", \"import mypkg.mod1; print(mypkg.mod1.var)\"])\n        assert \"42\" in out"
+}

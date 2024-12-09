@@ -1,0 +1,90 @@
+{
+  "test_name": "test_request_id_generates_from_request",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Request.generate_id.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_id_generates_from_request",
+      "source_code": ""
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id_generates_from_request",
+      "source_code": ""
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_id_generates_from_request",
+      "source_code": ""
+    },
+    {
+      "function": "Request.generate_id.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id_generates_from_request",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id_generates_from_request",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id_generates_from_request",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_id_generates_from_request(monkeypatch):\n    monkeypatch.setattr(Request, \"generate_id\", Mock())\n    Request.generate_id.return_value = 1\n    request = Request(b\"/\", {}, None, \"GET\", None, Mock())\n    request.app.config.REQUEST_ID_HEADER = \"foo\"\n\n    for _ in range(10):\n        request.id\n    Request.generate_id.assert_called_once_with(request)"
+}

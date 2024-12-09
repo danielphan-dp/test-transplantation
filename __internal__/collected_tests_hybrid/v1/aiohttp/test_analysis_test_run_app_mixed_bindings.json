@@ -1,0 +1,54 @@
+{
+  "test_name": "test_run_app_mixed_bindings",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.run_app",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n    ) -> Tuple[\"asyncio.Task[None]\", int]:\n        num_connections = -1\n        t = test_task = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 1007
+    },
+    {
+      "name": "stopper",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 99
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_mixed_bindings",
+      "source_code": ""
+    },
+    {
+      "function": "web.run_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 1007,
+      "caller": "test_run_app_mixed_bindings",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n"
+    },
+    {
+      "function": "stopper",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 99,
+      "caller": "test_run_app_mixed_bindings",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt\n\n    def f(*args: object) -> None:\n        loop.call_soon(raiser)\n\n    return f\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert patched_loop.create_unix_server.mock_calls == expected_unix_server_calls",
+    "assert patched_loop.create_server.mock_calls == expected_server_calls"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_app_mixed_bindings(\n    run_app_kwargs: Dict[str, Any],\n    expected_server_calls: List[mock._Call],\n    expected_unix_server_calls: List[mock._Call],\n    patched_loop: asyncio.AbstractEventLoop,\n) -> None:\n    app = web.Application()\n    web.run_app(app, print=stopper(patched_loop), **run_app_kwargs, loop=patched_loop)\n\n    assert patched_loop.create_unix_server.mock_calls == expected_unix_server_calls  # type: ignore[attr-defined]\n    assert patched_loop.create_server.mock_calls == expected_server_calls"
+}

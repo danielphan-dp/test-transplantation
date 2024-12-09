@@ -1,0 +1,90 @@
+{
+  "test_name": "test_factory_as_object",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config._add_predicate",
+      "source_code": "    def _add_predicate(\n        self, type, name, factory, weighs_more_than=None, weighs_less_than=None\n    ):\n        factory = self.maybe_dotted(factory)\n        discriminator = ('%s option' % type, name)\n        intr = self.introspectable(\n            '%s predicates' % type,\n            discriminator,\n            f'{type} predicate named {name}',\n            '%s predicate' % type,\n        )\n        intr['name'] = name\n        intr['factory'] = factory\n        intr['weighs_more_than'] = weighs_more_than\n        intr['weighs_less_than'] = weighs_less_than",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/predicates.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_factory_as_object",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config._add_predicate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/predicates.py",
+      "line": 22,
+      "caller": "test_factory_as_object",
+      "source_code": "    def _add_predicate(\n        self, type, name, factory, weighs_more_than=None, weighs_less_than=None\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_factory_as_object",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_factory_as_object",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_factory_as_object",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_factory_as_object",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_factory_as_object(self):\n        config = self._makeOne()\n\n        def _fakeAction(\n            discriminator,\n            callable=None,\n            args=(),\n            kw=None,\n            order=0,\n            introspectables=(),\n            **extra,\n        ):\n            self.assertEqual(len(introspectables), 1)\n            self.assertEqual(introspectables[0]['name'], 'testing')\n            self.assertEqual(introspectables[0]['factory'], DummyPredicate)\n\n        config.action = _fakeAction\n        config._add_predicate('route', 'testing', DummyPredicate)"
+}

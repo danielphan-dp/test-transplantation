@@ -1,0 +1,103 @@
+{
+  "test_name": "test_unicode_content_in_sdist",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ensure_dir",
+      "source_code": "    def ensure_dir(self, path):\n        path = os.path.abspath(path)\n        if path not in self.ensured and not os.path.exists(path):\n            self.ensured.add(path)\n            d, f = os.path.split(path)\n            self.ensure_dir(d)\n            logger.info('Creating %s' % path)\n            if not self.dry_run:\n                os.mkdir(path)\n            if self.record:\n                self.dirs_created.add(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 577
+    },
+    {
+      "name": "ei.easy_install",
+      "source_code": "    def easy_install(self, spec, deps: bool = False) -> Distribution | None:\n        with self._tmpdir() as tmpdir:\n            if not isinstance(spec, Requirement):\n                if URL_SCHEME(spec):\n                    # It's a url, download it to tmpdir and process\n                    self.not_editable(spec)\n                    dl = self.package_index.download(spec, tmpdir)\n                    return self.install_item(None, dl, tmpdir, deps, True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line_number": 675
+    },
+    {
+      "name": "monkeypatch.setitem",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "fail_on_ascii",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unicode_content_in_sdist",
+      "source_code": ""
+    },
+    {
+      "function": "ensure_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 577,
+      "caller": "test_unicode_content_in_sdist",
+      "source_code": "    def ensure_dir(self, path):\n        path = os.path.abspath(path)\n        if path not in self.ensured and not os.path.exists(path):\n            self.ensured.add(path)\n            d, f = os.path.split(path)\n            self.ensure_dir(d)\n            logger.info('Creating %s' % path)\n            if not self.dry_run:\n                os.mkdir(path)\n            if self.record:\n                self.dirs_created.add(path)\n\n"
+    },
+    {
+      "function": "ei.easy_install",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/easy_install.py",
+      "line": 675,
+      "caller": "test_unicode_content_in_sdist",
+      "source_code": "    def easy_install(self, spec, deps: bool = False) -> Distribution | None:\n        with self._tmpdir() as tmpdir:\n            if not isinstance(spec, Requirement):\n                if URL_SCHEME(spec):\n                    # It's a url, download it to tmpdir and process\n                    self.not_editable(spec)\n                    dl = self.package_index.download(spec, tmpdir)\n                    return self.install_item(None, dl, tmpdir, deps, True)\n\n                elif os.path.exists(spec):\n                    # Existing file or directory, just process it directly\n                    self.not_editable(spec)\n                    return self.install_item(None, spec, tmpdir, deps, True)\n                else:\n                    spec = parse_requirement_arg(spec)\n\n            self.check_editable(spec)\n            dist = self.package_index.fetch_distribution(\n                spec,\n                tmpdir,\n                self.upgrade,\n                self.editable,\n                not self.always_copy,\n                self.local_index,\n            )\n            if dist is None:\n                msg = \"Could not find suitable distribution for %r\" % spec\n                if self.always_copy:\n                    msg += \" (--always-copy skips system and development eggs)\"\n                raise DistutilsError(msg)\n            elif dist.precedence == DEVELOP_DIST:\n                # .egg-info dists don't need installing, just process deps\n                self.process_distribution(spec, dist, deps, \"Using\")\n                return dist\n            else:\n                return self.install_item(spec, dist.location, tmpdir, deps)\n\n"
+    },
+    {
+      "function": "monkeypatch.setitem",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unicode_content_in_sdist",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_unicode_content_in_sdist",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_unicode_content_in_sdist",
+      "source_code": ""
+    },
+    {
+      "function": "fail_on_ascii",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unicode_content_in_sdist",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unicode_content_in_sdist(\n        self, sdist_unicode_in_script, tmpdir, monkeypatch\n    ):\n        \"\"\"\n        The install command should execute correctly even if\n        the package has unicode in scripts.\n        \"\"\"\n        dist = Distribution({\"script_args\": [\"easy_install\"]})\n        target = (tmpdir / \"target\").ensure_dir()\n        cmd = ei.easy_install(dist, install_dir=str(target), args=[\"x\"])\n        monkeypatch.setitem(os.environ, \"PYTHONPATH\", str(target))\n        cmd.ensure_finalized()\n        cmd.easy_install(sdist_unicode_in_script)"
+}

@@ -1,0 +1,77 @@
+{
+  "test_name": "test_custom_serializer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_session.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummySerializer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "serializer.dumps",
+      "source_code": "    def dumps(self, request, response, body=None):\n        response_headers = CaseInsensitiveDict(response.headers)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line_number": 28
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_serializer",
+      "source_code": ""
+    },
+    {
+      "function": "DummySerializer",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_serializer",
+      "source_code": ""
+    },
+    {
+      "function": "serializer.dumps",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line": 28,
+      "caller": "test_custom_serializer",
+      "source_code": "    def dumps(self, request, response, body=None):\n        response_headers = CaseInsensitiveDict(response.headers)\n\n        if body is None:\n            # When a body isn't passed in, we'll read the response. We\n            # also update the response with a new file handler to be\n            # sure it acts as though it was never read.\n            body = response.read(decode_content=False)\n            response._fp = io.BytesIO(body)\n\n        # NOTE: This is all a bit weird, but it's really important that on\n        #       Python 2.x these objects are unicode and not str, even when\n        #       they contain only ascii. The problem here is that msgpack\n        #       understands the difference between unicode and bytes and we\n        #       have it set to differentiate between them, however Python 2\n        #       doesn't know the difference. Forcing these to unicode will be\n        #       enough to have msgpack know the difference.\n        data = {\n            u\"response\": {\n                u\"body\": body,  # Empty bytestring if body is stored separately\n                u\"headers\": dict(\n                    (text_type(k), text_type(v)) for k, v in response.headers.items()\n                ),\n                u\"status\": response.status,\n                u\"version\": response.version,\n                u\"reason\": text_type(response.reason),\n                u\"strict\": response.strict,\n                u\"decode_content\": response.decode_content,\n            }\n        }\n\n        # Construct our vary headers\n        data[u\"vary\"] = {}\n        if u\"vary\" in response_headers:\n            varied_headers = response_headers[u\"vary\"].split(\",\")\n            for header in varied_headers:\n                header = text_type(header).strip()\n                header_value = request.headers.get(header, None)\n                if header_value is not None:\n                    header_value = text_type(header_value)\n                data[u\"vary\"][header] = header_value\n\n        return b\",\".join([b\"cc=4\", msgpack.dumps(data, use_bin_type=True)])\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_custom_serializer",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_serializer",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_custom_serializer(self):\n        import base64\n        from hashlib import sha512\n        import hmac\n        import time\n\n        request = testing.DummyRequest()\n        serializer = DummySerializer()\n        cstruct = serializer.dumps((time.time(), 0, {'state': 1}))\n        sig = hmac.new(b'pyramid.session.secret', cstruct, sha512).digest()\n        cookieval = base64.urlsafe_b64encode(sig + cstruct).rstrip(b'=')\n        request.cookies['session'] = cookieval\n        session = self._makeOne(request, serializer=serializer)\n        self.assertEqual(session['state'], 1)"
+}

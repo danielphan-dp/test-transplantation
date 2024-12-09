@@ -1,0 +1,79 @@
+{
+  "test_name": "test_no_content",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response.py",
+  "static_methods": [
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_app.test_client.delete",
+      "source_code": "    def delete(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 20
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_no_content",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_no_content",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_no_content",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_app.test_client.delete",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 20,
+      "caller": "test_no_content",
+      "source_code": "    def delete(self, key):\n        raise NotImplementedError()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 204",
+    "assert response.text == ''",
+    "assert 'Content-Length' not in response.headers",
+    "assert response.status == 304",
+    "assert response.text == ''",
+    "assert 'Content-Length' not in response.headers",
+    "assert 'Content-Type' not in response.headers",
+    "assert response.status == 304",
+    "assert response.text == ''",
+    "assert 'Content-Length' not in response.headers",
+    "assert 'Content-Type' not in response.headers",
+    "assert response.status == 204",
+    "assert response.text == ''",
+    "assert 'Content-Length' not in response.headers"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_no_content(json_app):\n    request, response = json_app.test_client.get(\"/no-content\")\n    assert response.status == 204\n    assert response.text == \"\"\n    assert \"Content-Length\" not in response.headers\n\n    request, response = json_app.test_client.get(\"/no-content/unmodified\")\n    assert response.status == 304\n    assert response.text == \"\"\n    assert \"Content-Length\" not in response.headers\n    assert \"Content-Type\" not in response.headers\n\n    request, response = json_app.test_client.get(\"/unmodified\")\n    assert response.status == 304\n    assert response.text == \"\"\n    assert \"Content-Length\" not in response.headers\n    assert \"Content-Type\" not in response.headers\n\n    request, response = json_app.test_client.delete(\"/\")\n    assert response.status == 204\n    assert response.text == \"\"\n    assert \"Content-Length\" not in response.headers"
+}

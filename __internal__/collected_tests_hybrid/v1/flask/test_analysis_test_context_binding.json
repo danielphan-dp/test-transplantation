@@ -1,6 +1,6 @@
 {
   "test_name": "test_context_binding",
-  "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
     {
       "name": "app.test_request_context",
@@ -40,9 +40,9 @@
     },
     {
       "name": "index",
-      "source_code": "def index(js):\n    return render_template(f\"{js}.html\", js=js)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line_number": 10
+      "source_code": "    def index(self, key: str | tuple[str, float]) -> int:  # type: ignore[override]\n        \"\"\"Get the position of an entry or raise :exc:`ValueError`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line_number": 110
     },
     {
       "name": "meh",
@@ -96,10 +96,10 @@
     },
     {
       "function": "index",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line": 10,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line": 110,
       "caller": "test_context_binding",
-      "source_code": "@app.route(\"/\", defaults={\"js\": \"fetch\"})\n@app.route(\"/<any(xhr, jquery, fetch):js>\")\ndef index(js):\n    return render_template(f\"{js}.html\", js=js)\n\n\n"
+      "source_code": "    def index(self, key: str | tuple[str, float]) -> int:  # type: ignore[override]\n        \"\"\"Get the position of an entry or raise :exc:`ValueError`.\n\n        :param key: The key to be looked up.\n\n        .. versionchanged:: 0.5\n           This used to raise :exc:`IndexError`, which was inconsistent\n           with the list API.\n        \"\"\"\n        if isinstance(key, str):\n            for idx, (item, _quality) in enumerate(self):\n                if self._value_matches(key, item):\n                    return idx\n            raise ValueError(key)\n        return list.index(self, key)\n\n"
     },
     {
       "function": "meh",

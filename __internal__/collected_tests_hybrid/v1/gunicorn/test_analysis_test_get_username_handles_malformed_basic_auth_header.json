@@ -1,0 +1,79 @@
+{
+  "test_name": "test_get_username_handles_malformed_basic_auth_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_logger.py",
+  "static_methods": [
+    {
+      "name": "SimpleNamespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SimpleNamespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Logger",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "logger.atoms",
+      "source_code": "    def atoms(self, resp, req, environ, request_time):\n        \"\"\" Gets atoms for log formatting.\n        \"\"\"\n        status = resp.status\n        if isinstance(status, str):\n            status = status.split(None, 1)[0]\n        atoms = {\n            'h': environ.get('REMOTE_ADDR', '-'),\n            'l': '-',\n            'u': self._get_user(environ) or '-',\n            't': self.now(),\n            'r': \"%s %s %s\" % (environ['REQUEST_METHOD'],\n                               environ['RAW_URI'],\n                               environ[\"SERVER_PROTOCOL\"]),\n            's': status,\n            'm': environ.get('REQUEST_METHOD'),\n            'U': environ.get('PATH_INFO'),\n            'q': environ.get('QUERY_STRING'),\n            'H': environ.get('SERVER_PROTOCOL'),\n            'b': getattr(resp, 'sent', None) is not None and str(resp.sent) or '-',\n            'B': getattr(resp, 'sent', None),\n            'f': environ.get('HTTP_REFERER', '-'),\n            'a': environ.get('HTTP_USER_AGENT', '-'),\n            'T': request_time.seconds,\n            'D': (request_time.seconds * 1000000) + request_time.microseconds,\n            'M': (request_time.seconds * 1000) + int(request_time.microseconds / 1000),\n            'L': \"%d.%06d\" % (request_time.seconds, request_time.microseconds),\n            'p': \"<%s>\" % os.getpid()\n        }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/glogging.py",
+      "line_number": 290
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SimpleNamespace",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_username_handles_malformed_basic_auth_header",
+      "source_code": ""
+    },
+    {
+      "function": "SimpleNamespace",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_username_handles_malformed_basic_auth_header",
+      "source_code": ""
+    },
+    {
+      "function": "Logger",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_username_handles_malformed_basic_auth_header",
+      "source_code": ""
+    },
+    {
+      "function": "logger.atoms",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/glogging.py",
+      "line": 290,
+      "caller": "test_get_username_handles_malformed_basic_auth_header",
+      "source_code": "    def atoms(self, resp, req, environ, request_time):\n        \"\"\" Gets atoms for log formatting.\n        \"\"\"\n        status = resp.status\n        if isinstance(status, str):\n            status = status.split(None, 1)[0]\n        atoms = {\n            'h': environ.get('REMOTE_ADDR', '-'),\n            'l': '-',\n            'u': self._get_user(environ) or '-',\n            't': self.now(),\n            'r': \"%s %s %s\" % (environ['REQUEST_METHOD'],\n                               environ['RAW_URI'],\n                               environ[\"SERVER_PROTOCOL\"]),\n            's': status,\n            'm': environ.get('REQUEST_METHOD'),\n            'U': environ.get('PATH_INFO'),\n            'q': environ.get('QUERY_STRING'),\n            'H': environ.get('SERVER_PROTOCOL'),\n            'b': getattr(resp, 'sent', None) is not None and str(resp.sent) or '-',\n            'B': getattr(resp, 'sent', None),\n            'f': environ.get('HTTP_REFERER', '-'),\n            'a': environ.get('HTTP_USER_AGENT', '-'),\n            'T': request_time.seconds,\n            'D': (request_time.seconds * 1000000) + request_time.microseconds,\n            'M': (request_time.seconds * 1000) + int(request_time.microseconds / 1000),\n            'L': \"%d.%06d\" % (request_time.seconds, request_time.microseconds),\n            'p': \"<%s>\" % os.getpid()\n        }\n\n        # add request headers\n        if hasattr(req, 'headers'):\n            req_headers = req.headers\n        else:\n            req_headers = req\n\n        if hasattr(req_headers, \"items\"):\n            req_headers = req_headers.items()\n\n        atoms.update({\"{%s}i\" % k.lower(): v for k, v in req_headers})\n\n        resp_headers = resp.headers\n        if hasattr(resp_headers, \"items\"):\n            resp_headers = resp_headers.items()\n\n        # add response headers\n        atoms.update({\"{%s}o\" % k.lower(): v for k, v in resp_headers})\n\n        # add environ variables\n        environ_variables = environ.items()\n        atoms.update({\"{%s}e\" % k.lower(): v for k, v in environ_variables})\n\n        return atoms\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_username_handles_malformed_basic_auth_header",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert atoms['u'] == '-'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_username_handles_malformed_basic_auth_header():\n    \"\"\"Should catch a malformed auth header\"\"\"\n    request = SimpleNamespace(headers=())\n    response = SimpleNamespace(\n        status='200', response_length=1024, sent=1024,\n        headers=(('Content-Type', 'text/plain'),),\n    )\n    environ = {\n        'REQUEST_METHOD': 'GET', 'RAW_URI': '/my/path?foo=bar',\n        'PATH_INFO': '/my/path', 'QUERY_STRING': 'foo=bar',\n        'SERVER_PROTOCOL': 'HTTP/1.1',\n        'HTTP_AUTHORIZATION': 'Basic ixsTtkKzIpVTncfQjbBcnoRNoDfbnaXG',\n    }\n    logger = Logger(Config())\n\n    atoms = logger.atoms(response, request, environ, datetime.timedelta(seconds=1))\n    assert atoms['u'] == '-'"
+}

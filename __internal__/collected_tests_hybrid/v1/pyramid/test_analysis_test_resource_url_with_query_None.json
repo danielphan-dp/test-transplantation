@@ -1,0 +1,77 @@
+{
+  "test_name": "test_resource_url_with_query_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._registerResourceURL",
+      "source_code": "    def _registerResourceURL(self, reg):\n        from zope.interface import Interface",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+      "line_number": 33
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.resource_url",
+      "source_code": "def resource_url(resource, request, *elements, **kw):\n    \"\"\"\n    This is a backwards compatibility function.  Its result is the same as\n    calling::",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/url.py",
+      "line_number": 807
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_resource_url_with_query_None",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._registerResourceURL",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+      "line": 33,
+      "caller": "test_resource_url_with_query_None",
+      "source_code": "    def _registerResourceURL(self, reg):\n        from zope.interface import Interface\n\n        from pyramid.interfaces import IResourceURL\n\n        class DummyResourceURL:\n            physical_path = '/context/'\n            virtual_path = '/context/'\n\n            def __init__(self, context, request):\n                pass\n\n        reg.registerAdapter(\n            DummyResourceURL, (Interface, Interface), IResourceURL\n        )\n        return DummyResourceURL\n\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_url_with_query_None",
+      "source_code": ""
+    },
+    {
+      "function": "request.resource_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/url.py",
+      "line": 807,
+      "caller": "test_resource_url_with_query_None",
+      "source_code": "def resource_url(resource, request, *elements, **kw):\n    \"\"\"\n    This is a backwards compatibility function.  Its result is the same as\n    calling::\n\n        request.resource_url(resource, *elements, **kw)\n\n    See :meth:`pyramid.request.Request.resource_url` for more information.\n    \"\"\"\n    return request.resource_url(resource, *elements, **kw)\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_url_with_query_None",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resource_url_with_query_None(self):\n        request = self._makeOne()\n        self._registerResourceURL(request.registry)\n        context = DummyContext()\n        result = request.resource_url(context, 'a', query=None)\n        self.assertEqual(result, 'http://example.com:5432/context/a')"
+}

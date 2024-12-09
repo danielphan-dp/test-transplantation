@@ -1,0 +1,93 @@
+{
+  "test_name": "test_add_converter_multiple_times",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.register_type",
+      "source_code": "    def register_type(self, converter: Callable[[str], Any]) -> None:\n        \"\"\"Register a custom type converter.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/config.py",
+      "line_number": 413
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.register_type",
+      "source_code": "    def register_type(self, converter: Callable[[str], Any]) -> None:\n        \"\"\"Register a custom type converter.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/config.py",
+      "line_number": 413
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_converter_multiple_times",
+      "source_code": ""
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_converter_multiple_times",
+      "source_code": ""
+    },
+    {
+      "function": "config.register_type",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/config.py",
+      "line": 413,
+      "caller": "test_add_converter_multiple_times",
+      "source_code": "    def register_type(self, converter: Callable[[str], Any]) -> None:\n        \"\"\"Register a custom type converter.\n\n        Allows for adding custom function to cast from a string value to any\n        other type. The function should raise ValueError if it is not the\n        correct type.\n\n        Args:\n            converter (Callable[[str], Any]): A function that takes a string\n                and returns a value of any type.\n\n        Examples:\n            ```python\n            def my_converter(value: str) -> Any:\n                # Do something to convert the value\n                return value\n\n            config.register_type(my_converter)\n            ```\n        \"\"\"\n        if converter in self._converters:\n            error_logger.warning(\n                f\"Configuration value converter '{converter.__name__}' has \"\n                \"already been registered\"\n            )\n            return\n        self._converters.append(converter)\n"
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_converter_multiple_times",
+      "source_code": ""
+    },
+    {
+      "function": "config.register_type",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/config.py",
+      "line": 413,
+      "caller": "test_add_converter_multiple_times",
+      "source_code": "    def register_type(self, converter: Callable[[str], Any]) -> None:\n        \"\"\"Register a custom type converter.\n\n        Allows for adding custom function to cast from a string value to any\n        other type. The function should raise ValueError if it is not the\n        correct type.\n\n        Args:\n            converter (Callable[[str], Any]): A function that takes a string\n                and returns a value of any type.\n\n        Examples:\n            ```python\n            def my_converter(value: str) -> Any:\n                # Do something to convert the value\n                return value\n\n            config.register_type(my_converter)\n            ```\n        \"\"\"\n        if converter in self._converters:\n            error_logger.warning(\n                f\"Configuration value converter '{converter.__name__}' has \"\n                \"already been registered\"\n            )\n            return\n        self._converters.append(converter)\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_converter_multiple_times",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ('sanic.error', logging.WARNING, message) in caplog.record_tuples",
+    "assert len(config._converters) == 5"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_converter_multiple_times(caplog):\n    def converter(): ...\n\n    message = (\n        \"Configuration value converter 'converter' has already been registered\"\n    )\n    config = Config()\n    config.register_type(converter)\n    with caplog.at_level(logging.WARNING):\n        config.register_type(converter)\n\n    assert (\"sanic.error\", logging.WARNING, message) in caplog.record_tuples\n    assert len(config._converters) == 5"
+}

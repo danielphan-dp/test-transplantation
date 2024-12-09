@@ -1,0 +1,93 @@
+{
+  "test_name": "test_setup_loop_non_main_thread",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_loop.py",
+  "static_methods": [
+    {
+      "name": "t.start",
+      "source_code": "    def start(self):\n        self.update(self.min)\n        return self",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1304
+    },
+    {
+      "name": "t.join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "loop_context",
+      "source_code": "def loop_context(\n    loop_factory: _LOOP_FACTORY = asyncio.new_event_loop, fast: bool = False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 536
+    },
+    {
+      "name": "loop_context",
+      "source_code": "def loop_context(\n    loop_factory: _LOOP_FACTORY = asyncio.new_event_loop, fast: bool = False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 536
+    },
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_subprocess_co",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "t.start",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1304,
+      "caller": "test_setup_loop_non_main_thread",
+      "source_code": "    def start(self):\n        self.update(self.min)\n        return self\n\n"
+    },
+    {
+      "function": "t.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_setup_loop_non_main_thread",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "loop_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 536,
+      "caller": "test_setup_loop_non_main_thread",
+      "source_code": "@contextlib.contextmanager\ndef loop_context(\n    loop_factory: _LOOP_FACTORY = asyncio.new_event_loop, fast: bool = False\n"
+    },
+    {
+      "function": "loop_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 536,
+      "caller": "test_setup_loop_non_main_thread",
+      "source_code": "@contextlib.contextmanager\ndef loop_context(\n    loop_factory: _LOOP_FACTORY = asyncio.new_event_loop, fast: bool = False\n"
+    },
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_loop_non_main_thread",
+      "source_code": ""
+    },
+    {
+      "function": "test_subprocess_co",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_loop_non_main_thread",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert child_exc is None",
+    "assert asyncio.get_event_loop_policy().get_event_loop() is loop"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_setup_loop_non_main_thread() -> None:\n    child_exc = None\n\n    def target() -> None:\n        try:\n            with loop_context() as loop:\n                assert asyncio.get_event_loop_policy().get_event_loop() is loop\n                loop.run_until_complete(test_subprocess_co(loop))\n        except Exception as exc:\n            nonlocal child_exc\n            child_exc = exc\n\n    # Ensures setup_test_loop can be called by pytest-xdist in non-main thread.\n    t = threading.Thread(target=target)\n    t.start()\n    t.join()\n\n    assert child_exc is None"
+}

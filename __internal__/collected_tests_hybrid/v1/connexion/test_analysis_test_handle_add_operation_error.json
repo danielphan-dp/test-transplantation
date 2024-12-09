@@ -1,0 +1,90 @@
+{
+  "test_name": "test_handle_add_operation_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/api/test_bootstrap.py",
+  "static_methods": [
+    {
+      "name": "App",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.add_api",
+      "source_code": "    def add_api(\n        self,\n        specification: t.Union[pathlib.Path, str, dict],\n        *,\n        base_path: t.Optional[str] = None,\n        name: t.Optional[str] = None,\n        arguments: t.Optional[dict] = None,\n        auth_all_paths: t.Optional[bool] = None,\n        jsonifier: t.Optional[Jsonifier] = None,\n        pythonic_params: t.Optional[bool] = None,\n        resolver: t.Optional[t.Union[Resolver, t.Callable]] = None,\n        resolver_error: t.Optional[int] = None,\n        strict_validation: t.Optional[bool] = None,\n        swagger_ui_options: t.Optional[SwaggerUIOptions] = None,\n        uri_parser_class: t.Optional[AbstractURIParser] = None,\n        validate_responses: t.Optional[bool] = None,\n        validator_map: t.Optional[dict] = None,\n        security_map: t.Optional[dict] = None,\n        **kwargs,\n    ) -> t.Any:\n        \"\"\"\n        Register an API represented by a single OpenAPI specification on this application.\n        Multiple APIs can be registered on a single application.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/apps/abstract.py",
+      "line_number": 122
+    },
+    {
+      "name": "app.middleware._build_middleware_stack",
+      "source_code": "    def _build_middleware_stack(self) -> t.Tuple[ASGIApp, t.Iterable[ASGIApp]]:\n        \"\"\"Apply all middlewares to the provided app.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/middleware/main.py",
+      "line_number": 315
+    },
+    {
+      "name": "Exception",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "App",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handle_add_operation_error",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_handle_add_operation_error",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handle_add_operation_error",
+      "source_code": ""
+    },
+    {
+      "function": "app.add_api",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/apps/abstract.py",
+      "line": 122,
+      "caller": "test_handle_add_operation_error",
+      "source_code": "    def add_api(\n        self,\n        specification: t.Union[pathlib.Path, str, dict],\n        *,\n        base_path: t.Optional[str] = None,\n        name: t.Optional[str] = None,\n        arguments: t.Optional[dict] = None,\n        auth_all_paths: t.Optional[bool] = None,\n        jsonifier: t.Optional[Jsonifier] = None,\n        pythonic_params: t.Optional[bool] = None,\n        resolver: t.Optional[t.Union[Resolver, t.Callable]] = None,\n        resolver_error: t.Optional[int] = None,\n        strict_validation: t.Optional[bool] = None,\n        swagger_ui_options: t.Optional[SwaggerUIOptions] = None,\n        uri_parser_class: t.Optional[AbstractURIParser] = None,\n        validate_responses: t.Optional[bool] = None,\n        validator_map: t.Optional[dict] = None,\n        security_map: t.Optional[dict] = None,\n        **kwargs,\n"
+    },
+    {
+      "function": "app.middleware._build_middleware_stack",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/middleware/main.py",
+      "line": 315,
+      "caller": "test_handle_add_operation_error",
+      "source_code": "    def _build_middleware_stack(self) -> t.Tuple[ASGIApp, t.Iterable[ASGIApp]]:\n        \"\"\"Apply all middlewares to the provided app.\n\n        :return: Tuple of the outer middleware wrapping the application and a list of the wrapped\n            middlewares, including the wrapped application.\n        \"\"\"\n        # Include the wrapped application in the returned list.\n        app = self.app\n        apps = [app]\n        for middleware in reversed(self.middlewares):\n            arguments, _ = inspect_function_arguments(middleware)\n            if \"lifespan\" in arguments:\n                app = middleware(app, lifespan=self.lifespan)  # type: ignore\n            else:\n                app = middleware(app)  # type: ignore\n            apps.append(app)\n\n        # We sort the APIs by base path so that the most specific APIs are registered first.\n        # This is due to the way Starlette matches routes.\n        self.apis = utils.sort_apis_by_basepath(self.apis)\n        for app in apps:\n            if isinstance(app, SpecMiddleware):\n                for api in self.apis:\n                    app.add_api(\n                        api.specification,\n                        base_path=api.base_path,\n                        **api.kwargs,\n                    )\n\n            if isinstance(app, ExceptionMiddleware):\n                for error_handler in self.error_handlers:\n                    app.add_exception_handler(*error_handler)\n\n        return app, list(reversed(apps))\n\n"
+    },
+    {
+      "function": "Exception",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_handle_add_operation_error",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_handle_add_operation_error(simple_api_spec_dir, monkeypatch):\n    app = App(__name__, specification_dir=simple_api_spec_dir)\n    monkeypatch.setattr(\n        AbstractRoutingAPI,\n        \"add_operation\",\n        mock.MagicMock(side_effect=Exception(\"operation error!\")),\n    )\n    with pytest.raises(Exception):\n        app.add_api(\"swagger.yaml\", resolver=lambda oid: (lambda foo: \"bar\"))\n        app.middleware._build_middleware_stack()"
+}

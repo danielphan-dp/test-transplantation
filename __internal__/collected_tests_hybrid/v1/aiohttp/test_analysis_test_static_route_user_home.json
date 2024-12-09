@@ -1,0 +1,66 @@
+{
+  "test_name": "test_static_route_user_home",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_static",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n    ) -> StaticResource:\n        \"\"\"Add static files view.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1152
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "here.relative_to",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "route.get_info",
+      "source_code": "    def get_info(self) -> _InfoDict:\n        \"\"\"Return a dict with additional info useful for introspection\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 154
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1152,
+      "caller": "test_static_route_user_home",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_static_route_user_home",
+      "source_code": ""
+    },
+    {
+      "function": "here.relative_to",
+      "filename": "",
+      "line": 0,
+      "caller": "test_static_route_user_home",
+      "source_code": ""
+    },
+    {
+      "function": "route.get_info",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 154,
+      "caller": "test_static_route_user_home",
+      "source_code": "    @abc.abstractmethod\n    def get_info(self) -> _InfoDict:\n        \"\"\"Return a dict with additional info useful for introspection\"\"\"\n\n"
+    }
+  ],
+  "assertions": [
+    "assert here == route.get_info()['directory']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_static_route_user_home(router: web.UrlDispatcher) -> None:\n    here = pathlib.Path(aiohttp.__file__).parent\n    try:\n        static_dir = pathlib.Path(\"~\") / here.relative_to(pathlib.Path.home())\n    except ValueError:\n        pytest.skip(\"aiohttp folder is not placed in user's HOME\")\n    route = router.add_static(\"/st\", str(static_dir))\n    assert here == route.get_info()[\"directory\"]"
+}

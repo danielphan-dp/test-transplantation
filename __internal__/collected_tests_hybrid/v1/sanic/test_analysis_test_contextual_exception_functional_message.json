@@ -1,0 +1,68 @@
+{
+  "test_name": "test_contextual_exception_functional_message",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "app.test_client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "TeapotError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contextual_exception_functional_message",
+      "source_code": ""
+    },
+    {
+      "function": "app.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_contextual_exception_functional_message",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "app.test_client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_contextual_exception_functional_message",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "TeapotError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contextual_exception_functional_message",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 418",
+    "assert response.json['message'] == error_message",
+    "assert response.json['context'] == {'foo': 'bar'}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_contextual_exception_functional_message(override):\n    app = Sanic(\"Test\")\n\n    class TeapotError(SanicException):\n        status_code = 418\n\n        @property\n        def message(self):\n            return f\"Received foo={self.context['foo']}\"\n\n    @app.post(\"/coffee\", error_format=\"json\")\n    async def make_coffee(_):\n        error_args = {\"context\": {\"foo\": \"bar\"}}\n        if override:\n            error_args[\"message\"] = \"override\"\n        raise TeapotError(**error_args)\n\n    _, response = app.test_client.post(\"/coffee\", debug=True)\n    error_message = \"override\" if override else \"Received foo=bar\"\n    assert response.status == 418\n    assert response.json[\"message\"] == error_message\n    assert response.json[\"context\"] == {\"foo\": \"bar\"}"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_call_get_possible_files_is_not_cached",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_static.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "inst.get_possible_files",
+      "source_code": "    def get_possible_files(self, resource_name):\n        \"\"\"Return a sorted list of ``(size, encoding, path)`` entries.\"\"\"\n        result = self.filemap.get(resource_name)\n        if result is not None:\n            return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/static.py",
+      "line_number": 187
+    },
+    {
+      "name": "inst.get_possible_files",
+      "source_code": "    def get_possible_files(self, resource_name):\n        \"\"\"Return a sorted list of ``(size, encoding, path)`` entries.\"\"\"\n        result = self.filemap.get(resource_name)\n        if result is not None:\n            return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/static.py",
+      "line_number": 187
+    },
+    {
+      "name": "self.assertIsNot",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_call_get_possible_files_is_not_cached",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "inst.get_possible_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/static.py",
+      "line": 187,
+      "caller": "test_call_get_possible_files_is_not_cached",
+      "source_code": "    def get_possible_files(self, resource_name):\n        \"\"\"Return a sorted list of ``(size, encoding, path)`` entries.\"\"\"\n        result = self.filemap.get(resource_name)\n        if result is not None:\n            return result\n\n        # XXX we could put a lock around this work but worst case scenario a\n        # couple requests scan the disk for files at the same time and then\n        # the cache is set going forward so do not bother\n        result = []\n\n        # add the identity\n        path = self.find_resource_path(resource_name)\n        if path:\n            result.append((path, None))\n\n        # add each file we find for the supported encodings\n        # we don't mind adding multiple files for the same encoding if there\n        # are copies with different extensions because we sort by size so the\n        # smallest is always found first and the rest ignored\n        for encoding, extensions in self.content_encodings.items():\n            for ext in extensions:\n                encoded_name = resource_name + ext\n                path = self.find_resource_path(encoded_name)\n                if path:\n                    result.append((path, encoding))\n\n        # sort the files by size, smallest first\n        result.sort(key=lambda x: getsize(x[0]))\n\n        # only cache the results if reload is disabled\n        if not self.reload:\n            self.filemap[resource_name] = result\n        return result\n\n"
+    },
+    {
+      "function": "inst.get_possible_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/static.py",
+      "line": 187,
+      "caller": "test_call_get_possible_files_is_not_cached",
+      "source_code": "    def get_possible_files(self, resource_name):\n        \"\"\"Return a sorted list of ``(size, encoding, path)`` entries.\"\"\"\n        result = self.filemap.get(resource_name)\n        if result is not None:\n            return result\n\n        # XXX we could put a lock around this work but worst case scenario a\n        # couple requests scan the disk for files at the same time and then\n        # the cache is set going forward so do not bother\n        result = []\n\n        # add the identity\n        path = self.find_resource_path(resource_name)\n        if path:\n            result.append((path, None))\n\n        # add each file we find for the supported encodings\n        # we don't mind adding multiple files for the same encoding if there\n        # are copies with different extensions because we sort by size so the\n        # smallest is always found first and the rest ignored\n        for encoding, extensions in self.content_encodings.items():\n            for ext in extensions:\n                encoded_name = resource_name + ext\n                path = self.find_resource_path(encoded_name)\n                if path:\n                    result.append((path, encoding))\n\n        # sort the files by size, smallest first\n        result.sort(key=lambda x: getsize(x[0]))\n\n        # only cache the results if reload is disabled\n        if not self.reload:\n            self.filemap[resource_name] = result\n        return result\n\n"
+    },
+    {
+      "function": "self.assertIsNot",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_get_possible_files_is_not_cached",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_call_get_possible_files_is_not_cached(self):\n        inst = self._makeOne('tests:fixtures/static', reload=True)\n        result1 = inst.get_possible_files('tests:fixtures/static/encoded.html')\n        result2 = inst.get_possible_files('tests:fixtures/static/encoded.html')\n        self.assertIsNot(result1, result2)"
+}

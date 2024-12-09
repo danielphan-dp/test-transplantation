@@ -1,0 +1,25 @@
+{
+  "test_name": "test_no_exception_passes_quietly",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sandbox.py",
+  "static_methods": [
+    {
+      "name": "saved_exc.resume",
+      "source_code": "    def resume(self):\n        \"restore and re-raise any exception\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line_number": 147
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "saved_exc.resume",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line": 147,
+      "caller": "test_no_exception_passes_quietly",
+      "source_code": "    def resume(self):\n        \"restore and re-raise any exception\"\n\n        if '_saved' not in vars(self):\n            return\n\n        _type, exc = map(pickle.loads, self._saved)\n        raise exc.with_traceback(self._tb)\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_exception_passes_quietly(self):\n        with setuptools.sandbox.ExceptionSaver() as saved_exc:\n            pass\n\n        saved_exc.resume()"
+}

@@ -1,6 +1,6 @@
 {
   "test_name": "test_werkzeug_passthrough_errors",
-  "test_file": "__internal__/_data/flask/tests/test_basic.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
     {
       "name": "monkeypatch.setattr",
@@ -10,15 +10,15 @@
     },
     {
       "name": "app.run",
-      "source_code": "    def run(\n        self,\n        host: str | None = None,\n        port: int | None = None,\n        debug: bool | None = None,\n        load_dotenv: bool = True,\n        **options: t.Any,\n    ) -> None:\n        \"\"\"Runs the application on a local development server.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
-      "line_number": 546
+      "source_code": "    def run(self) -> None:\n        \"\"\"Continually run the watch step, sleeping for the configured\n        interval after each step.\n        \"\"\"\n        while True:\n            self.run_step()\n            time.sleep(self.interval)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/_reloader.py",
+      "line_number": 252
     },
     {
       "name": "kwargs.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     }
   ],
   "dynamic_methods": [
@@ -31,17 +31,17 @@
     },
     {
       "function": "app.run",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
-      "line": 546,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/_reloader.py",
+      "line": 252,
       "caller": "test_werkzeug_passthrough_errors",
-      "source_code": "    def run(\n        self,\n        host: str | None = None,\n        port: int | None = None,\n        debug: bool | None = None,\n        load_dotenv: bool = True,\n        **options: t.Any,\n"
+      "source_code": "    def run(self) -> None:\n        \"\"\"Continually run the watch step, sleeping for the configured\n        interval after each step.\n        \"\"\"\n        while True:\n            self.run_step()\n            time.sleep(self.interval)\n\n"
     },
     {
       "function": "kwargs.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_werkzeug_passthrough_errors",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     }
   ],
   "assertions": [],

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_add_conflicting_priority",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware_priority.py",
+  "static_methods": [
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.register_middleware",
+      "source_code": "    def register_middleware(\n        self,\n        middleware: Union[MiddlewareType, Middleware],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n    ) -> Union[MiddlewareType, Middleware]:\n        \"\"\"Register a middleware to be called before a request is handled.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 470
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_conflicting_priority",
+      "source_code": ""
+    },
+    {
+      "function": "app.register_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 470,
+      "caller": "test_add_conflicting_priority",
+      "source_code": "    def register_middleware(\n        self,\n        middleware: Union[MiddlewareType, Middleware],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n"
+    }
+  ],
+  "assertions": [
+    "assert app.request_middleware[0].priority == 999"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_conflicting_priority(app: Sanic):\n    def foo(*_): ...\n\n    middleware = Middleware(foo, MiddlewareLocation.REQUEST, priority=998)\n    app.register_middleware(middleware=middleware, priority=999)\n    assert app.request_middleware[0].priority == 999  # type: ignore\n    middleware.priority == 998"
+}

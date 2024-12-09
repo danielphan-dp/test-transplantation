@@ -1,0 +1,51 @@
+{
+  "test_name": "test_it_inheritance_overriden_empty",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+  "static_methods": [
+    {
+      "name": "view_defaults",
+      "source_code": "def view_defaults(**settings):\n    \"\"\"A class :term:`decorator` which, when applied to a class, will\n    provide defaults for all view configurations that use the class.  This\n    decorator accepts all the arguments accepted by\n    :meth:`pyramid.view.view_config`, and each has the same meaning.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line_number": 264
+    },
+    {
+      "name": "view_defaults",
+      "source_code": "def view_defaults(**settings):\n    \"\"\"A class :term:`decorator` which, when applied to a class, will\n    provide defaults for all view configurations that use the class.  This\n    decorator accepts all the arguments accepted by\n    :meth:`pyramid.view.view_config`, and each has the same meaning.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line_number": 264
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "view_defaults",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line": 264,
+      "caller": "test_it_inheritance_overriden_empty",
+      "source_code": "def view_defaults(**settings):\n    \"\"\"A class :term:`decorator` which, when applied to a class, will\n    provide defaults for all view configurations that use the class.  This\n    decorator accepts all the arguments accepted by\n    :meth:`pyramid.view.view_config`, and each has the same meaning.\n\n    See :ref:`view_defaults` for more information.\n    \"\"\"\n\n    def wrap(wrapped):\n        wrapped.__view_defaults__ = settings\n        return wrapped\n\n    return wrap\n\n\n"
+    },
+    {
+      "function": "view_defaults",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line": 264,
+      "caller": "test_it_inheritance_overriden_empty",
+      "source_code": "def view_defaults(**settings):\n    \"\"\"A class :term:`decorator` which, when applied to a class, will\n    provide defaults for all view configurations that use the class.  This\n    decorator accepts all the arguments accepted by\n    :meth:`pyramid.view.view_config`, and each has the same meaning.\n\n    See :ref:`view_defaults` for more information.\n    \"\"\"\n\n    def wrap(wrapped):\n        wrapped.__view_defaults__ = settings\n        return wrapped\n\n    return wrap\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_inheritance_overriden_empty",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_inheritance_overriden_empty(self):\n        from pyramid.view import view_defaults\n\n        @view_defaults(route_name='abc', renderer='def')\n        class Foo:\n            pass\n\n        @view_defaults()\n        class Bar(Foo):\n            pass\n\n        self.assertEqual(Bar.__view_defaults__, {})"
+}

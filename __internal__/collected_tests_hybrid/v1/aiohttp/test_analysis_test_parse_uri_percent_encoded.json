@@ -1,0 +1,44 @@
+{
+  "test_name": "test_parse_uri_percent_encoded",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_parse_uri_percent_encoded",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_uri_percent_encoded",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert msg.path == uri",
+    "assert msg.url == URL(uri)",
+    "assert msg.url.path == path",
+    "assert msg.url.query == query",
+    "assert msg.url.fragment == fragment"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_uri_percent_encoded(\n    parser: HttpRequestParser, uri: str, path: str, query: Dict[str, str], fragment: str\n) -> None:\n    text = (f\"GET {uri} HTTP/1.1\\r\\n\\r\\n\").encode()\n    messages, upgrade, tail = parser.feed_data(text)\n    msg = messages[0][0]\n\n    assert msg.path == uri\n    assert msg.url == URL(uri)\n    assert msg.url.path == path\n    assert msg.url.query == query\n    assert msg.url.fragment == fragment"
+}

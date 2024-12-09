@@ -1,0 +1,64 @@
+{
+  "test_name": "test_add_default_renderers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_rendering.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_default_renderers",
+      "source_code": "    def add_default_renderers(self):\n        for name, renderer in DEFAULT_RENDERERS:\n            self.add_renderer(name, renderer)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/rendering.py",
+      "line_number": 12
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.queryUtility",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1063
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_default_renderers",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_default_renderers",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/rendering.py",
+      "line": 12,
+      "caller": "test_add_default_renderers",
+      "source_code": "    def add_default_renderers(self):\n        for name, renderer in DEFAULT_RENDERERS:\n            self.add_renderer(name, renderer)\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_default_renderers",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.queryUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1063,
+      "caller": "test_add_default_renderers",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.\n\n        If one is not found, returns default.\n        \"\"\"\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_default_renderers(self):\n        from pyramid.config.rendering import DEFAULT_RENDERERS\n        from pyramid.interfaces import IRendererFactory\n\n        config = self._makeOne(autocommit=True)\n        config.add_default_renderers()\n        for name, impl in DEFAULT_RENDERERS:\n            self.assertTrue(\n                config.registry.queryUtility(IRendererFactory, name)\n                is not None\n            )"
+}

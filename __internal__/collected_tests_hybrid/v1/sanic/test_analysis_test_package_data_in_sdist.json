@@ -1,0 +1,77 @@
+{
+  "test_name": "test_package_data_in_sdist",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+  "static_methods": [
+    {
+      "name": "quiet",
+      "source_code": "def quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line_number": 49
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sdist",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assert_package_data_in_manifest",
+      "source_code": "    def assert_package_data_in_manifest(self, cmd):\n        manifest = cmd.filelist.files\n        assert os.path.join('sdist_test', 'a.txt') in manifest\n        assert os.path.join('sdist_test', 'b.txt') in manifest\n        assert os.path.join('sdist_test', 'c.rst') not in manifest\n        assert os.path.join('d', 'e.dat') in manifest",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line_number": 158
+    },
+    {
+      "name": "quiet",
+      "source_code": "def quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line_number": 49
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "quiet",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line": 49,
+      "caller": "test_package_data_in_sdist",
+      "source_code": "@contextlib.contextmanager\ndef quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"\n\n    old_stdout = sys.stdout\n    old_stderr = sys.stderr\n    new_stdout = sys.stdout = io.StringIO()\n    new_stderr = sys.stderr = io.StringIO()\n    try:\n        yield new_stdout, new_stderr\n    finally:\n        new_stdout.seek(0)\n        new_stderr.seek(0)\n        sys.stdout = old_stdout\n        sys.stderr = old_stderr\n\n\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_package_data_in_sdist",
+      "source_code": ""
+    },
+    {
+      "function": "sdist",
+      "filename": "",
+      "line": 0,
+      "caller": "test_package_data_in_sdist",
+      "source_code": ""
+    },
+    {
+      "function": "self.assert_package_data_in_manifest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line": 158,
+      "caller": "test_package_data_in_sdist",
+      "source_code": "    def assert_package_data_in_manifest(self, cmd):\n        manifest = cmd.filelist.files\n        assert os.path.join('sdist_test', 'a.txt') in manifest\n        assert os.path.join('sdist_test', 'b.txt') in manifest\n        assert os.path.join('sdist_test', 'c.rst') not in manifest\n        assert os.path.join('d', 'e.dat') in manifest\n\n"
+    },
+    {
+      "function": "quiet",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line": 49,
+      "caller": "test_package_data_in_sdist",
+      "source_code": "@contextlib.contextmanager\ndef quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"\n\n    old_stdout = sys.stdout\n    old_stderr = sys.stderr\n    new_stdout = sys.stdout = io.StringIO()\n    new_stderr = sys.stderr = io.StringIO()\n    try:\n        yield new_stdout, new_stderr\n    finally:\n        new_stdout.seek(0)\n        new_stderr.seek(0)\n        sys.stdout = old_stdout\n        sys.stderr = old_stderr\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_package_data_in_sdist(self):\n        \"\"\"Regression test for pull request #4: ensures that files listed in\n        package_data are included in the manifest even if they're not added to\n        version control.\n        \"\"\"\n\n        dist = Distribution(SETUP_ATTRS)\n        dist.script_name = 'setup.py'\n        cmd = sdist(dist)\n        cmd.ensure_finalized()\n\n        with quiet():\n            cmd.run()\n\n        self.assert_package_data_in_manifest(cmd)"
+}

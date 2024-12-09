@@ -1,0 +1,28 @@
+{
+  "test_name": "test_logo_base",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_motd.py",
+  "static_methods": [
+    {
+      "name": "run_startup",
+      "source_code": "def run_startup(caplog):\n    def run(app):\n        nonlocal caplog\n        loop = asyncio.new_event_loop()\n        asyncio.set_event_loop(loop)\n        with caplog.at_level(logging.DEBUG):\n            server = app.create_server(\n                debug=True, return_asyncio_server=True, port=PORT\n            )\n            loop._stopping = False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/conftest.py",
+      "line_number": 178
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "run_startup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/conftest.py",
+      "line": 178,
+      "caller": "test_logo_base",
+      "source_code": "@pytest.fixture(scope=\"function\")\ndef run_startup(caplog):\n    def run(app):\n        nonlocal caplog\n        loop = asyncio.new_event_loop()\n        asyncio.set_event_loop(loop)\n        with caplog.at_level(logging.DEBUG):\n            server = app.create_server(\n                debug=True, return_asyncio_server=True, port=PORT\n            )\n            loop._stopping = False\n\n            _server = loop.run_until_complete(server)\n\n            _server.close()\n            loop.run_until_complete(_server.wait_closed())\n            app.stop()\n\n        return caplog.record_tuples\n\n    return run\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert logs[0][1] == logging.DEBUG",
+    "assert logs[0][2] == BASE_LOGO"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_logo_base(app, run_startup):\n    logs = run_startup(app)\n\n    assert logs[0][1] == logging.DEBUG\n    assert logs[0][2] == BASE_LOGO"
+}

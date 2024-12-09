@@ -1,0 +1,93 @@
+{
+  "test_name": "test_search_cpp",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_config_cmd.py",
+  "static_methods": [
+    {
+      "name": "missing_compiler_executable",
+      "source_code": "def missing_compiler_executable(cmd_names: Sequence[str] = []):  # pragma: no cover\n    \"\"\"Check if the compiler components used to build the interpreter exist.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/__init__.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    },
+    {
+      "name": "config",
+      "source_code": "    def config(self) -> str:\n        \"\"\"Get contents of a config file for this theme.\"\"\"\n        config = \"[styles]\\n\" + \"\\n\".join(\n            f\"{name} = {style}\" for name, style in sorted(self.styles.items())\n        )\n        return config",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/theme.py",
+      "line_number": 31
+    },
+    {
+      "name": "self.skipTest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.skipTest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "compiler.preprocessor.lower",
+      "source_code": "    def lower(self):\n        return super().lower()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line_number": 91
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "missing_compiler_executable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/__init__.py",
+      "line": 14,
+      "caller": "test_search_cpp",
+      "source_code": "def missing_compiler_executable(cmd_names: Sequence[str] = []):  # pragma: no cover\n    \"\"\"Check if the compiler components used to build the interpreter exist.\n\n    Check for the existence of the compiler executables whose names are listed\n    in 'cmd_names' or all the compiler executables when 'cmd_names' is empty\n    and return the first missing executable or None when none is found\n    missing.\n\n    \"\"\"\n    from distutils import ccompiler, errors, sysconfig\n\n    compiler = ccompiler.new_compiler()\n    sysconfig.customize_compiler(compiler)\n    if compiler.compiler_type == \"msvc\":\n        # MSVC has no executables, so check whether initialization succeeds\n        try:\n            compiler.initialize()\n        except errors.DistutilsPlatformError:\n            return \"msvc\"\n    for name in compiler.executables:\n        if cmd_names and name not in cmd_names:\n            continue\n        cmd = getattr(compiler, name)\n        if cmd_names:\n            assert cmd is not None, f\"the '{name}' executable is not configured\"\n        elif not cmd:\n            continue\n        if shutil.which(cmd[0]) is None:\n            return cmd[0]\n"
+    },
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_search_cpp",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    },
+    {
+      "function": "config",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/theme.py",
+      "line": 31,
+      "caller": "test_search_cpp",
+      "source_code": "    @property\n    def config(self) -> str:\n        \"\"\"Get contents of a config file for this theme.\"\"\"\n        config = \"[styles]\\n\" + \"\\n\".join(\n            f\"{name} = {style}\" for name, style in sorted(self.styles.items())\n        )\n        return config\n\n"
+    },
+    {
+      "function": "self.skipTest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_search_cpp",
+      "source_code": ""
+    },
+    {
+      "function": "self.skipTest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_search_cpp",
+      "source_code": ""
+    },
+    {
+      "function": "compiler.preprocessor.lower",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/importlib_metadata/_text.py",
+      "line": 91,
+      "caller": "test_search_cpp",
+      "source_code": "    @method_cache\n    def lower(self):\n        return super().lower()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert match == 0",
+    "assert match == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_search_cpp(self):\n        cmd = missing_compiler_executable(['preprocessor'])\n        if cmd is not None:\n            self.skipTest(f'The {cmd!r} command is not found')\n        pkg_dir, dist = self.create_dist()\n        cmd = config(dist)\n        cmd._check_compiler()\n        compiler = cmd.compiler\n        if sys.platform[:3] == \"aix\" and \"xlc\" in compiler.preprocessor[0].lower():\n            self.skipTest(\n                'xlc: The -E option overrides the -P, -o, and -qsyntaxonly options'\n            )\n\n        # simple pattern searches\n        match = cmd.search_cpp(pattern='xxx', body='/* xxx */')\n        assert match == 0\n\n        match = cmd.search_cpp(pattern='_configtest', body='/* xxx */')\n        assert match == 1"
+}

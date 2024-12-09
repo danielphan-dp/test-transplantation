@@ -1,0 +1,54 @@
+{
+  "test_name": "test_env_w_custom_converter",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_env_w_custom_converter",
+      "source_code": ""
+    },
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_env_w_custom_converter",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_env_w_custom_converter",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(app.config.TEST_ANSWER, UltimateAnswer)",
+    "assert app.config.TEST_ANSWER.answer == 42"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_env_w_custom_converter():\n    environ[\"SANIC_TEST_ANSWER\"] = \"42\"\n\n    config = Config(converters=[UltimateAnswer])\n    app = Sanic(name=\"Test\", config=config)\n    assert isinstance(app.config.TEST_ANSWER, UltimateAnswer)\n    assert app.config.TEST_ANSWER.answer == 42\n    del environ[\"SANIC_TEST_ANSWER\"]"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_get_renderer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "self._registerRendererFactory",
+      "source_code": "    def _registerRendererFactory(self):\n        from pyramid.interfaces import IRendererFactory",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+      "line_number": 188
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helper.get_renderer",
+      "source_code": "def get_renderer(renderer_name, package=None, registry=None):\n    \"\"\"Return the renderer object for the renderer ``renderer_name``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 135
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._registerRendererFactory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+      "line": 188,
+      "caller": "test_get_renderer",
+      "source_code": "    def _registerRendererFactory(self):\n        from pyramid.interfaces import IRendererFactory\n\n        def renderer(*arg):\n            def respond(*arg):\n                return arg\n\n            renderer.respond = respond\n            return respond\n\n        self.config.registry.registerUtility(\n            renderer, IRendererFactory, name='.foo'\n        )\n        return renderer\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_get_renderer",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_renderer",
+      "source_code": ""
+    },
+    {
+      "function": "helper.get_renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 135,
+      "caller": "test_get_renderer",
+      "source_code": "def get_renderer(renderer_name, package=None, registry=None):\n    \"\"\"Return the renderer object for the renderer ``renderer_name``.\n\n    You may supply a relative asset spec as ``renderer_name``.  If\n    the ``package`` argument is supplied, a relative renderer name\n    will be converted to an absolute asset specification by\n    combining the package ``package`` with the relative\n    asset specification ``renderer_name``.  If ``package`` is ``None``\n    (the default), the package name of the *caller* of this function\n    will be used as the package.\n\n    You may directly supply an :term:`application registry` using the\n    ``registry`` argument, and it will be used to look up the renderer.\n    Otherwise, the current thread-local registry (obtained via\n    :func:`~pyramid.threadlocal.get_current_registry`) will be used.\n    \"\"\"\n    if package is None:\n        package = caller_package()\n    helper = RendererHelper(\n        name=renderer_name, package=package, registry=registry\n    )\n    return helper.renderer\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_renderer(self):\n        factory = self._registerRendererFactory()\n        helper = self._makeOne('loo.foo')\n        self.assertEqual(helper.get_renderer(), factory.respond)"
+}

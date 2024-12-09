@@ -1,0 +1,77 @@
+{
+  "test_name": "test_translator_with_interpolation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "self._makeTranslations",
+      "source_code": "    def _makeTranslations(self):\n        import os\n        here = os.path.abspath(os.path.dirname(__file__))\n        localedir = os.path.join(here, 'fixtures', 'locales')\n        return Translations.load(localedir, locales=['de'])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test_integration.py",
+      "line_number": 5
+    },
+    {
+      "name": "Translator",
+      "source_code": "def Translator(translations=None, policy=None):\n    \"\"\"\n    Return a translator object based on the ``translations`` and\n    ``policy`` provided.  ``translations`` should be an object\n    supporting *at least* the Python :class:`gettext.NullTranslations`\n    API but ideally the :class:`babel.support.Translations` API, which\n    has support for domain lookups like dugettext.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line_number": 278
+    },
+    {
+      "name": "TranslationString",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "translator",
+      "source_code": "    def translator(tstring, domain=None, mapping=None, context=None):\n        if not hasattr(tstring, 'interpolate'):\n            tstring = TranslationString(tstring, domain=domain, mapping=mapping, context=context)\n        elif mapping:\n            if tstring.mapping:\n                new_mapping = tstring.mapping.copy()\n                new_mapping.update(mapping)\n            else:\n                new_mapping = mapping\n            tstring = TranslationString(tstring, domain=domain, mapping=new_mapping, context=context)\n        translated = tstring\n        domain = domain or tstring.domain\n        context = context or tstring.context\n        if translations is not None:\n            translated = policy(translations, tstring, domain, context)\n        if translated == tstring:\n            translated = tstring.default\n        if translated and '$' in translated and tstring.mapping:\n            translated = tstring.interpolate(translated)\n        return translated\n    return translator",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line_number": 306
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeTranslations",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test_integration.py",
+      "line": 5,
+      "caller": "test_translator_with_interpolation",
+      "source_code": "    def _makeTranslations(self):\n        import os\n        here = os.path.abspath(os.path.dirname(__file__))\n        localedir = os.path.join(here, 'fixtures', 'locales')\n        return Translations.load(localedir, locales=['de'])\n\n"
+    },
+    {
+      "function": "Translator",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line": 278,
+      "caller": "test_translator_with_interpolation",
+      "source_code": "def Translator(translations=None, policy=None):\n    \"\"\"\n    Return a translator object based on the ``translations`` and\n    ``policy`` provided.  ``translations`` should be an object\n    supporting *at least* the Python :class:`gettext.NullTranslations`\n    API but ideally the :class:`babel.support.Translations` API, which\n    has support for domain lookups like dugettext.\n\n    ``policy`` should be a callable which accepts three arguments:\n    ``translations``, ``tstring`` and ``domain``.  It must perform the\n    actual translation lookup.  If ``policy`` is ``None``, the\n    :func:`translationstring.dugettext_policy` policy will be used.\n\n    The callable returned accepts three arguments: ``tstring``\n    (required), ``domain`` (optional) and ``mapping`` (optional).\n    When called, it will translate the ``tstring`` translation string\n    to a ``unicode`` object using the ``translations`` provided.  If\n    ``translations`` is ``None``, the result of interpolation of the\n    default value is returned.  The optional ``domain`` argument can\n    be used to specify or override the domain of the ``tstring``\n    (useful when ``tstring`` is a normal string rather than a\n    translation string).  The optional ``mapping`` argument can\n    specify or override the ``tstring`` interpolation mapping, useful\n    when the ``tstring`` argument is a simple string instead of a\n    translation string.\n    \"\"\"\n    if policy is None:\n        policy = dugettext_policy\n    def translator(tstring, domain=None, mapping=None, context=None):\n        if not hasattr(tstring, 'interpolate'):\n            tstring = TranslationString(tstring, domain=domain, mapping=mapping, context=context)\n        elif mapping:\n            if tstring.mapping:\n                new_mapping = tstring.mapping.copy()\n                new_mapping.update(mapping)\n            else:\n                new_mapping = mapping\n            tstring = TranslationString(tstring, domain=domain, mapping=new_mapping, context=context)\n        translated = tstring\n        domain = domain or tstring.domain\n        context = context or tstring.context\n        if translations is not None:\n            translated = policy(translations, tstring, domain, context)\n        if translated == tstring:\n            translated = tstring.default\n        if translated and '$' in translated and tstring.mapping:\n            translated = tstring.interpolate(translated)\n        return translated\n    return translator\n\n"
+    },
+    {
+      "function": "TranslationString",
+      "filename": "",
+      "line": 0,
+      "caller": "test_translator_with_interpolation",
+      "source_code": ""
+    },
+    {
+      "function": "translator",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/__init__.py",
+      "line": 306,
+      "caller": "test_translator_with_interpolation",
+      "source_code": "    def translator(tstring, domain=None, mapping=None, context=None):\n        if not hasattr(tstring, 'interpolate'):\n            tstring = TranslationString(tstring, domain=domain, mapping=mapping, context=context)\n        elif mapping:\n            if tstring.mapping:\n                new_mapping = tstring.mapping.copy()\n                new_mapping.update(mapping)\n            else:\n                new_mapping = mapping\n            tstring = TranslationString(tstring, domain=domain, mapping=new_mapping, context=context)\n        translated = tstring\n        domain = domain or tstring.domain\n        context = context or tstring.context\n        if translations is not None:\n            translated = policy(translations, tstring, domain, context)\n        if translated == tstring:\n            translated = tstring.default\n        if translated and '$' in translated and tstring.mapping:\n            translated = tstring.interpolate(translated)\n        return translated\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_translator_with_interpolation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_translator_with_interpolation(self):\n        translations = self._makeTranslations()\n        from translationstring import Translator\n        from translationstring import dugettext_policy\n        from translationstring import TranslationString\n\n        translator = Translator(translations, dugettext_policy)\n\n        tstring = TranslationString('Visit ${url}', mapping={'url':'url'})\n\n        result = translator(tstring)\n        self.assertEqual(result, 'Besuchen url')"
+}

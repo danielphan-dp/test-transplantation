@@ -1,0 +1,79 @@
+{
+  "test_name": "test_the_trio_scheduler_is_not_deterministic",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_scheduler_determinism.py",
+  "static_methods": [
+    {
+      "name": "trio.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "trio.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_the_trio_scheduler_is_not_deterministic",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_not_deterministic",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_not_deterministic",
+      "source_code": ""
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_not_deterministic",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_the_trio_scheduler_is_not_deterministic",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(set(traces)) == len(traces)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_the_trio_scheduler_is_not_deterministic() -> None:\n    # At least, not yet.  See https://github.com/python-trio/trio/issues/32\n    traces = [trio.run(scheduler_trace) for _ in range(10)]\n    assert len(set(traces)) == len(traces)"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_create_named_task_fails_outside_app",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_create_task.py",
+  "static_methods": [
+    {
+      "name": "app.add_task",
+      "source_code": "    def add_task(\n        self,\n        description: str,\n        start: bool = True,\n        total: Optional[float] = 100.0,\n        completed: int = 0,\n        visible: bool = True,\n        **fields: Any,\n    ) -> TaskID:\n        \"\"\"Add a new 'task' to the Progress display.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line_number": 1589
+    },
+    {
+      "name": "app.get_task",
+      "source_code": "    def get_task(\n        self, name: str, *, raise_exception: Literal[True]\n    ) -> Task: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 1781
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.add_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line": 1589,
+      "caller": "test_create_named_task_fails_outside_app",
+      "source_code": "    def add_task(\n        self,\n        description: str,\n        start: bool = True,\n        total: Optional[float] = 100.0,\n        completed: int = 0,\n        visible: bool = True,\n        **fields: Any,\n"
+    },
+    {
+      "function": "app.get_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 1781,
+      "caller": "test_create_named_task_fails_outside_app",
+      "source_code": "    @overload\n    def get_task(\n        self, name: str, *, raise_exception: Literal[True]\n"
+    }
+  ],
+  "assertions": [
+    "assert not app._task_registry"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_create_named_task_fails_outside_app(app):\n    async def dummy(): ...\n\n    message = \"Cannot name task outside of a running application\"\n    with pytest.raises(RuntimeError, match=message):\n        app.add_task(dummy, name=\"dummy_task\")\n    assert not app._task_registry\n\n    message = 'Registered task named \"dummy_task\" not found.'\n    with pytest.raises(SanicException, match=message):\n        app.get_task(\"dummy_task\")"
+}

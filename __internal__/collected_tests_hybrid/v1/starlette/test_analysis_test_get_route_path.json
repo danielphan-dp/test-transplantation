@@ -1,0 +1,27 @@
+{
+  "test_name": "test_get_route_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test__utils.py",
+  "static_methods": [
+    {
+      "name": "get_route_path",
+      "source_code": "def get_route_path(scope: Scope) -> str:\n    path: str = scope[\"path\"]\n    root_path = scope.get(\"root_path\", \"\")\n    if not root_path:\n        return path",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 85
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "get_route_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 85,
+      "caller": "test_get_route_path",
+      "source_code": "def get_route_path(scope: Scope) -> str:\n    path: str = scope[\"path\"]\n    root_path = scope.get(\"root_path\", \"\")\n    if not root_path:\n        return path\n\n    if not path.startswith(root_path):\n        return path\n\n    if path == root_path:\n        return \"\"\n\n    if path[len(root_path)] == \"/\":\n        return path[len(root_path) :]\n\n    return path\n"
+    }
+  ],
+  "assertions": [
+    "assert get_route_path(scope) == expected_result"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_route_path(scope: Scope, expected_result: str) -> None:\n    assert get_route_path(scope) == expected_result"
+}

@@ -1,0 +1,25 @@
+{
+  "test_name": "test__ge__NotImplemented",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self.__check_NotImplemented_comparison",
+      "source_code": "    def __check_NotImplemented_comparison(self, name):\n        # Without the correct attributes of __name__ and __module__,\n        # comparison switches to the reverse direction.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 289
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.__check_NotImplemented_comparison",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 289,
+      "caller": "test__ge__NotImplemented",
+      "source_code": "    def __check_NotImplemented_comparison(self, name):\n        # Without the correct attributes of __name__ and __module__,\n        # comparison switches to the reverse direction.\n\n        import operator\n        ib = self._makeOneToCompare()\n        op = getattr(operator, name)\n        meth = getattr(ib, '__%s__' % name)\n\n        # If either the __name__ or __module__ attribute\n        # is missing from the other object, then we return\n        # NotImplemented.\n        class RaisesErrorOnMissing:\n            Exc = AttributeError\n\n            def __getattribute__(self, name):\n                try:\n                    return object.__getattribute__(self, name)\n                except AttributeError:\n                    exc = RaisesErrorOnMissing.Exc\n                    raise exc(name)\n\n        class RaisesErrorOnModule(RaisesErrorOnMissing):\n            def __init__(self):\n                self.__name__ = 'foo'\n\n            @property\n            def __module__(self):\n                raise AttributeError\n\n        class RaisesErrorOnName(RaisesErrorOnMissing):\n            def __init__(self):\n                self.__module__ = 'foo'\n\n        self.assertEqual(RaisesErrorOnModule().__name__, 'foo')\n        self.assertEqual(RaisesErrorOnName().__module__, 'foo')\n        with self.assertRaises(AttributeError):\n            getattr(RaisesErrorOnModule(), '__module__')\n        with self.assertRaises(AttributeError):\n            getattr(RaisesErrorOnName(), '__name__')\n\n        for cls in RaisesErrorOnModule, RaisesErrorOnName:\n            self.assertIs(meth(cls()), NotImplemented)\n\n        # If the other object has a comparison function, returning\n        # NotImplemented means Python calls it.\n\n        class AllowsAnyComparison(RaisesErrorOnMissing):\n            def __eq__(self, other):\n                return True\n            __lt__ = __eq__\n            __le__ = __eq__\n            __gt__ = __eq__\n            __ge__ = __eq__\n            __ne__ = __eq__\n\n        self.assertTrue(op(ib, AllowsAnyComparison()))\n        self.assertIs(meth(AllowsAnyComparison()), NotImplemented)\n\n        # If it doesn't have the comparison, Python raises a TypeError.\n        class AllowsNoComparison:\n            __eq__ = None\n            __lt__ = __eq__\n            __le__ = __eq__\n            __gt__ = __eq__\n            __ge__ = __eq__\n            __ne__ = __eq__\n\n        self.assertIs(meth(AllowsNoComparison()), NotImplemented)\n        with self.assertRaises(TypeError):\n            op(ib, AllowsNoComparison())\n\n        # Errors besides AttributeError are passed\n        class MyException(Exception):\n            pass\n\n        RaisesErrorOnMissing.Exc = MyException\n\n        with self.assertRaises(MyException):\n            getattr(RaisesErrorOnModule(), '__module__')\n        with self.assertRaises(MyException):\n            getattr(RaisesErrorOnName(), '__name__')\n\n        for cls in RaisesErrorOnModule, RaisesErrorOnName:\n            with self.assertRaises(MyException):\n                op(ib, cls())\n            with self.assertRaises(MyException):\n                meth(cls())\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__ge__NotImplemented(self):\n        self.__check_NotImplemented_comparison('ge')"
+}

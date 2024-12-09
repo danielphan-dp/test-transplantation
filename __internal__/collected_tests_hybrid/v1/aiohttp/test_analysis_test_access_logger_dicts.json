@@ -1,0 +1,92 @@
+{
+  "test_name": "test_access_logger_dicts",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_log.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AccessLogger",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "access_logger.log",
+      "source_code": "    def log(\n        self,\n        *objects: Any,\n        sep: str = \" \",\n        end: str = \"\\n\",\n        style: Optional[Union[str, Style]] = None,\n        justify: Optional[JustifyMethod] = None,\n        emoji: Optional[bool] = None,\n        markup: Optional[bool] = None,\n        highlight: Optional[bool] = None,\n        log_locals: bool = False,\n        _stack_offset: int = 1,\n    ) -> None:\n        \"\"\"Log rich content to the terminal.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 1902
+    },
+    {
+      "name": "mock_logger.info.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_access_logger_dicts",
+      "source_code": ""
+    },
+    {
+      "function": "AccessLogger",
+      "filename": "",
+      "line": 0,
+      "caller": "test_access_logger_dicts",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_access_logger_dicts",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_access_logger_dicts",
+      "source_code": ""
+    },
+    {
+      "function": "access_logger.log",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 1902,
+      "caller": "test_access_logger_dicts",
+      "source_code": "    def log(\n        self,\n        *objects: Any,\n        sep: str = \" \",\n        end: str = \"\\n\",\n        style: Optional[Union[str, Style]] = None,\n        justify: Optional[JustifyMethod] = None,\n        emoji: Optional[bool] = None,\n        markup: Optional[bool] = None,\n        highlight: Optional[bool] = None,\n        log_locals: bool = False,\n        _stack_offset: int = 1,\n"
+    },
+    {
+      "function": "mock_logger.info.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_access_logger_dicts",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not mock_logger.error.called"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_access_logger_dicts() -> None:\n    log_format = \"%{User-Agent}i %{Content-Length}o %{None}i\"\n    mock_logger = mock.Mock()\n    access_logger = AccessLogger(mock_logger, log_format)\n    request = mock.Mock(\n        headers={\"User-Agent\": \"Mock/1.0\"}, version=(1, 1), remote=\"127.0.0.2\"\n    )\n    response = mock.Mock(headers={\"Content-Length\": 123})\n    access_logger.log(request, response, 0.0)\n    assert not mock_logger.error.called\n    expected = \"Mock/1.0 123 -\"\n    extra = {\n        \"request_header\": {\"User-Agent\": \"Mock/1.0\", \"None\": \"-\"},\n        \"response_header\": {\"Content-Length\": 123},\n    }\n\n    mock_logger.info.assert_called_with(expected, extra=extra)"
+}

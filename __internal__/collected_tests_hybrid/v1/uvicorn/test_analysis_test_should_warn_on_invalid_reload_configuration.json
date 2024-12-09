@@ -1,0 +1,97 @@
+{
+  "test_name": "test_should_warn_on_invalid_reload_configuration",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_should_warn_on_invalid_reload_configuration",
+      "source_code": ""
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_should_warn_on_invalid_reload_configuration",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_warn_on_invalid_reload_configuration",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_warn_on_invalid_reload_configuration",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_warn_on_invalid_reload_configuration",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_warn_on_invalid_reload_configuration",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not config_class.should_reload",
+    "assert len(caplog.records) == 1",
+    "assert caplog.records[-1].message == 'Current configuration will not reload as not all conditions are met, please refer to documentation.'",
+    "assert not config_no_reload.should_reload",
+    "assert len(caplog.records) == 2",
+    "assert caplog.records[-1].message == 'Current configuration will not reload as not all conditions are met, please refer to documentation.'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_should_warn_on_invalid_reload_configuration(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:\n    config_class = Config(app=asgi_app, reload_dirs=[str(tmp_path)])\n    assert not config_class.should_reload\n    assert len(caplog.records) == 1\n    assert (\n        caplog.records[-1].message == \"Current configuration will not reload as not all conditions are met, \"\n        \"please refer to documentation.\"\n    )\n\n    config_no_reload = Config(app=\"tests.test_config:asgi_app\", reload_dirs=[str(tmp_path)])\n    assert not config_no_reload.should_reload\n    assert len(caplog.records) == 2\n    assert (\n        caplog.records[-1].message == \"Current configuration will not reload as not all conditions are met, \"\n        \"please refer to documentation.\"\n    )"
+}

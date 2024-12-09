@@ -1,0 +1,159 @@
+{
+  "test_name": "test_state_data_across_multiple_middlewares",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_base.py",
+  "static_methods": [
+    {
+      "name": "Starlette",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "PlainTextResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "call_next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "call_next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "call_next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Starlette",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "PlainTextResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "call_next",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "call_next",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "call_next",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "Route",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    },
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_state_data_across_multiple_middlewares",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.text == 'OK'",
+    "assert response.headers['X-State-Foo'] == expected_value1",
+    "assert response.headers['X-State-Bar'] == expected_value2"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_state_data_across_multiple_middlewares(\n    test_client_factory: TestClientFactory,\n) -> None:\n    expected_value1 = \"foo\"\n    expected_value2 = \"bar\"\n\n    class aMiddleware(BaseHTTPMiddleware):\n        async def dispatch(\n            self,\n            request: Request,\n            call_next: RequestResponseEndpoint,\n        ) -> Response:\n            request.state.foo = expected_value1\n            response = await call_next(request)\n            return response\n\n    class bMiddleware(BaseHTTPMiddleware):\n        async def dispatch(\n            self,\n            request: Request,\n            call_next: RequestResponseEndpoint,\n        ) -> Response:\n            request.state.bar = expected_value2\n            response = await call_next(request)\n            response.headers[\"X-State-Foo\"] = request.state.foo\n            return response\n\n    class cMiddleware(BaseHTTPMiddleware):\n        async def dispatch(\n            self,\n            request: Request,\n            call_next: RequestResponseEndpoint,\n        ) -> Response:\n            response = await call_next(request)\n            response.headers[\"X-State-Bar\"] = request.state.bar\n            return response\n\n    def homepage(request: Request) -> PlainTextResponse:\n        return PlainTextResponse(\"OK\")\n\n    app = Starlette(\n        routes=[Route(\"/\", homepage)],\n        middleware=[\n            Middleware(aMiddleware),\n            Middleware(bMiddleware),\n            Middleware(cMiddleware),\n        ],\n    )\n\n    client = test_client_factory(app)\n    response = client.get(\"/\")\n    assert response.text == \"OK\"\n    assert response.headers[\"X-State-Foo\"] == expected_value1\n    assert response.headers[\"X-State-Bar\"] == expected_value2"
+}

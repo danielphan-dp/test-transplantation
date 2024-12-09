@@ -1,0 +1,92 @@
+{
+  "test_name": "test_raise_on_startup",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "router",
+      "source_code": "    def router(self):\n        warn(\"conn.router is deprecated, see the docs for APIs to use instead.\",\n             stacklevel=2)\n        return self._router",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line_number": 143
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_raise_on_startup",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "RuntimeError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_raise_on_startup",
+      "source_code": ""
+    },
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raise_on_startup",
+      "source_code": ""
+    },
+    {
+      "function": "router",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line": 143,
+      "caller": "test_raise_on_startup",
+      "source_code": "    @property\n    def router(self):\n        warn(\"conn.router is deprecated, see the docs for APIs to use instead.\",\n             stacklevel=2)\n        return self._router\n\n"
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_raise_on_startup",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_raise_on_startup",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert startup_failed"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_raise_on_startup(test_client_factory: TestClientFactory) -> None:\n    def run_startup() -> None:\n        raise RuntimeError()\n\n    with pytest.deprecated_call(match=\"The on_startup and on_shutdown parameters are deprecated\"):\n        router = Router(on_startup=[run_startup])\n    startup_failed = False\n\n    async def app(scope: Scope, receive: Receive, send: Send) -> None:\n        async def _send(message: Message) -> None:\n            nonlocal startup_failed\n            if message[\"type\"] == \"lifespan.startup.failed\":\n                startup_failed = True\n            return await send(message)\n\n        await router(scope, receive, _send)\n\n    with pytest.raises(RuntimeError):\n        with test_client_factory(app):\n            pass  # pragma: no cover\n    assert startup_failed"
+}

@@ -1,0 +1,142 @@
+{
+  "test_name": "test_remember_include_ip",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authentication.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "helper.remember",
+      "source_code": "    def remember(self, request, userid, **kw):\n        self.remembered = userid\n        return self.remember_result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line_number": 63
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "value.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "value.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_remember_include_ip",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_remember_include_ip",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "helper.remember",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line": 63,
+      "caller": "test_remember_include_ip",
+      "source_code": "    def remember(self, request, userid, **kw):\n        self.remembered = userid\n        return self.remember_result\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember_include_ip",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember_include_ip",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember_include_ip",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember_include_ip",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_remember_include_ip",
+      "source_code": ""
+    },
+    {
+      "function": "value.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember_include_ip",
+      "source_code": ""
+    },
+    {
+      "function": "value.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember_include_ip",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_remember_include_ip(self):\n        helper = self._makeOne('secret', include_ip=True)\n        request = self._makeRequest()\n        result = helper.remember(request, 'other')\n        self.assertEqual(len(result), 1)\n\n        name, value = result[0]\n        self.assertEqual(name, 'Set-Cookie')\n        self.assertTrue(\n            value.endswith('; Domain=localhost; Path=/; SameSite=Lax')\n        )\n        self.assertTrue(value.startswith('auth_tkt='))"
+}

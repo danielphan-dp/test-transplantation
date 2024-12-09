@@ -1,0 +1,64 @@
+{
+  "test_name": "test_aiohttp_client_cls_fixture_factory",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_pytest_plugin.py",
+  "static_methods": [
+    {
+      "name": "testdir.makeconftest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.makepyfile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.runpytest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result.assert_outcomes",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testdir.makeconftest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_client_cls_fixture_factory",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.makepyfile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_client_cls_fixture_factory",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.runpytest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_client_cls_fixture_factory",
+      "source_code": ""
+    },
+    {
+      "function": "result.assert_outcomes",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_client_cls_fixture_factory",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_aiohttp_client_cls_fixture_factory(testdir: pytest.Testdir) -> None:\n    testdir.makeconftest(\n        CONFTEST\n        + \"\"\"\n\ndef pytest_configure(config):\n    config.addinivalue_line(\"markers\", \"rest: RESTful API tests\")\n    config.addinivalue_line(\"markers\", \"graphql: GraphQL API tests\")\n\n\"\"\"\n    )\n    testdir.makepyfile(\n        \"\"\"\nimport pytest\nfrom aiohttp.web import Application\nfrom aiohttp.test_utils import TestClient\n\n\nclass RESTfulClient(TestClient):\n    pass\n\n\nclass GraphQLClient(TestClient):\n    pass\n\n\n@pytest.fixture\ndef aiohttp_client_cls(request):\n    if request.node.get_closest_marker('rest') is not None:\n        return RESTfulClient\n    elif request.node.get_closest_marker('graphql') is not None:\n        return GraphQLClient\n    return TestClient\n\n\n@pytest.mark.rest\nasync def test_rest(aiohttp_client) -> None:\n    client = await aiohttp_client(Application())\n    assert isinstance(client, RESTfulClient)\n\n\n@pytest.mark.graphql\nasync def test_graphql(aiohttp_client) -> None:\n    client = await aiohttp_client(Application())\n    assert isinstance(client, GraphQLClient)\n\n\"\"\"\n    )\n    result = testdir.runpytest()\n    result.assert_outcomes(passed=2)"
+}

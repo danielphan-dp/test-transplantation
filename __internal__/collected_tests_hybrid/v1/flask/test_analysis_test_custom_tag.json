@@ -1,6 +1,6 @@
 {
   "test_name": "test_custom_tag",
-  "test_file": "__internal__/_data/flask/tests/test_json_tag.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_json_tag.py",
   "static_methods": [
     {
       "name": "TaggedJSONSerializer",
@@ -10,9 +10,9 @@
     },
     {
       "name": "s.register",
-      "source_code": "def register():\n    \"\"\"Register a new user.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
-      "line_number": 47
+      "source_code": "    def register(self, code: CodeType, source: str) -> None:\n        self._storage[id(code)] = source\n        # register code objects of wrapped functions too.\n        for var in code.co_consts:\n            if isinstance(var, CodeType):\n                self._storage[id(var)] = source",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/debug/console.py",
+      "line_number": 118
     },
     {
       "name": "isinstance",
@@ -34,15 +34,15 @@
     },
     {
       "name": "s.loads",
-      "source_code": "    def loads(self, s: str | bytes, **kwargs: t.Any) -> t.Any:\n        \"\"\"Deserialize data as JSON.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line_number": 59
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line_number": 72
     },
     {
       "name": "s.dumps",
-      "source_code": "    def dumps(self, obj: t.Any, **kwargs: t.Any) -> str:\n        \"\"\"Serialize data as JSON.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line_number": 41
+      "source_code": "    def dumps(self, request, response, body=None):\n        response_headers = CaseInsensitiveDict(response.headers)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line_number": 28
     },
     {
       "name": "Foo",
@@ -61,10 +61,10 @@
     },
     {
       "function": "s.register",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/auth.py",
-      "line": 47,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/debug/console.py",
+      "line": 118,
       "caller": "test_custom_tag",
-      "source_code": "@bp.route(\"/register\", methods=(\"GET\", \"POST\"))\ndef register():\n    \"\"\"Register a new user.\n\n    Validates that the username is not already taken. Hashes the\n    password for security.\n    \"\"\"\n    if request.method == \"POST\":\n        username = request.form[\"username\"]\n        password = request.form[\"password\"]\n        db = get_db()\n        error = None\n\n        if not username:\n            error = \"Username is required.\"\n        elif not password:\n            error = \"Password is required.\"\n\n        if error is None:\n            try:\n                db.execute(\n                    \"INSERT INTO user (username, password) VALUES (?, ?)\",\n                    (username, generate_password_hash(password)),\n                )\n                db.commit()\n            except db.IntegrityError:\n                # The username was already taken, which caused the\n                # commit to fail. Show a validation error.\n                error = f\"User {username} is already registered.\"\n            else:\n                # Success, go to the login page.\n                return redirect(url_for(\"auth.login\"))\n\n        flash(error)\n\n    return render_template(\"auth/register.html\")\n\n\n"
+      "source_code": "    def register(self, code: CodeType, source: str) -> None:\n        self._storage[id(code)] = source\n        # register code objects of wrapped functions too.\n        for var in code.co_consts:\n            if isinstance(var, CodeType):\n                self._storage[id(var)] = source\n\n"
     },
     {
       "function": "isinstance",
@@ -89,17 +89,17 @@
     },
     {
       "function": "s.loads",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line": 59,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line": 72,
       "caller": "test_custom_tag",
-      "source_code": "    def loads(self, s: str | bytes, **kwargs: t.Any) -> t.Any:\n        \"\"\"Deserialize data as JSON.\n\n        :param s: Text or UTF-8 bytes.\n        :param kwargs: May be passed to the underlying JSON library.\n        \"\"\"\n        raise NotImplementedError\n\n"
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return\n\n        # Determine what version of the serializer the data was serialized\n        # with\n        try:\n            ver, data = data.split(b\",\", 1)\n        except ValueError:\n            ver = b\"cc=0\"\n\n        # Make sure that our \"ver\" is actually a version and isn't a false\n        # positive from a , being in the data stream.\n        if ver[:3] != b\"cc=\":\n            data = ver + data\n            ver = b\"cc=0\"\n\n        # Get the version number out of the cc=N\n        ver = ver.split(b\"=\", 1)[-1].decode(\"ascii\")\n\n        # Dispatch to the actual load method for the given version\n        try:\n            return getattr(self, \"_loads_v{}\".format(ver))(request, data, body_file)\n\n        except AttributeError:\n            # This is a version we don't have a loads function for, so we'll\n            # just treat it as a miss and return None\n            return\n\n"
     },
     {
       "function": "s.dumps",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line": 41,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line": 28,
       "caller": "test_custom_tag",
-      "source_code": "    def dumps(self, obj: t.Any, **kwargs: t.Any) -> str:\n        \"\"\"Serialize data as JSON.\n\n        :param obj: The data to serialize.\n        :param kwargs: May be passed to the underlying JSON library.\n        \"\"\"\n        raise NotImplementedError\n\n"
+      "source_code": "    def dumps(self, request, response, body=None):\n        response_headers = CaseInsensitiveDict(response.headers)\n\n        if body is None:\n            # When a body isn't passed in, we'll read the response. We\n            # also update the response with a new file handler to be\n            # sure it acts as though it was never read.\n            body = response.read(decode_content=False)\n            response._fp = io.BytesIO(body)\n\n        # NOTE: This is all a bit weird, but it's really important that on\n        #       Python 2.x these objects are unicode and not str, even when\n        #       they contain only ascii. The problem here is that msgpack\n        #       understands the difference between unicode and bytes and we\n        #       have it set to differentiate between them, however Python 2\n        #       doesn't know the difference. Forcing these to unicode will be\n        #       enough to have msgpack know the difference.\n        data = {\n            u\"response\": {\n                u\"body\": body,  # Empty bytestring if body is stored separately\n                u\"headers\": dict(\n                    (text_type(k), text_type(v)) for k, v in response.headers.items()\n                ),\n                u\"status\": response.status,\n                u\"version\": response.version,\n                u\"reason\": text_type(response.reason),\n                u\"strict\": response.strict,\n                u\"decode_content\": response.decode_content,\n            }\n        }\n\n        # Construct our vary headers\n        data[u\"vary\"] = {}\n        if u\"vary\" in response_headers:\n            varied_headers = response_headers[u\"vary\"].split(\",\")\n            for header in varied_headers:\n                header = text_type(header).strip()\n                header_value = request.headers.get(header, None)\n                if header_value is not None:\n                    header_value = text_type(header_value)\n                data[u\"vary\"][header] = header_value\n\n        return b\",\".join([b\"cc=4\", msgpack.dumps(data, use_bin_type=True)])\n\n"
     },
     {
       "function": "Foo",

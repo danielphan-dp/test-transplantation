@@ -1,0 +1,90 @@
+{
+  "test_name": "test_description_cache_management",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Attribute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "I3.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "I1.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "I3.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_description_cache_management",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_description_cache_management",
+      "source_code": ""
+    },
+    {
+      "function": "Attribute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_description_cache_management",
+      "source_code": ""
+    },
+    {
+      "function": "I3.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_description_cache_management",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "I1.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_description_cache_management",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "I3.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_description_cache_management",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_description_cache_management(self):\n        # See https://bugs.launchpad.net/zope.interface/+bug/185974\n        # There was a bug where the cache used by Specification.get() was not\n        # cleared when the bases were changed.\n        from zope.interface import Attribute\n        from zope.interface import Interface\n\n        class I1(Interface):\n            a = Attribute('a')\n\n        class I2(I1):\n            pass\n\n        class I3(I2):\n            pass\n\n        self.assertIs(I3.get('a'), I1.get('a'))\n\n        I2.__bases__ = (Interface,)\n        self.assertIsNone(I3.get('a'))"
+}

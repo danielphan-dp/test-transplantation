@@ -1,0 +1,96 @@
+{
+  "test_name": "test_url_attributes_with_ssl_context",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+  "static_methods": [
+    {
+      "name": "context.load_cert_chain",
+      "source_code": "    def load_cert_chain(self, certfile, keyfile=None, password=None):\n        self._client_cert = certfile\n        self._client_key = keyfile\n        self._client_cert_passphrase = password",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 873
+    },
+    {
+      "name": "app.add_route",
+      "source_code": "    def add_route(\n        self,\n        handler: RouteHandler,\n        uri: str,\n        methods: Iterable[str] = frozenset({\"GET\"}),\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        stream: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        unquote: bool = False,\n        **ctx_kwargs: Any,\n    ) -> RouteHandler:\n        \"\"\"A helper method to register class-based view or functions as a handler to the application url routes.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 217
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "urlparse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "text",
+      "source_code": "    def text(self):\n        \"\"\"Content of the response, in unicode.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 907
+    },
+    {
+      "name": "expected_url.format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "context.load_cert_chain",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 873,
+      "caller": "test_url_attributes_with_ssl_context",
+      "source_code": "    def load_cert_chain(self, certfile, keyfile=None, password=None):\n        self._client_cert = certfile\n        self._client_key = keyfile\n        self._client_cert_passphrase = password\n\n"
+    },
+    {
+      "function": "app.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 217,
+      "caller": "test_url_attributes_with_ssl_context",
+      "source_code": "    def add_route(\n        self,\n        handler: RouteHandler,\n        uri: str,\n        methods: Iterable[str] = frozenset({\"GET\"}),\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        stream: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        unquote: bool = False,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_url_attributes_with_ssl_context",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "urlparse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_attributes_with_ssl_context",
+      "source_code": ""
+    },
+    {
+      "function": "text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 907,
+      "caller": "test_url_attributes_with_ssl_context",
+      "source_code": "    @property\n    def text(self):\n        \"\"\"Content of the response, in unicode.\n\n        If Response.encoding is None, encoding will be guessed using\n        ``charset_normalizer`` or ``chardet``.\n\n        The encoding of the response content is determined based solely on HTTP\n        headers, following RFC 2616 to the letter. If you can take advantage of\n        non-HTTP knowledge to make a better guess at the encoding, you should\n        set ``r.encoding`` appropriately before accessing this property.\n        \"\"\"\n\n        # Try charset from content-type\n        content = None\n        encoding = self.encoding\n\n        if not self.content:\n            return \"\"\n\n        # Fallback to auto-detected encoding.\n        if self.encoding is None:\n            encoding = self.apparent_encoding\n\n        # Decode unicode from given encoding.\n        try:\n            content = str(self.content, encoding, errors=\"replace\")\n        except (LookupError, TypeError):\n            # A LookupError is raised if the encoding was not found which could\n            # indicate a misspelling or similar mistake.\n            #\n            # A TypeError can be raised if encoding is None\n            #\n            # So we try blindly encoding.\n            content = str(self.content, errors=\"replace\")\n\n        return content\n\n"
+    },
+    {
+      "function": "expected_url.format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_attributes_with_ssl_context",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert request.url == expected_url.format(HOST, request.server_port)",
+    "assert parsed.scheme == request.scheme",
+    "assert parsed.path == request.path",
+    "assert parsed.query == request.query_string",
+    "assert parsed.netloc == request.host"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_url_attributes_with_ssl_context(app, path, query, expected_url):\n    context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)\n    context.load_cert_chain(localhost_cert, localhost_key)\n\n    async def handler(request):\n        return text(\"OK\")\n\n    app.add_route(handler, path)\n\n    request, _ = app.test_client.get(\n        f\"https://{HOST}:{PORT}\" + path + f\"?{query}\",\n        server_kwargs={\"ssl\": context},\n    )\n    assert request.url == expected_url.format(HOST, request.server_port)\n\n    parsed = urlparse(request.url)\n\n    assert parsed.scheme == request.scheme\n    assert parsed.path == request.path\n    assert parsed.query == request.query_string\n    assert parsed.netloc == request.host"
+}

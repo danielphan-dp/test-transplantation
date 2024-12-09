@@ -1,0 +1,77 @@
+{
+  "test_name": "test_aiohttp_plugin_async_fixture",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_pytest_plugin.py",
+  "static_methods": [
+    {
+      "name": "testdir.makepyfile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.makeconftest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.runpytest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result.assert_outcomes",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result.stdout.fnmatch_lines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testdir.makepyfile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_fixture",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.makeconftest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_fixture",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.runpytest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_fixture",
+      "source_code": ""
+    },
+    {
+      "function": "result.assert_outcomes",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_fixture",
+      "source_code": ""
+    },
+    {
+      "function": "result.stdout.fnmatch_lines",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_fixture",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_aiohttp_plugin_async_fixture(\n    testdir: pytest.Testdir, capsys: pytest.CaptureFixture[str]\n) -> None:\n    testdir.makepyfile(\n        \"\"\"\\\nimport pytest\n\nfrom aiohttp import web\n\n\nasync def hello(request):\n    return web.Response(body=b'Hello, world')\n\n\ndef create_app():\n    app = web.Application()\n    app.router.add_route('GET', '/', hello)\n    return app\n\n\n@pytest.fixture\nasync def cli(aiohttp_client, loop):\n    client = await aiohttp_client(create_app())\n    return client\n\n\n@pytest.fixture\nasync def foo():\n    return 42\n\n\n@pytest.fixture\nasync def bar(request):\n    # request should be accessible in async fixtures if needed\n    return request.function\n\n\nasync def test_hello(cli, loop) -> None:\n    resp = await cli.get('/')\n    assert resp.status == 200\n\n\ndef test_foo(loop, foo) -> None:\n    assert foo == 42\n\n\ndef test_foo_without_loop(foo) -> None:\n    # will raise an error because there is no loop\n    pass\n\n\ndef test_bar(loop, bar) -> None:\n    assert bar is test_bar\n\"\"\"\n    )\n    testdir.makeconftest(CONFTEST)\n    result = testdir.runpytest(\"-p\", \"no:sugar\", \"--aiohttp-loop=pyloop\")\n    result.assert_outcomes(passed=3, errors=1)\n    result.stdout.fnmatch_lines(\n        \"*Asynchronous fixtures must depend on the 'loop' fixture \"\n        \"or be used in tests depending from it.\"\n    )"
+}

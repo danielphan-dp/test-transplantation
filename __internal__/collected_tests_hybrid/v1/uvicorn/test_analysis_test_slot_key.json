@@ -1,0 +1,40 @@
+{
+  "test_name": "test_slot_key",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitclass.py",
+  "static_methods": [
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "slot_key",
+      "source_code": "def slot_key(attr: str) -> str:\n    \"\"\"Map dunder method name to sort key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitclass.py",
+      "line_number": 147
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "sorted",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_slot_key",
+      "source_code": ""
+    },
+    {
+      "function": "slot_key",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitclass.py",
+      "line": 147,
+      "caller": "test_slot_key",
+      "source_code": "def slot_key(attr: str) -> str:\n    \"\"\"Map dunder method name to sort key.\n\n    Sort reverse operator methods and __delitem__ after others ('x' > '_').\n    \"\"\"\n    if (attr.startswith(\"__r\") and attr != \"__rshift__\") or attr == \"__delitem__\":\n        return \"x\" + attr\n    return attr\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert s == ['__add__', '__rshift__', '__setitem__', '__delitem__', '__radd__', '__rrshift__']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_slot_key(self) -> None:\n        attrs = [\"__add__\", \"__radd__\", \"__rshift__\", \"__rrshift__\", \"__setitem__\", \"__delitem__\"]\n        s = sorted(attrs, key=lambda x: slot_key(x))\n        # __delitem__ and reverse methods should come last.\n        assert s == [\n            \"__add__\",\n            \"__rshift__\",\n            \"__setitem__\",\n            \"__delitem__\",\n            \"__radd__\",\n            \"__rrshift__\",\n        ]"
+}

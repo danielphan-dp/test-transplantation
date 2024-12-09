@@ -1,0 +1,64 @@
+{
+  "test_name": "test_add_route_effective_principals_deprecated",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_routes.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_route",
+      "source_code": "    def add_route(\n        self,\n        name,\n        pattern=None,\n        factory=None,\n        for_=None,\n        header=None,\n        xhr=None,\n        accept=None,\n        path_info=None,\n        request_method=None,\n        request_param=None,\n        traverse=None,\n        custom_predicates=(),\n        use_global_views=False,\n        path=None,\n        pregenerator=None,\n        static=False,\n        inherit_slash=None,\n        **predicates,\n    ):\n        \"\"\"Add a :term:`route configuration` to the current configuration\n        state.  Arguments to ``add_route`` are divided into *predicate*\n        and *non-predicate* types.  :term:`Route predicate` arguments\n        narrow the circumstances in which a route will match a\n        request; non-predicate arguments are informational.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertIn",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_route_effective_principals_deprecated",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line": 22,
+      "caller": "test_add_route_effective_principals_deprecated",
+      "source_code": "    @action_method\n    def add_route(\n        self,\n        name,\n        pattern=None,\n        factory=None,\n        for_=None,\n        header=None,\n        xhr=None,\n        accept=None,\n        path_info=None,\n        request_method=None,\n        request_param=None,\n        traverse=None,\n        custom_predicates=(),\n        use_global_views=False,\n        path=None,\n        pregenerator=None,\n        static=False,\n        inherit_slash=None,\n        **predicates,\n"
+    },
+    {
+      "function": "self.assertIn",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_route_effective_principals_deprecated",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_route_effective_principals_deprecated",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_route_effective_principals_deprecated(self):\n        config = self._makeOne(autocommit=True)\n\n        with warnings.catch_warnings(record=True) as w:\n            warnings.simplefilter('always', DeprecationWarning)\n            config.add_route('foo', '/bar', effective_principals=['any'])\n            self.assertIn(\n                'deprecated effective_principals', str(w[-1].message)\n            )"
+}

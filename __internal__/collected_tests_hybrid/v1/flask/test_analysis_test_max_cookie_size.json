@@ -1,6 +1,6 @@
 {
   "test_name": "test_max_cookie_size",
-  "test_file": "__internal__/_data/flask/tests/test_basic.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
     {
       "name": "app.app_context",
@@ -16,21 +16,21 @@
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "recwarn.pop",
-      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line_number": 78
+      "source_code": "    def pop(self) -> T | None:\n        \"\"\"Remove the top item from the stack and return it. If the\n        stack is empty, return ``None``.\n        \"\"\"\n        stack = self._storage.get([])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line_number": 147
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "app.app_context",
@@ -40,9 +40,9 @@
     },
     {
       "name": "r.set_cookie",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def set_cookie(\n        self,\n        key: str,\n        value: str = \"\",\n        *,\n        domain: str = \"localhost\",\n        origin_only: bool = True,\n        path: str = \"/\",\n        **kwargs: t.Any,\n    ) -> None:\n        \"\"\"Set a cookie to be sent in subsequent requests.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 849
     },
     {
       "name": "len",
@@ -80,24 +80,24 @@
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_max_cookie_size",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "recwarn.pop",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line": 78,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line": 147,
       "caller": "test_max_cookie_size",
-      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.\n\n        :param name: Name of attribute to pop.\n        :param default: Value to return if the attribute is not present,\n            instead of raising a ``KeyError``.\n\n        .. versionadded:: 0.11\n        \"\"\"\n        if default is _sentinel:\n            return self.__dict__.pop(name)\n        else:\n            return self.__dict__.pop(name, default)\n\n"
+      "source_code": "    def pop(self) -> T | None:\n        \"\"\"Remove the top item from the stack and return it. If the\n        stack is empty, return ``None``.\n        \"\"\"\n        stack = self._storage.get([])\n\n        if len(stack) == 0:\n            return None\n\n        rv = stack[-1]\n        self._storage.set(stack[:-1])\n        return rv\n\n"
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_max_cookie_size",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "app.app_context",
@@ -108,10 +108,10 @@
     },
     {
       "function": "r.set_cookie",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 849,
       "caller": "test_max_cookie_size",
-      "source_code": ""
+      "source_code": "    def set_cookie(\n        self,\n        key: str,\n        value: str = \"\",\n        *,\n        domain: str = \"localhost\",\n        origin_only: bool = True,\n        path: str = \"/\",\n        **kwargs: t.Any,\n"
     },
     {
       "function": "len",

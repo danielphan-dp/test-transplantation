@@ -1,0 +1,66 @@
+{
+  "test_name": "test_calling_asyncio_function_gives_nice_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "any",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "create_asyncio_future_in_new_loop",
+      "source_code": "def create_asyncio_future_in_new_loop() -> asyncio.Future[object]:\n    with closing(asyncio.new_event_loop()) as loop:\n        return loop.create_future()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 115
+    },
+    {
+      "name": "child_xyzzy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "any",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_calling_asyncio_function_gives_nice_error",
+      "source_code": ""
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_calling_asyncio_function_gives_nice_error",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "create_asyncio_future_in_new_loop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 115,
+      "caller": "test_calling_asyncio_function_gives_nice_error",
+      "source_code": "def create_asyncio_future_in_new_loop() -> asyncio.Future[object]:\n    with closing(asyncio.new_event_loop()) as loop:\n        return loop.create_future()\n"
+    },
+    {
+      "function": "child_xyzzy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_calling_asyncio_function_gives_nice_error",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert any((entry.name == 'child_xyzzy' for entry in excinfo.traceback))"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_calling_asyncio_function_gives_nice_error() -> None:\n    async def child_xyzzy() -> None:\n        await create_asyncio_future_in_new_loop()\n\n    async def misguided() -> None:\n        await child_xyzzy()\n\n    with pytest.raises(TypeError, match=\"asyncio\") as excinfo:\n        _core.run(misguided)\n\n    # The traceback should point to the location of the foreign await\n    assert any(  # pragma: no branch\n        entry.name == \"child_xyzzy\" for entry in excinfo.traceback\n    )"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_rebuilt",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+  "static_methods": [
+    {
+      "name": "self._create_project",
+      "source_code": "    def _create_project(self):\n        path.build({\n            'setup.py': self.setup_script,\n            'hello.py': DALS(\n                \"\"\"\n                def run():\n                    print('hello')\n                \"\"\"\n            ),\n        })",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line_number": 64
+    },
+    {
+      "name": "self._run_egg_info_command",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line_number": 1227
+    },
+    {
+      "name": "self._run_egg_info_command",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line_number": 1227
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._create_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line": 64,
+      "caller": "test_rebuilt",
+      "source_code": "    def _create_project(self):\n        path.build({\n            'setup.py': self.setup_script,\n            'hello.py': DALS(\n                \"\"\"\n                def run():\n                    print('hello')\n                \"\"\"\n            ),\n        })\n\n"
+    },
+    {
+      "function": "self._run_egg_info_command",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line": 1227,
+      "caller": "test_rebuilt",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data\n\n        if output:\n            assert output in data\n\n"
+    },
+    {
+      "function": "self._run_egg_info_command",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line": 1227,
+      "caller": "test_rebuilt",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data\n\n        if output:\n            assert output in data\n\n"
+    }
+  ],
+  "assertions": [
+    "assert timestamp_a != timestamp_b"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_rebuilt(self, tmpdir_cwd, env):\n        \"\"\"Ensure timestamps are updated when the command is re-run.\"\"\"\n        self._create_project()\n\n        self._run_egg_info_command(tmpdir_cwd, env)\n        timestamp_a = os.path.getmtime('foo.egg-info')\n\n        # arbitrary sleep just to handle *really* fast systems\n        time.sleep(0.001)\n\n        self._run_egg_info_command(tmpdir_cwd, env)\n        timestamp_b = os.path.getmtime('foo.egg-info')\n\n        assert timestamp_a != timestamp_b"
+}

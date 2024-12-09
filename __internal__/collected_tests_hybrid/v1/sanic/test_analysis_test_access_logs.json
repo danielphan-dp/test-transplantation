@@ -1,0 +1,79 @@
+{
+  "test_name": "test_access_logs",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "capture",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 1083
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "read_app_info",
+      "source_code": "def read_app_info(lines: List[str]):\n    for line in lines:\n        if line.startswith(\"{\") and line.endswith(\"}\"):  # type: ignore\n            return json.loads(line)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+      "line_number": 46
+    },
+    {
+      "name": "command.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "capture",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 1083,
+      "caller": "test_access_logs",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.\n\n        Example:\n            >>> from rich.console import Console\n            >>> console = Console()\n            >>> with console.capture() as capture:\n            ...     console.print(\"[bold magenta]Hello World[/]\")\n            >>> print(capture.get())\n\n        Returns:\n            Capture: Context manager with disables writing to the terminal.\n        \"\"\"\n        capture = Capture(self)\n        return capture\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_access_logs",
+      "source_code": ""
+    },
+    {
+      "function": "read_app_info",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+      "line": 46,
+      "caller": "test_access_logs",
+      "source_code": "def read_app_info(lines: List[str]):\n    for line in lines:\n        if line.startswith(\"{\") and line.endswith(\"}\"):  # type: ignore\n            return json.loads(line)\n\n\n"
+    },
+    {
+      "function": "command.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_access_logs",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_access_logs",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert info['access_log'] is expected, f'Expected: {expected}. Received: {info}. Lines: {lines}'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_access_logs(cmd: str, expected: bool, caplog, port):\n    command = [\"fake.server.app\", f\"-p={port}\"]\n    if cmd:\n        command.append(cmd)\n    lines = capture(command, caplog)\n    print(lines)\n    info = read_app_info(lines)\n    if info[\"access_log\"] != expected:\n        print(lines)\n    assert (\n        info[\"access_log\"] is expected\n    ), f\"Expected: {expected}. Received: {info}. Lines: {lines}\""
+}

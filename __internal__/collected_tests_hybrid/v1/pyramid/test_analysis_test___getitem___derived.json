@@ -1,0 +1,194 @@
+{
+  "test_name": "test___getitem___derived",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self.assertIsInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Attribute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Attribute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertIsInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "Attribute",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    },
+    {
+      "function": "Attribute",
+      "filename": "",
+      "line": 0,
+      "caller": "test___getitem___derived",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___getitem___derived(self):\n        from zope.interface import Attribute\n        from zope.interface import Interface\n        from zope.interface.interface import Method\n\n        class IBase(Interface):\n            attr = Attribute('My attr')\n\n            def method():\n                \"My method\"\n\n        class IDerived(IBase):\n            attr2 = Attribute('My attr2')\n\n            def method():\n                \"My method, overridden\"\n\n            def method2():\n                \"My method2\"\n\n        a_desc = IDerived['attr']\n        self.assertIsInstance(a_desc, Attribute)\n        self.assertEqual(a_desc.__name__, 'attr')\n        self.assertEqual(a_desc.__doc__, 'My attr')\n\n        m_desc = IDerived['method']\n        self.assertIsInstance(m_desc, Method)\n        self.assertEqual(m_desc.__name__, 'method')\n        self.assertEqual(m_desc.__doc__, 'My method, overridden')\n\n        a2_desc = IDerived['attr2']\n        self.assertIsInstance(a2_desc, Attribute)\n        self.assertEqual(a2_desc.__name__, 'attr2')\n        self.assertEqual(a2_desc.__doc__, 'My attr2')\n\n        m2_desc = IDerived['method2']\n        self.assertIsInstance(m2_desc, Method)\n        self.assertEqual(m2_desc.__name__, 'method2')\n        self.assertEqual(m2_desc.__doc__, 'My method2')"
+}

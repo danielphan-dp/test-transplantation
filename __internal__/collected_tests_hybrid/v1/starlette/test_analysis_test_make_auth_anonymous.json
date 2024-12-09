@@ -1,0 +1,40 @@
+{
+  "test_name": "test_make_auth_anonymous",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_auth.py",
+  "static_methods": [
+    {
+      "name": "auth.make_auth_anonymous",
+      "source_code": "def make_auth_anonymous() -> bytes:\n    \"\"\"Format an AUTH command line for the ANONYMOUS mechanism",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/auth.py",
+      "line_number": 15
+    },
+    {
+      "name": "b.startswith",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def endswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def replace(self, old: str, new: str, maxcount: int=...) -> str: ...\n    def encode(self, x: str=..., y: str=...) -> bytes: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line_number": 110
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "auth.make_auth_anonymous",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/auth.py",
+      "line": 15,
+      "caller": "test_make_auth_anonymous",
+      "source_code": "def make_auth_anonymous() -> bytes:\n    \"\"\"Format an AUTH command line for the ANONYMOUS mechanism\n\n    Jeepney's higher-level wrappers don't currently use this mechanism,\n    but third-party code may choose to.\n\n    See <https://tools.ietf.org/html/rfc4505> for details.\n    \"\"\"\n    from . import __version__\n    trace = hexlify(('Jeepney %s' % __version__).encode('ascii'))\n    return b'AUTH ANONYMOUS %s\\r\\n' % trace\n\n"
+    },
+    {
+      "function": "b.startswith",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line": 110,
+      "caller": "test_make_auth_anonymous",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n"
+    }
+  ],
+  "assertions": [
+    "assert b.startswith(b'AUTH ANONYMOUS')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_auth_anonymous():\n    b = auth.make_auth_anonymous()\n    assert b.startswith(b'AUTH ANONYMOUS')"
+}

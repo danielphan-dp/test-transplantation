@@ -1,0 +1,79 @@
+{
+  "test_name": "test_run",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_worker.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "worker.log.exception.assert_not_called",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.is_closed",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "worker.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run",
+      "source_code": ""
+    },
+    {
+      "function": "worker.log.exception.assert_not_called",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run",
+      "source_code": ""
+    },
+    {
+      "function": "loop.is_closed",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run",
+      "source_code": ""
+    },
+    {
+      "function": "worker.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert loop.is_closed()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run(\n    worker: base_worker.GunicornWebWorker, loop: asyncio.AbstractEventLoop\n) -> None:\n    worker.log = mock.Mock()\n    worker.cfg = mock.Mock()\n    worker.cfg.access_log_format = ACCEPTABLE_LOG_FORMAT\n    worker.cfg.is_ssl = False\n    worker.cfg.graceful_timeout = 100\n    worker.sockets = []\n\n    worker.loop = loop\n    with pytest.raises(SystemExit):\n        worker.run()\n    worker.log.exception.assert_not_called()\n    assert loop.is_closed()"
+}

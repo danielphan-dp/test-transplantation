@@ -1,0 +1,77 @@
+{
+  "test_name": "test_shell_entry_points",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripts/test_pshell.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "dummy.DummyShell",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeEntryPoints",
+      "source_code": "    def _makeEntryPoints(self, command, shells):\n        entry_points = [\n            DummyEntryPoint(name, value) for name, value in shells.items()\n        ]\n        command.importlib_metadata = DummyImportlibMetadata(entry_points)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripts/test_pshell.py",
+      "line_number": 53
+    },
+    {
+      "name": "command.make_shell",
+      "source_code": "    def make_shell(self):\n        shells = self.find_all_shells()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripts/pshell.py",
+      "line_number": 246
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_shell_entry_points",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "dummy.DummyShell",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shell_entry_points",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeEntryPoints",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripts/test_pshell.py",
+      "line": 53,
+      "caller": "test_shell_entry_points",
+      "source_code": "    def _makeEntryPoints(self, command, shells):\n        entry_points = [\n            DummyEntryPoint(name, value) for name, value in shells.items()\n        ]\n        command.importlib_metadata = DummyImportlibMetadata(entry_points)\n\n"
+    },
+    {
+      "function": "command.make_shell",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripts/pshell.py",
+      "line": 246,
+      "caller": "test_shell_entry_points",
+      "source_code": "    def make_shell(self):\n        shells = self.find_all_shells()\n\n        shell = None\n        user_shell = self.args.python_shell.lower()\n\n        if not user_shell:\n            preferred_shells = self.preferred_shells\n            if not preferred_shells:\n                # by default prioritize all shells above python\n                preferred_shells = [k for k in shells.keys() if k != 'python']\n            max_weight = len(preferred_shells)\n\n            def order(x):\n                # invert weight to reverse sort the list\n                # (closer to the front is higher priority)\n                try:\n                    return preferred_shells.index(x[0].lower()) - max_weight\n                except ValueError:\n                    return 1\n\n            sorted_shells = sorted(shells.items(), key=order)\n\n            if len(sorted_shells) > 0:\n                shell = sorted_shells[0][1]\n\n        else:\n            runner = shells.get(user_shell)\n\n            if runner is not None:\n                shell = runner\n\n            if shell is None:\n                raise ValueError(\n                    'could not find a shell named \"%s\"' % user_shell\n                )\n\n        if shell is None:\n            # should never happen, but just incase entry points are borked\n            shell = self.default_runner\n\n        return shell\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shell_entry_points",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_shell_entry_points(self):\n        command = self._makeOne()\n        dshell = dummy.DummyShell()\n\n        self._makeEntryPoints(command, {'ipython': dshell, 'bpython': dshell})\n\n        command.default_runner = None\n        shell = command.make_shell()\n        self.assertEqual(shell, dshell)"
+}

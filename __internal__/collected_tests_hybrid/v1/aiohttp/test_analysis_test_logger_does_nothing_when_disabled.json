@@ -1,0 +1,79 @@
+{
+  "test_name": "test_logger_does_nothing_when_disabled",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_log.py",
+  "static_methods": [
+    {
+      "name": "mock_logger.setLevel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AccessLogger",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "access_logger.log",
+      "source_code": "    def log(\n        self,\n        *objects: Any,\n        sep: str = \" \",\n        end: str = \"\\n\",\n        style: Optional[Union[str, Style]] = None,\n        justify: Optional[JustifyMethod] = None,\n        emoji: Optional[bool] = None,\n        markup: Optional[bool] = None,\n        highlight: Optional[bool] = None,\n        log_locals: bool = False,\n        _stack_offset: int = 1,\n    ) -> None:\n        \"\"\"Log rich content to the terminal.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 1902
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock_logger.setLevel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_does_nothing_when_disabled",
+      "source_code": ""
+    },
+    {
+      "function": "AccessLogger",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_does_nothing_when_disabled",
+      "source_code": ""
+    },
+    {
+      "function": "access_logger.log",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 1902,
+      "caller": "test_logger_does_nothing_when_disabled",
+      "source_code": "    def log(\n        self,\n        *objects: Any,\n        sep: str = \" \",\n        end: str = \"\\n\",\n        style: Optional[Union[str, Style]] = None,\n        justify: Optional[JustifyMethod] = None,\n        emoji: Optional[bool] = None,\n        markup: Optional[bool] = None,\n        highlight: Optional[bool] = None,\n        log_locals: bool = False,\n        _stack_offset: int = 1,\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_does_nothing_when_disabled",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_does_nothing_when_disabled",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'mock_response' in caplog.text"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_logger_does_nothing_when_disabled(caplog: pytest.LogCaptureFixture) -> None:\n    \"\"\"Test that the logger does nothing when the log level is disabled.\"\"\"\n    mock_logger = logging.getLogger(\"test.aiohttp.log\")\n    mock_logger.setLevel(logging.INFO)\n    access_logger = AccessLogger(mock_logger, \"%b\")\n    access_logger.log(\n        mock.Mock(name=\"mock_request\"), mock.Mock(name=\"mock_response\"), 42\n    )\n    assert \"mock_response\" in caplog.text"
+}

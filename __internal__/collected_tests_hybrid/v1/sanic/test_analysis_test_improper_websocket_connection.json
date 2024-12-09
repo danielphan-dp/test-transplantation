@@ -1,0 +1,66 @@
+{
+  "test_name": "test_improper_websocket_connection",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_asgi.py",
+  "static_methods": [
+    {
+      "name": "transport.create_websocket_connection",
+      "source_code": "    def create_websocket_connection(\n        self, send: ASGISend, receive: ASGIReceive\n    ) -> WebSocketConnection:\n        self._websocket_connection = WebSocketConnection(\n            send, receive, self.scope.get(\"subprotocols\", [])\n        )\n        return self._websocket_connection",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/models/asgi.py",
+      "line_number": 81
+    },
+    {
+      "name": "transport.get_websocket_connection",
+      "source_code": "    def get_websocket_connection(self) -> WebSocketConnection:\n        try:\n            return self._websocket_connection\n        except AttributeError:\n            raise BadRequest(\"Improper websocket connection.\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/models/asgi.py",
+      "line_number": 75
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "transport.get_websocket_connection",
+      "source_code": "    def get_websocket_connection(self) -> WebSocketConnection:\n        try:\n            return self._websocket_connection\n        except AttributeError:\n            raise BadRequest(\"Improper websocket connection.\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/models/asgi.py",
+      "line_number": 75
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "transport.create_websocket_connection",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/models/asgi.py",
+      "line": 81,
+      "caller": "test_improper_websocket_connection",
+      "source_code": "    def create_websocket_connection(\n        self, send: ASGISend, receive: ASGIReceive\n"
+    },
+    {
+      "function": "transport.get_websocket_connection",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/models/asgi.py",
+      "line": 75,
+      "caller": "test_improper_websocket_connection",
+      "source_code": "    def get_websocket_connection(self) -> WebSocketConnection:\n        try:\n            return self._websocket_connection\n        except AttributeError:\n            raise BadRequest(\"Improper websocket connection.\")\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_improper_websocket_connection",
+      "source_code": ""
+    },
+    {
+      "function": "transport.get_websocket_connection",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/models/asgi.py",
+      "line": 75,
+      "caller": "test_improper_websocket_connection",
+      "source_code": "    def get_websocket_connection(self) -> WebSocketConnection:\n        try:\n            return self._websocket_connection\n        except AttributeError:\n            raise BadRequest(\"Improper websocket connection.\")\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(connection, WebSocketConnection)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_improper_websocket_connection(transport, send, receive):\n    with pytest.raises(BadRequest):\n        transport.get_websocket_connection()\n\n    transport.create_websocket_connection(send, receive)\n    connection = transport.get_websocket_connection()\n    assert isinstance(connection, WebSocketConnection)"
+}

@@ -1,0 +1,42 @@
+{
+  "test_name": "test_set_text_with_charset",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_response.py",
+  "static_methods": [
+    {
+      "name": "web.Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_text_with_charset",
+      "source_code": ""
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_set_text_with_charset",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert '\u0442\u0435\u043a\u0441\u0442' == resp.text",
+    "assert '\u0442\u0435\u043a\u0441\u0442'.encode('koi8-r') == resp.body",
+    "assert 'koi8-r' == resp.charset"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_text_with_charset() -> None:\n    resp = web.Response()\n    resp.content_type = \"text/plain\"\n    resp.charset = \"KOI8-R\"\n    resp.text = \"\u0442\u0435\u043a\u0441\u0442\"\n\n    assert \"\u0442\u0435\u043a\u0441\u0442\" == resp.text\n    assert \"\u0442\u0435\u043a\u0441\u0442\".encode(\"koi8-r\") == resp.body\n    assert \"koi8-r\" == resp.charset"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_frozen_router",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line_number": 26
+    },
+    {
+      "name": "router.add_get",
+      "source_code": "    def add_get(\n        self,\n        path: str,\n        handler: Handler,\n        *,\n        name: Optional[str] = None,\n        allow_head: bool = True,\n        **kwargs: Any,\n    ) -> AbstractRoute:\n        \"\"\"Shortcut for add_route with method GET.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1194
+    },
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.freeze",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line": 26,
+      "caller": "test_frozen_router",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),\n"
+    },
+    {
+      "function": "router.add_get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1194,
+      "caller": "test_frozen_router",
+      "source_code": "    def add_get(\n        self,\n        path: str,\n        handler: Handler,\n        *,\n        name: Optional[str] = None,\n        allow_head: bool = True,\n        **kwargs: Any,\n"
+    },
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_frozen_router",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_frozen_router(router: web.UrlDispatcher) -> None:\n    router.freeze()\n    with pytest.raises(RuntimeError):\n        router.add_get(\"/\", make_handler())"
+}

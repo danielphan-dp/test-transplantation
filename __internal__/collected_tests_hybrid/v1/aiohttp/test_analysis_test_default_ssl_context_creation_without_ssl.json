@@ -1,0 +1,67 @@
+{
+  "test_name": "test_default_ssl_context_creation_without_ssl",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_connector.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "connector_module._make_ssl_context",
+      "source_code": "def _make_ssl_context(verified: bool) -> SSLContext:\n    \"\"\"Create SSL context.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 731
+    },
+    {
+      "name": "connector_module._make_ssl_context",
+      "source_code": "def _make_ssl_context(verified: bool) -> SSLContext:\n    \"\"\"Create SSL context.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 731
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_default_ssl_context_creation_without_ssl",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_default_ssl_context_creation_without_ssl",
+      "source_code": ""
+    },
+    {
+      "function": "connector_module._make_ssl_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 731,
+      "caller": "test_default_ssl_context_creation_without_ssl",
+      "source_code": "def _make_ssl_context(verified: bool) -> SSLContext:\n    \"\"\"Create SSL context.\n\n    This method is not async-friendly and should be called from a thread\n    because it will load certificates from disk and do other blocking I/O.\n    \"\"\"\n    if ssl is None:\n        # No ssl support\n        return None  # type: ignore[unreachable]\n    if verified:\n        return ssl.create_default_context()\n    sslcontext = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)\n    sslcontext.options |= ssl.OP_NO_SSLv2\n    sslcontext.options |= ssl.OP_NO_SSLv3\n    sslcontext.check_hostname = False\n    sslcontext.verify_mode = ssl.CERT_NONE\n    sslcontext.options |= ssl.OP_NO_COMPRESSION\n    sslcontext.set_default_verify_paths()\n    return sslcontext\n\n\n"
+    },
+    {
+      "function": "connector_module._make_ssl_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 731,
+      "caller": "test_default_ssl_context_creation_without_ssl",
+      "source_code": "def _make_ssl_context(verified: bool) -> SSLContext:\n    \"\"\"Create SSL context.\n\n    This method is not async-friendly and should be called from a thread\n    because it will load certificates from disk and do other blocking I/O.\n    \"\"\"\n    if ssl is None:\n        # No ssl support\n        return None  # type: ignore[unreachable]\n    if verified:\n        return ssl.create_default_context()\n    sslcontext = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)\n    sslcontext.options |= ssl.OP_NO_SSLv2\n    sslcontext.options |= ssl.OP_NO_SSLv3\n    sslcontext.check_hostname = False\n    sslcontext.verify_mode = ssl.CERT_NONE\n    sslcontext.options |= ssl.OP_NO_COMPRESSION\n    sslcontext.set_default_verify_paths()\n    return sslcontext\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert connector_module._make_ssl_context(False) is None",
+    "assert connector_module._make_ssl_context(True) is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_default_ssl_context_creation_without_ssl() -> None:\n    \"\"\"Verify _make_ssl_context does not raise when ssl is not available.\"\"\"\n    with mock.patch.object(connector_module, \"ssl\", None):\n        assert connector_module._make_ssl_context(False) is None\n        assert connector_module._make_ssl_context(True) is None"
+}

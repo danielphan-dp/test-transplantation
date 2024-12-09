@@ -1,0 +1,27 @@
+{
+  "test_name": "test_update_from_lowercase_key",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "app.update_config",
+      "source_code": "    def update_config(self, config: Union[bytes, str, dict, Any]) -> None:\n        \"\"\"Update the application configuration.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 1961
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.update_config",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 1961,
+      "caller": "test_update_from_lowercase_key",
+      "source_code": "    def update_config(self, config: Union[bytes, str, dict, Any]) -> None:\n        \"\"\"Update the application configuration.\n\n        This method is used to update the application configuration. It can\n        accept a configuration object, a dictionary, or a path to a file that\n        contains a configuration object or dictionary.\n\n        See [Configuration](/en/guide/deployment/configuration) for details.\n\n        Args:\n            config (Union[bytes, str, dict, Any]): The configuration object,\n                dictionary, or path to a configuration file.\n        \"\"\"\n\n        self.config.update_config(config)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'test_setting_value' not in app.config"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_update_from_lowercase_key(app: Sanic):\n    d = {\"test_setting_value\": 1}\n    app.update_config(d)\n    assert \"test_setting_value\" not in app.config"
+}

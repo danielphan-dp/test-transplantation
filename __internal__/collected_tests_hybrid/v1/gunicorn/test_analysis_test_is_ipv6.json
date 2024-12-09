@@ -1,0 +1,27 @@
+{
+  "test_name": "test_is_ipv6",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "util.is_ipv6",
+      "source_code": "def is_ipv6(addr):\n    try:\n        socket.inet_pton(socket.AF_INET6, addr)\n    except OSError:  # not a valid address\n        return False\n    except ValueError:  # ipv6 not supported on this platform\n        return False\n    return True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line_number": 212
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "util.is_ipv6",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line": 212,
+      "caller": "test_is_ipv6",
+      "source_code": "def is_ipv6(addr):\n    try:\n        socket.inet_pton(socket.AF_INET6, addr)\n    except OSError:  # not a valid address\n        return False\n    except ValueError:  # ipv6 not supported on this platform\n        return False\n    return True\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert util.is_ipv6(test_input) == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_is_ipv6(test_input, expected):\n    assert util.is_ipv6(test_input) == expected"
+}

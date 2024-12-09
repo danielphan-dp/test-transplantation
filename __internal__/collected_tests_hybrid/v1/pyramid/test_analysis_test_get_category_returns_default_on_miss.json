@@ -1,0 +1,51 @@
+{
+  "test_name": "test_get_category_returns_default_on_miss",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_registry.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inst.get_category",
+      "source_code": "    def get_category(category_name, default=None, sort_key=None):\n        \"\"\"Get a sequence of dictionaries in the form\n        ``[{'introspectable':IIntrospectable, 'related':[sequence of related\n        IIntrospectables]}, ...]`` where each introspectable is part of the\n        category associated with ``category_name`` .",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 1253
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_get_category_returns_default_on_miss",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_category_returns_default_on_miss",
+      "source_code": ""
+    },
+    {
+      "function": "inst.get_category",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 1253,
+      "caller": "test_get_category_returns_default_on_miss",
+      "source_code": "    def get_category(category_name, default=None, sort_key=None):\n        \"\"\"Get a sequence of dictionaries in the form\n        ``[{'introspectable':IIntrospectable, 'related':[sequence of related\n        IIntrospectables]}, ...]`` where each introspectable is part of the\n        category associated with ``category_name`` .\n\n        If the category named ``category_name`` does not exist in the\n        introspector the value passed as ``default`` will be returned.\n\n        If ``sort_key`` is ``None``, the sequence will be returned in the\n        order the introspectables were added to the introspector.  Otherwise,\n        sort_key should be a function that accepts an IIntrospectable and\n        returns a value from it (ala the ``key`` function of Python's\n        ``sorted`` callable).\"\"\"\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_category_returns_default_on_miss(self):\n        inst = self._makeOne()\n        self.assertEqual(inst.get_category('category', '123'), '123')"
+}

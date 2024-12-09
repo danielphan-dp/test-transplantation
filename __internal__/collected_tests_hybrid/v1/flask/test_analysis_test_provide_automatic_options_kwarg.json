@@ -1,6 +1,6 @@
 {
   "test_name": "test_provide_automatic_options_kwarg",
-  "test_file": "__internal__/_data/flask/tests/test_basic.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
     {
       "name": "app.add_url_rule",
@@ -16,9 +16,9 @@
     },
     {
       "name": "client.post",
-      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line_number": 304
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1164
     },
     {
       "name": "client.open",
@@ -28,15 +28,15 @@
     },
     {
       "name": "client.head",
-      "source_code": "        def head(self):\n            return flask.Response(\"\", headers={\"X-Method\": \"HEAD\"})",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_views.py",
-      "line_number": 160
+      "source_code": "    def head(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``HEAD``.\"\"\"\n        kw[\"method\"] = \"HEAD\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1189
     },
     {
       "name": "client.delete",
-      "source_code": "def delete(id):\n    \"\"\"Delete a post.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
-      "line_number": 115
+      "source_code": "    def delete(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``DELETE``.\"\"\"\n        kw[\"method\"] = \"DELETE\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1174
     },
     {
       "name": "client.open",
@@ -58,21 +58,21 @@
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "client.post",
-      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line_number": 304
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1164
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     }
   ],
   "dynamic_methods": [
@@ -92,10 +92,10 @@
     },
     {
       "function": "client.post",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line": 304,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1164,
       "caller": "test_provide_automatic_options_kwarg",
-      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "client.open",
@@ -106,17 +106,17 @@
     },
     {
       "function": "client.head",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_views.py",
-      "line": 160,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1189,
       "caller": "test_provide_automatic_options_kwarg",
-      "source_code": "        def head(self):\n            return flask.Response(\"\", headers={\"X-Method\": \"HEAD\"})\n\n"
+      "source_code": "    def head(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``HEAD``.\"\"\"\n        kw[\"method\"] = \"HEAD\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "client.delete",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/flaskr/blog.py",
-      "line": 115,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1174,
       "caller": "test_provide_automatic_options_kwarg",
-      "source_code": "@bp.route(\"/<int:id>/delete\", methods=(\"POST\",))\n@login_required\ndef delete(id):\n    \"\"\"Delete a post.\n\n    Ensures that the post exists and that the logged in user is the\n    author of the post.\n    \"\"\"\n    get_post(id)\n    db = get_db()\n    db.execute(\"DELETE FROM post WHERE id = ?\", (id,))\n    db.commit()\n    return redirect(url_for(\"blog.index\"))\n"
+      "source_code": "    def delete(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``DELETE``.\"\"\"\n        kw[\"method\"] = \"DELETE\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "client.open",
@@ -141,24 +141,24 @@
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_provide_automatic_options_kwarg",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "client.post",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line": 304,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1164,
       "caller": "test_provide_automatic_options_kwarg",
-      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_provide_automatic_options_kwarg",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     }
   ],
   "assertions": [

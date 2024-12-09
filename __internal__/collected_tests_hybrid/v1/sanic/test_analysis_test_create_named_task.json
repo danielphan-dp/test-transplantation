@@ -1,0 +1,94 @@
+{
+  "test_name": "test_create_named_task",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_create_task.py",
+  "static_methods": [
+    {
+      "name": "app.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "app.add_task",
+      "source_code": "    def add_task(\n        self,\n        description: str,\n        start: bool = True,\n        total: Optional[float] = 100.0,\n        completed: int = 0,\n        visible: bool = True,\n        **fields: Any,\n    ) -> TaskID:\n        \"\"\"Add a new 'task' to the Progress display.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line_number": 1589
+    },
+    {
+      "name": "app.get_task",
+      "source_code": "    def get_task(\n        self, name: str, *, raise_exception: Literal[True]\n    ) -> Task: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 1781
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "app.stop",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1308
+    },
+    {
+      "name": "task.get_name",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line_number": 544
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_create_named_task",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "app.add_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line": 1589,
+      "caller": "test_create_named_task",
+      "source_code": "    def add_task(\n        self,\n        description: str,\n        start: bool = True,\n        total: Optional[float] = 100.0,\n        completed: int = 0,\n        visible: bool = True,\n        **fields: Any,\n"
+    },
+    {
+      "function": "app.get_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 1781,
+      "caller": "test_create_named_task",
+      "source_code": "    @overload\n    def get_task(\n        self, name: str, *, raise_exception: Literal[True]\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_named_task",
+      "source_code": ""
+    },
+    {
+      "function": "app.stop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1308,
+      "caller": "test_create_named_task",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True\n\n"
+    },
+    {
+      "function": "task.get_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line": 544,
+      "caller": "test_create_named_task",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.\n\n        Example::\n\n            integer = Word(nums)\n            ssn_expr = Regex(r\"\\d\\d\\d-\\d\\d-\\d\\d\\d\\d\")\n            house_number_expr = Suppress('#') + Word(nums, alphanums)\n            user_data = (Group(house_number_expr)(\"house_number\")\n                        | Group(ssn_expr)(\"ssn\")\n                        | Group(integer)(\"age\"))\n            user_info = user_data[1, ...]\n\n            result = user_info.parse_string(\"22 111-22-3333 #221B\")\n            for item in result:\n                print(item.get_name(), ':', item[0])\n\n        prints::\n\n            age : 22\n            ssn : 111-22-3333\n            house_number : 221B\n        \"\"\"\n        if self._name:\n            return self._name\n        elif self._parent:\n            par = self._parent()\n\n            def find_in_parent(sub):\n                return next(\n                    (\n                        k\n                        for k, vlist in par._tokdict.items()\n                        for v, loc in vlist\n                        if sub is v\n                    ),\n                    None,\n                )\n\n            return find_in_parent(self) if par else None\n        elif (\n            len(self) == 1\n            and len(self._tokdict) == 1\n            and next(iter(self._tokdict.values()))[0][1] in (0, -1)\n        ):\n            return next(iter(self._tokdict.keys()))\n        else:\n            return None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert app._task_registry",
+    "assert isinstance(task, asyncio.Task)",
+    "assert task.get_name() == 'dummy_task'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_create_named_task(app, port):\n    async def dummy(): ...\n\n    @app.before_server_start\n    async def setup(app, _):\n        app.add_task(dummy, name=\"dummy_task\")\n\n    @app.after_server_start\n    async def stop(app, _):\n        task = app.get_task(\"dummy_task\")\n\n        assert app._task_registry\n        assert isinstance(task, asyncio.Task)\n\n        assert task.get_name() == \"dummy_task\"\n\n        app.stop()\n\n    app.run(single_process=True, port=port)"
+}

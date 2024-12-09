@@ -1,0 +1,56 @@
+{
+  "test_name": "test_shutdown_timeout_not_reached",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "aiohttp_unused_port",
+      "source_code": "def aiohttp_unused_port() -> Callable[[], int]:\n    \"\"\"Return a port that is unused on the current host.\"\"\"\n    return _unused_port",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line_number": 293
+    },
+    {
+      "name": "self.run_app",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n    ) -> Tuple[\"asyncio.Task[None]\", int]:\n        num_connections = -1\n        t = test_task = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 1007
+    },
+    {
+      "name": "t.done",
+      "source_code": "    def done(self):\n        if self._future is None:\n            return False\n        return self._future.done()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 3474
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "aiohttp_unused_port",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line": 293,
+      "caller": "test_shutdown_timeout_not_reached",
+      "source_code": "@pytest.fixture\ndef aiohttp_unused_port() -> Callable[[], int]:\n    \"\"\"Return a port that is unused on the current host.\"\"\"\n    return _unused_port\n\n\n"
+    },
+    {
+      "function": "self.run_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 1007,
+      "caller": "test_shutdown_timeout_not_reached",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n"
+    },
+    {
+      "function": "t.done",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 3474,
+      "caller": "test_shutdown_timeout_not_reached",
+      "source_code": "    @property\n    def done(self):\n        if self._future is None:\n            return False\n        return self._future.done()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert finished is True",
+    "assert t.done()",
+    "assert connection_count == 0",
+    "assert time.time() - start_time < 10"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_shutdown_timeout_not_reached(\n        self, aiohttp_unused_port: Callable[[], int]\n    ) -> None:\n        port = aiohttp_unused_port()\n        finished = False\n\n        async def task() -> None:\n            nonlocal finished\n            await asyncio.sleep(1)\n            finished = True\n\n        start_time = time.time()\n        t, connection_count = self.run_app(port, 15, task)\n\n        assert finished is True\n        assert t.done()\n        assert connection_count == 0\n        # Verify run_app has not waited for timeout.\n        assert time.time() - start_time < 10"
+}

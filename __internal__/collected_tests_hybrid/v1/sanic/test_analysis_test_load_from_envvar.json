@@ -1,0 +1,80 @@
+{
+  "test_name": "test_load_from_envvar",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "temp_path",
+      "source_code": "def temp_path():\n    \"\"\"a simple cross platform replacement for NamedTemporaryFile\"\"\"\n    with TemporaryDirectory() as td:\n        yield Path(td, \"file\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+      "line_number": 24
+    },
+    {
+      "name": "temp_path",
+      "source_code": "def temp_path():\n    \"\"\"a simple cross platform replacement for NamedTemporaryFile\"\"\"\n    with TemporaryDirectory() as td:\n        yield Path(td, \"file\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+      "line_number": 24
+    },
+    {
+      "name": "config_path.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "app.config.load",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line_number": 57
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "temp_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+      "line": 24,
+      "caller": "test_load_from_envvar",
+      "source_code": "@contextmanager\ndef temp_path():\n    \"\"\"a simple cross platform replacement for NamedTemporaryFile\"\"\"\n    with TemporaryDirectory() as td:\n        yield Path(td, \"file\")\n\n\n"
+    },
+    {
+      "function": "temp_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+      "line": 24,
+      "caller": "test_load_from_envvar",
+      "source_code": "@contextmanager\ndef temp_path():\n    \"\"\"a simple cross platform replacement for NamedTemporaryFile\"\"\"\n    with TemporaryDirectory() as td:\n        yield Path(td, \"file\")\n\n\n"
+    },
+    {
+      "function": "config_path.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_load_from_envvar",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_load_from_envvar",
+      "source_code": ""
+    },
+    {
+      "function": "app.config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line": 57,
+      "caller": "test_load_from_envvar",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'VALUE' in app.config",
+    "assert app.config.VALUE == 'some value'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_load_from_envvar(app: Sanic):\n    config = \"VALUE = 'some value'\"\n    with temp_path() as config_path:\n        config_path.write_text(config)\n        environ[\"APP_CONFIG\"] = str(config_path)\n        app.config.load(\"${APP_CONFIG}\")\n        assert \"VALUE\" in app.config\n        assert app.config.VALUE == \"some value\""
+}

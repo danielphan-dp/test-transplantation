@@ -1,0 +1,116 @@
+{
+  "test_name": "test_with_custom_serializer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "Serializer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "renderer",
+      "source_code": "    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 424
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "renderer",
+      "source_code": "    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 424
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Serializer",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_custom_serializer",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_with_custom_serializer",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 424,
+      "caller": "test_with_custom_serializer",
+      "source_code": "    @reify\n    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_custom_serializer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_custom_serializer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_custom_serializer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_custom_serializer",
+      "source_code": ""
+    },
+    {
+      "function": "renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 424,
+      "caller": "test_with_custom_serializer",
+      "source_code": "    @reify\n    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_with_custom_serializer(self):\n        class Serializer:\n            def __call__(self, obj, **kw):\n                self.obj = obj\n                self.kw = kw\n                return 'foo'\n\n        serializer = Serializer()\n        renderer = self._makeOne(serializer=serializer, baz=5)\n        obj = {'a': 'b'}\n        result = renderer(None)(obj, {})\n        self.assertEqual(result, 'foo')\n        self.assertEqual(serializer.obj, obj)\n        self.assertEqual(serializer.kw['baz'], 5)\n        self.assertTrue('default' in serializer.kw)"
+}

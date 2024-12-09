@@ -1,0 +1,66 @@
+{
+  "test_name": "test_validate",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    }
+  ],
+  "assertions": [
+    "assert groups == {'group1': b'0', 'group2': b'1'}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_validate() -> None:\n    my_re = re.compile(rb\"(?P<group1>[0-9]+)\\.(?P<group2>[0-9]+)\")\n    with pytest.raises(LocalProtocolError):\n        validate(my_re, b\"0.\")\n\n    groups = validate(my_re, b\"0.1\")\n    assert groups == {\"group1\": b\"0\", \"group2\": b\"1\"}\n\n    # successful partial matches are an error - must match whole string\n    with pytest.raises(LocalProtocolError):\n        validate(my_re, b\"0.1xx\")\n    with pytest.raises(LocalProtocolError):\n        validate(my_re, b\"0.1\\n\")"
+}

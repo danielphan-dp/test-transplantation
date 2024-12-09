@@ -1,12 +1,12 @@
 {
   "test_name": "test_endpoint_decorator",
-  "test_file": "__internal__/_data/flask/tests/test_blueprints.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_blueprints.py",
   "static_methods": [
     {
       "name": "app.url_map.add",
-      "source_code": "def add():\n    a = request.form.get(\"a\", 0, type=float)\n    b = request.form.get(\"b\", 0, type=float)\n    return jsonify(result=a + b)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line_number": 15
+      "source_code": "    def add(self, key: str, value: t.Any, /, **kwargs: t.Any) -> None:\n        \"\"\"Add a new header tuple to the list.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line_number": 341
     },
     {
       "name": "bp.endpoint",
@@ -28,24 +28,24 @@
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.url_map.add",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/js_example/views.py",
-      "line": 15,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line": 341,
       "caller": "test_endpoint_decorator",
-      "source_code": "@app.route(\"/add\", methods=[\"POST\"])\ndef add():\n    a = request.form.get(\"a\", 0, type=float)\n    b = request.form.get(\"b\", 0, type=float)\n    return jsonify(result=a + b)\n"
+      "source_code": "    def add(self, key: str, value: t.Any, /, **kwargs: t.Any) -> None:\n        \"\"\"Add a new header tuple to the list.\n\n        Keyword arguments can specify additional parameters for the header\n        value, with underscores converted to dashes::\n\n        >>> d = Headers()\n        >>> d.add('Content-Type', 'text/plain')\n        >>> d.add('Content-Disposition', 'attachment', filename='foo.png')\n\n        The keyword argument dumping uses :func:`dump_options_header`\n        behind the scenes.\n\n        .. versionchanged:: 0.4.1\n            keyword arguments were added for :mod:`wsgiref` compatibility.\n        \"\"\"\n        if kwargs:\n            value = _options_header_vkw(value, kwargs)\n\n        value_str = _str_header_value(value)\n        self._list.append((key, value_str))\n\n"
     },
     {
       "function": "bp.endpoint",
@@ -70,17 +70,17 @@
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_endpoint_decorator",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_endpoint_decorator",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     }
   ],
   "assertions": [

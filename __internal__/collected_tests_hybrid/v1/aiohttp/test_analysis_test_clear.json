@@ -1,0 +1,51 @@
+{
+  "test_name": "test_clear",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_connector.py",
+  "static_methods": [
+    {
+      "name": "dns_cache_table.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "dns_cache_table.clear",
+      "source_code": "    def clear(self):\n        \"\"\"Helper for clearing all the keys in a database. Use with\n        caution!\"\"\"\n        for key in self.conn.keys():\n            self.conn.delete(key)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/redis_cache.py",
+      "line_number": 31
+    },
+    {
+      "name": "dns_cache_table.next_addrs",
+      "source_code": "    def next_addrs(self, key: Tuple[str, int]) -> List[ResolveResult]:\n        loop, length = self._addrs_rr[key]\n        addrs = list(islice(loop, length))\n        # Consume one more element to shift internal state of `cycle`\n        next(loop)\n        return addrs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 717
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dns_cache_table.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_clear",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "dns_cache_table.clear",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/redis_cache.py",
+      "line": 31,
+      "caller": "test_clear",
+      "source_code": "    def clear(self):\n        \"\"\"Helper for clearing all the keys in a database. Use with\n        caution!\"\"\"\n        for key in self.conn.keys():\n            self.conn.delete(key)\n\n"
+    },
+    {
+      "function": "dns_cache_table.next_addrs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 717,
+      "caller": "test_clear",
+      "source_code": "    def next_addrs(self, key: Tuple[str, int]) -> List[ResolveResult]:\n        loop, length = self._addrs_rr[key]\n        addrs = list(islice(loop, length))\n        # Consume one more element to shift internal state of `cycle`\n        next(loop)\n        return addrs\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_clear(self, dns_cache_table: _DNSCacheTable) -> None:\n        dns_cache_table.add(self.host1, [self.result1])\n        dns_cache_table.clear()\n        with pytest.raises(KeyError):\n            dns_cache_table.next_addrs(self.host1)"
+}

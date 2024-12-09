@@ -1,0 +1,38 @@
+{
+  "test_name": "test_out_of_context",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "_core.current_task",
+      "source_code": "def current_task() -> Task:\n    \"\"\"Return the :class:`Task` object representing the current task.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 2730
+    },
+    {
+      "name": "_core.current_time",
+      "source_code": "    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line_number": 33
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_core.current_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 2730,
+      "caller": "test_out_of_context",
+      "source_code": "def current_task() -> Task:\n    \"\"\"Return the :class:`Task` object representing the current task.\n\n    Returns:\n      Task: the :class:`Task` that called :func:`current_task`.\n\n    \"\"\"\n\n    try:\n        return GLOBAL_RUN_CONTEXT.task\n    except AttributeError:\n        raise RuntimeError(\"must be called from async context\") from None\n\n\n"
+    },
+    {
+      "function": "_core.current_time",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line": 33,
+      "caller": "test_out_of_context",
+      "source_code": "    @abstractmethod\n    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.\n\n        This is used to implement functions like :func:`trio.current_time` and\n        :func:`trio.move_on_after`.\n\n        Returns:\n            float: The current time.\n\n        \"\"\"\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_out_of_context() -> None:\n    with pytest.raises(RuntimeError):\n        _core.current_task()\n    with pytest.raises(RuntimeError):\n        _core.current_time()"
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_run_using_option_console_ui_url",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "main",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line_number": 6
+    },
+    {
+      "name": "mock_app_run.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "main",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line": 6,
+      "caller": "test_run_using_option_console_ui_url",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.\n\n    For additional details, see https://github.com/pypa/pip/issues/7498.\n    \"\"\"\n    from pip._internal.utils.entrypoints import _wrapper\n\n    return _wrapper(args)\n"
+    },
+    {
+      "function": "mock_app_run.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_using_option_console_ui_url",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_using_option_console_ui_url(mock_app_run, expected_arguments, spec_file):\n    user_url = \"/console_ui_test\"\n    main([\"run\", spec_file, \"--swagger-ui-path\", user_url])\n\n    expected_arguments[\"swagger_ui_options\"].swagger_ui_path = user_url\n    mock_app_run.assert_called_with(\"connexion.cli\", **expected_arguments)"
+}

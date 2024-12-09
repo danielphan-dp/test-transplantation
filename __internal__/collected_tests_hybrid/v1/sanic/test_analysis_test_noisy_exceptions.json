@@ -1,0 +1,40 @@
+{
+  "test_name": "test_noisy_exceptions",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "capture",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 1083
+    },
+    {
+      "name": "read_app_info",
+      "source_code": "def read_app_info(lines: List[str]):\n    for line in lines:\n        if line.startswith(\"{\") and line.endswith(\"}\"):  # type: ignore\n            return json.loads(line)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+      "line_number": 46
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "capture",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 1083,
+      "caller": "test_noisy_exceptions",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.\n\n        Example:\n            >>> from rich.console import Console\n            >>> console = Console()\n            >>> with console.capture() as capture:\n            ...     console.print(\"[bold magenta]Hello World[/]\")\n            >>> print(capture.get())\n\n        Returns:\n            Capture: Context manager with disables writing to the terminal.\n        \"\"\"\n        capture = Capture(self)\n        return capture\n\n"
+    },
+    {
+      "function": "read_app_info",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+      "line": 46,
+      "caller": "test_noisy_exceptions",
+      "source_code": "def read_app_info(lines: List[str]):\n    for line in lines:\n        if line.startswith(\"{\") and line.endswith(\"}\"):  # type: ignore\n            return json.loads(line)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert info['noisy_exceptions'] is expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_noisy_exceptions(cmd: str, expected: bool, caplog, port):\n    command = [\"fake.server.app\", cmd, f\"-p={port}\"]\n    lines = capture(command, caplog)\n    info = read_app_info(lines)\n\n    assert info[\"noisy_exceptions\"] is expected"
+}

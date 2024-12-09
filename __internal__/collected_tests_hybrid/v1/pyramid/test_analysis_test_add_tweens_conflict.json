@@ -1,0 +1,64 @@
+{
+  "test_name": "test_add_tweens_conflict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_tweens.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_tween",
+      "source_code": "    def add_tween(self, tween_factory, under=None, over=None):\n        \"\"\"\n        .. versionadded:: 1.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/tweens.py",
+      "line_number": 15
+    },
+    {
+      "name": "config.add_tween",
+      "source_code": "    def add_tween(self, tween_factory, under=None, over=None):\n        \"\"\"\n        .. versionadded:: 1.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/tweens.py",
+      "line_number": 15
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_tweens_conflict",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_tween",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/tweens.py",
+      "line": 15,
+      "caller": "test_add_tweens_conflict",
+      "source_code": "    def add_tween(self, tween_factory, under=None, over=None):\n        \"\"\"\n        .. versionadded:: 1.2\n\n        Add a 'tween factory'.  A :term:`tween` (a contraction of 'between')\n        is a bit of code that sits between the Pyramid router's main request\n        handling function and the upstream WSGI component that uses\n        :app:`Pyramid` as its 'app'.  Tweens are a feature that may be used\n        by Pyramid framework extensions, to provide, for example,\n        Pyramid-specific view timing support, bookkeeping code that examines\n        exceptions before they are returned to the upstream WSGI application,\n        or a variety of other features.  Tweens behave a bit like\n        :term:`WSGI` 'middleware' but they have the benefit of running in a\n        context in which they have access to the Pyramid :term:`application\n        registry` as well as the Pyramid rendering machinery.\n\n        .. note:: You can view the tween ordering configured into a given\n                  Pyramid application by using the ``ptweens``\n                  command.  See :ref:`displaying_tweens`.\n\n        The ``tween_factory`` argument must be a :term:`dotted Python name`\n        to a global object representing the tween factory.\n\n        The ``under`` and ``over`` arguments allow the caller of\n        ``add_tween`` to provide a hint about where in the tween chain this\n        tween factory should be placed when an implicit tween chain is used.\n        These hints are only used when an explicit tween chain is not used\n        (when the ``pyramid.tweens`` configuration value is not set).\n        Allowable values for ``under`` or ``over`` (or both) are:\n\n        - ``None`` (the default).\n\n        - A :term:`dotted Python name` to a tween factory: a string\n          representing the dotted name of a tween factory added in a call to\n          ``add_tween`` in the same configuration session.\n\n        - One of the constants :attr:`pyramid.tweens.MAIN`,\n          :attr:`pyramid.tweens.INGRESS`, or :attr:`pyramid.tweens.EXCVIEW`.\n\n        - An iterable of any combination of the above. This allows the user\n          to specify fallbacks if the desired tween is not included, as well\n          as compatibility with multiple other tweens.\n\n        ``under`` means 'closer to the main Pyramid application than',\n        ``over`` means 'closer to the request ingress than'.\n\n        For example, calling ``add_tween('myapp.tfactory',\n        over=pyramid.tweens.MAIN)`` will attempt to place the tween factory\n        represented by the dotted name ``myapp.tfactory`` directly 'above'\n        (in ``ptweens`` order) the main Pyramid request handler.\n        Likewise, calling ``add_tween('myapp.tfactory',\n        over=pyramid.tweens.MAIN, under='mypkg.someothertween')`` will\n        attempt to place this tween factory 'above' the main handler but\n        'below' (a fictional) 'mypkg.someothertween' tween factory.\n\n        If all options for ``under`` (or ``over``) cannot be found in the\n        current configuration, it is an error. If some options are specified\n        purely for compatibility with other tweens, just add a fallback of\n        MAIN or INGRESS. For example, ``under=('mypkg.someothertween',\n        'mypkg.someothertween2', INGRESS)``.  This constraint will require\n        the tween to be located under both the 'mypkg.someothertween' tween,\n        the 'mypkg.someothertween2' tween, and INGRESS. If any of these is\n        not in the current configuration, this constraint will only organize\n        itself based on the tweens that are present.\n\n        Specifying neither ``over`` nor ``under`` is equivalent to specifying\n        ``under=INGRESS``.\n\n        Implicit tween ordering is obviously only best-effort.  Pyramid will\n        attempt to present an implicit order of tweens as best it can, but\n        the only surefire way to get any particular ordering is to use an\n        explicit tween order.  A user may always override the implicit tween\n        ordering by using an explicit ``pyramid.tweens`` configuration value\n        setting.\n\n        ``under``, and ``over`` arguments are ignored when an explicit tween\n        chain is specified using the ``pyramid.tweens`` configuration value.\n\n        For more information, see :ref:`registering_tweens`.\n\n        \"\"\"\n        return self._add_tween(\n            tween_factory, under=under, over=over, explicit=False\n        )\n\n"
+    },
+    {
+      "function": "config.add_tween",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/tweens.py",
+      "line": 15,
+      "caller": "test_add_tweens_conflict",
+      "source_code": "    def add_tween(self, tween_factory, under=None, over=None):\n        \"\"\"\n        .. versionadded:: 1.2\n\n        Add a 'tween factory'.  A :term:`tween` (a contraction of 'between')\n        is a bit of code that sits between the Pyramid router's main request\n        handling function and the upstream WSGI component that uses\n        :app:`Pyramid` as its 'app'.  Tweens are a feature that may be used\n        by Pyramid framework extensions, to provide, for example,\n        Pyramid-specific view timing support, bookkeeping code that examines\n        exceptions before they are returned to the upstream WSGI application,\n        or a variety of other features.  Tweens behave a bit like\n        :term:`WSGI` 'middleware' but they have the benefit of running in a\n        context in which they have access to the Pyramid :term:`application\n        registry` as well as the Pyramid rendering machinery.\n\n        .. note:: You can view the tween ordering configured into a given\n                  Pyramid application by using the ``ptweens``\n                  command.  See :ref:`displaying_tweens`.\n\n        The ``tween_factory`` argument must be a :term:`dotted Python name`\n        to a global object representing the tween factory.\n\n        The ``under`` and ``over`` arguments allow the caller of\n        ``add_tween`` to provide a hint about where in the tween chain this\n        tween factory should be placed when an implicit tween chain is used.\n        These hints are only used when an explicit tween chain is not used\n        (when the ``pyramid.tweens`` configuration value is not set).\n        Allowable values for ``under`` or ``over`` (or both) are:\n\n        - ``None`` (the default).\n\n        - A :term:`dotted Python name` to a tween factory: a string\n          representing the dotted name of a tween factory added in a call to\n          ``add_tween`` in the same configuration session.\n\n        - One of the constants :attr:`pyramid.tweens.MAIN`,\n          :attr:`pyramid.tweens.INGRESS`, or :attr:`pyramid.tweens.EXCVIEW`.\n\n        - An iterable of any combination of the above. This allows the user\n          to specify fallbacks if the desired tween is not included, as well\n          as compatibility with multiple other tweens.\n\n        ``under`` means 'closer to the main Pyramid application than',\n        ``over`` means 'closer to the request ingress than'.\n\n        For example, calling ``add_tween('myapp.tfactory',\n        over=pyramid.tweens.MAIN)`` will attempt to place the tween factory\n        represented by the dotted name ``myapp.tfactory`` directly 'above'\n        (in ``ptweens`` order) the main Pyramid request handler.\n        Likewise, calling ``add_tween('myapp.tfactory',\n        over=pyramid.tweens.MAIN, under='mypkg.someothertween')`` will\n        attempt to place this tween factory 'above' the main handler but\n        'below' (a fictional) 'mypkg.someothertween' tween factory.\n\n        If all options for ``under`` (or ``over``) cannot be found in the\n        current configuration, it is an error. If some options are specified\n        purely for compatibility with other tweens, just add a fallback of\n        MAIN or INGRESS. For example, ``under=('mypkg.someothertween',\n        'mypkg.someothertween2', INGRESS)``.  This constraint will require\n        the tween to be located under both the 'mypkg.someothertween' tween,\n        the 'mypkg.someothertween2' tween, and INGRESS. If any of these is\n        not in the current configuration, this constraint will only organize\n        itself based on the tweens that are present.\n\n        Specifying neither ``over`` nor ``under`` is equivalent to specifying\n        ``under=INGRESS``.\n\n        Implicit tween ordering is obviously only best-effort.  Pyramid will\n        attempt to present an implicit order of tweens as best it can, but\n        the only surefire way to get any particular ordering is to use an\n        explicit tween order.  A user may always override the implicit tween\n        ordering by using an explicit ``pyramid.tweens`` configuration value\n        setting.\n\n        ``under``, and ``over`` arguments are ignored when an explicit tween\n        chain is specified using the ``pyramid.tweens`` configuration value.\n\n        For more information, see :ref:`registering_tweens`.\n\n        \"\"\"\n        return self._add_tween(\n            tween_factory, under=under, over=over, explicit=False\n        )\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_tweens_conflict",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_tweens_conflict(self):\n        config = self._makeOne()\n        config.add_tween('tests.test_config.dummy_tween_factory')\n        config.add_tween('tests.test_config.dummy_tween_factory')\n        self.assertRaises(ConfigurationConflictError, config.commit)"
+}

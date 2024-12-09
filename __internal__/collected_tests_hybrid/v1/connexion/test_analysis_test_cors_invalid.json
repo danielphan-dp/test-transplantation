@@ -1,0 +1,41 @@
+{
+  "test_name": "test_cors_invalid",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/api/test_cors.py",
+  "static_methods": [
+    {
+      "name": "cors_openapi_app.test_client",
+      "source_code": "    def test_client(self, **kwargs):\n        \"\"\"Creates a test client for this application. The keywords arguments passed in are\n        passed to the ``StarletteClient``.\"\"\"\n        return TestClient(self, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/apps/abstract.py",
+      "line_number": 273
+    },
+    {
+      "name": "app_client.options",
+      "source_code": "    def options(  # type: ignore[override]\n        self,\n        url: httpx._types.URLTypes,\n        *,\n        params: httpx._types.QueryParamTypes | None = None,\n        headers: httpx._types.HeaderTypes | None = None,\n        cookies: httpx._types.CookieTypes | None = None,\n        auth: httpx._types.AuthTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        follow_redirects: bool | None = None,\n        allow_redirects: bool | None = None,\n        timeout: httpx._types.TimeoutTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        extensions: dict[str, typing.Any] | None = None,\n    ) -> httpx.Response:\n        redirect = self._choose_redirect_arg(follow_redirects, allow_redirects)\n        return super().options(\n            url,\n            params=params,\n            headers=headers,\n            cookies=cookies,\n            auth=auth,\n            follow_redirects=redirect,\n            timeout=timeout,\n            extensions=extensions,\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 525
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "cors_openapi_app.test_client",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/apps/abstract.py",
+      "line": 273,
+      "caller": "test_cors_invalid",
+      "source_code": "    def test_client(self, **kwargs):\n        \"\"\"Creates a test client for this application. The keywords arguments passed in are\n        passed to the ``StarletteClient``.\"\"\"\n        return TestClient(self, **kwargs)\n\n"
+    },
+    {
+      "function": "app_client.options",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 525,
+      "caller": "test_cors_invalid",
+      "source_code": "    def options(  # type: ignore[override]\n        self,\n        url: httpx._types.URLTypes,\n        *,\n        params: httpx._types.QueryParamTypes | None = None,\n        headers: httpx._types.HeaderTypes | None = None,\n        cookies: httpx._types.CookieTypes | None = None,\n        auth: httpx._types.AuthTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        follow_redirects: bool | None = None,\n        allow_redirects: bool | None = None,\n        timeout: httpx._types.TimeoutTypes | httpx._client.UseClientDefault = httpx._client.USE_CLIENT_DEFAULT,\n        extensions: dict[str, typing.Any] | None = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 400",
+    "assert 'Access-Control-Allow-Origin' not in response.headers"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_cors_invalid(cors_openapi_app):\n    app_client = cors_openapi_app.test_client()\n    response = app_client.options(\n        \"/v1.0/goodday/dan\",\n        headers={\"Origin\": \"http://0.0.0.0\", \"Access-Control-Request-Method\": \"POST\"},\n    )\n    assert response.status_code == 400\n    assert \"Access-Control-Allow-Origin\" not in response.headers"
+}

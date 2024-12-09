@@ -1,0 +1,38 @@
+{
+  "test_name": "test_no_config",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+  "static_methods": [
+    {
+      "name": "read_configuration",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 73
+    },
+    {
+      "name": "tmpdir.join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "read_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 73,
+      "caller": "test_no_config",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)\n\n"
+    },
+    {
+      "function": "tmpdir.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_no_config",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_config(self, tmpdir):\n        with pytest.raises(DistutilsFileError):\n            read_configuration('%s' % tmpdir.join('setup.cfg'))"
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_duplicated_param_names",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "Route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Route",
+      "filename": "",
+      "line": 0,
+      "caller": "test_duplicated_param_names",
+      "source_code": ""
+    },
+    {
+      "function": "Route",
+      "filename": "",
+      "line": 0,
+      "caller": "test_duplicated_param_names",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_duplicated_param_names() -> None:\n    with pytest.raises(\n        ValueError,\n        match=\"Duplicated param name id at path /{id}/{id}\",\n    ):\n        Route(\"/{id}/{id}\", user)\n\n    with pytest.raises(\n        ValueError,\n        match=\"Duplicated param names id, name at path /{id}/{name}/{id}/{name}\",\n    ):\n        Route(\"/{id}/{name}/{id}/{name}\", user)"
+}

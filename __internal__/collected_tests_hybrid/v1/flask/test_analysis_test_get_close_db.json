@@ -1,6 +1,6 @@
 {
   "test_name": "test_get_close_db",
-  "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_db.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/tests/test_db.py",
   "static_methods": [
     {
       "name": "app.app_context",
@@ -22,9 +22,9 @@
     },
     {
       "name": "db.execute",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "        def execute(app: WSGIApplication) -> None:\n            application_iter = app(environ, start_response)\n            try:\n                for data in application_iter:\n                    write(data)\n                if not headers_sent:\n                    write(b\"\")\n                if chunk_response:\n                    self.wfile.write(b\"0\\r\\n\\r\\n\")\n            finally:\n                # Check for any remaining data in the read socket, and discard it. This\n                # will read past request.max_content_length, but lets the client see a\n                # 413 response instead of a connection reset failure. If we supported\n                # keep-alive connections, this naive approach would break by reading the\n                # next request line. Since we know that write (above) closes every\n                # connection we can read everything.\n                selector = selectors.DefaultSelector()\n                selector.register(self.connection, selectors.EVENT_READ)\n                total_size = 0\n                total_reads = 0",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/serving.py",
+      "line_number": 330
     },
     {
       "name": "str",
@@ -63,10 +63,10 @@
     },
     {
       "function": "db.execute",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/serving.py",
+      "line": 330,
       "caller": "test_get_close_db",
-      "source_code": ""
+      "source_code": "        def execute(app: WSGIApplication) -> None:\n            application_iter = app(environ, start_response)\n            try:\n                for data in application_iter:\n                    write(data)\n                if not headers_sent:\n                    write(b\"\")\n                if chunk_response:\n                    self.wfile.write(b\"0\\r\\n\\r\\n\")\n            finally:\n                # Check for any remaining data in the read socket, and discard it. This\n                # will read past request.max_content_length, but lets the client see a\n                # 413 response instead of a connection reset failure. If we supported\n                # keep-alive connections, this naive approach would break by reading the\n                # next request line. Since we know that write (above) closes every\n                # connection we can read everything.\n                selector = selectors.DefaultSelector()\n                selector.register(self.connection, selectors.EVENT_READ)\n                total_size = 0\n                total_reads = 0\n\n                # A timeout of 0 tends to fail because a client needs a small amount of\n                # time to continue sending its data.\n                while selector.select(timeout=0.01):\n                    # Only read 10MB into memory at a time.\n                    data = self.rfile.read(10_000_000)\n                    total_size += len(data)\n                    total_reads += 1\n\n                    # Stop reading on no data, >=10GB, or 1000 reads. If a client sends\n                    # more than that, they'll get a connection reset failure.\n                    if not data or total_size >= 10_000_000_000 or total_reads > 1000:\n                        break\n\n                selector.close()\n\n                if hasattr(application_iter, \"close\"):\n                    application_iter.close()\n\n"
     },
     {
       "function": "str",

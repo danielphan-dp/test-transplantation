@@ -1,0 +1,51 @@
+{
+  "test_name": "test_event_on_bp_not_registered",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signals.py",
+  "static_methods": [
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bp.signal",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n    ) -> Callable[[SignalHandler], SignalHandler]:\n        \"\"\"\n        For creating a signal handler, used similar to a route handler:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line_number": 20
+    },
+    {
+      "name": "bp.event",
+      "source_code": "    def event(\n        self,\n        event: str,\n        timeout: Optional[Union[int, float]] = None,\n        *,\n        condition: Optional[Dict[str, Any]] = None,\n    ):\n        \"\"\"Wait for a signal event to be dispatched.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line_number": 527
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Blueprint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_event_on_bp_not_registered",
+      "source_code": ""
+    },
+    {
+      "function": "bp.signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line": 20,
+      "caller": "test_event_on_bp_not_registered",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n"
+    },
+    {
+      "function": "bp.event",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line": 527,
+      "caller": "test_event_on_bp_not_registered",
+      "source_code": "    def event(\n        self,\n        event: str,\n        timeout: Optional[Union[int, float]] = None,\n        *,\n        condition: Optional[Dict[str, Any]] = None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_event_on_bp_not_registered():\n    bp = Blueprint(\"bp\")\n\n    @bp.signal(\"foo.bar.baz\")\n    def bp_signal(): ...\n\n    with pytest.raises(\n        SanicException,\n        match=\"<Blueprint bp> has not yet been registered to an app\",\n    ):\n        bp.event(\"foo.bar.baz\")"
+}

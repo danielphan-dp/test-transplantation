@@ -1,0 +1,81 @@
+{
+  "test_name": "test_invalid_version",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist_info.py",
+  "static_methods": [
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "run_command_inner",
+      "source_code": "def run_command_inner(*cmd, **kwargs):\n    opts = {\n        \"stderr\": subprocess.STDOUT,\n        \"stdout\": subprocess.PIPE,\n        \"text\": True,\n        \"encoding\": \"utf-8\",\n        \"check\": True,\n        **kwargs,\n    }\n    cmd = [sys.executable, \"-c\", \"__import__('setuptools').setup()\", *map(str, cmd)]\n    return subprocess.run(cmd, **opts)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist_info.py",
+      "line_number": 196
+    },
+    {
+      "name": "msg.search",
+      "source_code": "    def search(self, terms, operator=None):  # pragma: no cover\n        if isinstance(terms, string_types):\n            terms = {'name': terms}\n        rpc_proxy = ServerProxy(self.url, timeout=3.0)\n        try:\n            return rpc_proxy.search(terms, operator or 'and')\n        finally:\n            rpc_proxy('close')()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 501
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "tmp_path.glob",
+      "source_code": "def glob(pathname: AnyStr, recursive: bool = False) -> list[AnyStr]:\n    \"\"\"Return a list of paths matching a pathname pattern.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/glob.py",
+      "line_number": 23
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_invalid_version",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "run_command_inner",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist_info.py",
+      "line": 196,
+      "caller": "test_invalid_version",
+      "source_code": "def run_command_inner(*cmd, **kwargs):\n    opts = {\n        \"stderr\": subprocess.STDOUT,\n        \"stdout\": subprocess.PIPE,\n        \"text\": True,\n        \"encoding\": \"utf-8\",\n        \"check\": True,\n        **kwargs,\n    }\n    cmd = [sys.executable, \"-c\", \"__import__('setuptools').setup()\", *map(str, cmd)]\n    return subprocess.run(cmd, **opts)\n\n\n"
+    },
+    {
+      "function": "msg.search",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 501,
+      "caller": "test_invalid_version",
+      "source_code": "    def search(self, terms, operator=None):  # pragma: no cover\n        if isinstance(terms, string_types):\n            terms = {'name': terms}\n        rpc_proxy = ServerProxy(self.url, timeout=3.0)\n        try:\n            return rpc_proxy.search(terms, operator or 'and')\n        finally:\n            rpc_proxy('close')()\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_invalid_version",
+      "source_code": ""
+    },
+    {
+      "function": "tmp_path.glob",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/glob.py",
+      "line": 23,
+      "caller": "test_invalid_version",
+      "source_code": "def glob(pathname: AnyStr, recursive: bool = False) -> list[AnyStr]:\n    \"\"\"Return a list of paths matching a pathname pattern.\n\n    The pattern may contain simple shell-style wildcards a la\n    fnmatch. However, unlike fnmatch, filenames starting with a\n    dot are special cases that are not matched by '*' and '?'\n    patterns.\n\n    If recursive is true, the pattern '**' will match any files and\n    zero or more directories and subdirectories.\n    \"\"\"\n    return list(iglob(pathname, recursive=recursive))\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert proc.returncode",
+    "assert msg.search(proc.stdout)",
+    "assert not list(tmp_path.glob('*.dist-info'))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_invalid_version(self, tmp_path):\n        \"\"\"\n        Supplying an invalid version crashes dist_info.\n        \"\"\"\n        config = \"[metadata]\\nname=proj\\nversion=42\\n[egg_info]\\ntag_build=invalid!!!\\n\"\n        (tmp_path / \"setup.cfg\").write_text(config, encoding=\"utf-8\")\n        msg = re.compile(\"invalid version\", re.M | re.I)\n        proc = run_command_inner(\"dist_info\", cwd=tmp_path, check=False)\n        assert proc.returncode\n        assert msg.search(proc.stdout)\n        assert not list(tmp_path.glob(\"*.dist-info\"))"
+}

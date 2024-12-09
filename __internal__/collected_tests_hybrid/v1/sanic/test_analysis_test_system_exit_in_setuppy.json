@@ -1,0 +1,64 @@
+{
+  "test_name": "test_system_exit_in_setuppy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_meta.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "def chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 424
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "BuildBackend",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "backend.get_requires_for_build_wheel",
+      "source_code": "    def get_requires_for_build_wheel(self, config_settings=None):\n        \"\"\"Get additional dependencies required for building a wheel.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line_number": 155
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.chdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 424,
+      "caller": "test_system_exit_in_setuppy",
+      "source_code": "@contextlib.contextmanager\ndef chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)\n\n\n"
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_system_exit_in_setuppy",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "BuildBackend",
+      "filename": "",
+      "line": 0,
+      "caller": "test_system_exit_in_setuppy",
+      "source_code": ""
+    },
+    {
+      "function": "backend.get_requires_for_build_wheel",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line": 155,
+      "caller": "test_system_exit_in_setuppy",
+      "source_code": "    def get_requires_for_build_wheel(self, config_settings=None):\n        \"\"\"Get additional dependencies required for building a wheel.\n\n        :returns: A list of :pep:`dependency specifiers <508>`.\n        :rtype: list[str]\n\n        .. admonition:: Fallback\n\n            If the build backend does not defined a hook with this name, an\n            empty list will be returned.\n        \"\"\"\n        return self._call_hook('get_requires_for_build_wheel', {\n            'config_settings': config_settings\n        })\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_system_exit_in_setuppy(monkeypatch, tmp_path):\n    monkeypatch.chdir(tmp_path)\n    setuppy = \"import sys; sys.exit('some error')\"\n    (tmp_path / \"setup.py\").write_text(setuppy, encoding=\"utf-8\")\n    with pytest.raises(SystemExit, match=\"some error\"):\n        backend = BuildBackend(backend_name=\"setuptools.build_meta\")\n        backend.get_requires_for_build_wheel()"
+}

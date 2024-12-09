@@ -1,0 +1,110 @@
+{
+  "test_name": "test_keep_alive_timeout_reuse",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_keep_alive_timeout.py",
+  "static_methods": [
+    {
+      "name": "ReusableClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bool",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "environ.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "aio_sleep",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ReusableClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_keep_alive_timeout_reuse",
+      "source_code": ""
+    },
+    {
+      "function": "bool",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_keep_alive_timeout_reuse",
+      "source_code": ""
+    },
+    {
+      "function": "environ.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_keep_alive_timeout_reuse",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_keep_alive_timeout_reuse",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_keep_alive_timeout_reuse",
+      "source_code": ""
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_keep_alive_timeout_reuse",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "aio_sleep",
+      "filename": "",
+      "line": 0,
+      "caller": "test_keep_alive_timeout_reuse",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200",
+    "assert response.text == 'OK'",
+    "assert request.protocol.state['requests_count'] == 1",
+    "assert response.status == 200",
+    "assert response.text == 'OK'",
+    "assert request.protocol.state['requests_count'] == 2"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_keep_alive_timeout_reuse(port):\n    \"\"\"If the server keep-alive timeout and client keep-alive timeout are\n    both longer than the delay, the client _and_ server will successfully\n    reuse the existing connection.\"\"\"\n    loops = 0\n    while True:\n        loop = asyncio.new_event_loop()\n        asyncio.set_event_loop(loop)\n        client = ReusableClient(\n            keep_alive_timeout_app_reuse, loop=loop, port=port\n        )\n        try:\n            with client:\n                headers = {\"Connection\": \"keep-alive\"}\n                request, response = client.get(\"/1\", headers=headers)\n                assert response.status == 200\n                assert response.text == \"OK\"\n                assert request.protocol.state[\"requests_count\"] == 1\n\n                loop.run_until_complete(aio_sleep(1))\n\n                request, response = client.get(\"/1\")\n                assert response.status == 200\n                assert response.text == \"OK\"\n                assert request.protocol.state[\"requests_count\"] == 2\n        except OSError:\n            loops += 1\n            if loops > MAX_LOOPS:\n                raise\n            continue\n        else:\n            break"
+}

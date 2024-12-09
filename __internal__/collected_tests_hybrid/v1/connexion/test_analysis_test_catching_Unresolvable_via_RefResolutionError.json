@@ -1,0 +1,155 @@
+{
+  "test_name": "test_catching_Unresolvable_via_RefResolutionError",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_deprecations.py",
+  "static_methods": [
+    {
+      "name": "self.assertWarns",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validators.Draft202012Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertWarns",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertWarns",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "validators.Draft202012Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertWarns",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "validator.validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    },
+    {
+      "function": "validator.validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_via_RefResolutionError",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_catching_Unresolvable_via_RefResolutionError(self):\n        \"\"\"\n        Until RefResolutionError is removed, it is still possible to catch\n        exceptions from reference resolution using it, even though they may\n        have been raised by referencing.\n        \"\"\"\n        with self.assertWarns(DeprecationWarning):\n            from jsonschema import RefResolutionError\n\n        validator = validators.Draft202012Validator({\"$ref\": \"urn:nothing\"})\n\n        with self.assertRaises(referencing.exceptions.Unresolvable) as u:\n            validator.validate(12)\n\n        with self.assertRaises(RefResolutionError) as e:\n            validator.validate(12)\n\n        self.assertEqual(\n            (e.exception, str(e.exception)),\n            (u.exception, \"Unresolvable: urn:nothing\"),\n        )"
+}

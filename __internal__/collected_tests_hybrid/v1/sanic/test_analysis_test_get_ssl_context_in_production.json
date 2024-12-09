@@ -1,0 +1,25 @@
+{
+  "test_name": "test_get_ssl_context_in_production",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+  "static_methods": [
+    {
+      "name": "get_ssl_context",
+      "source_code": "def get_ssl_context(\n    app: Sanic, ssl: Optional[ssl.SSLContext]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line_number": 63
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "get_ssl_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line": 63,
+      "caller": "test_get_ssl_context_in_production",
+      "source_code": "def get_ssl_context(\n    app: Sanic, ssl: Optional[ssl.SSLContext]\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_ssl_context_in_production(app):\n    app.state.mode = Mode.PRODUCTION\n    with pytest.raises(\n        SanicException,\n        match=\"Cannot run Sanic as an HTTPS server in PRODUCTION mode\",\n    ):\n        get_ssl_context(app, None)"
+}

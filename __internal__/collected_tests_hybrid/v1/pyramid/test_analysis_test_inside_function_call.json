@@ -1,0 +1,103 @@
+{
+  "test_name": "test_inside_function_call",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_advice.py",
+  "static_methods": [
+    {
+      "name": "getFrameInfo",
+      "source_code": "def getFrameInfo(frame):\n    \"\"\"Return (kind,module,locals,globals) for a frame",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/venusian/advice.py",
+      "line_number": 34
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "locals",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "globals",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "getFrameInfo",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/venusian/advice.py",
+      "line": 34,
+      "caller": "test_inside_function_call",
+      "source_code": "def getFrameInfo(frame):\n    \"\"\"Return (kind,module,locals,globals) for a frame\n\n    'kind' is one of \"exec\", \"module\", \"class\", \"function call\", or \"unknown\".\n    \"\"\"\n\n    f_locals = frame.f_locals\n    f_globals = frame.f_globals\n\n    sameNamespace = f_locals is f_globals\n    hasModule = \"__module__\" in f_locals\n    hasName = \"__name__\" in f_globals\n\n    sameName = hasModule and hasName\n    sameName = sameName and f_globals[\"__name__\"] == f_locals[\"__module__\"]\n\n    module = hasName and sys.modules.get(f_globals[\"__name__\"]) or None\n\n    namespaceIsModule = module and module.__dict__ is f_globals\n\n    frameinfo = inspect.getframeinfo(frame)\n    try:\n        sourceline = frameinfo[3][0].strip()\n    except:  # pragma NO COVER\n        # dont understand circumstance here, 3rdparty code without comment\n        sourceline = frameinfo[3]\n\n    codeinfo = frameinfo[0], frameinfo[1], frameinfo[2], sourceline\n\n    if not namespaceIsModule:  # pragma no COVER\n        # some kind of funky exec\n        kind = \"exec\"  # don't know how to repeat this scenario\n    elif sameNamespace and not hasModule:\n        kind = \"module\"\n    elif sameName and not sameNamespace:\n        kind = \"class\"\n    elif not sameNamespace:\n        kind = \"function call\"\n    else:  # pragma NO COVER\n        # How can you have f_locals is f_globals, and have '__module__' set?\n        # This is probably module-level code, but with a '__module__' variable.\n        kind = \"unknown\"\n    return kind, module, f_locals, f_globals, codeinfo\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_inside_function_call",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_inside_function_call",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_inside_function_call",
+      "source_code": ""
+    },
+    {
+      "function": "locals",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_inside_function_call",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_inside_function_call",
+      "source_code": ""
+    },
+    {
+      "function": "globals",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_inside_function_call",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_inside_function_call(self):\n        from zope.interface.advice import getFrameInfo\n        kind, module, f_locals, f_globals = getFrameInfo(sys._getframe())\n        self.assertEqual(kind, \"function call\")\n\n        frame = sys._getframe()\n        self.assertEqual(f_locals, frame.f_locals)\n        self.assertEqual(f_locals, locals())\n\n        for d in module.__dict__, f_globals:\n            self.assertIs(d, globals())"
+}

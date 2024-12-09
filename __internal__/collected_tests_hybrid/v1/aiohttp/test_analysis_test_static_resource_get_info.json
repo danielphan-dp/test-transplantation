@@ -1,0 +1,82 @@
+{
+  "test_name": "test_static_resource_get_info",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_static",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n    ) -> StaticResource:\n        \"\"\"Add static files view.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1152
+    },
+    {
+      "name": "all",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "info.values",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 749
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1152,
+      "caller": "test_static_resource_get_info",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n"
+    },
+    {
+      "function": "all",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_static_resource_get_info",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_static_resource_get_info",
+      "source_code": ""
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_static_resource_get_info",
+      "source_code": ""
+    },
+    {
+      "function": "info.values",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 749,
+      "caller": "test_static_resource_get_info",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(info) == 3",
+    "assert info['directory'] == directory",
+    "assert info['prefix'] == '/st'",
+    "assert all([type(r) is web.ResourceRoute for r in info['routes'].values()])"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_static_resource_get_info(router: web.UrlDispatcher) -> None:\n    directory = pathlib.Path(aiohttp.__file__).parent.resolve()\n    resource = router.add_static(\"/st\", directory)\n    info = resource.get_info()\n    assert len(info) == 3\n    assert info[\"directory\"] == directory\n    assert info[\"prefix\"] == \"/st\"\n    assert all([type(r) is web.ResourceRoute for r in info[\"routes\"].values()])"
+}

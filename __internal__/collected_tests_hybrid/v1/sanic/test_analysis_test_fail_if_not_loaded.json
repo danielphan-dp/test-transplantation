@@ -1,0 +1,25 @@
+{
+  "test_name": "test_fail_if_not_loaded",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_ext_integration.py",
+  "static_methods": [
+    {
+      "name": "app.extend",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 226
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 226,
+      "caller": "test_fail_if_not_loaded",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.\n\n        This method must be used instead of update.\n        \"\"\"\n        self._extend(args, kwargs, \"extend\", self._extend_items)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_fail_if_not_loaded(app: Sanic):\n    del sys.modules[\"sanic_ext\"]\n    with pytest.raises(\n        RuntimeError, match=\"Sanic Extensions is not installed.*\"\n    ):\n        app.extend(built_in_extensions=False)"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_conformance",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_registry.py",
+  "static_methods": [
+    {
+      "name": "verifyClass",
+      "source_code": "def verifyClass(iface, candidate, tentative=False):\n    \"\"\"\n    Verify that the *candidate* might correctly provide *iface*.\n    \"\"\"\n    return _verify(iface, candidate, tentative, vtype='c')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/verify.py",
+      "line_number": 175
+    },
+    {
+      "name": "verifyObject",
+      "source_code": "def verifyObject(iface, candidate, tentative=False):\n    return _verify(iface, candidate, tentative, vtype='o')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/verify.py",
+      "line_number": 182
+    },
+    {
+      "name": "self._getTargetClass",
+      "source_code": "    def _getTargetClass(self):\n        from zope.interface.interface import Element\n        return Element",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 116
+    },
+    {
+      "name": "self._makeOnePopulated",
+      "source_code": "    def _makeOnePopulated(self):\n        return self._makeOne('category', 'discrim', 'title', 'type')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_registry.py",
+      "line_number": 345
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "verifyClass",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/verify.py",
+      "line": 175,
+      "caller": "test_conformance",
+      "source_code": "def verifyClass(iface, candidate, tentative=False):\n    \"\"\"\n    Verify that the *candidate* might correctly provide *iface*.\n    \"\"\"\n    return _verify(iface, candidate, tentative, vtype='c')\n\n\n"
+    },
+    {
+      "function": "verifyObject",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/verify.py",
+      "line": 182,
+      "caller": "test_conformance",
+      "source_code": "def verifyObject(iface, candidate, tentative=False):\n    return _verify(iface, candidate, tentative, vtype='o')\n\n\n"
+    },
+    {
+      "function": "self._getTargetClass",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 116,
+      "caller": "test_conformance",
+      "source_code": "    def _getTargetClass(self):\n        from zope.interface.interface import Element\n        return Element\n\n"
+    },
+    {
+      "function": "self._makeOnePopulated",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_registry.py",
+      "line": 345,
+      "caller": "test_conformance",
+      "source_code": "    def _makeOnePopulated(self):\n        return self._makeOne('category', 'discrim', 'title', 'type')\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_conformance(self):\n        from zope.interface.verify import verifyClass, verifyObject\n\n        from pyramid.interfaces import IIntrospectable\n\n        verifyClass(IIntrospectable, self._getTargetClass())\n        verifyObject(IIntrospectable, self._makeOnePopulated())"
+}

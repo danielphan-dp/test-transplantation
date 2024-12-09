@@ -1,0 +1,27 @@
+{
+  "test_name": "test_prepare_metadata_inplace",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_meta.py",
+  "static_methods": [
+    {
+      "name": "build_backend.prepare_metadata_for_build_wheel",
+      "source_code": "    def prepare_metadata_for_build_wheel(\n            self, metadata_directory, config_settings=None,\n            _allow_fallback=True):\n        \"\"\"Prepare a ``*.dist-info`` folder with metadata for this project.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line_number": 170
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_backend.prepare_metadata_for_build_wheel",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line": 170,
+      "caller": "test_prepare_metadata_inplace",
+      "source_code": "    def prepare_metadata_for_build_wheel(\n            self, metadata_directory, config_settings=None,\n            _allow_fallback=True):\n        \"\"\"Prepare a ``*.dist-info`` folder with metadata for this project.\n\n        :returns: Name of the newly created subfolder within\n                  ``metadata_directory``, containing the metadata.\n        :rtype: str\n\n        .. admonition:: Fallback\n\n            If the build backend does not define a hook with this name and\n            ``_allow_fallback`` is truthy, the backend will be asked to build a\n            wheel via the ``build_wheel`` hook and the dist-info extracted from\n            that will be returned.\n        \"\"\"\n        return self._call_hook('prepare_metadata_for_build_wheel', {\n            'metadata_directory': abspath(metadata_directory),\n            'config_settings': config_settings,\n            '_allow_fallback': _allow_fallback,\n        })\n\n"
+    }
+  ],
+  "assertions": [
+    "assert os.path.isfile(os.path.join(dist_info, 'METADATA'))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_prepare_metadata_inplace(self, build_backend):\n        \"\"\"\n        Some users might pass metadata_directory pre-populated with `.tox` or `.venv`.\n        See issue #3523.\n        \"\"\"\n        for pre_existing in [\n            \".tox/python/lib/python3.10/site-packages/attrs-22.1.0.dist-info\",\n            \".tox/python/lib/python3.10/site-packages/autocommand-2.2.1.dist-info\",\n            \".nox/python/lib/python3.10/site-packages/build-0.8.0.dist-info\",\n            \".venv/python3.10/site-packages/click-8.1.3.dist-info\",\n            \"venv/python3.10/site-packages/distlib-0.3.5.dist-info\",\n            \"env/python3.10/site-packages/docutils-0.19.dist-info\",\n        ]:\n            os.makedirs(pre_existing, exist_ok=True)\n        dist_info = build_backend.prepare_metadata_for_build_wheel(\".\")\n        assert os.path.isfile(os.path.join(dist_info, 'METADATA'))"
+}

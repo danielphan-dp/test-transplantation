@@ -1,0 +1,25 @@
+{
+  "test_name": "test_import_string_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.import_string",
+      "source_code": "def import_string(module_name, package=None):\n    \"\"\"\n    import a module or class by string path.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/helpers.py",
+      "line_number": 137
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.import_string",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/helpers.py",
+      "line": 137,
+      "caller": "test_import_string_exception",
+      "source_code": "def import_string(module_name, package=None):\n    \"\"\"\n    import a module or class by string path.\n\n    :module_name: str with path of module or path to import and\n    instantiate a class\n    :returns: a module object or one instance from class if\n    module_name is a valid path to class\n\n    \"\"\"\n    module, klass = module_name.rsplit(\".\", 1)\n    module = import_module(module, package=package)\n    obj = getattr(module, klass)\n    if ismodule(obj):\n        return obj\n    return obj()\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_import_string_exception():\n    with pytest.raises(ImportError):\n        helpers.import_string(\"test.test.test\")"
+}

@@ -1,0 +1,66 @@
+{
+  "test_name": "test_get_current_request",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "response.json",
+      "source_code": "    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 944
+    },
+    {
+      "name": "Request.get_current",
+      "source_code": "    def get_current(cls) -> Request:\n        \"\"\"Retrieve the current request object",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line_number": 224
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_get_current_request",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_get_current_request",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "response.json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 944,
+      "caller": "test_get_current_request",
+      "source_code": "    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.\n\n        :param \\*\\*kwargs: Optional arguments that ``json.loads`` takes.\n        :raises requests.exceptions.JSONDecodeError: If the response body does not\n            contain valid json.\n        \"\"\"\n\n        if not self.encoding and self.content and len(self.content) > 3:\n            # No encoding set. JSON RFC 4627 section 3 states we should expect\n            # UTF-8, -16 or -32. Detect which one to use; If the detection or\n            # decoding fails, fall back to `self.text` (using charset_normalizer to make\n            # a best guess).\n            encoding = guess_json_utf(self.content)\n            if encoding is not None:\n                try:\n                    return complexjson.loads(self.content.decode(encoding), **kwargs)\n                except UnicodeDecodeError:\n                    # Wrong UTF codec detected; usually because it's not UTF-8\n                    # but some other 8-bit codec.  This is an RFC violation,\n                    # and the server didn't bother to tell us what codec *was*\n                    # used.\n                    pass\n                except JSONDecodeError as e:\n                    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n\n        try:\n            return complexjson.loads(self.text, **kwargs)\n        except JSONDecodeError as e:\n            # Catch JSON-related errors and raise as requests.JSONDecodeError\n            # This aliases json.JSONDecodeError and simplejson.JSONDecodeError\n            raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n\n"
+    },
+    {
+      "function": "Request.get_current",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/request/types.py",
+      "line": 224,
+      "caller": "test_get_current_request",
+      "source_code": "    @classmethod\n    def get_current(cls) -> Request:\n        \"\"\"Retrieve the current request object\n\n        This implements [Context Variables](https://docs.python.org/3/library/contextvars.html)\n        to allow for accessing the current request from anywhere.\n\n        A typical usecase is when you want to access the current request\n        from a function that is not a handler, such as a logging function:\n\n        ```python\n        import logging\n\n        class LoggingFormater(logging.Formatter):\n            def format(self, record):\n                request = Request.get_current()\n                record.url = request.url\n                record.ip = request.ip\n                return super().format(record)\n        ```\n\n        Returns:\n            Request: The current request object\n\n        Raises:\n            sanic.exceptions.ServerError: If it is outside of a request\n                lifecycle.\n        \"\"\"  # noqa: E501\n        request = cls._current.get(None)\n        if not request:\n            raise ServerError(\"No current request\")\n        return request\n\n"
+    }
+  ],
+  "assertions": [
+    "assert resp.json['same']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_current_request(app):\n    @app.get(\"/\")\n    async def get(request):\n        return response.json({\"same\": request is Request.get_current()})\n\n    _, resp = app.test_client.get(\"/\")\n    assert resp.json[\"same\"]"
+}

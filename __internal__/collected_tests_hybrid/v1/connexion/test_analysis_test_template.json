@@ -1,0 +1,67 @@
+{
+  "test_name": "test_template",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_api.py",
+  "static_methods": [
+    {
+      "name": "FlaskApi",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FlaskApi",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Specification.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    },
+    {
+      "name": "Specification.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FlaskApi",
+      "filename": "",
+      "line": 0,
+      "caller": "test_template",
+      "source_code": ""
+    },
+    {
+      "function": "FlaskApi",
+      "filename": "",
+      "line": 0,
+      "caller": "test_template",
+      "source_code": ""
+    },
+    {
+      "function": "Specification.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_template",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    },
+    {
+      "function": "Specification.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_template",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert api1.specification['info']['title'] == 'test'",
+    "assert api2.specification['info']['title'] == 'other test'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_template():\n    api1 = FlaskApi(\n        Specification.load(\n            TEST_FOLDER / \"fixtures/simple/swagger.yaml\", arguments={\"title\": \"test\"}\n        ),\n        base_path=\"/api/v1.0\",\n    )\n    assert api1.specification[\"info\"][\"title\"] == \"test\"\n\n    api2 = FlaskApi(\n        Specification.load(\n            TEST_FOLDER / \"fixtures/simple/swagger.yaml\",\n            arguments={\"title\": \"other test\"},\n        ),\n        base_path=\"/api/v1.0\",\n    )\n    assert api2.specification[\"info\"][\"title\"] == \"other test\""
+}

@@ -1,0 +1,45 @@
+{
+  "test_name": "test_properties",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_multiplexer.py",
+  "static_methods": [
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getpid",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_properties",
+      "source_code": ""
+    },
+    {
+      "function": "getpid",
+      "filename": "",
+      "line": 0,
+      "caller": "test_properties",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert m.reload == m.restart",
+    "assert m.pid == getpid()",
+    "assert m.name == 'Test'",
+    "assert m.workers == worker_state",
+    "assert m.state == worker_state['Test']",
+    "assert isinstance(m.state, WorkerState)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_properties(\n    monitor_publisher: Mock, worker_state: Dict[str, Any], m: WorkerMultiplexer\n):\n    assert m.reload == m.restart\n    assert m.pid == getpid()\n    assert m.name == \"Test\"\n    assert m.workers == worker_state\n    assert m.state == worker_state[\"Test\"]\n    assert isinstance(m.state, WorkerState)"
+}

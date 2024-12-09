@@ -1,0 +1,90 @@
+{
+  "test_name": "test_evolve",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "self.Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "original.evolve",
+      "source_code": "        def evolve(self, **changes):\n            schema = changes.setdefault(\"schema\", self.schema)\n            NewValidator = validator_for(schema, default=self.__class__)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 340
+    },
+    {
+      "name": "self.Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertNotEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FormatChecker",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_evolve",
+      "source_code": ""
+    },
+    {
+      "function": "original.evolve",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 340,
+      "caller": "test_evolve",
+      "source_code": "        def evolve(self, **changes):\n            schema = changes.setdefault(\"schema\", self.schema)\n            NewValidator = validator_for(schema, default=self.__class__)\n\n            for (attr_name, init_name) in evolve_fields:\n                if init_name not in changes:\n                    changes[init_name] = getattr(self, attr_name)\n\n            return NewValidator(**changes)\n\n"
+    },
+    {
+      "function": "self.Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_evolve",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_evolve",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertNotEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_evolve",
+      "source_code": ""
+    },
+    {
+      "function": "FormatChecker",
+      "filename": "",
+      "line": 0,
+      "caller": "test_evolve",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_evolve(self):\n        schema, format_checker = {\"type\": \"integer\"}, FormatChecker()\n        original = self.Validator(\n            schema,\n            format_checker=format_checker,\n        )\n        new = original.evolve(\n            schema={\"type\": \"string\"},\n            format_checker=self.Validator.FORMAT_CHECKER,\n        )\n\n        expected = self.Validator(\n            {\"type\": \"string\"},\n            format_checker=self.Validator.FORMAT_CHECKER,\n            _resolver=new._resolver,\n        )\n\n        self.assertEqual(new, expected)\n        self.assertNotEqual(new, original)"
+}

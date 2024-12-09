@@ -1,0 +1,70 @@
+{
+  "test_name": "test_check_extensions_list",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.build_ext",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 90
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_check_extensions_list",
+      "source_code": ""
+    },
+    {
+      "function": "self.build_ext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 90,
+      "caller": "test_check_extensions_list",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_check_extensions_list",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_check_extensions_list",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(ext, Extension)",
+    "assert ext.libraries == 'foo'",
+    "assert not hasattr(ext, 'some')",
+    "assert exts[0].undef_macros == ['3']",
+    "assert exts[0].define_macros == [('1', '2')]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_check_extensions_list(self):\n        dist = Distribution()\n        cmd = self.build_ext(dist)\n        cmd.finalize_options()\n\n        # 'extensions' option must be a list of Extension instances\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_extensions_list('foo')\n\n        # each element of 'ext_modules' option must be an\n        # Extension instance or 2-tuple\n        exts = [('bar', 'foo', 'bar'), 'foo']\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_extensions_list(exts)\n\n        # first element of each tuple in 'ext_modules'\n        # must be the extension name (a string) and match\n        # a python dotted-separated name\n        exts = [('foo-bar', '')]\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_extensions_list(exts)\n\n        # second element of each tuple in 'ext_modules'\n        # must be a dictionary (build info)\n        exts = [('foo.bar', '')]\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_extensions_list(exts)\n\n        # ok this one should pass\n        exts = [('foo.bar', {'sources': [''], 'libraries': 'foo', 'some': 'bar'})]\n        cmd.check_extensions_list(exts)\n        ext = exts[0]\n        assert isinstance(ext, Extension)\n\n        # check_extensions_list adds in ext the values passed\n        # when they are in ('include_dirs', 'library_dirs', 'libraries'\n        # 'extra_objects', 'extra_compile_args', 'extra_link_args')\n        assert ext.libraries == 'foo'\n        assert not hasattr(ext, 'some')\n\n        # 'macros' element of build info dict must be 1- or 2-tuple\n        exts = [\n            (\n                'foo.bar',\n                {\n                    'sources': [''],\n                    'libraries': 'foo',\n                    'some': 'bar',\n                    'macros': [('1', '2', '3'), 'foo'],\n                },\n            )\n        ]\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_extensions_list(exts)\n\n        exts[0][1]['macros'] = [('1', '2'), ('3',)]\n        cmd.check_extensions_list(exts)\n        assert exts[0].undef_macros == ['3']\n        assert exts[0].define_macros == [('1', '2')]"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_parse_no_compress_frame_single",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "WebSocketReader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "parser_no_compress.parse_frame",
+      "source_code": "    def parse_frame(\n        self, buf: bytes\n    ) -> List[Tuple[bool, Optional[int], bytearray, Optional[bool]]]:\n        \"\"\"Return the next frame from the socket.\"\"\"\n        frames: List[Tuple[bool, Optional[int], bytearray, Optional[bool]]] = []\n        if self._tail:\n            buf, self._tail = self._tail + buf, b\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/_websocket/reader_py.py",
+      "line_number": 233
+    },
+    {
+      "name": "parser_no_compress.parse_frame",
+      "source_code": "    def parse_frame(\n        self, buf: bytes\n    ) -> List[Tuple[bool, Optional[int], bytearray, Optional[bool]]]:\n        \"\"\"Return the next frame from the socket.\"\"\"\n        frames: List[Tuple[bool, Optional[int], bytearray, Optional[bool]]] = []\n        if self._tail:\n            buf, self._tail = self._tail + buf, b\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/_websocket/reader_py.py",
+      "line_number": 233
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "WebSocketReader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_no_compress_frame_single",
+      "source_code": ""
+    },
+    {
+      "function": "parser_no_compress.parse_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/_websocket/reader_py.py",
+      "line": 233,
+      "caller": "test_parse_no_compress_frame_single",
+      "source_code": "    def parse_frame(\n        self, buf: bytes\n"
+    },
+    {
+      "function": "parser_no_compress.parse_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/_websocket/reader_py.py",
+      "line": 233,
+      "caller": "test_parse_no_compress_frame_single",
+      "source_code": "    def parse_frame(\n        self, buf: bytes\n"
+    }
+  ],
+  "assertions": [
+    "assert ctx.value.code == WSCloseCode.PROTOCOL_ERROR"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_no_compress_frame_single(out: aiohttp.DataQueue[WSMessage]) -> None:\n    parser_no_compress = WebSocketReader(out, 0, compress=False)\n    with pytest.raises(WebSocketError) as ctx:\n        parser_no_compress.parse_frame(struct.pack(\"!BB\", 0b11000001, 0b00000001))\n        parser_no_compress.parse_frame(b\"1\")\n\n    assert ctx.value.code == WSCloseCode.PROTOCOL_ERROR"
+}

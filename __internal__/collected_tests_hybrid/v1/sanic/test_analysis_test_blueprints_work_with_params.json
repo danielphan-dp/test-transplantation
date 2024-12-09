@@ -1,0 +1,41 @@
+{
+  "test_name": "test_blueprints_work_with_params",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_url_building.py",
+  "static_methods": [
+    {
+      "name": "blueprint_app.url_for",
+      "source_code": "    def url_for(request):\n        return text(\"url-for\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line_number": 2180
+    },
+    {
+      "name": "blueprint_app.url_for",
+      "source_code": "    def url_for(request):\n        return text(\"url-for\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line_number": 2180
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "blueprint_app.url_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line": 2180,
+      "caller": "test_blueprints_work_with_params",
+      "source_code": "    @app.route(\"/url-for\")\n    def url_for(request):\n        return text(\"url-for\")\n\n"
+    },
+    {
+      "function": "blueprint_app.url_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line": 2180,
+      "caller": "test_blueprints_work_with_params",
+      "source_code": "    @app.route(\"/url-for\")\n    def url_for(request):\n        return text(\"url-for\")\n\n"
+    }
+  ],
+  "assertions": [
+    "assert first_url == '/first/foo/bar'",
+    "assert second_url == '/second/foo/bar'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_blueprints_work_with_params(blueprint_app):\n    first_url = blueprint_app.url_for(\"first.foo_with_param\", param=\"bar\")\n    assert first_url == \"/first/foo/bar\"\n\n    second_url = blueprint_app.url_for(\"second.bar_with_param\", param=\"bar\")\n    assert second_url == \"/second/foo/bar\""
+}

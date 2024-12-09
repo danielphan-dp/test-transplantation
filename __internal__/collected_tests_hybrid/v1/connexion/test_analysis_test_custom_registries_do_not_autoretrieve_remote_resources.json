@@ -1,0 +1,77 @@
+{
+  "test_name": "test_custom_registries_do_not_autoretrieve_remote_resources",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "validators.Draft202012Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertFalse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validators.Draft202012Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_registries_do_not_autoretrieve_remote_resources",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_registries_do_not_autoretrieve_remote_resources",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertFalse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_registries_do_not_autoretrieve_remote_resources",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_registries_do_not_autoretrieve_remote_resources",
+      "source_code": ""
+    },
+    {
+      "function": "validator.validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_custom_registries_do_not_autoretrieve_remote_resources",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_custom_registries_do_not_autoretrieve_remote_resources(self):\n        registry = referencing.Registry()\n        schema = {\"$ref\": \"https://example.com/\"}\n        validator = validators.Draft202012Validator(schema, registry=registry)\n\n        with warnings.catch_warnings(record=True) as w:\n            warnings.simplefilter(\"always\")\n            with self.assertRaises(referencing.exceptions.Unresolvable):\n                validator.validate(12)\n        self.assertFalse(w)"
+}

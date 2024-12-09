@@ -1,0 +1,142 @@
+{
+  "test_name": "test_broken_abort",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "restore_unraisablehook",
+      "source_code": "def restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 83
+    },
+    {
+      "name": "_core.CancelScope",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "gc_collect_harder",
+      "source_code": "def gc_collect_harder() -> None:\n    # In the test suite we sometimes want to call gc.collect() to make sure\n    # that any objects with noisy __del__ methods (e.g. unawaited coroutines)\n    # get collected before we continue, so their noise doesn't leak into\n    # unrelated tests.\n    #\n    # On PyPy, coroutine objects (for example) can survive at least 1 round of\n    # garbage collection, because executing their __del__ method to print the\n    # warning can cause them to be resurrected. So we call collect a few times\n    # to make sure.\n    for _ in range(5):\n        gc.collect()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 48
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "_core.checkpoint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_core.checkpoint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_core.CancelScope",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "scope.cancel",
+      "source_code": "    def cancel(self) -> None:\n        \"\"\"Cancels this scope immediately.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 777
+    },
+    {
+      "name": "_core.wait_task_rescheduled",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "restore_unraisablehook",
+      "source_code": "def restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 83
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "restore_unraisablehook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 83,
+      "caller": "test_broken_abort",
+      "source_code": "@contextmanager\ndef restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev\n\n\n"
+    },
+    {
+      "function": "_core.CancelScope",
+      "filename": "",
+      "line": 0,
+      "caller": "test_broken_abort",
+      "source_code": ""
+    },
+    {
+      "function": "gc_collect_harder",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 48,
+      "caller": "test_broken_abort",
+      "source_code": "def gc_collect_harder() -> None:\n    # In the test suite we sometimes want to call gc.collect() to make sure\n    # that any objects with noisy __del__ methods (e.g. unawaited coroutines)\n    # get collected before we continue, so their noise doesn't leak into\n    # unrelated tests.\n    #\n    # On PyPy, coroutine objects (for example) can survive at least 1 round of\n    # garbage collection, because executing their __del__ method to print the\n    # warning can cause them to be resurrected. So we call collect a few times\n    # to make sure.\n    for _ in range(5):\n        gc.collect()\n\n\n"
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_broken_abort",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "_core.checkpoint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_broken_abort",
+      "source_code": ""
+    },
+    {
+      "function": "_core.checkpoint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_broken_abort",
+      "source_code": ""
+    },
+    {
+      "function": "_core.CancelScope",
+      "filename": "",
+      "line": 0,
+      "caller": "test_broken_abort",
+      "source_code": ""
+    },
+    {
+      "function": "scope.cancel",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 777,
+      "caller": "test_broken_abort",
+      "source_code": "    @enable_ki_protection\n    def cancel(self) -> None:\n        \"\"\"Cancels this scope immediately.\n\n        This method is idempotent, i.e., if the scope was already\n        cancelled then this method silently does nothing.\n        \"\"\"\n        if self._cancel_called:\n            return\n        with self._might_change_registered_deadline():\n            self._cancel_called = True\n        if self._cancel_status is not None:\n            self._cancel_status.recalculate()\n\n"
+    },
+    {
+      "function": "_core.wait_task_rescheduled",
+      "filename": "",
+      "line": 0,
+      "caller": "test_broken_abort",
+      "source_code": ""
+    },
+    {
+      "function": "restore_unraisablehook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 83,
+      "caller": "test_broken_abort",
+      "source_code": "@contextmanager\ndef restore_unraisablehook() -> Generator[None, None, None]:\n    sys.unraisablehook, prev = sys.__unraisablehook__, sys.unraisablehook\n    try:\n        yield\n    finally:\n        sys.unraisablehook = prev\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_broken_abort() -> None:\n    async def main() -> None:\n        # These yields are here to work around an annoying warning -- we're\n        # going to crash the main loop, and if we (by chance) do this before\n        # the run_sync_soon task runs for the first time, then Python gives us\n        # a spurious warning about it not being awaited. (I mean, the warning\n        # is correct, but here we're testing our ability to deliver a\n        # semi-meaningful error after things have gone totally pear-shaped, so\n        # it's not relevant.) By letting the run_sync_soon_task run first, we\n        # avoid the warning.\n        await _core.checkpoint()\n        await _core.checkpoint()\n        with _core.CancelScope() as scope:\n            scope.cancel()\n            # None is not a legal return value here\n            await _core.wait_task_rescheduled(lambda _: None)  # type: ignore\n\n    with pytest.raises(_core.TrioInternalError):\n        _core.run(main)\n\n    # Because this crashes, various __del__ methods print complaints on\n    # stderr. Make sure that they get run now, so the output is attached to\n    # this test.\n    gc_collect_harder()"
+}

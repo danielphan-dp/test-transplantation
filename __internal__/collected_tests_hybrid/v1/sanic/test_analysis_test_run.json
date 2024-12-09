@@ -1,0 +1,79 @@
+{
+  "test_name": "test_run",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_clib.py",
+  "static_methods": [
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    },
+    {
+      "name": "build_clib",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.write_file",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 391
+    },
+    {
+      "name": "missing_compiler_executable",
+      "source_code": "def missing_compiler_executable(cmd_names: Sequence[str] = []):  # pragma: no cover\n    \"\"\"Check if the compiler components used to build the interpreter exist.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/__init__.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.skipTest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_run",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    },
+    {
+      "function": "build_clib",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run",
+      "source_code": ""
+    },
+    {
+      "function": "self.write_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 391,
+      "caller": "test_run",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()\n\n        for field in _version2fieldlist(self['Metadata-Version']):\n            values = self.get(field)\n            if skip_unknown and values in ('UNKNOWN', [], ['UNKNOWN']):\n                continue\n            if field in _ELEMENTSFIELD:\n                self._write_field(fileobject, field, ','.join(values))\n                continue\n            if field not in _LISTFIELDS:\n                if field == 'Description':\n                    if self.metadata_version in ('1.0', '1.1'):\n                        values = values.replace('\\n', '\\n        ')\n                    else:\n                        values = values.replace('\\n', '\\n       |')\n                values = [values]\n\n            if field in _LISTTUPLEFIELDS:\n                values = [','.join(value) for value in values]\n\n            for value in values:\n                self._write_field(fileobject, field, value)\n\n"
+    },
+    {
+      "function": "missing_compiler_executable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/__init__.py",
+      "line": 14,
+      "caller": "test_run",
+      "source_code": "def missing_compiler_executable(cmd_names: Sequence[str] = []):  # pragma: no cover\n    \"\"\"Check if the compiler components used to build the interpreter exist.\n\n    Check for the existence of the compiler executables whose names are listed\n    in 'cmd_names' or all the compiler executables when 'cmd_names' is empty\n    and return the first missing executable or None when none is found\n    missing.\n\n    \"\"\"\n    from distutils import ccompiler, errors, sysconfig\n\n    compiler = ccompiler.new_compiler()\n    sysconfig.customize_compiler(compiler)\n    if compiler.compiler_type == \"msvc\":\n        # MSVC has no executables, so check whether initialization succeeds\n        try:\n            compiler.initialize()\n        except errors.DistutilsPlatformError:\n            return \"msvc\"\n    for name in compiler.executables:\n        if cmd_names and name not in cmd_names:\n            continue\n        cmd = getattr(compiler, name)\n        if cmd_names:\n            assert cmd is not None, f\"the '{name}' executable is not configured\"\n        elif not cmd:\n            continue\n        if shutil.which(cmd[0]) is None:\n            return cmd[0]\n"
+    },
+    {
+      "function": "self.skipTest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'libfoo.a' in os.listdir(build_temp)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run(self):\n        pkg_dir, dist = self.create_dist()\n        cmd = build_clib(dist)\n\n        foo_c = os.path.join(pkg_dir, 'foo.c')\n        self.write_file(foo_c, 'int main(void) { return 1;}\\n')\n        cmd.libraries = [('foo', {'sources': [foo_c]})]\n\n        build_temp = os.path.join(pkg_dir, 'build')\n        os.mkdir(build_temp)\n        cmd.build_temp = build_temp\n        cmd.build_clib = build_temp\n\n        # Before we run the command, we want to make sure\n        # all commands are present on the system.\n        ccmd = missing_compiler_executable()\n        if ccmd is not None:\n            self.skipTest(f'The {ccmd!r} command is not found')\n\n        # this should work\n        cmd.run()\n\n        # let's check the result\n        assert 'libfoo.a' in os.listdir(build_temp)"
+}

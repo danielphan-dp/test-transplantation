@@ -1,0 +1,40 @@
+{
+  "test_name": "test__create_ssl_context_with_ca_certs",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_worker.py",
+  "static_methods": [
+    {
+      "name": "worker._create_ssl_context",
+      "source_code": "    def _create_ssl_context(cfg: Any) -> \"SSLContext\":\n        \"\"\"Creates SSLContext instance for usage in asyncio.create_server.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line_number": 198
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "worker._create_ssl_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line": 198,
+      "caller": "test__create_ssl_context_with_ca_certs",
+      "source_code": "    @staticmethod\n    def _create_ssl_context(cfg: Any) -> \"SSLContext\":\n        \"\"\"Creates SSLContext instance for usage in asyncio.create_server.\n\n        See ssl.SSLSocket.__init__ for more details.\n        \"\"\"\n        if ssl is None:  # pragma: no cover\n            raise RuntimeError(\"SSL is not supported.\")\n\n        ctx = ssl.SSLContext(cfg.ssl_version)\n        ctx.load_cert_chain(cfg.certfile, cfg.keyfile)\n        ctx.verify_mode = cfg.cert_reqs\n        if cfg.ca_certs:\n            ctx.load_verify_locations(cfg.ca_certs)\n        if cfg.ciphers:\n            ctx.set_ciphers(cfg.ciphers)\n        return ctx\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__create_ssl_context_with_ca_certs",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(ctx, ssl.SSLContext)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__create_ssl_context_with_ca_certs(\n    worker: base_worker.GunicornWebWorker,\n    tls_ca_certificate_pem_path: str,\n    tls_certificate_pem_path: str,\n) -> None:\n    worker.cfg.ssl_version = ssl.PROTOCOL_TLS_CLIENT\n    worker.cfg.cert_reqs = ssl.CERT_OPTIONAL\n    worker.cfg.certfile = tls_certificate_pem_path\n    worker.cfg.keyfile = tls_certificate_pem_path\n    worker.cfg.ca_certs = tls_ca_certificate_pem_path\n    worker.cfg.ciphers = None\n    ctx = worker._create_ssl_context(worker.cfg)\n    assert isinstance(ctx, ssl.SSLContext)"
+}

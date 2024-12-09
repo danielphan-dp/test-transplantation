@@ -1,0 +1,82 @@
+{
+  "test_name": "test_operation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "make_operation",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line_number": 390
+    },
+    {
+      "name": "Swagger2Operation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "expected_body_schema.update",
+      "source_code": "    def update(\n        self,\n        *args: MultiDict | typing.Mapping[typing.Any, typing.Any] | list[tuple[typing.Any, typing.Any]],\n        **kwargs: typing.Any,\n    ) -> None:\n        value = MultiDict(*args, **kwargs)\n        existing_items = [(k, v) for (k, v) in self._list if k not in value.keys()]\n        self._list = existing_items + value.multi_items()\n        self._dict.update(value)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/datastructures.py",
+      "line_number": 362
+    },
+    {
+      "name": "operation.body_schema",
+      "source_code": "    def body_schema(self, content_type: t.Optional[str] = None) -> dict:\n        \"\"\"\n        The body schema definition for this operation.\n        \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/operations/abstract.py",
+      "line_number": 172
+    },
+    {
+      "name": "Resolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_operation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line": 390,
+      "caller": "test_operation",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]\n\n\n"
+    },
+    {
+      "function": "Swagger2Operation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation",
+      "source_code": ""
+    },
+    {
+      "function": "expected_body_schema.update",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/datastructures.py",
+      "line": 362,
+      "caller": "test_operation",
+      "source_code": "    def update(\n        self,\n        *args: MultiDict | typing.Mapping[typing.Any, typing.Any] | list[tuple[typing.Any, typing.Any]],\n        **kwargs: typing.Any,\n"
+    },
+    {
+      "function": "operation.body_schema",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/operations/abstract.py",
+      "line": 172,
+      "caller": "test_operation",
+      "source_code": "    @abc.abstractmethod\n    def body_schema(self, content_type: t.Optional[str] = None) -> dict:\n        \"\"\"\n        The body schema definition for this operation.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "Resolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert operation.method == 'GET'",
+    "assert operation.produces == ['application/json']",
+    "assert operation.consumes == ['application/json']",
+    "assert operation.body_schema() == expected_body_schema"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_operation(api):\n    op_spec = make_operation(OPERATION1)\n    operation = Swagger2Operation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation=op_spec,\n        app_produces=[\"application/json\"],\n        app_consumes=[\"application/json\"],\n        definitions=DEFINITIONS,\n        resolver=Resolver(),\n    )\n\n    assert operation.method == \"GET\"\n    assert operation.produces == [\"application/json\"]\n    assert operation.consumes == [\"application/json\"]\n\n    expected_body_schema = op_spec[\"parameters\"][0][\"schema\"]\n    expected_body_schema.update({\"definitions\": DEFINITIONS})\n    assert operation.body_schema() == expected_body_schema"
+}

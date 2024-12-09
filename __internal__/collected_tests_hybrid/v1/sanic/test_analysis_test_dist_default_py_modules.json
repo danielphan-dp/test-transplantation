@@ -1,0 +1,146 @@
+{
+  "test_name": "test_dist_default_py_modules",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dist.set_defaults",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dist.set_defaults",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dist.set_defaults",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_dist_default_py_modules",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_dist_default_py_modules",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_dist_default_py_modules",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_py_modules",
+      "source_code": ""
+    },
+    {
+      "function": "dist.set_defaults",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_py_modules",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_py_modules",
+      "source_code": ""
+    },
+    {
+      "function": "dist.set_defaults",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_py_modules",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_py_modules",
+      "source_code": ""
+    },
+    {
+      "function": "dist.set_defaults",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dist_default_py_modules",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dist_default_py_modules",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert dist.py_modules == [py_module]",
+    "assert dist.py_modules == ['explicity_py_module']",
+    "assert not dist.py_modules"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dist_default_py_modules(tmp_path, dist_name, py_module):\n    (tmp_path / f\"{py_module}.py\").touch()\n\n    (tmp_path / \"setup.py\").touch()\n    (tmp_path / \"noxfile.py\").touch()\n    # ^-- make sure common tool files are ignored\n\n    attrs = {**EXAMPLE_BASE_INFO, \"name\": dist_name, \"src_root\": str(tmp_path)}\n    # Find `py_modules` corresponding to dist_name if not given\n    dist = Distribution(attrs)\n    dist.set_defaults()\n    assert dist.py_modules == [py_module]\n    # When `py_modules` is given, don't do anything\n    dist = Distribution({**attrs, \"py_modules\": [\"explicity_py_module\"]})\n    dist.set_defaults()\n    assert dist.py_modules == [\"explicity_py_module\"]\n    # When `packages` is given, don't do anything\n    dist = Distribution({**attrs, \"packages\": [\"explicity_package\"]})\n    dist.set_defaults()\n    assert not dist.py_modules"
+}

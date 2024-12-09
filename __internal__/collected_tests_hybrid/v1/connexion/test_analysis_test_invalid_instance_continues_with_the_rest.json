@@ -1,0 +1,64 @@
+{
+  "test_name": "test_invalid_instance_continues_with_the_rest",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "self.assertOutputs",
+      "source_code": "    def assertOutputs(self, stdout=\"\", stderr=\"\", **kwargs):\n        self.assertEqual(\n            self.run_cli(**kwargs),\n            (dedent(stdout), dedent(stderr)),\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line_number": 98
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_message_for",
+      "source_code": "def _message_for(non_json):\n    try:\n        json.loads(non_json)\n    except JSONDecodeError as error:\n        return str(error)\n    else:  # pragma: no cover\n        raise RuntimeError(\"Tried and failed to capture a JSON dump error.\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line_number": 56
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertOutputs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line": 98,
+      "caller": "test_invalid_instance_continues_with_the_rest",
+      "source_code": "    def assertOutputs(self, stdout=\"\", stderr=\"\", **kwargs):\n        self.assertEqual(\n            self.run_cli(**kwargs),\n            (dedent(stdout), dedent(stderr)),\n        )\n\n"
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_invalid_instance_continues_with_the_rest",
+      "source_code": ""
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_invalid_instance_continues_with_the_rest",
+      "source_code": ""
+    },
+    {
+      "function": "_message_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line": 56,
+      "caller": "test_invalid_instance_continues_with_the_rest",
+      "source_code": "def _message_for(non_json):\n    try:\n        json.loads(non_json)\n    except JSONDecodeError as error:\n        return str(error)\n    else:  # pragma: no cover\n        raise RuntimeError(\"Tried and failed to capture a JSON dump error.\")\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_invalid_instance_continues_with_the_rest(self):\n        self.assertOutputs(\n            files=dict(\n                some_schema='{\"minimum\": 30}',\n                first_instance=\"not valid JSON!\",\n                second_instance=\"12\",\n            ),\n            argv=[\n                \"-i\", \"first_instance\",\n                \"-i\", \"second_instance\",\n                \"some_schema\",\n            ],\n\n            exit_code=1,\n            stderr=\"\"\"\\\n                Failed to parse 'first_instance': {}\n                12: 12 is less than the minimum of 30\n            \"\"\".format(_message_for(\"not valid JSON!\")),\n        )"
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_existing_provides",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "directlyProvides",
+      "source_code": "    def directlyProvides(\n        object, *interfaces,\n    ):  # pylint:disable=redefined-builtin\n        \"\"\"\n        Declare interfaces declared directly for an object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 684
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_existing_provides",
+      "source_code": ""
+    },
+    {
+      "function": "Foo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_existing_provides",
+      "source_code": ""
+    },
+    {
+      "function": "directlyProvides",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 684,
+      "caller": "test_existing_provides",
+      "source_code": "    def directlyProvides(\n        object, *interfaces,\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_existing_provides",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_existing_provides",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_existing_provides",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_existing_provides(self):\n        from zope.interface.declarations import directlyProvides\n        from zope.interface.interface import InterfaceClass\n        IFoo = InterfaceClass(\"IFoo\")\n\n        class Foo:\n            pass\n\n        foo = Foo()\n        directlyProvides(foo, IFoo)\n        spec = self._callFUT(foo)\n        self.assertEqual(list(spec), [IFoo])"
+}

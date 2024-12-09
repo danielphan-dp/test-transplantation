@@ -1,0 +1,223 @@
+{
+  "test_name": "test_setup_requires_honors_pip_env",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "contexts.save_pkg_resources_state",
+      "source_code": "def save_pkg_resources_state():\n    saved = pkg_resources.__getstate__()\n    try:\n        yield saved\n    finally:\n        pkg_resources.__setstate__(saved)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line_number": 189
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "contexts.tempdir",
+      "source_code": "def tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 416
+    },
+    {
+      "name": "contexts.save_pkg_resources_state",
+      "source_code": "def save_pkg_resources_state():\n    saved = pkg_resources.__getstate__()\n    try:\n        yield saved\n    finally:\n        pkg_resources.__setstate__(saved)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line_number": 189
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "contexts.tempdir",
+      "source_code": "def tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 416
+    },
+    {
+      "name": "create_setup_requires_package",
+      "source_code": "def create_setup_requires_package(\n    path,\n    distname='foobar',\n    version='0.1',\n    make_package=make_trivial_sdist,\n    setup_py_template=None,\n    setup_attrs=None,\n    use_setup_cfg=(),",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+      "line_number": 1194
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "fp.write",
+      "source_code": "        def write(data):\n            if not isinstance(data, basestring):\n                data = str(data)\n            # If the file has an encoding, encode unicode with it.\n            if (isinstance(fp, file) and\n                    isinstance(data, unicode) and\n                    fp.encoding is not None):\n                errors = getattr(fp, \"errors\", None)\n                if errors is None:\n                    errors = \"strict\"\n                data = data.encode(fp.encoding, errors)\n            fp.write(data)\n        want_unicode = False\n        sep = kwargs.pop(\"sep\", None)\n        if sep is not None:\n            if isinstance(sep, unicode):\n                want_unicode = True\n            elif not isinstance(sep, str):\n                raise TypeError(\"sep must be None or a string\")\n        end = kwargs.pop(\"end\", None)\n        if end is not None:\n            if isinstance(end, unicode):\n                want_unicode = True\n            elif not isinstance(end, str):\n                raise TypeError(\"end must be None or a string\")\n        if kwargs:\n            raise TypeError(\"invalid keyword arguments to print()\")\n        if not want_unicode:\n            for arg in args:\n                if isinstance(arg, unicode):\n                    want_unicode = True\n                    break\n        if want_unicode:\n            newline = unicode(\"\\n\")\n            space = unicode(\" \")\n        else:\n            newline = \"\\n\"\n            space = \" \"\n        if sep is None:\n            sep = space\n        if end is None:\n            end = newline\n        for i, arg in enumerate(args):\n            if i:\n                write(sep)\n            write(arg)\n        write(end)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line_number": 765
+    },
+    {
+      "name": "run_setup",
+      "source_code": "def run_setup(setup_script, args):\n    \"\"\"Run a distutils setup script, sandboxed in its directory\"\"\"\n    setup_dir = os.path.abspath(os.path.dirname(setup_script))\n    with setup_context(setup_dir):\n        try:\n            sys.argv[:] = [setup_script] + list(args)\n            sys.path.insert(0, setup_dir)\n            # reset to include setup dir, w/clean callback list\n            working_set.__init__()\n            working_set.callbacks.append(lambda dist: dist.activate())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line_number": 257
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "DALS",
+      "source_code": "def DALS(s):\n    \"dedent and left-strip\"\n    return textwrap.dedent(s).lstrip()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/textwrap.py",
+      "line_number": 4
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "contexts.save_pkg_resources_state",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line": 189,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "@contextlib.contextmanager\ndef save_pkg_resources_state():\n    saved = pkg_resources.__getstate__()\n    try:\n        yield saved\n    finally:\n        pkg_resources.__setstate__(saved)\n\n\n"
+    },
+    {
+      "function": "monkeypatch.setenv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setenv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setenv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setenv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "contexts.tempdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 416,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "@contextlib.contextmanager\ndef tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)\n\n"
+    },
+    {
+      "function": "contexts.save_pkg_resources_state",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line": 189,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "@contextlib.contextmanager\ndef save_pkg_resources_state():\n    saved = pkg_resources.__getstate__()\n    try:\n        yield saved\n    finally:\n        pkg_resources.__setstate__(saved)\n\n\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "contexts.tempdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 416,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "@contextlib.contextmanager\ndef tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)\n\n"
+    },
+    {
+      "function": "create_setup_requires_package",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+      "line": 1194,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "def create_setup_requires_package(\n    path,\n    distname='foobar',\n    version='0.1',\n    make_package=make_trivial_sdist,\n    setup_py_template=None,\n    setup_attrs=None,\n    use_setup_cfg=(),\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "fp.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line": 765,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "        def write(data):\n            if not isinstance(data, basestring):\n                data = str(data)\n            # If the file has an encoding, encode unicode with it.\n            if (isinstance(fp, file) and\n                    isinstance(data, unicode) and\n                    fp.encoding is not None):\n                errors = getattr(fp, \"errors\", None)\n                if errors is None:\n                    errors = \"strict\"\n                data = data.encode(fp.encoding, errors)\n            fp.write(data)\n"
+    },
+    {
+      "function": "run_setup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line": 257,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "def run_setup(setup_script, args):\n    \"\"\"Run a distutils setup script, sandboxed in its directory\"\"\"\n    setup_dir = os.path.abspath(os.path.dirname(setup_script))\n    with setup_context(setup_dir):\n        try:\n            sys.argv[:] = [setup_script] + list(args)\n            sys.path.insert(0, setup_dir)\n            # reset to include setup dir, w/clean callback list\n            working_set.__init__()\n            working_set.callbacks.append(lambda dist: dist.activate())\n\n            with DirectorySandbox(setup_dir):\n                ns = dict(__file__=setup_script, __name__='__main__')\n                _execfile(setup_script, ns)\n        except SystemExit as v:\n            if v.args and v.args[0]:\n                raise\n            # Normal exit, just return\n\n\n"
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": ""
+    },
+    {
+      "function": "DALS",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/textwrap.py",
+      "line": 4,
+      "caller": "test_setup_requires_honors_pip_env",
+      "source_code": "def DALS(s):\n    \"dedent and left-strip\"\n    return textwrap.dedent(s).lstrip()\n"
+    }
+  ],
+  "assertions": [
+    "assert len(mock_index.requests) == 1",
+    "assert mock_index.requests[0].path == '/python-xlib/'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_setup_requires_honors_pip_env(self, mock_index, monkeypatch):\n        monkeypatch.setenv('PIP_RETRIES', '0')\n        monkeypatch.setenv('PIP_TIMEOUT', '0')\n        monkeypatch.setenv('PIP_NO_INDEX', 'false')\n        monkeypatch.setenv('PIP_INDEX_URL', mock_index.url)\n        with contexts.save_pkg_resources_state():\n            with contexts.tempdir() as temp_dir:\n                test_pkg = create_setup_requires_package(\n                    temp_dir,\n                    'python-xlib',\n                    '0.19',\n                    setup_attrs=dict(dependency_links=[]),\n                )\n                test_setup_cfg = os.path.join(test_pkg, 'setup.cfg')\n                with open(test_setup_cfg, 'w', encoding=\"utf-8\") as fp:\n                    fp.write(\n                        DALS(\n                            \"\"\"\n                        [easy_install]\n                        index_url = https://pypi.org/legacy/\n                        \"\"\"\n                        )\n                    )\n                test_setup_py = os.path.join(test_pkg, 'setup.py')\n                with pytest.raises(distutils.errors.DistutilsError):\n                    run_setup(test_setup_py, ['--version'])\n        assert len(mock_index.requests) == 1\n        assert mock_index.requests[0].path == '/python-xlib/'"
+}

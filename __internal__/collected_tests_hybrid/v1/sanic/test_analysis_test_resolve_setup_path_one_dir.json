@@ -1,0 +1,27 @@
+{
+  "test_name": "test_resolve_setup_path_one_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_develop.py",
+  "static_methods": [
+    {
+      "name": "develop._resolve_setup_path",
+      "source_code": "    def _resolve_setup_path(egg_base, install_dir, egg_path):\n        \"\"\"\n        Generate a path from egg_base back to '.' where the\n        setup script resides and ensure that path points to the\n        setup path from $install_dir/$egg_path.\n        \"\"\"\n        path_to_setup = egg_base.replace(os.sep, '/').rstrip('/')\n        if path_to_setup != os.curdir:\n            path_to_setup = '../' * (path_to_setup.count('/') + 1)\n        resolved = _path.normpath(os.path.join(install_dir, egg_path, path_to_setup))\n        curdir = _path.normpath(os.curdir)\n        if resolved != curdir:\n            raise DistutilsOptionError(\n                \"Can't get a consistent path to setup script from\"\n                \" installation directory\",\n                resolved,\n                curdir,\n            )\n        return path_to_setup",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/develop.py",
+      "line_number": 87
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "develop._resolve_setup_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/develop.py",
+      "line": 87,
+      "caller": "test_resolve_setup_path_one_dir",
+      "source_code": "    @staticmethod\n    def _resolve_setup_path(egg_base, install_dir, egg_path):\n        \"\"\"\n        Generate a path from egg_base back to '.' where the\n        setup script resides and ensure that path points to the\n        setup path from $install_dir/$egg_path.\n        \"\"\"\n        path_to_setup = egg_base.replace(os.sep, '/').rstrip('/')\n        if path_to_setup != os.curdir:\n            path_to_setup = '../' * (path_to_setup.count('/') + 1)\n        resolved = _path.normpath(os.path.join(install_dir, egg_path, path_to_setup))\n        curdir = _path.normpath(os.curdir)\n        if resolved != curdir:\n            raise DistutilsOptionError(\n                \"Can't get a consistent path to setup script from\"\n                \" installation directory\",\n                resolved,\n                curdir,\n            )\n        return path_to_setup\n\n"
+    }
+  ],
+  "assertions": [
+    "assert develop._resolve_setup_path('pkgs', '.', 'pkgs') == '../'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resolve_setup_path_one_dir(self):\n        assert develop._resolve_setup_path('pkgs', '.', 'pkgs') == '../'"
+}

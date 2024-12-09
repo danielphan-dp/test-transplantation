@@ -1,0 +1,77 @@
+{
+  "test_name": "test_with_multiple_yield_generator",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "mgr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AssertionError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mgr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_with_multiple_yield_generator",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "mgr",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_multiple_yield_generator",
+      "source_code": ""
+    },
+    {
+      "function": "AssertionError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_with_multiple_yield_generator",
+      "source_code": ""
+    },
+    {
+      "function": "mgr",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_multiple_yield_generator",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_multiple_yield_generator",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_with_multiple_yield_generator(self):\n        def mygen():\n            yield 'a'\n            yield 'b'\n\n        mgr = self._callFUT(mygen)\n        try:\n            with mgr() as ctx:\n                self.assertEqual(ctx, 'a')\n        except RuntimeError:\n            pass\n        else:  # pragma: no cover\n            raise AssertionError('expected raise from multiple yields')"
+}

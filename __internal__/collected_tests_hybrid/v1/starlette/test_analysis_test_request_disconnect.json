@@ -1,0 +1,38 @@
+{
+  "test_name": "test_request_disconnect",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_requests.py",
+  "static_methods": [
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.body",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line_number": 482
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_disconnect",
+      "source_code": ""
+    },
+    {
+      "function": "request.body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line": 482,
+      "caller": "test_request_disconnect",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.\n\n        This default implementation simply prints a description of the\n        triggering requirement.\n\n        :param req: The InstallRequirement that provoked this error, with\n            its link already populated by the resolver's _populate_link().\n\n        \"\"\"\n        return f\"    {self._requirement_name()}\"\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_request_disconnect(\n    anyio_backend_name: str,\n    anyio_backend_options: dict[str, Any],\n) -> None:\n    \"\"\"\n    If a client disconnect occurs while reading request body\n    then ClientDisconnect should be raised.\n    \"\"\"\n\n    async def app(scope: Scope, receive: Receive, send: Send) -> None:\n        request = Request(scope, receive)\n        await request.body()\n\n    async def receiver() -> Message:\n        return {\"type\": \"http.disconnect\"}\n\n    scope = {\"type\": \"http\", \"method\": \"POST\", \"path\": \"/\"}\n    with pytest.raises(ClientDisconnect):\n        anyio.run(\n            app,  # type: ignore\n            scope,\n            receiver,\n            None,\n            backend=anyio_backend_name,\n            backend_options=anyio_backend_options,\n        )"
+}

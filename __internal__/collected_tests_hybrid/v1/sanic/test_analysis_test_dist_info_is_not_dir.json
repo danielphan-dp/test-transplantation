@@ -1,0 +1,66 @@
+{
+  "test_name": "test_dist_info_is_not_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+  "static_methods": [
+    {
+      "name": "dist_info.touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "pkg_resources.dist_factory",
+      "source_code": "def dist_factory(path_item, entry, only):\n    \"\"\"\n    Return a dist_factory for a path_item and entry\n    \"\"\"\n    lower = entry.lower()\n    is_meta = any(map(lower.endswith, ('.egg-info', '.dist-info')))\n    return (\n        distributions_from_metadata\n        if is_meta else\n        find_distributions\n        if not only and _is_egg_path(entry) else\n        resolve_egg_link\n        if not only and lower.endswith('.egg-link') else\n        NoDists()\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 2069
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dist_info.touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_dist_info_is_not_dir",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "pkg_resources.dist_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 2069,
+      "caller": "test_dist_info_is_not_dir",
+      "source_code": "def dist_factory(path_item, entry, only):\n    \"\"\"\n    Return a dist_factory for a path_item and entry\n    \"\"\"\n    lower = entry.lower()\n    is_meta = any(map(lower.endswith, ('.egg-info', '.dist-info')))\n    return (\n        distributions_from_metadata\n        if is_meta else\n        find_distributions\n        if not only and _is_egg_path(entry) else\n        resolve_egg_link\n        if not only and lower.endswith('.egg-link') else\n        NoDists()\n    )\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dist_info_is_not_dir",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dist_info_is_not_dir",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not pkg_resources.dist_factory(str(tmp_path), str(dist_info), only)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dist_info_is_not_dir(tmp_path, only):\n    \"\"\"Test path containing a file with dist-info extension.\"\"\"\n    dist_info = tmp_path / 'foobar.dist-info'\n    dist_info.touch()\n    assert not pkg_resources.dist_factory(str(tmp_path), str(dist_info), only)"
+}

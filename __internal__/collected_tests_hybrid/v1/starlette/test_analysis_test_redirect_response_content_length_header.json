@@ -1,0 +1,80 @@
+{
+  "test_name": "test_redirect_response_content_length_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_responses.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.request",
+      "source_code": "    def request(self):\n        return self._pytester._request",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/legacypath.py",
+      "line_number": 69
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RedirectResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_redirect_response_content_length_header",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/legacypath.py",
+      "line": 69,
+      "caller": "test_redirect_response_content_length_header",
+      "source_code": "    @property\n    def request(self):\n        return self._pytester._request\n\n"
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_redirect_response_content_length_header",
+      "source_code": ""
+    },
+    {
+      "function": "RedirectResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_redirect_response_content_length_header",
+      "source_code": ""
+    },
+    {
+      "function": "response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_redirect_response_content_length_header",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.url == 'http://testserver/redirect'",
+    "assert response.headers['content-length'] == '0'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_redirect_response_content_length_header(\n    test_client_factory: TestClientFactory,\n) -> None:\n    async def app(scope: Scope, receive: Receive, send: Send) -> None:\n        if scope[\"path\"] == \"/\":\n            response = Response(\"hello\", media_type=\"text/plain\")  # pragma: no cover\n        else:\n            response = RedirectResponse(\"/\")\n        await response(scope, receive, send)\n\n    client: TestClient = test_client_factory(app)\n    response = client.request(\"GET\", \"/redirect\", allow_redirects=False)\n    assert response.url == \"http://testserver/redirect\"\n    assert response.headers[\"content-length\"] == \"0\""
+}

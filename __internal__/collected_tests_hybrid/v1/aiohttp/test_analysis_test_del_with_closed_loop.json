@@ -1,0 +1,94 @@
+{
+  "test_name": "test_del_with_closed_loop",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_connector.py",
+  "static_methods": [
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "create_mocked_conn",
+      "source_code": "def create_mocked_conn(\n    loop: asyncio.AbstractEventLoop,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/conftest.py",
+      "line_number": 97
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.set_exception_handler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    },
+    {
+      "name": "make_conn",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_del_with_closed_loop",
+      "source_code": ""
+    },
+    {
+      "function": "create_mocked_conn",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/conftest.py",
+      "line": 97,
+      "caller": "test_del_with_closed_loop",
+      "source_code": "@pytest.fixture\ndef create_mocked_conn(\n    loop: asyncio.AbstractEventLoop,\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_del_with_closed_loop",
+      "source_code": ""
+    },
+    {
+      "function": "loop.set_exception_handler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_del_with_closed_loop",
+      "source_code": ""
+    },
+    {
+      "function": "loop.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_del_with_closed_loop",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    },
+    {
+      "function": "make_conn",
+      "filename": "",
+      "line": 0,
+      "caller": "test_del_with_closed_loop",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not conns_impl",
+    "assert not transp.close.called",
+    "assert exc_handler.called"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_del_with_closed_loop(\n    loop: asyncio.AbstractEventLoop, key: ConnectionKey\n) -> None:\n    async def make_conn() -> aiohttp.BaseConnector:\n        return aiohttp.BaseConnector()\n\n    conn = loop.run_until_complete(make_conn())\n    transp = create_mocked_conn(loop)\n    conn._conns[key] = [(transp, 123)]\n\n    conns_impl = conn._conns\n    exc_handler = mock.Mock()\n    loop.set_exception_handler(exc_handler)\n    loop.close()\n\n    with pytest.warns(ResourceWarning):\n        del conn\n        gc.collect()\n\n    assert not conns_impl\n    assert not transp.close.called\n    assert exc_handler.called"
+}

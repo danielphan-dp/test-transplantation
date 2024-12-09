@@ -1,0 +1,103 @@
+{
+  "test_name": "test_ContentLengthReader",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+  "static_methods": [
+    {
+      "name": "t_body_reader",
+      "source_code": "def t_body_reader(thunk: Any, data: bytes, expected: Any, do_eof: bool = False) -> None:\n    # Simple: consume whole thing\n    print(\"Test 1\")\n    buf = makebuf(data)\n    assert _run_reader(thunk(), buf, do_eof) == expected",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line_number": 363
+    },
+    {
+      "name": "t_body_reader",
+      "source_code": "def t_body_reader(thunk: Any, data: bytes, expected: Any, do_eof: bool = False) -> None:\n    # Simple: consume whole thing\n    print(\"Test 1\")\n    buf = makebuf(data)\n    assert _run_reader(thunk(), buf, do_eof) == expected",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line_number": 363
+    },
+    {
+      "name": "ContentLengthReader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EndOfMessage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ContentLengthReader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Data",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EndOfMessage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "t_body_reader",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line": 363,
+      "caller": "test_ContentLengthReader",
+      "source_code": "def t_body_reader(thunk: Any, data: bytes, expected: Any, do_eof: bool = False) -> None:\n    # Simple: consume whole thing\n    print(\"Test 1\")\n    buf = makebuf(data)\n    assert _run_reader(thunk(), buf, do_eof) == expected\n\n    # Incrementally growing buffer\n    print(\"Test 2\")\n    reader = thunk()\n    buf = ReceiveBuffer()\n    events = []\n    for i in range(len(data)):\n        events += _run_reader(reader, buf, False)\n        buf += data[i : i + 1]\n    events += _run_reader(reader, buf, do_eof)\n    assert normalize_data_events(events) == expected\n\n    is_complete = any(type(event) is EndOfMessage for event in expected)\n    if is_complete and not do_eof:\n        buf = makebuf(data + b\"trailing\")\n        assert _run_reader(thunk(), buf, False) == expected\n\n\n"
+    },
+    {
+      "function": "t_body_reader",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line": 363,
+      "caller": "test_ContentLengthReader",
+      "source_code": "def t_body_reader(thunk: Any, data: bytes, expected: Any, do_eof: bool = False) -> None:\n    # Simple: consume whole thing\n    print(\"Test 1\")\n    buf = makebuf(data)\n    assert _run_reader(thunk(), buf, do_eof) == expected\n\n    # Incrementally growing buffer\n    print(\"Test 2\")\n    reader = thunk()\n    buf = ReceiveBuffer()\n    events = []\n    for i in range(len(data)):\n        events += _run_reader(reader, buf, False)\n        buf += data[i : i + 1]\n    events += _run_reader(reader, buf, do_eof)\n    assert normalize_data_events(events) == expected\n\n    is_complete = any(type(event) is EndOfMessage for event in expected)\n    if is_complete and not do_eof:\n        buf = makebuf(data + b\"trailing\")\n        assert _run_reader(thunk(), buf, False) == expected\n\n\n"
+    },
+    {
+      "function": "ContentLengthReader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ContentLengthReader",
+      "source_code": ""
+    },
+    {
+      "function": "EndOfMessage",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ContentLengthReader",
+      "source_code": ""
+    },
+    {
+      "function": "ContentLengthReader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ContentLengthReader",
+      "source_code": ""
+    },
+    {
+      "function": "Data",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ContentLengthReader",
+      "source_code": ""
+    },
+    {
+      "function": "EndOfMessage",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ContentLengthReader",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_ContentLengthReader() -> None:\n    t_body_reader(lambda: ContentLengthReader(0), b\"\", [EndOfMessage()])\n\n    t_body_reader(\n        lambda: ContentLengthReader(10),\n        b\"0123456789\",\n        [Data(data=b\"0123456789\"), EndOfMessage()],\n    )"
+}

@@ -1,0 +1,131 @@
+{
+  "test_name": "test_server",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/autobahn/test_autobahn.py",
+  "static_methods": [
+    {
+      "name": "get_failed_tests",
+      "source_code": "def get_failed_tests(report_path: str, name: str) -> List[Dict[str, Any]]:\n    path = Path(report_path)\n    result_summary = json.loads((path / \"index.json\").read_text())[name]\n    failed_messages = []\n    PASS = {\"OK\", \"INFORMATIONAL\"}\n    entry_fields = {\"case\", \"description\", \"expectation\", \"expected\", \"received\"}\n    for results in result_summary.values():\n        if results[\"behavior\"] in PASS and results[\"behaviorClose\"] in PASS:\n            continue\n        report = json.loads((path / results[\"reportfile\"]).read_text())\n        failed_messages.append({field: report[field] for field in entry_fields})\n    return failed_messages",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/autobahn/test_autobahn.py",
+      "line_number": 34
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "docker.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "server.terminate",
+      "source_code": "    def terminate(self) -> None:\n        if self.__writer is not None:\n            if not self.loop.is_closed():\n                self.__writer.cancel()\n            self.__writer.remove_done_callback(self.__reset_writer)\n            self.__writer = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line_number": 726
+    },
+    {
+      "name": "server.wait",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "get_failed_tests",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/autobahn/test_autobahn.py",
+      "line": 34,
+      "caller": "test_server",
+      "source_code": "def get_failed_tests(report_path: str, name: str) -> List[Dict[str, Any]]:\n    path = Path(report_path)\n    result_summary = json.loads((path / \"index.json\").read_text())[name]\n    failed_messages = []\n    PASS = {\"OK\", \"INFORMATIONAL\"}\n    entry_fields = {\"case\", \"description\", \"expectation\", \"expected\", \"received\"}\n    for results in result_summary.values():\n        if results[\"behavior\"] in PASS and results[\"behaviorClose\"] in PASS:\n            continue\n        report = json.loads((path / results[\"reportfile\"]).read_text())\n        failed_messages.append({field: report[field] for field in entry_fields})\n    return failed_messages\n\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_server",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_server",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_server",
+      "source_code": ""
+    },
+    {
+      "function": "docker.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_server",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_server",
+      "source_code": ""
+    },
+    {
+      "function": "server.terminate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line": 726,
+      "caller": "test_server",
+      "source_code": "    def terminate(self) -> None:\n        if self.__writer is not None:\n            if not self.loop.is_closed():\n                self.__writer.cancel()\n            self.__writer.remove_done_callback(self.__reset_writer)\n            self.__writer = None\n\n"
+    },
+    {
+      "function": "server.wait",
+      "filename": "",
+      "line": 0,
+      "caller": "test_server",
+      "source_code": ""
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_server",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    }
+  ],
+  "assertions": [
+    "assert not failed_messages, '\\n'.join(('\\n\\t'.join((f'{field}: {msg[field]}' for field in ('case', 'description', 'expectation', 'expected', 'received'))) for msg in failed_messages))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_server(report_dir: Path, request: Any) -> None:\n    try:\n        print(\"Starting aiohttp test server\")\n        server = subprocess.Popen(\n            [sys.executable] + [\"tests/autobahn/server/server.py\"]\n        )\n        print(\"Starting autobahn-testsuite client\")\n        docker.run(\n            image=\"autobahn-testsuite\",\n            name=\"autobahn\",\n            remove=True,\n            volumes=[\n                (f\"{request.fspath.dirname}/server\", \"/config\"),\n                (f\"{report_dir}\", \"/reports\"),\n            ],\n            networks=[\"host\"],\n            command=[\n                \"wait-for-it\",\n                \"-s\",\n                \"localhost:9001\",\n                \"--\",\n                \"wstest\",\n                \"--mode\",\n                \"fuzzingclient\",\n                \"--spec\",\n                \"/config/fuzzingclient.json\",\n            ],\n        )\n    finally:\n        print(\"Stopping client and server\")\n        server.terminate()\n        server.wait()\n\n    failed_messages = get_failed_tests(f\"{report_dir}/servers\", \"AutobahnServer\")\n\n    assert not failed_messages, \"\\n\".join(\n        \"\\n\\t\".join(\n            f\"{field}: {msg[field]}\"\n            for field in (\"case\", \"description\", \"expectation\", \"expected\", \"received\")\n        )\n        for msg in failed_messages\n    )"
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "LegacyRefResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.Validator.validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers",
+      "source_code": ""
+    },
+    {
+      "function": "LegacyRefResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers",
+      "source_code": ""
+    },
+    {
+      "function": "self.Validator.validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers",
+      "source_code": ""
+    },
+    {
+      "function": "self.Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_upconverts_from_yet_older_deprecated_legacy_RefResolvers(self):\n        \"\"\"\n        Legacy RefResolvers support only the context manager form of\n        resolution.\n        \"\"\"\n\n        class LegacyRefResolver:\n            @contextmanager\n            def resolving(this, ref):\n                self.assertEqual(ref, \"the ref\")\n                yield {\"type\": \"integer\"}\n\n        resolver = LegacyRefResolver()\n        schema = {\"$ref\": \"the ref\"}\n\n        with self.assertRaises(exceptions.ValidationError):\n            self.Validator(schema, resolver=resolver).validate(None)"
+}

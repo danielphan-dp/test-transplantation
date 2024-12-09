@@ -1,0 +1,80 @@
+{
+  "test_name": "test_missing_name_parameter_on_content_disposition",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_formparsers.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.post",
+      "source_code": "    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line_number": 310
+    },
+    {
+      "name": "Starlette",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "does_not_raise",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_missing_name_parameter_on_content_disposition",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line": 310,
+      "caller": "test_missing_name_parameter_on_content_disposition",
+      "source_code": "    @property\n    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.\n\n        >>> print(Version(\"1.2.3\").post)\n        None\n        >>> Version(\"1.2.3.post1\").post\n        1\n        \"\"\"\n        return self._version.post[1] if self._version.post else None\n\n"
+    },
+    {
+      "function": "Starlette",
+      "filename": "",
+      "line": 0,
+      "caller": "test_missing_name_parameter_on_content_disposition",
+      "source_code": ""
+    },
+    {
+      "function": "does_not_raise",
+      "filename": "",
+      "line": 0,
+      "caller": "test_missing_name_parameter_on_content_disposition",
+      "source_code": ""
+    },
+    {
+      "function": "Mount",
+      "filename": "",
+      "line": 0,
+      "caller": "test_missing_name_parameter_on_content_disposition",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res.status_code == 400",
+    "assert res.text == 'The Content-Disposition header field \"name\" must be provided.'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_missing_name_parameter_on_content_disposition(\n    app: ASGIApp,\n    expectation: typing.ContextManager[Exception],\n    test_client_factory: TestClientFactory,\n) -> None:\n    client = test_client_factory(app)\n    with expectation:\n        res = client.post(\n            \"/\",\n            data=(\n                # data\n                b\"--a7f7ac8d4e2e437c877bb7b8d7cc549c\\r\\n\"  # type: ignore\n                b'Content-Disposition: form-data; =\"field0\"\\r\\n\\r\\n'\n                b\"value0\\r\\n\"\n            ),\n            headers={\"Content-Type\": (\"multipart/form-data; boundary=a7f7ac8d4e2e437c877bb7b8d7cc549c\")},\n        )\n        assert res.status_code == 400\n        assert res.text == 'The Content-Disposition header field \"name\" must be provided.'"
+}

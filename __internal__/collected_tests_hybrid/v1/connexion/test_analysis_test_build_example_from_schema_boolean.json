@@ -1,0 +1,40 @@
+{
+  "test_name": "test_build_example_from_schema_boolean",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_mock2.py",
+  "static_methods": [
+    {
+      "name": "build_example_from_schema",
+      "source_code": "def build_example_from_schema(schema):\n    if \"example\" in schema:\n        return schema[\"example\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line_number": 517
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_example_from_schema",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line": 517,
+      "caller": "test_build_example_from_schema_boolean",
+      "source_code": "def build_example_from_schema(schema):\n    if \"example\" in schema:\n        return schema[\"example\"]\n\n    if \"properties\" in schema:\n        # Recurse if schema is an object\n        return {\n            key: build_example_from_schema(value)\n            for (key, value) in schema[\"properties\"].items()\n        }\n\n    if \"items\" in schema:\n        # Recurse if schema is an array\n        min_item_count = schema.get(\"minItems\", 0)\n        max_item_count = schema.get(\"maxItems\")\n\n        if max_item_count is None or max_item_count >= min_item_count + 1:\n            item_count = min_item_count + 1\n        else:\n            item_count = min_item_count\n\n        return [build_example_from_schema(schema[\"items\"]) for n in range(item_count)]\n\n    try:\n        from jsf import JSF\n    except ImportError:\n        return None\n\n    faker = JSF(schema)\n    return faker.generate()\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_example_from_schema_boolean",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(example, bool)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_example_from_schema_boolean():\n    schema = {\n        \"type\": \"boolean\",\n    }\n    example = build_example_from_schema(schema)\n    assert isinstance(example, bool)"
+}

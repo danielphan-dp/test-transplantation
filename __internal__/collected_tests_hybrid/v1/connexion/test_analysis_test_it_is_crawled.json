@@ -1,0 +1,27 @@
+{
+  "test_name": "test_it_is_crawled",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema_specifications/tests/test_jsonschema_specifications.py",
+  "static_methods": [
+    {
+      "name": "REGISTRY.crawl",
+      "source_code": "    def crawl(self) -> Registry[D]:\n        \"\"\"\n        Crawl all added resources, discovering subresources.\n        \"\"\"\n        resources = self._resources\n        anchors = self._anchors\n        uncrawled = [(uri, resources[uri]) for uri in self._uncrawled]\n        while uncrawled:\n            uri, resource = uncrawled.pop()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 485
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "REGISTRY.crawl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 485,
+      "caller": "test_it_is_crawled",
+      "source_code": "    def crawl(self) -> Registry[D]:\n        \"\"\"\n        Crawl all added resources, discovering subresources.\n        \"\"\"\n        resources = self._resources\n        anchors = self._anchors\n        uncrawled = [(uri, resources[uri]) for uri in self._uncrawled]\n        while uncrawled:\n            uri, resource = uncrawled.pop()\n\n            id = resource.id()\n            if id is not None:\n                uri = urljoin(uri, id)\n                resources = resources.insert(uri, resource)\n            for each in resource.anchors():\n                anchors = anchors.insert((uri, each.name), each)\n            uncrawled.extend((uri, each) for each in resource.subresources())\n        return evolve(\n            self,\n            resources=resources,\n            anchors=anchors,\n            uncrawled=EMPTY_UNCRAWLED,\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert REGISTRY.crawl() == REGISTRY"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_it_is_crawled():\n    assert REGISTRY.crawl() == REGISTRY"
+}

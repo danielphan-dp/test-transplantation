@@ -1,0 +1,106 @@
+{
+  "test_name": "test_dir_matches_wrapped",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_file_io.py",
+  "static_methods": [
+    {
+      "name": "_FILE_SYNC_ATTRS.union",
+      "source_code": "    def union(self, *iterables):\n        \"\"\"Return new sorted set with values from itself and all `iterables`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sortedcontainers/sortedset.py",
+      "line_number": 643
+    },
+    {
+      "name": "all",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "any",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_FILE_SYNC_ATTRS.union",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/sortedcontainers/sortedset.py",
+      "line": 643,
+      "caller": "test_dir_matches_wrapped",
+      "source_code": "    def union(self, *iterables):\n        \"\"\"Return new sorted set with values from itself and all `iterables`.\n\n        The `union` method also corresponds to operator ``|``.\n\n        ``ss.__or__(iterable)`` <==> ``ss | iterable``\n\n        >>> ss = SortedSet([1, 2, 3, 4, 5])\n        >>> ss.union([4, 5, 6, 7])\n        SortedSet([1, 2, 3, 4, 5, 6, 7])\n\n        :param iterables: iterable arguments\n        :return: new sorted set\n\n        \"\"\"\n        return self.__class__(chain(iter(self), *iterables), key=self._key)\n\n"
+    },
+    {
+      "function": "all",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dir_matches_wrapped",
+      "source_code": ""
+    },
+    {
+      "function": "any",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dir_matches_wrapped",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dir_matches_wrapped",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dir_matches_wrapped",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dir_matches_wrapped",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dir_matches_wrapped",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert all((attr in dir(async_file) for attr in attrs if attr in dir(wrapped)))",
+    "assert not any((attr in dir(async_file) for attr in attrs if attr not in dir(wrapped)))"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_dir_matches_wrapped(\n    async_file: AsyncIOWrapper[mock.Mock], wrapped: mock.Mock\n) -> None:\n    attrs = _FILE_SYNC_ATTRS.union(_FILE_ASYNC_METHODS)\n\n    # all supported attrs in wrapped should be available in async_file\n    assert all(attr in dir(async_file) for attr in attrs if attr in dir(wrapped))\n    # all supported attrs not in wrapped should not be available in async_file\n    assert not any(\n        attr in dir(async_file) for attr in attrs if attr not in dir(wrapped)\n    )"
+}

@@ -1,0 +1,25 @@
+{
+  "test_name": "test_load_module_from_file_location_with_non_existing_env_variable",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_utils.py",
+  "static_methods": [
+    {
+      "name": "load_module_from_file_location",
+      "source_code": "def load_module_from_file_location(\n    location: Union[bytes, str, Path], encoding: str = \"utf8\", *args, **kwargs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/utils.py",
+      "line_number": 45
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "load_module_from_file_location",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/utils.py",
+      "line": 45,
+      "caller": "test_load_module_from_file_location_with_non_existing_env_variable",
+      "source_code": "def load_module_from_file_location(\n    location: Union[bytes, str, Path], encoding: str = \"utf8\", *args, **kwargs\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_load_module_from_file_location_with_non_existing_env_variable():\n    with pytest.raises(\n        LoadFileException,\n        match=\"The following environment variables are not set: MuuMilk\",\n    ):\n        load_module_from_file_location(\"${MuuMilk}\")"
+}

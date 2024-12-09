@@ -1,0 +1,48 @@
+{
+  "test_name": "test_handle_extra_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_install.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "install",
+      "source_code": "def install():\n    if not any(finder == _EditableFinder for finder in sys.meta_path):\n        sys.meta_path.append(_EditableFinder)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/__editable___sanic_24_6_0_finder.py",
+      "line_number": 74
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handle_extra_path",
+      "source_code": ""
+    },
+    {
+      "function": "install",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/__editable___sanic_24_6_0_finder.py",
+      "line": 74,
+      "caller": "test_handle_extra_path",
+      "source_code": "def install():\n    if not any(finder == _EditableFinder for finder in sys.meta_path):\n        sys.meta_path.append(_EditableFinder)\n\n    if not NAMESPACES:\n        return\n\n    if not any(hook == _EditableNamespaceFinder._path_hook for hook in sys.path_hooks):\n        # PathEntryFinder is needed to create NamespaceSpec without private APIS\n        sys.path_hooks.append(_EditableNamespaceFinder._path_hook)\n    if PATH_PLACEHOLDER not in sys.path:\n        sys.path.append(PATH_PLACEHOLDER)  # Used just to trigger the path hook\n"
+    }
+  ],
+  "assertions": [
+    "assert cmd.extra_path == ['path', 'dirs']",
+    "assert cmd.extra_dirs == 'dirs'",
+    "assert cmd.path_file == 'path'",
+    "assert cmd.extra_path == ['path']",
+    "assert cmd.extra_dirs == 'path'",
+    "assert cmd.path_file == 'path'",
+    "assert cmd.extra_path is None",
+    "assert cmd.extra_dirs == ''",
+    "assert cmd.path_file is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_handle_extra_path(self):\n        dist = Distribution({'name': 'xx', 'extra_path': 'path,dirs'})\n        cmd = install(dist)\n\n        # two elements\n        cmd.handle_extra_path()\n        assert cmd.extra_path == ['path', 'dirs']\n        assert cmd.extra_dirs == 'dirs'\n        assert cmd.path_file == 'path'\n\n        # one element\n        cmd.extra_path = ['path']\n        cmd.handle_extra_path()\n        assert cmd.extra_path == ['path']\n        assert cmd.extra_dirs == 'path'\n        assert cmd.path_file == 'path'\n\n        # none\n        dist.extra_path = cmd.extra_path = None\n        cmd.handle_extra_path()\n        assert cmd.extra_path is None\n        assert cmd.extra_dirs == ''\n        assert cmd.path_file is None\n\n        # three elements (no way !)\n        cmd.extra_path = 'path,dirs,again'\n        with pytest.raises(DistutilsOptionError):\n            cmd.handle_extra_path()"
+}

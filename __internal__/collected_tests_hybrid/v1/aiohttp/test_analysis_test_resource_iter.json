@@ -1,0 +1,55 @@
+{
+  "test_name": "test_resource_iter",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_resource",
+      "source_code": "    def add_resource(self, path: str, *, name: Optional[str] = None) -> Resource:\n        if path and not path.startswith(\"/\"):\n            raise ValueError(\"path should be started with / or be empty\")\n        # Reuse last added resource if path and name are the same\n        if self._resources:\n            resource = self._resources[-1]\n            if resource.name == name and resource.raw_match(path):\n                return cast(Resource, resource)\n        if not (\"{\" in path or \"}\" in path or ROUTE_RE.search(path)):\n            resource = PlainResource(path, name=name)\n            self.register_resource(resource)\n            return resource\n        resource = DynamicResource(path, name=name)\n        self.register_resource(resource)\n        return resource",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1124
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1124,
+      "caller": "test_resource_iter",
+      "source_code": "    def add_resource(self, path: str, *, name: Optional[str] = None) -> Resource:\n        if path and not path.startswith(\"/\"):\n            raise ValueError(\"path should be started with / or be empty\")\n        # Reuse last added resource if path and name are the same\n        if self._resources:\n            resource = self._resources[-1]\n            if resource.name == name and resource.raw_match(path):\n                return cast(Resource, resource)\n        if not (\"{\" in path or \"}\" in path or ROUTE_RE.search(path)):\n            resource = PlainResource(path, name=name)\n            self.register_resource(resource)\n            return resource\n        resource = DynamicResource(path, name=name)\n        self.register_resource(resource)\n        return resource\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_resource_iter",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_resource_iter",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 2 == len(resource)",
+    "assert [r1, r2] == list(resource)",
+    "assert False"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resource_iter(router: web.UrlDispatcher) -> None:\n    async def handler(request: web.Request) -> NoReturn:\n        assert False\n\n    resource = router.add_resource(\"/path\")\n    r1 = resource.add_route(\"GET\", handler)\n    r2 = resource.add_route(\"POST\", handler)\n    assert 2 == len(resource)\n    assert [r1, r2] == list(resource)"
+}

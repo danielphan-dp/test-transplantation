@@ -1,0 +1,77 @@
+{
+  "test_name": "test_run_app_nondefault_host_port",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "aiohttp_unused_port",
+      "source_code": "def aiohttp_unused_port() -> Callable[[], int]:\n    \"\"\"Return a port that is unused on the current host.\"\"\"\n    return _unused_port",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line_number": 293
+    },
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.run_app",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n    ) -> Tuple[\"asyncio.Task[None]\", int]:\n        num_connections = -1\n        t = test_task = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 1007
+    },
+    {
+      "name": "patched_loop.create_server.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stopper",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 99
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "aiohttp_unused_port",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line": 293,
+      "caller": "test_run_app_nondefault_host_port",
+      "source_code": "@pytest.fixture\ndef aiohttp_unused_port() -> Callable[[], int]:\n    \"\"\"Return a port that is unused on the current host.\"\"\"\n    return _unused_port\n\n\n"
+    },
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_nondefault_host_port",
+      "source_code": ""
+    },
+    {
+      "function": "web.run_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 1007,
+      "caller": "test_run_app_nondefault_host_port",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n"
+    },
+    {
+      "function": "patched_loop.create_server.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_nondefault_host_port",
+      "source_code": ""
+    },
+    {
+      "function": "stopper",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 99,
+      "caller": "test_run_app_nondefault_host_port",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt\n\n    def f(*args: object) -> None:\n        loop.call_soon(raiser)\n\n    return f\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_app_nondefault_host_port(\n    patched_loop: asyncio.AbstractEventLoop, aiohttp_unused_port: Callable[[], int]\n) -> None:\n    port = aiohttp_unused_port()\n    host = \"127.0.0.1\"\n\n    app = web.Application()\n    web.run_app(\n        app, host=host, port=port, print=stopper(patched_loop), loop=patched_loop\n    )\n\n    patched_loop.create_server.assert_called_with(  # type: ignore[attr-defined]\n        mock.ANY, host, port, ssl=None, backlog=128, reuse_address=None, reuse_port=None\n    )"
+}

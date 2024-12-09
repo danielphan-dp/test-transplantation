@@ -1,0 +1,28 @@
+{
+  "test_name": "test_del_state",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+  "static_methods": [
+    {
+      "name": "gen_state",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line_number": 6
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "gen_state",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line": 6,
+      "caller": "test_del_state",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert state['one'] == 1",
+    "assert state._state == {'foo': {}}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_del_state():\n    state = gen_state(one=1)\n    assert state[\"one\"] == 1\n    del state[\"one\"]\n    assert state._state == {\"foo\": {}}"
+}

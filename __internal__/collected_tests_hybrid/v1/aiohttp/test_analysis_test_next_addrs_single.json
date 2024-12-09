@@ -1,0 +1,54 @@
+{
+  "test_name": "test_next_addrs_single",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_connector.py",
+  "static_methods": [
+    {
+      "name": "dns_cache_table.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "dns_cache_table.next_addrs",
+      "source_code": "    def next_addrs(self, key: Tuple[str, int]) -> List[ResolveResult]:\n        loop, length = self._addrs_rr[key]\n        addrs = list(islice(loop, length))\n        # Consume one more element to shift internal state of `cycle`\n        next(loop)\n        return addrs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 717
+    },
+    {
+      "name": "dns_cache_table.next_addrs",
+      "source_code": "    def next_addrs(self, key: Tuple[str, int]) -> List[ResolveResult]:\n        loop, length = self._addrs_rr[key]\n        addrs = list(islice(loop, length))\n        # Consume one more element to shift internal state of `cycle`\n        next(loop)\n        return addrs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 717
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dns_cache_table.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_next_addrs_single",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "dns_cache_table.next_addrs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 717,
+      "caller": "test_next_addrs_single",
+      "source_code": "    def next_addrs(self, key: Tuple[str, int]) -> List[ResolveResult]:\n        loop, length = self._addrs_rr[key]\n        addrs = list(islice(loop, length))\n        # Consume one more element to shift internal state of `cycle`\n        next(loop)\n        return addrs\n\n"
+    },
+    {
+      "function": "dns_cache_table.next_addrs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 717,
+      "caller": "test_next_addrs_single",
+      "source_code": "    def next_addrs(self, key: Tuple[str, int]) -> List[ResolveResult]:\n        loop, length = self._addrs_rr[key]\n        addrs = list(islice(loop, length))\n        # Consume one more element to shift internal state of `cycle`\n        next(loop)\n        return addrs\n\n"
+    }
+  ],
+  "assertions": [
+    "assert addrs == [self.result1]",
+    "assert addrs == [self.result1]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_next_addrs_single(self, dns_cache_table: _DNSCacheTable) -> None:\n        dns_cache_table.add(self.host2, [self.result1])\n\n        addrs = dns_cache_table.next_addrs(self.host2)\n        assert addrs == [self.result1]\n\n        addrs = dns_cache_table.next_addrs(self.host2)\n        assert addrs == [self.result1]"
+}

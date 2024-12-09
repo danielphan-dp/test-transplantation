@@ -1,0 +1,77 @@
+{
+  "test_name": "test_basic",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "self._makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.staticapp",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_assertBody",
+      "source_code": "def _assertBody(body, filename):\n    if defaultlocale is None:  # pragma: no cover\n        # If system locale does not have an encoding then default to utf-8\n        filename = filename.encode('utf-8')\n    # strip both \\n and \\r for windows\n    body = body.replace(b'\\r', b'')\n    body = body.replace(b'\\n', b'')\n    data = read_(filename)\n    data = data.replace(b'\\r', b'')\n    data = data.replace(b'\\n', b'')\n    assert body == data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line_number": 1017
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_basic",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic",
+      "source_code": ""
+    },
+    {
+      "function": "self.staticapp",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic",
+      "source_code": ""
+    },
+    {
+      "function": "_assertBody",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line": 1017,
+      "caller": "test_basic",
+      "source_code": "def _assertBody(body, filename):\n    if defaultlocale is None:  # pragma: no cover\n        # If system locale does not have an encoding then default to utf-8\n        filename = filename.encode('utf-8')\n    # strip both \\n and \\r for windows\n    body = body.replace(b'\\r', b'')\n    body = body.replace(b'\\n', b'')\n    data = read_(filename)\n    data = data.replace(b'\\r', b'')\n    data = data.replace(b'\\n', b'')\n    assert body == data\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basic(self):\n        request = self._makeRequest({'PATH_INFO': '/minimal.txt'})\n        context = DummyContext()\n        result = self.staticapp(context, request)\n        self.assertEqual(result.status, '200 OK')\n        _assertBody(result.body, os.path.join(here, 'fixtures/minimal.txt'))"
+}

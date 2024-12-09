@@ -1,0 +1,53 @@
+{
+  "test_name": "test_non_ascii",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_log.py",
+  "static_methods": [
+    {
+      "name": "caplog.set_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "log.debug",
+      "source_code": "    def debug(self, msg, *args) -> None:\n        log.debug(msg, *args)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 935
+    },
+    {
+      "name": "log.fatal",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.set_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_non_ascii",
+      "source_code": ""
+    },
+    {
+      "function": "log.debug",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 935,
+      "caller": "test_non_ascii",
+      "source_code": "    def debug(self, msg, *args) -> None:\n        log.debug(msg, *args)\n\n"
+    },
+    {
+      "function": "log.fatal",
+      "filename": "",
+      "line": 0,
+      "caller": "test_non_ascii",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert caplog.messages == ['D\u03b5bug\\tM\u0117ss\u00e3ge', 'F\u03b1tal\\t\u00c8rr\u014dr']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_non_ascii(self, caplog):\n        caplog.set_level(logging.DEBUG)\n        log.debug('D\u03b5bug\\tM\u0117ss\u00e3ge')\n        log.fatal('F\u03b1tal\\t\u00c8rr\u014dr')\n        assert caplog.messages == ['D\u03b5bug\\tM\u0117ss\u00e3ge', 'F\u03b1tal\\t\u00c8rr\u014dr']"
+}

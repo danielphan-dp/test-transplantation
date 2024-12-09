@@ -1,0 +1,92 @@
+{
+  "test_name": "test_unwanted_directories_not_included",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+  "static_methods": [
+    {
+      "name": "ensure_files",
+      "source_code": "def ensure_files(root_path, files):\n    for file in files:\n        path = root_path / file\n        path.parent.mkdir(parents=True, exist_ok=True)\n        path.touch()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line_number": 214
+    },
+    {
+      "name": "FlatLayoutPackageFinder.find",
+      "source_code": "    def find(self, requirement, meta_extras=None, prereleases=False):\n        \"\"\"\n        Find a distribution and all distributions it depends on.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/locators.py",
+      "line_number": 1192
+    },
+    {
+      "name": "EXAMPLES.keys",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 101
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ensure_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line": 214,
+      "caller": "test_unwanted_directories_not_included",
+      "source_code": "def ensure_files(root_path, files):\n    for file in files:\n        path = root_path / file\n        path.parent.mkdir(parents=True, exist_ok=True)\n        path.touch()\n"
+    },
+    {
+      "function": "FlatLayoutPackageFinder.find",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/locators.py",
+      "line": 1192,
+      "caller": "test_unwanted_directories_not_included",
+      "source_code": "    def find(self, requirement, meta_extras=None, prereleases=False):\n        \"\"\"\n        Find a distribution and all distributions it depends on.\n\n        :param requirement: The requirement specifying the distribution to\n                            find, or a Distribution instance.\n        :param meta_extras: A list of meta extras such as :test:, :build: and\n                            so on.\n        :param prereleases: If ``True``, allow pre-release versions to be\n                            returned - otherwise, don't return prereleases\n                            unless they're all that's available.\n\n        Return a set of :class:`Distribution` instances and a set of\n        problems.\n\n        The distributions returned should be such that they have the\n        :attr:`required` attribute set to ``True`` if they were\n        from the ``requirement`` passed to ``find()``, and they have the\n        :attr:`build_time_dependency` attribute set to ``True`` unless they\n        are post-installation dependencies of the ``requirement``.\n\n        The problems should be a tuple consisting of the string\n        ``'unsatisfied'`` and the requirement which couldn't be satisfied\n        by any distribution known to the locator.\n        \"\"\"\n\n        self.provided = {}\n        self.dists = {}\n        self.dists_by_name = {}\n        self.reqts = {}\n\n        meta_extras = set(meta_extras or [])\n        if ':*:' in meta_extras:\n            meta_extras.remove(':*:')\n            # :meta: and :run: are implicitly included\n            meta_extras |= set([':test:', ':build:', ':dev:'])\n\n        if isinstance(requirement, Distribution):\n            dist = odist = requirement\n            logger.debug('passed %s as requirement', odist)\n        else:\n            dist = odist = self.locator.locate(requirement,\n                                               prereleases=prereleases)\n            if dist is None:\n                raise DistlibException('Unable to locate %r' % requirement)\n            logger.debug('located %s', odist)\n        dist.requested = True\n        problems = set()\n        todo = set([dist])\n        install_dists = set([odist])\n        while todo:\n            dist = todo.pop()\n            name = dist.key     # case-insensitive\n            if name not in self.dists_by_name:\n                self.add_distribution(dist)\n            else:\n                #import pdb; pdb.set_trace()\n                other = self.dists_by_name[name]\n                if other != dist:\n                    self.try_to_replace(dist, other, problems)\n\n            ireqts = dist.run_requires | dist.meta_requires\n            sreqts = dist.build_requires\n            ereqts = set()\n            if meta_extras and dist in install_dists:\n                for key in ('test', 'build', 'dev'):\n                    e = ':%s:' % key\n                    if e in meta_extras:\n                        ereqts |= getattr(dist, '%s_requires' % key)\n            all_reqts = ireqts | sreqts | ereqts\n            for r in all_reqts:\n                providers = self.find_providers(r)\n                if not providers:\n                    logger.debug('No providers found for %r', r)\n                    provider = self.locator.locate(r, prereleases=prereleases)\n                    # If no provider is found and we didn't consider\n                    # prereleases, consider them now.\n                    if provider is None and not prereleases:\n                        provider = self.locator.locate(r, prereleases=True)\n                    if provider is None:\n                        logger.debug('Cannot satisfy %r', r)\n                        problems.add(('unsatisfied', r))\n                    else:\n                        n, v = provider.key, provider.version\n                        if (n, v) not in self.dists:\n                            todo.add(provider)\n                        providers.add(provider)\n                        if r in ireqts and dist in install_dists:\n                            install_dists.add(provider)\n                            logger.debug('Adding %s to install_dists',\n                                         provider.name_and_version)\n                for p in providers:\n                    name = p.key\n                    if name not in self.dists_by_name:\n                        self.reqts.setdefault(p, set()).add(r)\n                    else:\n                        other = self.dists_by_name[name]\n                        if other != p:\n                            # see if other can be replaced by p\n                            self.try_to_replace(p, other, problems)\n\n        dists = set(self.dists.values())\n        for dist in dists:\n            dist.build_time_dependency = dist not in install_dists\n            if dist.build_time_dependency:\n                logger.debug('%s is a build-time dependency only.',\n                             dist.name_and_version)\n        logger.debug('find done for %s', odist)\n        return dists, problems\n"
+    },
+    {
+      "function": "EXAMPLES.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 101,
+      "caller": "test_unwanted_directories_not_included",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_unwanted_directories_not_included",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_unwanted_directories_not_included",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_unwanted_directories_not_included",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert set(found_packages) == set(expected_packages)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unwanted_directories_not_included(self, tmp_path, example):\n        files, expected_packages = self.EXAMPLES[example]\n        ensure_files(tmp_path, files)\n        found_packages = FlatLayoutPackageFinder.find(str(tmp_path))\n        assert set(found_packages) == set(expected_packages)"
+}

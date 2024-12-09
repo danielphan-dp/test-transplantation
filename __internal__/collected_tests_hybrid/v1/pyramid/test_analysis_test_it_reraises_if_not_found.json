@@ -1,0 +1,77 @@
+{
+  "test_name": "test_it_reraises_if_not_found",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.fail",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.invoke_exception_view",
+      "source_code": "    def invoke_exception_view(\n        self, exc_info=None, request=None, secure=True, reraise=False\n    ):\n        \"\"\"Executes an exception view related to the request it's called upon.\n        The arguments it takes are these:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line_number": 689
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_it_reraises_if_not_found",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "RuntimeError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_it_reraises_if_not_found",
+      "source_code": ""
+    },
+    {
+      "function": "self.fail",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_reraises_if_not_found",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_reraises_if_not_found",
+      "source_code": ""
+    },
+    {
+      "function": "request.invoke_exception_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line": 689,
+      "caller": "test_it_reraises_if_not_found",
+      "source_code": "    def invoke_exception_view(\n        self, exc_info=None, request=None, secure=True, reraise=False\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_reraises_if_not_found(self):\n        request = self._makeOne()\n        dummy_exc = RuntimeError()\n        try:\n            raise dummy_exc\n        except RuntimeError:\n            self.assertRaises(\n                RuntimeError,\n                lambda: request.invoke_exception_view(reraise=True),\n            )\n        else:  # pragma: no cover\n            self.fail()"
+}

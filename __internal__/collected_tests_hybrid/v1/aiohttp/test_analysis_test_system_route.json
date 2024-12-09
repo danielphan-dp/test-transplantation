@@ -1,0 +1,70 @@
+{
+  "test_name": "test_system_route",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_urldispatcher.py",
+  "static_methods": [
+    {
+      "name": "SystemRoute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.HTTPCreated",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "route.url_for",
+      "source_code": "    def url_for(self, **kwargs: str) -> URL:\n        \"\"\"Construct url for resource with additional params.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 136
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SystemRoute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_system_route",
+      "source_code": ""
+    },
+    {
+      "function": "web.HTTPCreated",
+      "filename": "",
+      "line": 0,
+      "caller": "test_system_route",
+      "source_code": ""
+    },
+    {
+      "function": "route.url_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 136,
+      "caller": "test_system_route",
+      "source_code": "    @abc.abstractmethod  # pragma: no branch\n    def url_for(self, **kwargs: str) -> URL:\n        \"\"\"Construct url for resource with additional params.\"\"\"\n\n"
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_system_route",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert route.name is None",
+    "assert route.resource is None",
+    "assert '<SystemRoute 201: test>' == repr(route)",
+    "assert 201 == route.status",
+    "assert 'test' == route.reason"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_system_route() -> None:\n    route = SystemRoute(web.HTTPCreated(reason=\"test\"))\n    with pytest.raises(RuntimeError):\n        route.url_for()\n    assert route.name is None\n    assert route.resource is None\n    assert \"<SystemRoute 201: test>\" == repr(route)\n    assert 201 == route.status\n    assert \"test\" == route.reason"
+}

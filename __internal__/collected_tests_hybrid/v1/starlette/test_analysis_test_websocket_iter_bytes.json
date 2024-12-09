@@ -1,0 +1,131 @@
+{
+  "test_name": "test_websocket_iter_bytes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_websockets.py",
+  "static_methods": [
+    {
+      "name": "client.websocket_connect",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n    ) -> WebSocketTestSession:\n        url = urljoin(\"ws://testserver\", url)\n        headers = kwargs.get(\"headers\", {})\n        headers.setdefault(\"connection\", \"upgrade\")\n        headers.setdefault(\"sec-websocket-key\", \"testserver==\")\n        headers.setdefault(\"sec-websocket-version\", \"13\")\n        if subprotocols is not None:\n            headers.setdefault(\"sec-websocket-protocol\", \", \".join(subprotocols))\n        kwargs[\"headers\"] = headers\n        try:\n            super().request(\"GET\", url, **kwargs)\n        except _Upgrade as exc:\n            session = exc.session\n        else:\n            raise RuntimeError(\"Expected WebSocket upgrade\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 699
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "WebSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.iter_bytes",
+      "source_code": "    def iter_bytes(self, chunk_size: int | None = None) -> typing.Iterator[bytes]:\n        \"\"\"\n        A byte-iterator over the decoded response content.\n        This allows us to handle gzip, deflate, brotli, and zstd encoded responses.\n        \"\"\"\n        if hasattr(self, \"_content\"):\n            chunk_size = len(self._content) if chunk_size is None else chunk_size\n            for i in range(0, len(self._content), max(chunk_size, 1)):\n                yield self._content[i : i + chunk_size]\n        else:\n            decoder = self._get_content_decoder()\n            chunker = ByteChunker(chunk_size=chunk_size)\n            with request_context(request=self._request):\n                for raw_bytes in self.iter_raw():\n                    decoded = decoder.decode(raw_bytes)\n                    for chunk in chunker.decode(decoded):\n                        yield chunk\n                decoded = decoder.flush()\n                for chunk in chunker.decode(decoded):\n                    yield chunk  # pragma: no cover\n                for chunk in chunker.flush():\n                    yield chunk",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpx/_models.py",
+      "line_number": 884
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n    ) -> WebSocketTestSession:\n        url = urljoin(\"ws://testserver\", url)\n        headers = kwargs.get(\"headers\", {})\n        headers.setdefault(\"connection\", \"upgrade\")\n        headers.setdefault(\"sec-websocket-key\", \"testserver==\")\n        headers.setdefault(\"sec-websocket-version\", \"13\")\n        if subprotocols is not None:\n            headers.setdefault(\"sec-websocket-protocol\", \", \".join(subprotocols))\n        kwargs[\"headers\"] = headers\n        try:\n            super().request(\"GET\", url, **kwargs)\n        except _Upgrade as exc:\n            session = exc.session\n        else:\n            raise RuntimeError(\"Expected WebSocket upgrade\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 699
+    },
+    {
+      "name": "websocket.send_bytes",
+      "source_code": "    def send_bytes(self, data: bytes) -> None:\n        self.send({\"type\": \"websocket.receive\", \"bytes\": data})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 191
+    },
+    {
+      "name": "websocket.receive_bytes",
+      "source_code": "    def receive_bytes(self) -> bytes:\n        message = self.receive()\n        self._raise_on_close(message)\n        return typing.cast(bytes, message[\"bytes\"])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 215
+    },
+    {
+      "name": "websocket.accept",
+      "source_code": "    def accept(self, type: TokenType, *, reject: Literal[True]) -> Token: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/mark/expression.py",
+      "line_number": 142
+    },
+    {
+      "name": "websocket.send_bytes",
+      "source_code": "    def send_bytes(self, data: bytes) -> None:\n        self.send({\"type\": \"websocket.receive\", \"bytes\": data})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 191
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "client.websocket_connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 699,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n"
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "WebSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.iter_bytes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpx/_models.py",
+      "line": 884,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "    def iter_bytes(self, chunk_size: int | None = None) -> typing.Iterator[bytes]:\n        \"\"\"\n        A byte-iterator over the decoded response content.\n        This allows us to handle gzip, deflate, brotli, and zstd encoded responses.\n        \"\"\"\n        if hasattr(self, \"_content\"):\n            chunk_size = len(self._content) if chunk_size is None else chunk_size\n            for i in range(0, len(self._content), max(chunk_size, 1)):\n                yield self._content[i : i + chunk_size]\n        else:\n            decoder = self._get_content_decoder()\n            chunker = ByteChunker(chunk_size=chunk_size)\n            with request_context(request=self._request):\n                for raw_bytes in self.iter_raw():\n                    decoded = decoder.decode(raw_bytes)\n                    for chunk in chunker.decode(decoded):\n                        yield chunk\n                decoded = decoder.flush()\n                for chunk in chunker.decode(decoded):\n                    yield chunk  # pragma: no cover\n                for chunk in chunker.flush():\n                    yield chunk\n\n"
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 699,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n"
+    },
+    {
+      "function": "websocket.send_bytes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 191,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "    def send_bytes(self, data: bytes) -> None:\n        self.send({\"type\": \"websocket.receive\", \"bytes\": data})\n\n"
+    },
+    {
+      "function": "websocket.receive_bytes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 215,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "    def receive_bytes(self) -> bytes:\n        message = self.receive()\n        self._raise_on_close(message)\n        return typing.cast(bytes, message[\"bytes\"])\n\n"
+    },
+    {
+      "function": "websocket.accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/mark/expression.py",
+      "line": 142,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "    @overload\n    def accept(self, type: TokenType, *, reject: Literal[True]) -> Token: ...\n\n"
+    },
+    {
+      "function": "websocket.send_bytes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 191,
+      "caller": "test_websocket_iter_bytes",
+      "source_code": "    def send_bytes(self, data: bytes) -> None:\n        self.send({\"type\": \"websocket.receive\", \"bytes\": data})\n\n"
+    }
+  ],
+  "assertions": [
+    "assert data == b'Message was: Hello, world!'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_websocket_iter_bytes(test_client_factory: TestClientFactory) -> None:\n    async def app(scope: Scope, receive: Receive, send: Send) -> None:\n        websocket = WebSocket(scope, receive=receive, send=send)\n        await websocket.accept()\n        async for data in websocket.iter_bytes():\n            await websocket.send_bytes(b\"Message was: \" + data)\n\n    client = test_client_factory(app)\n    with client.websocket_connect(\"/\") as websocket:\n        websocket.send_bytes(b\"Hello, world!\")\n        data = websocket.receive_bytes()\n        assert data == b\"Message was: Hello, world!\""
+}

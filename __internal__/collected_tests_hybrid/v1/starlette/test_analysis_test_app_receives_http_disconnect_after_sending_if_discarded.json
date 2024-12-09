@@ -1,0 +1,132 @@
+{
+  "test_name": "test_app_receives_http_disconnect_after_sending_if_discarded",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_base.py",
+  "static_methods": [
+    {
+      "name": "DiscardingMiddleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "PlainTextResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "receive",
+      "source_code": "    def receive(self, *, timeout=None) -> Message:\n        \"\"\"Return the next available message from the connection",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line_number": 158
+    },
+    {
+      "name": "call_next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DiscardingMiddleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "PlainTextResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": ""
+    },
+    {
+      "function": "send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "receive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line": 158,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": "    def receive(self, *, timeout=None) -> Message:\n        \"\"\"Return the next available message from the connection\n\n        If the data is ready, this will return immediately, even if timeout<=0.\n        Otherwise, it will wait for up to timeout seconds, or indefinitely if\n        timeout is None. If no message comes in time, it raises TimeoutError.\n        \"\"\"\n        return self._receive(timeout_to_deadline(timeout))\n\n"
+    },
+    {
+      "function": "call_next",
+      "filename": "",
+      "line": 0,
+      "caller": "test_app_receives_http_disconnect_after_sending_if_discarded",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.text == 'Custom'",
+    "assert message['type'] == 'http.disconnect'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_app_receives_http_disconnect_after_sending_if_discarded(\n    test_client_factory: TestClientFactory,\n) -> None:\n    class DiscardingMiddleware(BaseHTTPMiddleware):\n        async def dispatch(\n            self,\n            request: Request,\n            call_next: RequestResponseEndpoint,\n        ) -> PlainTextResponse:\n            await call_next(request)\n            return PlainTextResponse(\"Custom\")\n\n    async def downstream_app(\n        scope: Scope,\n        receive: Receive,\n        send: Send,\n    ) -> None:\n        await send(\n            {\n                \"type\": \"http.response.start\",\n                \"status\": 200,\n                \"headers\": [\n                    (b\"content-type\", b\"text/plain\"),\n                ],\n            }\n        )\n        await send(\n            {\n                \"type\": \"http.response.body\",\n                \"body\": b\"first chunk, \",\n                \"more_body\": True,\n            }\n        )\n        await send(\n            {\n                \"type\": \"http.response.body\",\n                \"body\": b\"second chunk\",\n                \"more_body\": True,\n            }\n        )\n        message = await receive()\n        assert message[\"type\"] == \"http.disconnect\"\n\n    app = DiscardingMiddleware(downstream_app)\n\n    client = test_client_factory(app)\n    response = client.get(\"/does_not_exist\")\n    assert response.text == \"Custom\""
+}

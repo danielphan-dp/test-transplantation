@@ -1,0 +1,80 @@
+{
+  "test_name": "test_change_decoder_to_some_custom",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_json_decoding.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "app.test_client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "sloads",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sloads",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_change_decoder_to_some_custom",
+      "source_code": ""
+    },
+    {
+      "function": "app.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_change_decoder_to_some_custom",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "app.test_client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_change_decoder_to_some_custom",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "sloads",
+      "filename": "",
+      "line": 0,
+      "caller": "test_change_decoder_to_some_custom",
+      "source_code": ""
+    },
+    {
+      "function": "sloads",
+      "filename": "",
+      "line": 0,
+      "caller": "test_change_decoder_to_some_custom",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert Request._loads == my_custom_decoder",
+    "assert sloads(res.body) == {'some_key': 'new_value'}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_change_decoder_to_some_custom():\n    def my_custom_decoder(some_str: str):\n        dict = sloads(some_str)\n        dict[\"some_key\"] = \"new_value\"\n        return dict\n\n    app = Sanic(\"Test\", loads=my_custom_decoder)\n    assert Request._loads == my_custom_decoder\n\n    req_body = {\"some_key\": \"some_value\"}\n\n    @app.post(\"/test\")\n    def handler(request):\n        new_json = request.json\n        return json(new_json)\n\n    req, res = app.test_client.post(\"/test\", json=req_body)\n    assert sloads(res.body) == {\"some_key\": \"new_value\"}"
+}

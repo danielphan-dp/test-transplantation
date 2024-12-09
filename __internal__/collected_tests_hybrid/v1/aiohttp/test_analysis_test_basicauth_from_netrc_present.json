@@ -1,0 +1,53 @@
+{
+  "test_name": "test_basicauth_from_netrc_present",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    },
+    {
+      "name": "expected_auth.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_basicauth_from_netrc_present",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    },
+    {
+      "function": "expected_auth.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_basicauth_from_netrc_present",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basicauth_from_netrc_present",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert req.headers[hdrs.AUTHORIZATION] == expected_auth.encode()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basicauth_from_netrc_present(\n    make_request: _RequestMaker,\n    expected_auth: helpers.BasicAuth,\n) -> None:\n    \"\"\"Test appropriate Authorization header is sent when netrc is not empty.\"\"\"\n    req = make_request(\"get\", \"http://example.com\", trust_env=True)\n    assert req.headers[hdrs.AUTHORIZATION] == expected_auth.encode()"
+}

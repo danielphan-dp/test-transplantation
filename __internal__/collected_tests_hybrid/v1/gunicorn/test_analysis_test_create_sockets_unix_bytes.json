@@ -1,0 +1,158 @@
+{
+  "test_name": "test_create_sockets_unix_bytes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_sock.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "sock.create_sockets",
+      "source_code": "def create_sockets(conf, log, fds=None):\n    \"\"\"\n    Create a new socket for the configured addresses or file descriptors.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/sock.py",
+      "line_number": 142
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "sock.create_sockets",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/sock.py",
+      "line": 142,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": "def create_sockets(conf, log, fds=None):\n    \"\"\"\n    Create a new socket for the configured addresses or file descriptors.\n\n    If a configured address is a tuple then a TCP socket is created.\n    If it is a string, a Unix socket is created. Otherwise, a TypeError is\n    raised.\n    \"\"\"\n    listeners = []\n\n    # get it only once\n    addr = conf.address\n    fdaddr = [bind for bind in addr if isinstance(bind, int)]\n    if fds:\n        fdaddr += list(fds)\n    laddr = [bind for bind in addr if not isinstance(bind, int)]\n\n    # check ssl config early to raise the error on startup\n    # only the certfile is needed since it can contains the keyfile\n    if conf.certfile and not os.path.exists(conf.certfile):\n        raise ValueError('certfile \"%s\" does not exist' % conf.certfile)\n\n    if conf.keyfile and not os.path.exists(conf.keyfile):\n        raise ValueError('keyfile \"%s\" does not exist' % conf.keyfile)\n\n    # sockets are already bound\n    if fdaddr:\n        for fd in fdaddr:\n            sock = socket.fromfd(fd, socket.AF_UNIX, socket.SOCK_STREAM)\n            sock_name = sock.getsockname()\n            sock_type = _sock_type(sock_name)\n            listener = sock_type(sock_name, conf, log, fd=fd)\n            listeners.append(listener)\n\n        return listeners\n\n    # no sockets is bound, first initialization of gunicorn in this env.\n    for addr in laddr:\n        sock_type = _sock_type(addr)\n        sock = None\n        for i in range(5):\n            try:\n                sock = sock_type(addr, conf, log)\n            except OSError as e:\n                if e.args[0] == errno.EADDRINUSE:\n                    log.error(\"Connection in use: %s\", str(addr))\n                if e.args[0] == errno.EADDRNOTAVAIL:\n                    log.error(\"Invalid address: %s\", str(addr))\n                msg = \"connection to {addr} failed: {error}\"\n                log.error(msg.format(addr=str(addr), error=str(e)))\n                if i < 5:\n                    log.debug(\"Retrying in 1 second.\")\n                    time.sleep(1)\n            else:\n                break\n\n        if sock is None:\n            log.error(\"Can't connect to %s\", str(addr))\n            sys.exit(1)\n\n        listeners.append(sock)\n\n    return listeners\n\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_create_sockets_unix_bytes",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(listeners) == 1",
+    "assert isinstance(listeners[0], sock.UnixSocket)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_create_sockets_unix_bytes(stat):\n    conf = mock.Mock(address=[b'127.0.0.1:8000'])\n    log = mock.Mock()\n    with mock.patch.object(sock.UnixSocket, '__init__', lambda *args: None):\n        listeners = sock.create_sockets(conf, log)\n        assert len(listeners) == 1\n        print(type(listeners[0]))\n        assert isinstance(listeners[0], sock.UnixSocket)"
+}

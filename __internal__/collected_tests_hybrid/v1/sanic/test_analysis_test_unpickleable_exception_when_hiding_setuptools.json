@@ -1,0 +1,12 @@
+{
+  "test_name": "test_unpickleable_exception_when_hiding_setuptools",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sandbox.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert msg == 'ExceptionUnderTest()'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unpickleable_exception_when_hiding_setuptools(self):\n        \"\"\"\n        As revealed in #440, an infinite recursion can occur if an unpickleable\n        exception while setuptools is hidden. Ensure this doesn't happen.\n        \"\"\"\n\n        class ExceptionUnderTest(Exception):\n            \"\"\"\n            An unpickleable exception (not in globals).\n            \"\"\"\n\n        with pytest.raises(setuptools.sandbox.UnpickleableException) as caught:\n            with setuptools.sandbox.save_modules():\n                setuptools.sandbox.hide_setuptools()\n                raise ExceptionUnderTest\n\n        (msg,) = caught.value.args\n        assert msg == 'ExceptionUnderTest()'"
+}

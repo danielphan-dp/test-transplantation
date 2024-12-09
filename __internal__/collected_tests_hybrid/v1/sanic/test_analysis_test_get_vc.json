@@ -1,0 +1,54 @@
+{
+  "test_name": "test_get_vc",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_msvccompiler.py",
+  "static_methods": [
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "lookup",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line_number": 61
+    },
+    {
+      "name": "needs_winreg",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_vc",
+      "source_code": ""
+    },
+    {
+      "function": "lookup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line": 61,
+      "caller": "test_get_vc",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.\n\n    :param label: A string.\n    :returns:\n        An :class:`Encoding` object, or :obj:`None` for an unknown label.\n\n    \"\"\"\n    # Only strip ASCII whitespace: U+0009, U+000A, U+000C, U+000D, and U+0020.\n    label = ascii_lower(label.strip('\\t\\n\\f\\r '))\n    name = LABELS.get(label)\n    if name is None:\n        return None\n    encoding = CACHE.get(name)\n    if encoding is None:\n        if name == 'x-user-defined':\n            from .x_user_defined import codec_info\n        else:\n            python_name = PYTHON_NAMES.get(name, name)\n            # Any python_name value that gets to here should be valid.\n            codec_info = codecs.lookup(python_name)\n        encoding = Encoding(name, codec_info)\n        CACHE[name] = encoding\n    return encoding\n\n\n"
+    },
+    {
+      "function": "needs_winreg",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_vc",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert version >= expected_version",
+    "assert os.path.isdir(path)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_vc(self, ver):\n        # This function cannot be mocked, so pass if VC is found\n        # and skip otherwise.\n        lookup = getattr(_msvccompiler, f'_find_vc{ver}')\n        expected_version = {2015: 14, 2017: 15}[ver]\n        version, path = lookup()\n        if not version:\n            pytest.skip(f\"VS {ver} is not installed\")\n        assert version >= expected_version\n        assert os.path.isdir(path)"
+}

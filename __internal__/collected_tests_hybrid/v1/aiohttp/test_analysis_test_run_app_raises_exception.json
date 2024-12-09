@@ -1,0 +1,92 @@
+{
+  "test_name": "test_run_app_raises_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.cleanup_ctx.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "web.run_app",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n    ) -> Tuple[\"asyncio.Task[None]\", int]:\n        num_connections = -1\n        t = test_task = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 1007
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_app_raises_exception",
+      "source_code": ""
+    },
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_raises_exception",
+      "source_code": ""
+    },
+    {
+      "function": "app.cleanup_ctx.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_run_app_raises_exception",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "RuntimeError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_app_raises_exception",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_app_raises_exception",
+      "source_code": ""
+    },
+    {
+      "function": "web.run_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 1007,
+      "caller": "test_run_app_raises_exception",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert not m.called"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_app_raises_exception(patched_loop: asyncio.AbstractEventLoop) -> None:\n    async def context(app: web.Application) -> AsyncIterator[None]:\n        raise RuntimeError(\"foo\")\n        yield  # type: ignore[unreachable]  # pragma: no cover\n\n    app = web.Application()\n    app.cleanup_ctx.append(context)\n\n    with mock.patch.object(\n        patched_loop, \"call_exception_handler\", autospec=True, spec_set=True\n    ) as m:\n        with pytest.raises(RuntimeError, match=\"foo\"):\n            web.run_app(app, loop=patched_loop)\n\n    assert not m.called"
+}

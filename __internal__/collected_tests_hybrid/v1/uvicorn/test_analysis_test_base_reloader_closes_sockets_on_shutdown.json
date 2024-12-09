@@ -1,0 +1,93 @@
+{
+  "test_name": "test_base_reloader_closes_sockets_on_shutdown",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BaseReload",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "reloader.startup",
+      "source_code": "        def startup(self):\n            calls.append(\"startup\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line_number": 388
+    },
+    {
+      "name": "reloader.shutdown",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 655
+    },
+    {
+      "name": "sock.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    },
+    {
+      "name": "sock.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_base_reloader_closes_sockets_on_shutdown",
+      "source_code": ""
+    },
+    {
+      "function": "BaseReload",
+      "filename": "",
+      "line": 0,
+      "caller": "test_base_reloader_closes_sockets_on_shutdown",
+      "source_code": ""
+    },
+    {
+      "function": "reloader.startup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line": 388,
+      "caller": "test_base_reloader_closes_sockets_on_shutdown",
+      "source_code": "        def startup(self):\n            calls.append(\"startup\")\n\n"
+    },
+    {
+      "function": "reloader.shutdown",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 655,
+      "caller": "test_base_reloader_closes_sockets_on_shutdown",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)\n\n"
+    },
+    {
+      "function": "sock.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_base_reloader_closes_sockets_on_shutdown",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    },
+    {
+      "function": "sock.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_base_reloader_closes_sockets_on_shutdown",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    }
+  ],
+  "assertions": [
+    "assert sock.fileno() != -1",
+    "assert sock.fileno() == -1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_base_reloader_closes_sockets_on_shutdown():\n    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n    config = Config(app=\"tests.test_config:asgi_app\", reload=True)\n    reloader = BaseReload(config, target=run, sockets=[sock])\n    reloader.startup()\n    assert sock.fileno() != -1\n    reloader.shutdown()\n    assert sock.fileno() == -1"
+}

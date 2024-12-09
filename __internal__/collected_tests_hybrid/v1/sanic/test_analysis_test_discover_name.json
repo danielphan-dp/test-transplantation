@@ -1,0 +1,66 @@
+{
+  "test_name": "test_discover_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+  "static_methods": [
+    {
+      "name": "_populate_project_dir",
+      "source_code": "def _populate_project_dir(root, files, options):\n    # NOTE: Currently pypa/build will refuse to build the project if no\n    # `pyproject.toml` or `setup.py` is found. So it is impossible to do\n    # completely \"config-less\" projects.\n    basic = {\n        \"setup.py\": \"import setuptools\\nsetuptools.setup()\",\n        \"README.md\": \"# Example Package\",\n        \"LICENSE\": \"Copyright (c) 2018\",\n    }\n    jaraco.path.build(basic, prefix=root)\n    _write_setupcfg(root, options)\n    paths = (root / f for f in files)\n    for path in paths:\n        path.parent.mkdir(exist_ok=True, parents=True)\n        path.touch()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line_number": 571
+    },
+    {
+      "name": "_get_dist",
+      "source_code": "def _get_dist(dist_path, attrs):\n    root = \"/\".join(os.path.split(dist_path))  # POSIX-style",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line_number": 616
+    },
+    {
+      "name": "EXAMPLES.keys",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 101
+    },
+    {
+      "name": "dist.get_name",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line_number": 544
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_populate_project_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line": 571,
+      "caller": "test_discover_name",
+      "source_code": "def _populate_project_dir(root, files, options):\n    # NOTE: Currently pypa/build will refuse to build the project if no\n    # `pyproject.toml` or `setup.py` is found. So it is impossible to do\n    # completely \"config-less\" projects.\n    basic = {\n        \"setup.py\": \"import setuptools\\nsetuptools.setup()\",\n        \"README.md\": \"# Example Package\",\n        \"LICENSE\": \"Copyright (c) 2018\",\n    }\n    jaraco.path.build(basic, prefix=root)\n    _write_setupcfg(root, options)\n    paths = (root / f for f in files)\n    for path in paths:\n        path.parent.mkdir(exist_ok=True, parents=True)\n        path.touch()\n\n\n"
+    },
+    {
+      "function": "_get_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line": 616,
+      "caller": "test_discover_name",
+      "source_code": "def _get_dist(dist_path, attrs):\n    root = \"/\".join(os.path.split(dist_path))  # POSIX-style\n\n    script = dist_path / 'setup.py'\n    if script.exists():\n        with Path(dist_path):\n            dist = cast(\n                Distribution,\n                distutils.core.run_setup(\"setup.py\", {}, stop_after=\"init\"),\n            )\n    else:\n        dist = Distribution(attrs)\n\n    dist.src_root = root\n    dist.script_name = \"setup.py\"\n    with Path(dist_path):\n        dist.parse_config_files()\n\n    dist.set_defaults()\n    return dist\n\n\n"
+    },
+    {
+      "function": "EXAMPLES.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 101,
+      "caller": "test_discover_name",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)\n\n"
+    },
+    {
+      "function": "dist.get_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line": 544,
+      "caller": "test_discover_name",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.\n\n        Example::\n\n            integer = Word(nums)\n            ssn_expr = Regex(r\"\\d\\d\\d-\\d\\d-\\d\\d\\d\\d\")\n            house_number_expr = Suppress('#') + Word(nums, alphanums)\n            user_data = (Group(house_number_expr)(\"house_number\")\n                        | Group(ssn_expr)(\"ssn\")\n                        | Group(integer)(\"age\"))\n            user_info = user_data[1, ...]\n\n            result = user_info.parse_string(\"22 111-22-3333 #221B\")\n            for item in result:\n                print(item.get_name(), ':', item[0])\n\n        prints::\n\n            age : 22\n            ssn : 111-22-3333\n            house_number : 221B\n        \"\"\"\n        if self._name:\n            return self._name\n        elif self._parent:\n            par = self._parent()\n\n            def find_in_parent(sub):\n                return next(\n                    (\n                        k\n                        for k, vlist in par._tokdict.items()\n                        for v, loc in vlist\n                        if sub is v\n                    ),\n                    None,\n                )\n\n            return find_in_parent(self) if par else None\n        elif (\n            len(self) == 1\n            and len(self._tokdict) == 1\n            and next(iter(self._tokdict.values()))[0][1] in (0, -1)\n        ):\n            return next(iter(self._tokdict.keys()))\n        else:\n            return None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dist.get_name() == example"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_discover_name(self, tmp_path, example):\n        _populate_project_dir(tmp_path, self.EXAMPLES[example], {})\n        dist = _get_dist(tmp_path, {})\n        assert dist.get_name() == example"
+}

@@ -1,0 +1,108 @@
+{
+  "test_name": "test_rfc822_escape",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "rfc822_escape",
+      "source_code": "def rfc822_escape(header):\n    \"\"\"Return a version of the string escaped for inclusion in an\n    RFC-822 header, by ensuring there are 8 spaces space after each newline.\n    \"\"\"\n    indent = 8 * \" \"\n    lines = header.splitlines(keepends=True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line_number": 484
+    },
+    {
+      "name": "buffer.seek",
+      "source_code": "    def seek(self, __offset: int, __whence: int = 1) -> int:\n        return 0",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_null_file.py",
+      "line_number": 38
+    },
+    {
+      "name": "msg.get_payload",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "msg.splitlines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "res.splitlines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "rfc822_escape",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line": 484,
+      "caller": "test_rfc822_escape",
+      "source_code": "def rfc822_escape(header):\n    \"\"\"Return a version of the string escaped for inclusion in an\n    RFC-822 header, by ensuring there are 8 spaces space after each newline.\n    \"\"\"\n    indent = 8 * \" \"\n    lines = header.splitlines(keepends=True)\n\n    # Emulate the behaviour of `str.split`\n    # (the terminal line break in `splitlines` does not result in an extra line):\n    ends_in_newline = lines and lines[-1].splitlines()[0] != lines[-1]\n    suffix = indent if ends_in_newline else \"\"\n\n    return indent.join(lines) + suffix\n\n\n"
+    },
+    {
+      "function": "buffer.seek",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_null_file.py",
+      "line": 38,
+      "caller": "test_rfc822_escape",
+      "source_code": "    def seek(self, __offset: int, __whence: int = 1) -> int:\n        return 0\n\n"
+    },
+    {
+      "function": "msg.get_payload",
+      "filename": "",
+      "line": 0,
+      "caller": "test_rfc822_escape",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_rfc822_escape",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_rfc822_escape",
+      "source_code": ""
+    },
+    {
+      "function": "msg.splitlines",
+      "filename": "",
+      "line": 0,
+      "caller": "test_rfc822_escape",
+      "source_code": ""
+    },
+    {
+      "function": "res.splitlines",
+      "filename": "",
+      "line": 0,
+      "caller": "test_rfc822_escape",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == wanted",
+    "assert msg.get_payload() == 'payload\\n'",
+    "assert msg['other-header'] == '42'",
+    "assert set(msg['header'].splitlines()) == set(res.splitlines())"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_rfc822_escape(self, given, wanted):\n        \"\"\"\n        We want to ensure a multi-line header parses correctly.\n\n        For interoperability, the escaped value should also \"round-trip\" over\n        `email.generator.Generator.flatten` and `email.message_from_*`\n        (see pypa/setuptools#4033).\n\n        The main issue is that internally `email.policy.EmailPolicy` uses\n        `splitlines` which will split on some control chars. If all the new lines\n        are not prefixed with spaces, the parser will interrupt reading\n        the current header and produce an incomplete value, while\n        incorrectly interpreting the rest of the headers as part of the payload.\n        \"\"\"\n        res = rfc822_escape(given)\n\n        policy = email.policy.EmailPolicy(\n            utf8=True,\n            mangle_from_=False,\n            max_line_length=0,\n        )\n        with io.StringIO() as buffer:\n            raw = f\"header: {res}\\nother-header: 42\\n\\npayload\\n\"\n            orig = email.message_from_string(raw)\n            email.generator.Generator(buffer, policy=policy).flatten(orig)\n            buffer.seek(0)\n            regen = email.message_from_file(buffer)\n\n        for msg in (orig, regen):\n            assert msg.get_payload() == \"payload\\n\"\n            assert msg[\"other-header\"] == \"42\"\n            # Generator may replace control chars with `\\n`\n            assert set(msg[\"header\"].splitlines()) == set(res.splitlines())\n\n        assert res == wanted"
+}

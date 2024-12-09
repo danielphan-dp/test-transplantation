@@ -1,0 +1,10 @@
+{
+  "test_name": "test_request_te_first_chunked",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_request_te_first_chunked(parser: HttpRequestParser) -> None:\n    text = b\"GET /test HTTP/1.1\\r\\nTransfer-Encoding: chunked, not\\r\\n\\r\\n1\\r\\nT\\r\\n3\\r\\nest\\r\\n0\\r\\n\\r\\n\"\n    # https://www.rfc-editor.org/rfc/rfc9112#section-6.3-2.4.3\n    with pytest.raises(\n        http_exceptions.BadHttpMessage,\n        match=\"nvalid `Transfer-Encoding`\",\n    ):\n        parser.feed_data(text)"
+}

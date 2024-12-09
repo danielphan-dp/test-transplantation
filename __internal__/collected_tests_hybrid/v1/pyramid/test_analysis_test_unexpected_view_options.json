@@ -1,0 +1,51 @@
+{
+  "test_name": "test_unexpected_view_options",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_viewderivers.py",
+  "static_methods": [
+    {
+      "name": "self.config.add_view_deriver",
+      "source_code": "    def add_view_deriver(self, deriver, name=None, under=None, over=None):\n        \"\"\"\n        .. versionadded:: 1.7",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 1329
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.config.add_view",
+      "source_code": "    def add_view(\n        self,\n        view=None,\n        name=\"\",\n        for_=None,\n        permission=None,\n        request_type=None,\n        route_name=None,\n        request_method=None,\n        request_param=None,\n        containment=None,\n        attr=None,\n        renderer=None,\n        wrapper=None,\n        xhr=None,\n        accept=None,\n        header=None,\n        path_info=None,\n        custom_predicates=(),\n        context=None,\n        decorator=None,\n        mapper=None,\n        http_cache=None,\n        match_param=None,\n        require_csrf=None,\n        exception_only=False,\n        **view_options,\n    ):\n        \"\"\"Add a :term:`view configuration` to the current\n        configuration state.  Arguments to ``add_view`` are broken\n        down below into *predicate* arguments and *non-predicate*\n        arguments.  Predicate arguments narrow the circumstances in\n        which the view callable will be invoked when a request is\n        presented to :app:`Pyramid`; non-predicate arguments are\n        informational.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 241
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.config.add_view_deriver",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 1329,
+      "caller": "test_unexpected_view_options",
+      "source_code": "    @action_method\n    def add_view_deriver(self, deriver, name=None, under=None, over=None):\n        \"\"\"\n        .. versionadded:: 1.7\n\n        Add a :term:`view deriver` to the view pipeline. View derivers are\n        a feature used by extension authors to wrap views in custom code\n        controllable by view-specific options.\n\n        ``deriver`` should be a callable conforming to the\n        :class:`pyramid.interfaces.IViewDeriver` interface.\n\n        ``name`` should be the name of the view deriver.  There are no\n        restrictions on the name of a view deriver. If left unspecified, the\n        name will be constructed from the name of the ``deriver``.\n\n        The ``under`` and ``over`` options can be used to control the ordering\n        of view derivers by providing hints about where in the view pipeline\n        the deriver is used. Each option may be a string or a list of strings.\n        At least one view deriver in each, the over and under directions, must\n        exist to fully satisfy the constraints.\n\n        ``under`` means closer to the user-defined :term:`view callable`,\n        and ``over`` means closer to view pipeline ingress.\n\n        The default value for ``over`` is ``rendered_view`` and ``under`` is\n        ``decorated_view``. This places the deriver somewhere between the two\n        in the view pipeline. If the deriver should be placed elsewhere in the\n        pipeline, such as above ``decorated_view``, then you MUST also specify\n        ``under`` to something earlier in the order, or a\n        ``CyclicDependencyError`` will be raised when trying to sort the\n        derivers.\n\n        See :ref:`view_derivers` for more information.\n\n        \"\"\"\n        deriver = self.maybe_dotted(deriver)\n\n        if name is None:\n            name = deriver.__name__\n\n        if name in (INGRESS, VIEW):\n            raise ConfigurationError(\n                '%s is a reserved view deriver name' % name\n            )\n\n        if under is None:\n            under = 'decorated_view'\n\n        if over is None:\n            over = 'rendered_view'\n\n        over = as_sorted_tuple(over)\n        under = as_sorted_tuple(under)\n\n        if INGRESS in over:\n            raise ConfigurationError('%s cannot be over INGRESS' % name)\n\n        # ensure everything is always over mapped_view\n        if VIEW in over and name != 'mapped_view':\n            over = as_sorted_tuple(over + ('mapped_view',))\n\n        if VIEW in under:\n            raise ConfigurationError('%s cannot be under VIEW' % name)\n        if 'mapped_view' in under:\n            raise ConfigurationError('%s cannot be under \"mapped_view\"' % name)\n\n        discriminator = ('view deriver', name)\n        intr = self.introspectable('view derivers', name, name, 'view deriver')\n        intr['name'] = name\n        intr['deriver'] = deriver\n        intr['under'] = under\n        intr['over'] = over\n\n        def register():\n            derivers = self.registry.queryUtility(IViewDerivers)\n            if derivers is None:\n                derivers = TopologicalSorter(\n                    default_before=None,\n                    default_after=INGRESS,\n                    first=INGRESS,\n                    last=VIEW,\n                )\n                self.registry.registerUtility(derivers, IViewDerivers)\n            derivers.add(name, deriver, before=over, after=under)\n\n        self.action(\n            discriminator,\n            register,\n            introspectables=(intr,),\n            order=PHASE1_CONFIG,\n        )  # must be registered before add_view\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unexpected_view_options",
+      "source_code": ""
+    },
+    {
+      "function": "self.config.add_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 241,
+      "caller": "test_unexpected_view_options",
+      "source_code": "    @viewdefaults\n    @action_method\n    def add_view(\n        self,\n        view=None,\n        name=\"\",\n        for_=None,\n        permission=None,\n        request_type=None,\n        route_name=None,\n        request_method=None,\n        request_param=None,\n        containment=None,\n        attr=None,\n        renderer=None,\n        wrapper=None,\n        xhr=None,\n        accept=None,\n        header=None,\n        path_info=None,\n        custom_predicates=(),\n        context=None,\n        decorator=None,\n        mapper=None,\n        http_cache=None,\n        match_param=None,\n        require_csrf=None,\n        exception_only=False,\n        **view_options,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unexpected_view_options(self):\n        from pyramid.exceptions import ConfigurationError\n\n        def deriv1(view, info):  # pragma: no cover\n            pass\n\n        self.config.add_view_deriver(deriv1, 'deriv1')\n        self.assertRaises(\n            ConfigurationError,\n            lambda: self.config.add_view(lambda r: {}, deriv1='test1'),\n        )"
+}

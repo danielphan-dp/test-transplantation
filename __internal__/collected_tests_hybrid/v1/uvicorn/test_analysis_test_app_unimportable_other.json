@@ -1,0 +1,53 @@
+{
+  "test_name": "test_app_unimportable_other",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    },
+    {
+      "name": "error_messages.pop",
+      "source_code": "    def pop(self, cls: type[Warning] = Warning) -> warnings.WarningMessage:\n        \"\"\"Pop the first recorded warning which is an instance of ``cls``,\n        but not an instance of a child class of any other match.\n        Raises ``AssertionError`` if there is no match.\n        \"\"\"\n        best_idx: int | None = None\n        for i, w in enumerate(self._list):\n            if w.category == cls:\n                return self._list.pop(i)  # exact match, stop looking\n            if issubclass(w.category, cls) and (\n                best_idx is None\n                or not issubclass(w.category, self._list[best_idx].category)\n            ):\n                best_idx = i\n        if best_idx is not None:\n            return self._list.pop(best_idx)\n        __tracebackhide__ = True\n        raise AssertionError(f\"{cls!r} not found in warning list\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line_number": 206
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_app_unimportable_other",
+      "source_code": ""
+    },
+    {
+      "function": "config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_app_unimportable_other",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    },
+    {
+      "function": "error_messages.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line": 206,
+      "caller": "test_app_unimportable_other",
+      "source_code": "    def pop(self, cls: type[Warning] = Warning) -> warnings.WarningMessage:\n        \"\"\"Pop the first recorded warning which is an instance of ``cls``,\n        but not an instance of a child class of any other match.\n        Raises ``AssertionError`` if there is no match.\n        \"\"\"\n        best_idx: int | None = None\n        for i, w in enumerate(self._list):\n            if w.category == cls:\n                return self._list.pop(i)  # exact match, stop looking\n            if issubclass(w.category, cls) and (\n                best_idx is None\n                or not issubclass(w.category, self._list[best_idx].category)\n            ):\n                best_idx = i\n        if best_idx is not None:\n            return self._list.pop(best_idx)\n        __tracebackhide__ = True\n        raise AssertionError(f\"{cls!r} not found in warning list\")\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'Error loading ASGI app. Attribute \"app\" not found in module \"tests.test_config\".' == error_messages.pop(0)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_app_unimportable_other(caplog: pytest.LogCaptureFixture) -> None:\n    config = Config(app=\"tests.test_config:app\")\n    with pytest.raises(SystemExit):\n        config.load()\n    error_messages = [\n        record.message for record in caplog.records if record.name == \"uvicorn.error\" and record.levelname == \"ERROR\"\n    ]\n    assert (\n        'Error loading ASGI app. Attribute \"app\" not found in module \"tests.test_config\".'  # noqa: E501\n        == error_messages.pop(0)\n    )"
+}

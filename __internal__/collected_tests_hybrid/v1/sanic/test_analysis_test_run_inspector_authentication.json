@@ -1,0 +1,119 @@
+{
+  "test_name": "test_run_inspector_authentication",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_inspector.py",
+  "static_methods": [
+    {
+      "name": "Inspector",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TestManager",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "manager.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "manager.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "Inspector",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Default",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Default",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Inspector",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_inspector_authentication",
+      "source_code": ""
+    },
+    {
+      "function": "TestManager",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_inspector_authentication",
+      "source_code": ""
+    },
+    {
+      "function": "manager.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_run_inspector_authentication",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "manager.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_run_inspector_authentication",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "Inspector",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_inspector_authentication",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_inspector_authentication",
+      "source_code": ""
+    },
+    {
+      "function": "Default",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_inspector_authentication",
+      "source_code": ""
+    },
+    {
+      "function": "Default",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_inspector_authentication",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status == 401",
+    "assert response.status == 200"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_run_inspector_authentication():\n    inspector = Inspector(\n        Mock(), {}, {}, \"\", 0, \"super-secret\", Default(), Default()\n    )(False)\n    manager = TestManager(inspector.app)\n    _, response = manager.test_client.get(\"/\")\n    assert response.status == 401\n    _, response = manager.test_client.get(\n        \"/\", headers={\"Authorization\": \"Bearer super-secret\"}\n    )\n    assert response.status == 200"
+}

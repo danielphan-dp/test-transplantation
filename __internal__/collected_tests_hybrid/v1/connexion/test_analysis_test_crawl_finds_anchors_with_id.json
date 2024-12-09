@@ -1,0 +1,92 @@
+{
+  "test_name": "test_crawl_finds_anchors_with_id",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "ID_AND_CHILDREN.create_resource",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 160
+    },
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Anchor",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "registry.crawl.anchor",
+      "source_code": "    def anchor(self) -> str:\n        return self._path.anchor",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/anyio/_core/_fileio.py",
+      "line_number": 341
+    },
+    {
+      "name": "ID_AND_CHILDREN.create_resource",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 160
+    },
+    {
+      "name": "registry.crawl",
+      "source_code": "    def crawl(self) -> Registry[D]:\n        \"\"\"\n        Crawl all added resources, discovering subresources.\n        \"\"\"\n        resources = self._resources\n        anchors = self._anchors\n        uncrawled = [(uri, resources[uri]) for uri in self._uncrawled]\n        while uncrawled:\n            uri, resource = uncrawled.pop()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 485
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ID_AND_CHILDREN.create_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 160,
+      "caller": "test_crawl_finds_anchors_with_id",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)\n\n\n"
+    },
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_crawl_finds_anchors_with_id",
+      "source_code": ""
+    },
+    {
+      "function": "Anchor",
+      "filename": "",
+      "line": 0,
+      "caller": "test_crawl_finds_anchors_with_id",
+      "source_code": ""
+    },
+    {
+      "function": "registry.crawl.anchor",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/anyio/_core/_fileio.py",
+      "line": 341,
+      "caller": "test_crawl_finds_anchors_with_id",
+      "source_code": "    @property\n    def anchor(self) -> str:\n        return self._path.anchor\n\n"
+    },
+    {
+      "function": "ID_AND_CHILDREN.create_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 160,
+      "caller": "test_crawl_finds_anchors_with_id",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)\n\n\n"
+    },
+    {
+      "function": "registry.crawl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 485,
+      "caller": "test_crawl_finds_anchors_with_id",
+      "source_code": "    def crawl(self) -> Registry[D]:\n        \"\"\"\n        Crawl all added resources, discovering subresources.\n        \"\"\"\n        resources = self._resources\n        anchors = self._anchors\n        uncrawled = [(uri, resources[uri]) for uri in self._uncrawled]\n        while uncrawled:\n            uri, resource = uncrawled.pop()\n\n            id = resource.id()\n            if id is not None:\n                uri = urljoin(uri, id)\n                resources = resources.insert(uri, resource)\n            for each in resource.anchors():\n                anchors = anchors.insert((uri, each.name), each)\n            uncrawled.extend((uri, each) for each in resource.subresources())\n        return evolve(\n            self,\n            resources=resources,\n            anchors=anchors,\n            uncrawled=EMPTY_UNCRAWLED,\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert registry.crawl().anchor(resource.id(), 'foo').value == Anchor(name='foo', resource=ID_AND_CHILDREN.create_resource(12))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_crawl_finds_anchors_with_id(self):\n        resource = ID_AND_CHILDREN.create_resource(\n            {\"ID\": \"urn:bar\", \"anchors\": {\"foo\": 12}},\n        )\n        registry = resource @ Registry()\n\n        assert registry.crawl().anchor(resource.id(), \"foo\").value == Anchor(\n            name=\"foo\",\n            resource=ID_AND_CHILDREN.create_resource(12),\n        )"
+}

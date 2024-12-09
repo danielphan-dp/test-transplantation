@@ -1,0 +1,90 @@
+{
+  "test_name": "test_RefResolver_in_scope",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_deprecations.py",
+  "static_methods": [
+    {
+      "name": "self.assertWarnsRegex",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validators._RefResolver.from_schema",
+      "source_code": "    def from_schema(  # noqa: D417\n        cls,\n        schema,\n        id_of=referencing.jsonschema.DRAFT202012.id_of,\n        *args,\n        **kwargs,\n    ):\n        \"\"\"\n        Construct a resolver from a JSON schema object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 960
+    },
+    {
+      "name": "resolver.in_scope",
+      "source_code": "    def in_scope(self, scope):\n        \"\"\"\n        Temporarily enter the given scope for the duration of the context.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 1029
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertWarnsRegex",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resolver.in_scope",
+      "source_code": "    def in_scope(self, scope):\n        \"\"\"\n        Temporarily enter the given scope for the duration of the context.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 1029
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertWarnsRegex",
+      "filename": "",
+      "line": 0,
+      "caller": "test_RefResolver_in_scope",
+      "source_code": ""
+    },
+    {
+      "function": "validators._RefResolver.from_schema",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 960,
+      "caller": "test_RefResolver_in_scope",
+      "source_code": "    @classmethod\n    def from_schema(  # noqa: D417\n        cls,\n        schema,\n        id_of=referencing.jsonschema.DRAFT202012.id_of,\n        *args,\n        **kwargs,\n"
+    },
+    {
+      "function": "resolver.in_scope",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 1029,
+      "caller": "test_RefResolver_in_scope",
+      "source_code": "    @contextlib.contextmanager\n    def in_scope(self, scope):\n        \"\"\"\n        Temporarily enter the given scope for the duration of the context.\n\n        .. deprecated:: v4.0.0\n        \"\"\"\n        warnings.warn(\n            \"jsonschema.RefResolver.in_scope is deprecated and will be \"\n            \"removed in a future release.\",\n            DeprecationWarning,\n            stacklevel=3,\n        )\n        self.push_scope(scope)\n        try:\n            yield\n        finally:\n            self.pop_scope()\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_RefResolver_in_scope",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertWarnsRegex",
+      "filename": "",
+      "line": 0,
+      "caller": "test_RefResolver_in_scope",
+      "source_code": ""
+    },
+    {
+      "function": "resolver.in_scope",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 1029,
+      "caller": "test_RefResolver_in_scope",
+      "source_code": "    @contextlib.contextmanager\n    def in_scope(self, scope):\n        \"\"\"\n        Temporarily enter the given scope for the duration of the context.\n\n        .. deprecated:: v4.0.0\n        \"\"\"\n        warnings.warn(\n            \"jsonschema.RefResolver.in_scope is deprecated and will be \"\n            \"removed in a future release.\",\n            DeprecationWarning,\n            stacklevel=3,\n        )\n        self.push_scope(scope)\n        try:\n            yield\n        finally:\n            self.pop_scope()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_RefResolver_in_scope(self):\n        \"\"\"\n        As of v4.0.0, RefResolver.in_scope is deprecated.\n        \"\"\"\n\n        resolver = validators._RefResolver.from_schema({})\n        message = \"jsonschema.RefResolver.in_scope is deprecated \"\n        with self.assertWarnsRegex(DeprecationWarning, message) as w:  # noqa: SIM117\n            with resolver.in_scope(\"foo\"):\n                pass\n\n        self.assertEqual(w.filename, __file__)"
+}

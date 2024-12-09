@@ -1,0 +1,25 @@
+{
+  "test_name": "test_it_html",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+  "static_methods": [
+    {
+      "name": "self._doit",
+      "source_code": "    def _doit(self, content_type):\n        from pyramid.httpexceptions import status_map",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+      "line_number": 419
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._doit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+      "line": 419,
+      "caller": "test_it_html",
+      "source_code": "    def _doit(self, content_type):\n        from pyramid.httpexceptions import status_map\n\n        L = []\n        self.assertTrue(status_map)\n        for v in status_map.values():\n            environ = _makeEnviron()\n            start_response = DummyStartResponse()\n            exc = v()\n            exc.content_type = content_type\n            result = list(exc(environ, start_response))[0]\n            if exc.empty_body:\n                self.assertEqual(result, b'')\n            else:\n                self.assertTrue(bytes_(exc.status) in result)\n            L.append(result)\n        self.assertEqual(len(L), len(status_map))\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_html(self):\n        self._doit('text/html')"
+}

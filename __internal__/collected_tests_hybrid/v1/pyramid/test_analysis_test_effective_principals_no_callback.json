@@ -1,0 +1,116 @@
+{
+  "test_name": "test_effective_principals_no_callback",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authentication.py",
+  "static_methods": [
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "policy.effective_principals",
+      "source_code": "    def effective_principals(request):\n        \"\"\"Return a sequence representing the effective principals\n        typically including the :term:`userid` and any groups belonged\n        to by the current user, always including 'system' groups such\n        as ``pyramid.authorization.Everyone`` and\n        ``pyramid.authorization.Authenticated``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 573
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": ""
+    },
+    {
+      "function": "policy.effective_principals",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 573,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": "    def effective_principals(request):\n        \"\"\"Return a sequence representing the effective principals\n        typically including the :term:`userid` and any groups belonged\n        to by the current user, always including 'system' groups such\n        as ``pyramid.authorization.Everyone`` and\n        ``pyramid.authorization.Authenticated``.\n\n        \"\"\"\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_effective_principals_no_callback",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_effective_principals_no_callback(self):\n        request = DummyRequest(registry=self.config.registry)\n        policy = self._makeOne(userid='fred')\n        self.assertEqual(\n            policy.effective_principals(request),\n            ['system.Everyone', 'system.Authenticated', 'fred'],\n        )\n        self.assertEqual(len(self.messages), 2)\n        self.assertEqual(\n            self.messages[0],\n            'tests.test_authentication.MyAuthenticationPolicy.'\n            'effective_principals: groupfinder callback is None, so groups '\n            'is []',\n        )\n        self.assertEqual(\n            self.messages[1],\n            \"tests.test_authentication.MyAuthenticationPolicy.\"\n            \"effective_principals: returning effective principals: \"\n            \"['system.Everyone', 'system.Authenticated', 'fred']\",\n        )"
+}

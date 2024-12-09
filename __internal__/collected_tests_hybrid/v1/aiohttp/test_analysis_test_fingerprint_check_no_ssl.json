@@ -1,0 +1,38 @@
+{
+  "test_name": "test_fingerprint_check_no_ssl",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_fingerprint.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "fp.check",
+      "source_code": "    def check(self, strict=False):\n        \"\"\"Check if the metadata is compliant. If strict is True then raise if\n        no Name or Version are provided\"\"\"\n        self.set_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 517
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_fingerprint_check_no_ssl",
+      "source_code": ""
+    },
+    {
+      "function": "fp.check",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 517,
+      "caller": "test_fingerprint_check_no_ssl",
+      "source_code": "    def check(self, strict=False):\n        \"\"\"Check if the metadata is compliant. If strict is True then raise if\n        no Name or Version are provided\"\"\"\n        self.set_metadata_version()\n\n        # XXX should check the versions (if the file was loaded)\n        missing, warnings = [], []\n\n        for attr in ('Name', 'Version'):  # required by PEP 345\n            if attr not in self:\n                missing.append(attr)\n\n        if strict and missing != []:\n            msg = 'missing required metadata: %s' % ', '.join(missing)\n            raise MetadataMissingError(msg)\n\n        for attr in ('Home-page', 'Author'):\n            if attr not in self:\n                missing.append(attr)\n\n        # checking metadata 1.2 (XXX needs to check 1.1, 1.0)\n        if self['Metadata-Version'] != '1.2':\n            return missing, warnings\n\n        scheme = get_scheme(self.scheme)\n\n        def are_valid_constraints(value):\n            for v in value:\n                if not scheme.is_valid_matcher(v.split(';')[0]):\n                    return False\n            return True\n\n        for fields, controller in ((_PREDICATE_FIELDS, are_valid_constraints),\n                                   (_VERSIONS_FIELDS,\n                                    scheme.is_valid_constraint_list),\n                                   (_VERSION_FIELDS,\n                                    scheme.is_valid_version)):\n            for field in fields:\n                value = self.get(field, None)\n                if value is not None and not controller(value):\n                    warnings.append(\"Wrong value for '%s': %s\" % (field, value))\n\n        return missing, warnings\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_fingerprint_check_no_ssl() -> None:\n    sha256 = hashlib.sha256(b\"12345678\" * 64).digest()\n    fp = aiohttp.Fingerprint(sha256)\n    transport = mock.Mock()\n    transport.get_extra_info.return_value = None\n    fp.check(transport)"
+}

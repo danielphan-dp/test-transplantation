@@ -1,0 +1,53 @@
+{
+  "test_name": "test_get_ext_filename",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "build_ext",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 90
+    },
+    {
+      "name": "orig.build_ext.get_ext_filename",
+      "source_code": "    def get_ext_filename(self, fullname: str) -> str:\n        so_ext = os.getenv('SETUPTOOLS_EXT_SUFFIX')\n        if so_ext:\n            filename = os.path.join(*fullname.split('.')) + so_ext\n        else:\n            filename = _build_ext.get_ext_filename(self, fullname)\n            ext_suffix = get_config_var('EXT_SUFFIX')\n            if not isinstance(ext_suffix, str):\n                raise OSError(\n                    \"Configuration variable EXT_SUFFIX not found for this platform \"\n                    + \"and environment variable SETUPTOOLS_EXT_SUFFIX is missing\"\n                )\n            so_ext = ext_suffix",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/build_ext.py",
+      "line_number": 161
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_ext_filename",
+      "source_code": ""
+    },
+    {
+      "function": "build_ext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 90,
+      "caller": "test_get_ext_filename",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)\n\n"
+    },
+    {
+      "function": "orig.build_ext.get_ext_filename",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/build_ext.py",
+      "line": 161,
+      "caller": "test_get_ext_filename",
+      "source_code": "    def get_ext_filename(self, fullname: str) -> str:\n        so_ext = os.getenv('SETUPTOOLS_EXT_SUFFIX')\n        if so_ext:\n            filename = os.path.join(*fullname.split('.')) + so_ext\n        else:\n            filename = _build_ext.get_ext_filename(self, fullname)\n            ext_suffix = get_config_var('EXT_SUFFIX')\n            if not isinstance(ext_suffix, str):\n                raise OSError(\n                    \"Configuration variable EXT_SUFFIX not found for this platform \"\n                    + \"and environment variable SETUPTOOLS_EXT_SUFFIX is missing\"\n                )\n            so_ext = ext_suffix\n\n        if fullname in self.ext_map:\n            ext = self.ext_map[fullname]\n            abi3_suffix = get_abi3_suffix()\n            if ext.py_limited_api and abi3_suffix:  # Use abi3\n                filename = filename[: -len(so_ext)] + abi3_suffix\n            if isinstance(ext, Library):\n                fn, ext = os.path.splitext(filename)\n                return self.shlib_compiler.library_filename(fn, libtype)\n            elif use_stubs and ext._links_to_dynamic:\n                d, fn = os.path.split(filename)\n                return os.path.join(d, 'dl-' + fn)\n        return filename\n\n"
+    }
+  ],
+  "assertions": [
+    "assert res == wanted"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_ext_filename(self):\n        \"\"\"\n        Setuptools needs to give back the same\n        result as distutils, even if the fullname\n        is not in ext_map.\n        \"\"\"\n        dist = Distribution()\n        cmd = build_ext(dist)\n        cmd.ext_map['foo/bar'] = ''\n        res = cmd.get_ext_filename('foo')\n        wanted = orig.build_ext.get_ext_filename(cmd, 'foo')\n        assert res == wanted"
+}

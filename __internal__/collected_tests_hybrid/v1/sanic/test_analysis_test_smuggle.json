@@ -1,0 +1,68 @@
+{
+  "test_name": "test_smuggle",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_http.py",
+  "static_methods": [
+    {
+      "name": "client.send",
+      "source_code": "    def send(self, request, cacheable_methods=None, **kw):\n        \"\"\"\n        Send a request. Use the request information to see if it\n        exists in the cache and cache the response if we need to and can.\n        \"\"\"\n        cacheable = cacheable_methods or self.cacheable_methods\n        if request.method in cacheable:\n            try:\n                cached_response = self.controller.cached_request(request)\n            except zlib.error:\n                cached_response = None\n            if cached_response:\n                return self.build_response(request, cached_response, from_cache=True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/adapter.py",
+      "line_number": 40
+    },
+    {
+      "name": "client.recv",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 577
+    },
+    {
+      "name": "response.count",
+      "source_code": "    def count(self, value):\n        return int(value in self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 2241
+    },
+    {
+      "name": "response.rsplit",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "client.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/adapter.py",
+      "line": 40,
+      "caller": "test_smuggle",
+      "source_code": "    def send(self, request, cacheable_methods=None, **kw):\n        \"\"\"\n        Send a request. Use the request information to see if it\n        exists in the cache and cache the response if we need to and can.\n        \"\"\"\n        cacheable = cacheable_methods or self.cacheable_methods\n        if request.method in cacheable:\n            try:\n                cached_response = self.controller.cached_request(request)\n            except zlib.error:\n                cached_response = None\n            if cached_response:\n                return self.build_response(request, cached_response, from_cache=True)\n\n            # check for etags and add headers if appropriate\n            request.headers.update(self.controller.conditional_headers(request))\n\n        resp = super(CacheControlAdapter, self).send(request, **kw)\n\n        return resp\n\n"
+    },
+    {
+      "function": "client.recv",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 577,
+      "caller": "test_smuggle",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data\n\n"
+    },
+    {
+      "function": "response.count",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 2241,
+      "caller": "test_smuggle",
+      "source_code": "    def count(self, value):\n        return int(value in self)\n\n"
+    },
+    {
+      "function": "response.rsplit",
+      "filename": "",
+      "line": 0,
+      "caller": "test_smuggle",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert num_responses == 1",
+    "assert b'400 Bad Request' in headers",
+    "assert b'Bad Request' in body"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_smuggle(client):\n    client.send(\n        \"\"\"\n        POST /upload HTTP/1.1\n        Content-Length: 5\n        Transfer-Encoding: chunked\n        Transfer-Encoding: xchunked\n\n        5\n        hello\n        0\n\n        GET / HTTP/1.1\n        \n        \"\"\"  # noqa\n    )\n\n    response = client.recv()\n    num_responses = response.count(b\"HTTP/1.1\")\n    assert num_responses == 1\n\n    headers, body = response.rsplit(b\"\\r\\n\\r\\n\", 1)\n    assert b\"400 Bad Request\" in headers\n    assert b\"Bad Request\" in body"
+}

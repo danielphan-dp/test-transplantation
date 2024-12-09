@@ -1,0 +1,38 @@
+{
+  "test_name": "test_set_attr_non_refcounted_no_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+  "static_methods": [
+    {
+      "name": "SetAttr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assert_emit",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n    ) -> None:\n        block = BasicBlock(0)\n        block.ops.append(op)\n        value_names = generate_names_for_ir(self.registers, [block])\n        emitter = Emitter(self.context, value_names)\n        declarations = Emitter(self.context, value_names)\n        emitter.fragments = []\n        declarations.fragments = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line_number": 807
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SetAttr",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_attr_non_refcounted_no_error",
+      "source_code": ""
+    },
+    {
+      "function": "self.assert_emit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line": 807,
+      "caller": "test_set_attr_non_refcounted_no_error",
+      "source_code": "    def assert_emit(\n        self,\n        op: Op,\n        expected: str,\n        next_block: BasicBlock | None = None,\n        *,\n        rare: bool = False,\n        next_branch: Branch | None = None,\n        skip_next: bool = False,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_attr_non_refcounted_no_error(self) -> None:\n        op = SetAttr(self.r, \"x\", self.b, 1)\n        op.error_kind = ERR_NEVER\n        self.assert_emit(\n            op,\n            \"\"\"((mod___AObject *)cpy_r_r)->_x = cpy_r_b;\n            \"\"\",\n        )"
+}

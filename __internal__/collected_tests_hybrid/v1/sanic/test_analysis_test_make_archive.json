@@ -1,0 +1,38 @@
+{
+  "test_name": "test_make_archive",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+  "static_methods": [
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    },
+    {
+      "name": "make_archive",
+      "source_code": "def make_archive(\n    base_name,\n    format,\n    root_dir=None,\n    base_dir=None,\n    verbose=False,\n    dry_run=False,\n    owner=None,\n    group=None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/archive_util.py",
+      "line_number": 207
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_make_archive",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    },
+    {
+      "function": "make_archive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/archive_util.py",
+      "line": 207,
+      "caller": "test_make_archive",
+      "source_code": "def make_archive(\n    base_name,\n    format,\n    root_dir=None,\n    base_dir=None,\n    verbose=False,\n    dry_run=False,\n    owner=None,\n    group=None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_archive(self):\n        tmpdir = self.mkdtemp()\n        base_name = os.path.join(tmpdir, 'archive')\n        with pytest.raises(ValueError):\n            make_archive(base_name, 'xxx')"
+}

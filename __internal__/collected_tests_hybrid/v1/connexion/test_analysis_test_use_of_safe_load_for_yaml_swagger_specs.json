@@ -1,0 +1,51 @@
+{
+  "test_name": "test_use_of_safe_load_for_yaml_swagger_specs",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_api.py",
+  "static_methods": [
+    {
+      "name": "f.write",
+      "source_code": "        def write(data: bytes) -> None:\n            nonlocal status_sent, headers_sent, chunk_response\n            assert status_set is not None, \"write() before start_response\"\n            assert headers_set is not None, \"write() before start_response\"\n            if status_sent is None:\n                status_sent = status_set\n                headers_sent = headers_set\n                try:\n                    code_str, msg = status_sent.split(None, 1)\n                except ValueError:\n                    code_str, msg = status_sent, \"\"\n                code = int(code_str)\n                self.send_response(code, msg)\n                header_keys = set()\n                for key, value in headers_sent:\n                    self.send_header(key, value)\n                    header_keys.add(key.lower())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/serving.py",
+      "line_number": 259
+    },
+    {
+      "name": "FlaskApi",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Specification.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "f.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/serving.py",
+      "line": 259,
+      "caller": "test_use_of_safe_load_for_yaml_swagger_specs",
+      "source_code": "        def write(data: bytes) -> None:\n            nonlocal status_sent, headers_sent, chunk_response\n            assert status_set is not None, \"write() before start_response\"\n            assert headers_set is not None, \"write() before start_response\"\n            if status_sent is None:\n                status_sent = status_set\n                headers_sent = headers_set\n                try:\n                    code_str, msg = status_sent.split(None, 1)\n                except ValueError:\n                    code_str, msg = status_sent, \"\"\n                code = int(code_str)\n                self.send_response(code, msg)\n                header_keys = set()\n                for key, value in headers_sent:\n                    self.send_header(key, value)\n                    header_keys.add(key.lower())\n\n                # Use chunked transfer encoding if there is no content\n                # length. Do not use for 1xx and 204 responses. 304\n                # responses and HEAD requests are also excluded, which\n                # is the more conservative behavior and matches other\n                # parts of the code.\n                # https://httpwg.org/specs/rfc7230.html#rfc.section.3.3.1\n                if (\n                    not (\n                        \"content-length\" in header_keys\n                        or environ[\"REQUEST_METHOD\"] == \"HEAD\"\n                        or (100 <= code < 200)\n                        or code in {204, 304}\n                    )\n                    and self.protocol_version >= \"HTTP/1.1\"\n                ):\n                    chunk_response = True\n                    self.send_header(\"Transfer-Encoding\", \"chunked\")\n\n                # Always close the connection. This disables HTTP/1.1\n                # keep-alive connections. They aren't handled well by\n                # Python's http.server because it doesn't know how to\n                # drain the stream before the next request line.\n                self.send_header(\"Connection\", \"close\")\n                self.end_headers()\n\n            assert isinstance(data, bytes), \"applications must write bytes\"\n\n            if data:\n                if chunk_response:\n                    self.wfile.write(hex(len(data))[2:].encode())\n                    self.wfile.write(b\"\\r\\n\")\n\n                self.wfile.write(data)\n\n                if chunk_response:\n                    self.wfile.write(b\"\\r\\n\")\n\n            self.wfile.flush()\n\n"
+    },
+    {
+      "function": "FlaskApi",
+      "filename": "",
+      "line": 0,
+      "caller": "test_use_of_safe_load_for_yaml_swagger_specs",
+      "source_code": ""
+    },
+    {
+      "function": "Specification.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_use_of_safe_load_for_yaml_swagger_specs",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_use_of_safe_load_for_yaml_swagger_specs():\n    with pytest.raises(YAMLError):\n        with tempfile.NamedTemporaryFile(delete=False) as f:\n            f.write(b\"!!python/object:object {}\\n\")\n        try:\n            FlaskApi(Specification.load(pathlib.Path(f.name)), base_path=\"/api/v1.0\")\n            os.unlink(f.name)\n        except InvalidSpecification:\n            pytest.fail(\"Could load invalid YAML file, use yaml.safe_load!\")"
+}

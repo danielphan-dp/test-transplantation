@@ -1,12 +1,12 @@
 {
   "test_name": "test_client_json_no_app_context",
-  "test_file": "__internal__/_data/flask/tests/test_testing.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
     {
       "name": "appcontext_popped.connected_to",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def connected_to(\n        self, receiver: c.Callable[..., t.Any], sender: t.Any = ANY\n    ) -> c.Generator[None, None, None]:\n        \"\"\"A context manager that temporarily connects ``receiver`` to the\n        signal while a ``with`` block executes. When the block exits, the\n        receiver is disconnected. Useful for tests.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/blinker/base.py",
+      "line_number": 168
     },
     {
       "name": "app.route",
@@ -22,30 +22,30 @@
     },
     {
       "name": "appcontext_popped.connected_to",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def connected_to(\n        self, receiver: c.Callable[..., t.Any], sender: t.Any = ANY\n    ) -> c.Generator[None, None, None]:\n        \"\"\"A context manager that temporarily connects ``receiver`` to the\n        signal while a ``with`` block executes. When the block exits, the\n        receiver is disconnected. Useful for tests.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/blinker/base.py",
+      "line_number": 168
     },
     {
       "name": "client.post",
-      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line_number": 304
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1164
     },
     {
       "name": "rv.get_data",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get_data(self, as_text: t.Literal[False] = False) -> bytes: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wrappers/response.py",
+      "line_number": 263
     }
   ],
   "dynamic_methods": [
     {
       "function": "appcontext_popped.connected_to",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/blinker/base.py",
+      "line": 168,
       "caller": "test_client_json_no_app_context",
-      "source_code": ""
+      "source_code": "    @contextmanager\n    def connected_to(\n        self, receiver: c.Callable[..., t.Any], sender: t.Any = ANY\n"
     },
     {
       "function": "app.route",
@@ -63,24 +63,24 @@
     },
     {
       "function": "appcontext_popped.connected_to",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/blinker/base.py",
+      "line": 168,
       "caller": "test_client_json_no_app_context",
-      "source_code": ""
+      "source_code": "    @contextmanager\n    def connected_to(\n        self, receiver: c.Callable[..., t.Any], sender: t.Any = ANY\n"
     },
     {
       "function": "client.post",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line": 304,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1164,
       "caller": "test_client_json_no_app_context",
-      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "rv.get_data",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wrappers/response.py",
+      "line": 263,
       "caller": "test_client_json_no_app_context",
-      "source_code": ""
+      "source_code": "    @t.overload\n    def get_data(self, as_text: t.Literal[False] = False) -> bytes: ...\n\n"
     }
   ],
   "assertions": [

@@ -1,0 +1,92 @@
+{
+  "test_name": "test_motd_display",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_motd.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MOTDTTY",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "center",
+      "source_code": "    def center(\n        cls,\n        renderable: \"RenderableType\",\n        style: Optional[StyleType] = None,\n        *,\n        vertical: Optional[VerticalAlignMethod] = None,\n        pad: bool = True,\n        width: Optional[int] = None,\n        height: Optional[int] = None,\n    ) -> \"Align\":\n        \"\"\"Align a renderable to the center.\"\"\"\n        return cls(\n            renderable,\n            \"center\",\n            style=style,\n            vertical=vertical,\n            pad=pad,\n            width=width,\n            height=height,\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/align.py",
+      "line_number": 92
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "motd.display",
+      "source_code": "def display(segments: Iterable[Segment], text: str) -> None:\n    \"\"\"Render segments to Jupyter.\"\"\"\n    html = _render_segments(segments)\n    jupyter_renderable = JupyterRenderable(html, text)\n    try:\n        from IPython.display import display as ipython_display",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/jupyter.py",
+      "line_number": 84
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_motd_display",
+      "source_code": ""
+    },
+    {
+      "function": "MOTDTTY",
+      "filename": "",
+      "line": 0,
+      "caller": "test_motd_display",
+      "source_code": ""
+    },
+    {
+      "function": "center",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/align.py",
+      "line": 92,
+      "caller": "test_motd_display",
+      "source_code": "    @classmethod\n    def center(\n        cls,\n        renderable: \"RenderableType\",\n        style: Optional[StyleType] = None,\n        *,\n        vertical: Optional[VerticalAlignMethod] = None,\n        pad: bool = True,\n        width: Optional[int] = None,\n        height: Optional[int] = None,\n"
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_motd_display",
+      "source_code": ""
+    },
+    {
+      "function": "motd.display",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/jupyter.py",
+      "line": 84,
+      "caller": "test_motd_display",
+      "source_code": "def display(segments: Iterable[Segment], text: str) -> None:\n    \"\"\"Render segments to Jupyter.\"\"\"\n    html = _render_segments(segments)\n    jupyter_renderable = JupyterRenderable(html, text)\n    try:\n        from IPython.display import display as ipython_display\n\n        ipython_display(jupyter_renderable)\n    except ModuleNotFoundError:\n        # Handle the case where the Console has force_jupyter=True,\n        # but IPython is not installed.\n        pass\n\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_motd_display",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    }
+  ],
+  "assertions": [
+    "assert ''.join(caplog.messages) == f'\\n  \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\\n  \u2502 {version_line} \u2502\\n  \u2502                                \u2502\\n  \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\\n  \u2502        foobar         \u2502 one: 1 \u2502\\n  \u2502                       \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\\n  \u2502                       \u2502 two: 2 \u2502\\n  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\\n'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_motd_display(caplog):\n    motd = MOTDTTY(\"       foobar        \", \"\", {\"one\": \"1\"}, {\"two\": \"2\"})\n\n    with caplog.at_level(logging.INFO):\n        motd.display()\n\n    version_line = f\"Sanic v{__version__}\".center(motd.centering_length)\n    assert (\n        \"\".join(caplog.messages)\n        == f\"\"\"\n  \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n  \u2502 {version_line} \u2502\n  \u2502                                \u2502\n  \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n  \u2502        foobar         \u2502 one: 1 \u2502\n  \u2502                       \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n  \u2502                       \u2502 two: 2 \u2502\n  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\"\"\"\n    )"
+}

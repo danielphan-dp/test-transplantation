@@ -1,0 +1,103 @@
+{
+  "test_name": "test_register_session_csrf_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_csrf.py",
+  "static_methods": [
+    {
+      "name": "Configurator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.set_csrf_storage_policy",
+      "source_code": "    def set_csrf_storage_policy(self, policy):\n        \"\"\"\n        Set the :term:`CSRF storage policy` used by subsequent view\n        registrations.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line_number": 352
+    },
+    {
+      "name": "config.commit",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 639
+    },
+    {
+      "name": "config.registry.queryUtility",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1063
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Configurator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_register_session_csrf_policy",
+      "source_code": ""
+    },
+    {
+      "function": "config.set_csrf_storage_policy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line": 352,
+      "caller": "test_register_session_csrf_policy",
+      "source_code": "    @action_method\n    def set_csrf_storage_policy(self, policy):\n        \"\"\"\n        Set the :term:`CSRF storage policy` used by subsequent view\n        registrations.\n\n        ``policy`` is a class that implements the\n        :meth:`pyramid.interfaces.ICSRFStoragePolicy` interface and defines\n        how to generate and persist CSRF tokens.\n\n        \"\"\"\n\n        def register():\n            self.registry.registerUtility(policy, ICSRFStoragePolicy)\n\n        intr = self.introspectable(\n            'csrf storage policy', None, policy, 'csrf storage policy'\n        )\n        intr['policy'] = policy\n        self.action(ICSRFStoragePolicy, register, introspectables=(intr,))\n\n\n"
+    },
+    {
+      "function": "config.commit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 639,
+      "caller": "test_register_session_csrf_policy",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result\n\n"
+    },
+    {
+      "function": "config.registry.queryUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1063,
+      "caller": "test_register_session_csrf_policy",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.\n\n        If one is not found, returns default.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_register_session_csrf_policy",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_register_session_csrf_policy",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_register_session_csrf_policy",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_register_session_csrf_policy(self):\n        from pyramid.csrf import SessionCSRFStoragePolicy\n        from pyramid.interfaces import ICSRFStoragePolicy\n\n        config = Configurator()\n        config.set_csrf_storage_policy(self._makeOne())\n        config.commit()\n\n        policy = config.registry.queryUtility(ICSRFStoragePolicy)\n\n        self.assertTrue(isinstance(policy, SessionCSRFStoragePolicy))"
+}

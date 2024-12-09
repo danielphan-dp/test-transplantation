@@ -1,0 +1,103 @@
+{
+  "test_name": "test_successful_validation_via_explicit_base_uri",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "ref_schema_file.close",
+      "source_code": "    def close(self, code: int = 1000, reason: str | None = None) -> None:\n        self.send({\"type\": \"websocket.disconnect\", \"code\": code, \"reason\": reason})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 201
+    },
+    {
+      "name": "self.addCleanup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ref_path.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "self.assertOutputs",
+      "source_code": "    def assertOutputs(self, stdout=\"\", stderr=\"\", **kwargs):\n        self.assertEqual(\n            self.run_cli(**kwargs),\n            (dedent(stdout), dedent(stderr)),\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line_number": 98
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ref_path.parent.as_uri",
+      "source_code": "    def as_uri(self) -> str:\n        return self._path.as_uri()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/anyio/_core/_fileio.py",
+      "line_number": 375
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ref_schema_file.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 201,
+      "caller": "test_successful_validation_via_explicit_base_uri",
+      "source_code": "    def close(self, code: int = 1000, reason: str | None = None) -> None:\n        self.send({\"type\": \"websocket.disconnect\", \"code\": code, \"reason\": reason})\n\n"
+    },
+    {
+      "function": "self.addCleanup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_successful_validation_via_explicit_base_uri",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_successful_validation_via_explicit_base_uri",
+      "source_code": ""
+    },
+    {
+      "function": "ref_path.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_successful_validation_via_explicit_base_uri",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "self.assertOutputs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+      "line": 98,
+      "caller": "test_successful_validation_via_explicit_base_uri",
+      "source_code": "    def assertOutputs(self, stdout=\"\", stderr=\"\", **kwargs):\n        self.assertEqual(\n            self.run_cli(**kwargs),\n            (dedent(stdout), dedent(stderr)),\n        )\n\n"
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_successful_validation_via_explicit_base_uri",
+      "source_code": ""
+    },
+    {
+      "function": "ref_path.parent.as_uri",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/anyio/_core/_fileio.py",
+      "line": 375,
+      "caller": "test_successful_validation_via_explicit_base_uri",
+      "source_code": "    def as_uri(self) -> str:\n        return self._path.as_uri()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_successful_validation_via_explicit_base_uri(self):\n        ref_schema_file = tempfile.NamedTemporaryFile(delete=False)\n        ref_schema_file.close()\n        self.addCleanup(os.remove, ref_schema_file.name)\n\n        ref_path = Path(ref_schema_file.name)\n        ref_path.write_text('{\"definitions\": {\"num\": {\"type\": \"integer\"}}}')\n\n        schema = f'{{\"$ref\": \"{ref_path.name}#/definitions/num\"}}'\n\n        self.assertOutputs(\n            files=dict(some_schema=schema, some_instance=\"1\"),\n            argv=[\n                \"-i\", \"some_instance\",\n                \"--base-uri\", ref_path.parent.as_uri() + \"/\",\n                \"some_schema\",\n            ],\n            stdout=\"\",\n            stderr=\"\",\n        )"
+}

@@ -1,0 +1,57 @@
+{
+  "test_name": "test_json_encoder",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_flask_encoder.py",
+  "static_methods": [
+    {
+      "name": "s.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Decimal",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "s.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_encoder",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_json_encoder",
+      "source_code": ""
+    },
+    {
+      "function": "Decimal",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_encoder",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert '{\"1\": 2}' == s",
+    "assert len(s) == 12",
+    "assert s.endswith('Z\"')",
+    "assert s == '1.01'",
+    "assert s == '1.00000000005e-10'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_json_encoder():\n    json_encoder = json.JSONEncoder\n    json_encoder.default = FlaskJSONProvider.default\n\n    s = json.dumps({1: 2}, cls=json_encoder)\n    assert '{\"1\": 2}' == s\n\n    s = json.dumps(datetime.date.today(), cls=json_encoder)\n    assert len(s) == 12\n\n    s = json.dumps(datetime.datetime.utcnow(), cls=json_encoder)\n    assert s.endswith('Z\"')\n\n    s = json.dumps(Decimal(1.01), cls=json_encoder)\n    assert s == \"1.01\"\n\n    s = json.dumps(math.expm1(1e-10), cls=json_encoder)\n    assert s == \"1.00000000005e-10\""
+}

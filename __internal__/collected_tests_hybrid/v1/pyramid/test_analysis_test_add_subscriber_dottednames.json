@@ -1,0 +1,116 @@
+{
+  "test_name": "test_add_subscriber_dottednames",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_adapters.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_subscriber",
+      "source_code": "    def add_subscriber(self, subscriber, iface=None, **predicates):\n        \"\"\"Add an event :term:`subscriber` for the event stream\n        implied by the supplied ``iface`` interface.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line_number": 12
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.registeredHandlers",
+      "source_code": "    def registeredHandlers():\n        \"\"\"Return an iterable of `IHandlerRegistration` instances.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1503
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_subscriber",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line": 12,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": "    @action_method\n    def add_subscriber(self, subscriber, iface=None, **predicates):\n        \"\"\"Add an event :term:`subscriber` for the event stream\n        implied by the supplied ``iface`` interface.\n\n        The ``subscriber`` argument represents a callable object (or a\n        :term:`dotted Python name` which identifies a callable); it will be\n        called with a single object ``event`` whenever :app:`Pyramid` emits\n        an :term:`event` associated with the ``iface``, which may be an\n        :term:`interface` or a class or a :term:`dotted Python name` to a\n        global object representing an interface or a class.\n\n        Using the default ``iface`` value, ``None`` will cause the subscriber\n        to be registered for all event types. See :ref:`events_chapter` for\n        more information about events and subscribers.\n\n        Any number of predicate keyword arguments may be passed in\n        ``**predicates``.  Each predicate named will narrow the set of\n        circumstances in which the subscriber will be invoked.  Each named\n        predicate must have been registered via\n        :meth:`pyramid.config.Configurator.add_subscriber_predicate` before it\n        can be used.  See :ref:`subscriber_predicates` for more information.\n\n        .. versionadded:: 1.4\n           The ``**predicates`` argument.\n        \"\"\"\n        dotted = self.maybe_dotted\n        subscriber, iface = dotted(subscriber), dotted(iface)\n        if iface is None:\n            iface = (Interface,)\n        if not isinstance(iface, (tuple, list)):\n            iface = (iface,)\n\n        def register():\n            predlist = self.get_predlist('subscriber')\n            order, preds, phash = predlist.make(self, **predicates)\n\n            derived_predicates = [self._derive_predicate(p) for p in preds]\n            derived_subscriber = self._derive_subscriber(\n                subscriber, derived_predicates\n            )\n\n            intr.update(\n                {\n                    'phash': phash,\n                    'order': order,\n                    'predicates': preds,\n                    'derived_predicates': derived_predicates,\n                    'derived_subscriber': derived_subscriber,\n                }\n            )\n\n            self.registry.registerHandler(derived_subscriber, iface)\n\n        intr = self.introspectable(\n            'subscribers',\n            id(subscriber),\n            self.object_description(subscriber),\n            'subscriber',\n        )\n\n        intr['subscriber'] = subscriber\n        intr['interfaces'] = iface\n\n        self.action(None, register, introspectables=(intr,))\n        return subscriber\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.registeredHandlers",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1503,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": "    def registeredHandlers():\n        \"\"\"Return an iterable of `IHandlerRegistration` instances.\n\n        These registrations describe the current handler registrations\n        in the object.\n        \"\"\"\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_subscriber_dottednames",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_subscriber_dottednames(self):\n        from pyramid.interfaces import INewRequest\n        import tests.test_config\n\n        config = self._makeOne(autocommit=True)\n        config.add_subscriber(\n            'tests.test_config', 'pyramid.interfaces.INewRequest'\n        )\n        handlers = list(config.registry.registeredHandlers())\n        self.assertEqual(len(handlers), 1)\n        handler = handlers[0]\n        self.assertEqual(handler.handler, tests.test_config)\n        self.assertEqual(handler.required, (INewRequest,))"
+}

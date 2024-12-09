@@ -1,0 +1,54 @@
+{
+  "test_name": "test_custom_exception_default_message",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "exception_app.router.reset",
+      "source_code": "    def reset(\n        self,\n        task_id: TaskID,\n        *,\n        start: bool = True,\n        total: Optional[float] = None,\n        completed: int = 0,\n        visible: Optional[bool] = None,\n        description: Optional[str] = None,\n        **fields: Any,\n    ) -> None:\n        \"\"\"Reset a task so completed is 0 and the clock is reset.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line_number": 1467
+    },
+    {
+      "name": "exception_app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "exception_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "exception_app.router.reset",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/progress.py",
+      "line": 1467,
+      "caller": "test_custom_exception_default_message",
+      "source_code": "    def reset(\n        self,\n        task_id: TaskID,\n        *,\n        start: bool = True,\n        total: Optional[float] = None,\n        completed: int = 0,\n        visible: Optional[bool] = None,\n        description: Optional[str] = None,\n        **fields: Any,\n"
+    },
+    {
+      "function": "exception_app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_custom_exception_default_message",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "exception_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_custom_exception_default_message",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 418",
+    "assert b'Tempest in a teapot' in response.body"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_custom_exception_default_message(exception_app):\n    class TeaError(SanicException):\n        message = \"Tempest in a teapot\"\n        status_code = 418\n\n    exception_app.router.reset()\n\n    @exception_app.get(\"/tempest\")\n    def tempest(_):\n        raise TeaError\n\n    _, response = exception_app.test_client.get(\"/tempest\", debug=True)\n    assert response.status == 418\n    assert b\"Tempest in a teapot\" in response.body"
+}

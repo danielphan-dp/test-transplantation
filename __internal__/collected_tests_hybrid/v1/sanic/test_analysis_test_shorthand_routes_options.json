@@ -1,0 +1,67 @@
+{
+  "test_name": "test_shorthand_routes_options",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_routes.py",
+  "static_methods": [
+    {
+      "name": "app.options",
+      "source_code": "    def options(self) -> ConsoleOptions:\n        \"\"\"Get default console options.\"\"\"\n        return ConsoleOptions(\n            max_height=self.size.height,\n            size=self.size,\n            legacy_windows=self.legacy_windows,\n            min_width=1,\n            max_width=self.width,\n            encoding=self.encoding,\n            is_terminal=self.is_terminal,\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 974
+    },
+    {
+      "name": "app.test_client.options",
+      "source_code": "    def options(self) -> ConsoleOptions:\n        \"\"\"Get default console options.\"\"\"\n        return ConsoleOptions(\n            max_height=self.size.height,\n            size=self.size,\n            legacy_windows=self.legacy_windows,\n            min_width=1,\n            max_width=self.width,\n            encoding=self.encoding,\n            is_terminal=self.is_terminal,\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 974
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "text",
+      "source_code": "    def text(self):\n        \"\"\"Content of the response, in unicode.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 907
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.options",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 974,
+      "caller": "test_shorthand_routes_options",
+      "source_code": "    @property\n    def options(self) -> ConsoleOptions:\n        \"\"\"Get default console options.\"\"\"\n        return ConsoleOptions(\n            max_height=self.size.height,\n            size=self.size,\n            legacy_windows=self.legacy_windows,\n            min_width=1,\n            max_width=self.width,\n            encoding=self.encoding,\n            is_terminal=self.is_terminal,\n        )\n\n"
+    },
+    {
+      "function": "app.test_client.options",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 974,
+      "caller": "test_shorthand_routes_options",
+      "source_code": "    @property\n    def options(self) -> ConsoleOptions:\n        \"\"\"Get default console options.\"\"\"\n        return ConsoleOptions(\n            max_height=self.size.height,\n            size=self.size,\n            legacy_windows=self.legacy_windows,\n            min_width=1,\n            max_width=self.width,\n            encoding=self.encoding,\n            is_terminal=self.is_terminal,\n        )\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_shorthand_routes_options",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 907,
+      "caller": "test_shorthand_routes_options",
+      "source_code": "    @property\n    def text(self):\n        \"\"\"Content of the response, in unicode.\n\n        If Response.encoding is None, encoding will be guessed using\n        ``charset_normalizer`` or ``chardet``.\n\n        The encoding of the response content is determined based solely on HTTP\n        headers, following RFC 2616 to the letter. If you can take advantage of\n        non-HTTP knowledge to make a better guess at the encoding, you should\n        set ``r.encoding`` appropriately before accessing this property.\n        \"\"\"\n\n        # Try charset from content-type\n        content = None\n        encoding = self.encoding\n\n        if not self.content:\n            return \"\"\n\n        # Fallback to auto-detected encoding.\n        if self.encoding is None:\n            encoding = self.apparent_encoding\n\n        # Decode unicode from given encoding.\n        try:\n            content = str(self.content, encoding, errors=\"replace\")\n        except (LookupError, TypeError):\n            # A LookupError is raised if the encoding was not found which could\n            # indicate a misspelling or similar mistake.\n            #\n            # A TypeError can be raised if encoding is None\n            #\n            # So we try blindly encoding.\n            content = str(self.content, errors=\"replace\")\n\n        return content\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200",
+    "assert response.status == 405"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_shorthand_routes_options(app):\n    @app.options(\"/options\")\n    def handler(request):\n        return text(\"OK\")\n\n    request, response = app.test_client.options(\"/options\")\n    assert response.status == 200\n\n    request, response = app.test_client.get(\"/options\")\n    assert response.status == 405"
+}

@@ -1,0 +1,54 @@
+{
+  "test_name": "test_print_version",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "main",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line_number": 6
+    },
+    {
+      "name": "output.getvalue",
+      "source_code": "        def getvalue(self):\n            return self.builder.build()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/msgpack/fallback.py",
+      "line_number": 66
+    },
+    {
+      "name": "importlib_metadata.version",
+      "source_code": "    def version(self) -> str:\n        return self._spec[1]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/packaging/specifiers.py",
+      "line_number": 154
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "main",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line": 6,
+      "caller": "test_print_version",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.\n\n    For additional details, see https://github.com/pypa/pip/issues/7498.\n    \"\"\"\n    from pip._internal.utils.entrypoints import _wrapper\n\n    return _wrapper(args)\n"
+    },
+    {
+      "function": "output.getvalue",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/msgpack/fallback.py",
+      "line": 66,
+      "caller": "test_print_version",
+      "source_code": "        def getvalue(self):\n            return self.builder.build()\n\n"
+    },
+    {
+      "function": "importlib_metadata.version",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/packaging/specifiers.py",
+      "line": 154,
+      "caller": "test_print_version",
+      "source_code": "    @property\n    def version(self) -> str:\n        return self._spec[1]\n\n"
+    }
+  ],
+  "assertions": [
+    "assert e_info.value.code == 0",
+    "assert f\"Connexion {importlib_metadata.version('connexion')}\" in output.getvalue()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_print_version():\n\n    output = io.StringIO()\n    with pytest.raises(SystemExit) as e_info, contextlib.redirect_stdout(output):\n        main([\"--version\"])\n\n    assert e_info.value.code == 0\n    assert f\"Connexion {importlib_metadata.version('connexion')}\" in output.getvalue()"
+}

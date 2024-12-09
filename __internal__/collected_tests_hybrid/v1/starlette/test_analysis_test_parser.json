@@ -1,0 +1,54 @@
+{
+  "test_name": "test_parser",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_auth.py",
+  "static_methods": [
+    {
+      "name": "auth.SASLParser",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "p.feed",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line_number": 84
+    },
+    {
+      "name": "p.feed",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line_number": 84
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "auth.SASLParser",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parser",
+      "source_code": ""
+    },
+    {
+      "function": "p.feed",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line": 84,
+      "caller": "test_parser",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state\n\n        return self.state\n"
+    },
+    {
+      "function": "p.feed",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line": 84,
+      "caller": "test_parser",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state\n\n        return self.state\n"
+    }
+  ],
+  "assertions": [
+    "assert not p.authenticated",
+    "assert p.authenticated"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parser():\n    p = auth.SASLParser()\n    p.feed(b'OK 728d62bc2eb394')\n    assert not p.authenticated\n    p.feed(b'1ebbb0b42958b1e0d6\\r\\n')\n    assert p.authenticated"
+}

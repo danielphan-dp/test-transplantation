@@ -1,0 +1,27 @@
+{
+  "test_name": "test_cookies_merge_with_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_cookies_merge_with_headers",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    }
+  ],
+  "assertions": [
+    "assert 'cookie1=val1; cookie2=val2' == req.headers['COOKIE']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_cookies_merge_with_headers(make_request: _RequestMaker) -> None:\n    req = make_request(\n        \"get\",\n        \"http://test.com/path\",\n        headers={\"cookie\": \"cookie1=val1\"},\n        cookies={\"cookie2\": \"val2\"},\n    )\n\n    assert \"cookie1=val1; cookie2=val2\" == req.headers[\"COOKIE\"]"
+}

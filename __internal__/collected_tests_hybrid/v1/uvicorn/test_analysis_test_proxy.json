@@ -1,0 +1,54 @@
+{
+  "test_name": "test_proxy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/tests/test_blocking.py",
+  "static_methods": [
+    {
+      "name": "Proxy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "proxy.RequestName",
+      "source_code": "    def RequestName(self, name, flags=0):\n        return new_method_call(self, 'RequestName', 'su', (name, flags))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 34
+    },
+    {
+      "name": "proxy.NameHasOwner",
+      "source_code": "    def NameHasOwner(self, name):\n        return new_method_call(self, 'NameHasOwner', 's', (name,))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 48
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Proxy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_proxy",
+      "source_code": ""
+    },
+    {
+      "function": "proxy.RequestName",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 34,
+      "caller": "test_proxy",
+      "source_code": "    def RequestName(self, name, flags=0):\n        return new_method_call(self, 'RequestName', 'su', (name, flags))\n\n"
+    },
+    {
+      "function": "proxy.NameHasOwner",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 48,
+      "caller": "test_proxy",
+      "source_code": "    def NameHasOwner(self, name):\n        return new_method_call(self, 'NameHasOwner', 's', (name,))\n\n"
+    }
+  ],
+  "assertions": [
+    "assert res in {(1,), (2,)}",
+    "assert has_owner is True"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_proxy(session_conn):\n    proxy = Proxy(message_bus, session_conn, timeout=5)\n    name = \"io.gitlab.takluyver.jeepney.examples.Server\"\n    res = proxy.RequestName(name)\n    assert res in {(1,), (2,)}  # 1: got the name, 2: queued\n\n    has_owner, = proxy.NameHasOwner(name, _timeout=3)\n    assert has_owner is True"
+}

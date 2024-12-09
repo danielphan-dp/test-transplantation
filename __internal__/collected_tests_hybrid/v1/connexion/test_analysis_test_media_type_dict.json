@@ -1,0 +1,32 @@
+{
+  "test_name": "test_media_type_dict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_datastructures.py",
+  "static_methods": [
+    {
+      "name": "MediaTypeDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MediaTypeDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_media_type_dict",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert d['application/json'] == '*/json'",
+    "assert d['application/problem+json'] == '*/*json'",
+    "assert d['application/x-www-form-urlencoded'] == '*/*'",
+    "assert d['multipart/form-data'] == 'multipart/form-data'",
+    "assert d['multipart/byteranges'] == 'multipart/*'",
+    "assert 'application/json' in d"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_media_type_dict():\n    d = MediaTypeDict(\n        {\n            \"*/*\": \"*/*\",\n            \"*/json\": \"*/json\",\n            \"*/*json\": \"*/*json\",\n            \"multipart/*\": \"multipart/*\",\n            \"multipart/form-data\": \"multipart/form-data\",\n        }\n    )\n\n    assert d[\"application/json\"] == \"*/json\"\n    assert d[\"application/problem+json\"] == \"*/*json\"\n    assert d[\"application/x-www-form-urlencoded\"] == \"*/*\"\n    assert d[\"multipart/form-data\"] == \"multipart/form-data\"\n    assert d[\"multipart/byteranges\"] == \"multipart/*\"\n\n    # Test __contains__\n    assert \"application/json\" in d"
+}

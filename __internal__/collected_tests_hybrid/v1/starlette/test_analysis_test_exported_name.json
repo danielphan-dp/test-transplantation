@@ -1,0 +1,41 @@
+{
+  "test_name": "test_exported_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_namegen.py",
+  "static_methods": [
+    {
+      "name": "exported_name",
+      "source_code": "def exported_name(fullname: str) -> str:\n    \"\"\"Return a C name usable for an exported definition.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/namegen.py",
+      "line_number": 83
+    },
+    {
+      "name": "exported_name",
+      "source_code": "def exported_name(fullname: str) -> str:\n    \"\"\"Return a C name usable for an exported definition.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/namegen.py",
+      "line_number": 83
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "exported_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/namegen.py",
+      "line": 83,
+      "caller": "test_exported_name",
+      "source_code": "def exported_name(fullname: str) -> str:\n    \"\"\"Return a C name usable for an exported definition.\n\n    This is like private_name(), but the output only depends on the\n    'fullname' argument, so the names are distinct across multiple\n    builds.\n    \"\"\"\n    # TODO: Support unicode\n    return fullname.replace(\"___\", \"___3_\").replace(\".\", \"___\")\n\n\n"
+    },
+    {
+      "function": "exported_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/namegen.py",
+      "line": 83,
+      "caller": "test_exported_name",
+      "source_code": "def exported_name(fullname: str) -> str:\n    \"\"\"Return a C name usable for an exported definition.\n\n    This is like private_name(), but the output only depends on the\n    'fullname' argument, so the names are distinct across multiple\n    builds.\n    \"\"\"\n    # TODO: Support unicode\n    return fullname.replace(\"___\", \"___3_\").replace(\".\", \"___\")\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert exported_name('foo') == 'foo'",
+    "assert exported_name('foo.bar') == 'foo___bar'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_exported_name(self) -> None:\n        assert exported_name(\"foo\") == \"foo\"\n        assert exported_name(\"foo.bar\") == \"foo___bar\""
+}

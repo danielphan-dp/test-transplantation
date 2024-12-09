@@ -1,0 +1,25 @@
+{
+  "test_name": "test_reject_garbage_in_header_line",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+  "static_methods": [
+    {
+      "name": "tr",
+      "source_code": "def tr(reader: Any, data: bytes, expected: Any) -> None:\n    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line_number": 99
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line": 99,
+      "caller": "test_reject_garbage_in_header_line",
+      "source_code": "def tr(reader: Any, data: bytes, expected: Any) -> None:\n    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes\n\n    # Simple: consume whole thing\n    buf = makebuf(data)\n    check(reader(buf))\n    assert not buf\n\n    # Incrementally growing buffer\n    buf = ReceiveBuffer()\n    for i in range(len(data)):\n        assert reader(buf) is None\n        buf += data[i : i + 1]\n    check(reader(buf))\n\n    # Trailing data\n    buf = makebuf(data)\n    buf += b\"trailing\"\n    check(reader(buf))\n    assert bytes(buf) == b\"trailing\"\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reject_garbage_in_header_line() -> None:\n    with pytest.raises(LocalProtocolError):\n        tr(\n            READERS[CLIENT, IDLE],\n            b\"HEAD /foo HTTP/1.1\\r\\n\" b\"Host: foo\\x00bar\\r\\n\\r\\n\",\n            None,\n        )"
+}

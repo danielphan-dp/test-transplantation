@@ -1,0 +1,38 @@
+{
+  "test_name": "test_forbid_changing_frozen_app",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_app.py",
+  "static_methods": [
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line_number": 26
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_forbid_changing_frozen_app",
+      "source_code": ""
+    },
+    {
+      "function": "app.freeze",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line": 26,
+      "caller": "test_forbid_changing_frozen_app",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_forbid_changing_frozen_app() -> None:\n    app = web.Application()\n    app.freeze()\n    with pytest.raises(RuntimeError):\n        app[\"key\"] = \"value\""
+}

@@ -1,0 +1,80 @@
+{
+  "test_name": "test_empty_options",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "request.addfinalizer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "warns.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "request.addfinalizer",
+      "filename": "",
+      "line": 0,
+      "caller": "test_empty_options",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_empty_options",
+      "source_code": ""
+    },
+    {
+      "function": "warns.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_empty_options",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_empty_options",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_empty_options",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(warns) == 0",
+    "assert 'options' not in dir(dist)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_empty_options(self, request):\n        # an empty options dictionary should not stay in the\n        # list of attributes\n\n        # catching warnings\n        warns = []\n\n        def _warn(msg):\n            warns.append(msg)\n\n        request.addfinalizer(\n            functools.partial(setattr, warnings, 'warn', warnings.warn)\n        )\n        warnings.warn = _warn\n        dist = Distribution(\n            attrs={\n                'author': 'xxx',\n                'name': 'xxx',\n                'version': 'xxx',\n                'url': 'xxxx',\n                'options': {},\n            }\n        )\n\n        assert len(warns) == 0\n        assert 'options' not in dir(dist)"
+}

@@ -1,0 +1,105 @@
+{
+  "test_name": "test_remove_uncrawled",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Resource.opaque",
+      "source_code": "    def opaque(cls, contents: D) -> Resource[D]:\n        \"\"\"\n        Create an opaque `Resource` -- i.e. one with opaque specification.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 214
+    },
+    {
+      "name": "ID_AND_CHILDREN.create_resource",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 160
+    },
+    {
+      "name": "Registry.with_resources",
+      "source_code": "    def with_resources(\n        self,\n        pairs: Iterable[tuple[URI, Resource[D]]],\n    ) -> Registry[D]:\n        r\"\"\"\n        Add the given `Resource`\\ s to the registry, without crawling them.\n        \"\"\"\n        resources = self._resources\n        uncrawled = self._uncrawled\n        for uri, resource in pairs:\n            # Empty fragment URIs are equivalent to URIs without the fragment.\n            # TODO: Is this true for non JSON Schema resources? Probably not.\n            uri = uri.rstrip(\"#\")\n            uncrawled = uncrawled.insert(uri)\n            resources = resources.insert(uri, resource)\n        return evolve(self, resources=resources, uncrawled=uncrawled)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 515
+    },
+    {
+      "name": "registry.remove",
+      "source_code": "    def remove(self, key: str) -> None:\n        \"\"\"Remove a key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line_number": 274
+    },
+    {
+      "name": "Registry.with_resource",
+      "source_code": "    def with_resource(self, uri: URI, resource: Resource[D]):\n        \"\"\"\n        Add the given `Resource` to the registry, without crawling it.\n        \"\"\"\n        return self.with_resources([(uri, resource)])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 509
+    },
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Resource.opaque",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 214,
+      "caller": "test_remove_uncrawled",
+      "source_code": "    @classmethod\n    def opaque(cls, contents: D) -> Resource[D]:\n        \"\"\"\n        Create an opaque `Resource` -- i.e. one with opaque specification.\n\n        See `Specification.OPAQUE` for details.\n        \"\"\"\n        return Specification.OPAQUE.create_resource(contents=contents)\n\n"
+    },
+    {
+      "function": "ID_AND_CHILDREN.create_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 160,
+      "caller": "test_remove_uncrawled",
+      "source_code": "    def create_resource(self, contents: D) -> Resource[D]:\n        \"\"\"\n        Create a resource which is interpreted using this specification.\n        \"\"\"\n        return Resource(contents=contents, specification=self)\n\n\n"
+    },
+    {
+      "function": "Registry.with_resources",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 515,
+      "caller": "test_remove_uncrawled",
+      "source_code": "    def with_resources(\n        self,\n        pairs: Iterable[tuple[URI, Resource[D]]],\n"
+    },
+    {
+      "function": "registry.remove",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line": 274,
+      "caller": "test_remove_uncrawled",
+      "source_code": "    def remove(self, key: str) -> None:\n        \"\"\"Remove a key.\n\n        :param key: The key to be removed.\n        \"\"\"\n        return self._del_key(key)\n\n"
+    },
+    {
+      "function": "Registry.with_resource",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 509,
+      "caller": "test_remove_uncrawled",
+      "source_code": "    def with_resource(self, uri: URI, resource: Resource[D]):\n        \"\"\"\n        Add the given `Resource` to the registry, without crawling it.\n        \"\"\"\n        return self.with_resources([(uri, resource)])\n\n"
+    },
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remove_uncrawled",
+      "source_code": ""
+    },
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remove_uncrawled",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert registry.remove('urn:foo') == Registry().with_resource('urn:bar', two)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_remove_uncrawled(self):\n        one = Resource.opaque(contents={})\n        two = ID_AND_CHILDREN.create_resource({\"foo\": \"bar\"})\n        registry = Registry().with_resources(\n            [(\"urn:foo\", one), (\"urn:bar\", two)],\n        )\n        assert registry.remove(\"urn:foo\") == Registry().with_resource(\n            \"urn:bar\",\n            two,\n        )"
+}

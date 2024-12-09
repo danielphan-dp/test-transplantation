@@ -1,0 +1,79 @@
+{
+  "test_name": "test_add_static_append_version_follow_symlink",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_static",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n    ) -> StaticResource:\n        \"\"\"Add static files view.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1152
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1152,
+      "caller": "test_add_static_append_version_follow_symlink",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_static_append_version_follow_symlink",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_static_append_version_follow_symlink",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_static_append_version_follow_symlink",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_static_append_version_follow_symlink",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert expect_url == str(url)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_static_append_version_follow_symlink(\n    router: web.UrlDispatcher, tmp_path: pathlib.Path\n) -> None:\n    # Tests the access to a symlink, in static folder with apeend_version\n    symlink_path = tmp_path / \"append_version_symlink\"\n    symlink_target_path = pathlib.Path(__file__).parent\n    pathlib.Path(str(symlink_path)).symlink_to(str(symlink_target_path), True)\n\n    # Register global static route:\n    resource = router.add_static(\n        \"/st\", str(tmp_path), follow_symlinks=True, append_version=True\n    )\n\n    url = resource.url_for(filename=\"/append_version_symlink/data.unknown_mime_type\")\n\n    expect_url = (\n        \"/st/append_version_symlink/data.unknown_mime_type?\"\n        \"v=aUsn8CHEhhszc81d28QmlcBW0KQpfS2F4trgQKhOYd8%3D\"\n    )\n    assert expect_url == str(url)"
+}

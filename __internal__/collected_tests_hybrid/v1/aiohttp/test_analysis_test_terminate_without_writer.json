@@ -1,0 +1,54 @@
+{
+  "test_name": "test_terminate_without_writer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "ClientRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "req.terminate",
+      "source_code": "    def terminate(self) -> None:\n        if self.__writer is not None:\n            if not self.loop.is_closed():\n                self.__writer.cancel()\n            self.__writer.remove_done_callback(self.__reset_writer)\n            self.__writer = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line_number": 726
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ClientRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_terminate_without_writer",
+      "source_code": ""
+    },
+    {
+      "function": "req.terminate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line": 726,
+      "caller": "test_terminate_without_writer",
+      "source_code": "    def terminate(self) -> None:\n        if self.__writer is not None:\n            if not self.loop.is_closed():\n                self.__writer.cancel()\n            self.__writer.remove_done_callback(self.__reset_writer)\n            self.__writer = None\n\n"
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_terminate_without_writer",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert req._writer is None",
+    "assert req._writer is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_terminate_without_writer(loop: asyncio.AbstractEventLoop) -> None:\n    req = ClientRequest(\"get\", URL(\"http://python.org\"), loop=loop)\n    assert req._writer is None\n\n    req.terminate()\n    assert req._writer is None"
+}

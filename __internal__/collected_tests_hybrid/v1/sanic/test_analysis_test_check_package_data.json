@@ -1,0 +1,40 @@
+{
+  "test_name": "test_check_package_data",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "check_package_data",
+      "source_code": "def check_package_data(dist, attr, value):\n    \"\"\"Verify that value is a dictionary of package names to glob lists\"\"\"\n    if not isinstance(value, dict):\n        raise DistutilsSetupError(\n            \"{!r} must be a dictionary mapping package names to lists of \"\n            \"string wildcard patterns\".format(attr)\n        )\n    for k, v in value.items():\n        if not isinstance(k, str):\n            raise DistutilsSetupError(\n                \"keys of {!r} dict must be strings (got {!r})\".format(attr, k)\n            )\n        assert_string_list(dist, 'values of {!r} dict'.format(attr), v)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line_number": 209
+    },
+    {
+      "name": "check_package_data",
+      "source_code": "def check_package_data(dist, attr, value):\n    \"\"\"Verify that value is a dictionary of package names to glob lists\"\"\"\n    if not isinstance(value, dict):\n        raise DistutilsSetupError(\n            \"{!r} must be a dictionary mapping package names to lists of \"\n            \"string wildcard patterns\".format(attr)\n        )\n    for k, v in value.items():\n        if not isinstance(k, str):\n            raise DistutilsSetupError(\n                \"keys of {!r} dict must be strings (got {!r})\".format(attr, k)\n            )\n        assert_string_list(dist, 'values of {!r} dict'.format(attr), v)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line_number": 209
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "check_package_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line": 209,
+      "caller": "test_check_package_data",
+      "source_code": "def check_package_data(dist, attr, value):\n    \"\"\"Verify that value is a dictionary of package names to glob lists\"\"\"\n    if not isinstance(value, dict):\n        raise DistutilsSetupError(\n            \"{!r} must be a dictionary mapping package names to lists of \"\n            \"string wildcard patterns\".format(attr)\n        )\n    for k, v in value.items():\n        if not isinstance(k, str):\n            raise DistutilsSetupError(\n                \"keys of {!r} dict must be strings (got {!r})\".format(attr, k)\n            )\n        assert_string_list(dist, 'values of {!r} dict'.format(attr), v)\n\n\n"
+    },
+    {
+      "function": "check_package_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line": 209,
+      "caller": "test_check_package_data",
+      "source_code": "def check_package_data(dist, attr, value):\n    \"\"\"Verify that value is a dictionary of package names to glob lists\"\"\"\n    if not isinstance(value, dict):\n        raise DistutilsSetupError(\n            \"{!r} must be a dictionary mapping package names to lists of \"\n            \"string wildcard patterns\".format(attr)\n        )\n    for k, v in value.items():\n        if not isinstance(k, str):\n            raise DistutilsSetupError(\n                \"keys of {!r} dict must be strings (got {!r})\".format(attr, k)\n            )\n        assert_string_list(dist, 'values of {!r} dict'.format(attr), v)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert check_package_data(None, 'package_data', package_data) is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_check_package_data(package_data, expected_message):\n    if expected_message is None:\n        assert check_package_data(None, 'package_data', package_data) is None\n    else:\n        with pytest.raises(DistutilsSetupError, match=re.escape(expected_message)):\n            check_package_data(None, 'package_data', package_data)"
+}

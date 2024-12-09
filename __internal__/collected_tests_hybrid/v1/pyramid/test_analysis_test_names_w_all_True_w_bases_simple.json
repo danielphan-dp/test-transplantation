@@ -1,0 +1,116 @@
+{
+  "test_name": "test_names_w_all_True_w_bases_simple",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Attribute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "fromFunction",
+      "source_code": "def fromFunction(func, interface=None, imlevel=0, name=None):\n    name = name or func.__name__\n    method = Method(name, func.__doc__)\n    defaults = getattr(func, '__defaults__', None) or ()\n    code = func.__code__\n    # Number of positional arguments\n    na = code.co_argcount - imlevel\n    names = code.co_varnames[imlevel:]\n    opt = {}\n    # Number of required arguments\n    defaults_count = len(defaults)\n    if not defaults_count:\n        # PyPy3 uses ``__defaults_count__`` for builtin methods\n        # like ``dict.pop``. Surprisingly, these don't have recorded\n        # ``__defaults__``\n        defaults_count = getattr(func, '__defaults_count__', 0)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 1092
+    },
+    {
+      "name": "Attribute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "derived.names",
+      "source_code": "    def names(self, all=False):  # pylint:disable=redefined-builtin\n        \"\"\"Return the attribute names defined by the interface.\"\"\"\n        if not all:\n            return self.__attrs.keys()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 846
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": ""
+    },
+    {
+      "function": "Attribute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": ""
+    },
+    {
+      "function": "fromFunction",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 1092,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": "def fromFunction(func, interface=None, imlevel=0, name=None):\n    name = name or func.__name__\n    method = Method(name, func.__doc__)\n    defaults = getattr(func, '__defaults__', None) or ()\n    code = func.__code__\n    # Number of positional arguments\n    na = code.co_argcount - imlevel\n    names = code.co_varnames[imlevel:]\n    opt = {}\n    # Number of required arguments\n    defaults_count = len(defaults)\n    if not defaults_count:\n        # PyPy3 uses ``__defaults_count__`` for builtin methods\n        # like ``dict.pop``. Surprisingly, these don't have recorded\n        # ``__defaults__``\n        defaults_count = getattr(func, '__defaults_count__', 0)\n\n    nr = na - defaults_count\n    if nr < 0:\n        defaults = defaults[-nr:]\n        nr = 0\n\n    # Determine the optional arguments.\n    opt.update(dict(zip(names[nr:], defaults)))\n\n    method.positional = names[:na]\n    method.required = names[:nr]\n    method.optional = opt\n\n    argno = na\n\n    # Determine the function's variable argument's name (i.e. *args)\n    if code.co_flags & CO_VARARGS:\n        method.varargs = names[argno]\n        argno = argno + 1\n    else:\n        method.varargs = None\n\n    # Determine the function's keyword argument's name (i.e. **kw)\n    if code.co_flags & CO_VARKEYWORDS:\n        method.kwargs = names[argno]\n    else:\n        method.kwargs = None\n\n    method.interface = interface\n\n    for key, value in func.__dict__.items():\n        method.setTaggedValue(key, value)\n\n    return method\n\n\n"
+    },
+    {
+      "function": "Attribute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": ""
+    },
+    {
+      "function": "sorted",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": ""
+    },
+    {
+      "function": "derived.names",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 846,
+      "caller": "test_names_w_all_True_w_bases_simple",
+      "source_code": "    def names(self, all=False):  # pylint:disable=redefined-builtin\n        \"\"\"Return the attribute names defined by the interface.\"\"\"\n        if not all:\n            return self.__attrs.keys()\n\n        r = self.__attrs.copy()\n\n        for base in self.__bases__:\n            r.update(dict.fromkeys(base.names(all)))\n\n        return r.keys()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_names_w_all_True_w_bases_simple(self):\n        from zope.interface.interface import Attribute\n        from zope.interface.interface import fromFunction\n\n        def _bar():\n            \"\"\"DOCSTRING\"\"\"\n\n        BASE_ATTRS = {\n            'foo': Attribute('Foo', ''),\n            'bar': fromFunction(_bar),\n        }\n        DERIVED_ATTRS = {\n            'baz': Attribute('Baz', ''),\n        }\n        base = self._makeOne('IBase', attrs=BASE_ATTRS)\n        derived = self._makeOne('IDerived', bases=(base,), attrs=DERIVED_ATTRS)\n        self.assertEqual(\n            sorted(derived.names(all=True)), ['bar', 'baz', 'foo']\n        )"
+}

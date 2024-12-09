@@ -1,0 +1,40 @@
+{
+  "test_name": "test_signal_raise",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "record.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "signal_raise",
+      "source_code": "    def signal_raise(signum: int) -> None: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_util.py",
+      "line_number": 42
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "record.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_signal_raise",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "signal_raise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_util.py",
+      "line": 42,
+      "caller": "test_signal_raise",
+      "source_code": "    def signal_raise(signum: int) -> None: ...\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert record == [signal.SIGFPE]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_signal_raise() -> None:\n    record = []\n\n    def handler(signum: int, _: object) -> None:\n        record.append(signum)\n\n    old = signal.signal(signal.SIGFPE, handler)\n    try:\n        signal_raise(signal.SIGFPE)\n    finally:\n        signal.signal(signal.SIGFPE, old)\n    assert record == [signal.SIGFPE]"
+}

@@ -1,0 +1,105 @@
+{
+  "test_name": "test_valid_goto",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+  "static_methods": [
+    {
+      "name": "self.basic_block",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 50
+    },
+    {
+      "name": "self.basic_block",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 50
+    },
+    {
+      "name": "FuncIR",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "assert_no_errors",
+      "source_code": "def assert_no_errors(fn: FuncIR) -> None:\n    assert not check_func_ir(fn)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 39
+    },
+    {
+      "name": "Return",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Goto",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.func_decl",
+      "source_code": "    def func_decl(self, name: str, ret_type: RType | None = None) -> FuncDecl:\n        if ret_type is None:\n            ret_type = none_rprimitive\n        return FuncDecl(\n            name=name,\n            class_name=None,\n            module_name=\"module\",\n            sig=FuncSignature(args=[], ret_type=ret_type),\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 56
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.basic_block",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 50,
+      "caller": "test_valid_goto",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block\n\n"
+    },
+    {
+      "function": "self.basic_block",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 50,
+      "caller": "test_valid_goto",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block\n\n"
+    },
+    {
+      "function": "FuncIR",
+      "filename": "",
+      "line": 0,
+      "caller": "test_valid_goto",
+      "source_code": ""
+    },
+    {
+      "function": "assert_no_errors",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 39,
+      "caller": "test_valid_goto",
+      "source_code": "def assert_no_errors(fn: FuncIR) -> None:\n    assert not check_func_ir(fn)\n\n\n"
+    },
+    {
+      "function": "Return",
+      "filename": "",
+      "line": 0,
+      "caller": "test_valid_goto",
+      "source_code": ""
+    },
+    {
+      "function": "Goto",
+      "filename": "",
+      "line": 0,
+      "caller": "test_valid_goto",
+      "source_code": ""
+    },
+    {
+      "function": "self.func_decl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 56,
+      "caller": "test_valid_goto",
+      "source_code": "    def func_decl(self, name: str, ret_type: RType | None = None) -> FuncDecl:\n        if ret_type is None:\n            ret_type = none_rprimitive\n        return FuncDecl(\n            name=name,\n            class_name=None,\n            module_name=\"module\",\n            sig=FuncSignature(args=[], ret_type=ret_type),\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert_no_errors(fn)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_valid_goto(self) -> None:\n        block_1 = self.basic_block([Return(value=NONE_VALUE)])\n        block_2 = self.basic_block([Goto(label=block_1)])\n        fn = FuncIR(decl=self.func_decl(name=\"func_1\"), arg_regs=[], blocks=[block_1, block_2])\n        assert_no_errors(fn)"
+}

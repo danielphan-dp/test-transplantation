@@ -1,0 +1,133 @@
+{
+  "test_name": "test_struct_offsets",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_struct.py",
+  "static_methods": [
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RStruct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    },
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    },
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    },
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    },
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    },
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    },
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    },
+    {
+      "function": "RStruct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_struct_offsets",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert r.size == 16",
+    "assert r.offsets == [0, 4, 8]",
+    "assert r1.size == 2",
+    "assert r1.offsets == [0, 1]",
+    "assert r2.offsets == [0, 4]",
+    "assert r3.offsets == [0, 8]",
+    "assert r2.size == 8",
+    "assert r3.size == 16",
+    "assert r4.size == 8",
+    "assert r4.offsets == [0, 1, 2, 4]",
+    "assert r5.offsets == [0, 8]",
+    "assert r5.size == 24",
+    "assert r6.offsets == [0, 8]",
+    "assert r6.size == 32",
+    "assert r7.offsets == [0, 4]",
+    "assert r7.size == 12"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_struct_offsets(self) -> None:\n        # test per-member alignment\n        r = RStruct(\"\", [], [bool_rprimitive, int32_rprimitive, int64_rprimitive])\n        assert r.size == 16\n        assert r.offsets == [0, 4, 8]\n\n        # test final alignment\n        r1 = RStruct(\"\", [], [bool_rprimitive, bool_rprimitive])\n        assert r1.size == 2\n        assert r1.offsets == [0, 1]\n        r2 = RStruct(\"\", [], [int32_rprimitive, bool_rprimitive])\n        r3 = RStruct(\"\", [], [int64_rprimitive, bool_rprimitive])\n        assert r2.offsets == [0, 4]\n        assert r3.offsets == [0, 8]\n        assert r2.size == 8\n        assert r3.size == 16\n\n        r4 = RStruct(\"\", [], [bool_rprimitive, bool_rprimitive, bool_rprimitive, int32_rprimitive])\n        assert r4.size == 8\n        assert r4.offsets == [0, 1, 2, 4]\n\n        # test nested struct\n        r5 = RStruct(\"\", [], [bool_rprimitive, r])\n        assert r5.offsets == [0, 8]\n        assert r5.size == 24\n        r6 = RStruct(\"\", [], [int32_rprimitive, r5])\n        assert r6.offsets == [0, 8]\n        assert r6.size == 32\n        # test nested struct with alignment less than 8\n        r7 = RStruct(\"\", [], [bool_rprimitive, r4])\n        assert r7.offsets == [0, 4]\n        assert r7.size == 12"
+}

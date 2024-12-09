@@ -1,0 +1,53 @@
+{
+  "test_name": "test_unreader_unread",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_http.py",
+  "static_methods": [
+    {
+      "name": "Unreader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "unreader.unread",
+      "source_code": "    def unread(self, data):\n        self.buf.seek(0, os.SEEK_END)\n        self.buf.write(data)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/http/unreader.py",
+      "line_number": 51
+    },
+    {
+      "name": "unreader.read",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line_number": 145
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Unreader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unreader_unread",
+      "source_code": ""
+    },
+    {
+      "function": "unreader.unread",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/http/unreader.py",
+      "line": 51,
+      "caller": "test_unreader_unread",
+      "source_code": "    def unread(self, data):\n        self.buf.seek(0, os.SEEK_END)\n        self.buf.write(data)\n\n\n"
+    },
+    {
+      "function": "unreader.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line": 145,
+      "caller": "test_unreader_unread",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None\n\n        self.position += len(token.text)\n        self.next_token = None\n\n        return token\n\n"
+    }
+  ],
+  "assertions": [
+    "assert b'hi there' in unreader.read()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_unreader_unread():\n    unreader = Unreader()\n    unreader.unread(b'hi there')\n    assert b'hi there' in unreader.read()"
+}

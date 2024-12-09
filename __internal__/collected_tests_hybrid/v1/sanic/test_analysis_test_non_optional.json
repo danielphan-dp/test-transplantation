@@ -1,0 +1,25 @@
+{
+  "test_name": "test_non_optional",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "self.get_build_ext_cmd",
+      "source_code": "    def get_build_ext_cmd(self, optional: bool, **opts) -> build_ext:\n        files = {\n            \"eggs.c\": \"#include missingheader.h\\n\",\n            \".build\": {\"lib\": {}, \"tmp\": {}},\n        }\n        path.build(files)  # jaraco/path#232\n        extension = Extension('spam.eggs', ['eggs.c'], optional=optional)\n        dist = Distribution(dict(ext_modules=[extension]))\n        dist.script_name = 'setup.py'\n        cmd = build_ext(dist)\n        vars(cmd).update(build_lib=\".build/lib\", build_temp=\".build/tmp\", **opts)\n        cmd.ensure_finalized()\n        return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+      "line_number": 181
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.get_build_ext_cmd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+      "line": 181,
+      "caller": "test_non_optional",
+      "source_code": "    def get_build_ext_cmd(self, optional: bool, **opts) -> build_ext:\n        files = {\n            \"eggs.c\": \"#include missingheader.h\\n\",\n            \".build\": {\"lib\": {}, \"tmp\": {}},\n        }\n        path.build(files)  # jaraco/path#232\n        extension = Extension('spam.eggs', ['eggs.c'], optional=optional)\n        dist = Distribution(dict(ext_modules=[extension]))\n        dist.script_name = 'setup.py'\n        cmd = build_ext(dist)\n        vars(cmd).update(build_lib=\".build/lib\", build_temp=\".build/tmp\", **opts)\n        cmd.ensure_finalized()\n        return cmd\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_non_optional(self, tmpdir_cwd):\n        # Non-optional extensions should raise an exception\n        cmd = self.get_build_ext_cmd(optional=False, inplace=True)\n        with pytest.raises(CompileError):\n            cmd.run()"
+}

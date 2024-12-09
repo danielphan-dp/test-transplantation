@@ -1,0 +1,90 @@
+{
+  "test_name": "test_run_app_multiple_hosts",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.run_app",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n    ) -> Tuple[\"asyncio.Task[None]\", int]:\n        num_connections = -1\n        t = test_task = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 1007
+    },
+    {
+      "name": "map",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "patched_loop.create_server.assert_has_calls",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stopper",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 99
+    },
+    {
+      "name": "mock.call",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_multiple_hosts",
+      "source_code": ""
+    },
+    {
+      "function": "web.run_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 1007,
+      "caller": "test_run_app_multiple_hosts",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n"
+    },
+    {
+      "function": "map",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_app_multiple_hosts",
+      "source_code": ""
+    },
+    {
+      "function": "patched_loop.create_server.assert_has_calls",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_multiple_hosts",
+      "source_code": ""
+    },
+    {
+      "function": "stopper",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 99,
+      "caller": "test_run_app_multiple_hosts",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt\n\n    def f(*args: object) -> None:\n        loop.call_soon(raiser)\n\n    return f\n\n\n"
+    },
+    {
+      "function": "mock.call",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_multiple_hosts",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_app_multiple_hosts(patched_loop: asyncio.AbstractEventLoop) -> None:\n    hosts = (\"127.0.0.1\", \"127.0.0.2\")\n\n    app = web.Application()\n    web.run_app(app, host=hosts, print=stopper(patched_loop), loop=patched_loop)\n\n    calls = map(\n        lambda h: mock.call(\n            mock.ANY,\n            h,\n            8080,\n            ssl=None,\n            backlog=128,\n            reuse_address=None,\n            reuse_port=None,\n        ),\n        hosts,\n    )\n    patched_loop.create_server.assert_has_calls(calls)"
+}

@@ -1,0 +1,72 @@
+{
+  "test_name": "test_websocket_scope_interface",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_websockets.py",
+  "static_methods": [
+    {
+      "name": "WebSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "WebSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "WebSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_scope_interface",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_websocket_scope_interface",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_websocket_scope_interface",
+      "source_code": ""
+    },
+    {
+      "function": "WebSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_scope_interface",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert websocket['type'] == 'websocket'",
+    "assert dict(websocket) == {'type': 'websocket', 'path': '/abc/', 'headers': []}",
+    "assert len(websocket) == 3",
+    "assert websocket != WebSocket({'type': 'websocket', 'path': '/abc/', 'headers': []}, receive=mock_receive, send=mock_send)",
+    "assert websocket == websocket",
+    "assert websocket in {websocket}",
+    "assert {websocket} == {websocket}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_websocket_scope_interface() -> None:\n    \"\"\"\n    A WebSocket can be instantiated with a scope, and presents a `Mapping`\n    interface.\n    \"\"\"\n\n    async def mock_receive() -> Message:  # type: ignore\n        ...  # pragma: no cover\n\n    async def mock_send(message: Message) -> None: ...  # pragma: no cover\n\n    websocket = WebSocket({\"type\": \"websocket\", \"path\": \"/abc/\", \"headers\": []}, receive=mock_receive, send=mock_send)\n    assert websocket[\"type\"] == \"websocket\"\n    assert dict(websocket) == {\"type\": \"websocket\", \"path\": \"/abc/\", \"headers\": []}\n    assert len(websocket) == 3\n\n    # check __eq__ and __hash__\n    assert websocket != WebSocket(\n        {\"type\": \"websocket\", \"path\": \"/abc/\", \"headers\": []},\n        receive=mock_receive,\n        send=mock_send,\n    )\n    assert websocket == websocket\n    assert websocket in {websocket}\n    assert {websocket} == {websocket}"
+}

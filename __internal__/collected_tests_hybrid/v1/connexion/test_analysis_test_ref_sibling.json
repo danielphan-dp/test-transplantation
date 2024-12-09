@@ -1,0 +1,142 @@
+{
+  "test_name": "test_ref_sibling",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "validators.Draft202012Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.iter_errors",
+      "source_code": "        def iter_errors(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.iter_errors \"\n                        \"is deprecated and will be removed in a future \"\n                        \"release. Call validator.evolve(schema=new_schema).\"\n                        \"iter_errors(...) instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                validators = [\n                    (self.VALIDATORS[k], k, v)\n                    for k, v in applicable_validators(_schema)\n                    if k in self.VALIDATORS\n                ]\n            else:\n                _schema, validators = self.schema, self._validators",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 350
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validators.Draft202012Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "validator.iter_errors",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 350,
+      "caller": "test_ref_sibling",
+      "source_code": "        def iter_errors(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.iter_errors \"\n                        \"is deprecated and will be removed in a future \"\n                        \"release. Call validator.evolve(schema=new_schema).\"\n                        \"iter_errors(...) instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                validators = [\n                    (self.VALIDATORS[k], k, v)\n                    for k, v in applicable_validators(_schema)\n                    if k in self.VALIDATORS\n                ]\n            else:\n                _schema, validators = self.schema, self._validators\n\n            if _schema is True:\n                return\n            elif _schema is False:\n                yield exceptions.ValidationError(\n                    f\"False schema does not allow {instance!r}\",\n                    validator=None,\n                    validator_value=None,\n                    instance=instance,\n                    schema=_schema,\n                )\n                return\n\n            for validator, k, v in validators:\n                errors = validator(self, v, instance, _schema) or ()\n                for error in errors:\n                    # set details if not already set by the called fn\n                    error._set(\n                        validator=k,\n                        validator_value=v,\n                        instance=instance,\n                        schema=_schema,\n                        type_checker=self.TYPE_CHECKER,\n                    )\n                    if k not in {\"if\", \"$ref\"}:\n                        error.schema_path.appendleft(k)\n                    yield error\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ref_sibling",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ref_sibling(self):\n        schema = {\n            \"$defs\": {\"foo\": {\"required\": [\"bar\"]}},\n            \"properties\": {\n                \"aprop\": {\n                    \"$ref\": \"#/$defs/foo\",\n                    \"required\": [\"baz\"],\n                },\n            },\n        }\n\n        validator = validators.Draft202012Validator(schema)\n        e1, e2 = validator.iter_errors({\"aprop\": {}})\n        self.assertEqual(\n            (\n                e1.message,\n                e1.validator,\n                e1.validator_value,\n                e1.instance,\n                e1.absolute_path,\n                e1.schema,\n                e1.schema_path,\n                e1.relative_schema_path,\n                e1.json_path,\n            ),\n            (\n                \"'bar' is a required property\",\n                \"required\",\n                [\"bar\"],\n                {},\n                deque([\"aprop\"]),\n                {\"required\": [\"bar\"]},\n                deque([\"properties\", \"aprop\", \"required\"]),\n                deque([\"properties\", \"aprop\", \"required\"]),\n                \"$.aprop\",\n            ),\n        )\n        self.assertEqual(\n            (\n                e2.message,\n                e2.validator,\n                e2.validator_value,\n                e2.instance,\n                e2.absolute_path,\n                e2.schema,\n                e2.schema_path,\n                e2.relative_schema_path,\n                e2.json_path,\n            ),\n            (\n                \"'baz' is a required property\",\n                \"required\",\n                [\"baz\"],\n                {},\n                deque([\"aprop\"]),\n                {\"$ref\": \"#/$defs/foo\", \"required\": [\"baz\"]},\n                deque([\"properties\", \"aprop\", \"required\"]),\n                deque([\"properties\", \"aprop\", \"required\"]),\n                \"$.aprop\",\n            ),\n        )"
+}

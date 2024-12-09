@@ -1,0 +1,51 @@
+{
+  "test_name": "test_staticmethod_hit_on_class",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_verify.py",
+  "static_methods": [
+    {
+      "name": "provider",
+      "source_code": "    def provider(*interfaces):\n        \"\"\"\n        Declare interfaces provided directly by a class.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 767
+    },
+    {
+      "name": "verifyObject",
+      "source_code": "def verifyObject(iface, candidate, tentative=False):\n    return _verify(iface, candidate, tentative, vtype='o')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/verify.py",
+      "line_number": 182
+    },
+    {
+      "name": "AssertionError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "provider",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 767,
+      "caller": "test_staticmethod_hit_on_class",
+      "source_code": "    def provider(*interfaces):\n        \"\"\"\n        Declare interfaces provided directly by a class.\n\n        .. seealso:: `zope.interface.provider`\n        \"\"\"\n\n"
+    },
+    {
+      "function": "verifyObject",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/verify.py",
+      "line": 182,
+      "caller": "test_staticmethod_hit_on_class",
+      "source_code": "def verifyObject(iface, candidate, tentative=False):\n    return _verify(iface, candidate, tentative, vtype='o')\n\n\n"
+    },
+    {
+      "function": "AssertionError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticmethod_hit_on_class",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_staticmethod_hit_on_class(self):\n        from zope.interface import Interface\n        from zope.interface import provider\n        from zope.interface.verify import verifyObject\n\n        class IFoo(Interface):\n\n            def bar(a, b):\n                \"The bar method\"\n\n        @provider(IFoo)\n        class Foo:\n\n            @staticmethod\n            def bar(a, b):\n                raise AssertionError(\"We're never actually called\")\n\n        # Don't use self._callFUT, we don't want to instantiate the\n        # class.\n        verifyObject(IFoo, Foo)"
+}

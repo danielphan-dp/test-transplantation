@@ -1,0 +1,53 @@
+{
+  "test_name": "test_consistent_error_from_modified_py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ENSURE_CONSISTENT_ERROR_FROM_MODIFIED_PY.format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "win_sr",
+      "source_code": "def win_sr(env):\n    \"\"\"\n    On Windows, SYSTEMROOT must be present to avoid",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line_number": 13
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_consistent_error_from_modified_py",
+      "source_code": ""
+    },
+    {
+      "function": "ENSURE_CONSISTENT_ERROR_FROM_MODIFIED_PY.format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_consistent_error_from_modified_py",
+      "source_code": ""
+    },
+    {
+      "function": "win_sr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_distutils_adoption.py",
+      "line": 13,
+      "caller": "test_consistent_error_from_modified_py",
+      "source_code": "def win_sr(env):\n    \"\"\"\n    On Windows, SYSTEMROOT must be present to avoid\n\n    > Fatal Python error: _Py_HashRandomization_Init: failed to\n    > get random numbers to initialize Python\n    \"\"\"\n    if env and platform.system() == 'Windows':\n        env['SYSTEMROOT'] = os.environ['SYSTEMROOT']\n    return env\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert output == 'success'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_consistent_error_from_modified_py(distutils_version, imported_module, venv):\n    env = dict(SETUPTOOLS_USE_DISTUTILS=distutils_version)\n    cmd = [\n        'python',\n        '-c',\n        ENSURE_CONSISTENT_ERROR_FROM_MODIFIED_PY.format(\n            imported_module=imported_module\n        ),\n    ]\n    output = venv.run(cmd, env=win_sr(env), **_TEXT_KWARGS).strip()\n    assert output == \"success\""
+}

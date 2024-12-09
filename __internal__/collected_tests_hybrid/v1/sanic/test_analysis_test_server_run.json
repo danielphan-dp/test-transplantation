@@ -1,0 +1,40 @@
+{
+  "test_name": "test_server_run",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "capture",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 1083
+    },
+    {
+      "name": "command.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "capture",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 1083,
+      "caller": "test_server_run",
+      "source_code": "    def capture(self) -> Capture:\n        \"\"\"A context manager to *capture* the result of print() or log() in a string,\n        rather than writing it to the console.\n\n        Example:\n            >>> from rich.console import Console\n            >>> console = Console()\n            >>> with console.capture() as capture:\n            ...     console.print(\"[bold magenta]Hello World[/]\")\n            >>> print(capture.get())\n\n        Returns:\n            Capture: Context manager with disables writing to the terminal.\n        \"\"\"\n        capture = Capture(self)\n        return capture\n\n"
+    },
+    {
+      "function": "command.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_server_run",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    }
+  ],
+  "assertions": [
+    "assert f\"Goin' Fast @ http://127.0.0.1:{port}\" in lines"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_server_run(\n    appname: str, extra: Optional[str], caplog: pytest.LogCaptureFixture, port\n):\n    command = [appname, f\"-p={port}\"]\n    if extra:\n        command.append(extra)\n    lines = capture(command, caplog)\n\n    assert f\"Goin' Fast @ http://127.0.0.1:{port}\" in lines"
+}

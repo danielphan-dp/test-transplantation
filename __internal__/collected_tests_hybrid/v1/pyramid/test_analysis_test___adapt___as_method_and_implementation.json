@@ -1,0 +1,77 @@
+{
+  "test_name": "test___adapt___as_method_and_implementation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "IFoo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "IFoo.getSignatureString",
+      "source_code": "    def getSignatureString(self):\n        sig = []\n        for v in self.positional:\n            sig.append(v)\n            if v in self.optional.keys():\n                sig[-1] += \"=\" + repr(self.optional[v])\n        if self.varargs:\n            sig.append(\"*\" + self.varargs)\n        if self.kwargs:\n            sig.append(\"**\" + self.kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 1076
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___adapt___as_method_and_implementation",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___adapt___as_method_and_implementation",
+      "source_code": ""
+    },
+    {
+      "function": "IFoo",
+      "filename": "",
+      "line": 0,
+      "caller": "test___adapt___as_method_and_implementation",
+      "source_code": ""
+    },
+    {
+      "function": "IFoo.getSignatureString",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 1076,
+      "caller": "test___adapt___as_method_and_implementation",
+      "source_code": "    def getSignatureString(self):\n        sig = []\n        for v in self.positional:\n            sig.append(v)\n            if v in self.optional.keys():\n                sig[-1] += \"=\" + repr(self.optional[v])\n        if self.varargs:\n            sig.append(\"*\" + self.varargs)\n        if self.kwargs:\n            sig.append(\"**\" + self.kwargs)\n\n        return \"(%s)\" % \", \".join(sig)\n\n"
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test___adapt___as_method_and_implementation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___adapt___as_method_and_implementation(self):\n        from zope.interface import Interface\n        from zope.interface import interfacemethod\n\n        class IFoo(Interface):\n            @interfacemethod\n            def __adapt__(self, obj):\n                return 42\n\n            def __adapt__(to_adapt):  # noqa F811\n                \"This is a protocol\"\n\n        self.assertEqual(42, IFoo(object()))\n        self.assertEqual(IFoo['__adapt__'].getSignatureString(), '(to_adapt)')"
+}

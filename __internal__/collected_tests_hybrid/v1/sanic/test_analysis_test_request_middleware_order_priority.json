@@ -1,0 +1,92 @@
+{
+  "test_name": "test_request_middleware_order_priority",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware_priority.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "enumerate",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "order.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "app.on_request",
+      "source_code": "    def on_request(self, middleware=None):\n        \"\"\"Convenience method to register a request middleware for all blueprints in the group.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line_number": 964
+    },
+    {
+      "name": "partial",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_middleware_order_priority",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "enumerate",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_middleware_order_priority",
+      "source_code": ""
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_middleware_order_priority",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "order.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_request_middleware_order_priority",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "app.on_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line": 964,
+      "caller": "test_request_middleware_order_priority",
+      "source_code": "    def on_request(self, middleware=None):\n        \"\"\"Convenience method to register a request middleware for all blueprints in the group.\n\n        Args:\n            middleware (Optional): Optional positional Parameters to be use middleware\n\n        Returns:\n            Partial function to apply the middleware\n        \"\"\"  # noqa: E501\n        if callable(middleware):\n            return self.middleware(middleware, \"request\")\n        else:\n            return partial(self.middleware, attach_to=\"request\")\n\n"
+    },
+    {
+      "function": "partial",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_middleware_order_priority",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert order == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_middleware_order_priority(app: Sanic, expected, priorities):\n    order = []\n\n    def add_ident(request, ident):\n        order.append(ident)\n\n    @app.get(\"/\")\n    def handler(request):\n        return json(None)\n\n    for ident, priority in enumerate(priorities):\n        kwargs = {}\n        if priority is not None:\n            kwargs[\"priority\"] = priority\n        app.on_request(partial(add_ident, ident=ident), **kwargs)\n\n    app.test_client.get(\"/\")\n\n    assert order == expected"
+}

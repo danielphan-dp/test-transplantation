@@ -1,0 +1,43 @@
+{
+  "test_name": "test_stream_response_ctor",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_response.py",
+  "static_methods": [
+    {
+      "name": "web.StreamResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.StreamResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_stream_response_ctor",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_stream_response_ctor",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 200 == resp.status",
+    "assert resp.keep_alive is None",
+    "assert resp.task is None",
+    "assert resp.task is req.task"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_stream_response_ctor() -> None:\n    resp = web.StreamResponse()\n    assert 200 == resp.status\n    assert resp.keep_alive is None\n\n    assert resp.task is None\n\n    req = mock.Mock()\n    resp._req = req\n    assert resp.task is req.task"
+}

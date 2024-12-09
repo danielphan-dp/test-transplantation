@@ -1,0 +1,77 @@
+{
+  "test_name": "test_operation_local_security_oauth2",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "SecurityHandlerFactory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SecurityOperation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "verify_oauth.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "verify_oauth.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SecurityHandlerFactory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_local_security_oauth2",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_local_security_oauth2",
+      "source_code": ""
+    },
+    {
+      "function": "SecurityOperation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_local_security_oauth2",
+      "source_code": ""
+    },
+    {
+      "function": "verify_oauth.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_local_security_oauth2",
+      "source_code": ""
+    },
+    {
+      "function": "verify_oauth.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_local_security_oauth2",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_operation_local_security_oauth2():\n    class MockOAuthHandler(OAuthSecurityHandler):\n        \"\"\"Mock.\"\"\"\n\n    security_handler_factory = SecurityHandlerFactory({\"oauth2\": MockOAuthHandler})\n    oauth_security_handler = security_handler_factory.security_handlers[\"oauth2\"]\n    verify_oauth = mock.MagicMock(return_value=\"verify_oauth_result\")\n    oauth_security_handler._get_verify_func = verify_oauth\n\n    SecurityOperation(\n        next_app=mock.Mock,\n        security_handler_factory=security_handler_factory,\n        security=[{\"oauth\": [\"uid\"]}],\n        security_schemes=SECURITY_DEFINITIONS_LOCAL,\n    )\n\n    verify_oauth.assert_called_with(\n        math.ceil, oauth_security_handler.validate_scope, [\"uid\"]\n    )\n\n    verify_oauth.assert_called_with(\n        math.ceil,\n        security_handler_factory.security_handlers[\"oauth2\"].validate_scope,\n        [\"uid\"],\n    )"
+}

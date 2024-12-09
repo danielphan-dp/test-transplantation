@@ -1,0 +1,40 @@
+{
+  "test_name": "test_init_signals",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_worker.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "worker.init_signals",
+      "source_code": "    def init_signals(self) -> None:\n        # Set up signals through the event loop API.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line_number": 148
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_init_signals",
+      "source_code": ""
+    },
+    {
+      "function": "worker.init_signals",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line": 148,
+      "caller": "test_init_signals",
+      "source_code": "    def init_signals(self) -> None:\n        # Set up signals through the event loop API.\n\n        self.loop.add_signal_handler(\n            signal.SIGQUIT, self.handle_quit, signal.SIGQUIT, None\n        )\n\n        self.loop.add_signal_handler(\n            signal.SIGTERM, self.handle_exit, signal.SIGTERM, None\n        )\n\n        self.loop.add_signal_handler(\n            signal.SIGINT, self.handle_quit, signal.SIGINT, None\n        )\n\n        self.loop.add_signal_handler(\n            signal.SIGWINCH, self.handle_winch, signal.SIGWINCH, None\n        )\n\n        self.loop.add_signal_handler(\n            signal.SIGUSR1, self.handle_usr1, signal.SIGUSR1, None\n        )\n\n        self.loop.add_signal_handler(\n            signal.SIGABRT, self.handle_abort, signal.SIGABRT, None\n        )\n\n        # Don't let SIGTERM and SIGUSR1 disturb active requests\n        # by interrupting system calls\n        signal.siginterrupt(signal.SIGTERM, False)\n        signal.siginterrupt(signal.SIGUSR1, False)\n        # Reset signals so Gunicorn doesn't swallow subprocess return codes\n        # See: https://github.com/aio-libs/aiohttp/issues/6130\n\n"
+    }
+  ],
+  "assertions": [
+    "assert worker.loop.add_signal_handler.called"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_init_signals(worker: base_worker.GunicornWebWorker) -> None:\n    worker.loop = mock.Mock()\n    worker.init_signals()\n    assert worker.loop.add_signal_handler.called"
+}

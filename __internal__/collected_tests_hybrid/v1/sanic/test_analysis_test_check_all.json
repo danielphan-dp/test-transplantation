@@ -1,0 +1,25 @@
+{
+  "test_name": "test_check_all",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+  "static_methods": [
+    {
+      "name": "self._run",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_check.py",
+      "line": 22,
+      "caller": "test_check_all",
+      "source_code": "    def _run(self, metadata=None, cwd=None, **options):\n        if metadata is None:\n            metadata = {}\n        if cwd is not None:\n            old_dir = os.getcwd()\n            os.chdir(cwd)\n        pkg_info, dist = self.create_dist(**metadata)\n        cmd = check(dist)\n        cmd.initialize_options()\n        for name, value in options.items():\n            setattr(cmd, name, value)\n        cmd.ensure_finalized()\n        cmd.run()\n        if cwd is not None:\n            os.chdir(old_dir)\n        return cmd\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_check_all(self):\n        with pytest.raises(DistutilsSetupError):\n            self._run({}, **{'strict': 1, 'restructuredtext': 1})"
+}

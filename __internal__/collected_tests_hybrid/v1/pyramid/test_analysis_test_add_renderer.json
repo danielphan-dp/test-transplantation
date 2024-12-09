@@ -1,0 +1,77 @@
+{
+  "test_name": "test_add_renderer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_rendering.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "config.add_renderer",
+      "source_code": "    def add_renderer(self, name, factory):\n        \"\"\"\n        Add a :app:`Pyramid` :term:`renderer` factory to the\n        current configuration state.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/rendering.py",
+      "line_number": 17
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_renderer",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_renderer",
+      "source_code": ""
+    },
+    {
+      "function": "config.add_renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/rendering.py",
+      "line": 17,
+      "caller": "test_add_renderer",
+      "source_code": "    @action_method\n    def add_renderer(self, name, factory):\n        \"\"\"\n        Add a :app:`Pyramid` :term:`renderer` factory to the\n        current configuration state.\n\n        The ``name`` argument is the renderer name.  Use ``None`` to\n        represent the default renderer (a renderer which will be used for all\n        views unless they name another renderer specifically).\n\n        The ``factory`` argument is Python reference to an\n        implementation of a :term:`renderer` factory or a\n        :term:`dotted Python name` to same.\n        \"\"\"\n        factory = self.maybe_dotted(factory)\n        # if name is None or the empty string, we're trying to register\n        # a default renderer, but registerUtility is too dumb to accept None\n        # as a name\n        if not name:\n            name = ''\n\n        def register():\n            self.registry.registerUtility(factory, IRendererFactory, name=name)\n\n        intr = self.introspectable(\n            'renderer factories',\n            name,\n            self.object_description(factory),\n            'renderer factory',\n        )\n        intr['factory'] = factory\n        intr['name'] = name\n        # we need to register renderers early (in phase 1) because they are\n        # used during view configuration (which happens in phase 3)\n        self.action(\n            (IRendererFactory, name),\n            register,\n            order=PHASE1_CONFIG,\n            introspectables=(intr,),\n        )\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_renderer",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_add_renderer",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_renderer(self):\n        from pyramid.interfaces import IRendererFactory\n\n        config = self._makeOne(autocommit=True)\n        renderer = object()\n        config.add_renderer('name', renderer)\n        self.assertEqual(\n            config.registry.getUtility(IRendererFactory, 'name'), renderer\n        )"
+}

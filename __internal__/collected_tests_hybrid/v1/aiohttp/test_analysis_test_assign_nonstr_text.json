@@ -1,0 +1,28 @@
+{
+  "test_name": "test_assign_nonstr_text",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_response.py",
+  "static_methods": [
+    {
+      "name": "web.Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assign_nonstr_text",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert b'test' == resp.body",
+    "assert 4 == resp.content_length"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_assign_nonstr_text() -> None:\n    resp = web.Response(text=\"test\")\n\n    with pytest.raises(AssertionError):\n        resp.text = b\"123\"  # type: ignore[assignment]\n    assert b\"test\" == resp.body\n    assert 4 == resp.content_length"
+}

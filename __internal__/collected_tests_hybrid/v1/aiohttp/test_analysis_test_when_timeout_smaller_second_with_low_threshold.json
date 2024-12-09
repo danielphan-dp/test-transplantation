@@ -1,0 +1,108 @@
+{
+  "test_name": "test_when_timeout_smaller_second_with_low_threshold",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.TimeoutHandle",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "handle.start",
+      "source_code": "    def start(self):\n        self.update(self.min)\n        return self",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1304
+    },
+    {
+      "name": "start_handle.when",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "handle.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "loop.time",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ceil",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.TimeoutHandle",
+      "filename": "",
+      "line": 0,
+      "caller": "test_when_timeout_smaller_second_with_low_threshold",
+      "source_code": ""
+    },
+    {
+      "function": "handle.start",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1304,
+      "caller": "test_when_timeout_smaller_second_with_low_threshold",
+      "source_code": "    def start(self):\n        self.update(self.min)\n        return self\n\n"
+    },
+    {
+      "function": "start_handle.when",
+      "filename": "",
+      "line": 0,
+      "caller": "test_when_timeout_smaller_second_with_low_threshold",
+      "source_code": ""
+    },
+    {
+      "function": "handle.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_when_timeout_smaller_second_with_low_threshold",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_when_timeout_smaller_second_with_low_threshold",
+      "source_code": ""
+    },
+    {
+      "function": "loop.time",
+      "filename": "",
+      "line": 0,
+      "caller": "test_when_timeout_smaller_second_with_low_threshold",
+      "source_code": ""
+    },
+    {
+      "function": "ceil",
+      "filename": "",
+      "line": 0,
+      "caller": "test_when_timeout_smaller_second_with_low_threshold",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert handle is not None",
+    "assert start_handle is not None",
+    "assert isinstance(when, int)",
+    "assert when == ceil(timer)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_when_timeout_smaller_second_with_low_threshold(\n    loop: asyncio.AbstractEventLoop,\n) -> None:\n    timeout = 0.1\n    timer = loop.time() + timeout\n\n    handle = helpers.TimeoutHandle(loop, timeout, 0.01)\n    assert handle is not None\n    start_handle = handle.start()\n    assert start_handle is not None\n    when = start_handle.when()\n    handle.close()\n\n    assert isinstance(when, int)\n    assert when == ceil(timer)"
+}

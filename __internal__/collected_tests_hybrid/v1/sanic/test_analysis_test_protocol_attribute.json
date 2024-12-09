@@ -1,0 +1,66 @@
+{
+  "test_name": "test_protocol_attribute",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "response.empty",
+      "source_code": "    def empty(cls) -> \"Constraint\":\n        return Constraint(SpecifierSet(), Hashes(), frozenset())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/resolution/resolvelib/base.py",
+      "line_number": 31
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_protocol_attribute",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_protocol_attribute",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_protocol_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "response.empty",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/resolution/resolvelib/base.py",
+      "line": 31,
+      "caller": "test_protocol_attribute",
+      "source_code": "    @classmethod\n    def empty(cls) -> \"Constraint\":\n        return Constraint(SpecifierSet(), Hashes(), frozenset())\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(retrieved, HttpProtocol)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_protocol_attribute(app):\n    retrieved = None\n\n    @app.get(\"/\")\n    async def get(request):\n        nonlocal retrieved\n        retrieved = request.protocol\n        return response.empty()\n\n    headers = {\"Connection\": \"keep-alive\"}\n    _ = app.test_client.get(\"/\", headers=headers)\n\n    assert isinstance(retrieved, HttpProtocol)"
+}

@@ -1,0 +1,93 @@
+{
+  "test_name": "test_make_distribution",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sdist.py",
+  "static_methods": [
+    {
+      "name": "self.get_cmd",
+      "source_code": "    def get_cmd(self, metadata=None):\n        \"\"\"Returns a cmd\"\"\"\n        if metadata is None:\n            metadata = {\n                'name': 'ns.fake--pkg',\n                'version': '1.0',\n                'url': 'xxx',\n                'author': 'xxx',\n                'author_email': 'xxx',\n            }\n        dist = Distribution(metadata)\n        dist.script_name = 'setup.py'\n        dist.packages = ['somecode']\n        dist.include_package_data = True\n        cmd = sdist(dist)\n        cmd.dist_dir = 'dist'\n        return dist, cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sdist.py",
+      "line_number": 71
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "result.sort",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 61
+    },
+    {
+      "name": "result.sort",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 61
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.get_cmd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sdist.py",
+      "line": 71,
+      "caller": "test_make_distribution",
+      "source_code": "    def get_cmd(self, metadata=None):\n        \"\"\"Returns a cmd\"\"\"\n        if metadata is None:\n            metadata = {\n                'name': 'ns.fake--pkg',\n                'version': '1.0',\n                'url': 'xxx',\n                'author': 'xxx',\n                'author_email': 'xxx',\n            }\n        dist = Distribution(metadata)\n        dist.script_name = 'setup.py'\n        dist.packages = ['somecode']\n        dist.include_package_data = True\n        cmd = sdist(dist)\n        cmd.dist_dir = 'dist'\n        return dist, cmd\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_make_distribution",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "result.sort",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 61,
+      "caller": "test_make_distribution",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))\n\n"
+    },
+    {
+      "function": "result.sort",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 61,
+      "caller": "test_make_distribution",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_make_distribution",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_make_distribution",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    }
+  ],
+  "assertions": [
+    "assert result == ['ns_fake_pkg-1.0.tar', 'ns_fake_pkg-1.0.tar.gz']",
+    "assert result == ['ns_fake_pkg-1.0.tar', 'ns_fake_pkg-1.0.tar.gz']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_distribution(self):\n        # now building a sdist\n        dist, cmd = self.get_cmd()\n\n        # creating a gztar then a tar\n        cmd.formats = ['gztar', 'tar']\n        cmd.ensure_finalized()\n        cmd.run()\n\n        # making sure we have two files\n        dist_folder = join(self.tmp_dir, 'dist')\n        result = os.listdir(dist_folder)\n        result.sort()\n        assert result == ['ns_fake_pkg-1.0.tar', 'ns_fake_pkg-1.0.tar.gz']\n\n        os.remove(join(dist_folder, 'ns_fake_pkg-1.0.tar'))\n        os.remove(join(dist_folder, 'ns_fake_pkg-1.0.tar.gz'))\n\n        # now trying a tar then a gztar\n        cmd.formats = ['tar', 'gztar']\n\n        cmd.ensure_finalized()\n        cmd.run()\n\n        result = os.listdir(dist_folder)\n        result.sort()\n        assert result == ['ns_fake_pkg-1.0.tar', 'ns_fake_pkg-1.0.tar.gz']"
+}

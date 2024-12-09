@@ -1,0 +1,79 @@
+{
+  "test_name": "test_reload_subdir_removal",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "as_cwd",
+      "source_code": "    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 1005
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "as_cwd",
+      "source_code": "    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 1005
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "as_cwd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 1005,
+      "caller": "test_reload_subdir_removal",
+      "source_code": "    @contextmanager\n    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_subdir_removal",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_subdir_removal",
+      "source_code": ""
+    },
+    {
+      "function": "as_cwd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 1005,
+      "caller": "test_reload_subdir_removal",
+      "source_code": "    @contextmanager\n    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_subdir_removal",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert config.reload_dirs == [reload_directory_structure]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reload_subdir_removal(reload_directory_structure: Path) -> None:\n    app_dir = reload_directory_structure / \"app\"\n\n    reload_dirs = [str(reload_directory_structure), \"app\", str(app_dir)]\n\n    with as_cwd(reload_directory_structure):\n        config = Config(app=\"tests.test_config:asgi_app\", reload=True, reload_dirs=reload_dirs)\n        assert config.reload_dirs == [reload_directory_structure]"
+}

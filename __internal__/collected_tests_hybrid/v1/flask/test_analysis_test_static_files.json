@@ -1,6 +1,6 @@
 {
   "test_name": "test_static_files",
-  "test_file": "__internal__/_data/flask/tests/test_basic.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
   "static_methods": [
     {
       "name": "app.test_request_context",
@@ -10,21 +10,21 @@
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "rv.close",
-      "source_code": "            def close(self):\n                called.append(42)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
-      "line_number": 274
+      "source_code": "    def close(self) -> None:\n        for callback in self._callbacks:\n            callback()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wsgi.py",
+      "line_number": 258
     },
     {
       "name": "rv.data.strip",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "        def strip(x: str) -> str:\n            prefix = os.path.expanduser(\"~\")\n            if x.startswith(prefix):\n                x = f\"~{x[len(prefix) :]}\"\n            return x",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/testapp.py",
+      "line_number": 98
     },
     {
       "name": "app.test_request_context",
@@ -43,24 +43,24 @@
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_static_files",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "rv.close",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
-      "line": 274,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wsgi.py",
+      "line": 258,
       "caller": "test_static_files",
-      "source_code": "            def close(self):\n                called.append(42)\n\n"
+      "source_code": "    def close(self) -> None:\n        for callback in self._callbacks:\n            callback()\n\n\n"
     },
     {
       "function": "rv.data.strip",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/testapp.py",
+      "line": 98,
       "caller": "test_static_files",
-      "source_code": ""
+      "source_code": "        def strip(x: str) -> str:\n            prefix = os.path.expanduser(\"~\")\n            if x.startswith(prefix):\n                x = f\"~{x[len(prefix) :]}\"\n            return x\n\n"
     },
     {
       "function": "app.test_request_context",

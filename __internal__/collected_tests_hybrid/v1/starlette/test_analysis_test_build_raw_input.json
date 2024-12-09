@@ -1,0 +1,53 @@
+{
+  "test_name": "test_build_raw_input",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_repl.py",
+  "static_methods": [
+    {
+      "name": "build_raw_input",
+      "source_code": "def build_raw_input(cmds: list[str]) -> RawInput:\n    \"\"\"\n    Pass in a list of strings.\n    Returns a callable that returns each string, each time its called\n    When there are not more strings to return, raise EOFError\n    \"\"\"\n    cmds_iter = iter(cmds)\n    prompts = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_repl.py",
+      "line_number": 16
+    },
+    {
+      "name": "raw_input",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "raw_input",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_raw_input",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_repl.py",
+      "line": 16,
+      "caller": "test_build_raw_input",
+      "source_code": "def build_raw_input(cmds: list[str]) -> RawInput:\n    \"\"\"\n    Pass in a list of strings.\n    Returns a callable that returns each string, each time its called\n    When there are not more strings to return, raise EOFError\n    \"\"\"\n    cmds_iter = iter(cmds)\n    prompts = []\n\n    def _raw_helper(prompt: str = \"\") -> str:\n        prompts.append(prompt)\n        try:\n            return next(cmds_iter)\n        except StopIteration:\n            raise EOFError from None\n\n    return _raw_helper\n\n\n"
+    },
+    {
+      "function": "raw_input",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_raw_input",
+      "source_code": ""
+    },
+    {
+      "function": "raw_input",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_raw_input",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert raw_input() == 'cmd1'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_build_raw_input() -> None:\n    \"\"\"Quick test of our helper function.\"\"\"\n    raw_input = build_raw_input([\"cmd1\"])\n    assert raw_input() == \"cmd1\"\n    with pytest.raises(EOFError):\n        raw_input()"
+}

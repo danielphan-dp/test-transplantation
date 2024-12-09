@@ -1,0 +1,38 @@
+{
+  "test_name": "test_names_not_okay",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_base.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Blueprint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_names_not_okay",
+      "source_code": ""
+    },
+    {
+      "function": "Blueprint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_names_not_okay",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_names_not_okay(name):\n    app_message = (\n        f\"Sanic instance named '{name}' uses an invalid format. Names must \"\n        \"begin with a character and may only contain alphanumeric \"\n        \"characters, _, or -.\"\n    )\n    bp_message = (\n        f\"Blueprint instance named '{name}' uses an invalid format. Names \"\n        \"must begin with a character and may only contain alphanumeric \"\n        \"characters, _, or -.\"\n    )\n\n    with pytest.raises(SanicException, match=app_message):\n        Sanic(name)\n\n    with pytest.raises(SanicException, match=bp_message):\n        Blueprint(name)"
+}

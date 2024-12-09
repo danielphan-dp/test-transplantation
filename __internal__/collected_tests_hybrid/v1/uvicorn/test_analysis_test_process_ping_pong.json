@@ -1,0 +1,53 @@
+{
+  "test_name": "test_process_ping_pong",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_multiprocess.py",
+  "static_methods": [
+    {
+      "name": "Process",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "process.ping",
+      "source_code": "    def ping(self, data: Data | None = None) -> threading.Event:\n        \"\"\"\n        Send a Ping_.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/websockets/sync/connection.py",
+      "line_number": 433
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Process",
+      "filename": "",
+      "line": 0,
+      "caller": "test_process_ping_pong",
+      "source_code": ""
+    },
+    {
+      "function": "process.ping",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/websockets/sync/connection.py",
+      "line": 433,
+      "caller": "test_process_ping_pong",
+      "source_code": "    def ping(self, data: Data | None = None) -> threading.Event:\n        \"\"\"\n        Send a Ping_.\n\n        .. _Ping: https://datatracker.ietf.org/doc/html/rfc6455#section-5.5.2\n\n        A ping may serve as a keepalive or as a check that the remote endpoint\n        received all messages up to this point\n\n        Args:\n            data: Payload of the ping. A :class:`str` will be encoded to UTF-8.\n                If ``data`` is :obj:`None`, the payload is four random bytes.\n\n        Returns:\n            An event that will be set when the corresponding pong is received.\n            You can ignore it if you don't intend to wait.\n\n            ::\n\n                pong_event = ws.ping()\n                pong_event.wait()  # only if you want to wait for the pong\n\n        Raises:\n            ConnectionClosed: When the connection is closed.\n            ConcurrencyError: If another ping was sent with the same data and\n                the corresponding pong wasn't received yet.\n\n        \"\"\"\n        if isinstance(data, BytesLike):\n            data = bytes(data)\n        elif isinstance(data, str):\n            data = data.encode()\n        elif data is not None:\n            raise TypeError(\"data must be str or bytes-like\")\n\n        with self.send_context():\n            # Protect against duplicates if a payload is explicitly set.\n            if data in self.ping_waiters:\n                raise ConcurrencyError(\"already waiting for a pong with the same data\")\n\n            # Generate a unique random payload otherwise.\n            while data is None or data in self.ping_waiters:\n                data = struct.pack(\"!I\", random.getrandbits(32))\n\n            pong_waiter = threading.Event()\n            self.ping_waiters[data] = pong_waiter\n            self.protocol.send_ping(data)\n            return pong_waiter\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_process_ping_pong",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert process.ping()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_process_ping_pong() -> None:\n    process = Process(Config(app=app), target=lambda x: None, sockets=[])\n    threading.Thread(target=process.always_pong, daemon=True).start()\n    assert process.ping()"
+}

@@ -1,0 +1,79 @@
+{
+  "test_name": "test_ping_frame",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "WSMessagePing",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "bytearray",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "memoryview",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_ping_frame",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_ping_frame",
+      "source_code": ""
+    },
+    {
+      "function": "WSMessagePing",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ping_frame",
+      "source_code": ""
+    },
+    {
+      "function": "bytearray",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_ping_frame",
+      "source_code": ""
+    },
+    {
+      "function": "memoryview",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_ping_frame",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == WSMessagePing(data=b'data', extra='')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ping_frame(\n    out: aiohttp.DataQueue[WSMessage],\n    parser: WebSocketReader,\n    data: Union[bytes, bytearray, memoryview],\n) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [(1, WSMsgType.PING, b\"data\", False)]\n\n        parser.feed_data(data)\n        res = out._buffer[0]\n        assert res == WSMessagePing(data=b\"data\", extra=\"\")"
+}

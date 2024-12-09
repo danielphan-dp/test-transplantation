@@ -1,0 +1,25 @@
+{
+  "test_name": "test_run_fn_as_system_task_catched_badly_typed_token",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_threads.py",
+  "static_methods": [
+    {
+      "name": "from_thread_run_sync",
+      "source_code": "def from_thread_run_sync(\n    fn: Callable[..., RetT],\n    *args: object,\n    trio_token: TrioToken | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line_number": 562
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "from_thread_run_sync",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line": 562,
+      "caller": "test_run_fn_as_system_task_catched_badly_typed_token",
+      "source_code": "def from_thread_run_sync(\n    fn: Callable[..., RetT],\n    *args: object,\n    trio_token: TrioToken | None = None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_run_fn_as_system_task_catched_badly_typed_token() -> None:\n    with pytest.raises(RuntimeError):\n        from_thread_run_sync(\n            _core.current_time,\n            trio_token=\"Not TrioTokentype\",  # type: ignore[arg-type]\n        )"
+}

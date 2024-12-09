@@ -1,0 +1,77 @@
+{
+  "test_name": "test_changed",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_session.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "session.changed",
+      "source_code": "    def changed(self, originally_changed):\n        \"\"\"\n        We, or something we depend on, have changed.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 484
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_changed",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_changed",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_changed",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_changed",
+      "source_code": ""
+    },
+    {
+      "function": "session.changed",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 484,
+      "caller": "test_changed",
+      "source_code": "    def changed(self, originally_changed):\n        \"\"\"\n        We, or something we depend on, have changed.\n\n        By the time this is called, the things we depend on,\n        such as our bases, should themselves be stable.\n        \"\"\"\n        self._v_attrs = None\n\n        implied = self._implied\n        implied.clear()\n\n        ancestors = self._calculate_sro()\n        self.__sro__ = tuple(ancestors)\n        self.__iro__ = tuple([ancestor for ancestor in ancestors\n                              if isinstance(ancestor, InterfaceClass)\n                              ])\n\n        for ancestor in ancestors:\n            # We directly imply our ancestors:\n            implied[ancestor] = ()\n\n        # Now, advise our dependents of change\n        # (being careful not to create the WeakKeyDictionary if not needed):\n        for dependent in tuple(\n            self._dependents.keys() if self._dependents else ()\n        ):\n            dependent.changed(originally_changed)\n\n        # Just in case something called get() at some point\n        # during that process and we have a cycle of some sort\n        # make sure we didn't cache incomplete results.\n        self._v_attrs = None\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_changed(self):\n        request = testing.DummyRequest()\n        session = self._makeOne(request)\n        self.assertEqual(session.changed(), None)\n        self.assertTrue(session._dirty)"
+}

@@ -1,0 +1,77 @@
+{
+  "test_name": "test_contains_too_few",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+  "static_methods": [
+    {
+      "name": "validators.Draft202012Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.iter_errors",
+      "source_code": "        def iter_errors(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.iter_errors \"\n                        \"is deprecated and will be removed in a future \"\n                        \"release. Call validator.evolve(schema=new_schema).\"\n                        \"iter_errors(...) instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                validators = [\n                    (self.VALIDATORS[k], k, v)\n                    for k, v in applicable_validators(_schema)\n                    if k in self.VALIDATORS\n                ]\n            else:\n                _schema, validators = self.schema, self._validators",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 350
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "deque",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validators.Draft202012Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contains_too_few",
+      "source_code": ""
+    },
+    {
+      "function": "validator.iter_errors",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 350,
+      "caller": "test_contains_too_few",
+      "source_code": "        def iter_errors(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.iter_errors \"\n                        \"is deprecated and will be removed in a future \"\n                        \"release. Call validator.evolve(schema=new_schema).\"\n                        \"iter_errors(...) instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                validators = [\n                    (self.VALIDATORS[k], k, v)\n                    for k, v in applicable_validators(_schema)\n                    if k in self.VALIDATORS\n                ]\n            else:\n                _schema, validators = self.schema, self._validators\n\n            if _schema is True:\n                return\n            elif _schema is False:\n                yield exceptions.ValidationError(\n                    f\"False schema does not allow {instance!r}\",\n                    validator=None,\n                    validator_value=None,\n                    instance=instance,\n                    schema=_schema,\n                )\n                return\n\n            for validator, k, v in validators:\n                errors = validator(self, v, instance, _schema) or ()\n                for error in errors:\n                    # set details if not already set by the called fn\n                    error._set(\n                        validator=k,\n                        validator_value=v,\n                        instance=instance,\n                        schema=_schema,\n                        type_checker=self.TYPE_CHECKER,\n                    )\n                    if k not in {\"if\", \"$ref\"}:\n                        error.schema_path.appendleft(k)\n                    yield error\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contains_too_few",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contains_too_few",
+      "source_code": ""
+    },
+    {
+      "function": "deque",
+      "filename": "",
+      "line": 0,
+      "caller": "test_contains_too_few",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_contains_too_few(self):\n        schema = {\"contains\": {\"type\": \"string\"}, \"minContains\": 2}\n        validator = validators.Draft202012Validator(schema)\n        error, = validator.iter_errors([\"foo\", 2, 4])\n        self.assertEqual(\n            (\n                error.message,\n                error.validator,\n                error.validator_value,\n                error.instance,\n                error.absolute_path,\n                error.schema,\n                error.schema_path,\n                error.json_path,\n            ),\n            (\n                (\n                    \"Too few items match the given schema \"\n                    \"(expected at least 2 but only 1 matched)\"\n                ),\n                \"minContains\",\n                2,\n                [\"foo\", 2, 4],\n                deque([]),\n                {\"contains\": {\"type\": \"string\"}, \"minContains\": 2},\n                deque([\"contains\"]),\n                \"$\",\n            ),\n        )"
+}

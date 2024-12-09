@@ -1,0 +1,25 @@
+{
+  "test_name": "test_bdist_egg_available_on_distutils_pkg",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "run_setup",
+      "source_code": "def run_setup(setup_script, args):\n    \"\"\"Run a distutils setup script, sandboxed in its directory\"\"\"\n    setup_dir = os.path.abspath(os.path.dirname(setup_script))\n    with setup_context(setup_dir):\n        try:\n            sys.argv[:] = [setup_script] + list(args)\n            sys.path.insert(0, setup_dir)\n            # reset to include setup dir, w/clean callback list\n            working_set.__init__()\n            working_set.callbacks.append(lambda dist: dist.activate())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line_number": 257
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "run_setup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line": 257,
+      "caller": "test_bdist_egg_available_on_distutils_pkg",
+      "source_code": "def run_setup(setup_script, args):\n    \"\"\"Run a distutils setup script, sandboxed in its directory\"\"\"\n    setup_dir = os.path.abspath(os.path.dirname(setup_script))\n    with setup_context(setup_dir):\n        try:\n            sys.argv[:] = [setup_script] + list(args)\n            sys.path.insert(0, setup_dir)\n            # reset to include setup dir, w/clean callback list\n            working_set.__init__()\n            working_set.callbacks.append(lambda dist: dist.activate())\n\n            with DirectorySandbox(setup_dir):\n                ns = dict(__file__=setup_script, __name__='__main__')\n                _execfile(setup_script, ns)\n        except SystemExit as v:\n            if v.args and v.args[0]:\n                raise\n            # Normal exit, just return\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bdist_egg_available_on_distutils_pkg(self):\n        run_setup('setup.py', ['bdist_egg'])"
+}

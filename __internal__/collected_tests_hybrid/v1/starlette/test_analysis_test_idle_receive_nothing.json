@@ -1,0 +1,40 @@
+{
+  "test_name": "test_idle_receive_nothing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_connection.py",
+  "static_methods": [
+    {
+      "name": "Connection",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.next_event",
+      "source_code": "    def next_event(self) -> Union[Event, Type[NEED_DATA], Type[PAUSED]]:\n        \"\"\"Parse the next event out of our receive buffer, update our internal\n        state, and return it.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 426
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Connection",
+      "filename": "",
+      "line": 0,
+      "caller": "test_idle_receive_nothing",
+      "source_code": ""
+    },
+    {
+      "function": "c.next_event",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 426,
+      "caller": "test_idle_receive_nothing",
+      "source_code": "    def next_event(self) -> Union[Event, Type[NEED_DATA], Type[PAUSED]]:\n        \"\"\"Parse the next event out of our receive buffer, update our internal\n        state, and return it.\n\n        This is a mutating operation -- think of it like calling :func:`next`\n        on an iterator.\n\n        Returns:\n            : One of three things:\n\n            1) An event object -- see :ref:`events`.\n\n            2) The special constant :data:`NEED_DATA`, which indicates that\n               you need to read more data from your socket and pass it to\n               :meth:`receive_data` before this method will be able to return\n               any more events.\n\n            3) The special constant :data:`PAUSED`, which indicates that we\n               are not in a state where we can process incoming data (usually\n               because the peer has finished their part of the current\n               request/response cycle, and you have not yet called\n               :meth:`start_next_cycle`). See :ref:`flow-control` for details.\n\n        Raises:\n            RemoteProtocolError:\n                The peer has misbehaved. You should close the connection\n                (possibly after sending some kind of 4xx response).\n\n        Once this method returns :class:`ConnectionClosed` once, then all\n        subsequent calls will also return :class:`ConnectionClosed`.\n\n        If this method raises any exception besides :exc:`RemoteProtocolError`\n        then that's a bug -- if it happens please file a bug report!\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.their_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n\n        if self.their_state is ERROR:\n            raise RemoteProtocolError(\"Can't receive data when peer state is ERROR\")\n        try:\n            event = self._extract_next_receive_event()\n            if event not in [NEED_DATA, PAUSED]:\n                self._process_event(self.their_role, cast(Event, event))\n            if event is NEED_DATA:\n                if len(self._receive_buffer) > self._max_incomplete_event_size:\n                    # 431 is \"Request header fields too large\" which is pretty\n                    # much the only situation where we can get here\n                    raise RemoteProtocolError(\n                        \"Receive buffer too long\", error_status_hint=431\n                    )\n                if self._receive_buffer_closed:\n                    # We're still trying to complete some event, but that's\n                    # never going to happen because no more data is coming\n                    raise RemoteProtocolError(\"peer unexpectedly closed connection\")\n            return event\n        except BaseException as exc:\n            self._process_error(self.their_role)\n            if isinstance(exc, LocalProtocolError):\n                exc._reraise_as_remote_protocol_error()\n            else:\n                raise\n\n"
+    }
+  ],
+  "assertions": [
+    "assert c.next_event() is NEED_DATA"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_idle_receive_nothing() -> None:\n    # At one point this incorrectly raised an error\n    for role in [CLIENT, SERVER]:\n        c = Connection(role)\n        assert c.next_event() is NEED_DATA"
+}

@@ -1,0 +1,80 @@
+{
+  "test_name": "test_custom_blueprint",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_naming.py",
+  "static_methods": [
+    {
+      "name": "factory",
+      "source_code": "        def factory() -> ClientConnection:\n            return self.protocol_factory(wsuri)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/asyncio/client.py",
+      "line_number": 350
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "self._generate_name",
+      "source_code": "    def _generate_name(\n        self, *objects: Union[NameProtocol, DunderNameProtocol, str]\n    ) -> str:\n        name: Optional[str] = None\n        for obj in objects:\n            if not obj:\n                continue\n            if isinstance(obj, str):\n                name = obj\n            else:\n                name = getattr(obj, \"name\", getattr(obj, \"__name__\", None))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/base.py",
+      "line_number": 20
+    },
+    {
+      "name": "existing.replace",
+      "source_code": "    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line_number": 58
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/asyncio/client.py",
+      "line": 350,
+      "caller": "test_custom_blueprint",
+      "source_code": "        def factory() -> ClientConnection:\n            return self.protocol_factory(wsuri)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_custom_blueprint",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_custom_blueprint",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "self._generate_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/base.py",
+      "line": 20,
+      "caller": "test_custom_blueprint",
+      "source_code": "    def _generate_name(\n        self, *objects: Union[NameProtocol, DunderNameProtocol, str]\n"
+    },
+    {
+      "function": "existing.replace",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line": 58,
+      "caller": "test_custom_blueprint",
+      "source_code": "    @classmethod\n    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.\n\n        Args:\n            text (str): A string with emojis codes, e.g. \"Hello :smiley:!\"\n\n        Returns:\n            str: A string with emoji codes replaces with actual emoji.\n        \"\"\"\n        return _emoji_replace(text)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert foo_response.text == 'Foo.handler'",
+    "assert bar_response.text == 'Foo.CHANGED_BP.handler'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_custom_blueprint():\n    class Custom(Blueprint):\n        def generate_name(self, *objects):\n            existing = self._generate_name(*objects)\n            return existing.replace(\"Bar\", \"CHANGED_BP\")\n\n    app = factory(Sanic, Custom)\n    _, foo_response = app.test_client.get(\"/\")\n    _, bar_response = app.test_client.get(\"/bar/\")\n\n    assert foo_response.text == \"Foo.handler\"\n    assert bar_response.text == \"Foo.CHANGED_BP.handler\""
+}

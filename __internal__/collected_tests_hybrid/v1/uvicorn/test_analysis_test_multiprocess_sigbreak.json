@@ -1,0 +1,103 @@
+{
+  "test_name": "test_multiprocess_sigbreak",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_multiprocess.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Multiprocess",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "supervisor.signal_queue.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "supervisor.join_all",
+      "source_code": "    def join_all(self):\n        \"\"\"Join all the threads to the master thread.\"\"\"\n        for session_thread in self._pool:\n            session_thread.join()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/pool.py",
+      "line_number": 144
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "new_console_in_windows",
+      "source_code": "def new_console_in_windows(test_function: Callable[[], Any]) -> Callable[[], Any]:  # pragma: no cover\n    if os.name != \"nt\":\n        return test_function",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_multiprocess.py",
+      "line_number": 19
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiprocess_sigbreak",
+      "source_code": ""
+    },
+    {
+      "function": "Multiprocess",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiprocess_sigbreak",
+      "source_code": ""
+    },
+    {
+      "function": "supervisor.signal_queue.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_multiprocess_sigbreak",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "supervisor.join_all",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/pool.py",
+      "line": 144,
+      "caller": "test_multiprocess_sigbreak",
+      "source_code": "    def join_all(self):\n        \"\"\"Join all the threads to the master thread.\"\"\"\n        for session_thread in self._pool:\n            session_thread.join()\n\n\n"
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_multiprocess_sigbreak",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_multiprocess_sigbreak",
+      "source_code": ""
+    },
+    {
+      "function": "new_console_in_windows",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_multiprocess.py",
+      "line": 19,
+      "caller": "test_multiprocess_sigbreak",
+      "source_code": "def new_console_in_windows(test_function: Callable[[], Any]) -> Callable[[], Any]:  # pragma: no cover\n    if os.name != \"nt\":\n        return test_function\n\n    @functools.wraps(test_function)\n    def new_function():\n        import subprocess\n        import sys\n\n        module = test_function.__module__\n        name = test_function.__name__\n\n        subprocess.check_call(\n            [\n                sys.executable,\n                \"-c\",\n                f\"from {module} import {name}; {name}.__wrapped__()\",\n            ],\n            creationflags=subprocess.CREATE_NO_WINDOW,  # type: ignore[attr-defined]\n        )\n\n    return new_function\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_multiprocess_sigbreak() -> None:  # pragma: py-not-win32\n    \"\"\"\n    Ensure that the SIGBREAK signal is handled as expected.\n    \"\"\"\n    config = Config(app=app, workers=2)\n    supervisor = Multiprocess(config, target=run, sockets=[])\n    threading.Thread(target=supervisor.run, daemon=True).start()\n    time.sleep(1)\n    supervisor.signal_queue.append(getattr(signal, \"SIGBREAK\"))\n    supervisor.join_all()"
+}

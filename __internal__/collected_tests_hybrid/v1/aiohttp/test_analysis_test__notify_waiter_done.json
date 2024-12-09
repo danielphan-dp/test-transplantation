@@ -1,0 +1,67 @@
+{
+  "test_name": "test__notify_waiter_done",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_worker.py",
+  "static_methods": [
+    {
+      "name": "worker._notify_waiter_done",
+      "source_code": "    def _notify_waiter_done(\n        self, waiter: Optional[\"asyncio.Future[bool]\"] = None\n    ) -> None:\n        if waiter is None:\n            waiter = self._notify_waiter\n        if waiter is not None:\n            set_result(waiter, True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line_number": 137
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "worker._notify_waiter_done",
+      "source_code": "    def _notify_waiter_done(\n        self, waiter: Optional[\"asyncio.Future[bool]\"] = None\n    ) -> None:\n        if waiter is None:\n            waiter = self._notify_waiter\n        if waiter is not None:\n            set_result(waiter, True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line_number": 137
+    },
+    {
+      "name": "waiter.set_result.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "worker._notify_waiter_done",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line": 137,
+      "caller": "test__notify_waiter_done",
+      "source_code": "    def _notify_waiter_done(\n        self, waiter: Optional[\"asyncio.Future[bool]\"] = None\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test__notify_waiter_done",
+      "source_code": ""
+    },
+    {
+      "function": "worker._notify_waiter_done",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line": 137,
+      "caller": "test__notify_waiter_done",
+      "source_code": "    def _notify_waiter_done(\n        self, waiter: Optional[\"asyncio.Future[bool]\"] = None\n"
+    },
+    {
+      "function": "waiter.set_result.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test__notify_waiter_done",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert worker._notify_waiter is None",
+    "assert worker._notify_waiter is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__notify_waiter_done(worker: base_worker.GunicornWebWorker) -> None:\n    worker._notify_waiter = None\n    worker._notify_waiter_done()\n    assert worker._notify_waiter is None\n\n    waiter = worker._notify_waiter = mock.Mock()\n    worker._notify_waiter.done.return_value = False\n    worker._notify_waiter_done()\n\n    assert worker._notify_waiter is None\n    waiter.set_result.assert_called_with(True)"
+}

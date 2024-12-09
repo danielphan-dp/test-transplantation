@@ -1,0 +1,66 @@
+{
+  "test_name": "test_due_date_enforcement",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_warnings.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_MyDeprecation.emit",
+      "source_code": "        def emit(self, record): pass\n        def createLock(self): self.lock = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/__init__.py",
+      "line_number": 19
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "cleandoc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setenv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_due_date_enforcement",
+      "source_code": ""
+    },
+    {
+      "function": "_MyDeprecation.emit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/__init__.py",
+      "line": 19,
+      "caller": "test_due_date_enforcement",
+      "source_code": "        def emit(self, record): pass\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_due_date_enforcement",
+      "source_code": ""
+    },
+    {
+      "function": "cleandoc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_due_date_enforcement",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert str(exc_info.value) == cleandoc(expected)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_due_date_enforcement(monkeypatch):\n    class _MyDeprecation(SetuptoolsDeprecationWarning):\n        _SUMMARY = \"Summary\"\n        _DETAILS = \"Lorem ipsum\"\n        _DUE_DATE = (2000, 11, 22)\n        _SEE_DOCS = \"some_page.html\"\n\n    monkeypatch.setenv(\"SETUPTOOLS_ENFORCE_DEPRECATION\", \"true\")\n    with pytest.raises(SetuptoolsDeprecationWarning) as exc_info:\n        _MyDeprecation.emit()\n\n    expected = \"\"\"\n    Summary\n    !!\n\n            ********************************************************************************\n            Lorem ipsum\n\n            This deprecation is overdue, please update your project and remove deprecated\n            calls to avoid build errors in the future.\n\n            See https://setuptools.pypa.io/en/latest/some_page.html for details.\n            ********************************************************************************\n\n    !!\n    \"\"\"\n    assert str(exc_info.value) == cleandoc(expected)"
+}

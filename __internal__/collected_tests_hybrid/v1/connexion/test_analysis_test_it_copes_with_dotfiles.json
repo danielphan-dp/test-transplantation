@@ -1,0 +1,77 @@
+{
+  "test_name": "test_it_copes_with_dotfiles",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema_specifications/tests/test_jsonschema_specifications.py",
+  "static_methods": [
+    {
+      "name": "ignored.touch",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ignored.unlink",
+      "source_code": "    def unlink(self, omd: _OrderedMultiDict[K, V]) -> None:\n        if self.prev:\n            self.prev.next = self.next\n        if self.next:\n            self.next.prev = self.prev\n        if omd._first_bucket is self:\n            omd._first_bucket = self.next\n        if omd._last_bucket is self:\n            omd._last_bucket = self.prev",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/structures.py",
+      "line_number": 570
+    },
+    {
+      "name": "jsonschema_specifications._schemas",
+      "source_code": "def _schemas():\n    \"\"\"\n    All schemas we ship.\n    \"\"\"\n    # importlib.resources.abc.Traversal doesn't have nice ways to do this that\n    # I'm aware of...\n    #\n    # It can't recurse arbitrarily, e.g. no ``.glob()``.\n    #\n    # So this takes some liberties given the real layout of what we ship\n    # (only 2 levels of nesting, no directories within the second level).",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema_specifications/_core.py",
+      "line_number": 17
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ignored.touch",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_copes_with_dotfiles",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_copes_with_dotfiles",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_it_copes_with_dotfiles",
+      "source_code": ""
+    },
+    {
+      "function": "ignored.unlink",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/structures.py",
+      "line": 570,
+      "caller": "test_it_copes_with_dotfiles",
+      "source_code": "    def unlink(self, omd: _OrderedMultiDict[K, V]) -> None:\n        if self.prev:\n            self.prev.next = self.next\n        if self.next:\n            self.next.prev = self.prev\n        if omd._first_bucket is self:\n            omd._first_bucket = self.next\n        if omd._last_bucket is self:\n            omd._last_bucket = self.prev\n\n\n"
+    },
+    {
+      "function": "jsonschema_specifications._schemas",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema_specifications/_core.py",
+      "line": 17,
+      "caller": "test_it_copes_with_dotfiles",
+      "source_code": "def _schemas():\n    \"\"\"\n    All schemas we ship.\n    \"\"\"\n    # importlib.resources.abc.Traversal doesn't have nice ways to do this that\n    # I'm aware of...\n    #\n    # It can't recurse arbitrarily, e.g. no ``.glob()``.\n    #\n    # So this takes some liberties given the real layout of what we ship\n    # (only 2 levels of nesting, no directories within the second level).\n\n    for version in files(__package__).joinpath(\"schemas\").iterdir():\n        if version.name.startswith(\".\"):\n            continue\n        for child in version.iterdir():\n            children = [child] if child.is_file() else child.iterdir()\n            for path in children:\n                if path.name.startswith(\".\"):\n                    continue\n                contents = json.loads(path.read_text(encoding=\"utf-8\"))\n                yield Resource.from_contents(contents)\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_it_copes_with_dotfiles(ignored_relative_path):\n    \"\"\"\n    Ignore files like .DS_Store if someone has actually caused one to exist.\n\n    We test here through the private interface as of course the global has\n    already loaded our schemas.\n    \"\"\"\n\n    import jsonschema_specifications\n\n    package = Path(jsonschema_specifications.__file__).parent\n\n    ignored = package / ignored_relative_path\n    ignored.touch()\n    try:\n        list(jsonschema_specifications._schemas())\n    finally:\n        ignored.unlink()"
+}

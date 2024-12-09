@@ -1,0 +1,79 @@
+{
+  "test_name": "test_can_prepare_without_upgrade",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    },
+    {
+      "name": "web.WebSocketResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WebSocketReady",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ws.can_prepare",
+      "source_code": "    def can_prepare(self, request: BaseRequest) -> WebSocketReady:\n        if self._writer is not None:\n            raise RuntimeError(\"Already started\")\n        try:\n            _, protocol, _, _ = self._handshake(request)\n        except HTTPException:\n            return WebSocketReady(False, None)\n        else:\n            return WebSocketReady(True, protocol)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_ws.py",
+      "line_number": 364
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_can_prepare_without_upgrade",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    },
+    {
+      "function": "web.WebSocketResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_prepare_without_upgrade",
+      "source_code": ""
+    },
+    {
+      "function": "WebSocketReady",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_prepare_without_upgrade",
+      "source_code": ""
+    },
+    {
+      "function": "ws.can_prepare",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_ws.py",
+      "line": 364,
+      "caller": "test_can_prepare_without_upgrade",
+      "source_code": "    def can_prepare(self, request: BaseRequest) -> WebSocketReady:\n        if self._writer is not None:\n            raise RuntimeError(\"Already started\")\n        try:\n            _, protocol, _, _ = self._handshake(request)\n        except HTTPException:\n            return WebSocketReady(False, None)\n        else:\n            return WebSocketReady(True, protocol)\n\n"
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_can_prepare_without_upgrade",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert WebSocketReady(False, None) == ws.can_prepare(req)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_can_prepare_without_upgrade(make_request: _RequestMaker) -> None:\n    req = make_request(\"GET\", \"/\", headers=CIMultiDict({}))\n    ws = web.WebSocketResponse()\n    assert WebSocketReady(False, None) == ws.can_prepare(req)"
+}

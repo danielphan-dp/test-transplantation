@@ -1,0 +1,90 @@
+{
+  "test_name": "test_is_response_false_adapter_is_not_self",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.registry.registerAdapter",
+      "source_code": "    def registerAdapter(factory, required=None, provided=None, name='',\n                        info=''):\n        \"\"\"Register an adapter factory",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1257
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "request.is_response",
+      "source_code": "    def is_response(self, ob):\n        \"\"\"Return ``True`` if the object passed as ``ob`` is a valid\n        response object, ``False`` otherwise.\"\"\"\n        if ob.__class__ is Response:\n            return True\n        registry = self.registry\n        adapted = registry.queryAdapterOrSelf(ob, IResponse)\n        if adapted is None:\n            return False\n        return adapted is ob",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 220
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_is_response_false_adapter_is_not_self",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "Foo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_is_response_false_adapter_is_not_self",
+      "source_code": ""
+    },
+    {
+      "function": "request.registry.registerAdapter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1257,
+      "caller": "test_is_response_false_adapter_is_not_self",
+      "source_code": "    def registerAdapter(factory, required=None, provided=None, name='',\n                        info=''):\n        \"\"\"Register an adapter factory\n\n        :param factory:\n            The object used to compute the adapter\n\n        :param required:\n            This is a sequence of specifications for objects to be\n            adapted.  If omitted, then the value of the factory's\n            ``__component_adapts__`` attribute will be used.  The\n            ``__component_adapts__`` attribute is\n            normally set in class definitions using\n            the `.adapter`\n            decorator.  If the factory doesn't have a\n            ``__component_adapts__`` adapts attribute, then this\n            argument is required.\n\n        :param provided:\n            This is the interface provided by the adapter and\n            implemented by the factory.  If the factory\n            implements a single interface, then this argument is\n            optional and the factory-implemented interface will be\n            used.\n\n        :param name:\n            The adapter name.\n\n        :param info:\n           An object that can be converted to a string to provide\n           information about the registration.\n\n        A `IRegistered` event is generated with an `IAdapterRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_is_response_false_adapter_is_not_self",
+      "source_code": ""
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_is_response_false_adapter_is_not_self",
+      "source_code": ""
+    },
+    {
+      "function": "request.is_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 220,
+      "caller": "test_is_response_false_adapter_is_not_self",
+      "source_code": "    def is_response(self, ob):\n        \"\"\"Return ``True`` if the object passed as ``ob`` is a valid\n        response object, ``False`` otherwise.\"\"\"\n        if ob.__class__ is Response:\n            return True\n        registry = self.registry\n        adapted = registry.queryAdapterOrSelf(ob, IResponse)\n        if adapted is None:\n            return False\n        return adapted is ob\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_is_response_false_adapter_is_not_self(self):\n        from pyramid.interfaces import IResponse\n\n        request = self._makeOne()\n        request.registry = self.config.registry\n\n        def adapter(ob):\n            return object()\n\n        class Foo:\n            pass\n\n        foo = Foo()\n        request.registry.registerAdapter(adapter, (Foo,), IResponse)\n        self.assertEqual(request.is_response(foo), False)"
+}

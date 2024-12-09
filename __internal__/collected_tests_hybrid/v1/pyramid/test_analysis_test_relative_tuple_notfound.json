@@ -1,0 +1,90 @@
+{
+  "test_name": "test_relative_tuple_notfound",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+  "static_methods": [
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_traverser",
+      "source_code": "def make_traverser(result):\n    class DummyTraverser:\n        def __init__(self, context):\n            self.context = context\n            context.wascontext = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1241
+    },
+    {
+      "name": "self._registerTraverser",
+      "source_code": "    def _registerTraverser(self, traverser):\n        from pyramid.threadlocal import get_current_registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 552
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_relative_tuple_notfound",
+      "source_code": ""
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_relative_tuple_notfound",
+      "source_code": ""
+    },
+    {
+      "function": "make_traverser",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1241,
+      "caller": "test_relative_tuple_notfound",
+      "source_code": "def make_traverser(result):\n    class DummyTraverser:\n        def __init__(self, context):\n            self.context = context\n            context.wascontext = True\n\n        def __call__(self, request):\n            self.context.request = request\n            return result\n\n    return DummyTraverser\n\n\n"
+    },
+    {
+      "function": "self._registerTraverser",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 552,
+      "caller": "test_relative_tuple_notfound",
+      "source_code": "    def _registerTraverser(self, traverser):\n        from pyramid.threadlocal import get_current_registry\n\n        reg = get_current_registry()\n        from zope.interface import Interface\n\n        from pyramid.interfaces import ITraverser\n\n        reg.registerAdapter(traverser, (Interface,), ITraverser)\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_relative_tuple_notfound",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_relative_tuple_notfound",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_relative_tuple_notfound(self):\n        resource = DummyContext()\n        baz = DummyContext()\n        traverser = make_traverser({'context': baz, 'view_name': 'bar'})\n        self._registerTraverser(traverser)\n        self.assertRaises(KeyError, self._callFUT, resource, ('baz',))\n        self.assertEqual(resource.request.environ['PATH_INFO'], 'baz')"
+}

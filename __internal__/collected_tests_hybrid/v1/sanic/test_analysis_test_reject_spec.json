@@ -1,0 +1,25 @@
+{
+  "test_name": "test_reject_spec",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_resources.py",
+  "static_methods": [
+    {
+      "name": "EntryPoint.parse",
+      "source_code": "def parse(version: str) -> Union[\"LegacyVersion\", \"Version\"]:\n    \"\"\"\n    Parse the given version string and return either a :class:`Version` object\n    or a :class:`LegacyVersion` object depending on if the given version is\n    a valid PEP 440 version or a legacy version.\n    \"\"\"\n    try:\n        return Version(version)\n    except InvalidVersion:\n        return LegacyVersion(version)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 42
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "EntryPoint.parse",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 42,
+      "caller": "test_reject_spec",
+      "source_code": "def parse(version: str) -> Union[\"LegacyVersion\", \"Version\"]:\n    \"\"\"\n    Parse the given version string and return either a :class:`Version` object\n    or a :class:`LegacyVersion` object depending on if the given version is\n    a valid PEP 440 version or a legacy version.\n    \"\"\"\n    try:\n        return Version(version)\n    except InvalidVersion:\n        return LegacyVersion(version)\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reject_spec(self, reject_spec):\n        with pytest.raises(ValueError):\n            EntryPoint.parse(reject_spec)"
+}

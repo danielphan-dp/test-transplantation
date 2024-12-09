@@ -1,0 +1,54 @@
+{
+  "test_name": "test_app_enable_websocket",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [
+    {
+      "name": "app.enable_websocket",
+      "source_code": "    def enable_websocket(self, enable: bool = True) -> None:\n        \"\"\"Enable or disable the support for websocket.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 833
+    },
+    {
+      "name": "app.websocket",
+      "source_code": "    def websocket(\n        self,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols: Optional[List[str]] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        apply: bool = True,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ):\n        \"\"\"Decorate a function to be registered as a websocket route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 675
+    },
+    {
+      "name": "ws.send",
+      "source_code": "    def send(self, request, cacheable_methods=None, **kw):\n        \"\"\"\n        Send a request. Use the request information to see if it\n        exists in the cache and cache the response if we need to and can.\n        \"\"\"\n        cacheable = cacheable_methods or self.cacheable_methods\n        if request.method in cacheable:\n            try:\n                cached_response = self.controller.cached_request(request)\n            except zlib.error:\n                cached_response = None\n            if cached_response:\n                return self.build_response(request, cached_response, from_cache=True)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/adapter.py",
+      "line_number": 40
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.enable_websocket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 833,
+      "caller": "test_app_enable_websocket",
+      "source_code": "    def enable_websocket(self, enable: bool = True) -> None:\n        \"\"\"Enable or disable the support for websocket.\n\n        Websocket is enabled automatically if websocket routes are\n        added to the application. This typically will not need to be\n        called manually.\n\n        Args:\n            enable (bool, optional): If set to `True`, enables websocket\n                support. If set to `False`, disables websocket support.\n                Defaults to `True`.\n\n        Returns:\n            None\n        \"\"\"\n\n        if not self.websocket_enabled:\n            # if the server is stopped, we want to cancel any ongoing\n            # websocket tasks, to allow the server to exit promptly\n            self.listener(\"before_server_stop\")(self._cancel_websocket_tasks)\n\n        self.websocket_enabled = enable\n\n"
+    },
+    {
+      "function": "app.websocket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 675,
+      "caller": "test_app_enable_websocket",
+      "source_code": "    def websocket(\n        self,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols: Optional[List[str]] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        apply: bool = True,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "ws.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/adapter.py",
+      "line": 40,
+      "caller": "test_app_enable_websocket",
+      "source_code": "    def send(self, request, cacheable_methods=None, **kw):\n        \"\"\"\n        Send a request. Use the request information to see if it\n        exists in the cache and cache the response if we need to and can.\n        \"\"\"\n        cacheable = cacheable_methods or self.cacheable_methods\n        if request.method in cacheable:\n            try:\n                cached_response = self.controller.cached_request(request)\n            except zlib.error:\n                cached_response = None\n            if cached_response:\n                return self.build_response(request, cached_response, from_cache=True)\n\n            # check for etags and add headers if appropriate\n            request.headers.update(self.controller.conditional_headers(request))\n\n        resp = super(CacheControlAdapter, self).send(request, **kw)\n\n        return resp\n\n"
+    }
+  ],
+  "assertions": [
+    "assert app.websocket_enabled == enable",
+    "assert app.websocket_enabled is True"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_app_enable_websocket(app: Sanic, websocket_enabled, enable):\n    app.websocket_enabled = websocket_enabled\n    app.enable_websocket(enable=enable)\n\n    assert app.websocket_enabled == enable\n\n    @app.websocket(\"/ws\")\n    async def handler(request, ws):\n        await ws.send(\"test\")\n\n    assert app.websocket_enabled is True"
+}

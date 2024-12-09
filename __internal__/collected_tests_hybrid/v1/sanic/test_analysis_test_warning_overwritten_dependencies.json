@@ -1,0 +1,53 @@
+{
+  "test_name": "test_warning_overwritten_dependencies",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "pyproject.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "makedist",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line_number": 33
+    },
+    {
+      "name": "pyprojecttoml.apply_configuration",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 64
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pyproject.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_warning_overwritten_dependencies",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "makedist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line": 33,
+      "caller": "test_warning_overwritten_dependencies",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})\n\n\n"
+    },
+    {
+      "function": "pyprojecttoml.apply_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 64,
+      "caller": "test_warning_overwritten_dependencies",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,\n"
+    }
+  ],
+  "assertions": [
+    "assert 'wheel' not in dist.install_requires"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_warning_overwritten_dependencies(self, tmp_path):\n        src = \"[project]\\nname='pkg'\\nversion='0.1'\\ndependencies=['click']\\n\"\n        pyproject = tmp_path / \"pyproject.toml\"\n        pyproject.write_text(src, encoding=\"utf-8\")\n        dist = makedist(tmp_path, install_requires=[\"wheel\"])\n        with pytest.warns(match=\"`install_requires` overwritten\"):\n            dist = pyprojecttoml.apply_configuration(dist, pyproject)\n        assert \"wheel\" not in dist.install_requires"
+}

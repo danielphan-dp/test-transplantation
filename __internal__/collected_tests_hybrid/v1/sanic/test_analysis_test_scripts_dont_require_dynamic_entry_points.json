@@ -1,0 +1,53 @@
+{
+  "test_name": "test_scripts_dont_require_dynamic_entry_points",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "self.pyproject",
+      "source_code": "    def pyproject(self, dynamic=None):\n        project = {\"dynamic\": dynamic or [\"scripts\", \"gui-scripts\", \"entry-points\"]}\n        tool = {\"dynamic\": {\"entry-points\": {\"file\": \"entry-points.txt\"}}}\n        return {\"project\": project, \"tool\": {\"setuptools\": tool}}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line_number": 188
+    },
+    {
+      "name": "makedist",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line_number": 33
+    },
+    {
+      "name": "pyprojecttoml.apply_configuration",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 64
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.pyproject",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line": 188,
+      "caller": "test_scripts_dont_require_dynamic_entry_points",
+      "source_code": "    def pyproject(self, dynamic=None):\n        project = {\"dynamic\": dynamic or [\"scripts\", \"gui-scripts\", \"entry-points\"]}\n        tool = {\"dynamic\": {\"entry-points\": {\"file\": \"entry-points.txt\"}}}\n        return {\"project\": project, \"tool\": {\"setuptools\": tool}}\n\n"
+    },
+    {
+      "function": "makedist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line": 33,
+      "caller": "test_scripts_dont_require_dynamic_entry_points",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})\n\n\n"
+    },
+    {
+      "function": "pyprojecttoml.apply_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 64,
+      "caller": "test_scripts_dont_require_dynamic_entry_points",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,\n"
+    }
+  ],
+  "assertions": [
+    "assert group in dist.entry_points"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_scripts_dont_require_dynamic_entry_points(self, tmp_path, field, group):\n        # Issue 3862\n        pyproject = self.pyproject(tmp_path, [field])\n        dist = makedist(tmp_path, entry_points={group: [\"foobar=foobar:main\"]})\n        dist = pyprojecttoml.apply_configuration(dist, pyproject)\n        assert group in dist.entry_points"
+}

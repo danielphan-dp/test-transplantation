@@ -1,0 +1,64 @@
+{
+  "test_name": "test_unregisterHandler_miss",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_registry.py",
+  "static_methods": [
+    {
+      "name": "IFoo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "comp.unregisterHandler",
+      "source_code": "    def unregisterHandler(handler=None, required=None, name=''):\n        \"\"\"Unregister a handler.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1467
+    },
+    {
+      "name": "self.assertFalse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "IFoo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unregisterHandler_miss",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_unregisterHandler_miss",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "comp.unregisterHandler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1467,
+      "caller": "test_unregisterHandler_miss",
+      "source_code": "    def unregisterHandler(handler=None, required=None, name=''):\n        \"\"\"Unregister a handler.\n\n        A handler is a subscriber that doesn't compute an adapter\n        but performs some function when called.\n\n        :returns: A boolean is returned indicating whether the registry was\n            changed.\n\n        :param handler:\n            This is the object used to handle some event\n            represented by the objects passed to it. The handler\n            can be None, in which case any handlers registered for\n            the given required specifications with the given are\n            unregistered.\n\n        :param required:\n            This is a sequence of specifications for objects to be\n            adapted.  If omitted, then the value of the factory's\n            ``__component_adapts__`` attribute will be used.  The\n            ``__component_adapts__`` attribute is\n            normally set using the adapter\n            decorator.  If the factory doesn't have a\n            ``__component_adapts__`` adapts attribute, then this\n            argument is required.\n\n        :param name:\n            The handler name.\n\n            Currently, only the empty string is accepted.  Other\n            strings will be accepted in the future when support for\n            named handlers is added.\n\n        An `IUnregistered` event is generated with an `IHandlerRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertFalse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unregisterHandler_miss",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unregisterHandler_miss(self):\n        from zope.interface.declarations import InterfaceClass\n\n        class IFoo(InterfaceClass):\n            pass\n\n        ifoo = IFoo('IFoo')\n        comp = self._makeOne()\n        unreg = comp.unregisterHandler(required=(ifoo,))\n        self.assertFalse(unreg)"
+}

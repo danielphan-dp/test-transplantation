@@ -1,0 +1,103 @@
+{
+  "test_name": "test_lifespan_state_unsupported",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "app",
+      "source_code": "    def app(self) -> typing.Any:\n        return self.scope[\"app\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/requests.py",
+      "line_number": 96
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "AssertionError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Mount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "PlainTextResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_state_unsupported",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_lifespan_state_unsupported",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/requests.py",
+      "line": 96,
+      "caller": "test_lifespan_state_unsupported",
+      "source_code": "    @property\n    def app(self) -> typing.Any:\n        return self.scope[\"app\"]\n\n"
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_lifespan_state_unsupported",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "AssertionError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_lifespan_state_unsupported",
+      "source_code": ""
+    },
+    {
+      "function": "Mount",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_state_unsupported",
+      "source_code": ""
+    },
+    {
+      "function": "PlainTextResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_state_unsupported",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_lifespan_state_unsupported(\n    test_client_factory: TestClientFactory,\n) -> None:\n    @contextlib.asynccontextmanager\n    async def lifespan(\n        app: ASGIApp,\n    ) -> typing.AsyncGenerator[dict[str, str], None]:\n        yield {\"foo\": \"bar\"}\n\n    app = Router(\n        lifespan=lifespan,\n        routes=[Mount(\"/\", PlainTextResponse(\"hello, world\"))],\n    )\n\n    async def no_state_wrapper(scope: Scope, receive: Receive, send: Send) -> None:\n        del scope[\"state\"]\n        await app(scope, receive, send)\n\n    with pytest.raises(RuntimeError, match='The server does not support \"state\" in the lifespan scope'):\n        with test_client_factory(no_state_wrapper):\n            raise AssertionError(\"Should not be called\")"
+}

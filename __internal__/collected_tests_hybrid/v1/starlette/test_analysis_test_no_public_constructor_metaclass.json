@@ -1,0 +1,55 @@
+{
+  "test_name": "test_no_public_constructor_metaclass",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "SpecialClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SpecialClass._create",
+      "source_code": "    def _create(cls: type[_T], *k, **kw) -> _T:\n        try:\n            return super().__call__(*k, **kw)  # type: ignore[no-any-return,misc]\n        except TypeError:\n            sig = signature(getattr(cls, \"__init__\"))\n            known_kw = {k: v for k, v in kw.items() if k in sig.parameters}\n            from .warning_types import PytestDeprecationWarning",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/nodes.py",
+      "line_number": 108
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_public_constructor_metaclass",
+      "source_code": ""
+    },
+    {
+      "function": "SpecialClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_public_constructor_metaclass",
+      "source_code": ""
+    },
+    {
+      "function": "SpecialClass._create",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/nodes.py",
+      "line": 108,
+      "caller": "test_no_public_constructor_metaclass",
+      "source_code": "    def _create(cls: type[_T], *k, **kw) -> _T:\n        try:\n            return super().__call__(*k, **kw)  # type: ignore[no-any-return,misc]\n        except TypeError:\n            sig = signature(getattr(cls, \"__init__\"))\n            known_kw = {k: v for k, v in kw.items() if k in sig.parameters}\n            from .warning_types import PytestDeprecationWarning\n\n            warnings.warn(\n                PytestDeprecationWarning(\n                    f\"{cls} is not using a cooperative constructor and only takes {set(known_kw)}.\\n\"\n                    \"See https://docs.pytest.org/en/stable/deprecations.html\"\n                    \"#constructors-of-custom-pytest-node-subclasses-should-take-kwargs \"\n                    \"for more details.\"\n                )\n            )\n\n            return super().__call__(*k, **known_kw)  # type: ignore[no-any-return,misc]\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(SpecialClass._create(8, b=3.14), SpecialClass)",
+    "assert a == 8",
+    "assert b == 3.14"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_no_public_constructor_metaclass() -> None:\n    \"\"\"The NoPublicConstructor metaclass prevents calling the constructor directly.\"\"\"\n\n    class SpecialClass(metaclass=NoPublicConstructor):\n        def __init__(self, a: int, b: float) -> None:\n            \"\"\"Check arguments can be passed to __init__.\"\"\"\n            assert a == 8\n            assert b == 3.14\n\n    with pytest.raises(TypeError):\n        SpecialClass(8, 3.14)\n\n    # Private constructor should not raise, and passes args to __init__.\n    assert isinstance(SpecialClass._create(8, b=3.14), SpecialClass)"
+}

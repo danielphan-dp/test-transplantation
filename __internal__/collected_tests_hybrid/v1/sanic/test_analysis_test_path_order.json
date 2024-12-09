@@ -1,0 +1,106 @@
+{
+  "test_name": "test_path_order",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_resources.py",
+  "static_methods": [
+    {
+      "name": "enumerate",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "subpkg.ensure_dir",
+      "source_code": "    def ensure_dir(self, path):\n        path = os.path.abspath(path)\n        if path not in self.ensured and not os.path.exists(path):\n            self.ensured.add(path)\n            d, f = os.path.split(path)\n            self.ensure_dir(d)\n            logger.info('Creating %s' % path)\n            if not self.dry_run:\n                os.mkdir(path)\n            if self.record:\n                self.dirs_created.add(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 577
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "issue591",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "enumerate",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_path_order",
+      "source_code": ""
+    },
+    {
+      "function": "subpkg.ensure_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 577,
+      "caller": "test_path_order",
+      "source_code": "    def ensure_dir(self, path):\n        path = os.path.abspath(path)\n        if path not in self.ensured and not os.path.exists(path):\n            self.ensured.add(path)\n            d, f = os.path.split(path)\n            self.ensure_dir(d)\n            logger.info('Creating %s' % path)\n            if not self.dry_run:\n                os.mkdir(path)\n            if self.record:\n                self.dirs_created.add(path)\n\n"
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_path_order",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_path_order",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_path_order",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_path_order",
+      "source_code": ""
+    },
+    {
+      "function": "issue591",
+      "filename": "",
+      "line": 0,
+      "caller": "test_path_order",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert nspkg.__path__ == expected",
+    "assert nspkg.subpkg.__version__ == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_path_order(self, symlinked_tmpdir):\n        \"\"\"\n        Test that if multiple versions of the same namespace package subpackage\n        are on different sys.path entries, that only the one earliest on\n        sys.path is imported, and that the namespace package's __path__ is in\n        the correct order.\n\n        Regression test for https://github.com/pypa/setuptools/issues/207\n        \"\"\"\n\n        tmpdir = symlinked_tmpdir\n        site_dirs = (\n            tmpdir / \"site-pkgs\",\n            tmpdir / \"site-pkgs2\",\n            tmpdir / \"site-pkgs3\",\n        )\n\n        vers_str = \"__version__ = %r\"\n\n        for number, site in enumerate(site_dirs, 1):\n            if number > 1:\n                sys.path.append(str(site))\n            nspkg = site / 'nspkg'\n            subpkg = nspkg / 'subpkg'\n            subpkg.ensure_dir()\n            (nspkg / '__init__.py').write_text(self.ns_str, encoding='utf-8')\n            (subpkg / '__init__.py').write_text(vers_str % number, encoding='utf-8')\n\n        with pytest.warns(DeprecationWarning, match=\"pkg_resources.declare_namespace\"):\n            import nspkg  # pyright: ignore[reportMissingImports] # Temporary package for test\n            import nspkg.subpkg  # pyright: ignore[reportMissingImports] # Temporary package for test\n        expected = [str(site.realpath() / 'nspkg') for site in site_dirs]\n        assert nspkg.__path__ == expected\n        assert nspkg.subpkg.__version__ == 1"
+}

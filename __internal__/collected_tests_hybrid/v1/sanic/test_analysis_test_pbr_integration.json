@@ -1,0 +1,92 @@
+{
+  "test_name": "test_pbr_integration",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "contexts.environment",
+      "source_code": "def environment(**replacements):\n    \"\"\"\n    In a context, patch the environment with replacements. Pass None values\n    to clear the values.\n    \"\"\"\n    saved = dict((key, os.environ[key]) for key in replacements if key in os.environ)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line_number": 25
+    },
+    {
+      "name": "dedent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dedent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dedent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "contexts.environment",
+      "source_code": "def environment(**replacements):\n    \"\"\"\n    In a context, patch the environment with replacements. Pass None values\n    to clear the values.\n    \"\"\"\n    saved = dict((key, os.environ[key]) for key in replacements if key in os.environ)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line_number": 25
+    },
+    {
+      "name": "install_project",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line_number": 1242
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "contexts.environment",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line": 25,
+      "caller": "test_pbr_integration",
+      "source_code": "@contextlib.contextmanager\ndef environment(**replacements):\n    \"\"\"\n    In a context, patch the environment with replacements. Pass None values\n    to clear the values.\n    \"\"\"\n    saved = dict((key, os.environ[key]) for key in replacements if key in os.environ)\n\n    # remove values that are null\n    remove = (key for (key, value) in replacements.items() if value is None)\n    for key in list(remove):\n        os.environ.pop(key, None)\n        replacements.pop(key)\n\n    os.environ.update(replacements)\n\n    try:\n        yield saved\n    finally:\n        for key in replacements:\n            os.environ.pop(key, None)\n        os.environ.update(saved)\n\n\n"
+    },
+    {
+      "function": "dedent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pbr_integration",
+      "source_code": ""
+    },
+    {
+      "function": "dedent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pbr_integration",
+      "source_code": ""
+    },
+    {
+      "function": "dedent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pbr_integration",
+      "source_code": ""
+    },
+    {
+      "function": "contexts.environment",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line": 25,
+      "caller": "test_pbr_integration",
+      "source_code": "@contextlib.contextmanager\ndef environment(**replacements):\n    \"\"\"\n    In a context, patch the environment with replacements. Pass None values\n    to clear the values.\n    \"\"\"\n    saved = dict((key, os.environ[key]) for key in replacements if key in os.environ)\n\n    # remove values that are null\n    remove = (key for (key, value) in replacements.items() if value is None)\n    for key in list(remove):\n        os.environ.pop(key, None)\n        replacements.pop(key)\n\n    os.environ.update(replacements)\n\n    try:\n        yield saved\n    finally:\n        for key in replacements:\n            os.environ.pop(key, None)\n        os.environ.update(saved)\n\n\n"
+    },
+    {
+      "function": "install_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line": 1242,
+      "caller": "test_pbr_integration",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'Hello world!' in out"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_pbr_integration(tmp_path, venv, editable_opts):\n    \"\"\"Ensure editable installs work with pbr, issue #3500\"\"\"\n    files = {\n        \"pyproject.toml\": dedent(\n            \"\"\"\\\n            [build-system]\n            requires = [\"setuptools\"]\n            build-backend = \"setuptools.build_meta\"\n            \"\"\"\n        ),\n        \"setup.py\": dedent(\n            \"\"\"\\\n            __import__('setuptools').setup(\n                pbr=True,\n                setup_requires=[\"pbr\"],\n            )\n            \"\"\"\n        ),\n        \"setup.cfg\": dedent(\n            \"\"\"\\\n            [metadata]\n            name = mypkg\n\n            [files]\n            packages =\n                mypkg\n            \"\"\"\n        ),\n        \"mypkg\": {\n            \"__init__.py\": \"\",\n            \"hello.py\": \"print('Hello world!')\",\n        },\n        \"other\": {\"test.txt\": \"Another file in here.\"},\n    }\n    venv.run([\"python\", \"-m\", \"pip\", \"install\", \"pbr\"])\n\n    with contexts.environment(PBR_VERSION=\"0.42\"):\n        install_project(\"mypkg\", venv, tmp_path, files, *editable_opts)\n\n    out = venv.run([\"python\", \"-c\", \"import mypkg.hello\"])\n    assert \"Hello world!\" in out"
+}

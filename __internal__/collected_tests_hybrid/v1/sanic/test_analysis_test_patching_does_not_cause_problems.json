@@ -1,0 +1,55 @@
+{
+  "test_name": "test_patching_does_not_cause_problems",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_logging.py",
+  "static_methods": [
+    {
+      "name": "_distutils_hack.enabled",
+      "source_code": "def enabled():\n    \"\"\"\n    Only enabled for Python 3.9 framework homebrew builds\n    except ensurepip and venv.\n    \"\"\"\n    PY39 = (3, 9) < sys.version_info < (3, 10)\n    framework = sys.platform == 'darwin' and sys._framework\n    homebrew = \"Cellar\" in sysconfig.get_config_var('projectbase')\n    venv = sys.prefix != sys.base_prefix\n    ensurepip = os.environ.get(\"ENSUREPIP_OPTIONS\")\n    return PY39 and framework and homebrew and not venv and not ensurepip",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/command/_framework_compat.py",
+      "line_number": 13
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "flaky_on_pypy",
+      "source_code": "def flaky_on_pypy(func):\n    @functools.wraps(func)\n    def _func():\n        try:\n            func()\n        except AssertionError:  # pragma: no cover\n            if IS_PYPY:\n                msg = \"Flaky monkeypatch on PyPy (#4124)\"\n                pytest.xfail(f\"{msg}. Original discussion in #3707, #3709.\")\n            raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_logging.py",
+      "line_number": 45
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_distutils_hack.enabled",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/command/_framework_compat.py",
+      "line": 13,
+      "caller": "test_patching_does_not_cause_problems",
+      "source_code": "@functools.lru_cache\ndef enabled():\n    \"\"\"\n    Only enabled for Python 3.9 framework homebrew builds\n    except ensurepip and venv.\n    \"\"\"\n    PY39 = (3, 9) < sys.version_info < (3, 10)\n    framework = sys.platform == 'darwin' and sys._framework\n    homebrew = \"Cellar\" in sysconfig.get_config_var('projectbase')\n    venv = sys.prefix != sys.base_prefix\n    ensurepip = os.environ.get(\"ENSUREPIP_OPTIONS\")\n    return PY39 and framework and homebrew and not venv and not ensurepip\n\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_patching_does_not_cause_problems",
+      "source_code": ""
+    },
+    {
+      "function": "flaky_on_pypy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_logging.py",
+      "line": 45,
+      "caller": "test_patching_does_not_cause_problems",
+      "source_code": "def flaky_on_pypy(func):\n    @functools.wraps(func)\n    def _func():\n        try:\n            func()\n        except AssertionError:  # pragma: no cover\n            if IS_PYPY:\n                msg = \"Flaky monkeypatch on PyPy (#4124)\"\n                pytest.xfail(f\"{msg}. Original discussion in #3707, #3709.\")\n            raise\n\n    return _func\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dist.__file__ is None or 'setuptools' in dist.__file__",
+    "assert isinstance(dist.log, logging.Logger)",
+    "assert inspect.ismodule(dist.log)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_patching_does_not_cause_problems():\n    # Ensure `dist.log` is only patched if necessary\n\n    import _distutils_hack\n\n    import setuptools.logging\n\n    from distutils import dist\n\n    setuptools.logging.configure()\n\n    if _distutils_hack.enabled():\n        # Modern logging infra, no problematic patching.\n        assert dist.__file__ is None or \"setuptools\" in dist.__file__\n        assert isinstance(dist.log, logging.Logger)\n    else:\n        assert inspect.ismodule(dist.log)"
+}

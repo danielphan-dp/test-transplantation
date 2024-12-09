@@ -1,0 +1,38 @@
+{
+  "test_name": "test_http_request_bad_status_line_number",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "_num.keys",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 745
+    },
+    {
+      "name": "_num.values",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 749
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_num.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 745,
+      "caller": "test_http_request_bad_status_line_number",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)\n\n"
+    },
+    {
+      "function": "_num.values",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 749,
+      "caller": "test_http_request_bad_status_line_number",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_request_bad_status_line_number(\n    parser: HttpRequestParser, nonascii_digit: bytes\n) -> None:\n    text = b\"GET /digit HTTP/1.\" + nonascii_digit + b\"\\r\\n\\r\\n\"\n    with pytest.raises(http_exceptions.BadStatusLine):\n        parser.feed_data(text)"
+}

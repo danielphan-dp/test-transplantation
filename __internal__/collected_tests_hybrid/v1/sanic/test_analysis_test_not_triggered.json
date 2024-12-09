@@ -1,0 +1,77 @@
+{
+  "test_name": "test_not_triggered",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+  "static_methods": [
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Reloader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_reloader",
+      "source_code": "def run_reloader(reloader):\n    def stop(*_):\n        reloader.stop()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line_number": 39
+    },
+    {
+      "name": "publisher.send.assert_not_called",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_not_triggered",
+      "source_code": ""
+    },
+    {
+      "function": "Reloader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_not_triggered",
+      "source_code": ""
+    },
+    {
+      "function": "run_reloader",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line": 39,
+      "caller": "test_not_triggered",
+      "source_code": "def run_reloader(reloader):\n    def stop(*_):\n        reloader.stop()\n\n    signal.signal(signal.SIGALRM, stop)\n    signal.alarm(1)\n    reloader()\n\n\n"
+    },
+    {
+      "function": "publisher.send.assert_not_called",
+      "filename": "",
+      "line": 0,
+      "caller": "test_not_triggered",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_not_triggered",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_not_triggered(app_loader):\n    reload_dir = Path(__file__).parent.parent / \"fake\"\n    publisher = Mock()\n    reloader = Reloader(publisher, 0.1, {reload_dir}, app_loader)\n    run_reloader(reloader)\n\n    publisher.send.assert_not_called()"
+}

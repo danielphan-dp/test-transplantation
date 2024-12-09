@@ -1,0 +1,27 @@
+{
+  "test_name": "test_newer_pairwise_empty",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_modified.py",
+  "static_methods": [
+    {
+      "name": "newer_pairwise",
+      "source_code": "def newer_pairwise(sources, targets, newer=newer):\n    \"\"\"\n    Filter filenames where sources are newer than targets.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line_number": 33
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "newer_pairwise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line": 33,
+      "caller": "test_newer_pairwise_empty",
+      "source_code": "def newer_pairwise(sources, targets, newer=newer):\n    \"\"\"\n    Filter filenames where sources are newer than targets.\n\n    Walk two filename iterables in parallel, testing if each source is newer\n    than its corresponding target.  Returns a pair of lists (sources,\n    targets) where source is newer than target, according to the semantics\n    of 'newer()'.\n    \"\"\"\n    newer_pairs = filter(splat(newer), zip_strict(sources, targets))\n    return tuple(map(list, zip(*newer_pairs))) or ([], [])\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert newer_pairwise([], []) == ([], [])"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_newer_pairwise_empty(self):\n        assert newer_pairwise([], []) == ([], [])"
+}

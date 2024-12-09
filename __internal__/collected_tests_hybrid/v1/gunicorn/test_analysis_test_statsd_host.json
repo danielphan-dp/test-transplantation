@@ -1,0 +1,69 @@
+{
+  "test_name": "test_statsd_host",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "config.Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_statsd_host",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_statsd_host",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_statsd_host",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_statsd_host",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert c.statsd_host is None",
+    "assert c.statsd_host == ('localhost', 8125)",
+    "assert c.statsd_host == ('statsd', 7777)",
+    "assert c.statsd_host == '/path/to.sock'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_statsd_host():\n    c = config.Config()\n    assert c.statsd_host is None\n    c.set(\"statsd_host\", \"localhost\")\n    assert c.statsd_host == (\"localhost\", 8125)\n    c.set(\"statsd_host\", \"statsd:7777\")\n    assert c.statsd_host == (\"statsd\", 7777)\n    c.set(\"statsd_host\", \"unix:///path/to.sock\")\n    assert c.statsd_host == \"/path/to.sock\"\n    pytest.raises(TypeError, c.set, \"statsd_host\", 666)\n    pytest.raises(TypeError, c.set, \"statsd_host\", \"host:string\")"
+}

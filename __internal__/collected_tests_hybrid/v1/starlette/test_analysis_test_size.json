@@ -1,0 +1,67 @@
+{
+  "test_name": "test_size",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_rarray.py",
+  "static_methods": [
+    {
+      "name": "RArray",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RArray",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "compute_rtype_size",
+      "source_code": "def compute_rtype_size(typ: RType) -> int:\n    \"\"\"Compute unaligned size of rtype\"\"\"\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RTuple):\n        return compute_aligned_offsets_and_size(list(typ.types))[1]\n    elif isinstance(typ, RUnion):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RStruct):\n        return compute_aligned_offsets_and_size(typ.types)[1]\n    elif isinstance(typ, RInstance):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RArray):\n        alignment = compute_rtype_alignment(typ)\n        aligned_size = (compute_rtype_size(typ.item_type) + (alignment - 1)) & ~(alignment - 1)\n        return aligned_size * typ.length\n    else:\n        assert False, \"invalid rtype for computing size\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line_number": 701
+    },
+    {
+      "name": "compute_rtype_size",
+      "source_code": "def compute_rtype_size(typ: RType) -> int:\n    \"\"\"Compute unaligned size of rtype\"\"\"\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RTuple):\n        return compute_aligned_offsets_and_size(list(typ.types))[1]\n    elif isinstance(typ, RUnion):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RStruct):\n        return compute_aligned_offsets_and_size(typ.types)[1]\n    elif isinstance(typ, RInstance):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RArray):\n        alignment = compute_rtype_alignment(typ)\n        aligned_size = (compute_rtype_size(typ.item_type) + (alignment - 1)) & ~(alignment - 1)\n        return aligned_size * typ.length\n    else:\n        assert False, \"invalid rtype for computing size\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line_number": 701
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RArray",
+      "filename": "",
+      "line": 0,
+      "caller": "test_size",
+      "source_code": ""
+    },
+    {
+      "function": "RArray",
+      "filename": "",
+      "line": 0,
+      "caller": "test_size",
+      "source_code": ""
+    },
+    {
+      "function": "compute_rtype_size",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line": 701,
+      "caller": "test_size",
+      "source_code": "def compute_rtype_size(typ: RType) -> int:\n    \"\"\"Compute unaligned size of rtype\"\"\"\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RTuple):\n        return compute_aligned_offsets_and_size(list(typ.types))[1]\n    elif isinstance(typ, RUnion):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RStruct):\n        return compute_aligned_offsets_and_size(typ.types)[1]\n    elif isinstance(typ, RInstance):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RArray):\n        alignment = compute_rtype_alignment(typ)\n        aligned_size = (compute_rtype_size(typ.item_type) + (alignment - 1)) & ~(alignment - 1)\n        return aligned_size * typ.length\n    else:\n        assert False, \"invalid rtype for computing size\"\n\n\n"
+    },
+    {
+      "function": "compute_rtype_size",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/rtypes.py",
+      "line": 701,
+      "caller": "test_size",
+      "source_code": "def compute_rtype_size(typ: RType) -> int:\n    \"\"\"Compute unaligned size of rtype\"\"\"\n    if isinstance(typ, RPrimitive):\n        return typ.size\n    elif isinstance(typ, RTuple):\n        return compute_aligned_offsets_and_size(list(typ.types))[1]\n    elif isinstance(typ, RUnion):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RStruct):\n        return compute_aligned_offsets_and_size(typ.types)[1]\n    elif isinstance(typ, RInstance):\n        return PLATFORM_SIZE\n    elif isinstance(typ, RArray):\n        alignment = compute_rtype_alignment(typ)\n        aligned_size = (compute_rtype_size(typ.item_type) + (alignment - 1)) & ~(alignment - 1)\n        return aligned_size * typ.length\n    else:\n        assert False, \"invalid rtype for computing size\"\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert compute_rtype_size(a) == 9 * PLATFORM_SIZE",
+    "assert compute_rtype_size(b) == 3"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_size(self) -> None:\n        a = RArray(int_rprimitive, 9)\n        assert compute_rtype_size(a) == 9 * PLATFORM_SIZE\n        b = RArray(bool_rprimitive, 3)\n        assert compute_rtype_size(b) == 3"
+}

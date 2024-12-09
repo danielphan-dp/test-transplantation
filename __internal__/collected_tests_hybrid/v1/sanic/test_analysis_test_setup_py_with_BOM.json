@@ -1,0 +1,40 @@
+{
+  "test_name": "test_setup_py_with_BOM",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sandbox.py",
+  "static_methods": [
+    {
+      "name": "pkg_resources.resource_filename",
+      "source_code": "    def resource_filename(self, package_or_requirement, resource_name):\n        \"\"\"Return a true filesystem path for specified resource\"\"\"\n        return get_provider(package_or_requirement).get_resource_filename(\n            self, resource_name\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 1142
+    },
+    {
+      "name": "vars",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pkg_resources.resource_filename",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 1142,
+      "caller": "test_setup_py_with_BOM",
+      "source_code": "    def resource_filename(self, package_or_requirement, resource_name):\n        \"\"\"Return a true filesystem path for specified resource\"\"\"\n        return get_provider(package_or_requirement).get_resource_filename(\n            self, resource_name\n        )\n\n"
+    },
+    {
+      "function": "vars",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_setup_py_with_BOM",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert namespace.result == 'passed'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_setup_py_with_BOM(self):\n        \"\"\"\n        It should be possible to execute a setup.py with a Byte Order Mark\n        \"\"\"\n        target = pkg_resources.resource_filename(__name__, 'script-with-bom.py')\n        namespace = types.ModuleType('namespace')\n        setuptools.sandbox._execfile(target, vars(namespace))\n        assert namespace.result == 'passed'"
+}

@@ -1,0 +1,103 @@
+{
+  "test_name": "test_reload_on_syntax_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_reload.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SyntaxErrorApp",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MyWorker",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "worker.init_process",
+      "source_code": "    def init_process(self):\n        \"\"\"\\\n        If you override this method in a subclass, the last statement\n        in the function should be to call this method with\n        super().init_process() so that the ``run()`` loop is initiated.\n        \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/workers/base.py",
+      "line_number": 86
+    },
+    {
+      "name": "reloader.start.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "reloader.add_extra_file.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_on_syntax_error",
+      "source_code": ""
+    },
+    {
+      "function": "SyntaxErrorApp",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_on_syntax_error",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_on_syntax_error",
+      "source_code": ""
+    },
+    {
+      "function": "MyWorker",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_on_syntax_error",
+      "source_code": ""
+    },
+    {
+      "function": "worker.init_process",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/workers/base.py",
+      "line": 86,
+      "caller": "test_reload_on_syntax_error",
+      "source_code": "    def init_process(self):\n        \"\"\"\\\n        If you override this method in a subclass, the last statement\n        in the function should be to call this method with\n        super().init_process() so that the ``run()`` loop is initiated.\n        \"\"\"\n\n        # set environment' variables\n        if self.cfg.env:\n            for k, v in self.cfg.env.items():\n                os.environ[k] = v\n\n        util.set_owner_process(self.cfg.uid, self.cfg.gid,\n                               initgroups=self.cfg.initgroups)\n\n        # Reseed the random number generator\n        util.seed()\n\n        # For waking ourselves up\n        self.PIPE = os.pipe()\n        for p in self.PIPE:\n            util.set_non_blocking(p)\n            util.close_on_exec(p)\n\n        # Prevent fd inheritance\n        for s in self.sockets:\n            util.close_on_exec(s)\n        util.close_on_exec(self.tmp.fileno())\n\n        self.wait_fds = self.sockets + [self.PIPE[0]]\n\n        self.log.close_on_exec()\n\n        self.init_signals()\n\n        # start the reloader\n        if self.cfg.reload:\n            def changed(fname):\n                self.log.info(\"Worker reloading: %s modified\", fname)\n                self.alive = False\n                os.write(self.PIPE[1], b\"1\")\n                self.cfg.worker_int(self)\n                time.sleep(0.1)\n                sys.exit(0)\n\n            reloader_cls = reloader_engines[self.cfg.reload_engine]\n            self.reloader = reloader_cls(extra_files=self.cfg.reload_extra_files,\n                                         callback=changed)\n\n        self.load_wsgi()\n        if self.reloader:\n            self.reloader.start()\n\n        self.cfg.post_worker_init(self)\n\n        # Enter main run loop\n        self.booted = True\n        self.run()\n\n"
+    },
+    {
+      "function": "reloader.start.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_on_syntax_error",
+      "source_code": ""
+    },
+    {
+      "function": "reloader.add_extra_file.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_on_syntax_error",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reload_on_syntax_error():\n    \"\"\"\n    Test that reloading works if the application has a syntax error.\n    \"\"\"\n    reloader = mock.Mock()\n    reloader_engines['poll'] = lambda *args, **kw: reloader\n\n    app = SyntaxErrorApp()\n    cfg = app.cfg\n    log = mock.Mock()\n    worker = MyWorker(age=0, ppid=0, sockets=[], app=app, timeout=0, cfg=cfg, log=log)\n\n    worker.init_process()\n    reloader.start.assert_called_with()\n    reloader.add_extra_file.assert_called_with('syntax_error_filename')"
+}

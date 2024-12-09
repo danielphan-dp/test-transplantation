@@ -1,0 +1,71 @@
+{
+  "test_name": "test_proxies_from_env_http_with_auth",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.proxies_from_env",
+      "source_code": "def proxies_from_env() -> Dict[str, ProxyInfo]:\n    proxy_urls = {\n        k: URL(v)\n        for k, v in getproxies().items()\n        if k in (\"http\", \"https\", \"ws\", \"wss\")\n    }\n    netrc_obj = netrc_from_env()\n    stripped = {k: strip_auth_from_url(v) for k, v in proxy_urls.items()}\n    ret = {}\n    for proto, val in stripped.items():\n        proxy, auth = val\n        if proxy.scheme in (\"https\", \"wss\"):\n            client_logger.warning(\n                \"%s proxies %s are not supported, ignoring\", proxy.scheme.upper(), proxy\n            )\n            continue\n        if netrc_obj and auth is None:\n            if proxy.host is not None:\n                try:\n                    auth = basicauth_from_netrc(netrc_obj, proxy.host)\n                except LookupError:\n                    auth = None\n        ret[proto] = ProxyInfo(proxy, auth)\n    return ret",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 266
+    },
+    {
+      "name": "ret.keys",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 745
+    },
+    {
+      "name": "url.with_user",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_proxies_from_env_http_with_auth",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.proxies_from_env",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 266,
+      "caller": "test_proxies_from_env_http_with_auth",
+      "source_code": "def proxies_from_env() -> Dict[str, ProxyInfo]:\n    proxy_urls = {\n        k: URL(v)\n        for k, v in getproxies().items()\n        if k in (\"http\", \"https\", \"ws\", \"wss\")\n    }\n    netrc_obj = netrc_from_env()\n    stripped = {k: strip_auth_from_url(v) for k, v in proxy_urls.items()}\n    ret = {}\n    for proto, val in stripped.items():\n        proxy, auth = val\n        if proxy.scheme in (\"https\", \"wss\"):\n            client_logger.warning(\n                \"%s proxies %s are not supported, ignoring\", proxy.scheme.upper(), proxy\n            )\n            continue\n        if netrc_obj and auth is None:\n            if proxy.host is not None:\n                try:\n                    auth = basicauth_from_netrc(netrc_obj, proxy.host)\n                except LookupError:\n                    auth = None\n        ret[proto] = ProxyInfo(proxy, auth)\n    return ret\n\n\n"
+    },
+    {
+      "function": "ret.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 745,
+      "caller": "test_proxies_from_env_http_with_auth",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)\n\n"
+    },
+    {
+      "function": "url.with_user",
+      "filename": "",
+      "line": 0,
+      "caller": "test_proxies_from_env_http_with_auth",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ret.keys() == {expected_scheme}",
+    "assert ret[expected_scheme].proxy == url.with_user(None)",
+    "assert proxy_auth is not None",
+    "assert proxy_auth.login == 'user'",
+    "assert proxy_auth.password == 'pass'",
+    "assert proxy_auth.encoding == 'latin1'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_proxies_from_env_http_with_auth(url_input: str, expected_scheme: str) -> None:\n    url = URL(\"http://user:pass@aiohttp.io/path\")\n    ret = helpers.proxies_from_env()\n    assert ret.keys() == {expected_scheme}\n    assert ret[expected_scheme].proxy == url.with_user(None)\n    proxy_auth = ret[expected_scheme].proxy_auth\n    assert proxy_auth is not None\n    assert proxy_auth.login == \"user\"\n    assert proxy_auth.password == \"pass\"\n    assert proxy_auth.encoding == \"latin1\""
+}

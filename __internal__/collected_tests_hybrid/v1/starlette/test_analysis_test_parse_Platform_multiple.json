@@ -1,0 +1,64 @@
+{
+  "test_name": "test_parse_Platform_multiple",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_distribution.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 13
+    },
+    {
+      "name": "dist.parse",
+      "source_code": "def parse(version: str) -> Version:\n    \"\"\"Parse the given version string.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line_number": 47
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 13,
+      "caller": "test_parse_Platform_multiple",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)\n\n"
+    },
+    {
+      "function": "dist.parse",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line": 47,
+      "caller": "test_parse_Platform_multiple",
+      "source_code": "def parse(version: str) -> Version:\n    \"\"\"Parse the given version string.\n\n    >>> parse('1.0.dev1')\n    <Version('1.0.dev1')>\n\n    :param version: The version string to parse.\n    :raises InvalidVersion: When the version string is not a valid version.\n    \"\"\"\n    return Version(version)\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_Platform_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse_Platform_multiple",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_Platform_multiple(self):\n        dist = self._makeOne()\n        dist.parse('Platform: Plan9\\nPlatform: AIX')\n        self.assertEqual(list(dist.platforms), ['Plan9', 'AIX'])"
+}

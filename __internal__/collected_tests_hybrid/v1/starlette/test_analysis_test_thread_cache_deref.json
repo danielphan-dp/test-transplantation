@@ -1,0 +1,106 @@
+{
+  "test_name": "test_thread_cache_deref",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_thread_cache.py",
+  "static_methods": [
+    {
+      "name": "Queue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "start_thread_soon",
+      "source_code": "def start_thread_soon(\n    fn: Callable[[], RetT],\n    deliver: Callable[[outcome.Outcome[RetT]], object],\n    name: str | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_thread_cache.py",
+      "line_number": 227
+    },
+    {
+      "name": "q.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "gc_collect_harder",
+      "source_code": "def gc_collect_harder() -> None:\n    # In the test suite we sometimes want to call gc.collect() to make sure\n    # that any objects with noisy __del__ methods (e.g. unawaited coroutines)\n    # get collected before we continue, so their noise doesn't leak into\n    # unrelated tests.\n    #\n    # On PyPy, coroutine objects (for example) can survive at least 1 round of\n    # garbage collection, because executing their __del__ method to print the\n    # warning can cause them to be resurrected. So we call collect a few times\n    # to make sure.\n    for _ in range(5):\n        gc.collect()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line_number": 48
+    },
+    {
+      "name": "q.put",
+      "source_code": "    def put(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PUT request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 637
+    },
+    {
+      "name": "del_me",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "outcome.unwrap",
+      "source_code": "    def unwrap(self):\n        self._ssl_io_loop(self.sslobj.unwrap)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/util/ssltransport.py",
+      "line_number": 150
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Queue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_thread_cache_deref",
+      "source_code": ""
+    },
+    {
+      "function": "start_thread_soon",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_thread_cache.py",
+      "line": 227,
+      "caller": "test_thread_cache_deref",
+      "source_code": "def start_thread_soon(\n    fn: Callable[[], RetT],\n    deliver: Callable[[outcome.Outcome[RetT]], object],\n    name: str | None = None,\n"
+    },
+    {
+      "function": "q.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_thread_cache_deref",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "gc_collect_harder",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/tutil.py",
+      "line": 48,
+      "caller": "test_thread_cache_deref",
+      "source_code": "def gc_collect_harder() -> None:\n    # In the test suite we sometimes want to call gc.collect() to make sure\n    # that any objects with noisy __del__ methods (e.g. unawaited coroutines)\n    # get collected before we continue, so their noise doesn't leak into\n    # unrelated tests.\n    #\n    # On PyPy, coroutine objects (for example) can survive at least 1 round of\n    # garbage collection, because executing their __del__ method to print the\n    # warning can cause them to be resurrected. So we call collect a few times\n    # to make sure.\n    for _ in range(5):\n        gc.collect()\n\n\n"
+    },
+    {
+      "function": "q.put",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 637,
+      "caller": "test_thread_cache_deref",
+      "source_code": "    def put(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PUT request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PUT\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "del_me",
+      "filename": "",
+      "line": 0,
+      "caller": "test_thread_cache_deref",
+      "source_code": ""
+    },
+    {
+      "function": "outcome.unwrap",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/util/ssltransport.py",
+      "line": 150,
+      "caller": "test_thread_cache_deref",
+      "source_code": "    def unwrap(self):\n        self._ssl_io_loop(self.sslobj.unwrap)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert outcome.unwrap() == 42",
+    "assert res[0]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_thread_cache_deref() -> None:\n    res = [False]\n\n    class del_me:\n        def __call__(self) -> int:\n            return 42\n\n        def __del__(self) -> None:\n            res[0] = True\n\n    q: Queue[Outcome[int]] = Queue()\n\n    def deliver(outcome: Outcome[int]) -> None:\n        q.put(outcome)\n\n    start_thread_soon(del_me(), deliver)\n    outcome = q.get()\n    assert outcome.unwrap() == 42\n\n    gc_collect_harder()\n    assert res[0]"
+}

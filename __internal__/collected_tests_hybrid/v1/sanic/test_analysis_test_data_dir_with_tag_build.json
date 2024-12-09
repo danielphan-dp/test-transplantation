@@ -1,0 +1,159 @@
+{
+  "test_name": "test_data_dir_with_tag_build",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.chdir",
+      "source_code": "def chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 424
+    },
+    {
+      "name": "files.items",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 105
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "bdist_wheel_cmd.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ZipFile.namelist",
+      "source_code": "    def namelist(self):\n        return list(map(self._sanitize, super().namelist()))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line_number": 94
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "fh.write",
+      "source_code": "        def write(data):\n            if not isinstance(data, basestring):\n                data = str(data)\n            # If the file has an encoding, encode unicode with it.\n            if (isinstance(fp, file) and\n                    isinstance(data, unicode) and\n                    fp.encoding is not None):\n                errors = getattr(fp, \"errors\", None)\n                if errors is None:\n                    errors = \"strict\"\n                data = data.encode(fp.encoding, errors)\n            fp.write(data)\n        want_unicode = False\n        sep = kwargs.pop(\"sep\", None)\n        if sep is not None:\n            if isinstance(sep, unicode):\n                want_unicode = True\n            elif not isinstance(sep, str):\n                raise TypeError(\"sep must be None or a string\")\n        end = kwargs.pop(\"end\", None)\n        if end is not None:\n            if isinstance(end, unicode):\n                want_unicode = True\n            elif not isinstance(end, str):\n                raise TypeError(\"end must be None or a string\")\n        if kwargs:\n            raise TypeError(\"invalid keyword arguments to print()\")\n        if not want_unicode:\n            for arg in args:\n                if isinstance(arg, unicode):\n                    want_unicode = True\n                    break\n        if want_unicode:\n            newline = unicode(\"\\n\")\n            space = unicode(\" \")\n        else:\n            newline = \"\\n\"\n            space = \" \"\n        if sep is None:\n            sep = space\n        if end is None:\n            end = newline\n        for i, arg in enumerate(args):\n            if i:\n                write(sep)\n            write(arg)\n        write(end)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line_number": 765
+    },
+    {
+      "name": "bdist_wheel_cmd",
+      "source_code": "def bdist_wheel_cmd(**kwargs):\n    \"\"\"Run command in the same process so that it is easier to collect coverage\"\"\"\n    dist_obj = (\n        run_setup(\"setup.py\", stop_after=\"init\")\n        if os.path.exists(\"setup.py\")\n        else Distribution({\"script_name\": \"%%build_meta%%\"})\n    )\n    dist_obj.parse_config_files()\n    cmd = bdist_wheel(dist_obj)\n    for attr, value in kwargs.items():\n        setattr(cmd, attr, value)\n    cmd.finalize_options()\n    return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+      "line_number": 202
+    },
+    {
+      "name": "cleandoc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.chdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 424,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": "@contextlib.contextmanager\ndef chdir(d):\n    cwd = os.getcwd()\n    try:\n        os.chdir(d)\n        yield\n    finally:\n        os.chdir(cwd)\n\n\n"
+    },
+    {
+      "function": "files.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 105,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)\n\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": ""
+    },
+    {
+      "function": "bdist_wheel_cmd.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": ""
+    },
+    {
+      "function": "ZipFile.namelist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line": 94,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": "    def namelist(self):\n        return list(map(self._sanitize, super().namelist()))\n\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": ""
+    },
+    {
+      "function": "fh.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line": 765,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": "        def write(data):\n            if not isinstance(data, basestring):\n                data = str(data)\n            # If the file has an encoding, encode unicode with it.\n            if (isinstance(fp, file) and\n                    isinstance(data, unicode) and\n                    fp.encoding is not None):\n                errors = getattr(fp, \"errors\", None)\n                if errors is None:\n                    errors = \"strict\"\n                data = data.encode(fp.encoding, errors)\n            fp.write(data)\n"
+    },
+    {
+      "function": "bdist_wheel_cmd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+      "line": 202,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": "def bdist_wheel_cmd(**kwargs):\n    \"\"\"Run command in the same process so that it is easier to collect coverage\"\"\"\n    dist_obj = (\n        run_setup(\"setup.py\", stop_after=\"init\")\n        if os.path.exists(\"setup.py\")\n        else Distribution({\"script_name\": \"%%build_meta%%\"})\n    )\n    dist_obj.parse_config_files()\n    cmd = bdist_wheel(dist_obj)\n    for attr, value in kwargs.items():\n        setattr(cmd, attr, value)\n    cmd.finalize_options()\n    return cmd\n\n\n"
+    },
+    {
+      "function": "cleandoc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": ""
+    },
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_data_dir_with_tag_build",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert os.path.exists(wheel_path)",
+    "assert expected in entries",
+    "assert not_expected not in entries"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_data_dir_with_tag_build(monkeypatch, tmp_path):\n    \"\"\"\n    Setuptools allow authors to set PEP 440's local version segments\n    using ``egg_info.tag_build``. This should be reflected not only in the\n    ``.whl`` file name, but also in the ``.dist-info`` and ``.data`` dirs.\n    See pypa/setuptools#3997.\n    \"\"\"\n    monkeypatch.chdir(tmp_path)\n    files = {\n        \"setup.py\": \"\"\"\n            from setuptools import setup\n            setup(headers=[\"hello.h\"])\n            \"\"\",\n        \"setup.cfg\": \"\"\"\n            [metadata]\n            name = test\n            version = 1.0\n\n            [options.data_files]\n            hello/world = file.txt\n\n            [egg_info]\n            tag_build = +what\n            tag_date = 0\n            \"\"\",\n        \"file.txt\": \"\",\n        \"hello.h\": \"\",\n    }\n    for file, content in files.items():\n        with open(file, \"w\", encoding=\"utf-8\") as fh:\n            fh.write(cleandoc(content))\n\n    bdist_wheel_cmd().run()\n\n    # Ensure .whl, .dist-info and .data contain the local segment\n    wheel_path = \"dist/test-1.0+what-py3-none-any.whl\"\n    assert os.path.exists(wheel_path)\n    entries = set(ZipFile(wheel_path).namelist())\n    for expected in (\n        \"test-1.0+what.data/headers/hello.h\",\n        \"test-1.0+what.data/data/hello/world/file.txt\",\n        \"test-1.0+what.dist-info/METADATA\",\n        \"test-1.0+what.dist-info/WHEEL\",\n    ):\n        assert expected in entries\n\n    for not_expected in (\n        \"test.data/headers/hello.h\",\n        \"test-1.0.data/data/hello/world/file.txt\",\n        \"test.dist-info/METADATA\",\n        \"test-1.0.dist-info/WHEEL\",\n    ):\n        assert not_expected not in entries"
+}

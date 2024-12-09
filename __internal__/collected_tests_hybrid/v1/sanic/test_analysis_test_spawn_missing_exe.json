@@ -1,0 +1,40 @@
+{
+  "test_name": "test_spawn_missing_exe",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_spawn.py",
+  "static_methods": [
+    {
+      "name": "spawn",
+      "source_code": "    def spawn(self, cmd, search_path=True, level=1):\n        \"\"\"Spawn an external command respecting dry-run flag.\"\"\"\n        from distutils.spawn import spawn",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/cmd.py",
+      "line_number": 390
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "spawn",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/cmd.py",
+      "line": 390,
+      "caller": "test_spawn_missing_exe",
+      "source_code": "    def spawn(self, cmd, search_path=True, level=1):\n        \"\"\"Spawn an external command respecting dry-run flag.\"\"\"\n        from distutils.spawn import spawn\n\n        spawn(cmd, search_path, dry_run=self.dry_run)\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_spawn_missing_exe",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert \"command 'does-not-exist' failed\" in str(ctx.value)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_spawn_missing_exe(self):\n        with pytest.raises(DistutilsExecError) as ctx:\n            spawn(['does-not-exist'])\n        assert \"command 'does-not-exist' failed\" in str(ctx.value)"
+}

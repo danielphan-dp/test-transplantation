@@ -1,0 +1,85 @@
+{
+  "test_name": "test_require_present",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_setuptools.py",
+  "static_methods": [
+    {
+      "name": "Require",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "req.is_present",
+      "source_code": "    def is_present(self, paths=None):\n        \"\"\"Return true if dependency is present on 'paths'\"\"\"\n        return self.get_version(paths) is not None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/depends.py",
+      "line_number": 87
+    },
+    {
+      "name": "req.is_current",
+      "source_code": "    def is_current(self, paths=None):\n        \"\"\"Return true if dependency is present and up-to-date on 'paths'\"\"\"\n        version = self.get_version(paths)\n        if version is None:\n            return False\n        return self.version_ok(str(version))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/depends.py",
+      "line_number": 91
+    },
+    {
+      "name": "req.full_name",
+      "source_code": "    def full_name(self):\n        \"\"\"Return full package/distribution name, w/version\"\"\"\n        if self.requested_version is not None:\n            return '%s-%s' % (self.name, self.requested_version)\n        return self.name",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/depends.py",
+      "line_number": 43
+    },
+    {
+      "name": "needs_bytecode",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Require",
+      "filename": "",
+      "line": 0,
+      "caller": "test_require_present",
+      "source_code": ""
+    },
+    {
+      "function": "req.is_present",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/depends.py",
+      "line": 87,
+      "caller": "test_require_present",
+      "source_code": "    def is_present(self, paths=None):\n        \"\"\"Return true if dependency is present on 'paths'\"\"\"\n        return self.get_version(paths) is not None\n\n"
+    },
+    {
+      "function": "req.is_current",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/depends.py",
+      "line": 91,
+      "caller": "test_require_present",
+      "source_code": "    def is_current(self, paths=None):\n        \"\"\"Return true if dependency is present and up-to-date on 'paths'\"\"\"\n        version = self.get_version(paths)\n        if version is None:\n            return False\n        return self.version_ok(str(version))\n\n\n"
+    },
+    {
+      "function": "req.full_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/depends.py",
+      "line": 43,
+      "caller": "test_require_present",
+      "source_code": "    def full_name(self):\n        \"\"\"Return full package/distribution name, w/version\"\"\"\n        if self.requested_version is not None:\n            return '%s-%s' % (self.name, self.requested_version)\n        return self.name\n\n"
+    },
+    {
+      "function": "needs_bytecode",
+      "filename": "",
+      "line": 0,
+      "caller": "test_require_present",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert req.format is None",
+    "assert req.attribute is None",
+    "assert req.requested_version is None",
+    "assert req.full_name() == 'Tests'",
+    "assert req.homepage == 'http://example.com'",
+    "assert req.is_present(paths)",
+    "assert req.is_current(paths)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_require_present(self):\n        # In #1896, this test was failing for months with the only\n        # complaint coming from test runners (not end users).\n        # TODO: Evaluate if this code is needed at all.\n        req = Require('Tests', None, 'tests', homepage=\"http://example.com\")\n        assert req.format is None\n        assert req.attribute is None\n        assert req.requested_version is None\n        assert req.full_name() == 'Tests'\n        assert req.homepage == 'http://example.com'\n\n        from setuptools.tests import __path__\n\n        paths = [os.path.dirname(p) for p in __path__]\n        assert req.is_present(paths)\n        assert req.is_current(paths)"
+}

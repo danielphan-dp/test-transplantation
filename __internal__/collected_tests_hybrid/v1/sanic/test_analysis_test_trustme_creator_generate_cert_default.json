@@ -1,0 +1,170 @@
+{
+  "test_name": "test_trustme_creator_generate_cert_default",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "TrustmeCreator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cert_creator.generate_cert",
+      "source_code": "    def generate_cert(self, localhost: str) -> ssl.SSLContext:  # no cov\n        ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line_number": 118
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "trustme.CA.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "issue_cert.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "server_cert.configure_cert.assert_called_once",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ca.configure_trust.assert_called_once",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ca.cert_pem.write_to_path.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "write_to_path.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "TrustmeCreator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "cert_creator.generate_cert",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/tls/creators.py",
+      "line": 118,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": "    @abstractmethod\n    def generate_cert(self, localhost: str) -> ssl.SSLContext:  # no cov\n        ...\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "trustme.CA.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "issue_cert.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "server_cert.configure_cert.assert_called_once",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "ca.configure_trust.assert_called_once",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "ca.cert_pem.write_to_path.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "write_to_path.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_trustme_creator_generate_cert_default",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(cert, SanicSSLContext)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_trustme_creator_generate_cert_default(\n    app, monkeypatch, trustme, issue_cert, server_cert, ca\n):\n    monkeypatch.setattr(sanic.http.tls.creators, \"trustme\", trustme)\n    cert_creator = TrustmeCreator(app, _default, _default)\n    cert = cert_creator.generate_cert(\"localhost\")\n\n    assert isinstance(cert, SanicSSLContext)\n    trustme.CA.assert_called_once_with()\n    issue_cert.assert_called_once_with(\"localhost\")\n    server_cert.configure_cert.assert_called_once()\n    ca.configure_trust.assert_called_once()\n    ca.cert_pem.write_to_path.assert_called_once_with(str(cert.sanic[\"cert\"]))\n    write_to_path = server_cert.private_key_and_cert_chain_pem.write_to_path\n    write_to_path.assert_called_once_with(str(cert.sanic[\"key\"]))"
+}

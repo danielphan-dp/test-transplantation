@@ -1,0 +1,51 @@
+{
+  "test_name": "test_it_no_package",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "self.config.testing_add_renderer",
+      "source_code": "    def testing_add_renderer(self, path, renderer=None):\n        \"\"\"Unit/integration testing helper: register a renderer at\n        ``path`` (usually a relative filename ala ``templates/foo.pt``\n        or an asset specification) and return the renderer object.\n        If the ``renderer`` argument is None, a 'dummy' renderer will\n        be used.  This function is useful when testing code that calls\n        the :func:`pyramid.renderers.render` function or\n        :func:`pyramid.renderers.render_to_response` function or\n        any other ``render_*`` or ``get_*`` API of the\n        :mod:`pyramid.renderers` module.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/testing.py",
+      "line_number": 136
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.config.testing_add_renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/testing.py",
+      "line": 136,
+      "caller": "test_it_no_package",
+      "source_code": "    def testing_add_renderer(self, path, renderer=None):\n        \"\"\"Unit/integration testing helper: register a renderer at\n        ``path`` (usually a relative filename ala ``templates/foo.pt``\n        or an asset specification) and return the renderer object.\n        If the ``renderer`` argument is None, a 'dummy' renderer will\n        be used.  This function is useful when testing code that calls\n        the :func:`pyramid.renderers.render` function or\n        :func:`pyramid.renderers.render_to_response` function or\n        any other ``render_*`` or ``get_*`` API of the\n        :mod:`pyramid.renderers` module.\n\n        Note that calling this method for with a ``path`` argument\n        representing a renderer factory type (e.g. for ``foo.pt``\n        usually implies the ``chameleon_zpt`` renderer factory)\n        clobbers any existing renderer factory registered for that\n        type.\n\n        .. note:: This method is also available under the alias\n           ``testing_add_template`` (an older name for it).\n\n        \"\"\"\n        from pyramid.testing import DummyRendererFactory\n\n        helper = RendererHelper(name=path, registry=self.registry)\n        factory = self.registry.queryUtility(\n            IRendererFactory, name=helper.type\n        )\n        if not isinstance(factory, DummyRendererFactory):\n            factory = DummyRendererFactory(helper.type, factory)\n            self.registry.registerUtility(\n                factory, IRendererFactory, name=helper.type\n            )\n\n        from pyramid.testing import DummyTemplateRenderer\n\n        if renderer is None:\n            renderer = DummyTemplateRenderer()\n        factory.add(path, renderer)\n        return renderer\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it_no_package",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_no_package",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_no_package(self):\n        renderer = self.config.testing_add_renderer('tests:abc/def.pt')\n        result = self._callFUT('abc/def.pt')\n        self.assertEqual(result, renderer)"
+}

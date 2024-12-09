@@ -1,0 +1,69 @@
+{
+  "test_name": "test_bool_validation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "config.Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bool_validation",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bool_validation",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bool_validation",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bool_validation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert c.preload_app is False",
+    "assert c.preload_app is True",
+    "assert c.preload_app is True",
+    "assert c.preload_app is False"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_bool_validation():\n    c = config.Config()\n    assert c.preload_app is False\n    c.set(\"preload_app\", True)\n    assert c.preload_app is True\n    c.set(\"preload_app\", \"true\")\n    assert c.preload_app is True\n    c.set(\"preload_app\", \"false\")\n    assert c.preload_app is False\n    pytest.raises(ValueError, c.set, \"preload_app\", \"zilch\")\n    pytest.raises(TypeError, c.set, \"preload_app\", 4)"
+}

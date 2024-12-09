@@ -1,6 +1,6 @@
 {
   "test_name": "test_streaming_with_context",
-  "test_file": "__internal__/_data/flask/tests/test_helpers.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
     {
       "name": "app.route",
@@ -10,15 +10,15 @@
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "generate",
-      "source_code": "    def generate() -> t.Iterator[str]:\n        yield from template.generate(context)\n        template_rendered.send(\n            app, _async_wrapper=app.ensure_sync, template=template, context=context\n        )",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/templating.py",
-      "line_number": 173
+      "source_code": "        def generate():\n            # Special case for urllib3.\n            if hasattr(self.raw, \"stream\"):\n                try:\n                    yield from self.raw.stream(chunk_size, decode_content=True)\n                except ProtocolError as e:\n                    raise ChunkedEncodingError(e)\n                except DecodeError as e:\n                    raise ContentDecodingError(e)\n                except ReadTimeoutError as e:\n                    raise ConnectionError(e)\n                except SSLError as e:\n                    raise RequestsSSLError(e)\n            else:\n                # Standard file-like object.\n                while True:\n                    chunk = self.raw.read(chunk_size)\n                    if not chunk:\n                        break\n                    yield chunk",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 812
     }
   ],
   "dynamic_methods": [
@@ -31,17 +31,17 @@
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_streaming_with_context",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "generate",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/templating.py",
-      "line": 173,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 812,
       "caller": "test_streaming_with_context",
-      "source_code": "    def generate() -> t.Iterator[str]:\n        yield from template.generate(context)\n        template_rendered.send(\n            app, _async_wrapper=app.ensure_sync, template=template, context=context\n        )\n\n"
+      "source_code": "        def generate():\n            # Special case for urllib3.\n            if hasattr(self.raw, \"stream\"):\n                try:\n                    yield from self.raw.stream(chunk_size, decode_content=True)\n                except ProtocolError as e:\n                    raise ChunkedEncodingError(e)\n                except DecodeError as e:\n                    raise ContentDecodingError(e)\n                except ReadTimeoutError as e:\n                    raise ConnectionError(e)\n                except SSLError as e:\n                    raise RequestsSSLError(e)\n            else:\n                # Standard file-like object.\n                while True:\n                    chunk = self.raw.read(chunk_size)\n                    if not chunk:\n                        break\n                    yield chunk\n\n            self._content_consumed = True\n\n"
     }
   ],
   "assertions": [

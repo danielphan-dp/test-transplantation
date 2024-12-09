@@ -1,0 +1,28 @@
+{
+  "test_name": "test_run_commands",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "temp_file.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "temp_file.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_run_commands",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'build' not in dist.have_run",
+    "assert 'build' in dist.have_run"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_commands(self, temp_file):\n        sys.argv = ['setup.py', 'build']\n        temp_file.write_text(setup_within_if_main, encoding='utf-8')\n        dist = distutils.core.run_setup(temp_file, stop_after=\"commandline\")\n        assert 'build' not in dist.have_run\n        distutils.core.run_commands(dist)\n        assert 'build' in dist.have_run"
+}

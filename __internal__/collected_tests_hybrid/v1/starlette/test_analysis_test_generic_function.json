@@ -1,0 +1,45 @@
+{
+  "test_name": "test_generic_function",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "test_func",
+      "source_code": "    def test_func(arg: T) -> T:  # type: ignore[misc]\n        \"\"\"Look, a docstring!\"\"\"\n        return arg",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+      "line_number": 165
+    },
+    {
+      "name": "test_func",
+      "source_code": "    def test_func(arg: T) -> T:  # type: ignore[misc]\n        \"\"\"Look, a docstring!\"\"\"\n        return arg",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+      "line_number": 165
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_func",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+      "line": 165,
+      "caller": "test_generic_function",
+      "source_code": "    @generic_function  # Decorated function contains \"Any\".\n    def test_func(arg: T) -> T:  # type: ignore[misc]\n        \"\"\"Look, a docstring!\"\"\"\n        return arg\n\n"
+    },
+    {
+      "function": "test_func",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+      "line": 165,
+      "caller": "test_generic_function",
+      "source_code": "    @generic_function  # Decorated function contains \"Any\".\n    def test_func(arg: T) -> T:  # type: ignore[misc]\n        \"\"\"Look, a docstring!\"\"\"\n        return arg\n\n"
+    }
+  ],
+  "assertions": [
+    "assert test_func is test_func[int] is test_func[int, str]",
+    "assert test_func(42) == test_func[int](42) == 42",
+    "assert test_func.__doc__ == 'Look, a docstring!'",
+    "assert test_func.__qualname__ == 'test_generic_function.<locals>.test_func'",
+    "assert test_func.__name__ == 'test_func'",
+    "assert test_func.__module__ == __name__"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_generic_function() -> None:\n    @generic_function  # Decorated function contains \"Any\".\n    def test_func(arg: T) -> T:  # type: ignore[misc]\n        \"\"\"Look, a docstring!\"\"\"\n        return arg\n\n    assert test_func is test_func[int] is test_func[int, str]\n    assert test_func(42) == test_func[int](42) == 42\n    assert test_func.__doc__ == \"Look, a docstring!\"\n    assert test_func.__qualname__ == \"test_generic_function.<locals>.test_func\"  # type: ignore[attr-defined]\n    assert test_func.__name__ == \"test_func\"  # type: ignore[attr-defined]\n    assert test_func.__module__ == __name__"
+}

@@ -1,0 +1,54 @@
+{
+  "test_name": "test_debug_print",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_cmd.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "capsys.readouterr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "capsys.readouterr",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_debug_print",
+      "source_code": ""
+    },
+    {
+      "function": "capsys.readouterr",
+      "filename": "",
+      "line": 0,
+      "caller": "test_debug_print",
+      "source_code": ""
+    },
+    {
+      "function": "capsys.readouterr",
+      "filename": "",
+      "line": 0,
+      "caller": "test_debug_print",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert capsys.readouterr().out == ''",
+    "assert capsys.readouterr().out == 'xxx\\n'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_debug_print(self, cmd, capsys, monkeypatch):\n        cmd.debug_print('xxx')\n        assert capsys.readouterr().out == ''\n        monkeypatch.setattr(debug, 'DEBUG', True)\n        cmd.debug_print('xxx')\n        assert capsys.readouterr().out == 'xxx\\n'"
+}

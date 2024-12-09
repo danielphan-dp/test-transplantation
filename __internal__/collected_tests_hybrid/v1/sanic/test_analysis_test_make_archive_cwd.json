@@ -1,0 +1,66 @@
+{
+  "test_name": "test_make_archive_cwd",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_archive_util.py",
+  "static_methods": [
+    {
+      "name": "RuntimeError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ARCHIVE_FORMATS.pop",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 940
+    },
+    {
+      "name": "make_archive",
+      "source_code": "def make_archive(\n    base_name,\n    format,\n    root_dir=None,\n    base_dir=None,\n    verbose=False,\n    dry_run=False,\n    owner=None,\n    group=None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/archive_util.py",
+      "line_number": 207
+    },
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RuntimeError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_make_archive_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "ARCHIVE_FORMATS.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 940,
+      "caller": "test_make_archive_cwd",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result\n\n"
+    },
+    {
+      "function": "make_archive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/archive_util.py",
+      "line": 207,
+      "caller": "test_make_archive_cwd",
+      "source_code": "def make_archive(\n    base_name,\n    format,\n    root_dir=None,\n    base_dir=None,\n    verbose=False,\n    dry_run=False,\n    owner=None,\n    group=None,\n"
+    },
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_make_archive_cwd",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    }
+  ],
+  "assertions": [
+    "assert os.getcwd() == current_dir"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_archive_cwd(self):\n        current_dir = os.getcwd()\n\n        def _breaks(*args, **kw):\n            raise RuntimeError()\n\n        ARCHIVE_FORMATS['xxx'] = (_breaks, [], 'xxx file')\n        try:\n            try:\n                make_archive('xxx', 'xxx', root_dir=self.mkdtemp())\n            except Exception:\n                pass\n            assert os.getcwd() == current_dir\n        finally:\n            ARCHIVE_FORMATS.pop('xxx')"
+}

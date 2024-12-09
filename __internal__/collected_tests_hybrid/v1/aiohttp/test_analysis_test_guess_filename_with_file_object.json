@@ -1,0 +1,53 @@
+{
+  "test_name": "test_guess_filename_with_file_object",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "file_path.open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "file_path.open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.guess_filename",
+      "source_code": "def guess_filename(obj):\n    \"\"\"Tries to guess the filename of the given object.\"\"\"\n    name = getattr(obj, \"name\", None)\n    if name and isinstance(name, basestring) and name[0] != \"<\" and name[-1] != \">\":\n        return os.path.basename(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/utils.py",
+      "line_number": 251
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "file_path.open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_guess_filename_with_file_object",
+      "source_code": ""
+    },
+    {
+      "function": "file_path.open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_guess_filename_with_file_object",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.guess_filename",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/utils.py",
+      "line": 251,
+      "caller": "test_guess_filename_with_file_object",
+      "source_code": "def guess_filename(obj):\n    \"\"\"Tries to guess the filename of the given object.\"\"\"\n    name = getattr(obj, \"name\", None)\n    if name and isinstance(name, basestring) and name[0] != \"<\" and name[-1] != \">\":\n        return os.path.basename(name)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert helpers.guess_filename(fp, 'no-throw') is not None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_guess_filename_with_file_object(tmp_path: Path) -> None:\n    file_path = tmp_path / \"test_guess_filename\"\n    with file_path.open(\"w+b\") as fp:\n        assert helpers.guess_filename(fp, \"no-throw\") is not None"
+}

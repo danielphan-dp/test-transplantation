@@ -1,0 +1,319 @@
+{
+  "test_name": "test_pipelined_close",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_connection.py",
+  "static_methods": [
+    {
+      "name": "Connection",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.receive_data",
+      "source_code": "    def receive_data(self, data: bytes | None) -> None:\n        if data is None:\n            self.complete = True\n        elif (\n            self.max_form_memory_size is not None\n            and len(self.buffer) + len(data) > self.max_form_memory_size\n        ):\n            # Ensure that data within single event does not exceed limit.\n            # Also checked across accumulated events in MultiPartParser.\n            raise RequestEntityTooLarge()\n        else:\n            self.buffer.extend(data)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line_number": 136
+    },
+    {
+      "name": "c.receive_data",
+      "source_code": "    def receive_data(self, data: bytes | None) -> None:\n        if data is None:\n            self.complete = True\n        elif (\n            self.max_form_memory_size is not None\n            and len(self.buffer) + len(data) > self.max_form_memory_size\n        ):\n            # Ensure that data within single event does not exceed limit.\n            # Also checked across accumulated events in MultiPartParser.\n            raise RequestEntityTooLarge()\n        else:\n            self.buffer.extend(data)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line_number": 136
+    },
+    {
+      "name": "c.send",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 183
+    },
+    {
+      "name": "c.send",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 183
+    },
+    {
+      "name": "c.start_next_cycle",
+      "source_code": "    def start_next_cycle(self) -> None:\n        if self.states != {CLIENT: DONE, SERVER: DONE}:\n            raise LocalProtocolError(\n                \"not in a reusable state. self.states={}\".format(self.states)\n            )\n        # Can't reach DONE/DONE with any of these active, but still, let's be\n        # sure.\n        assert self.keep_alive\n        assert not self.pending_switch_proposals\n        self.states = {CLIENT: IDLE, SERVER: IDLE}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line_number": 358
+    },
+    {
+      "name": "c.send",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 183
+    },
+    {
+      "name": "c.send",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 183
+    },
+    {
+      "name": "c.send",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line_number": 183
+    },
+    {
+      "name": "get_all_events",
+      "source_code": "def get_all_events(conn: Connection) -> List[Event]:\n    got_events = []\n    while True:\n        event = conn.next_event()\n        if event in (NEED_DATA, PAUSED):\n            break\n        event = cast(Event, event)\n        got_events.append(event)\n        if type(event) is ConnectionClosed:\n            break\n    return got_events",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/helpers.py",
+      "line_number": 22
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EndOfMessage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "get_all_events",
+      "source_code": "def get_all_events(conn: Connection) -> List[Event]:\n    got_events = []\n    while True:\n        event = conn.next_event()\n        if event in (NEED_DATA, PAUSED):\n            break\n        event = cast(Event, event)\n        got_events.append(event)\n        if type(event) is ConnectionClosed:\n            break\n    return got_events",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/helpers.py",
+      "line_number": 22
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EndOfMessage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ConnectionClosed",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Data",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EndOfMessage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Data",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "EndOfMessage",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ConnectionClosed",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Connection",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "c.receive_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line": 136,
+      "caller": "test_pipelined_close",
+      "source_code": "    def receive_data(self, data: bytes | None) -> None:\n        if data is None:\n            self.complete = True\n        elif (\n            self.max_form_memory_size is not None\n            and len(self.buffer) + len(data) > self.max_form_memory_size\n        ):\n            # Ensure that data within single event does not exceed limit.\n            # Also checked across accumulated events in MultiPartParser.\n            raise RequestEntityTooLarge()\n        else:\n            self.buffer.extend(data)\n\n"
+    },
+    {
+      "function": "c.receive_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/sansio/multipart.py",
+      "line": 136,
+      "caller": "test_pipelined_close",
+      "source_code": "    def receive_data(self, data: bytes | None) -> None:\n        if data is None:\n            self.complete = True\n        elif (\n            self.max_form_memory_size is not None\n            and len(self.buffer) + len(data) > self.max_form_memory_size\n        ):\n            # Ensure that data within single event does not exceed limit.\n            # Also checked across accumulated events in MultiPartParser.\n            raise RequestEntityTooLarge()\n        else:\n            self.buffer.extend(data)\n\n"
+    },
+    {
+      "function": "c.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 183,
+      "caller": "test_pipelined_close",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)\n\n"
+    },
+    {
+      "function": "c.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 183,
+      "caller": "test_pipelined_close",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)\n\n"
+    },
+    {
+      "function": "c.start_next_cycle",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_state.py",
+      "line": 358,
+      "caller": "test_pipelined_close",
+      "source_code": "    def start_next_cycle(self) -> None:\n        if self.states != {CLIENT: DONE, SERVER: DONE}:\n            raise LocalProtocolError(\n                \"not in a reusable state. self.states={}\".format(self.states)\n            )\n        # Can't reach DONE/DONE with any of these active, but still, let's be\n        # sure.\n        assert self.keep_alive\n        assert not self.pending_switch_proposals\n        self.states = {CLIENT: IDLE, SERVER: IDLE}\n"
+    },
+    {
+      "function": "c.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 183,
+      "caller": "test_pipelined_close",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)\n\n"
+    },
+    {
+      "function": "c.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 183,
+      "caller": "test_pipelined_close",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)\n\n"
+    },
+    {
+      "function": "c.send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/testclient.py",
+      "line": 183,
+      "caller": "test_pipelined_close",
+      "source_code": "    def send(self, message: Message) -> None:\n        self._receive_queue.put(message)\n        if hasattr(self, \"_queue_event\"):\n            self.portal.start_task_soon(self._queue_event.set)\n\n"
+    },
+    {
+      "function": "get_all_events",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/helpers.py",
+      "line": 22,
+      "caller": "test_pipelined_close",
+      "source_code": "def get_all_events(conn: Connection) -> List[Event]:\n    got_events = []\n    while True:\n        event = conn.next_event()\n        if event in (NEED_DATA, PAUSED):\n            break\n        event = cast(Event, event)\n        got_events.append(event)\n        if type(event) is ConnectionClosed:\n            break\n    return got_events\n\n\n"
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "EndOfMessage",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "get_all_events",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/helpers.py",
+      "line": 22,
+      "caller": "test_pipelined_close",
+      "source_code": "def get_all_events(conn: Connection) -> List[Event]:\n    got_events = []\n    while True:\n        event = conn.next_event()\n        if event in (NEED_DATA, PAUSED):\n            break\n        event = cast(Event, event)\n        got_events.append(event)\n        if type(event) is ConnectionClosed:\n            break\n    return got_events\n\n\n"
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "EndOfMessage",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "ConnectionClosed",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "Data",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "EndOfMessage",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "Data",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "EndOfMessage",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    },
+    {
+      "function": "ConnectionClosed",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pipelined_close",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert get_all_events(c) == [Request(method='GET', target='/1', headers=[('host', 'a.com'), ('content-length', '5')]), Data(data=b'12345'), EndOfMessage()]",
+    "assert c.states[CLIENT] is DONE",
+    "assert c.states[SERVER] is DONE",
+    "assert get_all_events(c) == [Request(method='GET', target='/2', headers=[('host', 'a.com'), ('content-length', '5')]), Data(data=b'67890'), EndOfMessage(), ConnectionClosed()]",
+    "assert c.states == {CLIENT: CLOSED, SERVER: SEND_RESPONSE}",
+    "assert c.states == {CLIENT: CLOSED, SERVER: MUST_CLOSE}",
+    "assert c.states == {CLIENT: CLOSED, SERVER: CLOSED}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_pipelined_close() -> None:\n    c = Connection(SERVER)\n    # 2 requests then a close\n    c.receive_data(\n        b\"GET /1 HTTP/1.1\\r\\nHost: a.com\\r\\nContent-Length: 5\\r\\n\\r\\n\"\n        b\"12345\"\n        b\"GET /2 HTTP/1.1\\r\\nHost: a.com\\r\\nContent-Length: 5\\r\\n\\r\\n\"\n        b\"67890\"\n    )\n    c.receive_data(b\"\")\n    assert get_all_events(c) == [\n        Request(\n            method=\"GET\",\n            target=\"/1\",\n            headers=[(\"host\", \"a.com\"), (\"content-length\", \"5\")],\n        ),\n        Data(data=b\"12345\"),\n        EndOfMessage(),\n    ]\n    assert c.states[CLIENT] is DONE\n    c.send(Response(status_code=200, headers=[]))  # type: ignore[arg-type]\n    c.send(EndOfMessage())\n    assert c.states[SERVER] is DONE\n    c.start_next_cycle()\n    assert get_all_events(c) == [\n        Request(\n            method=\"GET\",\n            target=\"/2\",\n            headers=[(\"host\", \"a.com\"), (\"content-length\", \"5\")],\n        ),\n        Data(data=b\"67890\"),\n        EndOfMessage(),\n        ConnectionClosed(),\n    ]\n    assert c.states == {CLIENT: CLOSED, SERVER: SEND_RESPONSE}\n    c.send(Response(status_code=200, headers=[]))  # type: ignore[arg-type]\n    c.send(EndOfMessage())\n    assert c.states == {CLIENT: CLOSED, SERVER: MUST_CLOSE}\n    c.send(ConnectionClosed())\n    assert c.states == {CLIENT: CLOSED, SERVER: CLOSED}"
+}

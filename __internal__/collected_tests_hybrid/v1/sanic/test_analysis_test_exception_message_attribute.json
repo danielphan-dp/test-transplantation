@@ -1,0 +1,149 @@
+{
+  "test_name": "test_exception_message_attribute",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ServerError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ServerError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ServerError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ServerError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CustomError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CustomError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SanicException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SanicException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "ServerError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "ServerError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "ServerError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "ServerError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "CustomError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "CustomError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "SanicException",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    },
+    {
+      "function": "SanicException",
+      "filename": "",
+      "line": 0,
+      "caller": "test_exception_message_attribute",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ServerError('it failed').message == 'it failed'",
+    "assert ServerError(b'it failed').message == 'it failed'",
+    "assert ServerError().message == str(ServerError()) == 'Internal Server Error'",
+    "assert CustomError().message == CustomError.message == str(CustomError())",
+    "assert SanicException().message != ''",
+    "assert SanicException('').message == ''"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_exception_message_attribute():\n    assert ServerError(\"it failed\").message == \"it failed\"\n    assert ServerError(b\"it failed\").message == \"it failed\"\n    assert (\n        ServerError().message == str(ServerError()) == \"Internal Server Error\"\n    )\n\n    class CustomError(SanicException):\n        message = \"Something bad happened\"\n\n    assert CustomError().message == CustomError.message == str(CustomError())\n    assert SanicException().message != \"\"\n    assert SanicException(\"\").message == \"\""
+}

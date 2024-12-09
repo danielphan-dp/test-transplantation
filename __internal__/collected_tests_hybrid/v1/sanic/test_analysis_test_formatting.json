@@ -1,0 +1,79 @@
+{
+  "test_name": "test_formatting",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_warnings.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setenv",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_EXAMPLES.keys",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 101
+    },
+    {
+      "name": "SetuptoolsWarning.emit",
+      "source_code": "        def emit(self, record): pass\n        def createLock(self): self.lock = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/__init__.py",
+      "line_number": 19
+    },
+    {
+      "name": "_get_message",
+      "source_code": "def _get_message(warn_info):\n    return next(warn.message.args[0] for warn in warn_info)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_warnings.py",
+      "line_number": 105
+    },
+    {
+      "name": "cleandoc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setenv",
+      "filename": "",
+      "line": 0,
+      "caller": "test_formatting",
+      "source_code": ""
+    },
+    {
+      "function": "_EXAMPLES.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 101,
+      "caller": "test_formatting",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)\n\n"
+    },
+    {
+      "function": "SetuptoolsWarning.emit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/__init__.py",
+      "line": 19,
+      "caller": "test_formatting",
+      "source_code": "        def emit(self, record): pass\n"
+    },
+    {
+      "function": "_get_message",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_warnings.py",
+      "line": 105,
+      "caller": "test_formatting",
+      "source_code": "def _get_message(warn_info):\n    return next(warn.message.args[0] for warn in warn_info)\n"
+    },
+    {
+      "function": "cleandoc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_formatting",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert _get_message(warn_info) == cleandoc(expected)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_formatting(monkeypatch, example_name):\n    \"\"\"\n    It should automatically handle indentation, interpolation and things like due date.\n    \"\"\"\n    args = _EXAMPLES[example_name][\"args\"]\n    kwargs = _EXAMPLES[example_name][\"kwargs\"]\n    expected = _EXAMPLES[example_name][\"expected\"]\n\n    monkeypatch.setenv(\"SETUPTOOLS_ENFORCE_DEPRECATION\", \"false\")\n    with pytest.warns(SetuptoolsWarning) as warn_info:\n        SetuptoolsWarning.emit(*args, **kwargs)\n    assert _get_message(warn_info) == cleandoc(expected)"
+}

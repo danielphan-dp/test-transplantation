@@ -1,0 +1,54 @@
+{
+  "test_name": "test_run_setup_within_if_main",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "temp_file.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dist.get_name",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line_number": 544
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "temp_file.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_run_setup_within_if_main",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_run_setup_within_if_main",
+      "source_code": ""
+    },
+    {
+      "function": "dist.get_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/results.py",
+      "line": 544,
+      "caller": "test_run_setup_within_if_main",
+      "source_code": "    def get_name(self):\n        r\"\"\"\n        Returns the results name for this token expression. Useful when several\n        different expressions might match at a particular location.\n\n        Example::\n\n            integer = Word(nums)\n            ssn_expr = Regex(r\"\\d\\d\\d-\\d\\d-\\d\\d\\d\\d\")\n            house_number_expr = Suppress('#') + Word(nums, alphanums)\n            user_data = (Group(house_number_expr)(\"house_number\")\n                        | Group(ssn_expr)(\"ssn\")\n                        | Group(integer)(\"age\"))\n            user_info = user_data[1, ...]\n\n            result = user_info.parse_string(\"22 111-22-3333 #221B\")\n            for item in result:\n                print(item.get_name(), ':', item[0])\n\n        prints::\n\n            age : 22\n            ssn : 111-22-3333\n            house_number : 221B\n        \"\"\"\n        if self._name:\n            return self._name\n        elif self._parent:\n            par = self._parent()\n\n            def find_in_parent(sub):\n                return next(\n                    (\n                        k\n                        for k, vlist in par._tokdict.items()\n                        for v, loc in vlist\n                        if sub is v\n                    ),\n                    None,\n                )\n\n            return find_in_parent(self) if par else None\n        elif (\n            len(self) == 1\n            and len(self._tokdict) == 1\n            and next(iter(self._tokdict.values()))[0][1] in (0, -1)\n        ):\n            return next(iter(self._tokdict.keys()))\n        else:\n            return None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(dist, Distribution)",
+    "assert dist.get_name() == 'setup_within_if_main'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_setup_within_if_main(self, temp_file):\n        temp_file.write_text(setup_within_if_main, encoding='utf-8')\n        dist = distutils.core.run_setup(temp_file, stop_after=\"config\")\n        assert isinstance(dist, Distribution)\n        assert dist.get_name() == \"setup_within_if_main\""
+}

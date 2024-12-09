@@ -1,0 +1,42 @@
+{
+  "test_name": "test_set_get_state",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+  "static_methods": [
+    {
+      "name": "gen_state",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line_number": 6
+    },
+    {
+      "name": "state.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "gen_state",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line": 6,
+      "caller": "test_set_get_state",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")\n\n\n"
+    },
+    {
+      "function": "state.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_set_get_state",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert state['additional'] == 123",
+    "assert state.get('additional') == 123",
+    "assert state._state == {'foo': {'additional': 123}}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_set_get_state():\n    state = gen_state()\n    state[\"additional\"] = 123\n    assert state[\"additional\"] == 123\n    assert state.get(\"additional\") == 123\n    assert state._state == {\"foo\": {\"additional\": 123}}"
+}

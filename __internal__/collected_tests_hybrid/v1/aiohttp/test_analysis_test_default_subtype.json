@@ -1,0 +1,41 @@
+{
+  "test_name": "test_default_subtype",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "parse_mimetype",
+      "source_code": "def parse_mimetype(mimetype: str) -> MimeType:\n    \"\"\"Parses a MIME type into its components.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 315
+    },
+    {
+      "name": "writer.headers.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_mimetype",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 315,
+      "caller": "test_default_subtype",
+      "source_code": "@functools.lru_cache(maxsize=56)\ndef parse_mimetype(mimetype: str) -> MimeType:\n    \"\"\"Parses a MIME type into its components.\n\n    mimetype is a MIME type string.\n\n    Returns a MimeType object.\n\n    Example:\n\n    >>> parse_mimetype('text/html; charset=utf-8')\n    MimeType(type='text', subtype='html', suffix='',\n             parameters={'charset': 'utf-8'})\n\n    \"\"\"\n    if not mimetype:\n        return MimeType(\n            type=\"\", subtype=\"\", suffix=\"\", parameters=MultiDictProxy(MultiDict())\n        )\n\n    parts = mimetype.split(\";\")\n    params: MultiDict[str] = MultiDict()\n    for item in parts[1:]:\n        if not item:\n            continue\n        key, _, value = item.partition(\"=\")\n        params.add(key.lower().strip(), value.strip(' \"'))\n\n    fulltype = parts[0].strip().lower()\n    if fulltype == \"*\":\n        fulltype = \"*/*\"\n\n    mtype, _, stype = fulltype.partition(\"/\")\n    stype, _, suffix = stype.partition(\"+\")\n\n    return MimeType(\n        type=mtype, subtype=stype, suffix=suffix, parameters=MultiDictProxy(params)\n    )\n\n\n"
+    },
+    {
+      "function": "writer.headers.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_default_subtype",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'multipart' == mimetype.type",
+    "assert 'mixed' == mimetype.subtype"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_default_subtype(self, writer: aiohttp.MultipartWriter) -> None:\n        mimetype = parse_mimetype(writer.headers.get(CONTENT_TYPE))\n\n        assert \"multipart\" == mimetype.type\n        assert \"mixed\" == mimetype.subtype"
+}

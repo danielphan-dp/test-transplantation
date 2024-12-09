@@ -1,0 +1,94 @@
+{
+  "test_name": "test_automatic_content_disposition",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "writer.append_json",
+      "source_code": "    def append_json(\n        self, obj: Any, headers: Optional[Mapping[str, str]] = None\n    ) -> Payload:\n        \"\"\"Helper to append JSON part.\"\"\"\n        if headers is None:\n            headers = CIMultiDict()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line_number": 932
+    },
+    {
+      "name": "payload.StringPayload",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "part.set_content_disposition",
+      "source_code": "    def set_content_disposition(\n        self,\n        disptype: str,\n        quote_fields: bool = True,\n        _charset: str = \"utf-8\",\n        **params: str,\n    ) -> None:\n        \"\"\"Sets ``Content-Disposition`` header.\"\"\"\n        self._headers[hdrs.CONTENT_DISPOSITION] = content_disposition_header(\n            disptype, quote_fields=quote_fields, _charset=_charset, params=params\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line_number": 198
+    },
+    {
+      "name": "writer.append_payload",
+      "source_code": "    def append_payload(self, payload: Payload) -> Payload:\n        \"\"\"Adds a new body part to multipart writer.\"\"\"\n        encoding: Optional[str] = None\n        te_encoding: Optional[str] = None\n        if self._is_form_data:\n            # https://datatracker.ietf.org/doc/html/rfc7578#section-4.7\n            # https://datatracker.ietf.org/doc/html/rfc7578#section-4.8\n            assert (\n                not {CONTENT_ENCODING, CONTENT_LENGTH, CONTENT_TRANSFER_ENCODING}\n                & payload.headers.keys()\n            )\n            # Set default Content-Disposition in case user doesn't create one\n            if CONTENT_DISPOSITION not in payload.headers:\n                name = f\"section-{len(self._parts)}\"\n                payload.set_content_disposition(\"form-data\", name=name)\n        else:\n            # compression\n            encoding = payload.headers.get(CONTENT_ENCODING, \"\").lower()\n            if encoding and encoding not in (\"deflate\", \"gzip\", \"identity\"):\n                raise RuntimeError(f\"unknown content encoding: {encoding}\")\n            if encoding == \"identity\":\n                encoding = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line_number": 894
+    },
+    {
+      "name": "writer.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "tuple",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "writer.append_json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line": 932,
+      "caller": "test_automatic_content_disposition",
+      "source_code": "    def append_json(\n        self, obj: Any, headers: Optional[Mapping[str, str]] = None\n"
+    },
+    {
+      "function": "payload.StringPayload",
+      "filename": "",
+      "line": 0,
+      "caller": "test_automatic_content_disposition",
+      "source_code": ""
+    },
+    {
+      "function": "part.set_content_disposition",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line": 198,
+      "caller": "test_automatic_content_disposition",
+      "source_code": "    def set_content_disposition(\n        self,\n        disptype: str,\n        quote_fields: bool = True,\n        _charset: str = \"utf-8\",\n        **params: str,\n"
+    },
+    {
+      "function": "writer.append_payload",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line": 894,
+      "caller": "test_automatic_content_disposition",
+      "source_code": "    def append_payload(self, payload: Payload) -> Payload:\n        \"\"\"Adds a new body part to multipart writer.\"\"\"\n        encoding: Optional[str] = None\n        te_encoding: Optional[str] = None\n        if self._is_form_data:\n            # https://datatracker.ietf.org/doc/html/rfc7578#section-4.7\n            # https://datatracker.ietf.org/doc/html/rfc7578#section-4.8\n            assert (\n                not {CONTENT_ENCODING, CONTENT_LENGTH, CONTENT_TRANSFER_ENCODING}\n                & payload.headers.keys()\n            )\n            # Set default Content-Disposition in case user doesn't create one\n            if CONTENT_DISPOSITION not in payload.headers:\n                name = f\"section-{len(self._parts)}\"\n                payload.set_content_disposition(\"form-data\", name=name)\n        else:\n            # compression\n            encoding = payload.headers.get(CONTENT_ENCODING, \"\").lower()\n            if encoding and encoding not in (\"deflate\", \"gzip\", \"identity\"):\n                raise RuntimeError(f\"unknown content encoding: {encoding}\")\n            if encoding == \"identity\":\n                encoding = None\n\n            # te encoding\n            te_encoding = payload.headers.get(CONTENT_TRANSFER_ENCODING, \"\").lower()\n            if te_encoding not in (\"\", \"base64\", \"quoted-printable\", \"binary\"):\n                raise RuntimeError(f\"unknown content transfer encoding: {te_encoding}\")\n            if te_encoding == \"binary\":\n                te_encoding = None\n\n            # size\n            size = payload.size\n            if size is not None and not (encoding or te_encoding):\n                payload.headers[CONTENT_LENGTH] = str(size)\n\n        self._parts.append((payload, encoding, te_encoding))  # type: ignore[arg-type]\n        return payload\n\n"
+    },
+    {
+      "function": "writer.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_automatic_content_disposition",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "tuple",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_automatic_content_disposition",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'name=\"section-0\"' in disps[0]",
+    "assert 'name=\"second\"' in disps[1]",
+    "assert 'name=\"section-2\"' in disps[2]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_automatic_content_disposition(self) -> None:\n        writer = aiohttp.MultipartWriter(\"form-data\")\n        writer.append_json(())\n        part = payload.StringPayload(\"foo\")\n        part.set_content_disposition(\"form-data\", name=\"second\")\n        writer.append_payload(part)\n        writer.append(\"foo\")\n\n        disps = tuple(p[0].headers[CONTENT_DISPOSITION] for p in writer._parts)\n        assert 'name=\"section-0\"' in disps[0]\n        assert 'name=\"second\"' in disps[1]\n        assert 'name=\"section-2\"' in disps[2]"
+}

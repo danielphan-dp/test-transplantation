@@ -1,0 +1,40 @@
+{
+  "test_name": "test_compressed_msg_too_large",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "WebSocketReader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "build_frame",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line_number": 36
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "WebSocketReader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_compressed_msg_too_large",
+      "source_code": ""
+    },
+    {
+      "function": "build_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line": 36,
+      "caller": "test_compressed_msg_too_large",
+      "source_code": "def build_frame(\n    message: bytes,\n    opcode: int,\n    use_mask: bool = False,\n    noheader: bool = False,\n    is_fin: bool = True,\n    compress: bool = False,\n"
+    }
+  ],
+  "assertions": [
+    "assert ctx.value.code == WSCloseCode.MESSAGE_TOO_BIG"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_compressed_msg_too_large(out: aiohttp.DataQueue[WSMessage]) -> None:\n    parser = WebSocketReader(out, 256, compress=True)\n    data = build_frame(b\"aaa\" * 256, WSMsgType.TEXT, compress=True)\n    with pytest.raises(WebSocketError) as ctx:\n        parser._feed_data(data)\n    assert ctx.value.code == WSCloseCode.MESSAGE_TOO_BIG"
+}

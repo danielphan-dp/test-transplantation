@@ -1,0 +1,66 @@
+{
+  "test_name": "test_validate",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 380
+    },
+    {
+      "name": "validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 380
+    },
+    {
+      "name": "validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 380
+    },
+    {
+      "name": "validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 380
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 380,
+      "caller": "test_validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)\n\n        if ((res.tzoffset == 0 and not res.tzname) or\n             (res.tzname == 'Z' or res.tzname == 'z')):\n            res.tzname = \"UTC\"\n            res.tzoffset = 0\n        elif res.tzoffset != 0 and res.tzname and self.utczone(res.tzname):\n            res.tzoffset = 0\n        return True\n\n\n"
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 380,
+      "caller": "test_validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)\n\n        if ((res.tzoffset == 0 and not res.tzname) or\n             (res.tzname == 'Z' or res.tzname == 'z')):\n            res.tzname = \"UTC\"\n            res.tzoffset = 0\n        elif res.tzoffset != 0 and res.tzname and self.utczone(res.tzname):\n            res.tzoffset = 0\n        return True\n\n\n"
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 380,
+      "caller": "test_validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)\n\n        if ((res.tzoffset == 0 and not res.tzname) or\n             (res.tzname == 'Z' or res.tzname == 'z')):\n            res.tzname = \"UTC\"\n            res.tzoffset = 0\n        elif res.tzoffset != 0 and res.tzname and self.utczone(res.tzname):\n            res.tzoffset = 0\n        return True\n\n\n"
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 380,
+      "caller": "test_validate",
+      "source_code": "    def validate(self, res):\n        # move to info\n        if res.year is not None:\n            res.year = self.convertyear(res.year, res.century_specified)\n\n        if ((res.tzoffset == 0 and not res.tzname) or\n             (res.tzname == 'Z' or res.tzname == 'z')):\n            res.tzname = \"UTC\"\n            res.tzoffset = 0\n        elif res.tzoffset != 0 and res.tzname and self.utczone(res.tzname):\n            res.tzoffset = 0\n        return True\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert groups == {'group1': b'0', 'group2': b'1'}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_validate() -> None:\n    my_re = re.compile(rb\"(?P<group1>[0-9]+)\\.(?P<group2>[0-9]+)\")\n    with pytest.raises(LocalProtocolError):\n        validate(my_re, b\"0.\")\n\n    groups = validate(my_re, b\"0.1\")\n    assert groups == {\"group1\": b\"0\", \"group2\": b\"1\"}\n\n    # successful partial matches are an error - must match whole string\n    with pytest.raises(LocalProtocolError):\n        validate(my_re, b\"0.1xx\")\n    with pytest.raises(LocalProtocolError):\n        validate(my_re, b\"0.1\\n\")"
+}

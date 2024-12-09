@@ -1,0 +1,97 @@
+{
+  "test_name": "test_add_convenience_priority",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware_priority.py",
+  "static_methods": [
+    {
+      "name": "app.on_request",
+      "source_code": "    def on_request(self, middleware=None):\n        \"\"\"Convenience method to register a request middleware for all blueprints in the group.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line_number": 964
+    },
+    {
+      "name": "app.on_response",
+      "source_code": "    def on_response(self, middleware=None):\n        \"\"\"Convenience method to register a response middleware for all blueprints in the group.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line_number": 978
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.on_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line": 964,
+      "caller": "test_add_convenience_priority",
+      "source_code": "    def on_request(self, middleware=None):\n        \"\"\"Convenience method to register a request middleware for all blueprints in the group.\n\n        Args:\n            middleware (Optional): Optional positional Parameters to be use middleware\n\n        Returns:\n            Partial function to apply the middleware\n        \"\"\"  # noqa: E501\n        if callable(middleware):\n            return self.middleware(middleware, \"request\")\n        else:\n            return partial(self.middleware, attach_to=\"request\")\n\n"
+    },
+    {
+      "function": "app.on_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/blueprints.py",
+      "line": 978,
+      "caller": "test_add_convenience_priority",
+      "source_code": "    def on_response(self, middleware=None):\n        \"\"\"Convenience method to register a response middleware for all blueprints in the group.\n\n        Args:\n            middleware (Optional): Optional positional Parameters to be use middleware\n\n        Returns:\n            Partial function to apply the middleware\n        \"\"\"  # noqa: E501\n        if callable(middleware):\n            return self.middleware(middleware, \"response\")\n        else:\n            return partial(self.middleware, attach_to=\"response\")\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_convenience_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_convenience_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_convenience_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_convenience_priority",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(app.request_middleware) == 1",
+    "assert len(app.response_middleware) == 0",
+    "assert app.request_middleware[0].priority == 999",
+    "assert len(app.request_middleware) == 1",
+    "assert len(app.response_middleware) == 1",
+    "assert app.response_middleware[0].priority == 999"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_convenience_priority(app: Sanic):\n    def foo(*_): ...\n\n    app.on_request(foo, priority=999)\n    assert len(app.request_middleware) == 1\n    assert len(app.response_middleware) == 0\n    assert app.request_middleware[0].priority == 999  # type: ignore\n    app.on_response(foo, priority=999)\n    assert len(app.request_middleware) == 1\n    assert len(app.response_middleware) == 1\n    assert app.response_middleware[0].priority == 999"
+}

@@ -1,0 +1,25 @@
+{
+  "test_name": "test_basic_auth_decode_illegal_chars_base64",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.BasicAuth.decode",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line_number": 122
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.BasicAuth.decode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line": 122,
+      "caller": "test_basic_auth_decode_illegal_chars_base64",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.\n\n        Args:\n            lines (Iterable[str]): An iterable of lines of terminal output.\n\n        Yields:\n            Text: Marked up Text.\n        \"\"\"\n        for line in terminal_text.splitlines():\n            yield self.decode_line(line)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basic_auth_decode_illegal_chars_base64(header: str) -> None:\n    with pytest.raises(ValueError, match=\"Invalid base64 encoding.\"):\n        helpers.BasicAuth.decode(header)"
+}

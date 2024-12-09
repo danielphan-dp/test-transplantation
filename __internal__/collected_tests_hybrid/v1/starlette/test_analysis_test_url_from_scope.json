@@ -1,0 +1,125 @@
+{
+  "test_name": "test_url_from_scope",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_datastructures.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_from_scope",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert u == '/path/to/somewhere?abc=123'",
+    "assert repr(u) == \"URL('/path/to/somewhere?abc=123')\"",
+    "assert u == 'https://example.org:123/path/to/somewhere?abc=123'",
+    "assert repr(u) == \"URL('https://example.org:123/path/to/somewhere?abc=123')\"",
+    "assert u == 'https://example.org/path/to/somewhere?abc=123'",
+    "assert repr(u) == \"URL('https://example.org/path/to/somewhere?abc=123')\"",
+    "assert u == 'http://example.com:8000/some/path?query=string'",
+    "assert repr(u) == \"URL('http://example.com:8000/some/path?query=string')\""
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_url_from_scope() -> None:\n    u = URL(scope={\"path\": \"/path/to/somewhere\", \"query_string\": b\"abc=123\", \"headers\": []})\n    assert u == \"/path/to/somewhere?abc=123\"\n    assert repr(u) == \"URL('/path/to/somewhere?abc=123')\"\n\n    u = URL(\n        scope={\n            \"scheme\": \"https\",\n            \"server\": (\"example.org\", 123),\n            \"path\": \"/path/to/somewhere\",\n            \"query_string\": b\"abc=123\",\n            \"headers\": [],\n        }\n    )\n    assert u == \"https://example.org:123/path/to/somewhere?abc=123\"\n    assert repr(u) == \"URL('https://example.org:123/path/to/somewhere?abc=123')\"\n\n    u = URL(\n        scope={\n            \"scheme\": \"https\",\n            \"server\": (\"example.org\", 443),\n            \"path\": \"/path/to/somewhere\",\n            \"query_string\": b\"abc=123\",\n            \"headers\": [],\n        }\n    )\n    assert u == \"https://example.org/path/to/somewhere?abc=123\"\n    assert repr(u) == \"URL('https://example.org/path/to/somewhere?abc=123')\"\n\n    u = URL(\n        scope={\n            \"scheme\": \"http\",\n            \"path\": \"/some/path\",\n            \"query_string\": b\"query=string\",\n            \"headers\": [\n                (b\"content-type\", b\"text/html\"),\n                (b\"host\", b\"example.com:8000\"),\n                (b\"accept\", b\"text/html\"),\n            ],\n        }\n    )\n    assert u == \"http://example.com:8000/some/path?query=string\"\n    assert repr(u) == \"URL('http://example.com:8000/some/path?query=string')\""
+}

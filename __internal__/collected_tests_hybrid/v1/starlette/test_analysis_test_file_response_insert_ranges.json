@@ -1,0 +1,68 @@
+{
+  "test_name": "test_file_response_insert_ranges",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_responses.py",
+  "static_methods": [
+    {
+      "name": "file_response_client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "response.headers.startswith",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def endswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def replace(self, old: str, new: str, maxcount: int=...) -> str: ...\n    def encode(self, x: str=..., y: str=...) -> bytes: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line_number": 110
+    },
+    {
+      "name": "response.headers.split",
+      "source_code": "    def split(cls, s):\n        return list(cls(s))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line_number": 200
+    },
+    {
+      "name": "response.text.splitlines",
+      "source_code": "    def splitlines(  # type: ignore[override]\n        self, /, keepends: bool = False\n    ) -> list[te.Self]:\n        return [self.__class__(v) for v in super().splitlines(keepends)]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/markupsafe/__init__.py",
+      "line_number": 183
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "file_response_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_file_response_insert_ranges",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "response.headers.startswith",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line": 110,
+      "caller": "test_file_response_insert_ranges",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n"
+    },
+    {
+      "function": "response.headers.split",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/parser/_parser.py",
+      "line": 200,
+      "caller": "test_file_response_insert_ranges",
+      "source_code": "    @classmethod\n    def split(cls, s):\n        return list(cls(s))\n\n"
+    },
+    {
+      "function": "response.text.splitlines",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/markupsafe/__init__.py",
+      "line": 183,
+      "caller": "test_file_response_insert_ranges",
+      "source_code": "    def splitlines(  # type: ignore[override]\n        self, /, keepends: bool = False\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 206",
+    "assert response.headers['content-range'].startswith('multipart/byteranges; boundary=')",
+    "assert response.text.splitlines() == [f'--{boundary}', 'Content-Type: text/plain; charset=utf-8', 'Content-Range: bytes 0-50/526', '', '# B\u00e1iZ\u00e9', '', 'Powerful and exquisite WSGI/ASGI framewo', f'--{boundary}', 'Content-Type: text/plain; charset=utf-8', 'Content-Range: bytes 100-200/526', '', 'ds required in the Web framework. No redundant implementation means that you can freely customize fun', '', f'--{boundary}--']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_file_response_insert_ranges(file_response_client: TestClient) -> None:\n    response = file_response_client.get(\"/\", headers={\"Range\": \"bytes=100-200, 0-50\"})\n\n    assert response.status_code == 206\n    assert response.headers[\"content-range\"].startswith(\"multipart/byteranges; boundary=\")\n    boundary = response.headers[\"content-range\"].split(\"boundary=\")[1]\n    assert response.text.splitlines() == [\n        f\"--{boundary}\",\n        \"Content-Type: text/plain; charset=utf-8\",\n        \"Content-Range: bytes 0-50/526\",\n        \"\",\n        \"# B\u00e1iZ\u00e9\",\n        \"\",\n        \"Powerful and exquisite WSGI/ASGI framewo\",\n        f\"--{boundary}\",\n        \"Content-Type: text/plain; charset=utf-8\",\n        \"Content-Range: bytes 100-200/526\",\n        \"\",\n        \"ds required in the Web framework. No redundant implementation means that you can freely customize fun\",\n        \"\",\n        f\"--{boundary}--\",\n    ]"
+}

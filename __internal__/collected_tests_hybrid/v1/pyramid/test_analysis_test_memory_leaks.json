@@ -1,0 +1,129 @@
+{
+  "test_name": "test_memory_leaks",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "skip_on",
+      "source_code": "def skip_on(*platforms):  # pragma: no  cover\n    skip = False\n    for platform in platforms:\n        if skip_on.os_name.startswith(platform):\n            skip = True\n        if platform == 'pypy' and PYPY:\n            skip = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line_number": 609
+    },
+    {
+      "name": "Configurator.make_wsgi_app",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 884
+    },
+    {
+      "name": "self.get_gc_count",
+      "source_code": "    def get_gc_count(self):\n        last_collected = 0\n        while True:\n            collected = gc.collect()\n            if collected == last_collected:\n                break\n            last_collected = collected\n        return len(gc.get_objects())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line_number": 1036
+    },
+    {
+      "name": "Configurator.make_wsgi_app",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 884
+    },
+    {
+      "name": "self.get_gc_count",
+      "source_code": "    def get_gc_count(self):\n        last_collected = 0\n        while True:\n            collected = gc.collect()\n            if collected == last_collected:\n                break\n            last_collected = collected\n        return len(gc.get_objects())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line_number": 1036
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Configurator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Configurator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "skip_on",
+      "source_code": "def skip_on(*platforms):  # pragma: no  cover\n    skip = False\n    for platform in platforms:\n        if skip_on.os_name.startswith(platform):\n            skip = True\n        if platform == 'pypy' and PYPY:\n            skip = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line_number": 609
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "skip_on",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line": 609,
+      "caller": "test_memory_leaks",
+      "source_code": "def skip_on(*platforms):  # pragma: no  cover\n    skip = False\n    for platform in platforms:\n        if skip_on.os_name.startswith(platform):\n            skip = True\n        if platform == 'pypy' and PYPY:\n            skip = True\n\n    def decorator(func):\n        if isinstance(func, type):\n            if skip:\n                return None\n            else:\n                return func\n        else:\n\n            def wrapper(*args, **kw):\n                if skip:\n                    return\n                return func(*args, **kw)\n\n            wrapper.__name__ = func.__name__\n            wrapper.__doc__ = func.__doc__\n            return wrapper\n\n    return decorator\n\n\n"
+    },
+    {
+      "function": "Configurator.make_wsgi_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 884,
+      "caller": "test_memory_leaks",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)\n\n        # Allow tools like \"pshell development.ini\" to find the 'last'\n        # registry configured.\n        global_registries.add(self.registry)\n\n        # Push the registry onto the stack in case any code that depends on\n        # the registry threadlocal APIs used in listeners subscribed to the\n        # IApplicationCreated event.\n        self.begin()\n        try:\n            self.registry.notify(ApplicationCreated(app))\n        finally:\n            self.end()\n\n        return app\n\n\n"
+    },
+    {
+      "function": "self.get_gc_count",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line": 1036,
+      "caller": "test_memory_leaks",
+      "source_code": "    def get_gc_count(self):\n        last_collected = 0\n        while True:\n            collected = gc.collect()\n            if collected == last_collected:\n                break\n            last_collected = collected\n        return len(gc.get_objects())\n\n"
+    },
+    {
+      "function": "Configurator.make_wsgi_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 884,
+      "caller": "test_memory_leaks",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)\n\n        # Allow tools like \"pshell development.ini\" to find the 'last'\n        # registry configured.\n        global_registries.add(self.registry)\n\n        # Push the registry onto the stack in case any code that depends on\n        # the registry threadlocal APIs used in listeners subscribed to the\n        # IApplicationCreated event.\n        self.begin()\n        try:\n            self.registry.notify(ApplicationCreated(app))\n        finally:\n            self.end()\n\n        return app\n\n\n"
+    },
+    {
+      "function": "self.get_gc_count",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line": 1036,
+      "caller": "test_memory_leaks",
+      "source_code": "    def get_gc_count(self):\n        last_collected = 0\n        while True:\n            collected = gc.collect()\n            if collected == last_collected:\n                break\n            last_collected = collected\n        return len(gc.get_objects())\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_memory_leaks",
+      "source_code": ""
+    },
+    {
+      "function": "Configurator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_memory_leaks",
+      "source_code": ""
+    },
+    {
+      "function": "Configurator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_memory_leaks",
+      "source_code": ""
+    },
+    {
+      "function": "skip_on",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line": 609,
+      "caller": "test_memory_leaks",
+      "source_code": "def skip_on(*platforms):  # pragma: no  cover\n    skip = False\n    for platform in platforms:\n        if skip_on.os_name.startswith(platform):\n            skip = True\n        if platform == 'pypy' and PYPY:\n            skip = True\n\n    def decorator(func):\n        if isinstance(func, type):\n            if skip:\n                return None\n            else:\n                return func\n        else:\n\n            def wrapper(*args, **kw):\n                if skip:\n                    return\n                return func(*args, **kw)\n\n            wrapper.__name__ = func.__name__\n            wrapper.__doc__ = func.__doc__\n            return wrapper\n\n    return decorator\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_memory_leaks(self):\n        from pyramid.config import Configurator\n\n        Configurator().make_wsgi_app()  # Initialize all global objects\n\n        initial_count = self.get_gc_count()\n        Configurator().make_wsgi_app()\n        current_count = self.get_gc_count()\n        self.assertEqual(current_count, initial_count)"
+}

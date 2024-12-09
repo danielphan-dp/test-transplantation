@@ -1,0 +1,51 @@
+{
+  "test_name": "test_console_scripts",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_develop.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "develop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_console_scripts",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_console_scripts",
+      "source_code": ""
+    },
+    {
+      "function": "develop",
+      "filename": "",
+      "line": 0,
+      "caller": "test_console_scripts",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_console_scripts(self, tmpdir):\n        \"\"\"\n        Test that console scripts are installed and that they reference\n        only the project by name and not the current version.\n        \"\"\"\n        pytest.skip(\n            \"TODO: needs a fixture to cause 'develop' \"\n            \"to be invoked without mutating environment.\"\n        )\n        settings = dict(\n            name='foo',\n            packages=['foo'],\n            version='0.0',\n            entry_points={\n                'console_scripts': [\n                    'foocmd = foo:foo',\n                ],\n            },\n        )\n        dist = Distribution(settings)\n        dist.script_name = 'setup.py'\n        cmd = develop(dist)\n        cmd.ensure_finalized()\n        cmd.install_dir = tmpdir\n        cmd.run()"
+}

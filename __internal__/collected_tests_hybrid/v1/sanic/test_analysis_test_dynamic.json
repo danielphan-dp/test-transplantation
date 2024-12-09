@@ -1,0 +1,118 @@
+{
+  "test_name": "test_dynamic",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "create_example",
+      "source_code": "def create_example(path, pkg_root):\n    files = {\n        \"pyproject.toml\": EXAMPLE,\n        \"README.md\": \"hello world\",\n        \"_files\": {\n            \"file.txt\": \"\",\n        },\n    }\n    packages = {\n        \"pkg\": {\n            \"__init__.py\": \"\",\n            \"mod.py\": \"class CustomSdist: pass\",\n            \"__version__.py\": \"VERSION = (3, 10)\",\n            \"__main__.py\": \"def exec(): print('hello')\",\n        },\n    }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line_number": 85
+    },
+    {
+      "name": "cleandoc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "read_configuration",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 73
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "validate",
+      "source_code": "    def validate(self):\n        if self._legacy:\n            missing, warnings = self._legacy.check(True)\n            if missing or warnings:\n                logger.warning('Metadata: missing: %s, warnings: %s',\n                               missing, warnings)\n        else:\n            self._validate_mapping(self._data, self.scheme)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 921
+    },
+    {
+      "name": "expand_configuration",
+      "source_code": "def expand_configuration(\n    config: dict,\n    root_dir: StrPath | None = None,\n    ignore_option_errors: bool = False,\n    dist: Distribution | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 149
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "create_example",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line": 85,
+      "caller": "test_dynamic",
+      "source_code": "def create_example(path, pkg_root):\n    files = {\n        \"pyproject.toml\": EXAMPLE,\n        \"README.md\": \"hello world\",\n        \"_files\": {\n            \"file.txt\": \"\",\n        },\n    }\n    packages = {\n        \"pkg\": {\n            \"__init__.py\": \"\",\n            \"mod.py\": \"class CustomSdist: pass\",\n            \"__version__.py\": \"VERSION = (3, 10)\",\n            \"__main__.py\": \"def exec(): print('hello')\",\n        },\n    }\n\n    assert pkg_root  # Meta-test: cannot be empty string.\n\n    if pkg_root == \".\":\n        files = {**files, **packages}\n        # skip other files: flat-layout will raise error for multi-package dist\n    else:\n        # Use this opportunity to ensure namespaces are discovered\n        files[pkg_root] = {**packages, \"other\": {\"nested\": {\"__init__.py\": \"\"}}}\n\n    jaraco.path.build(files, prefix=path)\n\n\n"
+    },
+    {
+      "function": "cleandoc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dynamic",
+      "source_code": ""
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_dynamic",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "read_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 73,
+      "caller": "test_dynamic",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dynamic",
+      "source_code": ""
+    },
+    {
+      "function": "validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 921,
+      "caller": "test_dynamic",
+      "source_code": "    def validate(self):\n        if self._legacy:\n            missing, warnings = self._legacy.check(True)\n            if missing or warnings:\n                logger.warning('Metadata: missing: %s, warnings: %s',\n                               missing, warnings)\n        else:\n            self._validate_mapping(self._data, self.scheme)\n\n"
+    },
+    {
+      "function": "expand_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 149,
+      "caller": "test_dynamic",
+      "source_code": "def expand_configuration(\n    config: dict,\n    root_dir: StrPath | None = None,\n    ignore_option_errors: bool = False,\n    dist: Distribution | None = None,\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dynamic",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert set(expanded['project']['classifiers']) == {'Framework :: Flask', 'Programming Language :: Haskell'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dynamic(self, tmp_path):\n        # Let's create a project example that has dynamic classifiers\n        # coming from a txt file.\n        create_example(tmp_path, \"src\")\n        classifiers = cleandoc(\n            \"\"\"\n            Framework :: Flask\n            Programming Language :: Haskell\n            \"\"\"\n        )\n        (tmp_path / \"classifiers.txt\").write_text(classifiers, encoding=\"utf-8\")\n\n        pyproject = tmp_path / \"pyproject.toml\"\n        config = read_configuration(pyproject, expand=False)\n        dynamic = config[\"project\"][\"dynamic\"]\n        config[\"project\"][\"dynamic\"] = list({*dynamic, \"classifiers\"})\n        dynamic_config = config[\"tool\"][\"setuptools\"][\"dynamic\"]\n        dynamic_config[\"classifiers\"] = {\"file\": \"classifiers.txt\"}\n\n        # When the configuration is expanded,\n        # each line of the file should be an different classifier.\n        validate(config, pyproject)\n        expanded = expand_configuration(config, tmp_path)\n\n        assert set(expanded[\"project\"][\"classifiers\"]) == {\n            \"Framework :: Flask\",\n            \"Programming Language :: Haskell\",\n        }"
+}

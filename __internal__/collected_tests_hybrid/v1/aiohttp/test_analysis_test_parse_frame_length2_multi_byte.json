@@ -1,0 +1,12 @@
+{
+  "test_name": "test_parse_frame_length2_multi_byte",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert (0, 1, expected_payload, False) == (fin, opcode, payload, not not compress)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_frame_length2_multi_byte(parser: WebSocketReader) -> None:\n    \"\"\"Ensure a multi-byte length is parsed correctly.\"\"\"\n    expected_payload = b\"1\" * 32768\n    parser.parse_frame(struct.pack(\"!BB\", 0b00000001, 126))\n    parser.parse_frame(struct.pack(\"!H\", 32768))\n    res = parser.parse_frame(b\"1\" * 32768)\n    fin, opcode, payload, compress = res[0]\n\n    assert (0, 1, expected_payload, False) == (fin, opcode, payload, not not compress)"
+}

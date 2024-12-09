@@ -1,0 +1,121 @@
+{
+  "test_name": "test_to_file",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+  "static_methods": [
+    {
+      "name": "wfd.to_file",
+      "source_code": "    def to_file(self, mode, buffering=-1, encoding=None, errors=None, newline=None):\n        \"\"\"Convert to a Python file object::",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line_number": 95
+    },
+    {
+      "name": "FileDescriptor",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "assert_not_fd",
+      "source_code": "def assert_not_fd(fd: int):\n    \"\"\"Check that the given number is not open as a file descriptor\"\"\"\n    with pytest.raises(OSError) as exc_info:\n        os.stat(fd)\n    assert exc_info.value.errno == errno.EBADF",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+      "line_number": 9
+    },
+    {
+      "name": "wfd.to_file",
+      "source_code": "    def to_file(self, mode, buffering=-1, encoding=None, errors=None, newline=None):\n        \"\"\"Convert to a Python file object::",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line_number": 95
+    },
+    {
+      "name": "f.write",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line_number": 36
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "wfd.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    },
+    {
+      "name": "read_text",
+      "source_code": "    def read_text(self, encoding):\n        \"\"\"Read and return a Unicode string from reading the path.\"\"\"\n        with self.open(\"r\", encoding=encoding) as f:\n            return f.read()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 367
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "wfd.to_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line": 95,
+      "caller": "test_to_file",
+      "source_code": "    def to_file(self, mode, buffering=-1, encoding=None, errors=None, newline=None):\n        \"\"\"Convert to a Python file object::\n\n            with fd.to_file('w') as f:\n                f.write('xyz')\n\n        The arguments are the same as for the builtin :func:`open` function.\n\n        The :class:`FileDescriptor` can't be used after calling this. Closing\n        the file object will also close the file descriptor.\n        \"\"\"\n        self._check()\n        f = open(\n            self._fd, mode, buffering=buffering,\n            encoding=encoding, errors=errors, newline=newline\n        )\n        self._fd = self._CONVERTED\n        return f\n\n"
+    },
+    {
+      "function": "FileDescriptor",
+      "filename": "",
+      "line": 0,
+      "caller": "test_to_file",
+      "source_code": ""
+    },
+    {
+      "function": "assert_not_fd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+      "line": 9,
+      "caller": "test_to_file",
+      "source_code": "def assert_not_fd(fd: int):\n    \"\"\"Check that the given number is not open as a file descriptor\"\"\"\n    with pytest.raises(OSError) as exc_info:\n        os.stat(fd)\n    assert exc_info.value.errno == errno.EBADF\n\n\n"
+    },
+    {
+      "function": "wfd.to_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line": 95,
+      "caller": "test_to_file",
+      "source_code": "    def to_file(self, mode, buffering=-1, encoding=None, errors=None, newline=None):\n        \"\"\"Convert to a Python file object::\n\n            with fd.to_file('w') as f:\n                f.write('xyz')\n\n        The arguments are the same as for the builtin :func:`open` function.\n\n        The :class:`FileDescriptor` can't be used after calling this. Closing\n        the file object will also close the file descriptor.\n        \"\"\"\n        self._check()\n        f = open(\n            self._fd, mode, buffering=buffering,\n            encoding=encoding, errors=errors, newline=newline\n        )\n        self._fd = self._CONVERTED\n        return f\n\n"
+    },
+    {
+      "function": "f.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line": 36,
+      "caller": "test_to_file",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise\n"
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_to_file",
+      "source_code": ""
+    },
+    {
+      "function": "wfd.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_to_file",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    },
+    {
+      "function": "read_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 367,
+      "caller": "test_to_file",
+      "source_code": "    def read_text(self, encoding):\n        \"\"\"Read and return a Unicode string from reading the path.\"\"\"\n        with self.open(\"r\", encoding=encoding) as f:\n            return f.read()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'converted' in repr(wfd)",
+    "assert (tmp_path / 'a').read_text() == 'abc'",
+    "assert f.write('abc')",
+    "assert_not_fd(fd)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_to_file(tmp_path):\n    fd = os.open(tmp_path / 'a', os.O_CREAT | os.O_RDWR)\n    wfd = FileDescriptor(fd)\n\n    with wfd.to_file('w') as f:\n        assert f.write('abc')\n\n    assert 'converted' in repr(wfd)\n    with pytest.raises(NoFDError):\n        wfd.fileno()\n\n    assert_not_fd(fd)  # Check FD was closed by file object\n\n    assert (tmp_path / 'a').read_text() == 'abc'"
+}

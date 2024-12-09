@@ -1,0 +1,53 @@
+{
+  "test_name": "test_roundtrip",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_low_level.py",
+  "static_methods": [
+    {
+      "name": "Parser.feed",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line_number": 84
+    },
+    {
+      "name": "msg.serialise",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 172
+    },
+    {
+      "name": "Parser",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Parser.feed",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line": 84,
+      "caller": "test_roundtrip",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state\n\n        return self.state\n"
+    },
+    {
+      "function": "msg.serialise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 172,
+      "caller": "test_roundtrip",
+      "source_code": "    def serialise(self) -> str:\n        \"\"\"Convert to a string to use in an AddMatch call to the message bus\"\"\"\n        pairs = list(self.header_fields.items())\n\n        if self.message_type:\n            pairs.append(('type', self.message_type.name))\n\n        if self.eavesdrop:\n            pairs.append(('eavesdrop', 'true'))\n\n        for argno, (val, kind) in self.arg_conditions.items():\n            if kind == 'string':\n                kind = ''\n            pairs.append((f'arg{argno}{kind}', val))\n\n        # Quoting rules: single quotes ('') needed if the value contains a comma.\n        # A literal ' can only be represented outside single quotes, by\n        # backslash-escaping it. No escaping inside the quotes.\n        # The simplest way to handle this is to use '' around every value, and\n        # use '\\'' (end quote, escaped ', restart quote) for literal ' .\n        return ','.join(\n            \"{}='{}'\".format(k, v.replace(\"'\", r\"'\\''\")) for (k, v) in pairs\n        )\n\n"
+    },
+    {
+      "function": "Parser",
+      "filename": "",
+      "line": 0,
+      "caller": "test_roundtrip",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert msg.serialise() == HELLO_METHOD_CALL"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_roundtrip():\n    msg = Parser().feed(HELLO_METHOD_CALL)[0]\n    assert msg.serialise() == HELLO_METHOD_CALL"
+}

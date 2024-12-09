@@ -1,0 +1,38 @@
+{
+  "test_name": "test_invalid_formdata_filename",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_formdata.py",
+  "static_methods": [
+    {
+      "name": "FormData",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "form.add_field",
+      "source_code": "    def add_field(\n        self,\n        name: str,\n        value: Any,\n        *,\n        content_type: Optional[str] = None,\n        filename: Optional[str] = None,\n    ) -> None:\n        if isinstance(value, (io.IOBase, bytes, bytearray, memoryview)):\n            self._is_multipart = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/formdata.py",
+      "line_number": 47
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FormData",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_formdata_filename",
+      "source_code": ""
+    },
+    {
+      "function": "form.add_field",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/formdata.py",
+      "line": 47,
+      "caller": "test_invalid_formdata_filename",
+      "source_code": "    def add_field(\n        self,\n        name: str,\n        value: Any,\n        *,\n        content_type: Optional[str] = None,\n        filename: Optional[str] = None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_invalid_formdata_filename() -> None:\n    form = FormData()\n    invalid_vals = [0, 0.1, {}, [], b\"foo\"]\n    for invalid_val in invalid_vals:\n        with pytest.raises(TypeError):\n            form.add_field(\"foo\", \"bar\", filename=invalid_val)"
+}

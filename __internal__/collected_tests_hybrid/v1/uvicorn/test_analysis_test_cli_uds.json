@@ -1,0 +1,146 @@
+{
+  "test_name": "test_cli_uds",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "CliRunner",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock_bind_socket.assert_called_once",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock_run.assert_called_once",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "uds_file.exists",
+      "source_code": "    def exists(self):\n        return self._stat()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 126
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "runner.invoke",
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n    ) -> Result:\n        \"\"\"Invokes a command in an isolated environment.  The arguments are\n        forwarded directly to the command line script, the `extra` keyword\n        arguments are passed to the :meth:`~clickpkg.Command.main` function of\n        the command.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/click/testing.py",
+      "line_number": 349
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    },
+    {
+      "function": "CliRunner",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    },
+    {
+      "function": "mock_bind_socket.assert_called_once",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    },
+    {
+      "function": "mock_run.assert_called_once",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    },
+    {
+      "function": "uds_file.exists",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 126,
+      "caller": "test_cli_uds",
+      "source_code": "    def exists(self):\n        return self._stat()\n\n"
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    },
+    {
+      "function": "runner.invoke",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/click/testing.py",
+      "line": 349,
+      "caller": "test_cli_uds",
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cli_uds",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert result.exit_code == 0",
+    "assert result.output == ''",
+    "assert not uds_file.exists()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_cli_uds(uds_file: Path) -> None:  # pragma: py-win32\n    runner = CliRunner()\n\n    with mock.patch.object(Config, \"bind_socket\") as mock_bind_socket:\n        with mock.patch.object(Multiprocess, \"run\") as mock_run:\n            result = runner.invoke(cli, [\"tests.test_cli:App\", \"--workers=2\", \"--uds\", str(uds_file)])\n\n    assert result.exit_code == 0\n    assert result.output == \"\"\n    mock_bind_socket.assert_called_once()\n    mock_run.assert_called_once()\n    assert not uds_file.exists()"
+}

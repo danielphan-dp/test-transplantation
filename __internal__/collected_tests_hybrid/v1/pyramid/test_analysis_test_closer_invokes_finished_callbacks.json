@@ -1,0 +1,90 @@
+{
+  "test_name": "test_closer_invokes_finished_callbacks",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripting.py",
+  "static_methods": [
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeRegistry",
+      "source_code": "    def _makeRegistry(self, depth):",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+      "line_number": 1377
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "request.add_finished_callback",
+      "source_code": "    def add_finished_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called\n        unconditionally by the :term:`router` at the very end of\n        request processing.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 87
+    },
+    {
+      "name": "closer",
+      "source_code": "    def closer():\n        ctx.end()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripting.py",
+      "line_number": 28
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_closer_invokes_finished_callbacks",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeRegistry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+      "line": 1377,
+      "caller": "test_closer_invokes_finished_callbacks",
+      "source_code": "    def _makeRegistry(self, depth):\n\n        class WithGeneration:\n            _generation = 1\n\n        class Registry:\n            def __init__(self, depth):\n                self.ro = [WithGeneration() for i in range(depth)]\n\n        return Registry(depth)\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_closer_invokes_finished_callbacks",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "request.add_finished_callback",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 87,
+      "caller": "test_closer_invokes_finished_callbacks",
+      "source_code": "    def add_finished_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called\n        unconditionally by the :term:`router` at the very end of\n        request processing.\n\n        ``callback`` is a callable which accepts a single positional\n        parameter: ``request``.  For example:\n\n        .. code-block:: python\n           :linenos:\n\n           import transaction\n\n           def commit_callback(request):\n               '''commit or abort the transaction associated with request'''\n               if request.exception is not None:\n                   transaction.abort()\n               else:\n                   transaction.commit()\n           request.add_finished_callback(commit_callback)\n\n        Finished callbacks are called in the order they're added (\n        first- to most-recently- added).  Finished callbacks (unlike\n        response callbacks) are *always* called, even if an exception\n        happens in application code that prevents a response from\n        being generated.\n\n        The set of finished callbacks associated with a request are\n        called *very late* in the processing of that request; they are\n        essentially the last thing called by the :term:`router`. They\n        are called after response processing has already occurred in a\n        top-level ``finally:`` block within the router request\n        processing code.  As a result, mutations performed to the\n        ``request`` provided to a finished callback will have no\n        meaningful effect, because response processing will have\n        already occurred, and the request's scope will expire almost\n        immediately after all finished callbacks have been processed.\n\n        Errors raised by finished callbacks are not handled specially.\n        They will be propagated to the caller of the :app:`Pyramid`\n        router application.\n\n        .. seealso::\n\n            See also :ref:`using_finished_callbacks`.\n        \"\"\"\n        self.finished_callbacks.append(callback)\n\n"
+    },
+    {
+      "function": "closer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripting.py",
+      "line": 28,
+      "caller": "test_closer_invokes_finished_callbacks",
+      "source_code": "    def closer():\n        ctx.end()\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_closer_invokes_finished_callbacks",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_closer_invokes_finished_callbacks(self):\n        finish_called = [False]\n\n        def finished_callback(request):\n            finish_called[0] = True\n\n        request = DummyRequest({})\n        request.registry = self._makeRegistry()\n        info = self._callFUT(request=request)\n        request.add_finished_callback(finished_callback)\n        closer = info['closer']\n        closer()\n        self.assertTrue(finish_called[0])"
+}

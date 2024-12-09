@@ -1,0 +1,56 @@
+{
+  "test_name": "test_strict_install",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "install_project",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line_number": 1242
+    },
+    {
+      "name": "dedent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dedent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "install_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line": 1242,
+      "caller": "test_strict_install",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out\n\n\n"
+    },
+    {
+      "function": "dedent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_strict_install",
+      "source_code": ""
+    },
+    {
+      "function": "dedent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_strict_install",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert '42' in out",
+    "assert \"cannot import name 'subpackage'\" in out",
+    "assert 'No such file or directory' in out",
+    "assert 'resource.not_in_manifest' in out"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_strict_install(self, tmp_path, venv):\n        opts = [\"--config-settings\", \"editable-mode=strict\"]\n        install_project(\"mypkg\", venv, tmp_path, self.FILES, *opts)\n\n        out = venv.run([\"python\", \"-c\", \"import mypkg.mod1; print(mypkg.mod1.var)\"])\n        assert \"42\" in out\n\n        # Ensure packages excluded from distribution are not importable\n        cmd_import_error = \"\"\"\\\n        try:\n            from mypkg import subpackage\n        except ImportError as ex:\n            print(ex)\n        \"\"\"\n        out = venv.run([\"python\", \"-c\", dedent(cmd_import_error)])\n        assert \"cannot import name 'subpackage'\" in out\n\n        # Ensure resource files excluded from distribution are not reachable\n        cmd_get_resource = \"\"\"\\\n        import mypkg\n        from setuptools._importlib import resources as importlib_resources\n        try:\n            text = importlib_resources.files(mypkg) / \"resource.not_in_manifest\"\n            print(text.read_text(encoding=\"utf-8\"))\n        except FileNotFoundError as ex:\n            print(ex)\n        \"\"\"\n        out = venv.run([\"python\", \"-c\", dedent(cmd_get_resource)])\n        assert \"No such file or directory\" in out\n        assert \"resource.not_in_manifest\" in out"
+}

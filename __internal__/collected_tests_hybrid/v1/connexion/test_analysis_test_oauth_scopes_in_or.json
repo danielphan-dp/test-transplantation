@@ -1,0 +1,90 @@
+{
+  "test_name": "test_oauth_scopes_in_or",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "SecurityHandlerFactory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SecurityOperation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "verify_oauth.assert_has_calls",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.call",
+      "source_code": "    def call(\n        __self,  # noqa: B902\n        __context: Context,\n        __obj: t.Any,\n        *args: t.Any,\n        **kwargs: t.Any,\n    ) -> t.Any:\n        \"\"\"Call an object from sandboxed code.\"\"\"\n        fmt = inspect_format_method(__obj)\n        if fmt is not None:\n            return __self.format_string(fmt, args, kwargs, __obj)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jinja2/sandbox.py",
+      "line_number": 378
+    },
+    {
+      "name": "mock.call",
+      "source_code": "    def call(\n        __self,  # noqa: B902\n        __context: Context,\n        __obj: t.Any,\n        *args: t.Any,\n        **kwargs: t.Any,\n    ) -> t.Any:\n        \"\"\"Call an object from sandboxed code.\"\"\"\n        fmt = inspect_format_method(__obj)\n        if fmt is not None:\n            return __self.format_string(fmt, args, kwargs, __obj)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jinja2/sandbox.py",
+      "line_number": 378
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SecurityHandlerFactory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_oauth_scopes_in_or",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_oauth_scopes_in_or",
+      "source_code": ""
+    },
+    {
+      "function": "SecurityOperation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_oauth_scopes_in_or",
+      "source_code": ""
+    },
+    {
+      "function": "verify_oauth.assert_has_calls",
+      "filename": "",
+      "line": 0,
+      "caller": "test_oauth_scopes_in_or",
+      "source_code": ""
+    },
+    {
+      "function": "mock.call",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jinja2/sandbox.py",
+      "line": 378,
+      "caller": "test_oauth_scopes_in_or",
+      "source_code": "    def call(\n        __self,  # noqa: B902\n        __context: Context,\n        __obj: t.Any,\n        *args: t.Any,\n        **kwargs: t.Any,\n"
+    },
+    {
+      "function": "mock.call",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jinja2/sandbox.py",
+      "line": 378,
+      "caller": "test_oauth_scopes_in_or",
+      "source_code": "    def call(\n        __self,  # noqa: B902\n        __context: Context,\n        __obj: t.Any,\n        *args: t.Any,\n        **kwargs: t.Any,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_oauth_scopes_in_or():\n    \"\"\"Tests whether an OAuth security scheme with 2 different possible scopes is correctly handled.\"\"\"\n\n    class MockOAuthFactory(OAuthSecurityHandler):\n        \"\"\"Mock.\"\"\"\n\n    security_handler_factory = SecurityHandlerFactory({\"oauth2\": MockOAuthFactory})\n    oauth_security_handler = security_handler_factory.security_handlers[\"oauth2\"]\n    verify_oauth = mock.MagicMock(return_value=\"verify_oauth_result\")\n    oauth_security_handler._get_verify_func = verify_oauth\n\n    security = [{\"oauth\": [\"myscope\"]}, {\"oauth\": [\"myscope2\"]}]\n\n    SecurityOperation(\n        next_app=mock.Mock,\n        security_handler_factory=security_handler_factory,\n        security=security,\n        security_schemes=SECURITY_DEFINITIONS_LOCAL,\n    )\n\n    verify_oauth.assert_has_calls(\n        [\n            mock.call(math.ceil, oauth_security_handler.validate_scope, [\"myscope\"]),\n            mock.call(math.ceil, oauth_security_handler.validate_scope, [\"myscope2\"]),\n        ]\n    )"
+}

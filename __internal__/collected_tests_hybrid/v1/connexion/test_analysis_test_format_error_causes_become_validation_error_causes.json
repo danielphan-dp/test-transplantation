@@ -1,0 +1,129 @@
+{
+  "test_name": "test_format_error_causes_become_validation_error_causes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_format.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FormatChecker",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "checker.checks",
+      "source_code": "    def checks(\n        self, format: str, raises: _RaisesType = (),\n    ) -> typing.Callable[[_F], _F]:\n        \"\"\"\n        Register a decorated function as validating a new format.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_format.py",
+      "line_number": 59
+    },
+    {
+      "name": "Draft4Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "checker.checks",
+      "source_code": "    def checks(\n        self, format: str, raises: _RaisesType = (),\n    ) -> typing.Callable[[_F], _F]:\n        \"\"\"\n        Register a decorated function as validating a new format.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_format.py",
+      "line_number": 59
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": ""
+    },
+    {
+      "function": "FormatChecker",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": ""
+    },
+    {
+      "function": "checker.checks",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_format.py",
+      "line": 59,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": "    def checks(\n        self, format: str, raises: _RaisesType = (),\n"
+    },
+    {
+      "function": "Draft4Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": ""
+    },
+    {
+      "function": "checker.checks",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_format.py",
+      "line": 59,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": "    def checks(\n        self, format: str, raises: _RaisesType = (),\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": ""
+    },
+    {
+      "function": "validator.validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_format_error_causes_become_validation_error_causes",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_format_error_causes_become_validation_error_causes(self):\n        checker = FormatChecker()\n        checker.checks(\"boom\", raises=ValueError)(boom)\n        validator = Draft4Validator({\"format\": \"boom\"}, format_checker=checker)\n\n        with self.assertRaises(ValidationError) as cm:\n            validator.validate(\"BOOM\")\n\n        self.assertIs(cm.exception.cause, BOOM)\n        self.assertIs(cm.exception.__cause__, BOOM)"
+}

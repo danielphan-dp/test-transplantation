@@ -1,0 +1,66 @@
+{
+  "test_name": "test_set_body_method_after_body_set",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response_json.py",
+  "static_methods": [
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "response.set_body",
+      "source_code": "    def set_body(self, key, body):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 58
+    },
+    {
+      "name": "json_dumps.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "json_dumps",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_set_body_method_after_body_set",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "response.set_body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 58,
+      "caller": "test_set_body_method_after_body_set",
+      "source_code": "    def set_body(self, key, body):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "json_dumps.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_set_body_method_after_body_set",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "json_dumps",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_body_method_after_body_set",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert resp.body == json_dumps(new_new_body).encode()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_set_body_method_after_body_set(json_app: Sanic):\n    new_body = b'{\"hello\":\"world\"}'\n    new_new_body = {\"lorem\": \"ipsum\"}\n\n    @json_app.on_response\n    def set_body(request: Request, response: JSONResponse):\n        response.body = new_body\n        response.set_body(new_new_body)\n\n    _, resp = json_app.test_client.get(\"/json\")\n    assert resp.body == json_dumps(new_new_body).encode()"
+}

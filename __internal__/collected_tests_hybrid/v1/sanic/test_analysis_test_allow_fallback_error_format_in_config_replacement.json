@@ -1,0 +1,41 @@
+{
+  "test_name": "test_allow_fallback_error_format_in_config_replacement",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+  "static_methods": [
+    {
+      "name": "MyConfig",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MyConfig",
+      "filename": "",
+      "line": 0,
+      "caller": "test_allow_fallback_error_format_in_config_replacement",
+      "source_code": ""
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_allow_fallback_error_format_in_config_replacement",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 500",
+    "assert response.content_type == 'text/plain; charset=utf-8'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_allow_fallback_error_format_in_config_replacement(app):\n    class MyConfig(Config):\n        FALLBACK_ERROR_FORMAT = \"text\"\n\n    app.config = MyConfig()\n\n    request, response = app.test_client.get(\"/error\")\n    assert response.status == 500\n    assert response.content_type == \"text/plain; charset=utf-8\""
+}

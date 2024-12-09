@@ -1,0 +1,64 @@
+{
+  "test_name": "test_path_filter_subsubfolder",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_cookiejar.py",
+  "static_methods": [
+    {
+      "name": "self.request_reply_with_same_url",
+      "source_code": "    def request_reply_with_same_url(\n        self, url: str\n    ) -> Tuple[\"BaseCookie[str]\", SimpleCookie]:\n        self.jar.update_cookies(self.cookies_to_send)\n        cookies_sent = self.jar.filter_cookies(URL(url))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_cookiejar.py",
+      "line_number": 438
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "cookies_sent.keys",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 745
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.request_reply_with_same_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_cookiejar.py",
+      "line": 438,
+      "caller": "test_path_filter_subsubfolder",
+      "source_code": "    def request_reply_with_same_url(\n        self, url: str\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_path_filter_subsubfolder",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_path_filter_subsubfolder",
+      "source_code": ""
+    },
+    {
+      "function": "cookies_sent.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 745,
+      "caller": "test_path_filter_subsubfolder",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_path_filter_subsubfolder(self) -> None:\n        cookies_sent, _ = self.request_reply_with_same_url(\n            \"http://pathtest.com/one/two/three/\"\n        )\n\n        self.assertEqual(\n            set(cookies_sent.keys()),\n            {\n                \"shared-cookie\",\n                \"no-path-cookie\",\n                \"path1-cookie\",\n                \"path2-cookie\",\n                \"path3-cookie\",\n                \"path4-cookie\",\n            },\n        )"
+}

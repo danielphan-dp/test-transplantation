@@ -1,0 +1,64 @@
+{
+  "test_name": "test_namespaced_pkg_installed_via_pth",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pkginfo/tests/test_installed.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 13
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 13,
+      "caller": "test_namespaced_pkg_installed_via_pth",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namespaced_pkg_installed_via_pth",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namespaced_pkg_installed_via_pth",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namespaced_pkg_installed_via_pth",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_namespaced_pkg_installed_via_pth(self):\n        # E.g., installed by a Linux distro\n        where, _ = os.path.split(__file__)\n        manky = os.path.join(where, 'manky')\n        oldpath = sys.path[:]\n        try:\n            sys.path.append(manky)\n            with warnings.catch_warnings(record=True):\n                import namespaced.manky\n            installed = self._makeOne('namespaced.manky')\n            self.assertEqual(installed.metadata_version, '1.0')\n            self.assertEqual(installed.package, namespaced.manky)\n            self.assertEqual(installed.package_name, 'namespaced.manky')\n        finally:\n            sys.path[:] = oldpath\n            sys.modules.pop('namespaced.manky', None)\n            sys.modules.pop('namespaced', None)"
+}

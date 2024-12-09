@@ -1,0 +1,38 @@
+{
+  "test_name": "test_UserDict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/common/tests/test_collections.py",
+  "static_methods": [
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.verify",
+      "source_code": "    def verify(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 820
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_UserDict",
+      "source_code": ""
+    },
+    {
+      "function": "self.verify",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 820,
+      "caller": "test_UserDict",
+      "source_code": "    def verify(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        metadata_name = posixpath.join(info_dir, LEGACY_METADATA_FILENAME)\n        wheel_metadata_name = posixpath.join(info_dir, 'WHEEL')\n        record_name = posixpath.join(info_dir, 'RECORD')\n\n        wrapper = codecs.getreader('utf-8')\n\n        with ZipFile(pathname, 'r') as zf:\n            with zf.open(wheel_metadata_name) as bwf:\n                wf = wrapper(bwf)\n                message = message_from_file(wf)\n            wv = message['Wheel-Version'].split('.', 1)\n            file_version = tuple([int(i) for i in wv])\n            # TODO version verification\n\n            records = {}\n            with zf.open(record_name) as bf:\n                with CSVReader(stream=bf) as reader:\n                    for row in reader:\n                        p = row[0]\n                        records[p] = row\n\n            for zinfo in zf.infolist():\n                arcname = zinfo.filename\n                if isinstance(arcname, text_type):\n                    u_arcname = arcname\n                else:\n                    u_arcname = arcname.decode('utf-8')\n                # See issue #115: some wheels have .. in their entries, but\n                # in the filename ... e.g. __main__..py ! So the check is\n                # updated to look for .. in the directory portions\n                p = u_arcname.split('/')\n                if '..' in p:\n                    raise DistlibException('invalid entry in '\n                                           'wheel: %r' % u_arcname)\n\n                if self.skip_entry(u_arcname):\n                    continue\n                row = records[u_arcname]\n                if row[2] and str(zinfo.file_size) != row[2]:\n                    raise DistlibException('size mismatch for '\n                                           '%s' % u_arcname)\n                if row[1]:\n                    kind, value = row[1].split('=', 1)\n                    with zf.open(arcname) as bf:\n                        data = bf.read()\n                    _, digest = self.get_hash(data, kind)\n                    if digest != value:\n                        raise DistlibException('digest mismatch for '\n                                               '%s' % arcname)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_UserDict(self):\n        self.assertTrue(self.verify(collections.IMutableMapping,\n                                    collections.UserDict))"
+}

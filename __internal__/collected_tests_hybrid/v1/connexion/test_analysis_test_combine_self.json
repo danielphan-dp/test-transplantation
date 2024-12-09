@@ -1,0 +1,40 @@
+{
+  "test_name": "test_combine_self",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "registry.combine",
+      "source_code": "    def combine(cls, styles: Iterable[\"Style\"]) -> \"Style\":\n        \"\"\"Combine styles and get result.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/rich/style.py",
+      "line_number": 601
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_combine_self",
+      "source_code": ""
+    },
+    {
+      "function": "registry.combine",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_vendor/rich/style.py",
+      "line": 601,
+      "caller": "test_combine_self",
+      "source_code": "    @classmethod\n    def combine(cls, styles: Iterable[\"Style\"]) -> \"Style\":\n        \"\"\"Combine styles and get result.\n\n        Args:\n            styles (Iterable[Style]): Styles to combine.\n\n        Returns:\n            Style: A new style instance.\n        \"\"\"\n        iter_styles = iter(styles)\n        return sum(iter_styles, next(iter_styles))\n\n"
+    }
+  ],
+  "assertions": [
+    "assert registry.combine(registry) is registry"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_combine_self(self):\n        \"\"\"\n        Combining a registry with itself short-circuits.\n\n        This is a performance optimization -- otherwise we do lots more work\n        (in jsonschema this seems to correspond to making the test suite take\n         *3x* longer).\n        \"\"\"\n\n        registry = Registry({\"urn:foo\": \"bar\"})\n        assert registry.combine(registry) is registry"
+}

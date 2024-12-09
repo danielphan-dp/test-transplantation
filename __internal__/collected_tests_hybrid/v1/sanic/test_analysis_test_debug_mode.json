@@ -1,0 +1,66 @@
+{
+  "test_name": "test_debug_mode",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_install.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "caplog.set_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.test_record",
+      "source_code": "    def test_record(self):\n        install_dir = self.mkdtemp()\n        project_dir, dist = self.create_dist(py_modules=['hello'], scripts=['sayhi'])\n        os.chdir(project_dir)\n        self.write_file('hello.py', \"def main(): print('o hai')\")\n        self.write_file('sayhi', 'from hello import main; main()')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_install.py",
+      "line_number": 183
+    },
+    {
+      "name": "any",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_debug_mode",
+      "source_code": ""
+    },
+    {
+      "function": "caplog.set_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_debug_mode",
+      "source_code": ""
+    },
+    {
+      "function": "self.test_record",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_install.py",
+      "line": 183,
+      "caller": "test_debug_mode",
+      "source_code": "    def test_record(self):\n        install_dir = self.mkdtemp()\n        project_dir, dist = self.create_dist(py_modules=['hello'], scripts=['sayhi'])\n        os.chdir(project_dir)\n        self.write_file('hello.py', \"def main(): print('o hai')\")\n        self.write_file('sayhi', 'from hello import main; main()')\n\n        cmd = install(dist)\n        dist.command_obj['install'] = cmd\n        cmd.root = install_dir\n        cmd.record = os.path.join(project_dir, 'filelist')\n        cmd.ensure_finalized()\n        cmd.run()\n\n        content = pathlib.Path(cmd.record).read_text(encoding='utf-8')\n\n        found = [pathlib.Path(line).name for line in content.splitlines()]\n        expected = [\n            'hello.py',\n            f'hello.{sys.implementation.cache_tag}.pyc',\n            'sayhi',\n            'UNKNOWN-0.0.0-py{}.{}.egg-info'.format(*sys.version_info[:2]),\n        ]\n        assert found == expected\n\n"
+    },
+    {
+      "function": "any",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_debug_mode",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert any((rec for rec in caplog.records if rec.levelno == logging.DEBUG))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_debug_mode(self, caplog, monkeypatch):\n        # this covers the code called when DEBUG is set\n        monkeypatch.setattr(install_module, 'DEBUG', True)\n        caplog.set_level(logging.DEBUG)\n        self.test_record()\n        assert any(rec for rec in caplog.records if rec.levelno == logging.DEBUG)"
+}

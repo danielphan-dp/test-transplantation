@@ -1,0 +1,79 @@
+{
+  "test_name": "test_get_cache_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+  "static_methods": [
+    {
+      "name": "pkg_resources.ResourceManager",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mgr.get_cache_path",
+      "source_code": "    def get_cache_path(self, archive_name, names=()):\n        \"\"\"Return absolute location in cache for `archive_name` and `names`",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 1194
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pkg_resources.ResourceManager",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_cache_path",
+      "source_code": ""
+    },
+    {
+      "function": "mgr.get_cache_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 1194,
+      "caller": "test_get_cache_path",
+      "source_code": "    def get_cache_path(self, archive_name, names=()):\n        \"\"\"Return absolute location in cache for `archive_name` and `names`\n\n        The parent directory of the resulting path will be created if it does\n        not already exist.  `archive_name` should be the base filename of the\n        enclosing egg (which may not be the name of the enclosing zipfile!),\n        including its \".egg\" extension.  `names`, if provided, should be a\n        sequence of path name parts \"under\" the egg's extraction location.\n\n        This method should only be called by resource providers that need to\n        obtain an extraction location, and only for names they intend to\n        extract, as it tracks the generated names for possible cleanup later.\n        \"\"\"\n        extract_path = self.extraction_path or get_default_cache()\n        target_path = os.path.join(extract_path, archive_name + '-tmp', *names)\n        try:\n            _bypass_ensure_directory(target_path)\n        except Exception:\n            self.extraction_error()\n\n        self._warn_unsafe_extraction_path(extract_path)\n\n        self.cached_files[target_path] = 1\n        return target_path\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_cache_path",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_cache_path",
+      "source_code": ""
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_cache_path",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(path, str), message"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_cache_path(self):\n        mgr = pkg_resources.ResourceManager()\n        path = mgr.get_cache_path('foo')\n        type_ = str(type(path))\n        message = \"Unexpected type from get_cache_path: \" + type_\n        assert isinstance(path, str), message"
+}

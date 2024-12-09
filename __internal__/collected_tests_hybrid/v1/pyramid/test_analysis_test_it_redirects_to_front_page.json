@@ -1,0 +1,53 @@
+{
+  "test_name": "test_it_redirects_to_front_page",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki/src/tests/tests/test_views.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "view_wiki",
+      "source_code": "def view_wiki(request):\n    next_url = request.route_url('view_page', pagename='FrontPage')\n    return HTTPSeeOther(location=next_url)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tutorial/views/default.py",
+      "line_number": 15
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_redirects_to_front_page",
+      "source_code": ""
+    },
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_redirects_to_front_page",
+      "source_code": ""
+    },
+    {
+      "function": "view_wiki",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tutorial/views/default.py",
+      "line": 15,
+      "caller": "test_it_redirects_to_front_page",
+      "source_code": "@view_config(route_name='view_wiki')\ndef view_wiki(request):\n    next_url = request.route_url('view_page', pagename='FrontPage')\n    return HTTPSeeOther(location=next_url)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.location == 'http://example.com/FrontPage'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_redirects_to_front_page(self):\n        from tutorial.views.default import view_wiki\n        context = testing.DummyResource()\n        request = testing.DummyRequest()\n        response = view_wiki(context, request)\n        assert response.location == 'http://example.com/FrontPage'"
+}

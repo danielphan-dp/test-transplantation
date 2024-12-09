@@ -1,0 +1,53 @@
+{
+  "test_name": "test_build_with_discovered_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+  "static_methods": [
+    {
+      "name": "_populate_project_dir",
+      "source_code": "def _populate_project_dir(root, files, options):\n    # NOTE: Currently pypa/build will refuse to build the project if no\n    # `pyproject.toml` or `setup.py` is found. So it is impossible to do\n    # completely \"config-less\" projects.\n    basic = {\n        \"setup.py\": \"import setuptools\\nsetuptools.setup()\",\n        \"README.md\": \"# Example Package\",\n        \"LICENSE\": \"Copyright (c) 2018\",\n    }\n    jaraco.path.build(basic, prefix=root)\n    _write_setupcfg(root, options)\n    paths = (root / f for f in files)\n    for path in paths:\n        path.parent.mkdir(exist_ok=True, parents=True)\n        path.touch()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line_number": 571
+    },
+    {
+      "name": "_run_build",
+      "source_code": "def _run_build(path, *flags):\n    cmd = [sys.executable, \"-m\", \"build\", \"--no-isolation\", *flags, str(path)]\n    return run(cmd, env={'DISTUTILS_DEBUG': ''})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line_number": 611
+    },
+    {
+      "name": "dist_file.is_file",
+      "source_code": "    def is_file(self, path: InfoPath) -> bool:\n        \"\"\"Check whether an entry in the info directory is a file.\"\"\"\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/metadata/base.py",
+      "line_number": 362
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_populate_project_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line": 571,
+      "caller": "test_build_with_discovered_name",
+      "source_code": "def _populate_project_dir(root, files, options):\n    # NOTE: Currently pypa/build will refuse to build the project if no\n    # `pyproject.toml` or `setup.py` is found. So it is impossible to do\n    # completely \"config-less\" projects.\n    basic = {\n        \"setup.py\": \"import setuptools\\nsetuptools.setup()\",\n        \"README.md\": \"# Example Package\",\n        \"LICENSE\": \"Copyright (c) 2018\",\n    }\n    jaraco.path.build(basic, prefix=root)\n    _write_setupcfg(root, options)\n    paths = (root / f for f in files)\n    for path in paths:\n        path.parent.mkdir(exist_ok=True, parents=True)\n        path.touch()\n\n\n"
+    },
+    {
+      "function": "_run_build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+      "line": 611,
+      "caller": "test_build_with_discovered_name",
+      "source_code": "def _run_build(path, *flags):\n    cmd = [sys.executable, \"-m\", \"build\", \"--no-isolation\", *flags, str(path)]\n    return run(cmd, env={'DISTUTILS_DEBUG': ''})\n\n\n"
+    },
+    {
+      "function": "dist_file.is_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/metadata/base.py",
+      "line": 362,
+      "caller": "test_build_with_discovered_name",
+      "source_code": "    def is_file(self, path: InfoPath) -> bool:\n        \"\"\"Check whether an entry in the info directory is a file.\"\"\"\n        raise NotImplementedError()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dist_file.is_file()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_with_discovered_name(self, tmp_path):\n        files = [\"src/ns/nested/pkg/__init__.py\"]\n        _populate_project_dir(tmp_path, files, {})\n        _run_build(tmp_path, \"--sdist\")\n        # Expected distribution file\n        dist_file = tmp_path / f\"dist/ns_nested_pkg-{self.DEFAULT_VERSION}.tar.gz\"\n        assert dist_file.is_file()"
+}

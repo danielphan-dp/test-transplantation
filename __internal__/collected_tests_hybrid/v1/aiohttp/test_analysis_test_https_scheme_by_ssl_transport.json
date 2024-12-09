@@ -1,0 +1,28 @@
+{
+  "test_name": "test_https_scheme_by_ssl_transport",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_request.py",
+  "static_methods": [
+    {
+      "name": "make_mocked_request",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 605
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_mocked_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 605,
+      "caller": "test_https_scheme_by_ssl_transport",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,\n"
+    }
+  ],
+  "assertions": [
+    "assert 'https' == req.scheme",
+    "assert req.secure is True"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_https_scheme_by_ssl_transport() -> None:\n    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)\n    req = make_mocked_request(\n        \"GET\", \"/\", headers={\"Host\": \"example.com\"}, sslcontext=context\n    )\n    assert \"https\" == req.scheme\n    assert req.secure is True"
+}

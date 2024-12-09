@@ -1,0 +1,42 @@
+{
+  "test_name": "test_host_port_nondefault_https",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    },
+    {
+      "name": "req.is_ssl",
+      "source_code": "    def is_ssl(self) -> bool:\n        return self.url.scheme in _SSL_SCHEMES",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line_number": 293
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_host_port_nondefault_https",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    },
+    {
+      "function": "req.is_ssl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line": 293,
+      "caller": "test_host_port_nondefault_https",
+      "source_code": "    def is_ssl(self) -> bool:\n        return self.url.scheme in _SSL_SCHEMES\n\n"
+    }
+  ],
+  "assertions": [
+    "assert req.host == 'python.org'",
+    "assert req.port == 960",
+    "assert req.is_ssl()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_host_port_nondefault_https(make_request: _RequestMaker) -> None:\n    req = make_request(\"get\", \"https://python.org:960/\")\n    assert req.host == \"python.org\"\n    assert req.port == 960\n    assert req.is_ssl()"
+}

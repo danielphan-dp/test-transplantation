@@ -1,0 +1,66 @@
+{
+  "test_name": "test_load_module_from_file_location_using_env",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_utils.py",
+  "static_methods": [
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "load_module_from_file_location",
+      "source_code": "def load_module_from_file_location(\n    location: Union[bytes, str, Path], encoding: str = \"utf8\", *args, **kwargs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/utils.py",
+      "line_number": 45
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_load_module_from_file_location_using_env",
+      "source_code": ""
+    },
+    {
+      "function": "load_module_from_file_location",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/utils.py",
+      "line": 45,
+      "caller": "test_load_module_from_file_location_using_env",
+      "source_code": "def load_module_from_file_location(\n    location: Union[bytes, str, Path], encoding: str = \"utf8\", *args, **kwargs\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_load_module_from_file_location_using_env",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_load_module_from_file_location_using_env",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(module, ModuleType)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_load_module_from_file_location_using_env():\n    environ[\"APP_TEST_CONFIG\"] = \"static/app_test_config.py\"\n    location = str(Path(__file__).parent / \"${APP_TEST_CONFIG}\")\n    module = load_module_from_file_location(location)\n\n    assert isinstance(module, ModuleType)"
+}

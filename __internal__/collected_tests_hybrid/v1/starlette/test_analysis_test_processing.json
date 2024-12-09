@@ -1,0 +1,66 @@
+{
+  "test_name": "test_processing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/tools/test_mypy_annotate.py",
+  "static_methods": [
+    {
+      "name": "process_line",
+      "source_code": "def process_line(line: str) -> Result | None:\n    if match := report_re.fullmatch(line.rstrip()):\n        filename, st_line, st_col, end_line, end_col, kind, message = match.groups()\n        return Result(\n            filename=filename,\n            start_line=int(st_line),\n            start_col=int(st_col) if st_col is not None else None,\n            end_line=int(end_line) if end_line is not None else None,\n            end_col=int(end_col) if end_col is not None else None,\n            kind=mypy_to_github[kind],\n            message=message,\n        )\n    else:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/mypy_annotate.py",
+      "line_number": 53
+    },
+    {
+      "name": "Result",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Result",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Result",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "process_line",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/mypy_annotate.py",
+      "line": 53,
+      "caller": "test_processing",
+      "source_code": "def process_line(line: str) -> Result | None:\n    if match := report_re.fullmatch(line.rstrip()):\n        filename, st_line, st_col, end_line, end_col, kind, message = match.groups()\n        return Result(\n            filename=filename,\n            start_line=int(st_line),\n            start_col=int(st_col) if st_col is not None else None,\n            end_line=int(end_line) if end_line is not None else None,\n            end_col=int(end_col) if end_col is not None else None,\n            kind=mypy_to_github[kind],\n            message=message,\n        )\n    else:\n        return None\n\n\n"
+    },
+    {
+      "function": "Result",
+      "filename": "",
+      "line": 0,
+      "caller": "test_processing",
+      "source_code": ""
+    },
+    {
+      "function": "Result",
+      "filename": "",
+      "line": 0,
+      "caller": "test_processing",
+      "source_code": ""
+    },
+    {
+      "function": "Result",
+      "filename": "",
+      "line": 0,
+      "caller": "test_processing",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert result == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_processing(src: str, expected: Result | None) -> None:\n    result = process_line(src)\n    assert result == expected"
+}

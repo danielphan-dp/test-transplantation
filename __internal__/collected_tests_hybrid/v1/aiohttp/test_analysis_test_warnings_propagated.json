@@ -1,0 +1,68 @@
+{
+  "test_name": "test_warnings_propagated",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_pytest_plugin.py",
+  "static_methods": [
+    {
+      "name": "pytest_plugin._runtime_warning_context",
+      "source_code": "def _runtime_warning_context():  # type: ignore[no-untyped-def]\n    \"\"\"Context manager which checks for RuntimeWarnings.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line_number": 168
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "pytest_plugin._runtime_warning_context",
+      "source_code": "def _runtime_warning_context():  # type: ignore[no-untyped-def]\n    \"\"\"Context manager which checks for RuntimeWarnings.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line_number": 168
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pytest_plugin._runtime_warning_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line": 168,
+      "caller": "test_warnings_propagated",
+      "source_code": "@contextlib.contextmanager\ndef _runtime_warning_context():  # type: ignore[no-untyped-def]\n    \"\"\"Context manager which checks for RuntimeWarnings.\n\n    This exists specifically to\n    avoid \"coroutine 'X' was never awaited\" warnings being missed.\n\n    If RuntimeWarnings occur in the context a RuntimeError is raised.\n    \"\"\"\n    with warnings.catch_warnings(record=True) as _warnings:\n        yield\n        rw = [\n            \"{w.filename}:{w.lineno}:{w.message}\".format(w=w)\n            for w in _warnings\n            if w.category == RuntimeWarning\n        ]\n        if rw:\n            raise RuntimeError(\n                \"{} Runtime Warning{},\\n{}\".format(\n                    len(rw), \"\" if len(rw) == 1 else \"s\", \"\\n\".join(rw)\n                )\n            )\n\n    # Propagate warnings to pytest\n    for msg in _warnings:\n        warnings.showwarning(\n            msg.message, msg.category, msg.filename, msg.lineno, msg.file, msg.line\n        )\n\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_warnings_propagated",
+      "source_code": ""
+    },
+    {
+      "function": "pytest_plugin._runtime_warning_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line": 168,
+      "caller": "test_warnings_propagated",
+      "source_code": "@contextlib.contextmanager\ndef _runtime_warning_context():  # type: ignore[no-untyped-def]\n    \"\"\"Context manager which checks for RuntimeWarnings.\n\n    This exists specifically to\n    avoid \"coroutine 'X' was never awaited\" warnings being missed.\n\n    If RuntimeWarnings occur in the context a RuntimeError is raised.\n    \"\"\"\n    with warnings.catch_warnings(record=True) as _warnings:\n        yield\n        rw = [\n            \"{w.filename}:{w.lineno}:{w.message}\".format(w=w)\n            for w in _warnings\n            if w.category == RuntimeWarning\n        ]\n        if rw:\n            raise RuntimeError(\n                \"{} Runtime Warning{},\\n{}\".format(\n                    len(rw), \"\" if len(rw) == 1 else \"s\", \"\\n\".join(rw)\n                )\n            )\n\n    # Propagate warnings to pytest\n    for msg in _warnings:\n        warnings.showwarning(\n            msg.message, msg.category, msg.filename, msg.lineno, msg.file, msg.line\n        )\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_warnings_propagated",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(recwarn) == 1",
+    "assert isinstance(message, UserWarning)",
+    "assert message.args == ('test warning is propagated',)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_warnings_propagated(recwarn: pytest.WarningsRecorder) -> None:\n    with pytest_plugin._runtime_warning_context():\n        warnings.warn(\"test warning is propagated\")\n    assert len(recwarn) == 1\n    message = recwarn[0].message\n    assert isinstance(message, UserWarning)\n    assert message.args == (\"test warning is propagated\",)"
+}

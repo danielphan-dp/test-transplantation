@@ -1,0 +1,64 @@
+{
+  "test_name": "test_json_body_alternate_charset",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "text_",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line_number": 26
+    },
+    {
+      "name": "bytes",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_json_body_alternate_charset",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "text_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line": 26,
+      "caller": "test_json_body_alternate_charset",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s\n\n"
+    },
+    {
+      "function": "bytes",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_json_body_alternate_charset",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_body_alternate_charset",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_json_body_alternate_charset(self):\n        import json\n\n        request = self._makeOne({'REQUEST_METHOD': 'POST'})\n        inp = text_(\n            b'/\\xe6\\xb5\\x81\\xe8\\xa1\\x8c\\xe8\\xb6\\x8b\\xe5\\x8a\\xbf', 'utf-8'\n        )\n        body = bytes(json.dumps({'a': inp}), 'utf-16')\n        request.body = body\n        request.content_type = 'application/json; charset=utf-16'\n        self.assertEqual(request.json_body, {'a': inp})"
+}

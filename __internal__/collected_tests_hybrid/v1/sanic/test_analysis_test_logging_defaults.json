@@ -1,0 +1,79 @@
+{
+  "test_name": "test_logging_defaults",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_logging.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "setup_logging",
+      "source_code": "def setup_logging():\n    logger.setLevel(logging.DEBUG)\n    handler = logging.StreamHandler()\n    logger.addHandler(handler)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/_cmd.py",
+      "line_number": 16
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logging_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "setup_logging",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/_cmd.py",
+      "line": 16,
+      "caller": "test_logging_defaults",
+      "source_code": "def setup_logging():\n    logger.setLevel(logging.DEBUG)\n    handler = logging.StreamHandler()\n    logger.addHandler(handler)\n\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_logging_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_logging_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_logging_defaults",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert fmt._fmt == formatter._fmt"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_logging_defaults(debug):\n    AutoFormatter.ATTY = False\n    AutoFormatter.SETUP = False\n    Sanic(\"test_logging\")\n    setup_logging(debug)\n    std_formatter = (DebugFormatter if debug else ProdFormatter)()\n    access_formatter = (\n        DebugAccessFormatter if debug else ProdAccessFormatter\n    )()\n\n    for logger_name, formatter in [\n        (\"sanic.root\", std_formatter),\n        (\"sanic.error\", std_formatter),\n        (\"sanic.access\", access_formatter),\n        (\"sanic.server\", std_formatter),\n        (\"sanic.websockets\", std_formatter),\n    ]:\n        print(\"....\", logger_name)\n        for fmt in [\n            h.formatter for h in logging.getLogger(logger_name).handlers\n        ]:\n            print(f\"{logger_name} logger_formatter: \", fmt._fmt)\n            print(f\"{logger_name}        formatter: \", formatter._fmt)\n            assert fmt._fmt == formatter._fmt"
+}

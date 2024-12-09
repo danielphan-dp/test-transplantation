@@ -1,0 +1,97 @@
+{
+  "test_name": "test_add_register_priority",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware_priority.py",
+  "static_methods": [
+    {
+      "name": "app.register_middleware",
+      "source_code": "    def register_middleware(\n        self,\n        middleware: Union[MiddlewareType, Middleware],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n    ) -> Union[MiddlewareType, Middleware]:\n        \"\"\"Register a middleware to be called before a request is handled.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 470
+    },
+    {
+      "name": "app.register_middleware",
+      "source_code": "    def register_middleware(\n        self,\n        middleware: Union[MiddlewareType, Middleware],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n    ) -> Union[MiddlewareType, Middleware]:\n        \"\"\"Register a middleware to be called before a request is handled.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 470
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.register_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 470,
+      "caller": "test_add_register_priority",
+      "source_code": "    def register_middleware(\n        self,\n        middleware: Union[MiddlewareType, Middleware],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n"
+    },
+    {
+      "function": "app.register_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 470,
+      "caller": "test_add_register_priority",
+      "source_code": "    def register_middleware(\n        self,\n        middleware: Union[MiddlewareType, Middleware],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_priority",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(app.request_middleware) == 1",
+    "assert len(app.response_middleware) == 0",
+    "assert app.request_middleware[0].priority == 999",
+    "assert len(app.request_middleware) == 1",
+    "assert len(app.response_middleware) == 1",
+    "assert app.response_middleware[0].priority == 999"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_register_priority(app: Sanic):\n    def foo(*_): ...\n\n    app.register_middleware(foo, priority=999)\n    assert len(app.request_middleware) == 1\n    assert len(app.response_middleware) == 0\n    assert app.request_middleware[0].priority == 999  # type: ignore\n    app.register_middleware(foo, attach_to=\"response\", priority=999)\n    assert len(app.request_middleware) == 1\n    assert len(app.response_middleware) == 1\n    assert app.response_middleware[0].priority == 999"
+}

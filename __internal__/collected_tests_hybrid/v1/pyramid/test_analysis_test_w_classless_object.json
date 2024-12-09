@@ -1,0 +1,103 @@
+{
+  "test_name": "test_w_classless_object",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertIsInstance",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "NotImplementedError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_classless_object",
+      "source_code": ""
+    },
+    {
+      "function": "Foo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_classless_object",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_w_classless_object",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertIsInstance",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_classless_object",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_classless_object",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_w_classless_object",
+      "source_code": ""
+    },
+    {
+      "function": "NotImplementedError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_w_classless_object",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_w_classless_object(self):\n        from zope.interface.declarations import ProvidesClass\n        from zope.interface.interface import InterfaceClass\n        IFoo = InterfaceClass(\"IFoo\")\n        the_dict = {}\n\n        class Foo:\n            def __getattribute__(self, name):\n                # Emulate object w/o any class\n                if name == '__class__':\n                    return None\n                raise NotImplementedError(name)\n\n            def __setattr__(self, name, value):\n                the_dict[name] = value\n\n        obj = Foo()\n        self._callFUT(obj, IFoo)\n        self.assertIsInstance(the_dict['__provides__'], ProvidesClass)\n        self.assertEqual(list(the_dict['__provides__']), [IFoo])"
+}

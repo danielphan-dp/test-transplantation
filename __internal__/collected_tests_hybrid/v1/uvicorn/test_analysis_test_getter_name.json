@@ -1,0 +1,53 @@
+{
+  "test_name": "test_getter_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitclass.py",
+  "static_methods": [
+    {
+      "name": "ClassIR",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "NameGenerator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "getter_name",
+      "source_code": "def getter_name(cl: ClassIR, attribute: str, names: NameGenerator) -> str:\n    return names.private_name(cl.module_name, f\"{cl.name}_get_{attribute}\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitclass.py",
+      "line_number": 372
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ClassIR",
+      "filename": "",
+      "line": 0,
+      "caller": "test_getter_name",
+      "source_code": ""
+    },
+    {
+      "function": "NameGenerator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_getter_name",
+      "source_code": ""
+    },
+    {
+      "function": "getter_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitclass.py",
+      "line": 372,
+      "caller": "test_getter_name",
+      "source_code": "def getter_name(cl: ClassIR, attribute: str, names: NameGenerator) -> str:\n    return names.private_name(cl.module_name, f\"{cl.name}_get_{attribute}\")\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert getter_name(cls, 'down', generator) == 'testing___SomeClass_get_down'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_getter_name(self) -> None:\n        cls = ClassIR(module_name=\"testing\", name=\"SomeClass\")\n        generator = NameGenerator([[\"mod\"]])\n\n        assert getter_name(cls, \"down\", generator) == \"testing___SomeClass_get_down\""
+}

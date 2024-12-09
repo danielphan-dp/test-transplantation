@@ -1,0 +1,66 @@
+{
+  "test_name": "test_get_path_parameter_types",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "make_operation",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line_number": 390
+    },
+    {
+      "name": "Swagger2Operation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "operation.get_path_parameter_types",
+      "source_code": "    def get_path_parameter_types(self):\n        return {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/handlers.py",
+      "line_number": 41
+    },
+    {
+      "name": "Resolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_operation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+      "line": 390,
+      "caller": "test_get_path_parameter_types",
+      "source_code": "def make_operation(op, definitions=True, parameters=True):\n    \"\"\"note the wrapper because definitions namespace and\n    operation namespace collide\n    \"\"\"\n    new_op = {\"wrapper\": copy.deepcopy(op)}\n    if definitions:\n        new_op.update({\"definitions\": DEFINITIONS})\n    if parameters:\n        new_op.update({\"parameters\": PARAMETER_DEFINITIONS})\n    return resolve_refs(new_op)[\"wrapper\"]\n\n\n"
+    },
+    {
+      "function": "Swagger2Operation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_path_parameter_types",
+      "source_code": ""
+    },
+    {
+      "function": "operation.get_path_parameter_types",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/handlers.py",
+      "line": 41,
+      "caller": "test_get_path_parameter_types",
+      "source_code": "    def get_path_parameter_types(self):\n        return {}\n\n"
+    },
+    {
+      "function": "Resolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_path_parameter_types",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert {'int_path': 'int', 'string_path': 'string', 'path_path': 'path'} == operation.get_path_parameter_types()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_path_parameter_types(api):\n    op_spec = make_operation(OPERATION1, parameters=False)\n    op_spec[\"parameters\"] = [\n        {\"in\": \"path\", \"type\": \"int\", \"name\": \"int_path\"},\n        {\"in\": \"path\", \"type\": \"string\", \"name\": \"string_path\"},\n        {\"in\": \"path\", \"type\": \"string\", \"format\": \"path\", \"name\": \"path_path\"},\n    ]\n\n    operation = Swagger2Operation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation=op_spec,\n        app_produces=[\"application/json\"],\n        app_consumes=[\"application/json\"],\n        definitions=DEFINITIONS,\n        resolver=Resolver(),\n    )\n\n    assert {\n        \"int_path\": \"int\",\n        \"string_path\": \"string\",\n        \"path_path\": \"path\",\n    } == operation.get_path_parameter_types()"
+}

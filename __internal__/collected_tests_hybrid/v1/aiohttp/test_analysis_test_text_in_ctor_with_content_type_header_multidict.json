@@ -1,0 +1,55 @@
+{
+  "test_name": "test_text_in_ctor_with_content_type_header_multidict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_response.py",
+  "static_methods": [
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_text_in_ctor_with_content_type_header_multidict",
+      "source_code": ""
+    },
+    {
+      "function": "web.Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_text_in_ctor_with_content_type_header_multidict",
+      "source_code": ""
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_text_in_ctor_with_content_type_header_multidict",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert '\u0442\u0435\u043a\u0441\u0442'.encode('koi8-r') == resp.body",
+    "assert 'text/html' == resp.content_type",
+    "assert 'koi8-r' == resp.charset"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_text_in_ctor_with_content_type_header_multidict() -> None:\n    headers = CIMultiDict({\"Content-Type\": \"text/html; charset=koi8-r\"})\n    resp = web.Response(text=\"\u0442\u0435\u043a\u0441\u0442\", headers=headers)\n    assert \"\u0442\u0435\u043a\u0441\u0442\".encode(\"koi8-r\") == resp.body\n    assert \"text/html\" == resp.content_type\n    assert \"koi8-r\" == resp.charset"
+}

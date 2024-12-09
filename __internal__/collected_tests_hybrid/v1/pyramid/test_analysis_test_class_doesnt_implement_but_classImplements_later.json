@@ -1,0 +1,38 @@
+{
+  "test_name": "test_class_doesnt_implement_but_classImplements_later",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_verify.py",
+  "static_methods": [
+    {
+      "name": "classImplements",
+      "source_code": "    def classImplements(class_, *interfaces):\n        \"\"\"\n        Declare additional interfaces implemented for instances of a class.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 595
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "classImplements",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 595,
+      "caller": "test_class_doesnt_implement_but_classImplements_later",
+      "source_code": "    def classImplements(class_, *interfaces):\n        \"\"\"\n        Declare additional interfaces implemented for instances of a class.\n\n        The arguments after the class are one or more interfaces or\n        interface specifications (`IDeclaration` objects).\n\n        The interfaces given (including the interfaces in the\n        specifications) are added to any interfaces previously\n        declared.\n\n        Consider the following example::\n\n          class C(A, B):\n             ...\n\n          classImplements(C, I1, I2)\n\n\n        Instances of ``C`` provide ``I1``, ``I2``, and whatever interfaces\n        instances of ``A`` and ``B`` provide. This is equivalent to::\n\n            @implementer(I1, I2)\n            class C(A, B):\n                pass\n\n        .. seealso:: `zope.interface.classImplements`\n        .. seealso:: `zope.interface.implementer`\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_class_doesnt_implement_but_classImplements_later",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_class_doesnt_implement_but_classImplements_later(self):\n        from zope.interface import Interface\n        from zope.interface import classImplements\n\n        class ICurrent(Interface):\n            pass\n\n        class Current:\n            pass\n\n        classImplements(Current, ICurrent)\n\n        self._callFUT(ICurrent, Current)"
+}

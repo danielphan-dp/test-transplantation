@@ -1,0 +1,55 @@
+{
+  "test_name": "test_srcdir_python_build",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+  "static_methods": [
+    {
+      "name": "srcdir.joinpath",
+      "source_code": "    def joinpath(self, *other):\n        next = posixpath.join(self.at, *other)\n        return self._next(self.root.resolve_dir(next))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line_number": 488
+    },
+    {
+      "name": "Python_h.is_file",
+      "source_code": "    def is_file(self, path: InfoPath) -> bool:\n        \"\"\"Check whether an entry in the info directory is a file.\"\"\"\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/metadata/base.py",
+      "line_number": 362
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "srcdir.joinpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line": 488,
+      "caller": "test_srcdir_python_build",
+      "source_code": "    def joinpath(self, *other):\n        next = posixpath.join(self.at, *other)\n        return self._next(self.root.resolve_dir(next))\n\n"
+    },
+    {
+      "function": "Python_h.is_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/metadata/base.py",
+      "line": 362,
+      "caller": "test_srcdir_python_build",
+      "source_code": "    def is_file(self, path: InfoPath) -> bool:\n        \"\"\"Check whether an entry in the info directory is a file.\"\"\"\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_srcdir_python_build",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert Python_h.is_file()",
+    "assert sysconfig._is_python_source_dir(srcdir)",
+    "assert sysconfig._is_python_source_dir(str(srcdir))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_srcdir_python_build(self):\n        # See #15364.\n        srcdir = pathlib.Path(sysconfig.get_config_var('srcdir'))\n\n        # The python executable has not been installed so srcdir\n        # should be a full source checkout.\n        Python_h = srcdir.joinpath('Include', 'Python.h')\n        assert Python_h.is_file()\n        assert sysconfig._is_python_source_dir(srcdir)\n        assert sysconfig._is_python_source_dir(str(srcdir))"
+}

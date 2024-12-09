@@ -1,0 +1,172 @@
+{
+  "test_name": "test_downstream_middleware_modifies_receive",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_base.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.post",
+      "source_code": "    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line_number": 310
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ConsumingMiddleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.body",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line_number": 482
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "modifying_middleware",
+      "source_code": "    def modifying_middleware(app: ASGIApp) -> ASGIApp:\n        async def wrapped_app(scope: Scope, receive: Receive, send: Send) -> None:\n            async def wrapped_receive() -> Message:\n                msg = await receive()\n                if msg[\"type\"] == \"http.request\":\n                    msg[\"body\"] = msg[\"body\"] * 2\n                return msg",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_base.py",
+      "line_number": 942
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.body",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line_number": 482
+    },
+    {
+      "name": "call_next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app",
+      "source_code": "    def app(self) -> typing.Any:\n        return self.scope[\"app\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/requests.py",
+      "line_number": 96
+    },
+    {
+      "name": "receive",
+      "source_code": "    def receive(self, *, timeout=None) -> Message:\n        \"\"\"Return the next available message from the connection",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line_number": 158
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line": 310,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": "    @property\n    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.\n\n        >>> print(Version(\"1.2.3\").post)\n        None\n        >>> Version(\"1.2.3.post1\").post\n        1\n        \"\"\"\n        return self._version.post[1] if self._version.post else None\n\n"
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": ""
+    },
+    {
+      "function": "ConsumingMiddleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": ""
+    },
+    {
+      "function": "request.body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line": 482,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.\n\n        This default implementation simply prints a description of the\n        triggering requirement.\n\n        :param req: The InstallRequirement that provoked this error, with\n            its link already populated by the resolver's _populate_link().\n\n        \"\"\"\n        return f\"    {self._requirement_name()}\"\n\n"
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": ""
+    },
+    {
+      "function": "modifying_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_base.py",
+      "line": 942,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": "    def modifying_middleware(app: ASGIApp) -> ASGIApp:\n        async def wrapped_app(scope: Scope, receive: Receive, send: Send) -> None:\n            async def wrapped_receive() -> Message:\n                msg = await receive()\n                if msg[\"type\"] == \"http.request\":\n                    msg[\"body\"] = msg[\"body\"] * 2\n                return msg\n\n            await app(scope, wrapped_receive, send)\n\n        return wrapped_app\n\n"
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": ""
+    },
+    {
+      "function": "request.body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_internal/exceptions.py",
+      "line": 482,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": "    def body(self) -> str:\n        \"\"\"Return a summary of me for display under the heading.\n\n        This default implementation simply prints a description of the\n        triggering requirement.\n\n        :param req: The InstallRequirement that provoked this error, with\n            its link already populated by the resolver's _populate_link().\n\n        \"\"\"\n        return f\"    {self._requirement_name()}\"\n\n"
+    },
+    {
+      "function": "call_next",
+      "filename": "",
+      "line": 0,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": ""
+    },
+    {
+      "function": "app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/requests.py",
+      "line": 96,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": "    @property\n    def app(self) -> typing.Any:\n        return self.scope[\"app\"]\n\n"
+    },
+    {
+      "function": "receive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line": 158,
+      "caller": "test_downstream_middleware_modifies_receive",
+      "source_code": "    def receive(self, *, timeout=None) -> Message:\n        \"\"\"Return the next available message from the connection\n\n        If the data is ready, this will return immediately, even if timeout<=0.\n        Otherwise, it will wait for up to timeout seconds, or indefinitely if\n        timeout is None. If no message comes in time, it raises TimeoutError.\n        \"\"\"\n        return self._receive(timeout_to_deadline(timeout))\n\n"
+    }
+  ],
+  "assertions": [
+    "assert resp.status_code == 200",
+    "assert body == b'foo foo '",
+    "assert body == b'foo '"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_downstream_middleware_modifies_receive(\n    test_client_factory: TestClientFactory,\n) -> None:\n    \"\"\"If a downstream middleware modifies receive() the final ASGI app\n    should see the modified version.\n    \"\"\"\n\n    async def endpoint(scope: Scope, receive: Receive, send: Send) -> None:\n        request = Request(scope, receive)\n        body = await request.body()\n        assert body == b\"foo foo \"\n        await Response()(scope, receive, send)\n\n    class ConsumingMiddleware(BaseHTTPMiddleware):\n        async def dispatch(\n            self,\n            request: Request,\n            call_next: RequestResponseEndpoint,\n        ) -> Response:\n            body = await request.body()\n            assert body == b\"foo \"\n            return await call_next(request)\n\n    def modifying_middleware(app: ASGIApp) -> ASGIApp:\n        async def wrapped_app(scope: Scope, receive: Receive, send: Send) -> None:\n            async def wrapped_receive() -> Message:\n                msg = await receive()\n                if msg[\"type\"] == \"http.request\":\n                    msg[\"body\"] = msg[\"body\"] * 2\n                return msg\n\n            await app(scope, wrapped_receive, send)\n\n        return wrapped_app\n\n    client = test_client_factory(ConsumingMiddleware(modifying_middleware(endpoint)))\n\n    resp = client.post(\"/\", content=b\"foo \")\n    assert resp.status_code == 200"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_run_simple_spec",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "main",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line_number": 6
+    },
+    {
+      "name": "mock_app_run",
+      "source_code": "def mock_app_run(app_class, monkeypatch):\n    mocked_app = MagicMock(name=\"mocked_app\", wraps=app_class(__name__))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_cli.py",
+      "line_number": 20
+    },
+    {
+      "name": "app_instance.run.assert_called",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "main",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/__init__.py",
+      "line": 6,
+      "caller": "test_run_simple_spec",
+      "source_code": "def main(args: Optional[List[str]] = None) -> int:\n    \"\"\"This is an internal API only meant for use by pip's own console scripts.\n\n    For additional details, see https://github.com/pypa/pip/issues/7498.\n    \"\"\"\n    from pip._internal.utils.entrypoints import _wrapper\n\n    return _wrapper(args)\n"
+    },
+    {
+      "function": "mock_app_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_cli.py",
+      "line": 20,
+      "caller": "test_run_simple_spec",
+      "source_code": "@pytest.fixture(scope=\"function\")\ndef mock_app_run(app_class, monkeypatch):\n    mocked_app = MagicMock(name=\"mocked_app\", wraps=app_class(__name__))\n\n    def mocked_run(*args, **kwargs):\n        mocked_app.middleware._build_middleware_stack()\n\n    mocked_app.run = MagicMock(name=\"mocked_app.run\", side_effect=mocked_run)\n\n    def get_mocked_app(*args, **kwargs):\n        return mocked_app\n\n    mocked_app_class = MagicMock(name=\"mocked_app_class\", side_effect=get_mocked_app)\n\n    def get_mocked_app_class(*args, **kwargs):\n        return mocked_app_class\n\n    monkeypatch.setattr(\n        \"connexion.cli.connexion.utils.get_function_from_name\", get_mocked_app_class\n    )\n    return mocked_app_class\n\n\n"
+    },
+    {
+      "function": "app_instance.run.assert_called",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_simple_spec",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_simple_spec(mock_app_run, spec_file):\n    main([\"run\", spec_file])\n\n    app_instance = mock_app_run()\n    app_instance.run.assert_called()"
+}

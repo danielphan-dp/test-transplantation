@@ -1,0 +1,77 @@
+{
+  "test_name": "test_root_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+  "static_methods": [
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._registerTraverserFactory",
+      "source_code": "    def _registerTraverserFactory(\n        self,\n        context,\n        view_name='',\n        subpath=None,\n        traversed=None,\n        virtual_root=None,\n        virtual_root_path=None,\n        raise_error=None,\n        **kw,\n    ):\n        from pyramid.interfaces import ITraverser",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line_number": 50
+    },
+    {
+      "name": "self._registerRootFactory",
+      "source_code": "    def _registerRootFactory(self, val):\n        rootfactory = DummyRootFactory(val)\n        from pyramid.interfaces import IRootFactory",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line_number": 111
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_root_policy",
+      "source_code": ""
+    },
+    {
+      "function": "self._registerTraverserFactory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line": 50,
+      "caller": "test_root_policy",
+      "source_code": "    def _registerTraverserFactory(\n        self,\n        context,\n        view_name='',\n        subpath=None,\n        traversed=None,\n        virtual_root=None,\n        virtual_root_path=None,\n        raise_error=None,\n        **kw,\n"
+    },
+    {
+      "function": "self._registerRootFactory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line": 111,
+      "caller": "test_root_policy",
+      "source_code": "    def _registerRootFactory(self, val):\n        rootfactory = DummyRootFactory(val)\n        from pyramid.interfaces import IRootFactory\n\n        self.registry.registerUtility(rootfactory, IRootFactory)\n        return rootfactory\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_root_policy",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_root_policy",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_root_policy(self):\n        context = DummyContext()\n        self._registerTraverserFactory(context)\n        rootfactory = self._registerRootFactory('abc')\n        router = self._makeOne()\n        self.assertEqual(router.root_policy, rootfactory)"
+}

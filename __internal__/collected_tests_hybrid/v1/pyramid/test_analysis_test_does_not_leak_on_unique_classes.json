@@ -1,0 +1,90 @@
+{
+  "test_name": "test_does_not_leak_on_unique_classes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertLessEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_does_not_leak_on_unique_classes",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_does_not_leak_on_unique_classes",
+      "source_code": ""
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_does_not_leak_on_unique_classes",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_does_not_leak_on_unique_classes",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertLessEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_does_not_leak_on_unique_classes",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_does_not_leak_on_unique_classes",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_does_not_leak_on_unique_classes(self):\n        # Make sure nothing is hanging on to the class or Implements\n        # object after they go out of scope. There was briefly a bug\n        # in 5.x that caused SpecificationBase._bases (in C) to not be\n        # traversed or cleared.\n        # https://github.com/zopefoundation/zope.interface/issues/216\n        import gc\n\n        from zope.interface.interface import InterfaceClass\n        IFoo = InterfaceClass('IFoo')\n\n        begin_count = len(gc.get_objects())\n\n        for _ in range(1900):\n            class TestClass:\n                pass\n\n            self._callFUT(TestClass, IFoo)\n\n        gc.collect()\n\n        end_count = len(gc.get_objects())\n\n        # How many new objects might still be around? In all currently\n        # tested interpreters, there aren't any, so our counts should\n        # match exactly. When the bug existed, in a steady state, the loop\n        # would grow by two objects each iteration\n        fudge_factor = 0\n        self.assertLessEqual(end_count, begin_count + fudge_factor)"
+}

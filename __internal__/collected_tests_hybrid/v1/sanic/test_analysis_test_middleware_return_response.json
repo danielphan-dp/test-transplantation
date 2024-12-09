@@ -1,0 +1,54 @@
+{
+  "test_name": "test_middleware_return_response",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware.py",
+  "static_methods": [
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "request.respond",
+      "source_code": "    def respond(self, status: StatusLike, text: str) -> Response:\n        \"\"\"\n        Create a plain text HTTP response.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/asyncio/server.py",
+      "line_number": 90
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_middleware_return_response",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_middleware_return_response",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "request.respond",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/asyncio/server.py",
+      "line": 90,
+      "caller": "test_middleware_return_response",
+      "source_code": "    def respond(self, status: StatusLike, text: str) -> Response:\n        \"\"\"\n        Create a plain text HTTP response.\n\n        ``process_request`` and ``process_response`` may call this method to\n        return an HTTP response instead of performing the WebSocket opening\n        handshake.\n\n        You can modify the response before returning it, for example by changing\n        HTTP headers.\n\n        Args:\n            status: HTTP status code.\n            text: HTTP response body; it will be encoded to UTF-8.\n\n        Returns:\n            HTTP response to send to the client.\n\n        \"\"\"\n        return self.protocol.reject(status, text)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response_middleware_run_count == 1",
+    "assert request_middleware_run_count == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_middleware_return_response(app):\n    response_middleware_run_count = 0\n    request_middleware_run_count = 0\n\n    @app.on_response\n    def response(_, response):\n        nonlocal response_middleware_run_count\n        response_middleware_run_count += 1\n\n    @app.on_request\n    def request(_):\n        nonlocal request_middleware_run_count\n        request_middleware_run_count += 1\n\n    @app.get(\"/\")\n    async def handler(request):\n        resp1 = await request.respond()\n        return resp1\n\n    app.test_client.get(\"/\")\n    assert response_middleware_run_count == 1\n    assert request_middleware_run_count == 1"
+}

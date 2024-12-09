@@ -1,0 +1,142 @@
+{
+  "test_name": "test_render_system_values_is_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "self._registerRendererFactory",
+      "source_code": "    def _registerRendererFactory(self):\n        from pyramid.interfaces import IRendererFactory",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+      "line_number": 188
+    },
+    {
+      "name": "Dummy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Dummy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "helper.render",
+      "source_code": "    def render(self, time: float) -> \"RenderableType\":\n        \"\"\"Render the spinner for a given time.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/spinner.py",
+      "line_number": 59
+    },
+    {
+      "name": "result.pop",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 940
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._registerRendererFactory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+      "line": 188,
+      "caller": "test_render_system_values_is_None",
+      "source_code": "    def _registerRendererFactory(self):\n        from pyramid.interfaces import IRendererFactory\n\n        def renderer(*arg):\n            def respond(*arg):\n                return arg\n\n            renderer.respond = respond\n            return respond\n\n        self.config.registry.registerUtility(\n            renderer, IRendererFactory, name='.foo'\n        )\n        return renderer\n\n"
+    },
+    {
+      "function": "Dummy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_render_system_values_is_None",
+      "source_code": ""
+    },
+    {
+      "function": "Dummy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_render_system_values_is_None",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_render_system_values_is_None",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "helper.render",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/spinner.py",
+      "line": 59,
+      "caller": "test_render_system_values_is_None",
+      "source_code": "    def render(self, time: float) -> \"RenderableType\":\n        \"\"\"Render the spinner for a given time.\n\n        Args:\n            time (float): Time in seconds.\n\n        Returns:\n            RenderableType: A renderable containing animation frame.\n        \"\"\"\n        if self.start_time is None:\n            self.start_time = time\n\n        frame_no = ((time - self.start_time) * self.speed) / (\n            self.interval / 1000.0\n        ) + self.frame_no_offset\n        frame = Text(\n            self.frames[int(frame_no) % len(self.frames)], style=self.style or \"\"\n        )\n\n        if self._update_speed:\n            self.frame_no_offset = frame_no\n            self.start_time = time\n            self.speed = self._update_speed\n            self._update_speed = 0.0\n\n        if not self.text:\n            return frame\n        elif isinstance(self.text, (str, Text)):\n            return Text.assemble(frame, \" \", self.text)\n        else:\n            table = Table.grid(padding=1)\n            table.add_row(frame, self.text)\n            return table\n\n"
+    },
+    {
+      "function": "result.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 940,
+      "caller": "test_render_system_values_is_None",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_render_system_values_is_None",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_render_system_values_is_None",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_render_system_values_is_None",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_render_system_values_is_None",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_render_system_values_is_None(self):\n        import pyramid.csrf\n\n        self._registerRendererFactory()\n        request = Dummy()\n        context = Dummy()\n        request.context = context\n        helper = self._makeOne('loo.foo')\n        result = helper.render('values', None, request=request)\n        get_csrf = result[1].pop('get_csrf_token')\n        self.assertEqual(get_csrf.args, (request,))\n        self.assertEqual(get_csrf.func, pyramid.csrf.get_csrf_token)\n        system = {\n            'request': request,\n            'context': context,\n            'renderer_name': 'loo.foo',\n            'view': None,\n            'renderer_info': helper,\n            'req': request,\n        }\n        self.assertEqual(result[0], 'values')\n        self.assertEqual(result[1], system)"
+}

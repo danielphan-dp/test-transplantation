@@ -1,0 +1,64 @@
+{
+  "test_name": "test_unauthenticated_userid_corrupt_base64",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authentication.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "policy.unauthenticated_userid",
+      "source_code": "    def unauthenticated_userid(request):\n        \"\"\"Return the *unauthenticated* userid.  This method\n        performs the same duty as ``authenticated_userid`` but is\n        permitted to return the userid based only on data present\n        in the request; it needn't (and shouldn't) check any\n        persistent store to ensure that the user record related to\n        the request userid exists.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 558
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unauthenticated_userid_corrupt_base64",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_unauthenticated_userid_corrupt_base64",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unauthenticated_userid_corrupt_base64",
+      "source_code": ""
+    },
+    {
+      "function": "policy.unauthenticated_userid",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 558,
+      "caller": "test_unauthenticated_userid_corrupt_base64",
+      "source_code": "    def unauthenticated_userid(request):\n        \"\"\"Return the *unauthenticated* userid.  This method\n        performs the same duty as ``authenticated_userid`` but is\n        permitted to return the userid based only on data present\n        in the request; it needn't (and shouldn't) check any\n        persistent store to ensure that the user record related to\n        the request userid exists.\n\n        This method is intended primarily a helper to assist the\n        ``authenticated_userid`` method in pulling credentials out\n        of the request data, abstracting away the specific headers,\n        query strings, etc that are used to authenticate the request.\n\n        \"\"\"\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unauthenticated_userid_corrupt_base64(self):\n        request = testing.DummyRequest()\n        request.headers['Authorization'] = 'Basic chrisr:password'\n        policy = self._makeOne(None)\n        self.assertEqual(policy.unauthenticated_userid(request), None)"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_sync_attrs_match_wrapper",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_file_io.py",
+  "static_methods": [
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sync_attrs_match_wrapper",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sync_attrs_match_wrapper",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sync_attrs_match_wrapper",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_sync_attrs_match_wrapper(\n    async_file: AsyncIOWrapper[mock.Mock], wrapped: mock.Mock\n) -> None:\n    for attr_name in _FILE_SYNC_ATTRS:\n        if attr_name in dir(async_file):\n            continue\n\n        with pytest.raises(AttributeError):\n            getattr(async_file, attr_name)\n\n        with pytest.raises(AttributeError):\n            getattr(wrapped, attr_name)"
+}

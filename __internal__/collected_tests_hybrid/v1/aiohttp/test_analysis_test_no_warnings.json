@@ -1,0 +1,38 @@
+{
+  "test_name": "test_no_warnings",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_circular_imports.py",
+  "static_methods": [
+    {
+      "name": "_mark_aiohttp_worker_for_skipping",
+      "source_code": "def _mark_aiohttp_worker_for_skipping(\n    importables: List[str],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_circular_imports.py",
+      "line_number": 30
+    },
+    {
+      "name": "_find_all_importables",
+      "source_code": "def _find_all_importables(pkg: ModuleType) -> List[str]:\n    \"\"\"Find all importables in the project.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_circular_imports.py",
+      "line_number": 48
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_mark_aiohttp_worker_for_skipping",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_circular_imports.py",
+      "line": 30,
+      "caller": "test_no_warnings",
+      "source_code": "def _mark_aiohttp_worker_for_skipping(\n    importables: List[str],\n"
+    },
+    {
+      "function": "_find_all_importables",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_circular_imports.py",
+      "line": 48,
+      "caller": "test_no_warnings",
+      "source_code": "def _find_all_importables(pkg: ModuleType) -> List[str]:\n    \"\"\"Find all importables in the project.\n\n    Return them in order.\n    \"\"\"\n    return sorted(\n        set(\n            chain.from_iterable(\n                _discover_path_importables(Path(p), pkg.__name__) for p in pkg.__path__\n            ),\n        ),\n    )\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_warnings(import_path: str) -> None:\n    \"\"\"Verify that exploding importables doesn't explode.\n\n    This is seeking for any import errors including ones caused\n    by circular imports.\n    \"\"\"\n    imp_cmd = (\n        # fmt: off\n        sys.executable,\n        \"-W\", \"error\",\n        # The following deprecation warning is triggered by importing\n        # `gunicorn.util`. Hopefully, it'll get fixed in the future. See\n        # https://github.com/benoitc/gunicorn/issues/2840 for detail.\n        \"-W\", \"ignore:module 'sre_constants' is \"\n        \"deprecated:DeprecationWarning:pkg_resources._vendor.pyparsing\",\n        # Also caused by `gunicorn.util` importing `pkg_resources`:\n        \"-W\", \"ignore:Creating a LegacyVersion has been deprecated and \"\n        \"will be removed in the next major release:\"\n        \"DeprecationWarning:\",\n        # Deprecation warning emitted by setuptools v67.5.0+ triggered by importing\n        # `gunicorn.util`.\n        \"-W\", \"ignore:pkg_resources is deprecated as an API:\"\n        \"DeprecationWarning\",\n        \"-c\", f\"import {import_path!s}\",\n        # fmt: on\n    )\n\n    subprocess.check_call(imp_cmd)"
+}

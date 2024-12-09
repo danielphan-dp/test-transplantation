@@ -1,0 +1,92 @@
+{
+  "test_name": "test_extend",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response_json.py",
+  "static_methods": [
+    {
+      "name": "json_app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "json_response",
+      "source_code": "    def json_response(request):\n        return json({\"format\": request.route.extra.error_format})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+      "line_number": 149
+    },
+    {
+      "name": "response.extend",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 226
+    },
+    {
+      "name": "json_dumps.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "json_dumps",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "json_app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_extend",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_extend",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "json_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+      "line": 149,
+      "caller": "test_extend",
+      "source_code": "    @app.get(\"/json\")\n    def json_response(request):\n        return json({\"format\": request.route.extra.error_format})\n\n"
+    },
+    {
+      "function": "response.extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 226,
+      "caller": "test_extend",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.\n\n        This method must be used instead of update.\n        \"\"\"\n        self._extend(args, kwargs, \"extend\", self._extend_items)\n\n"
+    },
+    {
+      "function": "json_dumps.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_extend",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "json_dumps",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extend",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert resp.body == json_dumps(['a', 'b', 'c', 'd']).encode()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_extend(json_app: Sanic):\n    @json_app.get(\"/json-extend\")\n    async def handler_extend(request: Request):\n        return json_response([\"a\", \"b\"], status=200)\n\n    @json_app.on_response\n    def do_extend(request: Request, response: JSONResponse):\n        response.extend([\"c\", \"d\"])\n\n    _, resp = json_app.test_client.get(\"/json-extend\")\n    assert resp.body == json_dumps([\"a\", \"b\", \"c\", \"d\"]).encode()"
+}

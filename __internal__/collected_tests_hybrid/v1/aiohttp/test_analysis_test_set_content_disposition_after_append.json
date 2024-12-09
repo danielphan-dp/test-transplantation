@@ -1,0 +1,40 @@
+{
+  "test_name": "test_set_content_disposition_after_append",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "writer.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "part.set_content_disposition",
+      "source_code": "    def set_content_disposition(\n        self,\n        disptype: str,\n        quote_fields: bool = True,\n        _charset: str = \"utf-8\",\n        **params: str,\n    ) -> None:\n        \"\"\"Sets ``Content-Disposition`` header.\"\"\"\n        self._headers[hdrs.CONTENT_DISPOSITION] = content_disposition_header(\n            disptype, quote_fields=quote_fields, _charset=_charset, params=params\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line_number": 198
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "writer.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_set_content_disposition_after_append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "part.set_content_disposition",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line": 198,
+      "caller": "test_set_content_disposition_after_append",
+      "source_code": "    def set_content_disposition(\n        self,\n        disptype: str,\n        quote_fields: bool = True,\n        _charset: str = \"utf-8\",\n        **params: str,\n"
+    }
+  ],
+  "assertions": [
+    "assert 'name=\"method\"' in part.headers[CONTENT_DISPOSITION]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_content_disposition_after_append(self) -> None:\n        writer = aiohttp.MultipartWriter(\"form-data\")\n        part = writer.append(\"some-data\")\n        part.set_content_disposition(\"form-data\", name=\"method\")\n        assert 'name=\"method\"' in part.headers[CONTENT_DISPOSITION]"
+}

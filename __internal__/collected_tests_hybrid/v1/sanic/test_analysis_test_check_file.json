@@ -1,0 +1,82 @@
+{
+  "test_name": "test_check_file",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+  "static_methods": [
+    {
+      "name": "current.touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "Reloader.check_file",
+      "source_code": "    def check_file(filename, mtimes):\n        if (isinstance(filename, Path) and (filename.name == \"server.py\")) or (\n            isinstance(filename, str) and \"sanic/app.py\" in filename\n        ):\n            paths.add(str(filename))\n            return True\n        return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line_number": 189
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Reloader.check_file",
+      "source_code": "    def check_file(filename, mtimes):\n        if (isinstance(filename, Path) and (filename.name == \"server.py\")) or (\n            isinstance(filename, str) and \"sanic/app.py\" in filename\n        ):\n            paths.add(str(filename))\n            return True\n        return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line_number": 189
+    },
+    {
+      "name": "Reloader.check_file",
+      "source_code": "    def check_file(filename, mtimes):\n        if (isinstance(filename, Path) and (filename.name == \"server.py\")) or (\n            isinstance(filename, str) and \"sanic/app.py\" in filename\n        ):\n            paths.add(str(filename))\n            return True\n        return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line_number": 189
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "current.touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_check_file",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "Reloader.check_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line": 189,
+      "caller": "test_check_file",
+      "source_code": "    def check_file(filename, mtimes):\n        if (isinstance(filename, Path) and (filename.name == \"server.py\")) or (\n            isinstance(filename, str) and \"sanic/app.py\" in filename\n        ):\n            paths.add(str(filename))\n            return True\n        return False\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_check_file",
+      "source_code": ""
+    },
+    {
+      "function": "Reloader.check_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line": 189,
+      "caller": "test_check_file",
+      "source_code": "    def check_file(filename, mtimes):\n        if (isinstance(filename, Path) and (filename.name == \"server.py\")) or (\n            isinstance(filename, str) and \"sanic/app.py\" in filename\n        ):\n            paths.add(str(filename))\n            return True\n        return False\n\n"
+    },
+    {
+      "function": "Reloader.check_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line": 189,
+      "caller": "test_check_file",
+      "source_code": "    def check_file(filename, mtimes):\n        if (isinstance(filename, Path) and (filename.name == \"server.py\")) or (\n            isinstance(filename, str) and \"sanic/app.py\" in filename\n        ):\n            paths.add(str(filename))\n            return True\n        return False\n\n"
+    }
+  ],
+  "assertions": [
+    "assert Reloader.check_file(current, mtimes) is False",
+    "assert len(mtimes) == 1",
+    "assert Reloader.check_file(current, mtimes) is False",
+    "assert Reloader.check_file(current, mtimes) is True"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_check_file(tmp_path):\n    current = tmp_path / \"testing.txt\"\n    current.touch()\n    mtimes = {}\n    assert Reloader.check_file(current, mtimes) is False\n    assert len(mtimes) == 1\n    assert Reloader.check_file(current, mtimes) is False\n    mtimes[current] = mtimes[current] - 1\n    assert Reloader.check_file(current, mtimes) is True"
+}

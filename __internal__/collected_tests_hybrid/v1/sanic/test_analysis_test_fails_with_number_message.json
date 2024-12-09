@@ -1,0 +1,77 @@
+{
+  "test_name": "test_fails_with_number_message",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_url_building.py",
+  "static_methods": [
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "text",
+      "source_code": "    def text(self):\n        \"\"\"Content of the response, in unicode.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 907
+    },
+    {
+      "name": "app.url_for",
+      "source_code": "    def url_for(request):\n        return text(\"url-for\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line_number": 2180
+    },
+    {
+      "name": "e.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_fails_with_number_message",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fails_with_number_message",
+      "source_code": ""
+    },
+    {
+      "function": "text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 907,
+      "caller": "test_fails_with_number_message",
+      "source_code": "    @property\n    def text(self):\n        \"\"\"Content of the response, in unicode.\n\n        If Response.encoding is None, encoding will be guessed using\n        ``charset_normalizer`` or ``chardet``.\n\n        The encoding of the response content is determined based solely on HTTP\n        headers, following RFC 2616 to the letter. If you can take advantage of\n        non-HTTP knowledge to make a better guess at the encoding, you should\n        set ``r.encoding`` appropriately before accessing this property.\n        \"\"\"\n\n        # Try charset from content-type\n        content = None\n        encoding = self.encoding\n\n        if not self.content:\n            return \"\"\n\n        # Fallback to auto-detected encoding.\n        if self.encoding is None:\n            encoding = self.apparent_encoding\n\n        # Decode unicode from given encoding.\n        try:\n            content = str(self.content, encoding, errors=\"replace\")\n        except (LookupError, TypeError):\n            # A LookupError is raised if the encoding was not found which could\n            # indicate a misspelling or similar mistake.\n            #\n            # A TypeError can be raised if encoding is None\n            #\n            # So we try blindly encoding.\n            content = str(self.content, errors=\"replace\")\n\n        return content\n\n"
+    },
+    {
+      "function": "app.url_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line": 2180,
+      "caller": "test_fails_with_number_message",
+      "source_code": "    @app.route(\"/url-for\")\n    def url_for(request):\n        return text(\"url-for\")\n\n"
+    },
+    {
+      "function": "e.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_fails_with_number_message",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_fails_with_number_message(app):\n    @app.route(COMPLEX_PARAM_URL)\n    def fail(request):\n        return text(\"this should fail\")\n\n    failing_kwargs = dict(PASSING_KWARGS)\n    failing_kwargs[\"some_number\"] = \"foo\"\n\n    with pytest.raises(URLBuildError) as e:\n        app.url_for(\"fail\", **failing_kwargs)\n        e.match(\n            'Value \"foo\" for parameter `some_number` '\n            r\"does not match pattern for type \"\n            r\"`float`: ^-?(?:\\d+(?:\\.\\d*)?|\\.\\d+)$\"\n        )"
+}

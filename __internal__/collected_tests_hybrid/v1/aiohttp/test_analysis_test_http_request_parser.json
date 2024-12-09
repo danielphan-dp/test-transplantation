@@ -1,0 +1,49 @@
+{
+  "test_name": "test_http_request_parser",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_request_parser",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_request_parser",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert msg.method == 'GET'",
+    "assert msg.path == '/path'",
+    "assert msg.version == (1, 1)",
+    "assert msg.headers == CIMultiDict()",
+    "assert msg.raw_headers == ()",
+    "assert not msg.should_close",
+    "assert msg.compression is None",
+    "assert not msg.upgrade",
+    "assert not msg.chunked",
+    "assert msg.url == URL('/path')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_request_parser(parser: HttpRequestParser) -> None:\n    text = b\"GET /path HTTP/1.1\\r\\n\\r\\n\"\n    messages, upgrade, tail = parser.feed_data(text)\n    msg = messages[0][0]\n\n    assert msg.method == \"GET\"\n    assert msg.path == \"/path\"\n    assert msg.version == (1, 1)\n    assert msg.headers == CIMultiDict()\n    assert msg.raw_headers == ()\n    assert not msg.should_close\n    assert msg.compression is None\n    assert not msg.upgrade\n    assert not msg.chunked\n    assert msg.url == URL(\"/path\")"
+}

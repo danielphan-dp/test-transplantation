@@ -1,0 +1,121 @@
+{
+  "test_name": "test_two_levels_deep",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_resources.py",
+  "static_methods": [
+    {
+      "name": "symlinked_tmpdir.realpath",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "pkg2.ensure_dir",
+      "source_code": "    def ensure_dir(self, path):\n        path = os.path.abspath(path)\n        if path not in self.ensured and not os.path.exists(path):\n            self.ensured.add(path)\n            d, f = os.path.split(path)\n            self.ensure_dir(d)\n            logger.info('Creating %s' % path)\n            if not self.dry_run:\n                os.mkdir(path)\n            if self.record:\n                self.dirs_created.add(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 577
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "issue591",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "symlinked_tmpdir.realpath",
+      "filename": "",
+      "line": 0,
+      "caller": "test_two_levels_deep",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_two_levels_deep",
+      "source_code": ""
+    },
+    {
+      "function": "pkg2.ensure_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 577,
+      "caller": "test_two_levels_deep",
+      "source_code": "    def ensure_dir(self, path):\n        path = os.path.abspath(path)\n        if path not in self.ensured and not os.path.exists(path):\n            self.ensured.add(path)\n            d, f = os.path.split(path)\n            self.ensure_dir(d)\n            logger.info('Creating %s' % path)\n            if not self.dry_run:\n                os.mkdir(path)\n            if self.record:\n                self.dirs_created.add(path)\n\n"
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_two_levels_deep",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_two_levels_deep",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_two_levels_deep",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_two_levels_deep",
+      "source_code": ""
+    },
+    {
+      "function": "issue591",
+      "filename": "",
+      "line": 0,
+      "caller": "test_two_levels_deep",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'pkg1' in pkg_resources._namespace_packages",
+    "assert 'pkg1.pkg2' in pkg_resources._namespace_packages",
+    "assert pkg_resources._namespace_packages['pkg1'] == ['pkg1.pkg2']",
+    "assert pkg1.pkg2.__path__ == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_two_levels_deep(self, symlinked_tmpdir):\n        \"\"\"\n        Test nested namespace packages\n        Create namespace packages in the following tree :\n            site-packages-1/pkg1/pkg2\n            site-packages-2/pkg1/pkg2\n        Check both are in the _namespace_packages dict and that their __path__\n        is correct\n        \"\"\"\n        real_tmpdir = symlinked_tmpdir.realpath()\n        tmpdir = symlinked_tmpdir\n        sys.path.append(str(tmpdir / 'site-pkgs2'))\n        site_dirs = tmpdir / 'site-pkgs', tmpdir / 'site-pkgs2'\n        for site in site_dirs:\n            pkg1 = site / 'pkg1'\n            pkg2 = pkg1 / 'pkg2'\n            pkg2.ensure_dir()\n            (pkg1 / '__init__.py').write_text(self.ns_str, encoding='utf-8')\n            (pkg2 / '__init__.py').write_text(self.ns_str, encoding='utf-8')\n        with pytest.warns(DeprecationWarning, match=\"pkg_resources.declare_namespace\"):\n            import pkg1  # pyright: ignore[reportMissingImports] # Temporary package for test\n        assert \"pkg1\" in pkg_resources._namespace_packages\n        # attempt to import pkg2 from site-pkgs2\n        with pytest.warns(DeprecationWarning, match=\"pkg_resources.declare_namespace\"):\n            import pkg1.pkg2  # pyright: ignore[reportMissingImports] # Temporary package for test\n        # check the _namespace_packages dict\n        assert \"pkg1.pkg2\" in pkg_resources._namespace_packages\n        assert pkg_resources._namespace_packages[\"pkg1\"] == [\"pkg1.pkg2\"]\n        # check the __path__ attribute contains both paths\n        expected = [\n            str(real_tmpdir / \"site-pkgs\" / \"pkg1\" / \"pkg2\"),\n            str(real_tmpdir / \"site-pkgs2\" / \"pkg1\" / \"pkg2\"),\n        ]\n        assert pkg1.pkg2.__path__ == expected"
+}

@@ -1,0 +1,92 @@
+{
+  "test_name": "test_reuse_last_added_resource",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_urldispatcher.py",
+  "static_methods": [
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.router.add_get",
+      "source_code": "    def add_get(\n        self,\n        path: str,\n        handler: Handler,\n        *,\n        name: Optional[str] = None,\n        allow_head: bool = True,\n        **kwargs: Any,\n    ) -> AbstractRoute:\n        \"\"\"Shortcut for add_route with method GET.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1194
+    },
+    {
+      "name": "app.router.add_post",
+      "source_code": "    def add_post(self, path: str, handler: Handler, **kwargs: Any) -> AbstractRoute:\n        \"\"\"Shortcut for add_route with method POST.\"\"\"\n        return self.add_route(hdrs.METH_POST, path, handler, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1213
+    },
+    {
+      "name": "web.Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "app.router.resources",
+      "source_code": "    def resources(self):\n        return self.finder.get_resources(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line_number": 114
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reuse_last_added_resource",
+      "source_code": ""
+    },
+    {
+      "function": "app.router.add_get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1194,
+      "caller": "test_reuse_last_added_resource",
+      "source_code": "    def add_get(\n        self,\n        path: str,\n        handler: Handler,\n        *,\n        name: Optional[str] = None,\n        allow_head: bool = True,\n        **kwargs: Any,\n"
+    },
+    {
+      "function": "app.router.add_post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1213,
+      "caller": "test_reuse_last_added_resource",
+      "source_code": "    def add_post(self, path: str, handler: Handler, **kwargs: Any) -> AbstractRoute:\n        \"\"\"Shortcut for add_route with method POST.\"\"\"\n        return self.add_route(hdrs.METH_POST, path, handler, **kwargs)\n\n"
+    },
+    {
+      "function": "web.Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reuse_last_added_resource",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reuse_last_added_resource",
+      "source_code": ""
+    },
+    {
+      "function": "app.router.resources",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line": 114,
+      "caller": "test_reuse_last_added_resource",
+      "source_code": "    @cached_property\n    def resources(self):\n        return self.finder.get_resources(self)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(app.router.resources()) == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reuse_last_added_resource(path: str) -> None:\n    # Test that adding a route with the same name and path of the last added\n    # resource doesn't create a new resource.\n    app = web.Application()\n\n    async def handler(request: web.Request) -> web.Response:\n        return web.Response()  # pragma: no cover\n\n    app.router.add_get(path, handler, name=\"a\")\n    app.router.add_post(path, handler, name=\"a\")\n\n    assert len(app.router.resources()) == 1"
+}

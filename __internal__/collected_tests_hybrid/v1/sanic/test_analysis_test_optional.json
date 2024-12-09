@@ -1,0 +1,53 @@
+{
+  "test_name": "test_optional",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "self.get_build_ext_cmd",
+      "source_code": "    def get_build_ext_cmd(self, optional: bool, **opts) -> build_ext:\n        files = {\n            \"eggs.c\": \"#include missingheader.h\\n\",\n            \".build\": {\"lib\": {}, \"tmp\": {}},\n        }\n        path.build(files)  # jaraco/path#232\n        extension = Extension('spam.eggs', ['eggs.c'], optional=optional)\n        dist = Distribution(dict(ext_modules=[extension]))\n        dist.script_name = 'setup.py'\n        cmd = build_ext(dist)\n        vars(cmd).update(build_lib=\".build/lib\", build_temp=\".build/tmp\", **opts)\n        cmd.ensure_finalized()\n        return cmd",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+      "line_number": 181
+    },
+    {
+      "name": "any",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.get_log_messages",
+      "source_code": "    def get_log_messages(self, caplog, capsys):\n        \"\"\"\n        Historically, distutils \"logged\" by printing to sys.std*.\n        Later versions adopted the logging framework. Grab\n        messages regardless of how they were captured.\n        \"\"\"\n        std = capsys.readouterr()\n        return std.out.splitlines() + std.err.splitlines() + caplog.messages",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+      "line_number": 195
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.get_build_ext_cmd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+      "line": 181,
+      "caller": "test_optional",
+      "source_code": "    def get_build_ext_cmd(self, optional: bool, **opts) -> build_ext:\n        files = {\n            \"eggs.c\": \"#include missingheader.h\\n\",\n            \".build\": {\"lib\": {}, \"tmp\": {}},\n        }\n        path.build(files)  # jaraco/path#232\n        extension = Extension('spam.eggs', ['eggs.c'], optional=optional)\n        dist = Distribution(dict(ext_modules=[extension]))\n        dist.script_name = 'setup.py'\n        cmd = build_ext(dist)\n        vars(cmd).update(build_lib=\".build/lib\", build_temp=\".build/tmp\", **opts)\n        cmd.ensure_finalized()\n        return cmd\n\n"
+    },
+    {
+      "function": "any",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_optional",
+      "source_code": ""
+    },
+    {
+      "function": "self.get_log_messages",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_ext.py",
+      "line": 195,
+      "caller": "test_optional",
+      "source_code": "    def get_log_messages(self, caplog, capsys):\n        \"\"\"\n        Historically, distutils \"logged\" by printing to sys.std*.\n        Later versions adopted the logging framework. Grab\n        messages regardless of how they were captured.\n        \"\"\"\n        std = capsys.readouterr()\n        return std.out.splitlines() + std.err.splitlines() + caplog.messages\n\n"
+    }
+  ],
+  "assertions": [
+    "assert any(('build_ext: building extension \"spam.eggs\" failed' for msg in self.get_log_messages(caplog, capsys)))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_optional(self, tmpdir_cwd, caplog, capsys):\n        \"\"\"\n        If optional extensions fail to build, setuptools should show the error\n        in the logs but not fail to build\n        \"\"\"\n        cmd = self.get_build_ext_cmd(optional=True, inplace=True)\n        cmd.run()\n        assert any(\n            'build_ext: building extension \"spam.eggs\" failed'\n            for msg in self.get_log_messages(caplog, capsys)\n        )"
+}

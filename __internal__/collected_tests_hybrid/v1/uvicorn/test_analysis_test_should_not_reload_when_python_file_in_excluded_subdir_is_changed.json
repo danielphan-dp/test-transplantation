@@ -1,0 +1,105 @@
+{
+  "test_name": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+  "static_methods": [
+    {
+      "name": "as_cwd",
+      "source_code": "    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 1005
+    },
+    {
+      "name": "as_cwd",
+      "source_code": "    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 1005
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._setup_reloader",
+      "source_code": "    def _setup_reloader(self, config: Config) -> BaseReload:\n        config.reload_delay = 0  # save time",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line_number": 52
+    },
+    {
+      "name": "reloader.shutdown",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 655
+    },
+    {
+      "name": "self._reload_tester",
+      "source_code": "    def _reload_tester(self, touch_soon, reloader: BaseReload, *files: Path) -> list[Path] | None:\n        reloader.restart()\n        if WatchFilesReload is not None and isinstance(reloader, WatchFilesReload):\n            touch_soon(*files)\n        else:\n            assert not next(reloader)\n            sleep(0.1)\n            for file in files:\n                file.touch()\n        return next(reloader)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line_number": 65
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "as_cwd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 1005,
+      "caller": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+      "source_code": "    @contextmanager\n    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()\n\n"
+    },
+    {
+      "function": "as_cwd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 1005,
+      "caller": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+      "source_code": "    @contextmanager\n    def as_cwd(self):\n        \"\"\"\n        Return a context manager, which changes to the path's dir during the\n        managed \"with\" context.\n        On __enter__ it returns the old dir, which might be ``None``.\n        \"\"\"\n        old = self.chdir()\n        try:\n            yield old\n        finally:\n            if old is not None:\n                old.chdir()\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+      "source_code": ""
+    },
+    {
+      "function": "self._setup_reloader",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line": 52,
+      "caller": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+      "source_code": "    def _setup_reloader(self, config: Config) -> BaseReload:\n        config.reload_delay = 0  # save time\n\n        if self.reloader_class is WatchGodReload:\n            with pytest.deprecated_call():\n                reloader = self.reloader_class(config, target=run, sockets=[])\n        else:\n            reloader = self.reloader_class(config, target=run, sockets=[])\n\n        assert config.should_reload\n        reloader.startup()\n        return reloader\n\n"
+    },
+    {
+      "function": "reloader.shutdown",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 655,
+      "caller": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)\n\n"
+    },
+    {
+      "function": "self._reload_tester",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line": 65,
+      "caller": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+      "source_code": "    def _reload_tester(self, touch_soon, reloader: BaseReload, *files: Path) -> list[Path] | None:\n        reloader.restart()\n        if WatchFilesReload is not None and isinstance(reloader, WatchFilesReload):\n            touch_soon(*files)\n        else:\n            assert not next(reloader)\n            sleep(0.1)\n            for file in files:\n                file.touch()\n        return next(reloader)\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_not_reload_when_python_file_in_excluded_subdir_is_changed",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not self._reload_tester(touch_soon, reloader, sub_file)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_should_not_reload_when_python_file_in_excluded_subdir_is_changed(self, touch_soon) -> None:\n        sub_dir = self.reload_path / \"app\" / \"sub\"\n        sub_file = sub_dir / \"sub.py\"\n\n        with as_cwd(self.reload_path):\n            config = Config(\n                app=\"tests.test_config:asgi_app\",\n                reload=True,\n                reload_excludes=[str(sub_dir)],\n            )\n            reloader = self._setup_reloader(config)\n\n            assert not self._reload_tester(touch_soon, reloader, sub_file)\n\n            reloader.shutdown()"
+}

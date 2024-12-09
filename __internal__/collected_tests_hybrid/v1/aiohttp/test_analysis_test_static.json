@@ -1,0 +1,108 @@
+{
+  "test_name": "test_static",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_route_def.py",
+  "static_methods": [
+    {
+      "name": "router.add_routes",
+      "source_code": "    def add_routes(self, routes: Iterable[AbstractRouteDef]) -> List[AbstractRoute]:\n        \"\"\"Append routes to route table.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1240
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.static",
+      "source_code": "def static(prefix: str, path: PathLike, **kwargs: Any) -> StaticDef:\n    return StaticDef(prefix, path, kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_routedef.py",
+      "line_number": 147
+    },
+    {
+      "name": "router.resources",
+      "source_code": "    def resources(self):\n        return self.finder.get_resources(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line_number": 114
+    },
+    {
+      "name": "router.resources",
+      "source_code": "    def resources(self):\n        return self.finder.get_resources(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line_number": 114
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_routes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1240,
+      "caller": "test_static",
+      "source_code": "    def add_routes(self, routes: Iterable[AbstractRouteDef]) -> List[AbstractRoute]:\n        \"\"\"Append routes to route table.\n\n        Parameter should be a sequence of RouteDef objects.\n\n        Returns a list of registered AbstractRoute instances.\n        \"\"\"\n        registered_routes = []\n        for route_def in routes:\n            registered_routes.extend(route_def.register(self))\n        return registered_routes\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_static",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_static",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_static",
+      "source_code": ""
+    },
+    {
+      "function": "web.static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_routedef.py",
+      "line": 147,
+      "caller": "test_static",
+      "source_code": "def static(prefix: str, path: PathLike, **kwargs: Any) -> StaticDef:\n    return StaticDef(prefix, path, kwargs)\n\n\n"
+    },
+    {
+      "function": "router.resources",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line": 114,
+      "caller": "test_static",
+      "source_code": "    @cached_property\n    def resources(self):\n        return self.finder.get_resources(self)\n\n\n"
+    },
+    {
+      "function": "router.resources",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line": 114,
+      "caller": "test_static",
+      "source_code": "    @cached_property\n    def resources(self):\n        return self.finder.get_resources(self)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert len(router.resources()) == 1",
+    "assert info['prefix'] == '/prefix'",
+    "assert info['directory'] == folder",
+    "assert url == URL('/prefix/aiohttp.png')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_static(router: UrlDispatcher) -> None:\n    folder = pathlib.Path(__file__).parent\n    router.add_routes([web.static(\"/prefix\", folder)])\n    assert len(router.resources()) == 1  # 2 routes: for HEAD and GET\n\n    resource = list(router.resources())[0]\n    info = resource.get_info()\n    assert info[\"prefix\"] == \"/prefix\"\n    assert info[\"directory\"] == folder\n    url = resource.url_for(filename=\"aiohttp.png\")\n    assert url == URL(\"/prefix/aiohttp.png\")"
+}

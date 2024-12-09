@@ -1,0 +1,40 @@
+{
+  "test_name": "test_run_setup_uses_current_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "setup_py.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "output.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "setup_py.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_run_setup_uses_current_dir",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "output.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_setup_uses_current_dir",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert cwd == output"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_setup_uses_current_dir(self, tmp_path):\n        \"\"\"\n        Test that the setup script is run with the current directory\n        as its own current directory.\n        \"\"\"\n        sys.stdout = io.StringIO()\n        cwd = os.getcwd()\n\n        # Create a directory and write the setup.py file there:\n        setup_py = tmp_path / 'setup.py'\n        setup_py.write_text(setup_prints_cwd, encoding='utf-8')\n        distutils.core.run_setup(setup_py)\n\n        output = sys.stdout.getvalue()\n        if output.endswith(\"\\n\"):\n            output = output[:-1]\n        assert cwd == output"
+}

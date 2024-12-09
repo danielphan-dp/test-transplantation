@@ -1,0 +1,80 @@
+{
+  "test_name": "test_export",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/tools/test_mypy_annotate.py",
+  "static_methods": [
+    {
+      "name": "export",
+      "source_code": "def export(results: dict[Result, list[str]]) -> None:\n    \"\"\"Display the collected results.\"\"\"\n    for res, platforms in results.items():\n        print(f\"::{res.kind} file={res.filename},line={res.start_line},\", end=\"\")\n        if res.start_col is not None:\n            print(f\"col={res.start_col},\", end=\"\")\n            if res.end_col is not None and res.end_line is not None:\n                print(f\"endLine={res.end_line},endColumn={res.end_col},\", end=\"\")\n                message = f\"({res.start_line}:{res.start_col} - {res.end_line}:{res.end_col}):{res.message}\"\n            else:\n                message = f\"({res.start_line}:{res.start_col}):{res.message}\"\n        else:\n            message = f\"{res.start_line}:{res.message}\"\n        print(f\"title=Mypy-{'+'.join(platforms)}::{res.filename}:{message}\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/mypy_annotate.py",
+      "line_number": 69
+    },
+    {
+      "name": "capsys.readouterr",
+      "source_code": "    def readouterr(self) -> CaptureResult[AnyStr]:\n        out = self.out.snap() if self.out else \"\"\n        err = self.err.snap() if self.err else \"\"\n        # TODO: This type error is real, need to fix.\n        return CaptureResult(out, err)  # type: ignore[arg-type]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 685
+    },
+    {
+      "name": "Result",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Result",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Result",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "export",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/mypy_annotate.py",
+      "line": 69,
+      "caller": "test_export",
+      "source_code": "def export(results: dict[Result, list[str]]) -> None:\n    \"\"\"Display the collected results.\"\"\"\n    for res, platforms in results.items():\n        print(f\"::{res.kind} file={res.filename},line={res.start_line},\", end=\"\")\n        if res.start_col is not None:\n            print(f\"col={res.start_col},\", end=\"\")\n            if res.end_col is not None and res.end_line is not None:\n                print(f\"endLine={res.end_line},endColumn={res.end_col},\", end=\"\")\n                message = f\"({res.start_line}:{res.start_col} - {res.end_line}:{res.end_col}):{res.message}\"\n            else:\n                message = f\"({res.start_line}:{res.start_col}):{res.message}\"\n        else:\n            message = f\"{res.start_line}:{res.message}\"\n        print(f\"title=Mypy-{'+'.join(platforms)}::{res.filename}:{message}\")\n\n\n"
+    },
+    {
+      "function": "capsys.readouterr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 685,
+      "caller": "test_export",
+      "source_code": "    def readouterr(self) -> CaptureResult[AnyStr]:\n        out = self.out.snap() if self.out else \"\"\n        err = self.err.snap() if self.err else \"\"\n        # TODO: This type error is real, need to fix.\n        return CaptureResult(out, err)  # type: ignore[arg-type]\n\n\n"
+    },
+    {
+      "function": "Result",
+      "filename": "",
+      "line": 0,
+      "caller": "test_export",
+      "source_code": ""
+    },
+    {
+      "function": "Result",
+      "filename": "",
+      "line": 0,
+      "caller": "test_export",
+      "source_code": ""
+    },
+    {
+      "function": "Result",
+      "filename": "",
+      "line": 0,
+      "caller": "test_export",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert std.err == ''",
+    "assert std.out == '::notice file=package\\\\filename.py,line=42,col=8,title=Mypy-Windows+Mac::package\\\\filename.py:(42:8): Some info\\n::error file=package/filename.py,line=42,col=1,endLine=46,endColumn=3,title=Mypy-Linux+Mac::package/filename.py:(42:1 - 46:3): Type error here [code]\\n::warning file=package/module.py,line=87,title=Mypy-Linux::package/module.py:87: Bad code\\n'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_export(capsys: pytest.CaptureFixture[str]) -> None:\n    results = {\n        Result(\n            kind=\"notice\",\n            filename=\"package\\\\filename.py\",\n            start_line=42,\n            start_col=8,\n            end_line=None,\n            end_col=None,\n            message=\" Some info\",\n        ): [\"Windows\", \"Mac\"],\n        Result(\n            kind=\"error\",\n            filename=\"package/filename.py\",\n            start_line=42,\n            start_col=1,\n            end_line=46,\n            end_col=3,\n            message=\" Type error here [code]\",\n        ): [\"Linux\", \"Mac\"],\n        Result(\n            kind=\"warning\",\n            filename=\"package/module.py\",\n            start_line=87,\n            message=\" Bad code\",\n        ): [\"Linux\"],\n    }\n    export(results)\n    std = capsys.readouterr()\n    assert std.err == \"\"\n    assert std.out == (\n        \"::notice file=package\\\\filename.py,line=42,col=8,\"\n        \"title=Mypy-Windows+Mac::package\\\\filename.py:(42:8): Some info\"\n        \"\\n\"\n        \"::error file=package/filename.py,line=42,col=1,endLine=46,endColumn=3,\"\n        \"title=Mypy-Linux+Mac::package/filename.py:(42:1 - 46:3): Type error here [code]\"\n        \"\\n\"\n        \"::warning file=package/module.py,line=87,\"\n        \"title=Mypy-Linux::package/module.py:87: Bad code\\n\"\n    )"
+}

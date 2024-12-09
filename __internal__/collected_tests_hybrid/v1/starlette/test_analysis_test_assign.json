@@ -1,0 +1,92 @@
+{
+  "test_name": "test_assign",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_pprint.py",
+  "static_methods": [
+    {
+      "name": "register",
+      "source_code": "    def register(self, package: package_file.PackageFile) -> requests.Response:\n        data = package.metadata_dictionary()\n        data.update({\":action\": \"submit\", \"protocol_version\": \"1\"})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line_number": 111
+    },
+    {
+      "name": "Integer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Assign",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Assign",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_block",
+      "source_code": "def make_block(ops: list[Op]) -> BasicBlock:\n    block = BasicBlock()\n    block.ops.extend(ops)\n    return block",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_pprint.py",
+      "line_number": 14
+    },
+    {
+      "name": "generate_names_for_ir",
+      "source_code": "def generate_names_for_ir(args: list[Register], blocks: list[BasicBlock]) -> dict[Value, str]:\n    \"\"\"Generate unique names for IR values.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/pprint.py",
+      "line_number": 462
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "register",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line": 111,
+      "caller": "test_assign",
+      "source_code": "    def register(self, package: package_file.PackageFile) -> requests.Response:\n        data = package.metadata_dictionary()\n        data.update({\":action\": \"submit\", \"protocol_version\": \"1\"})\n\n        print(f\"Registering {package.basefilename}\")\n\n        data_to_send = self._convert_data_to_list_of_tuples(data)\n        encoder = requests_toolbelt.MultipartEncoder(data_to_send)\n        resp = self.session.post(\n            self.url,\n            data=encoder,\n            allow_redirects=False,\n            headers={\"Content-Type\": encoder.content_type},\n        )\n        # Bug 28. Try to silence a ResourceWarning by releasing the socket.\n        resp.close()\n        return resp\n\n"
+    },
+    {
+      "function": "Integer",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assign",
+      "source_code": ""
+    },
+    {
+      "function": "Assign",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assign",
+      "source_code": ""
+    },
+    {
+      "function": "Assign",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assign",
+      "source_code": ""
+    },
+    {
+      "function": "make_block",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_pprint.py",
+      "line": 14,
+      "caller": "test_assign",
+      "source_code": "def make_block(ops: list[Op]) -> BasicBlock:\n    block = BasicBlock()\n    block.ops.extend(ops)\n    return block\n\n\n"
+    },
+    {
+      "function": "generate_names_for_ir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/ir/pprint.py",
+      "line": 462,
+      "caller": "test_assign",
+      "source_code": "def generate_names_for_ir(args: list[Register], blocks: list[BasicBlock]) -> dict[Value, str]:\n    \"\"\"Generate unique names for IR values.\n\n    Give names such as 'r5' to temp values in IR which are useful when\n    pretty-printing or generating C. Ensure generated names are unique.\n    \"\"\"\n    names: dict[Value, str] = {}\n    used_names = set()\n\n    temp_index = 0\n\n    for arg in args:\n        names[arg] = arg.name\n        used_names.add(arg.name)\n\n    for block in blocks:\n        for op in block.ops:\n            values = []\n\n            for source in op.sources():\n                if source not in names:\n                    values.append(source)\n\n            if isinstance(op, (Assign, AssignMulti)):\n                values.append(op.dest)\n            elif isinstance(op, ControlOp) or op.is_void:\n                continue\n            elif op not in names:\n                values.append(op)\n\n            for value in values:\n                if value in names:\n                    continue\n                if isinstance(value, Register) and value.name:\n                    name = value.name\n                elif isinstance(value, (Integer, Float)):\n                    continue\n                else:\n                    name = \"r%d\" % temp_index\n                    temp_index += 1\n\n                # Append _2, _3, ... if needed to make the name unique.\n                if name in used_names:\n                    n = 2\n                    while True:\n                        candidate = \"%s_%d\" % (name, n)\n                        if candidate not in used_names:\n                            name = candidate\n                            break\n                        n += 1\n\n                names[value] = name\n                used_names.add(name)\n\n    return names\n"
+    }
+  ],
+  "assertions": [
+    "assert generate_names_for_ir([reg], [block]) == {reg: 'foo'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_assign(self) -> None:\n        reg = register(\"foo\")\n        n = Integer(2)\n        op1 = Assign(reg, n)\n        op2 = Assign(reg, n)\n        block = make_block([op1, op2])\n        assert generate_names_for_ir([reg], [block]) == {reg: \"foo\"}"
+}

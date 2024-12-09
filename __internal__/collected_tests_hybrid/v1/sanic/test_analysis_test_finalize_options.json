@@ -1,0 +1,86 @@
+{
+  "test_name": "test_finalize_options",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build.py",
+  "static_methods": [
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    },
+    {
+      "name": "build",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 363
+    },
+    {
+      "name": "get_config_var",
+      "source_code": "def get_config_var(name):\n    \"\"\"Return the value of a single variable using the dictionary\n    returned by 'get_config_vars()'.  Equivalent to\n    get_config_vars().get(name)\n    \"\"\"\n    if name == 'SO':\n        import warnings",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/sysconfig.py",
+      "line_number": 563
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "get_platform",
+      "source_code": "def get_platform():\n    if os.name != 'nt':\n        return get_host_platform()\n    cross_compilation_target = os.environ.get('VSCMD_ARG_TGT_ARCH')\n    if cross_compilation_target not in _TARGET_TO_PLAT:\n        return get_host_platform()\n    return _TARGET_TO_PLAT[cross_compilation_target]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1926
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_finalize_options",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    },
+    {
+      "function": "build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 363,
+      "caller": "test_finalize_options",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}\n\n        libkey = list(filter(lambda o: o in paths, ('purelib', 'platlib')))[0]\n        if libkey == 'platlib':\n            is_pure = 'false'\n            default_pyver = [IMPVER]\n            default_abi = [ABI]\n            default_arch = [ARCH]\n        else:\n            is_pure = 'true'\n            default_pyver = [PYVER]\n            default_abi = ['none']\n            default_arch = ['any']\n\n        self.pyver = tags.get('pyver', default_pyver)\n        self.abi = tags.get('abi', default_abi)\n        self.arch = tags.get('arch', default_arch)\n\n        libdir = paths[libkey]\n\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        archive_paths = []\n\n        # First, stuff which is not in site-packages\n        for key in ('data', 'headers', 'scripts'):\n            if key not in paths:\n                continue\n            path = paths[key]\n            if os.path.isdir(path):\n                for root, dirs, files in os.walk(path):\n                    for fn in files:\n                        p = fsdecode(os.path.join(root, fn))\n                        rp = os.path.relpath(p, path)\n                        ap = to_posix(os.path.join(data_dir, key, rp))\n                        archive_paths.append((ap, p))\n                        if key == 'scripts' and not p.endswith('.exe'):\n                            with open(p, 'rb') as f:\n                                data = f.read()\n                            data = self.process_shebang(data)\n                            with open(p, 'wb') as f:\n                                f.write(data)\n\n        # Now, stuff which is in site-packages, other than the\n        # distinfo stuff.\n        path = libdir\n        distinfo = None\n        for root, dirs, files in os.walk(path):\n            if root == path:\n                # At the top level only, save distinfo for later\n                # and skip it for now\n                for i, dn in enumerate(dirs):\n                    dn = fsdecode(dn)\n                    if dn.endswith('.dist-info'):\n                        distinfo = os.path.join(root, dn)\n                        del dirs[i]\n                        break\n                assert distinfo, '.dist-info directory expected, not found'\n\n            for fn in files:\n                # comment out next suite to leave .pyc files in\n                if fsdecode(fn).endswith(('.pyc', '.pyo')):\n                    continue\n                p = os.path.join(root, fn)\n                rp = to_posix(os.path.relpath(p, path))\n                archive_paths.append((rp, p))\n\n        # Now distinfo. Assumed to be flat, i.e. os.listdir is enough.\n        files = os.listdir(distinfo)\n        for fn in files:\n            if fn not in ('RECORD', 'INSTALLER', 'SHARED', 'WHEEL'):\n                p = fsdecode(os.path.join(distinfo, fn))\n                ap = to_posix(os.path.join(info_dir, fn))\n                archive_paths.append((ap, p))\n\n        wheel_metadata = [\n            'Wheel-Version: %d.%d' % (wheel_version or self.wheel_version),\n            'Generator: distlib %s' % __version__,\n            'Root-Is-Purelib: %s' % is_pure,\n        ]\n        for pyver, abi, arch in self.tags:\n            wheel_metadata.append('Tag: %s-%s-%s' % (pyver, abi, arch))\n        p = os.path.join(distinfo, 'WHEEL')\n        with open(p, 'w') as f:\n            f.write('\\n'.join(wheel_metadata))\n        ap = to_posix(os.path.join(info_dir, 'WHEEL'))\n        archive_paths.append((ap, p))\n\n        # sort the entries by archive path. Not needed by any spec, but it\n        # keeps the archive listing and RECORD tidier than they would otherwise\n        # be. Use the number of path segments to keep directory entries together,\n        # and keep the dist-info stuff at the end.\n        def sorter(t):\n            ap = t[0]\n            n = ap.count('/')\n            if '.dist-info' in ap:\n                n += 10000\n            return (n, ap)\n        archive_paths = sorted(archive_paths, key=sorter)\n\n        # Now, at last, RECORD.\n        # Paths in here are archive paths - nothing else makes sense.\n        self.write_records((distinfo, info_dir), libdir, archive_paths)\n        # Now, ready to build the zip file\n        pathname = os.path.join(self.dirname, self.filename)\n        self.build_zip(pathname, archive_paths)\n        return pathname\n\n"
+    },
+    {
+      "function": "get_config_var",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/sysconfig.py",
+      "line": 563,
+      "caller": "test_finalize_options",
+      "source_code": "def get_config_var(name):\n    \"\"\"Return the value of a single variable using the dictionary\n    returned by 'get_config_vars()'.  Equivalent to\n    get_config_vars().get(name)\n    \"\"\"\n    if name == 'SO':\n        import warnings\n\n        warnings.warn('SO is deprecated, use EXT_SUFFIX', DeprecationWarning, 2)\n    return get_config_vars().get(name)\n\n\n"
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_finalize_options",
+      "source_code": ""
+    },
+    {
+      "function": "get_platform",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1926,
+      "caller": "test_finalize_options",
+      "source_code": "def get_platform():\n    if os.name != 'nt':\n        return get_host_platform()\n    cross_compilation_target = os.environ.get('VSCMD_ARG_TGT_ARCH')\n    if cross_compilation_target not in _TARGET_TO_PLAT:\n        return get_host_platform()\n    return _TARGET_TO_PLAT[cross_compilation_target]\n"
+    }
+  ],
+  "assertions": [
+    "assert cmd.plat_name == get_platform()",
+    "assert cmd.build_purelib == wanted",
+    "assert cmd.build_platlib == wanted",
+    "assert cmd.build_lib == cmd.build_purelib",
+    "assert cmd.build_temp == wanted",
+    "assert cmd.build_scripts == wanted",
+    "assert cmd.executable == os.path.normpath(sys.executable)",
+    "assert cmd.build_platlib.endswith('-pydebug')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_finalize_options(self):\n        pkg_dir, dist = self.create_dist()\n        cmd = build(dist)\n        cmd.finalize_options()\n\n        # if not specified, plat_name gets the current platform\n        assert cmd.plat_name == get_platform()\n\n        # build_purelib is build + lib\n        wanted = os.path.join(cmd.build_base, 'lib')\n        assert cmd.build_purelib == wanted\n\n        # build_platlib is 'build/lib.platform-cache_tag[-pydebug]'\n        # examples:\n        #   build/lib.macosx-10.3-i386-cpython39\n        plat_spec = f'.{cmd.plat_name}-{sys.implementation.cache_tag}'\n        if get_config_var('Py_GIL_DISABLED'):\n            plat_spec += 't'\n        if hasattr(sys, 'gettotalrefcount'):\n            assert cmd.build_platlib.endswith('-pydebug')\n            plat_spec += '-pydebug'\n        wanted = os.path.join(cmd.build_base, 'lib' + plat_spec)\n        assert cmd.build_platlib == wanted\n\n        # by default, build_lib = build_purelib\n        assert cmd.build_lib == cmd.build_purelib\n\n        # build_temp is build/temp.<plat>\n        wanted = os.path.join(cmd.build_base, 'temp' + plat_spec)\n        assert cmd.build_temp == wanted\n\n        # build_scripts is build/scripts-x.x\n        wanted = os.path.join(cmd.build_base, 'scripts-%d.%d' % sys.version_info[:2])\n        assert cmd.build_scripts == wanted\n\n        # executable is os.path.normpath(sys.executable)\n        assert cmd.executable == os.path.normpath(sys.executable)"
+}

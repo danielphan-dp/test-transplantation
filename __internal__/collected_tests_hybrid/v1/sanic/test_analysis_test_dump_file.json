@@ -1,0 +1,105 @@
+{
+  "test_name": "test_dump_file",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_config_cmd.py",
+  "static_methods": [
+    {
+      "name": "this_file.open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "path.Path.with_suffix",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dump_file",
+      "source_code": "def dump_file(filename, head=None):\n    \"\"\"Dumps a file content into log.info.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/command/config.py",
+      "line_number": 360
+    },
+    {
+      "name": "this_file.open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "more_itertools.ilen",
+      "source_code": "def ilen(iterable):\n    \"\"\"Return the number of items in *iterable*.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 467
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "path.Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "this_file.open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dump_file",
+      "source_code": ""
+    },
+    {
+      "function": "path.Path.with_suffix",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dump_file",
+      "source_code": ""
+    },
+    {
+      "function": "dump_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/command/config.py",
+      "line": 360,
+      "caller": "test_dump_file",
+      "source_code": "def dump_file(filename, head=None):\n    \"\"\"Dumps a file content into log.info.\n\n    If head is not None, will be dumped before the file content.\n    \"\"\"\n    if head is None:\n        log.info('%s', filename)\n    else:\n        log.info(head)\n    log.info(pathlib.Path(filename).read_text(encoding='utf-8'))\n"
+    },
+    {
+      "function": "this_file.open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dump_file",
+      "source_code": ""
+    },
+    {
+      "function": "more_itertools.ilen",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 467,
+      "caller": "test_dump_file",
+      "source_code": "def ilen(iterable):\n    \"\"\"Return the number of items in *iterable*.\n\n        >>> ilen(x for x in range(1000000) if x % 3 == 0)\n        333334\n\n    This consumes the iterable, so handle with care.\n\n    \"\"\"\n    # This approach was selected because benchmarks showed it's likely the\n    # fastest of the known implementations at the time of writing.\n    # See GitHub tracker: #236, #230.\n    counter = count()\n    deque(zip(iterable, counter), maxlen=0)\n    return next(counter)\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dump_file",
+      "source_code": ""
+    },
+    {
+      "function": "path.Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dump_file",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(self._logs) == numlines + 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dump_file(self):\n        this_file = path.Path(__file__).with_suffix('.py')\n        with this_file.open(encoding='utf-8') as f:\n            numlines = more_itertools.ilen(f)\n\n        dump_file(this_file, 'I am the header')\n        assert len(self._logs) == numlines + 1"
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_bad_operation_id",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_resolver.py",
+  "static_methods": [
+    {
+      "name": "Resolver.resolve_function_from_operation_id",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line_number": 62
+    },
+    {
+      "name": "RelativeResolver.resolve_function_from_operation_id",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line_number": 62
+    },
+    {
+      "name": "RestyResolver.resolve_function_from_operation_id",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line_number": 62
+    },
+    {
+      "name": "Resolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RelativeResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RestyResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Resolver.resolve_function_from_operation_id",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line": 62,
+      "caller": "test_bad_operation_id",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver\n\n        :type operation_id: str\n        \"\"\"\n        try:\n            return self.function_resolver(operation_id)\n        except ImportError as e:\n            msg = f'Cannot resolve operationId \"{operation_id}\"! Import error was \"{str(e)}\"'\n            raise ResolverError(msg)\n        except (AttributeError, ValueError) as e:\n            raise ResolverError(str(e))\n\n\n"
+    },
+    {
+      "function": "RelativeResolver.resolve_function_from_operation_id",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line": 62,
+      "caller": "test_bad_operation_id",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver\n\n        :type operation_id: str\n        \"\"\"\n        try:\n            return self.function_resolver(operation_id)\n        except ImportError as e:\n            msg = f'Cannot resolve operationId \"{operation_id}\"! Import error was \"{str(e)}\"'\n            raise ResolverError(msg)\n        except (AttributeError, ValueError) as e:\n            raise ResolverError(str(e))\n\n\n"
+    },
+    {
+      "function": "RestyResolver.resolve_function_from_operation_id",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/resolver.py",
+      "line": 62,
+      "caller": "test_bad_operation_id",
+      "source_code": "    def resolve_function_from_operation_id(self, operation_id):\n        \"\"\"\n        Invokes the function_resolver\n\n        :type operation_id: str\n        \"\"\"\n        try:\n            return self.function_resolver(operation_id)\n        except ImportError as e:\n            msg = f'Cannot resolve operationId \"{operation_id}\"! Import error was \"{str(e)}\"'\n            raise ResolverError(msg)\n        except (AttributeError, ValueError) as e:\n            raise ResolverError(str(e))\n\n\n"
+    },
+    {
+      "function": "Resolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bad_operation_id",
+      "source_code": ""
+    },
+    {
+      "function": "RelativeResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bad_operation_id",
+      "source_code": ""
+    },
+    {
+      "function": "RestyResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bad_operation_id",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_bad_operation_id():\n    # Unresolvable operationIDs should result in a well-defined error that can\n    # be handled upstream.\n    with pytest.raises(ResolverError):\n        Resolver().resolve_function_from_operation_id(\"ohai.I.do.not.exist\")\n    with pytest.raises(ResolverError):\n        RelativeResolver(\"connexion\").resolve_function_from_operation_id(\n            \"ohai.I.do.not.exist\"\n        )\n    with pytest.raises(ResolverError):\n        RestyResolver(\"connexion\").resolve_function_from_operation_id(\n            \"ohai.I.do.not.exist\"\n        )"
+}

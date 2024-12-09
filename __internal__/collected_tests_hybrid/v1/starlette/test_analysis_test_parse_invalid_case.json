@@ -1,0 +1,27 @@
+{
+  "test_name": "test_parse_invalid_case",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypy/test/meta/test_parse_data.py",
+  "static_methods": [
+    {
+      "name": "_run_pytest",
+      "source_code": "def _run_pytest(data_suite: str) -> PytestResult:\n    return run_pytest_data_suite(data_suite, extra_args=[], max_attempts=1)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypy/test/meta/test_parse_data.py",
+      "line_number": 10
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_run_pytest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypy/test/meta/test_parse_data.py",
+      "line": 10,
+      "caller": "test_parse_invalid_case",
+      "source_code": "def _run_pytest(data_suite: str) -> PytestResult:\n    return run_pytest_data_suite(data_suite, extra_args=[], max_attempts=1)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert \"Invalid testcase id 'foo-XFAIL'\" in result.stdout"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_invalid_case(self) -> None:\n        # Act\n        result = _run_pytest(\n            \"\"\"\n            [case abc]\n            s: str\n            [case foo-XFAIL]\n            s: str\n            \"\"\"\n        )\n\n        # Assert\n        assert \"Invalid testcase id 'foo-XFAIL'\" in result.stdout"
+}

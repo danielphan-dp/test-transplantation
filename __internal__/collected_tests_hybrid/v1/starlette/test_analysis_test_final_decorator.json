@@ -1,0 +1,10 @@
+{
+  "test_name": "test_final_decorator",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_final_decorator() -> None:\n    \"\"\"Test that subclassing a @final-annotated class is not allowed.\n\n    This checks both runtime results, and verifies that type checkers detect\n    the error statically through the type-ignore comment.\n    \"\"\"\n\n    @final\n    class FinalClass:\n        pass\n\n    with pytest.raises(TypeError):\n\n        class SubClass(FinalClass):  # type: ignore[misc]\n            pass"
+}

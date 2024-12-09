@@ -1,0 +1,43 @@
+{
+  "test_name": "test_config_log_level",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.load",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line_number": 74
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_config_log_level",
+      "source_code": ""
+    },
+    {
+      "function": "config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/yaml/__init__.py",
+      "line": 74,
+      "caller": "test_config_log_level",
+      "source_code": "def load(stream, Loader):\n    \"\"\"\n    Parse the first YAML document in a stream\n    and produce the corresponding Python object.\n    \"\"\"\n    loader = Loader(stream)\n    try:\n        return loader.get_single_data()\n    finally:\n        loader.dispose()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert logging.getLogger('uvicorn.error').level == log_level",
+    "assert logging.getLogger('uvicorn.access').level == log_level",
+    "assert logging.getLogger('uvicorn.asgi').level == log_level",
+    "assert config.log_level == log_level"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_config_log_level(log_level: int) -> None:\n    config = Config(app=asgi_app, log_level=log_level)\n    config.load()\n\n    assert logging.getLogger(\"uvicorn.error\").level == log_level\n    assert logging.getLogger(\"uvicorn.access\").level == log_level\n    assert logging.getLogger(\"uvicorn.asgi\").level == log_level\n    assert config.log_level == log_level"
+}

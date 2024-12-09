@@ -1,0 +1,27 @@
+{
+  "test_name": "test_parse_makefile_base",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+  "static_methods": [
+    {
+      "name": "_gen_makefile",
+      "source_code": "def _gen_makefile(root, contents):\n    jaraco.path.build({'Makefile': trim(contents)}, root)\n    return root / 'Makefile'",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+      "line_number": 20
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_gen_makefile",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+      "line": 20,
+      "caller": "test_parse_makefile_base",
+      "source_code": "def _gen_makefile(root, contents):\n    jaraco.path.build({'Makefile': trim(contents)}, root)\n    return root / 'Makefile'\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert d == {'CONFIG_ARGS': \"'--arg1=optarg1' 'ENV=LIB'\", 'OTHER': 'foo'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_makefile_base(self, tmp_path):\n        makefile = _gen_makefile(\n            tmp_path,\n            \"\"\"\n            CONFIG_ARGS=  '--arg1=optarg1' 'ENV=LIB'\n            VAR=$OTHER\n            OTHER=foo\n            \"\"\",\n        )\n        d = sysconfig.parse_makefile(makefile)\n        assert d == {'CONFIG_ARGS': \"'--arg1=optarg1' 'ENV=LIB'\", 'OTHER': 'foo'}"
+}

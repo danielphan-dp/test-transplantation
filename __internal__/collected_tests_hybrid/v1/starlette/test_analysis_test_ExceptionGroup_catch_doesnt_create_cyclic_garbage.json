@@ -1,0 +1,80 @@
+{
+  "test_name": "test_ExceptionGroup_catch_doesnt_create_cyclic_garbage",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_exceptiongroup_gc.py",
+  "static_methods": [
+    {
+      "name": "ExceptionGroup",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_multi",
+      "source_code": "    def make_multi() -> NoReturn:\n        raise ExceptionGroup(\"\", [get_exc(raiser1), get_exc(raiser2)])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_exceptiongroup_gc.py",
+      "line_number": 86
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "get_exc",
+      "source_code": "def get_exc(raiser: Callable[[], NoReturn]) -> Exception:\n    try:\n        raiser()\n    except Exception as exc:\n        return exc\n    raise AssertionError(\"raiser should always raise\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_exceptiongroup_gc.py",
+      "line_number": 39
+    },
+    {
+      "name": "get_exc",
+      "source_code": "def get_exc(raiser: Callable[[], NoReturn]) -> Exception:\n    try:\n        raiser()\n    except Exception as exc:\n        return exc\n    raise AssertionError(\"raiser should always raise\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_exceptiongroup_gc.py",
+      "line_number": 39
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ExceptionGroup",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ExceptionGroup_catch_doesnt_create_cyclic_garbage",
+      "source_code": ""
+    },
+    {
+      "function": "make_multi",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_exceptiongroup_gc.py",
+      "line": 86,
+      "caller": "test_ExceptionGroup_catch_doesnt_create_cyclic_garbage",
+      "source_code": "    def make_multi() -> NoReturn:\n        raise ExceptionGroup(\"\", [get_exc(raiser1), get_exc(raiser2)])\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_ExceptionGroup_catch_doesnt_create_cyclic_garbage",
+      "source_code": ""
+    },
+    {
+      "function": "get_exc",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_exceptiongroup_gc.py",
+      "line": 39,
+      "caller": "test_ExceptionGroup_catch_doesnt_create_cyclic_garbage",
+      "source_code": "def get_exc(raiser: Callable[[], NoReturn]) -> Exception:\n    try:\n        raiser()\n    except Exception as exc:\n        return exc\n    raise AssertionError(\"raiser should always raise\")  # pragma: no cover\n\n\n"
+    },
+    {
+      "function": "get_exc",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_exceptiongroup_gc.py",
+      "line": 39,
+      "caller": "test_ExceptionGroup_catch_doesnt_create_cyclic_garbage",
+      "source_code": "def get_exc(raiser: Callable[[], NoReturn]) -> Exception:\n    try:\n        raiser()\n    except Exception as exc:\n        return exc\n    raise AssertionError(\"raiser should always raise\")  # pragma: no cover\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert not gc.garbage",
+    "assert isinstance(exc, (ValueError, KeyError))"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_ExceptionGroup_catch_doesnt_create_cyclic_garbage() -> None:\n    # https://github.com/python-trio/trio/pull/2063\n    gc.collect()\n    old_flags = gc.get_debug()\n\n    def make_multi() -> NoReturn:\n        raise ExceptionGroup(\"\", [get_exc(raiser1), get_exc(raiser2)])\n\n    try:\n        gc.set_debug(gc.DEBUG_SAVEALL)\n        with pytest.raises(ExceptionGroup) as excinfo:\n            # covers ~~MultiErrorCatcher.__exit__ and~~ _concat_tb.copy_tb\n            # TODO: is the above comment true anymore? as this no longer uses MultiError.catch\n            raise make_multi()\n        for exc in excinfo.value.exceptions:\n            assert isinstance(exc, (ValueError, KeyError))\n        gc.collect()\n        assert not gc.garbage\n    finally:\n        gc.set_debug(old_flags)\n        gc.garbage.clear()"
+}

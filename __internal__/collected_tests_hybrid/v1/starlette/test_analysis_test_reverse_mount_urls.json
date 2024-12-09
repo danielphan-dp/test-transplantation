@@ -1,0 +1,133 @@
+{
+  "test_name": "test_reverse_mount_urls",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mounted.url_path_for",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line_number": 182
+    },
+    {
+      "name": "mounted.url_path_for",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line_number": 182
+    },
+    {
+      "name": "mounted.url_path_for",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line_number": 182
+    },
+    {
+      "name": "Mount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Route",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reverse_mount_urls",
+      "source_code": ""
+    },
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reverse_mount_urls",
+      "source_code": ""
+    },
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reverse_mount_urls",
+      "source_code": ""
+    },
+    {
+      "function": "mounted.url_path_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line": 182,
+      "caller": "test_reverse_mount_urls",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover\n\n"
+    },
+    {
+      "function": "mounted.url_path_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line": 182,
+      "caller": "test_reverse_mount_urls",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover\n\n"
+    },
+    {
+      "function": "mounted.url_path_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line": 182,
+      "caller": "test_reverse_mount_urls",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover\n\n"
+    },
+    {
+      "function": "Mount",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reverse_mount_urls",
+      "source_code": ""
+    },
+    {
+      "function": "Route",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reverse_mount_urls",
+      "source_code": ""
+    },
+    {
+      "function": "Mount",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reverse_mount_urls",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert mounted.url_path_for('users', path='/a') == '/users/a'",
+    "assert mounted.url_path_for('users:user', subpath='test', username='tom') == '/test/users/tom'",
+    "assert mounted.url_path_for('users', subpath='test', path='/tom') == '/test/users/tom'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reverse_mount_urls() -> None:\n    mounted = Router([Mount(\"/users\", ok, name=\"users\")])\n    assert mounted.url_path_for(\"users\", path=\"/a\") == \"/users/a\"\n\n    users = Router([Route(\"/{username}\", ok, name=\"user\")])\n    mounted = Router([Mount(\"/{subpath}/users\", users, name=\"users\")])\n    assert mounted.url_path_for(\"users:user\", subpath=\"test\", username=\"tom\") == \"/test/users/tom\"\n    assert mounted.url_path_for(\"users\", subpath=\"test\", path=\"/tom\") == \"/test/users/tom\""
+}

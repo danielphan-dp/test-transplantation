@@ -1,0 +1,105 @@
+{
+  "test_name": "test_idle_threads_exit",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_thread_cache.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Queue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "start_thread_soon",
+      "source_code": "def start_thread_soon(\n    fn: Callable[[], RetT],\n    deliver: Callable[[outcome.Outcome[RetT]], object],\n    name: str | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_thread_cache.py",
+      "line_number": 227
+    },
+    {
+      "name": "q.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "seen_thread.is_alive",
+      "source_code": "    def is_alive(self):\n        \"\"\"Proxy to the thread's ``is_alive`` method.\"\"\"\n        return self._worker.is_alive()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/thread.py",
+      "line_number": 47
+    },
+    {
+      "name": "q.put",
+      "source_code": "    def put(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PUT request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 637
+    },
+    {
+      "name": "slow",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_idle_threads_exit",
+      "source_code": ""
+    },
+    {
+      "function": "Queue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_idle_threads_exit",
+      "source_code": ""
+    },
+    {
+      "function": "start_thread_soon",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_thread_cache.py",
+      "line": 227,
+      "caller": "test_idle_threads_exit",
+      "source_code": "def start_thread_soon(\n    fn: Callable[[], RetT],\n    deliver: Callable[[outcome.Outcome[RetT]], object],\n    name: str | None = None,\n"
+    },
+    {
+      "function": "q.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_idle_threads_exit",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "seen_thread.is_alive",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/requests_toolbelt/threaded/thread.py",
+      "line": 47,
+      "caller": "test_idle_threads_exit",
+      "source_code": "    def is_alive(self):\n        \"\"\"Proxy to the thread's ``is_alive`` method.\"\"\"\n        return self._worker.is_alive()\n\n"
+    },
+    {
+      "function": "q.put",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 637,
+      "caller": "test_idle_threads_exit",
+      "source_code": "    def put(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PUT request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PUT\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "slow",
+      "filename": "",
+      "line": 0,
+      "caller": "test_idle_threads_exit",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not seen_thread.is_alive()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_idle_threads_exit(monkeypatch: pytest.MonkeyPatch) -> None:\n    # Temporarily set the idle timeout to something tiny, to speed up the\n    # test. (But non-zero, so that the worker loop will at least yield the\n    # CPU.)\n    monkeypatch.setattr(_thread_cache, \"IDLE_TIMEOUT\", 0.0001)\n\n    q: Queue[threading.Thread] = Queue()\n    start_thread_soon(lambda: None, lambda _: q.put(threading.current_thread()))\n    seen_thread = q.get()\n    # Since the idle timeout is 0, after sleeping for 1 second, the thread\n    # should have exited\n    time.sleep(1)\n    assert not seen_thread.is_alive()"
+}

@@ -1,0 +1,41 @@
+{
+  "test_name": "test_form_data_is_multipart_param",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_formdata.py",
+  "static_methods": [
+    {
+      "name": "FormData",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "form.add_field",
+      "source_code": "    def add_field(\n        self,\n        name: str,\n        value: Any,\n        *,\n        content_type: Optional[str] = None,\n        filename: Optional[str] = None,\n    ) -> None:\n        if isinstance(value, (io.IOBase, bytes, bytearray, memoryview)):\n            self._is_multipart = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/formdata.py",
+      "line_number": 47
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FormData",
+      "filename": "",
+      "line": 0,
+      "caller": "test_form_data_is_multipart_param",
+      "source_code": ""
+    },
+    {
+      "function": "form.add_field",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/formdata.py",
+      "line": 47,
+      "caller": "test_form_data_is_multipart_param",
+      "source_code": "    def add_field(\n        self,\n        name: str,\n        value: Any,\n        *,\n        content_type: Optional[str] = None,\n        filename: Optional[str] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert form.is_multipart",
+    "assert form.is_multipart"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_form_data_is_multipart_param(buf: bytearray) -> None:\n    form = FormData(default_to_multipart=True)\n    assert form.is_multipart\n\n    form.add_field(\"test\", \"test\")\n    assert form.is_multipart"
+}

@@ -1,21 +1,21 @@
 {
   "test_name": "test_json_as_unicode",
-  "test_file": "__internal__/_data/flask/tests/test_json.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
     {
       "name": "app.json.dumps",
-      "source_code": "    def dumps(self, obj: t.Any, **kwargs: t.Any) -> str:\n        \"\"\"Serialize data as JSON.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line_number": 41
+      "source_code": "    def dumps(self, request, response, body=None):\n        response_headers = CaseInsensitiveDict(response.headers)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line_number": 28
     }
   ],
   "dynamic_methods": [
     {
       "function": "app.json.dumps",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line": 41,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line": 28,
       "caller": "test_json_as_unicode",
-      "source_code": "    def dumps(self, obj: t.Any, **kwargs: t.Any) -> str:\n        \"\"\"Serialize data as JSON.\n\n        :param obj: The data to serialize.\n        :param kwargs: May be passed to the underlying JSON library.\n        \"\"\"\n        raise NotImplementedError\n\n"
+      "source_code": "    def dumps(self, request, response, body=None):\n        response_headers = CaseInsensitiveDict(response.headers)\n\n        if body is None:\n            # When a body isn't passed in, we'll read the response. We\n            # also update the response with a new file handler to be\n            # sure it acts as though it was never read.\n            body = response.read(decode_content=False)\n            response._fp = io.BytesIO(body)\n\n        # NOTE: This is all a bit weird, but it's really important that on\n        #       Python 2.x these objects are unicode and not str, even when\n        #       they contain only ascii. The problem here is that msgpack\n        #       understands the difference between unicode and bytes and we\n        #       have it set to differentiate between them, however Python 2\n        #       doesn't know the difference. Forcing these to unicode will be\n        #       enough to have msgpack know the difference.\n        data = {\n            u\"response\": {\n                u\"body\": body,  # Empty bytestring if body is stored separately\n                u\"headers\": dict(\n                    (text_type(k), text_type(v)) for k, v in response.headers.items()\n                ),\n                u\"status\": response.status,\n                u\"version\": response.version,\n                u\"reason\": text_type(response.reason),\n                u\"strict\": response.strict,\n                u\"decode_content\": response.decode_content,\n            }\n        }\n\n        # Construct our vary headers\n        data[u\"vary\"] = {}\n        if u\"vary\" in response_headers:\n            varied_headers = response_headers[u\"vary\"].split(\",\")\n            for header in varied_headers:\n                header = text_type(header).strip()\n                header_value = request.headers.get(header, None)\n                if header_value is not None:\n                    header_value = text_type(header_value)\n                data[u\"vary\"][header] = header_value\n\n        return b\",\".join([b\"cc=4\", msgpack.dumps(data, use_bin_type=True)])\n\n"
     }
   ],
   "assertions": [

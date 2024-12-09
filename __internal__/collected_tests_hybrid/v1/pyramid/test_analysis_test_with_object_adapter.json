@@ -1,0 +1,116 @@
+{
+  "test_name": "test_with_object_adapter",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "renderer",
+      "source_code": "    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 424
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MyObject",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MyObject",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "outerself.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_object_adapter",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_with_object_adapter",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 424,
+      "caller": "test_with_object_adapter",
+      "source_code": "    @reify\n    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_object_adapter",
+      "source_code": ""
+    },
+    {
+      "function": "MyObject",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_object_adapter",
+      "source_code": ""
+    },
+    {
+      "function": "MyObject",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_object_adapter",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_with_object_adapter",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "outerself.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_object_adapter",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_with_object_adapter(self):\n        request = testing.DummyRequest()\n        outerself = self\n\n        class MyObject:\n            def __init__(self, x):\n                self.x = x\n\n            def __json__(self, req):\n                outerself.assertEqual(req, request)\n                return {'x': self.x}\n\n        objects = [MyObject(1), MyObject(2)]\n        renderer = self._makeOne()(None)\n        result = renderer(objects, {'request': request})\n        self.assertEqual(result, '[{\"x\": 1}, {\"x\": 2}]')"
+}

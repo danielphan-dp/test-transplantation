@@ -1,0 +1,41 @@
+{
+  "test_name": "test_force_close",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_response.py",
+  "static_methods": [
+    {
+      "name": "web.StreamResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resp.force_close",
+      "source_code": "    def force_close(self) -> bool:\n        \"\"\"Ultimately close connection on releasing if True.\"\"\"\n        return self._force_close",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 297
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.StreamResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_force_close",
+      "source_code": ""
+    },
+    {
+      "function": "resp.force_close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 297,
+      "caller": "test_force_close",
+      "source_code": "    @property\n    def force_close(self) -> bool:\n        \"\"\"Ultimately close connection on releasing if True.\"\"\"\n        return self._force_close\n\n"
+    }
+  ],
+  "assertions": [
+    "assert resp.keep_alive is None",
+    "assert resp.keep_alive is False"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_force_close() -> None:\n    resp = web.StreamResponse()\n\n    assert resp.keep_alive is None\n    resp.force_close()\n    assert resp.keep_alive is False"
+}

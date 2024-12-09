@@ -1,0 +1,77 @@
+{
+  "test_name": "test_without_content_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_response.py",
+  "static_methods": [
+    {
+      "name": "self._getPath",
+      "source_code": "    def _getPath(self, suffix='txt'):\n        here = os.path.dirname(__file__)\n        return os.path.join(here, 'fixtures', f'minimal.{suffix}')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_response.py",
+      "line_number": 34
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "r.app_iter.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    },
+    {
+      "name": "r.headers.split",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n    ) -> None:\n        \"\"\"Split the layout in to multiple sub-layouts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line_number": 262
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._getPath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_response.py",
+      "line": 34,
+      "caller": "test_without_content_type",
+      "source_code": "    def _getPath(self, suffix='txt'):\n        here = os.path.dirname(__file__)\n        return os.path.join(here, 'fixtures', f'minimal.{suffix}')\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_without_content_type",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_without_content_type",
+      "source_code": ""
+    },
+    {
+      "function": "r.app_iter.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_without_content_type",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    },
+    {
+      "function": "r.headers.split",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line": 262,
+      "caller": "test_without_content_type",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_without_content_type(self):\n        for suffix in ('txt', 'xml', 'pdf'):\n            path = self._getPath(suffix)\n            r = self._makeOne(path)\n            self.assertEqual(\n                r.headers['content-type'].split(';')[0],\n                mimetypes.guess_type(path, strict=False)[0],\n            )\n            r.app_iter.close()"
+}

@@ -1,0 +1,27 @@
+{
+  "test_name": "test_ensure_string_list",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_cmd.py",
+  "static_methods": [
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_ensure_string_list",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert cmd.option1 == ['ok', 'dok']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ensure_string_list(self, cmd):\n        cmd.not_string_list = ['one', 2, 'three']\n        cmd.yes_string_list = ['one', 'two', 'three']\n        cmd.not_string_list2 = object()\n        cmd.yes_string_list2 = 'ok'\n        cmd.ensure_string_list('yes_string_list')\n        cmd.ensure_string_list('yes_string_list2')\n\n        with pytest.raises(DistutilsOptionError):\n            cmd.ensure_string_list('not_string_list')\n\n        with pytest.raises(DistutilsOptionError):\n            cmd.ensure_string_list('not_string_list2')\n\n        cmd.option1 = 'ok,dok'\n        cmd.ensure_string_list('option1')\n        assert cmd.option1 == ['ok', 'dok']\n\n        cmd.option2 = ['xxx', 'www']\n        cmd.ensure_string_list('option2')\n\n        cmd.option3 = ['ok', 2]\n        with pytest.raises(DistutilsOptionError):\n            cmd.ensure_string_list('option3')"
+}

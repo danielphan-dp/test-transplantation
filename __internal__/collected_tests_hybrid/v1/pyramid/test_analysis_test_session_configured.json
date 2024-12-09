@@ -1,0 +1,64 @@
+{
+  "test_name": "test_session_configured",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.config.registry.registerUtility",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1189
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_session_configured",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.config.registry.registerUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1189,
+      "caller": "test_session_configured",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility\n\n        :param factory:\n           Factory for the component to be registered.\n\n        :param component:\n           The registered component\n\n        :param provided:\n           This is the interface provided by the utility.  If the\n           component provides a single interface, then this\n           argument is optional and the component-implemented\n           interface will be used.\n\n        :param name:\n           The utility name.\n\n        :param info:\n           An object that can be converted to a string to provide\n           information about the registration.\n\n        Only one of *component* and *factory* can be used.\n\n        A `IRegistered` event is generated with an `IUtilityRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_session_configured",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_session_configured",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_session_configured(self):\n        from pyramid.interfaces import ISessionFactory\n\n        inst = self._makeOne()\n\n        def factory(request):\n            return 'orangejuice'\n\n        self.config.registry.registerUtility(factory, ISessionFactory)\n        inst.registry = self.config.registry\n        self.assertEqual(inst.session, 'orangejuice')\n        self.assertEqual(inst.__dict__['session'], 'orangejuice')"
+}

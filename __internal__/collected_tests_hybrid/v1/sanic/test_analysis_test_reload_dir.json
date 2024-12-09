@@ -1,0 +1,93 @@
+{
+  "test_name": "test_reload_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_prepare.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.prepare",
+      "source_code": "    def prepare(self):\n        \"\"\"Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it.\"\"\"\n        p = PreparedRequest()\n        p.prepare(\n            method=self.method,\n            url=self.url,\n            headers=self.headers,\n            files=self.files,\n            data=self.data,\n            json=self.json,\n            params=self.params,\n            auth=self.auth,\n            cookies=self.cookies,\n            hooks=self.hooks,\n        )\n        return p",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 296
+    },
+    {
+      "name": "messages.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_dir",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_dir",
+      "source_code": ""
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_dir",
+      "source_code": ""
+    },
+    {
+      "function": "app.prepare",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 296,
+      "caller": "test_reload_dir",
+      "source_code": "    def prepare(self):\n        \"\"\"Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it.\"\"\"\n        p = PreparedRequest()\n        p.prepare(\n            method=self.method,\n            url=self.url,\n            headers=self.headers,\n            files=self.files,\n            data=self.data,\n            json=self.json,\n            params=self.params,\n            auth=self.auth,\n            cookies=self.cookies,\n            hooks=self.hooks,\n        )\n        return p\n\n\n"
+    },
+    {
+      "function": "messages.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_reload_dir",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_dir",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ('sanic.root', logging.WARNING, message) in caplog.record_tuples",
+    "assert Path(d) in app.state.reload_dirs"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reload_dir(app: Sanic, dirs, caplog):\n    messages = []\n    with caplog.at_level(logging.WARNING):\n        app.prepare(reload_dir=dirs)\n\n    if isinstance(dirs, str):\n        dirs = (dirs,)\n        for d in dirs:\n            assert Path(d) in app.state.reload_dirs\n            messages.append(\n                f\"Directory {d} could not be located\",\n            )\n\n    for message in messages:\n        assert (\"sanic.root\", logging.WARNING, message) in caplog.record_tuples"
+}

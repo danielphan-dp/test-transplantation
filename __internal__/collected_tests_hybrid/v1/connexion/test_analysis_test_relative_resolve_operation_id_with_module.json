@@ -1,0 +1,40 @@
+{
+  "test_name": "test_relative_resolve_operation_id_with_module",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_resolver3.py",
+  "static_methods": [
+    {
+      "name": "OpenAPIOperation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RelativeResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "OpenAPIOperation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_relative_resolve_operation_id_with_module",
+      "source_code": ""
+    },
+    {
+      "function": "RelativeResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_relative_resolve_operation_id_with_module",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert operation.operation_id == 'fakeapi.hello.post_greeting'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_relative_resolve_operation_id_with_module():\n    import fakeapi\n\n    operation = OpenAPIOperation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation={\n            \"operationId\": \"hello.post_greeting\",\n        },\n        components=COMPONENTS,\n        resolver=RelativeResolver(fakeapi),\n    )\n    assert operation.operation_id == \"fakeapi.hello.post_greeting\""
+}

@@ -1,0 +1,30 @@
+{
+  "test_name": "test_run_invalid_app_config_combination",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_main.py",
+  "static_methods": [
+    {
+      "name": "run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_run_invalid_app_config_combination",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    }
+  ],
+  "assertions": [
+    "assert exit_exception.value.code == 1",
+    "assert caplog.records[-1].name == 'uvicorn.error'",
+    "assert caplog.records[-1].levelno == WARNING",
+    "assert caplog.records[-1].message == \"You must pass the application as an import string to enable 'reload' or 'workers'.\""
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_run_invalid_app_config_combination(caplog: pytest.LogCaptureFixture) -> None:\n    with pytest.raises(SystemExit) as exit_exception:\n        run(app, reload=True)\n    assert exit_exception.value.code == 1\n    assert caplog.records[-1].name == \"uvicorn.error\"\n    assert caplog.records[-1].levelno == WARNING\n    assert caplog.records[-1].message == (\n        \"You must pass the application as an import string to enable \" \"'reload' or 'workers'.\"\n    )"
+}

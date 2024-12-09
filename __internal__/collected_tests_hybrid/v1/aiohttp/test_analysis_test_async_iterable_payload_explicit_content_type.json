@@ -1,0 +1,40 @@
+{
+  "test_name": "test_async_iterable_payload_explicit_content_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_payload.py",
+  "static_methods": [
+    {
+      "name": "payload.AsyncIterablePayload",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "gen",
+      "source_code": "def gen(dct):\n    out = io.StringIO()\n    out.write(HEADER)\n    missing = set()\n    gen_block(dct, \"\", set(), missing, out)\n    missing_labels = \"\\n\".join(sorted(missing))\n    out.write(FOOTER.format(missing=missing_labels))\n    return out",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tools/gen.py",
+      "line_number": 141
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "payload.AsyncIterablePayload",
+      "filename": "",
+      "line": 0,
+      "caller": "test_async_iterable_payload_explicit_content_type",
+      "source_code": ""
+    },
+    {
+      "function": "gen",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tools/gen.py",
+      "line": 141,
+      "caller": "test_async_iterable_payload_explicit_content_type",
+      "source_code": "def gen(dct):\n    out = io.StringIO()\n    out.write(HEADER)\n    missing = set()\n    gen_block(dct, \"\", set(), missing, out)\n    missing_labels = \"\\n\".join(sorted(missing))\n    out.write(FOOTER.format(missing=missing_labels))\n    return out\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert p.content_type == 'application/custom'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_async_iterable_payload_explicit_content_type() -> None:\n    async def gen() -> AsyncIterator[bytes]:\n        return\n        yield b\"abc\"  # type: ignore[unreachable]  # pragma: no cover\n\n    p = payload.AsyncIterablePayload(gen(), content_type=\"application/custom\")\n    assert p.content_type == \"application/custom\""
+}

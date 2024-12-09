@@ -1,0 +1,27 @@
+{
+  "test_name": "test_get_python_inc_missing_config_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_python_inc_missing_config_dir",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert os.path.exists(sysconfig.get_python_inc())"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_python_inc_missing_config_dir(self, monkeypatch):\n        \"\"\"\n        In portable Python installations, the sysconfig will be broken,\n        pointing to the directories where the installation was built and\n        not where it currently is. In this case, ensure that the missing\n        directory isn't used for get_python_inc.\n\n        See pypa/distutils#178.\n        \"\"\"\n\n        def override(name):\n            if name == 'INCLUDEPY':\n                return '/does-not-exist'\n            return sysconfig.get_config_var(name)\n\n        monkeypatch.setattr(sysconfig, 'get_config_var', override)\n\n        assert os.path.exists(sysconfig.get_python_inc())"
+}

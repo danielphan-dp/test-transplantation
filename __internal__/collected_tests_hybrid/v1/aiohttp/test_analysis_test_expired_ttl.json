@@ -1,0 +1,106 @@
+{
+  "test_name": "test_expired_ttl",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_connector.py",
+  "static_methods": [
+    {
+      "name": "_DNSCacheTable",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dns_cache_table.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dns_cache_table.expired",
+      "source_code": "    def expired(self, key: Tuple[str, int]) -> bool:\n        if self._ttl is None:\n            return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 724
+    },
+    {
+      "name": "dns_cache_table.expired",
+      "source_code": "    def expired(self, key: Tuple[str, int]) -> bool:\n        if self._ttl is None:\n            return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line_number": 724
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_DNSCacheTable",
+      "filename": "",
+      "line": 0,
+      "caller": "test_expired_ttl",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_expired_ttl",
+      "source_code": ""
+    },
+    {
+      "function": "dns_cache_table.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_expired_ttl",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_expired_ttl",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_expired_ttl",
+      "source_code": ""
+    },
+    {
+      "function": "dns_cache_table.expired",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 724,
+      "caller": "test_expired_ttl",
+      "source_code": "    def expired(self, key: Tuple[str, int]) -> bool:\n        if self._ttl is None:\n            return False\n\n        return self._timestamps[key] + self._ttl < monotonic()\n\n\n"
+    },
+    {
+      "function": "dns_cache_table.expired",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/connector.py",
+      "line": 724,
+      "caller": "test_expired_ttl",
+      "source_code": "    def expired(self, key: Tuple[str, int]) -> bool:\n        if self._ttl is None:\n            return False\n\n        return self._timestamps[key] + self._ttl < monotonic()\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert not dns_cache_table.expired(self.host1)",
+    "assert dns_cache_table.expired(self.host1)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_expired_ttl(self, monkeypatch: pytest.MonkeyPatch) -> None:\n        dns_cache_table = _DNSCacheTable(ttl=1)\n        monkeypatch.setattr(\"aiohttp.connector.monotonic\", lambda: 1)\n        dns_cache_table.add(self.host1, [self.result1])\n        monkeypatch.setattr(\"aiohttp.connector.monotonic\", lambda: 2)\n        assert not dns_cache_table.expired(self.host1)\n        monkeypatch.setattr(\"aiohttp.connector.monotonic\", lambda: 3)\n        assert dns_cache_table.expired(self.host1)"
+}

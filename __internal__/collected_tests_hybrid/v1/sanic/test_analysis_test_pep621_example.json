@@ -1,0 +1,67 @@
+{
+  "test_name": "test_pep621_example",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "_pep621_example_project",
+      "source_code": "def _pep621_example_project(\n    tmp_path,\n    readme=\"README.rst\",\n    pyproject_text=PEP621_EXAMPLE,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line_number": 159
+    },
+    {
+      "name": "pyprojecttoml.apply_configuration",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 64
+    },
+    {
+      "name": "makedist",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line_number": 33
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_pep621_example_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line": 159,
+      "caller": "test_pep621_example",
+      "source_code": "def _pep621_example_project(\n    tmp_path,\n    readme=\"README.rst\",\n    pyproject_text=PEP621_EXAMPLE,\n"
+    },
+    {
+      "function": "pyprojecttoml.apply_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 64,
+      "caller": "test_pep621_example",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,\n"
+    },
+    {
+      "function": "makedist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line": 33,
+      "caller": "test_pep621_example",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})\n\n\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pep621_example",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert dist.metadata.license == '--- LICENSE stub ---'",
+    "assert set(dist.metadata.license_files) == {'LICENSE.txt'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_pep621_example(tmp_path):\n    \"\"\"Make sure the example in PEP 621 works\"\"\"\n    pyproject = _pep621_example_project(tmp_path)\n    dist = pyprojecttoml.apply_configuration(makedist(tmp_path), pyproject)\n    assert dist.metadata.license == \"--- LICENSE stub ---\"\n    assert set(dist.metadata.license_files) == {\"LICENSE.txt\"}"
+}

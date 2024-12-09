@@ -1,0 +1,38 @@
+{
+  "test_name": "test_register_unsupported_order",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_payload.py",
+  "static_methods": [
+    {
+      "name": "payload.register_payload",
+      "source_code": "def register_payload(\n    factory: Type[\"Payload\"], type: Any, *, order: Order = Order.normal",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line_number": 74
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "payload.register_payload",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line": 74,
+      "caller": "test_register_unsupported_order",
+      "source_code": "def register_payload(\n    factory: Type[\"Payload\"], type: Any, *, order: Order = Order.normal\n"
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_register_unsupported_order",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_register_unsupported_order(registry: payload.PayloadRegistry) -> None:\n    class TestProvider:\n        pass\n\n    with pytest.raises(ValueError):\n        payload.register_payload(\n            Payload, TestProvider, order=object()  # type: ignore[arg-type]\n        )"
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_set_startup_catch",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_startup.py",
+  "static_methods": [
+    {
+      "name": "set_start_method",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sanic._set_startup_method",
+      "source_code": "    def _set_startup_method(cls) -> None:\n        if cls.START_METHOD_SET and not cls.test_mode:\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/startup.py",
+      "line_number": 926
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "set_start_method",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_startup_catch",
+      "source_code": ""
+    },
+    {
+      "function": "Sanic._set_startup_method",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/startup.py",
+      "line": 926,
+      "caller": "test_set_startup_catch",
+      "source_code": "    @classmethod\n    def _set_startup_method(cls) -> None:\n        if cls.START_METHOD_SET and not cls.test_mode:\n            return\n\n        method = cls._get_startup_method()\n        try:\n            set_start_method(method, force=cls.test_mode)\n        except RuntimeError:\n            ctx = get_context()\n            actual = ctx.get_start_method()\n            if actual != method:\n                raise RuntimeError(\n                    f\"Start method '{method}' was requested, but '{actual}' \"\n                    \"was already set.\\nFor more information, see: \"\n                    \"https://sanic.dev/en/guide/running/manager.html#overcoming-a-coderuntimeerrorcode\"\n                ) from None\n            else:\n                raise\n        cls.START_METHOD_SET = True\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_set_startup_catch():\n    Sanic.START_METHOD_SET = False\n    set_start_method(\"fork\", force=True)\n    Sanic.test_mode = False\n    message = (\n        \"Start method 'spawn' was requested, but 'fork' was already set.\\n\"\n        \"For more information, see: https://sanic.dev/en/guide/running/manager.html#overcoming-a-coderuntimeerrorcode\"\n    )\n    with pytest.raises(RuntimeError, match=message):\n        Sanic._set_startup_method()\n    Sanic.test_mode = True"
+}

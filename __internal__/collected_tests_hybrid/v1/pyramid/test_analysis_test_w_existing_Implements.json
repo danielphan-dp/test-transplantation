@@ -1,0 +1,116 @@
+{
+  "test_name": "test_w_existing_Implements",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Implements",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._order_for_two",
+      "source_code": "    def _order_for_two(self, applied_first, applied_second):\n        return (applied_first, applied_second)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+      "line_number": 1051
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_existing_Implements",
+      "source_code": ""
+    },
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_existing_Implements",
+      "source_code": ""
+    },
+    {
+      "function": "Implements",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_existing_Implements",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_w_existing_Implements",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_existing_Implements",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_existing_Implements",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_w_existing_Implements",
+      "source_code": ""
+    },
+    {
+      "function": "self._order_for_two",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+      "line": 1051,
+      "caller": "test_w_existing_Implements",
+      "source_code": "    def _order_for_two(self, applied_first, applied_second):\n        return (applied_first, applied_second)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_w_existing_Implements(self):\n        from zope.interface.declarations import Implements\n        from zope.interface.interface import InterfaceClass\n        IFoo = InterfaceClass('IFoo')\n        IBar = InterfaceClass('IBar')\n        impl = Implements(IFoo)\n        impl.declared = (IFoo,)\n\n        class Foo:\n            __implemented__ = impl\n\n        impl.inherit = Foo\n        self._callFUT(Foo, IBar)\n        # Same spec, now different values\n        self.assertIs(Foo.__implemented__, impl)\n        self.assertEqual(impl.inherit, Foo)\n        self.assertEqual(impl.declared,\n                         self._order_for_two(IFoo, IBar))"
+}

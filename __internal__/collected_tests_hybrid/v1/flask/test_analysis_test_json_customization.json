@@ -1,6 +1,6 @@
 {
   "test_name": "test_json_customization",
-  "test_file": "__internal__/_data/flask/tests/test_json.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_json.py",
   "static_methods": [
     {
       "name": "CustomProvider",
@@ -16,9 +16,9 @@
     },
     {
       "name": "client.post",
-      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line_number": 304
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1164
     },
     {
       "name": "isinstance",
@@ -28,21 +28,21 @@
     },
     {
       "name": "DefaultJSONProvider.default",
-      "source_code": "    def default(o):\n        if isinstance(o, X):\n            return f\"<{o.val}>\"",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_json.py",
-      "line_number": 228
+      "source_code": "    def default(cls) -> \"Color\":\n        \"\"\"Get a Color instance representing the default color.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/rich/color.py",
+      "line_number": 423
     },
     {
       "name": "kwargs.setdefault",
-      "source_code": "    def setdefault(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().setdefault(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 92
+      "source_code": "    def setdefault(self, key: str, default: t.Any) -> str:\n        \"\"\"Return the first value for the key if it is in the headers,\n        otherwise set the header to the value given by ``default`` and\n        return that.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line_number": 432
     },
     {
       "name": "super.loads",
-      "source_code": "    def loads(self, s: str | bytes, **kwargs: t.Any) -> t.Any:\n        \"\"\"Deserialize data as JSON.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line_number": 59
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line_number": 72
     },
     {
       "name": "X",
@@ -80,10 +80,10 @@
     },
     {
       "function": "client.post",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line": 304,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1164,
       "caller": "test_json_customization",
-      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "isinstance",
@@ -94,24 +94,24 @@
     },
     {
       "function": "DefaultJSONProvider.default",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_json.py",
-      "line": 228,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/rich/color.py",
+      "line": 423,
       "caller": "test_json_customization",
-      "source_code": "    def default(o):\n        if isinstance(o, X):\n            return f\"<{o.val}>\"\n\n        return DefaultJSONProvider.default(o)\n\n"
+      "source_code": "    @classmethod\n    def default(cls) -> \"Color\":\n        \"\"\"Get a Color instance representing the default color.\n\n        Returns:\n            Color: Default color.\n        \"\"\"\n        return cls(name=\"default\", type=ColorType.DEFAULT)\n\n"
     },
     {
       "function": "kwargs.setdefault",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 92,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line": 432,
       "caller": "test_json_customization",
-      "source_code": "    def setdefault(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().setdefault(key, default)\n\n\n"
+      "source_code": "    def setdefault(self, key: str, default: t.Any) -> str:\n        \"\"\"Return the first value for the key if it is in the headers,\n        otherwise set the header to the value given by ``default`` and\n        return that.\n\n        :param key: The header key to get.\n        :param default: The value to set for the key if it is not in the\n            headers.\n        \"\"\"\n        try:\n            return self._get_key(key)\n        except KeyError:\n            pass\n\n        self.set(key, default)\n        return self._get_key(key)\n\n"
     },
     {
       "function": "super.loads",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/json/provider.py",
-      "line": 59,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line": 72,
       "caller": "test_json_customization",
-      "source_code": "    def loads(self, s: str | bytes, **kwargs: t.Any) -> t.Any:\n        \"\"\"Deserialize data as JSON.\n\n        :param s: Text or UTF-8 bytes.\n        :param kwargs: May be passed to the underlying JSON library.\n        \"\"\"\n        raise NotImplementedError\n\n"
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return\n\n        # Determine what version of the serializer the data was serialized\n        # with\n        try:\n            ver, data = data.split(b\",\", 1)\n        except ValueError:\n            ver = b\"cc=0\"\n\n        # Make sure that our \"ver\" is actually a version and isn't a false\n        # positive from a , being in the data stream.\n        if ver[:3] != b\"cc=\":\n            data = ver + data\n            ver = b\"cc=0\"\n\n        # Get the version number out of the cc=N\n        ver = ver.split(b\"=\", 1)[-1].decode(\"ascii\")\n\n        # Dispatch to the actual load method for the given version\n        try:\n            return getattr(self, \"_loads_v{}\".format(ver))(request, data, body_file)\n\n        except AttributeError:\n            # This is a version we don't have a loads function for, so we'll\n            # just treat it as a miss and return None\n            return\n\n"
     },
     {
       "function": "X",

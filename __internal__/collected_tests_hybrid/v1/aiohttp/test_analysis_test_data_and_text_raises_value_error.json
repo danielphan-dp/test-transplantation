@@ -1,0 +1,27 @@
+{
+  "test_name": "test_data_and_text_raises_value_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_response.py",
+  "static_methods": [
+    {
+      "name": "web.json_response",
+      "source_code": "def json_response(\n    data: Any = sentinel,\n    *,\n    text: Optional[str] = None,\n    body: Optional[bytes] = None,\n    status: int = 200,\n    reason: Optional[str] = None,\n    headers: Optional[LooseHeaders] = None,\n    content_type: str = \"application/json\",\n    dumps: JSONEncoder = json.dumps,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_response.py",
+      "line_number": 734
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.json_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_response.py",
+      "line": 734,
+      "caller": "test_data_and_text_raises_value_error",
+      "source_code": "def json_response(\n    data: Any = sentinel,\n    *,\n    text: Optional[str] = None,\n    body: Optional[bytes] = None,\n    status: int = 200,\n    reason: Optional[str] = None,\n    headers: Optional[LooseHeaders] = None,\n    content_type: str = \"application/json\",\n    dumps: JSONEncoder = json.dumps,\n"
+    }
+  ],
+  "assertions": [
+    "assert expected_message == excinfo.value.args[0]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_data_and_text_raises_value_error(self) -> None:\n        with pytest.raises(ValueError) as excinfo:\n            web.json_response(data=\"foo\", text=\"bar\")\n        expected_message = \"only one of data, text, or body should be specified\"\n        assert expected_message == excinfo.value.args[0]"
+}

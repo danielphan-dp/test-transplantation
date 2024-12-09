@@ -1,0 +1,64 @@
+{
+  "test_name": "test_no_security_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "request.has_permission",
+      "source_code": "    def has_permission(self, permission, context=None):\n        \"\"\"Given a permission and an optional context, returns an instance of\n        :data:`pyramid.security.Allowed` if the permission is granted to this\n        request with the provided context, or the context already associated\n        with the request.  Otherwise, returns an instance of\n        :data:`pyramid.security.Denied`.  This method delegates to the current\n        security policy.  Returns\n        :data:`pyramid.security.Allowed` unconditionally if no security\n        policy has been registered for this request.  If ``context`` is not\n        supplied or is supplied as ``None``, the context used is the\n        ``request.context`` attribute.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/security.py",
+      "line_number": 252
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_no_security_policy",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "request.has_permission",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/security.py",
+      "line": 252,
+      "caller": "test_no_security_policy",
+      "source_code": "    def has_permission(self, permission, context=None):\n        \"\"\"Given a permission and an optional context, returns an instance of\n        :data:`pyramid.security.Allowed` if the permission is granted to this\n        request with the provided context, or the context already associated\n        with the request.  Otherwise, returns an instance of\n        :data:`pyramid.security.Denied`.  This method delegates to the current\n        security policy.  Returns\n        :data:`pyramid.security.Allowed` unconditionally if no security\n        policy has been registered for this request.  If ``context`` is not\n        supplied or is supplied as ``None``, the context used is the\n        ``request.context`` attribute.\n\n        :param permission: Does this request have the given permission?\n        :type permission: str\n        :param context: A resource object or ``None``\n        :type context: object\n        :returns: Either :class:`pyramid.security.Allowed` or\n                  :class:`pyramid.security.Denied`.\n\n        \"\"\"\n        if context is None:\n            context = self.context\n        policy = _get_security_policy(self)\n        if policy is None:\n            return Allowed('No security policy in use.')\n        return policy.permits(self, context, permission)\n\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_security_policy",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_security_policy",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_security_policy(self):\n        request = self._makeOne()\n        result = request.has_permission('view')\n        self.assertTrue(result)\n        self.assertEqual(result.msg, 'No security policy in use.')"
+}

@@ -1,0 +1,79 @@
+{
+  "test_name": "test_check_app_default",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/typing/test_typing.py",
+  "static_methods": [
+    {
+      "name": "run_check",
+      "source_code": "def run_check(path_location: str) -> str:\n    \"\"\"Use mypy to check the given path location and return the output.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/typing/test_typing.py",
+      "line_number": 14
+    },
+    {
+      "name": "current.relative_to",
+      "source_code": "    def relative_to(self, other, *extra):\n        return posixpath.relpath(str(self), str(other.joinpath(*extra)))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line_number": 479
+    },
+    {
+      "name": "Path.cwd",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_text_from_path",
+      "source_code": "def _text_from_path(\n    base: Path, path: Path, target: Path, number: int, text: str",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/typing/test_typing.py",
+      "line_number": 120
+    },
+    {
+      "name": "target.exists",
+      "source_code": "    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 234
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "run_check",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/typing/test_typing.py",
+      "line": 14,
+      "caller": "test_check_app_default",
+      "source_code": "def run_check(path_location: str) -> str:\n    \"\"\"Use mypy to check the given path location and return the output.\"\"\"\n\n    mypy_path = \"mypy\"\n    path = CURRENT_DIR / path_location\n    command = [mypy_path, path.resolve().as_posix()]\n\n    process = subprocess.run(\n        command,\n        stdout=subprocess.PIPE,\n        stderr=subprocess.PIPE,\n        universal_newlines=True,\n    )\n    output = process.stdout + process.stderr\n    return output\n\n\n"
+    },
+    {
+      "function": "current.relative_to",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line": 479,
+      "caller": "test_check_app_default",
+      "source_code": "    def relative_to(self, other, *extra):\n        return posixpath.relpath(str(self), str(other.joinpath(*extra)))\n\n"
+    },
+    {
+      "function": "Path.cwd",
+      "filename": "",
+      "line": 0,
+      "caller": "test_check_app_default",
+      "source_code": ""
+    },
+    {
+      "function": "_text_from_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/typing/test_typing.py",
+      "line": 120,
+      "caller": "test_check_app_default",
+      "source_code": "def _text_from_path(\n    base: Path, path: Path, target: Path, number: int, text: str\n"
+    },
+    {
+      "function": "target.exists",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 234,
+      "caller": "test_check_app_default",
+      "source_code": "    @property\n    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert note in output, output"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_check_app_default(\n    path_location: str, expected: List[Tuple[str, int]]\n) -> None:\n    output = run_check(f\"samples/{path_location}\")\n\n    for text, number in expected:\n        current = CURRENT_DIR / f\"samples/{path_location}\"\n        path = current.relative_to(CURRENT_DIR.parent)\n\n        target = Path.cwd()\n        while True:\n            note = _text_from_path(current, path, target, number, text)\n            try:\n                assert note in output, output\n            except AssertionError:\n                target = target.parent\n                if not target.exists() or target == target.parent:\n                    raise\n            else:\n                break"
+}

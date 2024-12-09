@@ -1,0 +1,25 @@
+{
+  "test_name": "test_download_svn",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "index.download",
+      "source_code": "    def download(self, spec, tmpdir):\n        \"\"\"Locate and/or download `spec` to `tmpdir`, returning a local path",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 567
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "index.download",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 567,
+      "caller": "test_download_svn",
+      "source_code": "    def download(self, spec, tmpdir):\n        \"\"\"Locate and/or download `spec` to `tmpdir`, returning a local path\n\n        `spec` may be a ``Requirement`` object, or a string containing a URL,\n        an existing local filename, or a project/version requirement spec\n        (i.e. the string form of a ``Requirement`` object).  If it is the URL\n        of a .py file with an unambiguous ``#egg=name-version`` tag (i.e., one\n        that escapes ``-`` as ``_`` throughout), a trivial ``setup.py`` is\n        automatically created alongside the downloaded file.\n\n        If `spec` is a ``Requirement`` object or a string containing a\n        project/version requirement spec, this method returns the location of\n        a matching distribution (possibly after downloading it to `tmpdir`).\n        If `spec` is a locally existing file or directory name, it is simply\n        returned unchanged.  If `spec` is a URL, it is downloaded to a subpath\n        of `tmpdir`, and the local filename is returned.  Various errors may be\n        raised if a problem occurs during downloading.\n        \"\"\"\n        if not isinstance(spec, Requirement):\n            scheme = URL_SCHEME(spec)\n            if scheme:\n                # It's a url, download it to tmpdir\n                found = self._download_url(spec, tmpdir)\n                base, fragment = egg_info_for_url(spec)\n                if base.endswith('.py'):\n                    found = self.gen_setup(found, fragment, tmpdir)\n                return found\n            elif os.path.exists(spec):\n                # Existing file or directory, just return it\n                return spec\n            else:\n                spec = parse_requirement_arg(spec)\n        return getattr(self.fetch_distribution(spec, tmpdir), 'location', None)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_download_svn(self, tmp_path):\n        url = 'svn+https://svn.example/project#egg=foo'\n        index = setuptools.package_index.PackageIndex()\n\n        msg = r\".*SVN download is not supported.*\"\n        with pytest.raises(distutils.errors.DistutilsError, match=msg):\n            index.download(url, tmp_path)"
+}

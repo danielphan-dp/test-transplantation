@@ -1,0 +1,79 @@
+{
+  "test_name": "test_basicauth_present_in_netrc",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.netrc_from_env",
+      "source_code": "def netrc_from_env() -> Optional[netrc.netrc]:\n    \"\"\"Load netrc from file.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 186
+    },
+    {
+      "name": "helpers.basicauth_from_netrc",
+      "source_code": "def basicauth_from_netrc(netrc_obj: Optional[netrc.netrc], host: str) -> BasicAuth:\n    \"\"\"\n    Return :py:class:`~aiohttp.BasicAuth` credentials for ``host`` from ``netrc_obj``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 237
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.netrc_from_env",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 186,
+      "caller": "test_basicauth_present_in_netrc",
+      "source_code": "def netrc_from_env() -> Optional[netrc.netrc]:\n    \"\"\"Load netrc from file.\n\n    Attempt to load it from the path specified by the env-var\n    NETRC or in the default location in the user's home directory.\n\n    Returns None if it couldn't be found or fails to parse.\n    \"\"\"\n    netrc_env = os.environ.get(\"NETRC\")\n\n    if netrc_env is not None:\n        netrc_path = Path(netrc_env)\n    else:\n        try:\n            home_dir = Path.home()\n        except RuntimeError as e:  # pragma: no cover\n            # if pathlib can't resolve home, it may raise a RuntimeError\n            client_logger.debug(\n                \"Could not resolve home directory when \"\n                \"trying to look for .netrc file: %s\",\n                e,\n            )\n            return None\n\n        netrc_path = home_dir / (\n            \"_netrc\" if platform.system() == \"Windows\" else \".netrc\"\n        )\n\n    try:\n        return netrc.netrc(str(netrc_path))\n    except netrc.NetrcParseError as e:\n        client_logger.warning(\"Could not parse .netrc file: %s\", e)\n    except OSError as e:\n        netrc_exists = False\n        with contextlib.suppress(OSError):\n            netrc_exists = netrc_path.is_file()\n        # we couldn't read the file (doesn't exist, permissions, etc.)\n        if netrc_env or netrc_exists:\n            # only warn if the environment wanted us to load it,\n            # or it appears like the default file does actually exist\n            client_logger.warning(\"Could not read .netrc file: %s\", e)\n\n    return None\n\n\n"
+    },
+    {
+      "function": "helpers.basicauth_from_netrc",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 237,
+      "caller": "test_basicauth_present_in_netrc",
+      "source_code": "def basicauth_from_netrc(netrc_obj: Optional[netrc.netrc], host: str) -> BasicAuth:\n    \"\"\"\n    Return :py:class:`~aiohttp.BasicAuth` credentials for ``host`` from ``netrc_obj``.\n\n    :raises LookupError: if ``netrc_obj`` is :py:data:`None` or if no\n            entry is found for the ``host``.\n    \"\"\"\n    if netrc_obj is None:\n        raise LookupError(\"No .netrc file found\")\n    auth_from_netrc = netrc_obj.authenticators(host)\n\n    if auth_from_netrc is None:\n        raise LookupError(f\"No entry for {host!s} found in the `.netrc` file.\")\n    login, account, password = auth_from_netrc\n\n    # TODO(PY311): username = login or account\n    # Up to python 3.10, account could be None if not specified,\n    # and login will be empty string if not specified. From 3.11,\n    # login and account will be empty string if not specified.\n    username = login if (login or account is None) else account\n\n    # TODO(PY311): Remove this, as password will be empty string\n    # if not specified\n    if password is None:\n        password = \"\"  # type: ignore[unreachable]\n\n    return BasicAuth(username, password)\n\n\n"
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basicauth_present_in_netrc",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basicauth_present_in_netrc",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basicauth_present_in_netrc",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert expected_auth == helpers.basicauth_from_netrc(netrc_obj, 'example.com')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basicauth_present_in_netrc(\n    expected_auth: helpers.BasicAuth,\n) -> None:\n    \"\"\"Test that netrc file contents are properly parsed into BasicAuth tuples\"\"\"\n    netrc_obj = helpers.netrc_from_env()\n\n    assert expected_auth == helpers.basicauth_from_netrc(netrc_obj, \"example.com\")"
+}

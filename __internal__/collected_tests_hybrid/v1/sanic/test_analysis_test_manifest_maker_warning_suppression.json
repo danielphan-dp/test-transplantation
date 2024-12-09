@@ -1,0 +1,27 @@
+{
+  "test_name": "test_manifest_maker_warning_suppression",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+  "static_methods": [
+    {
+      "name": "manifest_maker._should_suppress_warning",
+      "source_code": "    def _should_suppress_warning(msg):\n        \"\"\"\n        suppress missing-file warnings from sdist\n        \"\"\"\n        return re.match(r\"standard file .*not found\", msg)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line_number": 575
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "manifest_maker._should_suppress_warning",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/egg_info.py",
+      "line": 575,
+      "caller": "test_manifest_maker_warning_suppression",
+      "source_code": "    @staticmethod\n    def _should_suppress_warning(msg):\n        \"\"\"\n        suppress missing-file warnings from sdist\n        \"\"\"\n        return re.match(r\"standard file .*not found\", msg)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert manifest_maker._should_suppress_warning(msg)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_manifest_maker_warning_suppression(self):\n        fixtures = [\n            \"standard file not found: should have one of foo.py, bar.py\",\n            \"standard file 'setup.py' not found\",\n        ]\n\n        for msg in fixtures:\n            assert manifest_maker._should_suppress_warning(msg)"
+}

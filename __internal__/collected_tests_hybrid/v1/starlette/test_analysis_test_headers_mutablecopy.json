@@ -1,0 +1,67 @@
+{
+  "test_name": "test_headers_mutablecopy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_datastructures.py",
+  "static_methods": [
+    {
+      "name": "Headers",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "h.mutablecopy",
+      "source_code": "    def mutablecopy(self) -> MutableHeaders:\n        return MutableHeaders(raw=self._list[:])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/datastructures.py",
+      "line_number": 531
+    },
+    {
+      "name": "c.items",
+      "source_code": "    def items(self) -> Iterator[tuple[str, str]]:\n        for name in self:\n            yield name, self[name]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/iniconfig/__init__.py",
+      "line_number": 100
+    },
+    {
+      "name": "c.items",
+      "source_code": "    def items(self) -> Iterator[tuple[str, str]]:\n        for name in self:\n            yield name, self[name]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/iniconfig/__init__.py",
+      "line_number": 100
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Headers",
+      "filename": "",
+      "line": 0,
+      "caller": "test_headers_mutablecopy",
+      "source_code": ""
+    },
+    {
+      "function": "h.mutablecopy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/datastructures.py",
+      "line": 531,
+      "caller": "test_headers_mutablecopy",
+      "source_code": "    def mutablecopy(self) -> MutableHeaders:\n        return MutableHeaders(raw=self._list[:])\n\n"
+    },
+    {
+      "function": "c.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/iniconfig/__init__.py",
+      "line": 100,
+      "caller": "test_headers_mutablecopy",
+      "source_code": "    def items(self) -> Iterator[tuple[str, str]]:\n        for name in self:\n            yield name, self[name]\n\n\n"
+    },
+    {
+      "function": "c.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/iniconfig/__init__.py",
+      "line": 100,
+      "caller": "test_headers_mutablecopy",
+      "source_code": "    def items(self) -> Iterator[tuple[str, str]]:\n        for name in self:\n            yield name, self[name]\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert c.items() == [('a', '123'), ('a', '456'), ('b', '789')]",
+    "assert c.items() == [('a', 'abc'), ('b', '789')]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_headers_mutablecopy() -> None:\n    h = Headers(raw=[(b\"a\", b\"123\"), (b\"a\", b\"456\"), (b\"b\", b\"789\")])\n    c = h.mutablecopy()\n    assert c.items() == [(\"a\", \"123\"), (\"a\", \"456\"), (\"b\", \"789\")]\n    c[\"a\"] = \"abc\"\n    assert c.items() == [(\"a\", \"abc\"), (\"b\", \"789\")]"
+}

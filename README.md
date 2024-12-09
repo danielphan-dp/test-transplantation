@@ -1,66 +1,114 @@
-#!/bin/bash
-set -euo pipefail
+# Gluon
 
-# -----------------------------
-# Configuration
-# -----------------------------
-readonly DATA_DIR="__internal__/_data"
-readonly COLLECTED_TESTS_DIR="__internal__/collected_tests"
-readonly ANALYSIS_OUTPUT_DIR="__internal__/collected_tests_hybrid/v1"
-declare -A REPO_MAP=(
-    [connexion]="zalando"
-    [fastapi]="tiangolo"
-    [flask]="pallets"
-    [gunicorn]="benoitc"
-    [pyramid]="Pylons"
-    [django]="django"
-    [starlette]="encode"
-    [tornado]="tornadoweb"
-    [sanic]="sanic-org"
-    [aiohttp]="aio-libs"
-    [uvicorn]="encode"
-)
+Gluon is a framework for test transplantation.
 
-# -----------------------------
-# Helper Functions
-# -----------------------------
-log() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
-}
+## Installation
 
-# -----------------------------
-# Main Script
-# -----------------------------
-log "Creating output directory..."
-mkdir -p "$ANALYSIS_OUTPUT_DIR"
+- Install `miniconda` (depending on your OS)
 
-# Export the log function so it's available to parallel processes
-export -f log
+- Run `./prepare-env.sh` to create the conda environment
 
-# Export variables for parallel jobs
-export DATA_DIR
-export COLLECTED_TESTS_DIR
-export ANALYSIS_OUTPUT_DIR
+- Run `conda activate gluon` to activate the environment
 
-# Analyze tests in parallel
-printf '%s\n' "${!REPO_MAP[@]}" | \
-    parallel --jobs -1 --bar \
-    '
-    REPO={}
-    INPUT_DIR="$DATA_DIR/$REPO"
-    OUTPUT_DIR="$ANALYSIS_OUTPUT_DIR/$REPO"
-    
-    log "Analyzing tests for $REPO..."
+## Commands
 
-    # Create output directory if it doesn't exist
-    mkdir -p "$OUTPUT_DIR"
-    
-    # Run the analysis using the gluon environment
-    python \
-        -m src.gluon.collect_tests.analyze_unit_tests \
-        -i "$INPUT_DIR" \
-        -o "$OUTPUT_DIR" \
-        > "${REPO}_tests_analysis_output.txt"
-    '
+All commands are run from the root directory of the project.
 
-log "✅ All analyses completed!"
+### aiohttp
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/aiohttp/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/aiohttp/ \
+    --log-file __internal__/_logs/aiohttp_tests_analysis_output.txt
+```
+
+### connexion
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/connexion/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/connexion/ \
+    --log-file __internal__/_logs/connexion_tests_analysis_output.txt
+```
+
+### django
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/django/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/django/ \
+    --log-file __internal__/_logs/django_tests_analysis_output.txt
+```
+
+### fastapi
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/fastapi/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/fastapi/ \
+    --log-file __internal__/_logs/fastapi_tests_analysis_output.txt
+```
+
+### flask
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/flask/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/flask/ \
+    --log-file __internal__/_logs/flask_tests_analysis_output.txt
+```
+
+### gunicorn
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/gunicorn/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/gunicorn/ \
+    --log-file __internal__/_logs/gunicorn_tests_analysis_output.txt
+```
+
+### pyramid
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/pyramid/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/pyramid/ \
+    --log-file __internal__/_logs/pyramid_tests_analysis_output.txt
+```
+
+### sanic
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/sanic/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/sanic/ \
+    --log-file __internal__/_logs/sanic_tests_analysis_output.txt
+```
+
+### starlette
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/starlette/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/starlette/ \
+    --log-file __internal__/_logs/starlette_tests_analysis_output.txt
+```
+
+### tornado
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/tornado/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/tornado/ \
+    --log-file __internal__/_logs/tornado_tests_analysis_output.txt
+```
+
+### uvicorn
+
+```bash
+python -m src.gluon.collect_tests.analyze_unit_tests \
+    --input-dir __internal__/_data/uvicorn/ \
+    --output-dir __internal__/collected_tests_hybrid/v1/uvicorn/ \
+    --log-file __internal__/_logs/uvicorn_tests_analysis_output.txt
+```

@@ -1,0 +1,55 @@
+{
+  "test_name": "test_freeze",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_tracing.py",
+  "static_methods": [
+    {
+      "name": "TraceConfig",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "trace_config.freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line_number": 26
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "TraceConfig",
+      "filename": "",
+      "line": 0,
+      "caller": "test_freeze",
+      "source_code": ""
+    },
+    {
+      "function": "trace_config.freeze",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line": 26,
+      "caller": "test_freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),\n"
+    }
+  ],
+  "assertions": [
+    "assert trace_config.on_request_start.frozen",
+    "assert trace_config.on_request_chunk_sent.frozen",
+    "assert trace_config.on_response_chunk_received.frozen",
+    "assert trace_config.on_request_end.frozen",
+    "assert trace_config.on_request_exception.frozen",
+    "assert trace_config.on_request_redirect.frozen",
+    "assert trace_config.on_connection_queued_start.frozen",
+    "assert trace_config.on_connection_queued_end.frozen",
+    "assert trace_config.on_connection_create_start.frozen",
+    "assert trace_config.on_connection_create_end.frozen",
+    "assert trace_config.on_connection_reuseconn.frozen",
+    "assert trace_config.on_dns_resolvehost_start.frozen",
+    "assert trace_config.on_dns_resolvehost_end.frozen",
+    "assert trace_config.on_dns_cache_hit.frozen",
+    "assert trace_config.on_dns_cache_miss.frozen",
+    "assert trace_config.on_request_headers_sent.frozen"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_freeze(self) -> None:\n        trace_config = TraceConfig()\n        trace_config.freeze()\n\n        assert trace_config.on_request_start.frozen\n        assert trace_config.on_request_chunk_sent.frozen\n        assert trace_config.on_response_chunk_received.frozen\n        assert trace_config.on_request_end.frozen\n        assert trace_config.on_request_exception.frozen\n        assert trace_config.on_request_redirect.frozen\n        assert trace_config.on_connection_queued_start.frozen\n        assert trace_config.on_connection_queued_end.frozen\n        assert trace_config.on_connection_create_start.frozen\n        assert trace_config.on_connection_create_end.frozen\n        assert trace_config.on_connection_reuseconn.frozen\n        assert trace_config.on_dns_resolvehost_start.frozen\n        assert trace_config.on_dns_resolvehost_end.frozen\n        assert trace_config.on_dns_cache_hit.frozen\n        assert trace_config.on_dns_cache_miss.frozen\n        assert trace_config.on_request_headers_sent.frozen"
+}

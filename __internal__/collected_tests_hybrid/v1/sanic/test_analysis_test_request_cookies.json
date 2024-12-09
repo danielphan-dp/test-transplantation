@@ -1,0 +1,96 @@
+{
+  "test_name": "test_request_cookies",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cookies.py",
+  "static_methods": [
+    {
+      "name": "parse_cookie",
+      "source_code": "def parse_cookie(raw: str) -> Dict[str, List[str]]:\n    \"\"\"Parses a raw cookie string into a dictionary.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/cookies/request.py",
+      "line_number": 51
+    },
+    {
+      "name": "CookieRequestParameters",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.getlist",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line_number": 259
+    },
+    {
+      "name": "c.getlist",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line_number": 259
+    },
+    {
+      "name": "c.getlist",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line_number": 259
+    },
+    {
+      "name": "c.getlist",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line_number": 259
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_cookie",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/cookies/request.py",
+      "line": 51,
+      "caller": "test_request_cookies",
+      "source_code": "def parse_cookie(raw: str) -> Dict[str, List[str]]:\n    \"\"\"Parses a raw cookie string into a dictionary.\n\n    The function takes a raw cookie string (usually from HTTP headers) and\n    returns a dictionary where each key is a cookie name and the value is a\n    list of values for that cookie. The function handles quoted values and\n    skips invalid cookie names.\n\n    Args:\n        raw (str): The raw cookie string to be parsed.\n\n    Returns:\n        Dict[str, List[str]]: A dictionary containing the cookie names as keys\n        and a list of values for each cookie.\n\n    Example:\n        ```python\n        raw = 'name1=value1; name2=\"value2\"; name3=value3'\n        cookies = parse_cookie(raw)\n        # cookies will be {'name1': ['value1'], 'name2': ['value2'], 'name3': ['value3']}\n        ```\n    \"\"\"  # noqa: E501\n    cookies: Dict[str, List[str]] = {}\n\n    for token in raw.split(\";\"):\n        name, sep, value = token.partition(\"=\")\n        name = name.strip()\n        value = value.strip()\n\n        # Support cookies =value or plain value with no name\n        # https://github.com/httpwg/http-extensions/issues/159\n        if not sep:\n            if not name:\n                # Empty value like ;; or a cookie header with no value\n                continue\n            name, value = \"\", name\n\n        if COOKIE_NAME_RESERVED_CHARS.search(name):  # no cov\n            continue\n\n        if len(value) > 2 and value[0] == '\"' and value[-1] == '\"':  # no cov\n            value = _unquote(value)\n\n        if name in cookies:\n            cookies[name].append(value)\n        else:\n            cookies[name] = [value]\n\n    return cookies\n\n\n"
+    },
+    {
+      "function": "CookieRequestParameters",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_cookies",
+      "source_code": ""
+    },
+    {
+      "function": "c.getlist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line": 259,
+      "caller": "test_request_cookies",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]\n\n"
+    },
+    {
+      "function": "c.getlist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line": 259,
+      "caller": "test_request_cookies",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]\n\n"
+    },
+    {
+      "function": "c.getlist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line": 259,
+      "caller": "test_request_cookies",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]\n\n"
+    },
+    {
+      "function": "c.getlist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/_collections.py",
+      "line": 259,
+      "caller": "test_request_cookies",
+      "source_code": "    def getlist(self, key, default=__marker):\n        \"\"\"Returns a list of all the values for the named field. Returns an\n        empty list if the key doesn't exist.\"\"\"\n        try:\n            vals = self._container[key.lower()]\n        except KeyError:\n            if default is self.__marker:\n                return []\n            return default\n        else:\n            return vals[1:]\n\n"
+    }
+  ],
+  "assertions": [
+    "assert cdict == {'foo': ['one', 'two'], 'abc': ['xyz'], '': ['bare', 'bare2']}",
+    "assert c.getlist('foo') == ['one', 'two']",
+    "assert c.getlist('abc') == ['xyz']",
+    "assert c.getlist('') == ['bare', 'bare2']",
+    "assert c.getlist('bare') == []"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_cookies():\n    cdict = parse_cookie(\"foo=one; foo=two; abc = xyz;;bare;=bare2\")\n    assert cdict == {\n        \"foo\": [\"one\", \"two\"],\n        \"abc\": [\"xyz\"],\n        \"\": [\"bare\", \"bare2\"],\n    }\n    c = CookieRequestParameters(cdict)\n    assert c.getlist(\"foo\") == [\"one\", \"two\"]\n    assert c.getlist(\"abc\") == [\"xyz\"]\n    assert c.getlist(\"\") == [\"bare\", \"bare2\"]\n    assert c.getlist(\"bare\") == []"
+}

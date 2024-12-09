@@ -1,0 +1,162 @@
+{
+  "test_name": "test_windows_workaround",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signal_handlers.py",
+  "static_methods": [
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockApp",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ctrlc_workaround_for_windows",
+      "source_code": "def ctrlc_workaround_for_windows(app):\n    async def stay_active(app):\n        \"\"\"Asyncio wakeups to allow receiving SIGINT in Python\"\"\"\n        while not die:\n            # If someone else stopped the app, just exit\n            if app.state.is_stopping:\n                return\n            # Windows Python blocks signal handlers while the event loop is\n            # waiting for I/O. Frequent wakeups keep interrupts flowing.\n            await asyncio.sleep(0.1)\n        # Can't be called from signal handler, so call it from here\n        app.stop()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/compat.py",
+      "line_number": 162
+    },
+    {
+      "name": "atest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "atest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SimpleNamespace",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.create_task",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.stop",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1308
+    },
+    {
+      "name": "app.stay_active_task.result",
+      "source_code": "    def result(self):\n        if not self.done:\n            raise RuntimeError('Function has not yet completed')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 3748
+    },
+    {
+      "name": "func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    },
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    },
+    {
+      "function": "MockApp",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    },
+    {
+      "function": "ctrlc_workaround_for_windows",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/compat.py",
+      "line": 162,
+      "caller": "test_windows_workaround",
+      "source_code": "def ctrlc_workaround_for_windows(app):\n    async def stay_active(app):\n        \"\"\"Asyncio wakeups to allow receiving SIGINT in Python\"\"\"\n        while not die:\n            # If someone else stopped the app, just exit\n            if app.state.is_stopping:\n                return\n            # Windows Python blocks signal handlers while the event loop is\n            # waiting for I/O. Frequent wakeups keep interrupts flowing.\n            await asyncio.sleep(0.1)\n        # Can't be called from signal handler, so call it from here\n        app.stop()\n\n    def ctrlc_handler(sig, frame):\n        nonlocal die\n        if die:\n            raise KeyboardInterrupt(\"Non-graceful Ctrl+C\")\n        die = True\n\n    die = False\n    signal.signal(signal.SIGINT, ctrlc_handler)\n    app.add_task(stay_active)\n"
+    },
+    {
+      "function": "atest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    },
+    {
+      "function": "atest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    },
+    {
+      "function": "SimpleNamespace",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    },
+    {
+      "function": "loop.create_task",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    },
+    {
+      "function": "app.stop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1308,
+      "caller": "test_windows_workaround",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True\n\n"
+    },
+    {
+      "function": "app.stay_active_task.result",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 3748,
+      "caller": "test_windows_workaround",
+      "source_code": "    @property\n    def result(self):\n        if not self.done:\n            raise RuntimeError('Function has not yet completed')\n\n        return self._future.result()\n\n"
+    },
+    {
+      "function": "func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_windows_workaround",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == 'OK'",
+    "assert res == 'OK'",
+    "assert app.state.is_stopping == stop_first",
+    "assert app.state.is_stopping",
+    "assert app.stay_active_task.result() is None",
+    "assert not self.state.is_stopping"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_windows_workaround():\n    \"\"\"Test Windows workaround (on any other OS)\"\"\"\n\n    # At least some code coverage, even though this test doesn't work on\n    # Windows...\n    class MockApp:\n        def __init__(self):\n            self.state = SimpleNamespace()\n            self.state.is_stopping = False\n\n        def stop(self):\n            assert not self.state.is_stopping\n            self.state.is_stopping = True\n\n        def add_task(self, func):\n            loop = asyncio.get_event_loop()\n            self.stay_active_task = loop.create_task(func(self))\n\n    async def atest(stop_first):\n        app = MockApp()\n        ctrlc_workaround_for_windows(app)\n        await asyncio.sleep(0.05)\n        if stop_first:\n            app.stop()\n            await asyncio.sleep(0.2)\n        assert app.state.is_stopping == stop_first\n        # First Ctrl+C: should call app.stop() within 0.1 seconds\n        os.kill(os.getpid(), signal.SIGINT)\n        await asyncio.sleep(0.2)\n        assert app.state.is_stopping\n        assert app.stay_active_task.result() is None\n        # Second Ctrl+C should raise\n        with pytest.raises(KeyboardInterrupt):\n            os.kill(os.getpid(), signal.SIGINT)\n        return \"OK\"\n\n    # Run in our private loop\n    loop = asyncio.new_event_loop()\n    asyncio.set_event_loop(loop)\n    res = loop.run_until_complete(atest(False))\n    assert res == \"OK\"\n    res = loop.run_until_complete(atest(True))\n    assert res == \"OK\""
+}

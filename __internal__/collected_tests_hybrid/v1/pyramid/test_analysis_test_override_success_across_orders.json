@@ -1,0 +1,51 @@
+{
+  "test_name": "test_override_success_across_orders",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_actions.py",
+  "static_methods": [
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_override_success_across_orders",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_override_success_across_orders",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_success_across_orders",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_override_success_across_orders(self):\n        from . import dummyfactory as f\n\n        result = self._callFUT(\n            [\n                (1, f, (2,), {}, ('x',), 'eek', 0),\n                (1, f, (3,), {}, ('x', 'y'), 'ack', 10),\n            ]\n        )\n        result = list(result)\n        self.assertEqual(\n            result,\n            [\n                {\n                    'info': 'eek',\n                    'args': (2,),\n                    'callable': f,\n                    'introspectables': (),\n                    'kw': {},\n                    'discriminator': 1,\n                    'includepath': ('x',),\n                    'order': 0,\n                }\n            ],\n        )"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_multiple_toplevel",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_config_discovery.py",
+  "static_methods": [
+    {
+      "name": "mkdir",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "find_parent_package",
+      "source_code": "def find_parent_package(\n    packages: list[str], package_dir: Mapping[str, str], root_dir: StrPath",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/discovery.py",
+      "line_number": 553
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mkdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line": 123,
+      "caller": "test_multiple_toplevel",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")\n\n"
+    },
+    {
+      "function": "touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_multiple_toplevel",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "find_parent_package",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/discovery.py",
+      "line": 553,
+      "caller": "test_multiple_toplevel",
+      "source_code": "def find_parent_package(\n    packages: list[str], package_dir: Mapping[str, str], root_dir: StrPath\n"
+    }
+  ],
+  "assertions": [
+    "assert find_parent_package(multiple, {'': 'src'}, tmp_path) is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_multiple_toplevel(self, tmp_path):\n        # find_parent_package should return null if the given list of packages does not\n        # have a single parent package\n        multiple = [\"pkg\", \"pkg1\", \"pkg2\"]\n        for name in multiple:\n            (tmp_path / f\"src/{name}\").mkdir(exist_ok=True, parents=True)\n            (tmp_path / f\"src/{name}/__init__.py\").touch()\n        assert find_parent_package(multiple, {\"\": \"src\"}, tmp_path) is None"
+}

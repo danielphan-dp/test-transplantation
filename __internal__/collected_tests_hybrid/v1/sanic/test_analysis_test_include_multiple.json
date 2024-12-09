@@ -1,0 +1,131 @@
+{
+  "test_name": "test_include_multiple",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+  "static_methods": [
+    {
+      "name": "self.make_manifest",
+      "source_code": "    def make_manifest(self, contents):\n        \"\"\"Write a MANIFEST.in.\"\"\"\n        manifest = os.path.join(self.temp_dir, 'MANIFEST.in')\n        with open(manifest, 'w', encoding=\"utf-8\") as f:\n            f.write(DALS(contents))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 214
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.get_files",
+      "source_code": "    def get_files(self):\n        \"\"\"Run egg_info and get all the files to include, as a set\"\"\"\n        dist = Distribution(SETUP_ATTRS)\n        dist.script_name = 'setup.py'\n        cmd = egg_info(dist)\n        cmd.ensure_finalized()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 220
+    },
+    {
+      "name": "ml",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ml",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ml",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ml",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ml",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ml",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.make_manifest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 214,
+      "caller": "test_include_multiple",
+      "source_code": "    def make_manifest(self, contents):\n        \"\"\"Write a MANIFEST.in.\"\"\"\n        manifest = os.path.join(self.temp_dir, 'MANIFEST.in')\n        with open(manifest, 'w', encoding=\"utf-8\") as f:\n            f.write(DALS(contents))\n\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_include_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "self.get_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 220,
+      "caller": "test_include_multiple",
+      "source_code": "    def get_files(self):\n        \"\"\"Run egg_info and get all the files to include, as a set\"\"\"\n        dist = Distribution(SETUP_ATTRS)\n        dist.script_name = 'setup.py'\n        cmd = egg_info(dist)\n        cmd.ensure_finalized()\n\n        cmd.run()\n\n        return set(cmd.filelist.files)\n\n"
+    },
+    {
+      "function": "ml",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "ml",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "ml",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "ml",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "ml",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "ml",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_multiple",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert files == self.get_files()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_include_multiple(self):\n        \"\"\"Include with multiple patterns.\"\"\"\n        ml = make_local_path\n        self.make_manifest(\"include app/*.txt app/static/*\")\n        files = default_files | set([\n            ml('app/a.txt'),\n            ml('app/b.txt'),\n            ml('app/static/app.js'),\n            ml('app/static/app.js.map'),\n            ml('app/static/app.css'),\n            ml('app/static/app.css.map'),\n        ])\n        assert files == self.get_files()"
+}

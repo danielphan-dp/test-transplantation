@@ -1,6 +1,6 @@
 {
   "test_name": "test_greenlet_context_copying",
-  "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
     {
       "name": "app.route",
@@ -10,27 +10,27 @@
     },
     {
       "name": "client.get",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line_number": 88
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1159
     },
     {
       "name": "greenlets.run",
-      "source_code": "    def run(\n        self,\n        host: str | None = None,\n        port: int | None = None,\n        debug: bool | None = None,\n        load_dotenv: bool = True,\n        **options: t.Any,\n    ) -> None:\n        \"\"\"Runs the application on a local development server.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
-      "line_number": 546
+      "source_code": "    def run(self) -> None:\n        \"\"\"Continually run the watch step, sleeping for the configured\n        interval after each step.\n        \"\"\"\n        while True:\n            self.run_step()\n            time.sleep(self.interval)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/_reloader.py",
+      "line_number": 252
     },
     {
       "name": "request_ctx.copy",
-      "source_code": "    def copy(self) -> RequestContext:\n        \"\"\"Creates a copy of this request context with the same request object.\n        This can be used to move a request context to a different greenlet.\n        Because the actual request object is the same this cannot be used to\n        move a request context to a different thread unless access to the\n        request object is locked.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line_number": 337
+      "source_code": "    def copy(self) -> te.Self:\n        return self.__class__(self._list)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line_number": 568
     },
     {
       "name": "greenlets.append",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def append(self, item: t.Any) -> t.NoReturn:\n        _immutable_error(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/mixins.py",
+      "line_number": 54
     },
     {
       "name": "greenlet",
@@ -49,31 +49,31 @@
     },
     {
       "function": "client.get",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sessions.py",
-      "line": 88,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1159,
       "caller": "test_greenlet_context_copying",
-      "source_code": "    def get(self, key: str, default: t.Any = None) -> t.Any:\n        self.accessed = True\n        return super().get(key, default)\n\n"
+      "source_code": "    def get(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``GET``.\"\"\"\n        kw[\"method\"] = \"GET\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "greenlets.run",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/app.py",
-      "line": 546,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/_reloader.py",
+      "line": 252,
       "caller": "test_greenlet_context_copying",
-      "source_code": "    def run(\n        self,\n        host: str | None = None,\n        port: int | None = None,\n        debug: bool | None = None,\n        load_dotenv: bool = True,\n        **options: t.Any,\n"
+      "source_code": "    def run(self) -> None:\n        \"\"\"Continually run the watch step, sleeping for the configured\n        interval after each step.\n        \"\"\"\n        while True:\n            self.run_step()\n            time.sleep(self.interval)\n\n"
     },
     {
       "function": "request_ctx.copy",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line": 337,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line": 568,
       "caller": "test_greenlet_context_copying",
-      "source_code": "    def copy(self) -> RequestContext:\n        \"\"\"Creates a copy of this request context with the same request object.\n        This can be used to move a request context to a different greenlet.\n        Because the actual request object is the same this cannot be used to\n        move a request context to a different thread unless access to the\n        request object is locked.\n\n        .. versionadded:: 0.10\n\n        .. versionchanged:: 1.1\n           The current session object is used instead of reloading the original\n           data. This prevents `flask.session` pointing to an out-of-date object.\n        \"\"\"\n        return self.__class__(\n            self.app,\n            environ=self.request.environ,\n            request=self.request,\n            session=self.session,\n        )\n\n"
+      "source_code": "    def copy(self) -> te.Self:\n        return self.__class__(self._list)\n\n"
     },
     {
       "function": "greenlets.append",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/mixins.py",
+      "line": 54,
       "caller": "test_greenlet_context_copying",
-      "source_code": ""
+      "source_code": "    def append(self, item: t.Any) -> t.NoReturn:\n        _immutable_error(self)\n\n"
     },
     {
       "function": "greenlet",

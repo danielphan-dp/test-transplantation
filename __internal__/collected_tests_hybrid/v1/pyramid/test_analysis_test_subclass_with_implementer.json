@@ -1,0 +1,272 @@
+{
+  "test_name": "test_subclass_with_implementer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "implementer",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 630
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "RequestSub",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "InstancePropertyHelper",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helper.apply_properties",
+      "source_code": "    def apply_properties(cls, target, properties):\n        \"\"\"Accept a list or dict of ``properties`` generated from\n        :meth:`.make_property` and apply them to a ``target`` object.\n        \"\"\"\n        attrs = dict(properties)\n        if attrs:\n            parent = target.__class__\n            # fix the module name so it appears to still be the parent\n            # e.g. pyramid.request instead of pyramid.util\n            attrs.setdefault('__module__', parent.__module__)\n            newcls = type(parent.__name__, (parent, object), attrs)\n            # We assign __provides__ and __implemented__ below to prevent a\n            # memory leak that results from from the usage of this instance's\n            # eventual use in an adapter lookup.  Adapter lookup results in\n            # ``zope.interface.implementedBy`` being called with the\n            # newly-created class as an argument.  Because the newly-created\n            # class has no interface specification data of its own, lookup\n            # causes new ClassProvides and Implements instances related to our\n            # just-generated class to be created and set into the newly-created\n            # class' __dict__.  We don't want these instances to be created; we\n            # want this new class to behave exactly like it is the parent class\n            # instead.  See GitHub issues #1212, #1529 and #1568 for more\n            # information.\n            for name in ('__implemented__', '__provides__'):\n                # we assign these attributes conditionally to make it possible\n                # to test this class in isolation without having any interfaces\n                # attached to it\n                val = getattr(parent, name, _marker)\n                if val is not _marker:\n                    setattr(newcls, name, val)\n            target.__class__ = newcls",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line_number": 137
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "IRequest.providedBy",
+      "source_code": "    def providedBy(self, ob):\n        \"\"\"Is the interface implemented by an object\n        \"\"\"\n        spec = providedBy(ob)\n        return self in spec._implied",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 159
+    },
+    {
+      "name": "IRequest.implementedBy",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 165
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "implementer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 630,
+      "caller": "test_subclass_with_implementer",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.\n\n        A callable is returned that makes an implements declaration on\n        objects passed to it.\n\n        .. seealso:: :meth:`classImplements`\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "RequestSub",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "InstancePropertyHelper",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "helper.apply_properties",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line": 137,
+      "caller": "test_subclass_with_implementer",
+      "source_code": "    @classmethod\n    def apply_properties(cls, target, properties):\n        \"\"\"Accept a list or dict of ``properties`` generated from\n        :meth:`.make_property` and apply them to a ``target`` object.\n        \"\"\"\n        attrs = dict(properties)\n        if attrs:\n            parent = target.__class__\n            # fix the module name so it appears to still be the parent\n            # e.g. pyramid.request instead of pyramid.util\n            attrs.setdefault('__module__', parent.__module__)\n            newcls = type(parent.__name__, (parent, object), attrs)\n            # We assign __provides__ and __implemented__ below to prevent a\n            # memory leak that results from from the usage of this instance's\n            # eventual use in an adapter lookup.  Adapter lookup results in\n            # ``zope.interface.implementedBy`` being called with the\n            # newly-created class as an argument.  Because the newly-created\n            # class has no interface specification data of its own, lookup\n            # causes new ClassProvides and Implements instances related to our\n            # just-generated class to be created and set into the newly-created\n            # class' __dict__.  We don't want these instances to be created; we\n            # want this new class to behave exactly like it is the parent class\n            # instead.  See GitHub issues #1212, #1529 and #1568 for more\n            # information.\n            for name in ('__implemented__', '__provides__'):\n                # we assign these attributes conditionally to make it possible\n                # to test this class in isolation without having any interfaces\n                # attached to it\n                val = getattr(parent, name, _marker)\n                if val is not _marker:\n                    setattr(newcls, name, val)\n            target.__class__ = newcls\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subclass_with_implementer",
+      "source_code": ""
+    },
+    {
+      "function": "IRequest.providedBy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 159,
+      "caller": "test_subclass_with_implementer",
+      "source_code": "    def providedBy(self, ob):\n        \"\"\"Is the interface implemented by an object\n        \"\"\"\n        spec = providedBy(ob)\n        return self in spec._implied\n\n"
+    },
+    {
+      "function": "IRequest.implementedBy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 165,
+      "caller": "test_subclass_with_implementer",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.\n\n        Raise TypeError if argument is neither a class nor a callable.\n        \"\"\"\n        spec = implementedBy(cls)\n        return self in spec._implied\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_subclass_with_implementer(self):\n        from zope.interface import implementer\n\n        from pyramid.interfaces import IRequest\n        from pyramid.request import Request\n        from pyramid.util import InstancePropertyHelper\n\n        @implementer(IRequest)\n        class RequestSub(Request):\n            pass\n\n        self.assertTrue(hasattr(Request, '__provides__'))\n        self.assertTrue(hasattr(Request, '__implemented__'))\n        self.assertTrue(hasattr(Request, '__providedBy__'))\n        self.assertTrue(hasattr(RequestSub, '__provides__'))\n        self.assertTrue(hasattr(RequestSub, '__providedBy__'))\n        self.assertTrue(hasattr(RequestSub, '__implemented__'))\n\n        req = RequestSub({})\n        helper = InstancePropertyHelper()\n        helper.apply_properties(req, {'b': 'b'})\n\n        self.assertTrue(IRequest.providedBy(req))\n        self.assertTrue(IRequest.implementedBy(RequestSub))"
+}

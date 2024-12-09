@@ -1,0 +1,90 @@
+{
+  "test_name": "test_registerUtility_with_component_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_registry.py",
+  "static_methods": [
+    {
+      "name": "IFoo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "named",
+      "source_code": "    def named(cls, name, *bases):\n        # Implementation method: Produce an Implements interface with a fully\n        # fleshed out __name__ before calling the constructor, which sets\n        # bases to the given interfaces and which may pass this object to\n        # other objects (e.g., to adjust dependents). If they're sorting or\n        # comparing by name, this needs to be set.\n        inst = cls.__new__(cls)\n        inst.__name__ = name\n        inst.__init__(*bases)\n        return inst",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/declarations.py",
+      "line_number": 323
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "comp.registerUtility",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1189
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "IFoo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_registerUtility_with_component_name",
+      "source_code": ""
+    },
+    {
+      "function": "named",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/declarations.py",
+      "line": 323,
+      "caller": "test_registerUtility_with_component_name",
+      "source_code": "    @classmethod\n    def named(cls, name, *bases):\n        # Implementation method: Produce an Implements interface with a fully\n        # fleshed out __name__ before calling the constructor, which sets\n        # bases to the given interfaces and which may pass this object to\n        # other objects (e.g., to adjust dependents). If they're sorting or\n        # comparing by name, this needs to be set.\n        inst = cls.__new__(cls)\n        inst.__name__ = name\n        inst.__init__(*bases)\n        return inst\n\n"
+    },
+    {
+      "function": "Foo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_registerUtility_with_component_name",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_registerUtility_with_component_name",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "comp.registerUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1189,
+      "caller": "test_registerUtility_with_component_name",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility\n\n        :param factory:\n           Factory for the component to be registered.\n\n        :param component:\n           The registered component\n\n        :param provided:\n           This is the interface provided by the utility.  If the\n           component provides a single interface, then this\n           argument is optional and the component-implemented\n           interface will be used.\n\n        :param name:\n           The utility name.\n\n        :param info:\n           An object that can be converted to a string to provide\n           information about the registration.\n\n        Only one of *component* and *factory* can be used.\n\n        A `IRegistered` event is generated with an `IUtilityRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_registerUtility_with_component_name",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_registerUtility_with_component_name(self):\n        from zope.interface.declarations import InterfaceClass\n        from zope.interface.declarations import named\n\n        class IFoo(InterfaceClass):\n            pass\n\n        ifoo = IFoo('IFoo')\n\n        @named('foo')\n        class Foo:\n            pass\n\n        foo = Foo()\n        _info = 'info'\n\n        comp = self._makeOne()\n        comp.registerUtility(foo, ifoo, info=_info)\n        self.assertEqual(\n            comp._utility_registrations[ifoo, 'foo'],\n            (foo, _info, None))"
+}

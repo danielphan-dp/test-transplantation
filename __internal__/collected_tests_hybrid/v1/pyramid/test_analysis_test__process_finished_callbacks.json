@@ -1,0 +1,116 @@
+{
+  "test_name": "test__process_finished_callbacks",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "inst.add_finished_callback",
+      "source_code": "    def add_finished_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called\n        unconditionally by the :term:`router` at the very end of\n        request processing.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 87
+    },
+    {
+      "name": "inst.add_finished_callback",
+      "source_code": "    def add_finished_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called\n        unconditionally by the :term:`router` at the very end of\n        request processing.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 87
+    },
+    {
+      "name": "inst._process_finished_callbacks",
+      "source_code": "    def _process_finished_callbacks(self):\n        callbacks = self.finished_callbacks\n        while callbacks:\n            callback = callbacks.popleft()\n            callback(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 136
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__process_finished_callbacks",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "inst.add_finished_callback",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 87,
+      "caller": "test__process_finished_callbacks",
+      "source_code": "    def add_finished_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called\n        unconditionally by the :term:`router` at the very end of\n        request processing.\n\n        ``callback`` is a callable which accepts a single positional\n        parameter: ``request``.  For example:\n\n        .. code-block:: python\n           :linenos:\n\n           import transaction\n\n           def commit_callback(request):\n               '''commit or abort the transaction associated with request'''\n               if request.exception is not None:\n                   transaction.abort()\n               else:\n                   transaction.commit()\n           request.add_finished_callback(commit_callback)\n\n        Finished callbacks are called in the order they're added (\n        first- to most-recently- added).  Finished callbacks (unlike\n        response callbacks) are *always* called, even if an exception\n        happens in application code that prevents a response from\n        being generated.\n\n        The set of finished callbacks associated with a request are\n        called *very late* in the processing of that request; they are\n        essentially the last thing called by the :term:`router`. They\n        are called after response processing has already occurred in a\n        top-level ``finally:`` block within the router request\n        processing code.  As a result, mutations performed to the\n        ``request`` provided to a finished callback will have no\n        meaningful effect, because response processing will have\n        already occurred, and the request's scope will expire almost\n        immediately after all finished callbacks have been processed.\n\n        Errors raised by finished callbacks are not handled specially.\n        They will be propagated to the caller of the :app:`Pyramid`\n        router application.\n\n        .. seealso::\n\n            See also :ref:`using_finished_callbacks`.\n        \"\"\"\n        self.finished_callbacks.append(callback)\n\n"
+    },
+    {
+      "function": "inst.add_finished_callback",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 87,
+      "caller": "test__process_finished_callbacks",
+      "source_code": "    def add_finished_callback(self, callback):\n        \"\"\"\n        Add a callback to the set of callbacks to be called\n        unconditionally by the :term:`router` at the very end of\n        request processing.\n\n        ``callback`` is a callable which accepts a single positional\n        parameter: ``request``.  For example:\n\n        .. code-block:: python\n           :linenos:\n\n           import transaction\n\n           def commit_callback(request):\n               '''commit or abort the transaction associated with request'''\n               if request.exception is not None:\n                   transaction.abort()\n               else:\n                   transaction.commit()\n           request.add_finished_callback(commit_callback)\n\n        Finished callbacks are called in the order they're added (\n        first- to most-recently- added).  Finished callbacks (unlike\n        response callbacks) are *always* called, even if an exception\n        happens in application code that prevents a response from\n        being generated.\n\n        The set of finished callbacks associated with a request are\n        called *very late* in the processing of that request; they are\n        essentially the last thing called by the :term:`router`. They\n        are called after response processing has already occurred in a\n        top-level ``finally:`` block within the router request\n        processing code.  As a result, mutations performed to the\n        ``request`` provided to a finished callback will have no\n        meaningful effect, because response processing will have\n        already occurred, and the request's scope will expire almost\n        immediately after all finished callbacks have been processed.\n\n        Errors raised by finished callbacks are not handled specially.\n        They will be propagated to the caller of the :app:`Pyramid`\n        router application.\n\n        .. seealso::\n\n            See also :ref:`using_finished_callbacks`.\n        \"\"\"\n        self.finished_callbacks.append(callback)\n\n"
+    },
+    {
+      "function": "inst._process_finished_callbacks",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 136,
+      "caller": "test__process_finished_callbacks",
+      "source_code": "    def _process_finished_callbacks(self):\n        callbacks = self.finished_callbacks\n        while callbacks:\n            callback = callbacks.popleft()\n            callback(self)\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_finished_callbacks",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_finished_callbacks",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__process_finished_callbacks",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__process_finished_callbacks",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__process_finished_callbacks(self):\n        inst = self._makeOne()\n\n        def callback1(request):\n            request.called1 = True\n\n        def callback2(request):\n            request.called2 = True\n\n        inst.add_finished_callback(callback1)\n        inst.add_finished_callback(callback2)\n        inst._process_finished_callbacks()\n        self.assertEqual(inst.called1, True)\n        self.assertEqual(inst.called2, True)\n        self.assertEqual(len(inst.finished_callbacks), 0)"
+}

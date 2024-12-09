@@ -1,0 +1,38 @@
+{
+  "test_name": "test_metadata_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "Distribution._validate_metadata",
+      "source_code": "    def _validate_metadata(self):\n        required = {\"name\"}\n        provided = {\n            key\n            for key in vars(self.metadata)\n            if getattr(self.metadata, key, None) is not None\n        }\n        missing = required - provided",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line_number": 333
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution._validate_metadata",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line": 333,
+      "caller": "test_metadata_name",
+      "source_code": "    def _validate_metadata(self):\n        required = {\"name\"}\n        provided = {\n            key\n            for key in vars(self.metadata)\n            if getattr(self.metadata, key, None) is not None\n        }\n        missing = required - provided\n\n        if missing:\n            msg = f\"Required package metadata is missing: {missing}\"\n            raise DistutilsSetupError(msg)\n\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_metadata_name",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_metadata_name():\n    with pytest.raises(DistutilsSetupError, match='missing.*name'):\n        Distribution()._validate_metadata()"
+}

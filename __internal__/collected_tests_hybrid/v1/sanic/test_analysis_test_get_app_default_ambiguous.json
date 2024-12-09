@@ -1,0 +1,51 @@
+{
+  "test_name": "test_get_app_default_ambiguous",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sanic.get_app",
+      "source_code": "    def get_app(\n        cls, name: Optional[str] = None, *, force_create: bool = False\n    ) -> Sanic:\n        \"\"\"Retrieve an instantiated Sanic instance by name.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 2176
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_app_default_ambiguous",
+      "source_code": ""
+    },
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_app_default_ambiguous",
+      "source_code": ""
+    },
+    {
+      "function": "Sanic.get_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 2176,
+      "caller": "test_get_app_default_ambiguous",
+      "source_code": "    @classmethod\n    def get_app(\n        cls, name: Optional[str] = None, *, force_create: bool = False\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_app_default_ambiguous():\n    Sanic(\"test1\")\n    Sanic(\"test2\")\n    with pytest.raises(\n        SanicException,\n        match=re.escape(\n            'Multiple Sanic apps found, use Sanic.get_app(\"app_name\")'\n        ),\n    ):\n        Sanic.get_app()"
+}

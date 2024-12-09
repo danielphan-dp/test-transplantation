@@ -1,0 +1,77 @@
+{
+  "test_name": "test_include_threadlocals_active",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.include",
+      "source_code": "    def include(self, **attrs):\n        \"\"\"Add items to distribution that are named in keyword arguments",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line_number": 908
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stack.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "get_current_registry",
+      "source_code": "def get_current_registry(\n    context=None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/threadlocal.py",
+      "line_number": 57
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_include_threadlocals_active",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.include",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line": 908,
+      "caller": "test_include_threadlocals_active",
+      "source_code": "    def include(self, **attrs):\n        \"\"\"Add items to distribution that are named in keyword arguments\n\n        For example, 'dist.include(py_modules=[\"x\"])' would add 'x' to\n        the distribution's 'py_modules' attribute, if it was not already\n        there.\n\n        Currently, this method only supports inclusion for attributes that are\n        lists or tuples.  If you need to add support for adding to other\n        attributes in this or a subclass, you can add an '_include_X' method,\n        where 'X' is the name of the attribute.  The method will be called with\n        the value passed to 'include()'.  So, 'dist.include(foo={\"bar\":\"baz\"})'\n        will try to call 'dist._include_foo({\"bar\":\"baz\"})', which can then\n        handle whatever special inclusion logic is needed.\n        \"\"\"\n        for k, v in attrs.items():\n            include = getattr(self, '_include_' + k, None)\n            if include:\n                include(v)\n            else:\n                self._include_misc(k, v)\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_include_threadlocals_active",
+      "source_code": ""
+    },
+    {
+      "function": "stack.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_include_threadlocals_active",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "get_current_registry",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/threadlocal.py",
+      "line": 57,
+      "caller": "test_include_threadlocals_active",
+      "source_code": "def get_current_registry(\n    context=None,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_include_threadlocals_active(self):\n        from pyramid.threadlocal import get_current_registry\n\n        stack = []\n\n        def include(config):\n            stack.append(get_current_registry())\n\n        config = self._makeOne()\n        config.include(include)\n        self.assertTrue(stack[0] is config.registry)"
+}

@@ -1,0 +1,108 @@
+{
+  "test_name": "test_distribution_version_missing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+  "static_methods": [
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "make_distribution_no_version",
+      "source_code": "def make_distribution_no_version(tmpdir, basename):\n    \"\"\"\n    Create a distribution directory with no file containing the version.\n    \"\"\"\n    dist_dir = tmpdir / basename\n    dist_dir.ensure_dir()\n    # Make the directory non-empty so distributions_from_metadata()\n    # will detect it and yield it.\n    dist_dir.join('temp.txt').ensure()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+      "line_number": 221
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distribution_version_missing",
+      "source_code": ""
+    },
+    {
+      "function": "make_distribution_no_version",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+      "line": 221,
+      "caller": "test_distribution_version_missing",
+      "source_code": "def make_distribution_no_version(tmpdir, basename):\n    \"\"\"\n    Create a distribution directory with no file containing the version.\n    \"\"\"\n    dist_dir = tmpdir / basename\n    dist_dir.ensure_dir()\n    # Make the directory non-empty so distributions_from_metadata()\n    # will detect it and yield it.\n    dist_dir.join('temp.txt').ensure()\n\n    dists = list(pkg_resources.distributions_from_metadata(dist_dir))\n    assert len(dists) == 1\n    (dist,) = dists\n\n    return dist, dist_dir\n\n\n"
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distribution_version_missing",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distribution_version_missing",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distribution_version_missing",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distribution_version_missing",
+      "source_code": ""
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_distribution_version_missing",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert expected_text in err, str((expected_text, err))",
+    "assert expected_text in msg",
+    "assert metadata_path in msg, str((metadata_path, msg))",
+    "assert type(dist) is expected_dist_type"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_distribution_version_missing(\n    tmpdir, suffix, expected_filename, expected_dist_type\n):\n    \"\"\"\n    Test Distribution.version when the \"Version\" header is missing.\n    \"\"\"\n    basename = 'foo.{}'.format(suffix)\n    dist, dist_dir = make_distribution_no_version(tmpdir, basename)\n\n    expected_text = (\"Missing 'Version:' header and/or {} file at path: \").format(\n        expected_filename\n    )\n    metadata_path = os.path.join(dist_dir, expected_filename)\n\n    # Now check the exception raised when the \"version\" attribute is accessed.\n    with pytest.raises(ValueError) as excinfo:\n        dist.version\n\n    err = str(excinfo.value)\n    # Include a string expression after the assert so the full strings\n    # will be visible for inspection on failure.\n    assert expected_text in err, str((expected_text, err))\n\n    # Also check the args passed to the ValueError.\n    msg, dist = excinfo.value.args\n    assert expected_text in msg\n    # Check that the message portion contains the path.\n    assert metadata_path in msg, str((metadata_path, msg))\n    assert type(dist) is expected_dist_type"
+}

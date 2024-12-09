@@ -1,0 +1,53 @@
+{
+  "test_name": "test_successful_log_with_next",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_functional.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "testapp.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "testapp.get_csrf_token",
+      "source_code": "def get_csrf_token(request):\n    \"\"\"Get the currently active CSRF token for the request passed, generating\n    a new one using ``new_csrf_token(request)`` if one does not exist. This\n    calls the equivalent method in the chosen CSRF protection implementation.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/csrf.py",
+      "line_number": 164
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_successful_log_with_next",
+      "source_code": ""
+    },
+    {
+      "function": "testapp.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_successful_log_with_next",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "testapp.get_csrf_token",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/csrf.py",
+      "line": 164,
+      "caller": "test_successful_log_with_next",
+      "source_code": "def get_csrf_token(request):\n    \"\"\"Get the currently active CSRF token for the request passed, generating\n    a new one using ``new_csrf_token(request)`` if one does not exist. This\n    calls the equivalent method in the chosen CSRF protection implementation.\n\n    .. versionadded :: 1.9\n\n    \"\"\"\n    registry = request.registry\n    csrf = registry.getUtility(ICSRFStoragePolicy)\n    return csrf.get_csrf_token(request)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert res.location == 'http://example.com/WikiPage'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_successful_log_with_next(testapp):\n    params = dict(\n        **basic_login,\n        next='WikiPage',\n        csrf_token=testapp.get_csrf_token(),\n    )\n    res = testapp.post('/login', params, status=303)\n    assert res.location == 'http://example.com/WikiPage'"
+}

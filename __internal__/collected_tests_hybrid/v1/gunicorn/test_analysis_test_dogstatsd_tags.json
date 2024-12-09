@@ -1,0 +1,92 @@
+{
+  "test_name": "test_dogstatsd_tags",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_statsd.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Statsd",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MockSocket",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "logger.info",
+      "source_code": "    def info(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        with ZipFile(pathname, 'r') as zf:\n            result = self.get_wheel_metadata(zf)\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 287
+    },
+    {
+      "name": "tags.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dogstatsd_tags",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dogstatsd_tags",
+      "source_code": ""
+    },
+    {
+      "function": "Statsd",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dogstatsd_tags",
+      "source_code": ""
+    },
+    {
+      "function": "MockSocket",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dogstatsd_tags",
+      "source_code": ""
+    },
+    {
+      "function": "logger.info",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 287,
+      "caller": "test_dogstatsd_tags",
+      "source_code": "    @cached_property\n    def info(self):\n        pathname = os.path.join(self.dirname, self.filename)\n        with ZipFile(pathname, 'r') as zf:\n            result = self.get_wheel_metadata(zf)\n        return result\n\n"
+    },
+    {
+      "function": "tags.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_dogstatsd_tags",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert logger.sock.msgs[0] == b'barb.westerly:2|g|#' + tags.encode('ascii')"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_dogstatsd_tags():\n    c = Config()\n    tags = 'yucatan,libertine:rhubarb'\n    c.set('dogstatsd_tags', tags)\n    logger = Statsd(c)\n    logger.sock = MockSocket(False)\n    logger.info(\"Twill\", extra={\"mtype\": \"gauge\", \"metric\": \"barb.westerly\",\n                                \"value\": 2})\n    assert logger.sock.msgs[0] == b\"barb.westerly:2|g|#\" + tags.encode('ascii')"
+}

@@ -1,0 +1,105 @@
+{
+  "test_name": "test_templates_with_directory",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_templates.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Jinja2Templates",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "templates.get_template",
+      "source_code": "    def get_template(\n        self,\n        name: t.Union[str, \"Template\"],\n        parent: t.Optional[str] = None,\n        globals: t.Optional[t.MutableMapping[str, t.Any]] = None,\n    ) -> \"Template\":\n        \"\"\"Load a template by name with :attr:`loader` and return a\n        :class:`Template`. If the template does not exist a\n        :exc:`TemplateNotFound` exception is raised.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jinja2/environment.py",
+      "line_number": 979
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "file.write",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line_number": 36
+    },
+    {
+      "name": "template.render",
+      "source_code": "    def render(self, time: float) -> \"RenderableType\":\n        \"\"\"Render the spinner for a given time.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/spinner.py",
+      "line_number": 59
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_templates_with_directory",
+      "source_code": ""
+    },
+    {
+      "function": "Jinja2Templates",
+      "filename": "",
+      "line": 0,
+      "caller": "test_templates_with_directory",
+      "source_code": ""
+    },
+    {
+      "function": "templates.get_template",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jinja2/environment.py",
+      "line": 979,
+      "caller": "test_templates_with_directory",
+      "source_code": "    @internalcode\n    def get_template(\n        self,\n        name: t.Union[str, \"Template\"],\n        parent: t.Optional[str] = None,\n        globals: t.Optional[t.MutableMapping[str, t.Any]] = None,\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_templates_with_directory",
+      "source_code": ""
+    },
+    {
+      "function": "file.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line": 36,
+      "caller": "test_templates_with_directory",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise\n"
+    },
+    {
+      "function": "template.render",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/spinner.py",
+      "line": 59,
+      "caller": "test_templates_with_directory",
+      "source_code": "    def render(self, time: float) -> \"RenderableType\":\n        \"\"\"Render the spinner for a given time.\n\n        Args:\n            time (float): Time in seconds.\n\n        Returns:\n            RenderableType: A renderable containing animation frame.\n        \"\"\"\n        if self.start_time is None:\n            self.start_time = time\n\n        frame_no = ((time - self.start_time) * self.speed) / (\n            self.interval / 1000.0\n        ) + self.frame_no_offset\n        frame = Text(\n            self.frames[int(frame_no) % len(self.frames)], style=self.style or \"\"\n        )\n\n        if self._update_speed:\n            self.frame_no_offset = frame_no\n            self.start_time = time\n            self.speed = self._update_speed\n            self._update_speed = 0.0\n\n        if not self.text:\n            return frame\n        elif isinstance(self.text, (str, Text)):\n            return Text.assemble(frame, \" \", self.text)\n        else:\n            table = Table.grid(padding=1)\n            table.add_row(frame, self.text)\n            return table\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_templates_with_directory",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert template.render({}) == 'Hello'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_templates_with_directory(tmpdir: Path) -> None:\n    path = os.path.join(tmpdir, \"index.html\")\n    with open(path, \"w\") as file:\n        file.write(\"Hello\")\n\n    templates = Jinja2Templates(directory=str(tmpdir))\n    template = templates.get_template(\"index.html\")\n    assert template.render({}) == \"Hello\""
+}

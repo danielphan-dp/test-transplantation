@@ -1,0 +1,27 @@
+{
+  "test_name": "test_id_of_bool",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_jsonschema.py",
+  "static_methods": [
+    {
+      "name": "specification.id_of",
+      "source_code": "        def id_of(schema):\n            return schema.get(\"__test__\", self.Validator.ID_OF(schema))\n        correct_id = \"the://correct/id/\"\n        meta_schema = {\n            \"$id\": \"the://wrong/id/\",\n            \"__test__\": correct_id,\n        }\n        Original = validators.create(\n            meta_schema=meta_schema,\n            validators=self.validators,\n            type_checker=self.type_checker,\n            id_of=id_of,\n        )\n        self.assertEqual(Original.ID_OF(Original.META_SCHEMA), correct_id)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+      "line_number": 270
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "specification.id_of",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_validators.py",
+      "line": 270,
+      "caller": "test_id_of_bool",
+      "source_code": "        def id_of(schema):\n            return schema.get(\"__test__\", self.Validator.ID_OF(schema))\n"
+    }
+  ],
+  "assertions": [
+    "assert specification.id_of(value) is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_id_of_bool(specification, value):\n    assert specification.id_of(value) is None"
+}

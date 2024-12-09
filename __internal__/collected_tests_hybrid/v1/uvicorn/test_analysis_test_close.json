@@ -1,0 +1,94 @@
+{
+  "test_name": "test_close",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+  "static_methods": [
+    {
+      "name": "FileDescriptor",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "assert_not_fd",
+      "source_code": "def assert_not_fd(fd: int):\n    \"\"\"Check that the given number is not open as a file descriptor\"\"\"\n    with pytest.raises(OSError) as exc_info:\n        os.stat(fd)\n    assert exc_info.value.errno == errno.EBADF",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+      "line_number": 9
+    },
+    {
+      "name": "FileDescriptor",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "wfd.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    },
+    {
+      "name": "wfd.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "FileDescriptor",
+      "filename": "",
+      "line": 0,
+      "caller": "test_close",
+      "source_code": ""
+    },
+    {
+      "function": "assert_not_fd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+      "line": 9,
+      "caller": "test_close",
+      "source_code": "def assert_not_fd(fd: int):\n    \"\"\"Check that the given number is not open as a file descriptor\"\"\"\n    with pytest.raises(OSError) as exc_info:\n        os.stat(fd)\n    assert exc_info.value.errno == errno.EBADF\n\n\n"
+    },
+    {
+      "function": "FileDescriptor",
+      "filename": "",
+      "line": 0,
+      "caller": "test_close",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_close",
+      "source_code": ""
+    },
+    {
+      "function": "wfd.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_close",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    },
+    {
+      "function": "wfd.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_close",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'closed' in repr(wfd)",
+    "assert wfd.fileno() == fd",
+    "assert_not_fd(fd)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_close(tmp_path):\n    fd = os.open(tmp_path / 'a', os.O_CREAT | os.O_RDWR)\n\n    with FileDescriptor(fd) as wfd:\n        assert wfd.fileno() == fd\n    # Leaving the with block is equivalent to calling .close()\n\n    assert 'closed' in repr(wfd)\n    with pytest.raises(NoFDError):\n        wfd.fileno()\n\n    assert_not_fd(fd)"
+}

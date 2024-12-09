@@ -1,0 +1,27 @@
+{
+  "test_name": "test_accept_parsed_against_str",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "headers.Matched.parse",
+      "source_code": "def parse(version: str) -> Union[\"LegacyVersion\", \"Version\"]:\n    \"\"\"\n    Parse the given version string and return either a :class:`Version` object\n    or a :class:`LegacyVersion` object depending on if the given version is\n    a valid PEP 440 version or a legacy version.\n    \"\"\"\n    try:\n        return Version(version)\n    except InvalidVersion:\n        return LegacyVersion(version)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 42
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "headers.Matched.parse",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 42,
+      "caller": "test_accept_parsed_against_str",
+      "source_code": "def parse(version: str) -> Union[\"LegacyVersion\", \"Version\"]:\n    \"\"\"\n    Parse the given version string and return either a :class:`Version` object\n    or a :class:`LegacyVersion` object depending on if the given version is\n    a valid PEP 440 version or a legacy version.\n    \"\"\"\n    try:\n        return Version(version)\n    except InvalidVersion:\n        return LegacyVersion(version)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert accept == 'foo/bar; q=0.1'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_accept_parsed_against_str():\n    accept = headers.Matched.parse(\"foo/bar\")\n    assert accept == \"foo/bar; q=0.1\""
+}

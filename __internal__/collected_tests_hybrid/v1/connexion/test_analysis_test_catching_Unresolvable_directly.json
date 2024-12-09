@@ -1,0 +1,90 @@
+{
+  "test_name": "test_catching_Unresolvable_directly",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_deprecations.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validators.Draft202012Validator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_directly",
+      "source_code": ""
+    },
+    {
+      "function": "validators.Draft202012Validator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_directly",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_directly",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_directly",
+      "source_code": ""
+    },
+    {
+      "function": "validator.validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_catching_Unresolvable_directly",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_catching_Unresolvable_directly",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_catching_Unresolvable_directly(self):\n        \"\"\"\n        This behavior is the intended behavior (i.e. it's not deprecated), but\n        given we do \"tricksy\" things in the iterim to wrap exceptions in a\n        multiple inheritance subclass, we need to be extra sure it works and\n        stays working.\n        \"\"\"\n        validator = validators.Draft202012Validator({\"$ref\": \"urn:nothing\"})\n\n        with self.assertRaises(referencing.exceptions.Unresolvable) as e:\n            validator.validate(12)\n\n        expected = referencing.exceptions.Unresolvable(ref=\"urn:nothing\")\n        self.assertEqual(\n            (e.exception, str(e.exception)),\n            (expected, \"Unresolvable: urn:nothing\"),\n        )"
+}

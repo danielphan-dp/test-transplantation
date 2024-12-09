@@ -1,0 +1,93 @@
+{
+  "test_name": "test_app_freeze",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_app.py",
+  "static_methods": [
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app._subapps.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "app.freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line_number": 26
+    },
+    {
+      "name": "app.freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line_number": 26
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_app_freeze",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_app_freeze",
+      "source_code": ""
+    },
+    {
+      "function": "app._subapps.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_app_freeze",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "app.freeze",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line": 26,
+      "caller": "test_app_freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),\n"
+    },
+    {
+      "function": "app.freeze",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/operations/freeze.py",
+      "line": 26,
+      "caller": "test_app_freeze",
+      "source_code": "def freeze(\n    requirement: Optional[List[str]] = None,\n    local_only: bool = False,\n    user_only: bool = False,\n    paths: Optional[List[str]] = None,\n    isolated: bool = False,\n    exclude_editable: bool = False,\n    skip: Container[str] = (),\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_app_freeze",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert subapp.freeze.called",
+    "assert len(subapp.freeze.call_args_list) == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_app_freeze() -> None:\n    app = web.Application()\n    subapp = mock.Mock()\n    subapp._middlewares = ()\n    app._subapps.append(subapp)\n\n    app.freeze()\n    assert subapp.freeze.called\n\n    app.freeze()\n    assert len(subapp.freeze.call_args_list) == 1"
+}

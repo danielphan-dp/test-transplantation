@@ -1,0 +1,51 @@
+{
+  "test_name": "test_http_response_parser_code_not_ascii",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "_num.keys",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 745
+    },
+    {
+      "name": "response.feed_data",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n    ) -> Tuple[List[Tuple[_MsgT, StreamReader]], bool, bytes]:\n        messages = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line_number": 291
+    },
+    {
+      "name": "_num.values",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 749
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_num.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 745,
+      "caller": "test_http_response_parser_code_not_ascii",
+      "source_code": "        def keys(self):\n            'od.keys() -> list of keys in od'\n            return list(self)\n\n"
+    },
+    {
+      "function": "response.feed_data",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line": 291,
+      "caller": "test_http_response_parser_code_not_ascii",
+      "source_code": "    def feed_data(\n        self,\n        data: bytes,\n        SEP: _SEP = b\"\\r\\n\",\n        EMPTY: bytes = b\"\",\n        CONTENT_LENGTH: istr = hdrs.CONTENT_LENGTH,\n        METH_CONNECT: str = hdrs.METH_CONNECT,\n        SEC_WEBSOCKET_KEY1: istr = hdrs.SEC_WEBSOCKET_KEY1,\n"
+    },
+    {
+      "function": "_num.values",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 749,
+      "caller": "test_http_response_parser_code_not_ascii",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_response_parser_code_not_ascii(\n    response: HttpResponseParser, nonascii_digit: bytes\n) -> None:\n    with pytest.raises(http_exceptions.BadStatusLine):\n        response.feed_data(b\"HTTP/1.1 20\" + nonascii_digit + b\" test\\r\\n\\r\\n\")"
+}

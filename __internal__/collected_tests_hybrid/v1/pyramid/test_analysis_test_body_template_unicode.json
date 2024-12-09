@@ -1,0 +1,116 @@
+{
+  "test_name": "test_body_template_unicode",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+  "static_methods": [
+    {
+      "name": "self._getTargetSubclass",
+      "source_code": "    def _getTargetSubclass(\n        self,\n        code='200',\n        title='OK',\n        explanation='explanation',\n        empty_body=False,\n    ):\n        cls = self._getTargetClass()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+      "line_number": 91
+    },
+    {
+      "name": "text_",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line_number": 26
+    },
+    {
+      "name": "_makeEnviron",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 24
+    },
+    {
+      "name": "cls",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyStartResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "exc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._getTargetSubclass",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_httpexceptions.py",
+      "line": 91,
+      "caller": "test_body_template_unicode",
+      "source_code": "    def _getTargetSubclass(\n        self,\n        code='200',\n        title='OK',\n        explanation='explanation',\n        empty_body=False,\n"
+    },
+    {
+      "function": "text_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line": 26,
+      "caller": "test_body_template_unicode",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s\n\n"
+    },
+    {
+      "function": "_makeEnviron",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 24,
+      "caller": "test_body_template_unicode",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ\n\n"
+    },
+    {
+      "function": "cls",
+      "filename": "",
+      "line": 0,
+      "caller": "test_body_template_unicode",
+      "source_code": ""
+    },
+    {
+      "function": "DummyStartResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_body_template_unicode",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_body_template_unicode",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_body_template_unicode",
+      "source_code": ""
+    },
+    {
+      "function": "exc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_body_template_unicode",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_body_template_unicode(self):\n        cls = self._getTargetSubclass()\n        la = text_(b'/La Pe\\xc3\\xb1a', 'utf-8')\n        environ = _makeEnviron(unicodeval=la)\n        exc = cls(body_template='${unicodeval}')\n        start_response = DummyStartResponse()\n        body = list(exc(environ, start_response))[0]\n        self.assertEqual(body, b'200 OK\\n\\n/La Pe\\xc3\\xb1a')"
+}

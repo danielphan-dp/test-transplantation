@@ -1,0 +1,27 @@
+{
+  "test_name": "test_glob_to_re",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_filelist.py",
+  "static_methods": [
+    {
+      "name": "glob_to_re",
+      "source_code": "def glob_to_re(pattern):\n    \"\"\"Translate a shell-like glob pattern to a regular expression; return\n    a string containing the regex.  Differs from 'fnmatch.translate()' in\n    that '*' does not match \"special characters\" (which are\n    platform-specific).\n    \"\"\"\n    pattern_re = fnmatch.translate(pattern)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 312
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "glob_to_re",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 312,
+      "caller": "test_glob_to_re",
+      "source_code": "def glob_to_re(pattern):\n    \"\"\"Translate a shell-like glob pattern to a regular expression; return\n    a string containing the regex.  Differs from 'fnmatch.translate()' in\n    that '*' does not match \"special characters\" (which are\n    platform-specific).\n    \"\"\"\n    pattern_re = fnmatch.translate(pattern)\n\n    # '?' and '*' in the glob pattern become '.' and '.*' in the RE, which\n    # IMHO is wrong -- '?' and '*' aren't supposed to match slash in Unix,\n    # and by extension they shouldn't match such \"special characters\" under\n    # any OS.  So change all non-escaped dots in the RE to match any\n    # character except the special characters (currently: just os.sep).\n    sep = os.sep\n    if os.sep == '\\\\':\n        # we're using a regex to manipulate a regex, so we need\n        # to escape the backslash twice\n        sep = r'\\\\\\\\'\n    escaped = rf'\\1[^{sep}]'\n    pattern_re = re.sub(r'((?<!\\\\)(\\\\\\\\)*)\\.', escaped, pattern_re)\n    return pattern_re\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert glob_to_re(glob) == regex"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_glob_to_re(self):\n        sep = os.sep\n        if os.sep == '\\\\':\n            sep = re.escape(os.sep)\n\n        for glob, regex in (\n            # simple cases\n            ('foo*', r'(?s:foo[^%(sep)s]*)\\Z'),\n            ('foo?', r'(?s:foo[^%(sep)s])\\Z'),\n            ('foo??', r'(?s:foo[^%(sep)s][^%(sep)s])\\Z'),\n            # special cases\n            (r'foo\\\\*', r'(?s:foo\\\\\\\\[^%(sep)s]*)\\Z'),\n            (r'foo\\\\\\*', r'(?s:foo\\\\\\\\\\\\[^%(sep)s]*)\\Z'),\n            ('foo????', r'(?s:foo[^%(sep)s][^%(sep)s][^%(sep)s][^%(sep)s])\\Z'),\n            (r'foo\\\\??', r'(?s:foo\\\\\\\\[^%(sep)s][^%(sep)s])\\Z'),\n        ):\n            regex = regex % {'sep': sep}\n            assert glob_to_re(glob) == regex"
+}

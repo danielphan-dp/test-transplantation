@@ -1,0 +1,53 @@
+{
+  "test_name": "test_request_client",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_requests.py",
+  "static_methods": [
+    {
+      "name": "scope.update",
+      "source_code": "    def update(self, length):\n        if self.raw_buffer is None:\n            return\n        self.buffer = self.buffer[self.pointer:]\n        self.pointer = 0\n        while len(self.buffer) < length:\n            if not self.eof:\n                self.update_raw()\n            if self.raw_decode is not None:\n                try:\n                    data, converted = self.raw_decode(self.raw_buffer,\n                            'strict', self.eof)\n                except UnicodeDecodeError as exc:\n                    character = self.raw_buffer[exc.start]\n                    if self.stream is not None:\n                        position = self.stream_pointer-len(self.raw_buffer)+exc.start\n                    else:\n                        position = exc.start\n                    raise ReaderError(self.name, position, character,\n                            exc.encoding, exc.reason)\n            else:\n                data = self.raw_buffer\n                converted = len(data)\n            self.check_printable(data)\n            self.buffer += data\n            self.raw_buffer = self.raw_buffer[converted:]\n            if self.eof:\n                self.buffer += '\\0'\n                self.raw_buffer = None\n                break",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/yaml/reader.py",
+      "line_number": 146
+    },
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Address",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "scope.update",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/yaml/reader.py",
+      "line": 146,
+      "caller": "test_request_client",
+      "source_code": "    def update(self, length):\n        if self.raw_buffer is None:\n            return\n        self.buffer = self.buffer[self.pointer:]\n        self.pointer = 0\n        while len(self.buffer) < length:\n            if not self.eof:\n                self.update_raw()\n            if self.raw_decode is not None:\n                try:\n                    data, converted = self.raw_decode(self.raw_buffer,\n                            'strict', self.eof)\n                except UnicodeDecodeError as exc:\n                    character = self.raw_buffer[exc.start]\n                    if self.stream is not None:\n                        position = self.stream_pointer-len(self.raw_buffer)+exc.start\n                    else:\n                        position = exc.start\n                    raise ReaderError(self.name, position, character,\n                            exc.encoding, exc.reason)\n            else:\n                data = self.raw_buffer\n                converted = len(data)\n            self.check_printable(data)\n            self.buffer += data\n            self.raw_buffer = self.raw_buffer[converted:]\n            if self.eof:\n                self.buffer += '\\0'\n                self.raw_buffer = None\n                break\n\n"
+    },
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_client",
+      "source_code": ""
+    },
+    {
+      "function": "Address",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_client",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert client == expected_client"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_client(scope: Scope, expected_client: Address | None) -> None:\n    scope.update({\"type\": \"http\"})  # required by Request's constructor\n    client = Request(scope).client\n    assert client == expected_client"
+}

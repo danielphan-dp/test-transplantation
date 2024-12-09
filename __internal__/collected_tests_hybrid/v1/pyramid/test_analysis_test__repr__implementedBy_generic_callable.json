@@ -1,0 +1,116 @@
+{
+  "test_name": "test__repr__implementedBy_generic_callable",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "implementedBy",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 165
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Callable",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "implementedBy",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 165
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Callable",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "implementedBy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 165,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.\n\n        Raise TypeError if argument is neither a class nor a callable.\n        \"\"\"\n        spec = implementedBy(cls)\n        return self in spec._implied\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": ""
+    },
+    {
+      "function": "Callable",
+      "filename": "",
+      "line": 0,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": ""
+    },
+    {
+      "function": "implementedBy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 165,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": "    def implementedBy(self, cls):\n        \"\"\"Test whether the specification is implemented by a class or factory.\n\n        Raise TypeError if argument is neither a class nor a callable.\n        \"\"\"\n        spec = implementedBy(cls)\n        return self in spec._implied\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": ""
+    },
+    {
+      "function": "Callable",
+      "filename": "",
+      "line": 0,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__repr__implementedBy_generic_callable",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__repr__implementedBy_generic_callable(self):\n        from zope.interface.declarations import implementedBy\n\n        # We can't get a __name__ by default, so we get a\n        # module name and a question mark\n        class Callable:\n            def __call__(self):\n                return self\n\n        inst = implementedBy(Callable())\n        self.assertEqual(\n            repr(inst),\n            f'classImplements({__name__}.?)'\n        )\n\n        c = Callable()\n        c.__name__ = 'Callable'\n        inst = implementedBy(c)\n        self.assertEqual(\n            repr(inst),\n            'classImplements(Callable)'\n        )"
+}

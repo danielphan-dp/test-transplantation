@@ -1,0 +1,66 @@
+{
+  "test_name": "test_create_with_factory",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_loader.py",
+  "static_methods": [
+    {
+      "name": "AppLoader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loader.load",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line_number": 57
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "AppLoader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_create_with_factory",
+      "source_code": ""
+    },
+    {
+      "function": "loader.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line": 57,
+      "caller": "test_create_with_factory",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)\n\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_with_factory",
+      "source_code": ""
+    },
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_create_with_factory",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(app, Sanic)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_create_with_factory():\n    loader = AppLoader(factory=lambda: Sanic(\"Test\"))\n    app = loader.load()\n    assert isinstance(app, Sanic)"
+}

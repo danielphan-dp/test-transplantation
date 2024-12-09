@@ -1,0 +1,51 @@
+{
+  "test_name": "test_unhook_zc_false",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+  "static_methods": [
+    {
+      "name": "self._setSMHook",
+      "source_code": "    def _setSMHook(self, hook):\n        getSiteManager.sethook(hook)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+      "line_number": 448
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self._assertSMHook",
+      "source_code": "    def _assertSMHook(self, hook):\n        result = getSiteManager.sethook(None)\n        self.assertEqual(result, hook)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+      "line_number": 351
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._setSMHook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+      "line": 448,
+      "caller": "test_unhook_zc_false",
+      "source_code": "    def _setSMHook(self, hook):\n        getSiteManager.sethook(hook)\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_unhook_zc_false",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self._assertSMHook",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+      "line": 351,
+      "caller": "test_unhook_zc_false",
+      "source_code": "    def _assertSMHook(self, hook):\n        result = getSiteManager.sethook(None)\n        self.assertEqual(result, hook)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unhook_zc_false(self):\n        hook = lambda *arg: None\n        try:\n            self._setSMHook(hook)\n            self._callFUT(unhook_zca=False)\n        finally:\n            self._assertSMHook(hook)"
+}

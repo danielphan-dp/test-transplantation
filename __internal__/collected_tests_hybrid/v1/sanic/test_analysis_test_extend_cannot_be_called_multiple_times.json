@@ -1,0 +1,51 @@
+{
+  "test_name": "test_extend_cannot_be_called_multiple_times",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_ext_integration.py",
+  "static_methods": [
+    {
+      "name": "app.extend",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 226
+    },
+    {
+      "name": "mock_sanic_ext.Extend.assert_called_once_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.extend",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 226
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 226,
+      "caller": "test_extend_cannot_be_called_multiple_times",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.\n\n        This method must be used instead of update.\n        \"\"\"\n        self._extend(args, kwargs, \"extend\", self._extend_items)\n\n"
+    },
+    {
+      "function": "mock_sanic_ext.Extend.assert_called_once_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extend_cannot_be_called_multiple_times",
+      "source_code": ""
+    },
+    {
+      "function": "app.extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 226,
+      "caller": "test_extend_cannot_be_called_multiple_times",
+      "source_code": "    def extend(self, *args, **kwargs):\n        \"\"\"Extend current MultiDict with more values.\n\n        This method must be used instead of update.\n        \"\"\"\n        self._extend(args, kwargs, \"extend\", self._extend_items)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_extend_cannot_be_called_multiple_times(app: Sanic, mock_sanic_ext):\n    app.extend()\n\n    message = \"Cannot extend Sanic after Sanic Extensions has been setup.\"\n    with pytest.raises(RuntimeError, match=message):\n        app.extend()\n    mock_sanic_ext.Extend.assert_called_once_with(\n        app, extensions=None, built_in_extensions=True, config=None\n    )"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_empty_load_env_prefix",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_empty_load_env_prefix",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_empty_load_env_prefix",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert getattr(app.config, 'TEST_ANSWER', None) is None"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_empty_load_env_prefix(env_prefix):\n    environ[\"SANIC_TEST_ANSWER\"] = \"42\"\n    app = Sanic(name=\"Test\", env_prefix=env_prefix)\n    assert getattr(app.config, \"TEST_ANSWER\", None) is None\n    del environ[\"SANIC_TEST_ANSWER\"]"
+}

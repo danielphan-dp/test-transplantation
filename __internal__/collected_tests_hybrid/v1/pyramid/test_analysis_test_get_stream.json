@@ -1,0 +1,77 @@
+{
+  "test_name": "test_get_stream",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_assets.py",
+  "static_methods": [
+    {
+      "name": "source.get_stream",
+      "source_code": "    def get_stream(self, resource):\n        return open(resource.path, 'rb')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line_number": 166
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "source.get_stream",
+      "source_code": "    def get_stream(self, resource):\n        return open(resource.path, 'rb')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line_number": 166
+    },
+    {
+      "name": "_assertBody",
+      "source_code": "def _assertBody(body, filename):\n    if defaultlocale is None:  # pragma: no cover\n        # If system locale does not have an encoding then default to utf-8\n        filename = filename.encode('utf-8')\n    # strip both \\n and \\r for windows\n    body = body.replace(b'\\r', b'')\n    body = body.replace(b'\\n', b'')\n    data = read_(filename)\n    data = data.replace(b'\\r', b'')\n    data = data.replace(b'\\n', b'')\n    assert body == data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line_number": 1017
+    },
+    {
+      "name": "stream.read",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line_number": 89
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "source.get_stream",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line": 166,
+      "caller": "test_get_stream",
+      "source_code": "    def get_stream(self, resource):\n        return open(resource.path, 'rb')\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_get_stream",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "source.get_stream",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/resources.py",
+      "line": 166,
+      "caller": "test_get_stream",
+      "source_code": "    def get_stream(self, resource):\n        return open(resource.path, 'rb')\n\n"
+    },
+    {
+      "function": "_assertBody",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line": 1017,
+      "caller": "test_get_stream",
+      "source_code": "def _assertBody(body, filename):\n    if defaultlocale is None:  # pragma: no cover\n        # If system locale does not have an encoding then default to utf-8\n        filename = filename.encode('utf-8')\n    # strip both \\n and \\r for windows\n    body = body.replace(b'\\r', b'')\n    body = body.replace(b'\\n', b'')\n    data = read_(filename)\n    data = data.replace(b'\\r', b'')\n    data = data.replace(b'\\n', b'')\n    assert body == data\n\n\n"
+    },
+    {
+      "function": "stream.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line": 89,
+      "caller": "test_get_stream",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()\n\n        return data\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_stream(self):\n        source = self._makeOne('')\n        with source.get_stream('test_assets.py') as stream:\n            _assertBody(stream.read(), os.path.join(here, 'test_assets.py'))"
+}

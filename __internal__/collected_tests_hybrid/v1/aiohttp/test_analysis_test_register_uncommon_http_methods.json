@@ -1,0 +1,38 @@
+{
+  "test_name": "test_register_uncommon_http_methods",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_route",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n    ) -> \"ResourceRoute\":\n        for route_obj in self._routes:\n            if route_obj.method == method or route_obj.method == hdrs.METH_ANY:\n                raise RuntimeError(\n                    \"Added route will never be executed, \"\n                    \"method {route.method} is already \"\n                    \"registered\".format(route=route_obj)\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 327
+    },
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 327,
+      "caller": "test_register_uncommon_http_methods",
+      "source_code": "    def add_route(\n        self,\n        method: str,\n        handler: Union[Type[AbstractView], Handler],\n        *,\n        expect_handler: Optional[_ExpectHandler] = None,\n"
+    },
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_register_uncommon_http_methods",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_register_uncommon_http_methods(router: web.UrlDispatcher) -> None:\n    uncommon_http_methods = {\n        \"PROPFIND\",\n        \"PROPPATCH\",\n        \"COPY\",\n        \"LOCK\",\n        \"UNLOCK\",\n        \"MOVE\",\n        \"SUBSCRIBE\",\n        \"UNSUBSCRIBE\",\n        \"NOTIFY\",\n    }\n\n    for method in uncommon_http_methods:\n        router.add_route(method, \"/handler/to/path\", make_handler())"
+}

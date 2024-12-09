@@ -1,0 +1,121 @@
+{
+  "test_name": "test_environ",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Environ",
+      "source_code": "def Environ(**changes):\n    \"\"\"A context manager to temporarily change the os.environ\"\"\"\n    return NoNoneDictMutator(os.environ, **changes)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/keyring/testing/util.py",
+      "line_number": 58
+    },
+    {
+      "name": "Environ",
+      "source_code": "def Environ(**changes):\n    \"\"\"A context manager to temporarily change the os.environ\"\"\"\n    return NoNoneDictMutator(os.environ, **changes)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/keyring/testing/util.py",
+      "line_number": 58
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "iter",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "iter",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Environ",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/keyring/testing/util.py",
+      "line": 58,
+      "caller": "test_environ",
+      "source_code": "def Environ(**changes):\n    \"\"\"A context manager to temporarily change the os.environ\"\"\"\n    return NoNoneDictMutator(os.environ, **changes)\n\n\n"
+    },
+    {
+      "function": "Environ",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/keyring/testing/util.py",
+      "line": 58,
+      "caller": "test_environ",
+      "source_code": "def Environ(**changes):\n    \"\"\"A context manager to temporarily change the os.environ\"\"\"\n    return NoNoneDictMutator(os.environ, **changes)\n\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_environ",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_environ",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_environ",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_environ",
+      "source_code": ""
+    },
+    {
+      "function": "iter",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_environ",
+      "source_code": ""
+    },
+    {
+      "function": "iter",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_environ",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert environ['TESTING'] == 'True'",
+    "assert 'GONE' not in environ",
+    "assert list(iter(environ)) == list(iter(os.environ))",
+    "assert len(environ) == len(os.environ)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_environ() -> None:\n    environ = Environ()\n\n    # We can mutate the environ at this point.\n    environ[\"TESTING\"] = \"True\"\n    environ[\"GONE\"] = \"123\"\n    del environ[\"GONE\"]\n\n    # We can read the environ.\n    assert environ[\"TESTING\"] == \"True\"\n    assert \"GONE\" not in environ\n\n    # We cannot mutate these keys now that we've read them.\n    with pytest.raises(EnvironError):\n        environ[\"TESTING\"] = \"False\"\n\n    with pytest.raises(EnvironError):\n        del environ[\"GONE\"]\n\n    # Test coverage of abstract methods for MutableMapping.\n    environ = Environ()\n    assert list(iter(environ)) == list(iter(os.environ))\n    assert len(environ) == len(os.environ)"
+}

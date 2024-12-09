@@ -1,0 +1,38 @@
+{
+  "test_name": "test_abc_generics",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_abc.py",
+  "static_methods": [
+    {
+      "name": "SlottedChannel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "channel.send_nowait",
+      "source_code": "    def send_nowait(self, value: SendType) -> None:\n        \"\"\"Like `~trio.abc.SendChannel.send`, but if the channel's buffer is\n        full, raises `WouldBlock` instead of blocking.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_channel.py",
+      "line_number": 166
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SlottedChannel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_abc_generics",
+      "source_code": ""
+    },
+    {
+      "function": "channel.send_nowait",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_channel.py",
+      "line": 166,
+      "caller": "test_abc_generics",
+      "source_code": "    @enable_ki_protection\n    def send_nowait(self, value: SendType) -> None:\n        \"\"\"Like `~trio.abc.SendChannel.send`, but if the channel's buffer is\n        full, raises `WouldBlock` instead of blocking.\n\n        \"\"\"\n        if self._closed:\n            raise trio.ClosedResourceError\n        if self._state.open_receive_channels == 0:\n            raise trio.BrokenResourceError\n        if self._state.receive_tasks:\n            assert not self._state.data\n            task, _ = self._state.receive_tasks.popitem(last=False)\n            task.custom_sleep_data._tasks.remove(task)\n            trio.lowlevel.reschedule(task, Value(value))\n        elif len(self._state.data) < self._state.max_buffer_size:\n            self._state.data.append(value)\n        else:\n            raise trio.WouldBlock\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_abc_generics() -> None:\n    # Pythons below 3.5.2 had a typing.Generic that would throw\n    # errors when instantiating or subclassing a parameterized\n    # version of a class with any __slots__. This is why RunVar\n    # (which has slots) is not generic. This tests that\n    # the generic ABCs are fine, because while they are slotted\n    # they don't actually define any slots.\n\n    class SlottedChannel(tabc.SendChannel[tabc.Stream]):\n        __slots__ = (\"x\",)\n\n        def send_nowait(self, value: object) -> None:\n            raise RuntimeError\n\n        async def send(self, value: object) -> None:\n            raise RuntimeError  # pragma: no cover\n\n        def clone(self) -> None:\n            raise RuntimeError  # pragma: no cover\n\n        async def aclose(self) -> None:\n            pass  # pragma: no cover\n\n    channel = SlottedChannel()\n    with pytest.raises(RuntimeError):\n        channel.send_nowait(None)"
+}

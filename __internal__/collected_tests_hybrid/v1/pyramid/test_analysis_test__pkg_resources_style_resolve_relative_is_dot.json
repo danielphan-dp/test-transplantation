@@ -1,0 +1,51 @@
+{
+  "test_name": "test__pkg_resources_style_resolve_relative_is_dot",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_path.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "typ._pkg_resources_style",
+      "source_code": "    def _pkg_resources_style(self, value, package):\n        \"\"\"package.module:attr style\"\"\"\n        if value.startswith(('.', ':')):\n            if not package:\n                raise ValueError(\n                    f'relative name {value!r} irresolveable without package'\n                )\n            if value in ['.', ':']:\n                value = package.__name__\n            else:\n                value = package.__name__ + value\n        # logic below is similar to importlib.metadata.EntryPoint.load()\n        module = value\n        attrs = []\n        parts = value.split(':', 1)\n        if len(parts) == 2:\n            module, attrs = parts\n            attrs = attrs.split('.')\n        module = import_module(module)\n        try:\n            return functools.reduce(getattr, attrs, module)\n        except AttributeError as ex:\n            raise ImportError(str(ex))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/path.py",
+      "line_number": 338
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__pkg_resources_style_resolve_relative_is_dot",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "typ._pkg_resources_style",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/path.py",
+      "line": 338,
+      "caller": "test__pkg_resources_style_resolve_relative_is_dot",
+      "source_code": "    def _pkg_resources_style(self, value, package):\n        \"\"\"package.module:attr style\"\"\"\n        if value.startswith(('.', ':')):\n            if not package:\n                raise ValueError(\n                    f'relative name {value!r} irresolveable without package'\n                )\n            if value in ['.', ':']:\n                value = package.__name__\n            else:\n                value = package.__name__ + value\n        # logic below is similar to importlib.metadata.EntryPoint.load()\n        module = value\n        attrs = []\n        parts = value.split(':', 1)\n        if len(parts) == 2:\n            module, attrs = parts\n            attrs = attrs.split('.')\n        module = import_module(module)\n        try:\n            return functools.reduce(getattr, attrs, module)\n        except AttributeError as ex:\n            raise ImportError(str(ex))\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__pkg_resources_style_resolve_relative_is_dot",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__pkg_resources_style_resolve_relative_is_dot(self):\n        import tests\n\n        typ = self._makeOne()\n        result = typ._pkg_resources_style('.', tests)\n        self.assertEqual(result, tests)"
+}

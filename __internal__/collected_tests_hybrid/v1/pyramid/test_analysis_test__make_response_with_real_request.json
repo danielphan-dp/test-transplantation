@@ -1,0 +1,77 @@
+{
+  "test_name": "test__make_response_with_real_request",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "helper._make_response",
+      "source_code": "    def _make_response(self, result, request):\n        # broken out of render_to_response as a separate method for testing\n        # purposes\n        response = getattr(request, 'response', None)\n        if response is None:\n            # request is None or request is not a pyramid.response.Response\n            registry = self.registry\n            response_factory = _get_response_factory(registry)\n            response = response_factory(request)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 469
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test__make_response_with_real_request",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__make_response_with_real_request",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "helper._make_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 469,
+      "caller": "test__make_response_with_real_request",
+      "source_code": "    def _make_response(self, result, request):\n        # broken out of render_to_response as a separate method for testing\n        # purposes\n        response = getattr(request, 'response', None)\n        if response is None:\n            # request is None or request is not a pyramid.response.Response\n            registry = self.registry\n            response_factory = _get_response_factory(registry)\n            response = response_factory(request)\n\n        if result is not None:\n            if isinstance(result, str):\n                response.text = result\n            elif isinstance(result, bytes):\n                response.body = result\n            elif hasattr(result, '__iter__'):\n                response.app_iter = result\n            else:\n                response.body = result\n\n        return response\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__make_response_with_real_request",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__make_response_with_real_request",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__make_response_with_real_request(self):\n        # functional\n        from pyramid.request import Request\n\n        request = Request({})\n        request.registry = self.config.registry\n        request.response.status = '406 You Lose'\n        helper = self._makeOne('loo.foo')\n        response = helper._make_response('abc', request)\n        self.assertEqual(response.status, '406 You Lose')\n        self.assertEqual(response.body, b'abc')"
+}

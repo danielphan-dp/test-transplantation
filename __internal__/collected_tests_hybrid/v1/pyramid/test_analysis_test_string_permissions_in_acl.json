@@ -1,0 +1,64 @@
+{
+  "test_name": "test_string_permissions_in_acl",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authorization.py",
+  "static_methods": [
+    {
+      "name": "ACLHelper",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helper.permits",
+      "source_code": "    def permits(self, request, context, permission):\n        return self.permissive",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line_number": 60
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ACLHelper",
+      "filename": "",
+      "line": 0,
+      "caller": "test_string_permissions_in_acl",
+      "source_code": ""
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_string_permissions_in_acl",
+      "source_code": ""
+    },
+    {
+      "function": "helper.permits",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line": 60,
+      "caller": "test_string_permissions_in_acl",
+      "source_code": "    def permits(self, request, context, permission):\n        return self.permissive\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_string_permissions_in_acl",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_string_permissions_in_acl(self):\n        from pyramid.authorization import ACLHelper, Allow\n\n        helper = ACLHelper()\n        root = DummyContext()\n        root.__acl__ = [(Allow, 'wilma', 'view_stuff')]\n\n        result = helper.permits(root, ['wilma'], 'view')\n        # would be True if matching against 'view_stuff' instead of against\n        # ['view_stuff']\n        self.assertEqual(result, False)"
+}

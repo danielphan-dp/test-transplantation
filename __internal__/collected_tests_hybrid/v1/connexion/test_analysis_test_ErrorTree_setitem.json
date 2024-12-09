@@ -1,0 +1,103 @@
+{
+  "test_name": "test_ErrorTree_setitem",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_deprecations.py",
+  "static_methods": [
+    {
+      "name": "self.assertWarnsRegex",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.ValidationError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.ErrorTree",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.ErrorTree",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertWarnsRegex",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertWarnsRegex",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ErrorTree_setitem",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.ValidationError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ErrorTree_setitem",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.ErrorTree",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ErrorTree_setitem",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.ErrorTree",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ErrorTree_setitem",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ErrorTree_setitem",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ErrorTree_setitem",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertWarnsRegex",
+      "filename": "",
+      "line": 0,
+      "caller": "test_ErrorTree_setitem",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ErrorTree_setitem(self):\n        \"\"\"\n        As of v4.20.0, setting items on an ErrorTree is deprecated.\n        \"\"\"\n\n        e = exceptions.ValidationError(\"some error\", path=[\"foo\"])\n        tree = exceptions.ErrorTree()\n        subtree = exceptions.ErrorTree(errors=[e])\n\n        message = \"ErrorTree.__setitem__ is \"\n        with self.assertWarnsRegex(DeprecationWarning, message) as w:\n            tree[\"foo\"] = subtree\n\n        self.assertEqual(tree[\"foo\"], subtree)\n        self.assertEqual(w.filename, __file__)"
+}

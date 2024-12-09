@@ -1,0 +1,51 @@
+{
+  "test_name": "test_runtime_library_dir_option",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_mingwccompiler.py",
+  "static_methods": [
+    {
+      "name": "Mingw32CCompiler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "compiler.runtime_library_dir_option",
+      "source_code": "    def runtime_library_dir_option(self, dir: str) -> str | list[str]:\n        # XXX Hackish, at the very least.  See Python bug #445902:\n        # https://bugs.python.org/issue445902\n        # Linkers on different platforms need different options to\n        # specify that directories need to be added to the list of\n        # directories searched for dependencies when a dynamic library\n        # is sought.  GCC on GNU systems (Linux, FreeBSD, ...) has to\n        # be told to pass the -R option through to the linker, whereas\n        # other compilers and gcc on other systems just know this.\n        # Other compilers may need something slightly different.  At\n        # this time, there's no way to determine this information from\n        # the configuration data stored in the Python installation, so\n        # we use this hack.\n        if sys.platform[:6] == \"darwin\":\n            from distutils.util import get_macosx_target_ver, split_version",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/unixccompiler.py",
+      "line_number": 305
+    },
+    {
+      "name": "is_mingw",
+      "source_code": "def is_mingw():\n    \"\"\"Returns True if the current platform is mingw.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line_number": 499
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Mingw32CCompiler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_runtime_library_dir_option",
+      "source_code": ""
+    },
+    {
+      "function": "compiler.runtime_library_dir_option",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/unixccompiler.py",
+      "line": 305,
+      "caller": "test_runtime_library_dir_option",
+      "source_code": "    def runtime_library_dir_option(self, dir: str) -> str | list[str]:\n        # XXX Hackish, at the very least.  See Python bug #445902:\n        # https://bugs.python.org/issue445902\n        # Linkers on different platforms need different options to\n        # specify that directories need to be added to the list of\n        # directories searched for dependencies when a dynamic library\n        # is sought.  GCC on GNU systems (Linux, FreeBSD, ...) has to\n        # be told to pass the -R option through to the linker, whereas\n        # other compilers and gcc on other systems just know this.\n        # Other compilers may need something slightly different.  At\n        # this time, there's no way to determine this information from\n        # the configuration data stored in the Python installation, so\n        # we use this hack.\n        if sys.platform[:6] == \"darwin\":\n            from distutils.util import get_macosx_target_ver, split_version\n\n            macosx_target_ver = get_macosx_target_ver()\n            if macosx_target_ver and split_version(macosx_target_ver) >= [10, 5]:\n                return \"-Wl,-rpath,\" + dir\n            else:  # no support for -rpath on earlier macOS versions\n                return \"-L\" + dir\n        elif sys.platform[:7] == \"freebsd\":\n            return \"-Wl,-rpath=\" + dir\n        elif sys.platform[:5] == \"hp-ux\":\n            return [\n                \"-Wl,+s\" if self._is_gcc() else \"+s\",\n                \"-L\" + dir,\n            ]\n\n        # For all compilers, `-Wl` is the presumed way to pass a\n        # compiler option to the linker\n        if sysconfig.get_config_var(\"GNULD\") == \"yes\":\n            return consolidate_linker_args([\n                # Force RUNPATH instead of RPATH\n                \"-Wl,--enable-new-dtags\",\n                \"-Wl,-rpath,\" + dir,\n            ])\n        else:\n            return \"-Wl,-R\" + dir\n\n"
+    },
+    {
+      "function": "is_mingw",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line": 499,
+      "caller": "test_runtime_library_dir_option",
+      "source_code": "def is_mingw():\n    \"\"\"Returns True if the current platform is mingw.\n\n    Python compiled with Mingw-w64 has sys.platform == 'win32' and\n    get_platform() starts with 'mingw'.\n    \"\"\"\n    return sys.platform == 'win32' and get_platform().startswith('mingw')\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_runtime_library_dir_option(self):\n        from distutils.cygwinccompiler import Mingw32CCompiler\n\n        compiler = Mingw32CCompiler()\n        with pytest.raises(DistutilsPlatformError):\n            compiler.runtime_library_dir_option('/usr/lib')"
+}

@@ -1,0 +1,29 @@
+{
+  "test_name": "test_url_absolute",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_absolute",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not upgrade",
+    "assert msg.method == 'GET'",
+    "assert msg.url == URL('https://www.google.com/path/to.html')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_url_absolute(parser: HttpRequestParser) -> None:\n    text = (\n        b\"GET https://www.google.com/path/to.html HTTP/1.1\\r\\n\"\n        b\"content-length: 0\\r\\n\\r\\n\"\n    )\n    messages, upgrade, tail = parser.feed_data(text)\n    msg, payload = messages[0]\n    assert not upgrade\n    assert msg.method == \"GET\"\n    assert msg.url == URL(\"https://www.google.com/path/to.html\")"
+}

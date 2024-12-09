@@ -1,0 +1,77 @@
+{
+  "test_name": "test_lookup_miss_no_default",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "lb.lookup",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line_number": 61
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_called_with.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_lookup_miss_no_default",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "lb.lookup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line": 61,
+      "caller": "test_lookup_miss_no_default",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.\n\n    :param label: A string.\n    :returns:\n        An :class:`Encoding` object, or :obj:`None` for an unknown label.\n\n    \"\"\"\n    # Only strip ASCII whitespace: U+0009, U+000A, U+000C, U+000D, and U+0020.\n    label = ascii_lower(label.strip('\\t\\n\\f\\r '))\n    name = LABELS.get(label)\n    if name is None:\n        return None\n    encoding = CACHE.get(name)\n    if encoding is None:\n        if name == 'x-user-defined':\n            from .x_user_defined import codec_info\n        else:\n            python_name = PYTHON_NAMES.get(name, name)\n            # Any python_name value that gets to here should be valid.\n            codec_info = codecs.lookup(python_name)\n        encoding = Encoding(name, codec_info)\n        CACHE[name] = encoding\n    return encoding\n\n\n"
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lookup_miss_no_default",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lookup_miss_no_default",
+      "source_code": ""
+    },
+    {
+      "function": "_called_with.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_lookup_miss_no_default",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_lookup_miss_no_default(self):\n        _called_with = []\n\n        def _lookup(self, required, provided, name):\n            _called_with.append((required, provided, name))\n\n        lb = self._makeOne(uc_lookup=_lookup)\n        found = lb.lookup(('A',), 'B', 'C')\n        self.assertIsNone(found)\n        self.assertEqual(_called_with, [(('A',), 'B', 'C')])"
+}

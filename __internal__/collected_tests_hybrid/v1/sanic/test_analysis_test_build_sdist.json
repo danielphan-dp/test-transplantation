@@ -1,0 +1,27 @@
+{
+  "test_name": "test_build_sdist",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_meta.py",
+  "static_methods": [
+    {
+      "name": "build_backend.build_sdist",
+      "source_code": "    def build_sdist(self, sdist_directory, config_settings=None):\n        \"\"\"Build an sdist from this project.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line_number": 286
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_backend.build_sdist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line": 286,
+      "caller": "test_build_sdist",
+      "source_code": "    def build_sdist(self, sdist_directory, config_settings=None):\n        \"\"\"Build an sdist from this project.\n\n        :returns:\n            The name of the newly created sdist within ``wheel_directory``.\n        \"\"\"\n        return self._call_hook('build_sdist', {\n            'sdist_directory': abspath(sdist_directory),\n            'config_settings': config_settings,\n        })\n\n"
+    }
+  ],
+  "assertions": [
+    "assert os.path.isfile(os.path.join(dist_dir, sdist_name))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_sdist(self, build_backend):\n        dist_dir = os.path.abspath('pip-sdist')\n        os.makedirs(dist_dir)\n        sdist_name = build_backend.build_sdist(dist_dir)\n\n        assert os.path.isfile(os.path.join(dist_dir, sdist_name))"
+}

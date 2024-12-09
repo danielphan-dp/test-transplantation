@@ -1,0 +1,157 @@
+{
+  "test_name": "test_connector_loop",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_session.py",
+  "static_methods": [
+    {
+      "name": "stack.enter_context",
+      "source_code": "    def enter_context(self, context_provider: ContextManager[_T]) -> _T:\n        assert self._in_main_context",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/cli/command_context.py",
+      "line_number": 24
+    },
+    {
+      "name": "another_loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "another_loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TCPConnector",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_connector",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "connector.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    },
+    {
+      "name": "ClientSession",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_sess",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "stack.enter_context",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/cli/command_context.py",
+      "line": 24,
+      "caller": "test_connector_loop",
+      "source_code": "    def enter_context(self, context_provider: ContextManager[_T]) -> _T:\n        assert self._in_main_context\n\n        return self._main_context.enter_context(context_provider)\n"
+    },
+    {
+      "function": "another_loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "str.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "another_loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "TCPConnector",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "make_connector",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "connector.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_connector_loop",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    },
+    {
+      "function": "ClientSession",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "make_sess",
+      "filename": "",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_connector_loop",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert str(ctx.value).startswith(expected)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_connector_loop(loop: asyncio.AbstractEventLoop) -> None:\n    with contextlib.ExitStack() as stack:\n        another_loop = asyncio.new_event_loop()\n        stack.enter_context(contextlib.closing(another_loop))\n\n        async def make_connector() -> TCPConnector:\n            return TCPConnector()\n\n        connector = another_loop.run_until_complete(make_connector())\n\n        with pytest.raises(RuntimeError) as ctx:\n\n            async def make_sess() -> ClientSession:\n                return ClientSession(connector=connector)\n\n            loop.run_until_complete(make_sess())\n        expected = \"Session and connector have to use same event loop\"\n        assert str(ctx.value).startswith(expected)\n        another_loop.run_until_complete(connector.close())"
+}

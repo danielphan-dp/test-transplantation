@@ -1,0 +1,53 @@
+{
+  "test_name": "test_parse_invalid_section",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/test_parse_data.py",
+  "static_methods": [
+    {
+      "name": "_run_pytest",
+      "source_code": "def _run_pytest(data_suite: str) -> PytestResult:\n    return run_pytest_data_suite(data_suite, extra_args=[], max_attempts=1)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/test_parse_data.py",
+      "line_number": 10
+    },
+    {
+      "name": "result.input.splitlines.index",
+      "source_code": "    def index(self, o: _T) -> int: pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line_number": 225
+    },
+    {
+      "name": "result.input.splitlines",
+      "source_code": "    def splitlines(  # type: ignore[override]\n        self, /, keepends: bool = False\n    ) -> list[te.Self]:\n        return [self.__class__(v) for v in super().splitlines(keepends)]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/markupsafe/__init__.py",
+      "line_number": 183
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_run_pytest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/meta/test_parse_data.py",
+      "line": 10,
+      "caller": "test_parse_invalid_section",
+      "source_code": "def _run_pytest(data_suite: str) -> PytestResult:\n    return run_pytest_data_suite(data_suite, extra_args=[], max_attempts=1)\n\n\n"
+    },
+    {
+      "function": "result.input.splitlines.index",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line": 225,
+      "caller": "test_parse_invalid_section",
+      "source_code": "    def index(self, o: _T) -> int: pass\n\n"
+    },
+    {
+      "function": "result.input.splitlines",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/markupsafe/__init__.py",
+      "line": 183,
+      "caller": "test_parse_invalid_section",
+      "source_code": "    def splitlines(  # type: ignore[override]\n        self, /, keepends: bool = False\n"
+    }
+  ],
+  "assertions": [
+    "assert expected in result.stdout"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_invalid_section(self) -> None:\n        # Act\n        result = _run_pytest(\n            \"\"\"\n            [case abc]\n            s: str\n            [unknownsection]\n            abc\n            \"\"\"\n        )\n\n        # Assert\n        expected_lineno = result.input.splitlines().index(\"[unknownsection]\") + 1\n        expected = (\n            f\".test:{expected_lineno}: Invalid section header [unknownsection] in case 'abc'\"\n        )\n        assert expected in result.stdout"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_add_translation_dirs_invalid_kwargs",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_i18n.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.add_translation_dirs",
+      "source_code": "    def add_translation_dirs(self, *specs, **kw):\n        \"\"\"Add one or more :term:`translation directory` paths to the\n        current configuration state.  The ``specs`` argument is a\n        sequence that may contain absolute directory paths\n        (e.g. ``/usr/share/locale``) or :term:`asset specification`\n        names naming a directory path (e.g. ``some.package:locale``)\n        or a combination of the two.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/i18n.py",
+      "line_number": 47
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_translation_dirs_invalid_kwargs",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_translation_dirs_invalid_kwargs",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_translation_dirs_invalid_kwargs",
+      "source_code": ""
+    },
+    {
+      "function": "config.add_translation_dirs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/i18n.py",
+      "line": 47,
+      "caller": "test_add_translation_dirs_invalid_kwargs",
+      "source_code": "    @action_method\n    def add_translation_dirs(self, *specs, **kw):\n        \"\"\"Add one or more :term:`translation directory` paths to the\n        current configuration state.  The ``specs`` argument is a\n        sequence that may contain absolute directory paths\n        (e.g. ``/usr/share/locale``) or :term:`asset specification`\n        names naming a directory path (e.g. ``some.package:locale``)\n        or a combination of the two.\n\n        Example:\n\n        .. code-block:: python\n\n           config.add_translation_dirs('/usr/share/locale',\n                                       'some.package:locale')\n\n        The translation directories are defined as a list in which\n        translations defined later have precedence over translations defined\n        earlier.\n\n        By default, consecutive calls to ``add_translation_dirs`` will add\n        directories to the start of the list. This means later calls to\n        ``add_translation_dirs`` will have their translations trumped by\n        earlier calls. If you explicitly need this call to trump an earlier\n        call then you may set ``override`` to ``True``.\n\n        If multiple specs are provided in a single call to\n        ``add_translation_dirs``, the directories will be inserted in the\n        order they're provided (earlier items are trumped by later items).\n\n        .. versionchanged:: 1.8\n\n           The ``override`` parameter was added to allow a later call\n           to ``add_translation_dirs`` to override an earlier call, inserting\n           folders at the beginning of the translation directory list.\n\n        \"\"\"\n        introspectables = []\n        override = kw.pop('override', False)\n        if kw:\n            raise TypeError('invalid keyword arguments: %s', sorted(kw.keys()))\n\n        def register():\n            directories = []\n            resolver = AssetResolver(self.package_name)\n\n            # defer spec resolution until register to allow for asset\n            # overrides to take place in an earlier config phase\n            for spec in specs:\n                # the trailing slash helps match asset overrides for folders\n                if not spec.endswith('/'):\n                    spec += '/'\n                asset = resolver.resolve(spec)\n                directory = asset.abspath()\n                if not asset.isdir():\n                    raise ConfigurationError(\n                        '\"%s\" is not a directory' % directory\n                    )\n                intr = self.introspectable(\n                    'translation directories',\n                    directory,\n                    spec,\n                    'translation directory',\n                )\n                intr['directory'] = directory\n                intr['spec'] = spec\n                introspectables.append(intr)\n                directories.append(directory)\n\n            tdirs = self.registry.queryUtility(ITranslationDirectories)\n            if tdirs is None:\n                tdirs = []\n                self.registry.registerUtility(tdirs, ITranslationDirectories)\n            if override:\n                tdirs.extend(directories)\n            else:\n                for directory in reversed(directories):\n                    tdirs.insert(0, directory)\n\n        self.action(None, register, introspectables=introspectables)\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_translation_dirs_invalid_kwargs(self):\n        config = self._makeOne(autocommit=True)\n        with self.assertRaises(TypeError):\n            config.add_translation_dirs('tests.pkgs.localeapp:locale', foo=1)"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_no_scripts",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+  "static_methods": [
+    {
+      "name": "next",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "ZipFile.infolist",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "next",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_scripts",
+      "source_code": ""
+    },
+    {
+      "function": "ZipFile.infolist",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_scripts",
+      "source_code": ""
+    },
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_scripts",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert '.data/scripts/' not in entry.filename"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_scripts(wheel_paths):\n    \"\"\"Make sure entry point scripts are not generated.\"\"\"\n    path = next(path for path in wheel_paths if \"complex_dist\" in path)\n    for entry in ZipFile(path).infolist():\n        assert \".data/scripts/\" not in entry.filename"
+}

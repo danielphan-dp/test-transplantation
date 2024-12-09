@@ -1,0 +1,92 @@
+{
+  "test_name": "test_osc_codes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/colorama/tests/ansitowin32_test.py",
+  "static_methods": [
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AnsiToWin32",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stream.write",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line_number": 36
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_osc_codes",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_osc_codes",
+      "source_code": ""
+    },
+    {
+      "function": "AnsiToWin32",
+      "filename": "",
+      "line": 0,
+      "caller": "test_osc_codes",
+      "source_code": ""
+    },
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_osc_codes",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_osc_codes",
+      "source_code": ""
+    },
+    {
+      "function": "stream.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line": 36,
+      "caller": "test_osc_codes",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [
+    "patch('colorama.ansitowin32.winterm')"
+  ],
+  "success": false,
+  "test_source_code": "def test_osc_codes(self):\n        mockStdout = Mock()\n        stream = AnsiToWin32(mockStdout, convert=True)\n        with patch('colorama.ansitowin32.winterm') as winterm:\n            data = [\n                '\\033]0\\x07',                      # missing arguments\n                '\\033]0;foo\\x08',                  # wrong OSC command\n                '\\033]0;colorama_test_title\\x07',  # should work\n                '\\033]1;colorama_test_title\\x07',  # wrong set command\n                '\\033]2;colorama_test_title\\x07',  # should work\n                '\\033]' + ';' * 64 + '\\x08',       # see issue #247\n            ]\n            for code in data:\n                stream.write(code)\n            self.assertEqual(winterm.set_title.call_count, 2)"
+}

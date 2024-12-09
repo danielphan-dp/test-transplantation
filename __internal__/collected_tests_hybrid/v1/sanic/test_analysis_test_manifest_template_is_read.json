@@ -1,0 +1,118 @@
+{
+  "test_name": "test_manifest_template_is_read",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self._create_project",
+      "source_code": "    def _create_project(self):\n        path.build({\n            'setup.py': self.setup_script,\n            'hello.py': DALS(\n                \"\"\"\n                def run():\n                    print('hello')\n                \"\"\"\n            ),\n        })",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line_number": 64
+    },
+    {
+      "name": "path.build",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 363
+    },
+    {
+      "name": "self._run_egg_info_command",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line_number": 1227
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "DALS",
+      "source_code": "def DALS(s):\n    \"dedent and left-strip\"\n    return textwrap.dedent(s).lstrip()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/textwrap.py",
+      "line_number": 4
+    },
+    {
+      "name": "f.read.split",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n    ) -> None:\n        \"\"\"Split the layout in to multiple sub-layouts.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line_number": 262
+    },
+    {
+      "name": "f.read",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line_number": 89
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_manifest_template_is_read",
+      "source_code": ""
+    },
+    {
+      "function": "self._create_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line": 64,
+      "caller": "test_manifest_template_is_read",
+      "source_code": "    def _create_project(self):\n        path.build({\n            'setup.py': self.setup_script,\n            'hello.py': DALS(\n                \"\"\"\n                def run():\n                    print('hello')\n                \"\"\"\n            ),\n        })\n\n"
+    },
+    {
+      "function": "path.build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 363,
+      "caller": "test_manifest_template_is_read",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}\n\n        libkey = list(filter(lambda o: o in paths, ('purelib', 'platlib')))[0]\n        if libkey == 'platlib':\n            is_pure = 'false'\n            default_pyver = [IMPVER]\n            default_abi = [ABI]\n            default_arch = [ARCH]\n        else:\n            is_pure = 'true'\n            default_pyver = [PYVER]\n            default_abi = ['none']\n            default_arch = ['any']\n\n        self.pyver = tags.get('pyver', default_pyver)\n        self.abi = tags.get('abi', default_abi)\n        self.arch = tags.get('arch', default_arch)\n\n        libdir = paths[libkey]\n\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        archive_paths = []\n\n        # First, stuff which is not in site-packages\n        for key in ('data', 'headers', 'scripts'):\n            if key not in paths:\n                continue\n            path = paths[key]\n            if os.path.isdir(path):\n                for root, dirs, files in os.walk(path):\n                    for fn in files:\n                        p = fsdecode(os.path.join(root, fn))\n                        rp = os.path.relpath(p, path)\n                        ap = to_posix(os.path.join(data_dir, key, rp))\n                        archive_paths.append((ap, p))\n                        if key == 'scripts' and not p.endswith('.exe'):\n                            with open(p, 'rb') as f:\n                                data = f.read()\n                            data = self.process_shebang(data)\n                            with open(p, 'wb') as f:\n                                f.write(data)\n\n        # Now, stuff which is in site-packages, other than the\n        # distinfo stuff.\n        path = libdir\n        distinfo = None\n        for root, dirs, files in os.walk(path):\n            if root == path:\n                # At the top level only, save distinfo for later\n                # and skip it for now\n                for i, dn in enumerate(dirs):\n                    dn = fsdecode(dn)\n                    if dn.endswith('.dist-info'):\n                        distinfo = os.path.join(root, dn)\n                        del dirs[i]\n                        break\n                assert distinfo, '.dist-info directory expected, not found'\n\n            for fn in files:\n                # comment out next suite to leave .pyc files in\n                if fsdecode(fn).endswith(('.pyc', '.pyo')):\n                    continue\n                p = os.path.join(root, fn)\n                rp = to_posix(os.path.relpath(p, path))\n                archive_paths.append((rp, p))\n\n        # Now distinfo. Assumed to be flat, i.e. os.listdir is enough.\n        files = os.listdir(distinfo)\n        for fn in files:\n            if fn not in ('RECORD', 'INSTALLER', 'SHARED', 'WHEEL'):\n                p = fsdecode(os.path.join(distinfo, fn))\n                ap = to_posix(os.path.join(info_dir, fn))\n                archive_paths.append((ap, p))\n\n        wheel_metadata = [\n            'Wheel-Version: %d.%d' % (wheel_version or self.wheel_version),\n            'Generator: distlib %s' % __version__,\n            'Root-Is-Purelib: %s' % is_pure,\n        ]\n        for pyver, abi, arch in self.tags:\n            wheel_metadata.append('Tag: %s-%s-%s' % (pyver, abi, arch))\n        p = os.path.join(distinfo, 'WHEEL')\n        with open(p, 'w') as f:\n            f.write('\\n'.join(wheel_metadata))\n        ap = to_posix(os.path.join(info_dir, 'WHEEL'))\n        archive_paths.append((ap, p))\n\n        # sort the entries by archive path. Not needed by any spec, but it\n        # keeps the archive listing and RECORD tidier than they would otherwise\n        # be. Use the number of path segments to keep directory entries together,\n        # and keep the dist-info stuff at the end.\n        def sorter(t):\n            ap = t[0]\n            n = ap.count('/')\n            if '.dist-info' in ap:\n                n += 10000\n            return (n, ap)\n        archive_paths = sorted(archive_paths, key=sorter)\n\n        # Now, at last, RECORD.\n        # Paths in here are archive paths - nothing else makes sense.\n        self.write_records((distinfo, info_dir), libdir, archive_paths)\n        # Now, ready to build the zip file\n        pathname = os.path.join(self.dirname, self.filename)\n        self.build_zip(pathname, archive_paths)\n        return pathname\n\n"
+    },
+    {
+      "function": "self._run_egg_info_command",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line": 1227,
+      "caller": "test_manifest_template_is_read",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data\n\n        if output:\n            assert output in data\n\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_manifest_template_is_read",
+      "source_code": ""
+    },
+    {
+      "function": "DALS",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/textwrap.py",
+      "line": 4,
+      "caller": "test_manifest_template_is_read",
+      "source_code": "def DALS(s):\n    \"dedent and left-strip\"\n    return textwrap.dedent(s).lstrip()\n"
+    },
+    {
+      "function": "f.read.split",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/layout.py",
+      "line": 262,
+      "caller": "test_manifest_template_is_read",
+      "source_code": "    def split(\n        self,\n        *layouts: Union[\"Layout\", RenderableType],\n        splitter: Union[Splitter, str] = \"column\",\n"
+    },
+    {
+      "function": "f.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/filewrapper.py",
+      "line": 89,
+      "caller": "test_manifest_template_is_read",
+      "source_code": "    def read(self, amt=None):\n        data = self.__fp.read(amt)\n        if data:\n            # We may be dealing with b'', a sign that things are over:\n            # it's passed e.g. after we've already closed self.__buf.\n            self.__buf.write(data)\n        if self.__is_fp_closed():\n            self._close()\n\n        return data\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'docs/usage.rst' in f.read().split('\\n')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_manifest_template_is_read(self, tmpdir_cwd, env):\n        self._create_project()\n        path.build({\n            'MANIFEST.in': DALS(\n                \"\"\"\n                recursive-include docs *.rst\n            \"\"\"\n            ),\n            'docs': {\n                'usage.rst': \"Run 'hi'\",\n            },\n        })\n        self._run_egg_info_command(tmpdir_cwd, env)\n        egg_info_dir = os.path.join('.', 'foo.egg-info')\n        sources_txt = os.path.join(egg_info_dir, 'SOURCES.txt')\n        with open(sources_txt, encoding=\"utf-8\") as f:\n            assert 'docs/usage.rst' in f.read().split('\\n')"
+}

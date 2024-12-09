@@ -1,0 +1,80 @@
+{
+  "test_name": "test_media_type_matching",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "headers.MediaType.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "headers.MediaType.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "headers.MediaType",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "headers.MediaType",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "headers.MediaType",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "headers.MediaType.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_media_type_matching",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "headers.MediaType.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_media_type_matching",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "headers.MediaType",
+      "filename": "",
+      "line": 0,
+      "caller": "test_media_type_matching",
+      "source_code": ""
+    },
+    {
+      "function": "headers.MediaType",
+      "filename": "",
+      "line": 0,
+      "caller": "test_media_type_matching",
+      "source_code": ""
+    },
+    {
+      "function": "headers.MediaType",
+      "filename": "",
+      "line": 0,
+      "caller": "test_media_type_matching",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert headers.MediaType('foo', 'bar').match(headers.MediaType('foo', 'bar'))",
+    "assert headers.MediaType('foo', 'bar').match('foo/bar')"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_media_type_matching():\n    assert headers.MediaType(\"foo\", \"bar\").match(\n        headers.MediaType(\"foo\", \"bar\")\n    )\n    assert headers.MediaType(\"foo\", \"bar\").match(\"foo/bar\")"
+}

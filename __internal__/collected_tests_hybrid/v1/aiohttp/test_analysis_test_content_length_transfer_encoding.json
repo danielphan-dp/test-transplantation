@@ -1,0 +1,10 @@
+{
+  "test_name": "test_content_length_transfer_encoding",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_content_length_transfer_encoding(parser: HttpRequestParser) -> None:\n    text = (\n        b\"GET / HTTP/1.1\\r\\nHost: a\\r\\nContent-Length: 5\\r\\nTransfer-Encoding: a\\r\\n\\r\\n\"\n        + b\"apple\\r\\n\"\n    )\n    with pytest.raises(http_exceptions.BadHttpMessage):\n        parser.feed_data(text)"
+}

@@ -1,0 +1,66 @@
+{
+  "test_name": "test_verify_oauth_missing_auth_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/decorators/test_security.py",
+  "static_methods": [
+    {
+      "name": "OAuthSecurityHandler",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "security_handler._get_verify_func",
+      "source_code": "        def _get_verify_func(self, basic_info_func):\n            check_basic_info_func = self.check_basic_auth(basic_info_func)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/api/test_secure_api.py",
+      "line_number": 234
+    },
+    {
+      "name": "ConnexionRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "wrapped_func",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "OAuthSecurityHandler",
+      "filename": "",
+      "line": 0,
+      "caller": "test_verify_oauth_missing_auth_header",
+      "source_code": ""
+    },
+    {
+      "function": "security_handler._get_verify_func",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/api/test_secure_api.py",
+      "line": 234,
+      "caller": "test_verify_oauth_missing_auth_header",
+      "source_code": "        def _get_verify_func(self, basic_info_func):\n            check_basic_info_func = self.check_basic_auth(basic_info_func)\n\n            def wrapper(request):\n                auth_type, user_pass = self.get_auth_header_value(request)\n                if auth_type != \"my_basic\":\n                    return NO_VALUE\n\n                try:\n                    username, password = (\n                        base64.b64decode(user_pass).decode(\"latin1\").split(\":\", 1)\n                    )\n                except Exception:\n                    raise OAuthProblem(detail=\"Invalid authorization header\")\n\n                return check_basic_info_func(request, username, password)\n\n            return wrapper\n\n"
+    },
+    {
+      "function": "ConnexionRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_verify_oauth_missing_auth_header",
+      "source_code": ""
+    },
+    {
+      "function": "wrapped_func",
+      "filename": "",
+      "line": 0,
+      "caller": "test_verify_oauth_missing_auth_header",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert wrapped_func(request) is NO_VALUE"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_verify_oauth_missing_auth_header():\n    def somefunc(token):\n        return None\n\n    security_handler = OAuthSecurityHandler()\n    wrapped_func = security_handler._get_verify_func(\n        somefunc, security_handler.validate_scope, [\"admin\"]\n    )\n\n    request = ConnexionRequest(scope={\"type\": \"http\", \"headers\": []})\n\n    assert wrapped_func(request) is NO_VALUE"
+}

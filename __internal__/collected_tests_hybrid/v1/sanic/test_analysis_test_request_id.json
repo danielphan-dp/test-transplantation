@@ -1,0 +1,93 @@
+{
+  "test_name": "test_request_id",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "response.empty",
+      "source_code": "    def empty(cls) -> \"Constraint\":\n        return Constraint(SpecifierSet(), Hashes(), frozenset())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/resolution/resolvelib/base.py",
+      "line_number": 31
+    },
+    {
+      "name": "type",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "uuid4",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id",
+      "source_code": ""
+    },
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_id",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_request_id",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "response.empty",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/resolution/resolvelib/base.py",
+      "line": 31,
+      "caller": "test_request_id",
+      "source_code": "    @classmethod\n    def empty(cls) -> \"Constraint\":\n        return Constraint(SpecifierSet(), Hashes(), frozenset())\n\n"
+    },
+    {
+      "function": "type",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_id",
+      "source_code": ""
+    },
+    {
+      "function": "uuid4",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert request.id == request_id",
+    "assert type(request.id) == expected_type"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_id(request_id, expected_type):\n    app = Sanic(\"req-generator\")\n\n    @app.get(\"/\")\n    async def get(request):\n        return response.empty()\n\n    request, _ = app.test_client.get(\n        \"/\", headers={\"X-REQUEST-ID\": f\"{request_id}\"}\n    )\n    assert request.id == request_id\n    assert type(request.id) == expected_type"
+}

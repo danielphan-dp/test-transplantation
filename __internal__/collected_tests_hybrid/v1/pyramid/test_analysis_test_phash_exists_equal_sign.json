@@ -1,0 +1,51 @@
+{
+  "test_name": "test_phash_exists_equal_sign",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_predicates.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inst.phash",
+      "source_code": "    def phash(self):\n        # using hash() here rather than id() is intentional: we\n        # want to allow custom predicates that are part of\n        # frameworks to be able to define custom __hash__\n        # functions for custom predicates, so that the hash output\n        # of predicate instances which are \"logically the same\"\n        # may compare equal.\n        return 'custom:%r' % hash(self.func)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/predicates.py",
+      "line_number": 215
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_phash_exists_equal_sign",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_phash_exists_equal_sign",
+      "source_code": ""
+    },
+    {
+      "function": "inst.phash",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/predicates.py",
+      "line": 215,
+      "caller": "test_phash_exists_equal_sign",
+      "source_code": "    def phash(self):\n        # using hash() here rather than id() is intentional: we\n        # want to allow custom predicates that are part of\n        # frameworks to be able to define custom __hash__\n        # functions for custom predicates, so that the hash output\n        # of predicate instances which are \"logically the same\"\n        # may compare equal.\n        return 'custom:%r' % hash(self.func)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_phash_exists_equal_sign(self):\n        inst = self._makeOne('=abc')\n        self.assertEqual(inst.phash(), 'request_param =abc')"
+}

@@ -1,0 +1,54 @@
+{
+  "test_name": "test_egg_fragment",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "sum",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_egg_fragment",
+      "source_code": ""
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_egg_fragment",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "sum",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_egg_fragment",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert dists[0].version == ''",
+    "assert dists[1].version == vc"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_egg_fragment(self):\n        \"\"\"\n        EGG fragments must comply to PEP 440\n        \"\"\"\n        epoch = [\n            '',\n            '1!',\n        ]\n        releases = [\n            '0',\n            '0.0',\n            '0.0.0',\n        ]\n        pre = [\n            'a0',\n            'b0',\n            'rc0',\n        ]\n        post = ['.post0']\n        dev = [\n            '.dev0',\n        ]\n        local = [\n            ('', ''),\n            ('+ubuntu.0', '+ubuntu.0'),\n            ('+ubuntu-0', '+ubuntu.0'),\n            ('+ubuntu_0', '+ubuntu.0'),\n        ]\n        versions = [\n            [''.join([e, r, p, loc]) for loc in locs]\n            for e in epoch\n            for r in releases\n            for p in sum([pre, post, dev], [''])\n            for locs in local\n        ]\n        for v, vc in versions:\n            dists = list(\n                setuptools.package_index.distros_for_url(\n                    'http://example.com/example-foo.zip#egg=example-foo-' + v\n                )\n            )\n            assert dists[0].version == ''\n            assert dists[1].version == vc"
+}

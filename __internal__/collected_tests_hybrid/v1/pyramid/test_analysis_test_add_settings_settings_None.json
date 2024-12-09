@@ -1,0 +1,77 @@
+{
+  "test_name": "test_add_settings_settings_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_settings.py",
+  "static_methods": [
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_settings",
+      "source_code": "    def add_settings(self, settings=None, **kw):\n        \"\"\"Augment the :term:`deployment settings` with one or more\n        key/value pairs.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/settings.py",
+      "line_number": 14
+    },
+    {
+      "name": "reg.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_settings_settings_None",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_settings_settings_None",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_settings",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/settings.py",
+      "line": 14,
+      "caller": "test_add_settings_settings_None",
+      "source_code": "    def add_settings(self, settings=None, **kw):\n        \"\"\"Augment the :term:`deployment settings` with one or more\n        key/value pairs.\n\n        You may pass a dictionary::\n\n           config.add_settings({'external_uri':'http://example.com'})\n\n        Or a set of key/value pairs::\n\n           config.add_settings(external_uri='http://example.com')\n\n        This function is useful when you need to test code that accesses the\n        :attr:`pyramid.registry.Registry.settings` API (or the\n        :meth:`pyramid.config.Configurator.get_settings` API) and\n        which uses values from that API.\n        \"\"\"\n        if settings is None:\n            settings = {}\n        utility = self.registry.settings\n        if utility is None:\n            utility = self._set_settings(settings)\n        utility.update(settings)\n        utility.update(kw)\n\n"
+    },
+    {
+      "function": "reg.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_add_settings_settings_None",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_settings_settings_None",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_settings_settings_None(self):\n        from pyramid.interfaces import ISettings\n        from pyramid.registry import Registry\n\n        reg = Registry()\n        config = self._makeOne(reg)\n        config.add_settings(None, a=1)\n        settings = reg.getUtility(ISettings)\n        self.assertEqual(settings['a'], 1)"
+}

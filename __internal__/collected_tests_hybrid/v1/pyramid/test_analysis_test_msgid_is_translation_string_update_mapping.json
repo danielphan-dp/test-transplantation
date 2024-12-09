@@ -1,0 +1,103 @@
+{
+  "test_name": "test_msgid_is_translation_string_update_mapping",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/translationstring/tests/test__init__.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "user_factory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "factory",
+      "source_code": "    def factory(self):\n        if self._factory is None:\n            self._factory = self.entry_point.load()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/plaster/loaders.py",
+      "line_number": 213
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_msgid_is_translation_string_update_mapping",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_msgid_is_translation_string_update_mapping",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "user_factory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_msgid_is_translation_string_update_mapping",
+      "source_code": ""
+    },
+    {
+      "function": "factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/plaster/loaders.py",
+      "line": 213,
+      "caller": "test_msgid_is_translation_string_update_mapping",
+      "source_code": "    @property\n    def factory(self):\n        if self._factory is None:\n            self._factory = self.entry_point.load()\n\n        return self._factory\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_msgid_is_translation_string_update_mapping",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_msgid_is_translation_string_update_mapping",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_msgid_is_translation_string_update_mapping",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_msgid_is_translation_string_update_mapping(self):\n        user_factory = self._makeOne('user')\n        factory = self._makeOne('budge')\n\n        # if the inner msgid defines a mapping\n        wrapped_inst = user_factory('wrapped_msgid: ${a} ${b} ${c}',\n                                    mapping={'a': 1, 'b': 1},\n                                    default='default')\n        wrapper_inst = factory(wrapped_inst,\n                               mapping={'b': 2, 'c': 2},\n                               default='other_default')\n\n        self.assertEqual(str(wrapper_inst), 'wrapped_msgid: ${a} ${b} ${c}')\n        # it must be present when wrapped\n        self.assertEqual(wrapper_inst.mapping, {'a': 1, 'b': 2, 'c': 2})"
+}

@@ -1,0 +1,13 @@
+{
+  "test_name": "test_bad_upgrade",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert not msg.upgrade",
+    "assert not upgrade"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bad_upgrade(parser: HttpRequestParser) -> None:\n    \"\"\"Test not upgraded if missing Upgrade header.\"\"\"\n    text = b\"GET /test HTTP/1.1\\r\\nconnection: upgrade\\r\\n\\r\\n\"\n    messages, upgrade, tail = parser.feed_data(text)\n    msg = messages[0][0]\n    assert not msg.upgrade\n    assert not upgrade"
+}

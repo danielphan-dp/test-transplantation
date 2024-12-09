@@ -1,0 +1,41 @@
+{
+  "test_name": "test_append_json",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart.py",
+  "static_methods": [
+    {
+      "name": "writer.append_json",
+      "source_code": "    def append_json(\n        self, obj: Any, headers: Optional[Mapping[str, str]] = None\n    ) -> Payload:\n        \"\"\"Helper to append JSON part.\"\"\"\n        if headers is None:\n            headers = CIMultiDict()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line_number": 932
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "writer.append_json",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/multipart.py",
+      "line": 932,
+      "caller": "test_append_json",
+      "source_code": "    def append_json(\n        self, obj: Any, headers: Optional[Mapping[str, str]] = None\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_append_json",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 1 == len(writer)",
+    "assert part.headers[CONTENT_TYPE] == 'application/json'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_append_json(self, writer: aiohttp.MultipartWriter) -> None:\n        writer.append_json({\"foo\": \"bar\"})\n        assert 1 == len(writer)\n        part = writer._parts[0][0]\n        assert part.headers[CONTENT_TYPE] == \"application/json\""
+}

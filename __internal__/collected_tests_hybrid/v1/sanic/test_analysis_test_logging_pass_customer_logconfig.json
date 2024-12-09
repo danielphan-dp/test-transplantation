@@ -1,0 +1,29 @@
+{
+  "test_name": "test_logging_pass_customer_logconfig",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_logging.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logging_pass_customer_logconfig",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert fmt._fmt == modified_config['formatters']['generic']['format']",
+    "assert fmt._fmt == modified_config['formatters']['generic']['format']",
+    "assert fmt._fmt == modified_config['formatters']['access']['format']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_logging_pass_customer_logconfig():\n    # reset_logging()\n\n    modified_config = LOGGING_CONFIG_DEFAULTS\n    modified_config[\"formatters\"][\"generic\"][\"format\"] = (\n        \"%(asctime)s - (%(name)s)[%(levelname)s]: %(message)s\"\n    )\n    modified_config[\"formatters\"][\"access\"][\"format\"] = (\n        \"%(asctime)s - (%(name)s)[%(levelname)s]: %(message)s\"\n    )\n\n    Sanic(\"test_logging\", log_config=modified_config)\n\n    for fmt in [h.formatter for h in logging.getLogger(\"sanic.root\").handlers]:\n        assert fmt._fmt == modified_config[\"formatters\"][\"generic\"][\"format\"]\n\n    for fmt in [\n        h.formatter for h in logging.getLogger(\"sanic.error\").handlers\n    ]:\n        assert fmt._fmt == modified_config[\"formatters\"][\"generic\"][\"format\"]\n\n    for fmt in [\n        h.formatter for h in logging.getLogger(\"sanic.access\").handlers\n    ]:\n        assert fmt._fmt == modified_config[\"formatters\"][\"access\"][\"format\"]"
+}

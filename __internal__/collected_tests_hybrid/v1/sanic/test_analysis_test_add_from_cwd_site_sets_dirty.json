@@ -1,0 +1,54 @@
+{
+  "test_name": "test_add_from_cwd_site_sets_dirty",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "PthDistributions",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "pth.add",
+      "source_code": "    def add(self, key, value):\n        identity = self._title(key)\n        self._impl._items.append((identity, self._key(key), value))\n        self._impl.incr_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 214
+    },
+    {
+      "name": "PRDistribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "PthDistributions",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_from_cwd_site_sets_dirty",
+      "source_code": ""
+    },
+    {
+      "function": "pth.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 214,
+      "caller": "test_add_from_cwd_site_sets_dirty",
+      "source_code": "    def add(self, key, value):\n        identity = self._title(key)\n        self._impl._items.append((identity, self._key(key), value))\n        self._impl.incr_version()\n\n"
+    },
+    {
+      "function": "PRDistribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_from_cwd_site_sets_dirty",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not pth.dirty",
+    "assert pth.dirty"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_from_cwd_site_sets_dirty(self):\n        \"\"\"a pth file manager should set dirty\n        if a distribution is in site but also the cwd\n        \"\"\"\n        pth = PthDistributions('does-not_exist', [os.getcwd()])\n        assert not pth.dirty\n        pth.add(PRDistribution(os.getcwd()))\n        assert pth.dirty"
+}

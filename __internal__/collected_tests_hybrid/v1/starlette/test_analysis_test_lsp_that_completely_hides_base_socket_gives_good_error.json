@@ -1,0 +1,90 @@
+{
+  "test_name": "test_lsp_that_completely_hides_base_socket_gives_good_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_windows.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "hasattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "sock.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    },
+    {
+      "name": "OSError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_handle",
+      "source_code": "def _handle(obj: int | CData) -> Handle:\n    # For now, represent handles as either cffi HANDLEs or as ints.  If you\n    # try to pass in a file descriptor instead, it's not going to work\n    # out. (For that msvcrt.get_osfhandle does the trick, but I don't know if\n    # we'll actually need that for anything...) For sockets this doesn't\n    # matter, Python never allocates an fd. So let's wait until we actually\n    # encounter the problem before worrying about it.\n    if isinstance(obj, int):\n        return Handle(ffi.cast(\"HANDLE\", obj))\n    return Handle(obj)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_windows_cffi.py",
+      "line_number": 479
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_lsp_that_completely_hides_base_socket_gives_good_error",
+      "source_code": ""
+    },
+    {
+      "function": "hasattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_lsp_that_completely_hides_base_socket_gives_good_error",
+      "source_code": ""
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_lsp_that_completely_hides_base_socket_gives_good_error",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "sock.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_lsp_that_completely_hides_base_socket_gives_good_error",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    },
+    {
+      "function": "OSError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_lsp_that_completely_hides_base_socket_gives_good_error",
+      "source_code": ""
+    },
+    {
+      "function": "_handle",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_windows_cffi.py",
+      "line": 479,
+      "caller": "test_lsp_that_completely_hides_base_socket_gives_good_error",
+      "source_code": "def _handle(obj: int | CData) -> Handle:\n    # For now, represent handles as either cffi HANDLEs or as ints.  If you\n    # try to pass in a file descriptor instead, it's not going to work\n    # out. (For that msvcrt.get_osfhandle does the trick, but I don't know if\n    # we'll actually need that for anything...) For sockets this doesn't\n    # matter, Python never allocates an fd. So let's wait until we actually\n    # encounter the problem before worrying about it.\n    if isinstance(obj, int):\n        return Handle(ffi.cast(\"HANDLE\", obj))\n    return Handle(obj)\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_lsp_that_completely_hides_base_socket_gives_good_error(\n    monkeypatch: pytest.MonkeyPatch,\n) -> None:\n    # This tests behavior with an LSP that fails SIO_BASE_HANDLE and returns\n    # self for SIO_BSP_HANDLE_SELECT (like Komodia), but also returns\n    # self for SIO_BSP_HANDLE_POLL. No known LSP does this, but we want to\n    # make sure we get an error rather than an infinite loop.\n\n    from .. import _io_windows\n    from .._windows_cffi import CData, WSAIoctls, _handle\n\n    def patched_get_underlying(\n        sock: int | CData, *, which: int = WSAIoctls.SIO_BASE_HANDLE\n    ) -> CData:\n        if hasattr(sock, \"fileno\"):  # pragma: no branch\n            sock = sock.fileno()\n        if which == WSAIoctls.SIO_BASE_HANDLE:\n            raise OSError(\"nope\")\n        else:\n            return _handle(sock)\n\n    monkeypatch.setattr(_io_windows, \"_get_underlying_socket\", patched_get_underlying)\n    with pytest.raises(\n        RuntimeError,\n        match=\"SIO_BASE_HANDLE failed and SIO_BSP_HANDLE_POLL didn't return a diff\",\n    ):\n        _core.run(sleep, 0)"
+}

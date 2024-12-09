@@ -1,0 +1,64 @@
+{
+  "test_name": "test_cookie_jar_delete_existing_nonsecure_cookie_bad_prefix",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_cookies.py",
+  "static_methods": [
+    {
+      "name": "Header",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CookieJar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "jar.add_cookie",
+      "source_code": "    def add_cookie(\n        self,\n        key: str,\n        value: str,\n        *,\n        path: str = \"/\",\n        domain: Optional[str] = None,\n        secure: bool = True,\n        max_age: Optional[int] = None,\n        expires: Optional[datetime] = None,\n        httponly: bool = False,\n        samesite: Optional[SameSite] = \"Lax\",\n        partitioned: bool = False,\n        comment: Optional[str] = None,\n        host_prefix: bool = False,\n        secure_prefix: bool = False,\n    ) -> Cookie:\n        \"\"\"Add a cookie to the CookieJar",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/response/types.py",
+      "line_number": 127
+    },
+    {
+      "name": "jar.delete_cookie",
+      "source_code": "    def delete_cookie(\n        self,\n        key: str,\n        *,\n        path: str = \"/\",\n        domain: Optional[str] = None,\n        host_prefix: bool = False,\n        secure_prefix: bool = False,\n    ) -> None:\n        \"\"\"Delete a cookie",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/response/types.py",
+      "line_number": 182
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Header",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cookie_jar_delete_existing_nonsecure_cookie_bad_prefix",
+      "source_code": ""
+    },
+    {
+      "function": "CookieJar",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cookie_jar_delete_existing_nonsecure_cookie_bad_prefix",
+      "source_code": ""
+    },
+    {
+      "function": "jar.add_cookie",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/response/types.py",
+      "line": 127,
+      "caller": "test_cookie_jar_delete_existing_nonsecure_cookie_bad_prefix",
+      "source_code": "    def add_cookie(\n        self,\n        key: str,\n        value: str,\n        *,\n        path: str = \"/\",\n        domain: Optional[str] = None,\n        secure: bool = True,\n        max_age: Optional[int] = None,\n        expires: Optional[datetime] = None,\n        httponly: bool = False,\n        samesite: Optional[SameSite] = \"Lax\",\n        partitioned: bool = False,\n        comment: Optional[str] = None,\n        host_prefix: bool = False,\n        secure_prefix: bool = False,\n"
+    },
+    {
+      "function": "jar.delete_cookie",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/response/types.py",
+      "line": 182,
+      "caller": "test_cookie_jar_delete_existing_nonsecure_cookie_bad_prefix",
+      "source_code": "    def delete_cookie(\n        self,\n        key: str,\n        *,\n        path: str = \"/\",\n        domain: Optional[str] = None,\n        host_prefix: bool = False,\n        secure_prefix: bool = False,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_cookie_jar_delete_existing_nonsecure_cookie_bad_prefix():\n    headers = Header()\n    jar = CookieJar(headers)\n    jar.add_cookie(\n        \"foo\", \"test\", secure=False, domain=\"example.com\", samesite=\"Strict\"\n    )\n    message = (\n        \"Cannot set host_prefix on a cookie without \"\n        \"path='/', domain=None, and secure=True\"\n    )\n    with pytest.raises(ServerError, match=message):\n        jar.delete_cookie(\n            \"foo\",\n            domain=\"example.com\",\n            secure=False,\n            secure_prefix=True,\n            host_prefix=True,\n        )"
+}

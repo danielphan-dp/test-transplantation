@@ -1,0 +1,108 @@
+{
+  "test_name": "test_json_body_requests",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_pipelining.py",
+  "static_methods": [
+    {
+      "name": "app.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "ReusableClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "client.post",
+      "source_code": "    def post(self) -> None:\n        return None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line_number": 144
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "id",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "request.json.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_json_body_requests",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "ReusableClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_json_body_requests",
+      "source_code": ""
+    },
+    {
+      "function": "client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_json_body_requests",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/packaging/version.py",
+      "line": 144,
+      "caller": "test_json_body_requests",
+      "source_code": "    @property\n    def post(self) -> None:\n        return None\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_json_body_requests",
+      "source_code": ""
+    },
+    {
+      "function": "id",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_json_body_requests",
+      "source_code": ""
+    },
+    {
+      "function": "request.json.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_json_body_requests",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response1.status == response2.status == 200",
+    "assert response1.json['foo'] is response2.json['foo'] is True",
+    "assert response1.json['request_id'] != response2.json['request_id']",
+    "assert response1.json['connection_id'] == response2.json['connection_id']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_json_body_requests(app, port):\n    @app.post(\"/\")\n    async def handler(request):\n        return json(\n            {\n                \"request_id\": str(request.id),\n                \"connection_id\": id(request.conn_info),\n                \"foo\": request.json.get(\"foo\"),\n            }\n        )\n\n    client = ReusableClient(app, port=port)\n\n    with client:\n        _, response1 = client.post(\"/\", json={\"foo\": True})\n        _, response2 = client.post(\"/\", json={\"foo\": True})\n\n    assert response1.status == response2.status == 200\n    assert response1.json[\"foo\"] is response2.json[\"foo\"] is True\n    assert response1.json[\"request_id\"] != response2.json[\"request_id\"]\n    assert response1.json[\"connection_id\"] == response2.json[\"connection_id\"]"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_state_full",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+  "static_methods": [
+    {
+      "name": "gen_state",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line_number": 6
+    },
+    {
+      "name": "state.full",
+      "source_code": "    def full(self) -> HTTPResponse:  # noqa\n        \"\"\"Provide a formatted message that has all details and is mean to be used primarily for debugging and non-production environments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line_number": 128
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "gen_state",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line": 6,
+      "caller": "test_state_full",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")\n\n\n"
+    },
+    {
+      "function": "state.full",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line": 128,
+      "caller": "test_state_full",
+      "source_code": "    def full(self) -> HTTPResponse:  # noqa\n        \"\"\"Provide a formatted message that has all details and is mean to be used primarily for debugging and non-production environments.\n\n        Returns:\n            HTTPResponse: The response object.\n        \"\"\"  # noqa: E501\n        raise NotImplementedError\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert state.full() == {'foo': {'one': 1}}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_state_full():\n    state = gen_state(one=1)\n    assert state.full() == {\"foo\": {\"one\": 1}}"
+}

@@ -1,0 +1,103 @@
+{
+  "test_name": "test_call_view_registered_secure",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+  "static_methods": [
+    {
+      "name": "self._makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "self._makeContext",
+      "source_code": "    def _makeContext(self):\n        from zope.interface import directlyProvides",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 45
+    },
+    {
+      "name": "DummyResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_view",
+      "source_code": "def make_view(response):\n    def view(context, request):\n        return response",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 1209
+    },
+    {
+      "name": "self._registerView",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 16
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_call_view_registered_secure",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "self._makeContext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 45,
+      "caller": "test_call_view_registered_secure",
+      "source_code": "    def _makeContext(self):\n        from zope.interface import directlyProvides\n\n        context = DummyContext()\n        directlyProvides(context, IContext)\n        return context\n\n\n"
+    },
+    {
+      "function": "DummyResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_view_registered_secure",
+      "source_code": ""
+    },
+    {
+      "function": "make_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 1209,
+      "caller": "test_call_view_registered_secure",
+      "source_code": "def make_view(response):\n    def view(context, request):\n        return response\n\n    return view\n\n\n"
+    },
+    {
+      "function": "self._registerView",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 16,
+      "caller": "test_call_view_registered_secure",
+      "source_code": "    def _registerView(self, reg, app, name):\n        from pyramid.interfaces import IViewClassifier\n\n        for_ = (IViewClassifier, IRequest, IContext)\n        from pyramid.interfaces import IView\n\n        reg.registerAdapter(app, for_, IView, name)\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_call_view_registered_secure",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_view_registered_secure",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_call_view_registered_secure(self):\n        request = self._makeRequest()\n        context = self._makeContext()\n        response = DummyResponse()\n        view = make_view(response)\n        self._registerView(request.registry, view, 'registered')\n        s = self._callFUT(context, request, name='registered', secure=True)\n        self.assertEqual(s, b'')"
+}

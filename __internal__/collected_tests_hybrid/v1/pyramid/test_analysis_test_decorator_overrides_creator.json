@@ -1,0 +1,64 @@
+{
+  "test_name": "test_decorator_overrides_creator",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cache.get_or_create",
+      "source_code": "    def get_or_create(self, request, creator=None):\n        \"\"\"\n        Return the value from the cache. Compute if necessary.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line_number": 407
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_decorator_overrides_creator",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_decorator_overrides_creator",
+      "source_code": ""
+    },
+    {
+      "function": "cache.get_or_create",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/request.py",
+      "line": 407,
+      "caller": "test_decorator_overrides_creator",
+      "source_code": "    def get_or_create(self, request, creator=None):\n        \"\"\"\n        Return the value from the cache. Compute if necessary.\n\n        If no value is cached then execute the creator, cache the result,\n        and return it.\n\n        The creator may be passed in as an argument or bound to the cache\n        by decorating a function or supplied as a constructor argument.\n\n        \"\"\"\n        result = self._store.get(request, self.NO_VALUE)\n        if result is self.NO_VALUE:\n            if creator is None:\n                creator = self._creator\n                if creator is None:\n                    raise ValueError(\n                        'no creator function has been registered with the '\n                        'cache or supplied to \"get_or_create\"'\n                    )\n            result = creator(request)\n            self.set(request, result)\n        return result\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_decorator_overrides_creator",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_decorator_overrides_creator(self):\n        def foo(request):  # pragma: no cover\n            raise AssertionError\n\n        cache = self._makeOne(foo)\n\n        @cache\n        def bar(request):\n            return 8\n\n        req = DummyRequest()\n        result = cache.get_or_create(req)\n        self.assertEqual(result, 8)"
+}

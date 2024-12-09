@@ -1,0 +1,42 @@
+{
+  "test_name": "test_simple_url_for_getting",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_url_building.py",
+  "static_methods": [
+    {
+      "name": "simple_app.url_for",
+      "source_code": "    def url_for(request):\n        return text(\"url-for\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line_number": 2180
+    },
+    {
+      "name": "simple_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "simple_app.url_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_requests.py",
+      "line": 2180,
+      "caller": "test_simple_url_for_getting",
+      "source_code": "    @app.route(\"/url-for\")\n    def url_for(request):\n        return text(\"url-for\")\n\n"
+    },
+    {
+      "function": "simple_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_simple_url_for_getting",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert url == f'/{letter}'",
+    "assert response.status == 200",
+    "assert response.text == letter"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_simple_url_for_getting(simple_app):\n    for letter in string.ascii_letters:\n        url = simple_app.url_for(letter)\n\n        assert url == f\"/{letter}\"\n        request, response = simple_app.test_client.get(url)\n        assert response.status == 200\n        assert response.text == letter"
+}

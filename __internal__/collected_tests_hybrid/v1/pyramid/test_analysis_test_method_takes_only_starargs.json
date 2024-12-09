@@ -1,0 +1,51 @@
+{
+  "test_name": "test_method_takes_only_starargs",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_verify.py",
+  "static_methods": [
+    {
+      "name": "implementer",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 630
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "NotImplementedError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "implementer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 630,
+      "caller": "test_method_takes_only_starargs",
+      "source_code": "    def implementer(*interfaces):\n        \"\"\"\n        Create a decorator for declaring interfaces implemented by a\n        factory.\n\n        A callable is returned that makes an implements declaration on\n        objects passed to it.\n\n        .. seealso:: :meth:`classImplements`\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_method_takes_only_starargs",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "NotImplementedError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_method_takes_only_starargs",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_method_takes_only_starargs(self):\n        from zope.interface import Interface\n        from zope.interface import implementer\n\n        class ICurrent(Interface):\n\n            def method(a, *args):\n                \"\"\"docstring\"\"\"\n\n        @implementer(ICurrent)\n        class Current:\n\n            def method(self, *args):\n                raise NotImplementedError()\n\n        self._callFUT(ICurrent, Current)"
+}

@@ -1,0 +1,90 @@
+{
+  "test_name": "test_it_raises_if_no_registry",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "manager.push",
+      "source_code": "    def push(self, item: T) -> None:\n        \"\"\"Push an item on to the stack (append in stack nomenclature).\"\"\"\n        self.append(item)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_stack.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.fail",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "manager.pop",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 940
+    },
+    {
+      "name": "request.invoke_exception_view",
+      "source_code": "    def invoke_exception_view(\n        self, exc_info=None, request=None, secure=True, reraise=False\n    ):\n        \"\"\"Executes an exception view related to the request it's called upon.\n        The arguments it takes are these:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line_number": 689
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_it_raises_if_no_registry",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "manager.push",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_stack.py",
+      "line": 14,
+      "caller": "test_it_raises_if_no_registry",
+      "source_code": "    def push(self, item: T) -> None:\n        \"\"\"Push an item on to the stack (append in stack nomenclature).\"\"\"\n        self.append(item)\n"
+    },
+    {
+      "function": "self.fail",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_raises_if_no_registry",
+      "source_code": ""
+    },
+    {
+      "function": "manager.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 940,
+      "caller": "test_it_raises_if_no_registry",
+      "source_code": "    def pop(self, key, default=None):\n        value = dict.pop(self, key, default)\n        result = self.configurator.convert(value)\n        if value is not result:\n            if type(result) in (ConvertingDict, ConvertingList,\n                                ConvertingTuple):\n                result.parent = self\n                result.key = key\n        return result\n\n"
+    },
+    {
+      "function": "request.invoke_exception_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/view.py",
+      "line": 689,
+      "caller": "test_it_raises_if_no_registry",
+      "source_code": "    def invoke_exception_view(\n        self, exc_info=None, request=None, secure=True, reraise=False\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_raises_if_no_registry",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_raises_if_no_registry(self):\n        request = self._makeOne()\n        del request.registry\n        from pyramid.threadlocal import manager\n\n        manager.push({'registry': None, 'request': request})\n        try:\n            raise RuntimeError\n        except RuntimeError:\n            try:\n                request.invoke_exception_view()\n            except RuntimeError as e:\n                self.assertEqual(e.args[0], \"Unable to retrieve registry\")\n        else:  # pragma: no cover\n            self.fail()\n        finally:\n            manager.pop()"
+}

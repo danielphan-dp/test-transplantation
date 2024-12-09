@@ -1,0 +1,184 @@
+{
+  "test_name": "test_websocket_route_middleware",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "client.websocket_connect",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n    ) -> WebSocketTestSession:\n        url = urljoin(\"ws://testserver\", url)\n        headers = kwargs.get(\"headers\", {})\n        headers.setdefault(\"connection\", \"upgrade\")\n        headers.setdefault(\"sec-websocket-key\", \"testserver==\")\n        headers.setdefault(\"sec-websocket-version\", \"13\")\n        if subprotocols is not None:\n            headers.setdefault(\"sec-websocket-protocol\", \", \".join(subprotocols))\n        kwargs[\"headers\"] = headers\n        try:\n            super().request(\"GET\", url, **kwargs)\n        except _Upgrade as exc:\n            session = exc.session\n        else:\n            raise RuntimeError(\"Expected WebSocket upgrade\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 699
+    },
+    {
+      "name": "Starlette",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n    ) -> WebSocketTestSession:\n        url = urljoin(\"ws://testserver\", url)\n        headers = kwargs.get(\"headers\", {})\n        headers.setdefault(\"connection\", \"upgrade\")\n        headers.setdefault(\"sec-websocket-key\", \"testserver==\")\n        headers.setdefault(\"sec-websocket-version\", \"13\")\n        if subprotocols is not None:\n            headers.setdefault(\"sec-websocket-protocol\", \", \".join(subprotocols))\n        kwargs[\"headers\"] = headers\n        try:\n            super().request(\"GET\", url, **kwargs)\n        except _Upgrade as exc:\n            session = exc.session\n        else:\n            raise RuntimeError(\"Expected WebSocket upgrade\")  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 699
+    },
+    {
+      "name": "websocket.receive_text",
+      "source_code": "    def receive_text(self) -> str:\n        message = self.receive()\n        self._raise_on_close(message)\n        return typing.cast(str, message[\"text\"])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 210
+    },
+    {
+      "name": "session.accept",
+      "source_code": "    def accept(self, type: TokenType, *, reject: Literal[True]) -> Token: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/mark/expression.py",
+      "line_number": 142
+    },
+    {
+      "name": "session.send_text",
+      "source_code": "    def send_text(self, data: str) -> None:\n        self.send({\"type\": \"websocket.receive\", \"text\": data})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line_number": 188
+    },
+    {
+      "name": "session.close",
+      "source_code": "    def close(self) -> None:\n        self.session.close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line_number": 89
+    },
+    {
+      "name": "self.app",
+      "source_code": "    def app(self) -> typing.Any:\n        return self.scope[\"app\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/requests.py",
+      "line_number": 96
+    },
+    {
+      "name": "WebSocketRoute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "msg.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "client.websocket_connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 699,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n"
+    },
+    {
+      "function": "Starlette",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_route_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 699,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    def websocket_connect(\n        self,\n        url: str,\n        subprotocols: typing.Sequence[str] | None = None,\n        **kwargs: typing.Any,\n"
+    },
+    {
+      "function": "websocket.receive_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 210,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    def receive_text(self) -> str:\n        message = self.receive()\n        self._raise_on_close(message)\n        return typing.cast(str, message[\"text\"])\n\n"
+    },
+    {
+      "function": "session.accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/mark/expression.py",
+      "line": 142,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    @overload\n    def accept(self, type: TokenType, *, reject: Literal[True]) -> Token: ...\n\n"
+    },
+    {
+      "function": "session.send_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/testclient.py",
+      "line": 188,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    def send_text(self, data: str) -> None:\n        self.send({\"type\": \"websocket.receive\", \"text\": data})\n\n"
+    },
+    {
+      "function": "session.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line": 89,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    def close(self) -> None:\n        self.session.close()\n\n"
+    },
+    {
+      "function": "self.app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/requests.py",
+      "line": 96,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    @property\n    def app(self) -> typing.Any:\n        return self.scope[\"app\"]\n\n"
+    },
+    {
+      "function": "WebSocketRoute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_route_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "msg.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_websocket_route_middleware",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_route_middleware",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert text == 'Hello, world!'",
+    "assert websocket.extra_headers == [(b'X-Test', b'Set by middleware')]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_websocket_route_middleware(\n    test_client_factory: TestClientFactory,\n) -> None:\n    async def websocket_endpoint(session: WebSocket) -> None:\n        await session.accept()\n        await session.send_text(\"Hello, world!\")\n        await session.close()\n\n    class WebsocketMiddleware:\n        def __init__(self, app: ASGIApp) -> None:\n            self.app = app\n\n        async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:\n            async def modified_send(msg: Message) -> None:\n                if msg[\"type\"] == \"websocket.accept\":\n                    msg[\"headers\"].append((b\"X-Test\", b\"Set by middleware\"))\n                await send(msg)\n\n            await self.app(scope, receive, modified_send)\n\n    app = Starlette(\n        routes=[\n            WebSocketRoute(\n                \"/ws\",\n                endpoint=websocket_endpoint,\n                middleware=[Middleware(WebsocketMiddleware)],\n            )\n        ]\n    )\n\n    client = test_client_factory(app)\n\n    with client.websocket_connect(\"/ws\") as websocket:\n        text = websocket.receive_text()\n        assert text == \"Hello, world!\"\n        assert websocket.extra_headers == [(b\"X-Test\", b\"Set by middleware\")]"
+}

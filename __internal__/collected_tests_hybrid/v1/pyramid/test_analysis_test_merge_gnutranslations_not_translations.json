@@ -1,0 +1,51 @@
+{
+  "test_name": "test_merge_gnutranslations_not_translations",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_i18n.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "inst.merge",
+      "source_code": "    def merge(self, translations):\n        \"\"\"Merge the given translations into the catalog.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/i18n.py",
+      "line_number": 313
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_merge_gnutranslations_not_translations",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "inst.merge",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/i18n.py",
+      "line": 313,
+      "caller": "test_merge_gnutranslations_not_translations",
+      "source_code": "    def merge(self, translations):\n        \"\"\"Merge the given translations into the catalog.\n\n        Message translations in the specified catalog override any messages\n        with the same identifier in the existing catalog.\n\n        :param translations: the `Translations` instance with the messages to\n                             merge\n        :return: the `Translations` instance (``self``) so that `merge` calls\n                 can be easily chained\n        :rtype: `Translations`\n        \"\"\"\n        if isinstance(translations, gettext.GNUTranslations):\n            self._catalog.update(translations._catalog)\n            if isinstance(translations, Translations):\n                self.files.extend(translations.files)\n\n        return self\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_merge_gnutranslations_not_translations",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_merge_gnutranslations_not_translations(self):\n        import gettext\n\n        t = gettext.GNUTranslations()\n        t._catalog = {'a': 'b'}\n        inst = self._makeOne()\n        inst.merge(t)\n        self.assertEqual(inst._catalog['a'], 'b')"
+}

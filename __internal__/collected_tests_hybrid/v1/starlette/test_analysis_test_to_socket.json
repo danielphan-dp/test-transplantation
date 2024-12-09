@@ -1,0 +1,159 @@
+{
+  "test_name": "test_to_socket",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+  "static_methods": [
+    {
+      "name": "wfd.to_socket",
+      "source_code": "    def to_socket(self):\n        \"\"\"Convert to a socket object",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line_number": 114
+    },
+    {
+      "name": "s1.sendall",
+      "source_code": "    def sendall(self, data):\n        total_sent = 0\n        while total_sent < len(data):\n            sent = self.send(data[total_sent : total_sent + SSL_WRITE_BLOCKSIZE])\n            total_sent += sent",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 649
+    },
+    {
+      "name": "s2.detach",
+      "source_code": "    def detach(self) -> int:\n        raise NotImplementedError",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_socket.py",
+      "line_number": 537
+    },
+    {
+      "name": "FileDescriptor",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "assert_not_fd",
+      "source_code": "def assert_not_fd(fd: int):\n    \"\"\"Check that the given number is not open as a file descriptor\"\"\"\n    with pytest.raises(OSError) as exc_info:\n        os.stat(fd)\n    assert exc_info.value.errno == errno.EBADF",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+      "line_number": 9
+    },
+    {
+      "name": "s1.close",
+      "source_code": "    def close(self) -> None:\n        self.session.close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line_number": 89
+    },
+    {
+      "name": "wfd.to_socket",
+      "source_code": "    def to_socket(self):\n        \"\"\"Convert to a socket object",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line_number": 114
+    },
+    {
+      "name": "sock.recv",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 577
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "wfd.fileno",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 226
+    },
+    {
+      "name": "startswith",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def endswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n    def replace(self, old: str, new: str, maxcount: int=...) -> str: ...\n    def encode(self, x: str=..., y: str=...) -> bytes: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line_number": 110
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "wfd.to_socket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line": 114,
+      "caller": "test_to_socket",
+      "source_code": "    def to_socket(self):\n        \"\"\"Convert to a socket object\n\n        This returns a standard library :func:`socket.socket` object::\n\n            with fd.to_socket() as sock:\n                b = sock.sendall(b'xyz')\n\n        The wrapper object can't be used after calling this. Closing the socket\n        object will also close the file descriptor.\n        \"\"\"\n        from socket import socket\n\n        self._check()\n        s = socket(fileno=self._fd)\n        self._fd = self._CONVERTED\n        return s\n\n"
+    },
+    {
+      "function": "s1.sendall",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 649,
+      "caller": "test_to_socket",
+      "source_code": "    def sendall(self, data):\n        total_sent = 0\n        while total_sent < len(data):\n            sent = self.send(data[total_sent : total_sent + SSL_WRITE_BLOCKSIZE])\n            total_sent += sent\n\n"
+    },
+    {
+      "function": "s2.detach",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_socket.py",
+      "line": 537,
+      "caller": "test_to_socket",
+      "source_code": "    def detach(self) -> int:\n        raise NotImplementedError\n\n"
+    },
+    {
+      "function": "FileDescriptor",
+      "filename": "",
+      "line": 0,
+      "caller": "test_to_socket",
+      "source_code": ""
+    },
+    {
+      "function": "assert_not_fd",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/tests/test_fds.py",
+      "line": 9,
+      "caller": "test_to_socket",
+      "source_code": "def assert_not_fd(fd: int):\n    \"\"\"Check that the given number is not open as a file descriptor\"\"\"\n    with pytest.raises(OSError) as exc_info:\n        os.stat(fd)\n    assert exc_info.value.errno == errno.EBADF\n\n\n"
+    },
+    {
+      "function": "s1.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line": 89,
+      "caller": "test_to_socket",
+      "source_code": "    def close(self) -> None:\n        self.session.close()\n\n"
+    },
+    {
+      "function": "wfd.to_socket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/jeepney/fds.py",
+      "line": 114,
+      "caller": "test_to_socket",
+      "source_code": "    def to_socket(self):\n        \"\"\"Convert to a socket object\n\n        This returns a standard library :func:`socket.socket` object::\n\n            with fd.to_socket() as sock:\n                b = sock.sendall(b'xyz')\n\n        The wrapper object can't be used after calling this. Closing the socket\n        object will also close the file descriptor.\n        \"\"\"\n        from socket import socket\n\n        self._check()\n        s = socket(fileno=self._fd)\n        self._fd = self._CONVERTED\n        return s\n\n"
+    },
+    {
+      "function": "sock.recv",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 577,
+      "caller": "test_to_socket",
+      "source_code": "    def recv(self, bufsiz):\n        buffer = ctypes.create_string_buffer(bufsiz)\n        bytes_read = self.recv_into(buffer, bufsiz)\n        data = buffer[:bytes_read]\n        return data\n\n"
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_to_socket",
+      "source_code": ""
+    },
+    {
+      "function": "wfd.fileno",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 226,
+      "caller": "test_to_socket",
+      "source_code": "    def fileno(self) -> int:\n        raise UnsupportedOperation(\"redirected stdin is pseudofile, has no fileno()\")\n\n"
+    },
+    {
+      "function": "startswith",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/ir.py",
+      "line": 110,
+      "caller": "test_to_socket",
+      "source_code": "    def startswith(self, x: str, start: int=..., end: int=...) -> bool: ...\n"
+    }
+  ],
+  "assertions": [
+    "assert 'converted' in repr(wfd)",
+    "assert b and b'abcd'.startswith(b)",
+    "assert_not_fd(sfd)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_to_socket():\n    s1, s2 = socket.socketpair()\n    try:\n        s1.sendall(b'abcd')\n        sfd = s2.detach()\n        wfd = FileDescriptor(sfd)\n\n        with wfd.to_socket() as sock:\n            b = sock.recv(16)\n            assert b and b'abcd'.startswith(b)\n\n        assert 'converted' in repr(wfd)\n        with pytest.raises(NoFDError):\n            wfd.fileno()\n\n        assert_not_fd(sfd)  # Check FD was closed by socket object\n    finally:\n        s1.close()"
+}

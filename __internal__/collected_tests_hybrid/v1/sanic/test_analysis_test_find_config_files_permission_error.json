@@ -1,0 +1,77 @@
+{
+  "test_name": "test_find_config_files_permission_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "fake_home.joinpath.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "fake_home.chmod",
+      "source_code": "    def chmod(*args: object, **kwargs: object) -> None:  # type: ignore[misc] # Mypy reuses the imported definition anyway\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_shutil.py",
+      "line_number": 16
+    },
+    {
+      "name": "Distribution.find_config_files",
+      "source_code": "    def find_config_files(self):\n        \"\"\"Find as many configuration files as should be processed for this\n        platform, and return a list of filenames in the order in which they\n        should be parsed.  The filenames returned are guaranteed to exist\n        (modulo nasty race conditions).",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line_number": 318
+    },
+    {
+      "name": "fake_home.joinpath",
+      "source_code": "    def joinpath(self, *other):\n        next = posixpath.join(self.at, *other)\n        return self._next(self.root.resolve_dir(next))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line_number": 488
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "fake_home.joinpath.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_find_config_files_permission_error",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "fake_home.chmod",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_shutil.py",
+      "line": 16,
+      "caller": "test_find_config_files_permission_error",
+      "source_code": "    def chmod(*args: object, **kwargs: object) -> None:  # type: ignore[misc] # Mypy reuses the imported definition anyway\n        pass\n\n\n"
+    },
+    {
+      "function": "Distribution.find_config_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line": 318,
+      "caller": "test_find_config_files_permission_error",
+      "source_code": "    def find_config_files(self):\n        \"\"\"Find as many configuration files as should be processed for this\n        platform, and return a list of filenames in the order in which they\n        should be parsed.  The filenames returned are guaranteed to exist\n        (modulo nasty race conditions).\n\n        There are multiple possible config files:\n        - distutils.cfg in the Distutils installation directory (i.e.\n          where the top-level Distutils __inst__.py file lives)\n        - a file in the user's home directory named .pydistutils.cfg\n          on Unix and pydistutils.cfg on Windows/Mac; may be disabled\n          with the ``--no-user-cfg`` option\n        - setup.cfg in the current directory\n        - a file named by an environment variable\n        \"\"\"\n        check_environ()\n        files = [str(path) for path in self._gen_paths() if os.path.isfile(path)]\n\n        if DEBUG:\n            self.announce(\"using config files: {}\".format(', '.join(files)))\n\n        return files\n\n"
+    },
+    {
+      "function": "fake_home.joinpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line": 488,
+      "caller": "test_find_config_files_permission_error",
+      "source_code": "    def joinpath(self, *other):\n        next = posixpath.join(self.at, *other)\n        return self._next(self.root.resolve_dir(next))\n\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_find_config_files_permission_error",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_find_config_files_permission_error(self, fake_home):\n        \"\"\"\n        Finding config files should not fail when directory is inaccessible.\n        \"\"\"\n        fake_home.joinpath(pydistutils_cfg).write_text('', encoding='utf-8')\n        fake_home.chmod(0o000)\n        Distribution().find_config_files()"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_no_errors",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "_LATEST_VERSION",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.best_match",
+      "source_code": "    def best_match(self, matches: cabc.Iterable[str]) -> str | None: ...\n    @t.overload\n    def best_match(self, matches: cabc.Iterable[str], default: str = ...) -> str: ...\n    def best_match(\n        self, matches: cabc.Iterable[str], default: str | None = None\n    ) -> str | None:\n        \"\"\"Returns the best match from a list of possible matches based\n        on the specificity and quality of the client. If two items have the\n        same quality and specificity, the one is returned that comes first.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line_number": 161
+    },
+    {
+      "name": "validator.iter_errors",
+      "source_code": "        def iter_errors(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.iter_errors \"\n                        \"is deprecated and will be removed in a future \"\n                        \"release. Call validator.evolve(schema=new_schema).\"\n                        \"iter_errors(...) instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                validators = [\n                    (self.VALIDATORS[k], k, v)\n                    for k, v in applicable_validators(_schema)\n                    if k in self.VALIDATORS\n                ]\n            else:\n                _schema, validators = self.schema, self._validators",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 350
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_LATEST_VERSION",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_errors",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_errors",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.best_match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/accept.py",
+      "line": 161,
+      "caller": "test_no_errors",
+      "source_code": "    @t.overload\n    def best_match(self, matches: cabc.Iterable[str]) -> str | None: ...\n"
+    },
+    {
+      "function": "validator.iter_errors",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 350,
+      "caller": "test_no_errors",
+      "source_code": "        def iter_errors(self, instance, _schema=None):\n            if _schema is not None:\n                warnings.warn(\n                    (\n                        \"Passing a schema to Validator.iter_errors \"\n                        \"is deprecated and will be removed in a future \"\n                        \"release. Call validator.evolve(schema=new_schema).\"\n                        \"iter_errors(...) instead.\"\n                    ),\n                    DeprecationWarning,\n                    stacklevel=2,\n                )\n                validators = [\n                    (self.VALIDATORS[k], k, v)\n                    for k, v in applicable_validators(_schema)\n                    if k in self.VALIDATORS\n                ]\n            else:\n                _schema, validators = self.schema, self._validators\n\n            if _schema is True:\n                return\n            elif _schema is False:\n                yield exceptions.ValidationError(\n                    f\"False schema does not allow {instance!r}\",\n                    validator=None,\n                    validator_value=None,\n                    instance=instance,\n                    schema=_schema,\n                )\n                return\n\n            for validator, k, v in validators:\n                errors = validator(self, v, instance, _schema) or ()\n                for error in errors:\n                    # set details if not already set by the called fn\n                    error._set(\n                        validator=k,\n                        validator_value=v,\n                        instance=instance,\n                        schema=_schema,\n                        type_checker=self.TYPE_CHECKER,\n                    )\n                    if k not in {\"if\", \"$ref\"}:\n                        error.schema_path.appendleft(k)\n                    yield error\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_errors(self):\n        validator = _LATEST_VERSION({})\n        self.assertIsNone(exceptions.best_match(validator.iter_errors({})))"
+}

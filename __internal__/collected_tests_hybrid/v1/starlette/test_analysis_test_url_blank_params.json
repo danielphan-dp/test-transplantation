@@ -1,0 +1,99 @@
+{
+  "test_name": "test_url_blank_params",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_datastructures.py",
+  "static_methods": [
+    {
+      "name": "QueryParams",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "q.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "q.keys",
+      "source_code": "    def keys(self):\n        \"\"\"\n        Retrieves the available time zones as a list.\n        \"\"\"\n        return list(self._vtz.keys())",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/tz/tz.py",
+      "line_number": 1281
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "QueryParams",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_blank_params",
+      "source_code": ""
+    },
+    {
+      "function": "q.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_url_blank_params",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_blank_params",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_blank_params",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_url_blank_params",
+      "source_code": ""
+    },
+    {
+      "function": "q.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/dateutil/tz/tz.py",
+      "line": 1281,
+      "caller": "test_url_blank_params",
+      "source_code": "    def keys(self):\n        \"\"\"\n        Retrieves the available time zones as a list.\n        \"\"\"\n        return list(self._vtz.keys())\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'a' in q",
+    "assert 'abc' in q",
+    "assert 'def' in q",
+    "assert 'b' in q",
+    "assert val is not None",
+    "assert len(val) == 0",
+    "assert len(q['a']) == 3",
+    "assert list(q.keys()) == ['a', 'abc', 'def', 'b']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_url_blank_params() -> None:\n    q = QueryParams(\"a=123&abc&def&b=456\")\n    assert \"a\" in q\n    assert \"abc\" in q\n    assert \"def\" in q\n    assert \"b\" in q\n    val = q.get(\"abc\")\n    assert val is not None\n    assert len(val) == 0\n    assert len(q[\"a\"]) == 3\n    assert list(q.keys()) == [\"a\", \"abc\", \"def\", \"b\"]"
+}

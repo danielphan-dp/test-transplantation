@@ -1,0 +1,94 @@
+{
+  "test_name": "test_staticfiles_follows_symlinks",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_staticfiles.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "StaticFiles",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "file.write",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line_number": 36
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_follows_symlinks",
+      "source_code": ""
+    },
+    {
+      "function": "StaticFiles",
+      "filename": "",
+      "line": 0,
+      "caller": "test_staticfiles_follows_symlinks",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_staticfiles_follows_symlinks",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_staticfiles_follows_symlinks",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_follows_symlinks",
+      "source_code": ""
+    },
+    {
+      "function": "file.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line": 36,
+      "caller": "test_staticfiles_follows_symlinks",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise\n"
+    }
+  ],
+  "assertions": [
+    "assert response.url == 'http://testserver/index.html'",
+    "assert response.status_code == 200",
+    "assert response.text == '<h1>Hello</h1>'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_staticfiles_follows_symlinks(tmpdir: Path, test_client_factory: TestClientFactory) -> None:\n    statics_path = os.path.join(tmpdir, \"statics\")\n    os.mkdir(statics_path)\n\n    source_path = tempfile.mkdtemp()\n    source_file_path = os.path.join(source_path, \"page.html\")\n    with open(source_file_path, \"w\") as file:\n        file.write(\"<h1>Hello</h1>\")\n\n    statics_file_path = os.path.join(statics_path, \"index.html\")\n    os.symlink(source_file_path, statics_file_path)\n\n    app = StaticFiles(directory=statics_path, follow_symlink=True)\n    client = test_client_factory(app)\n\n    response = client.get(\"/index.html\")\n    assert response.url == \"http://testserver/index.html\"\n    assert response.status_code == 200\n    assert response.text == \"<h1>Hello</h1>\""
+}

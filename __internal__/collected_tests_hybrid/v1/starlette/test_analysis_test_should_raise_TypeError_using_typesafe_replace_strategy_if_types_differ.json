@@ -1,0 +1,51 @@
+{
+  "test_name": "test_should_raise_TypeError_using_typesafe_replace_strategy_if_types_differ",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mergedeep/test_mergedeep.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "def assertRaises(typ: type, msg: str = '') -> Iterator[None]:\n    try:\n        yield\n    except Exception as e:\n        assert isinstance(e, typ), f\"{e!r} is not a {typ.__name__}\"\n        assert msg in str(e), f'Message \"{e}\" does not match \"{msg}\"'\n    else:\n        assert False, f\"Expected {typ.__name__} but got no exception\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/testutil.py",
+      "line_number": 44
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "def assertRaises(typ: type, msg: str = '') -> Iterator[None]:\n    try:\n        yield\n    except Exception as e:\n        assert isinstance(e, typ), f\"{e!r} is not a {typ.__name__}\"\n        assert msg in str(e), f'Message \"{e}\" does not match \"{msg}\"'\n    else:\n        assert False, f\"Expected {typ.__name__} but got no exception\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/testutil.py",
+      "line_number": 44
+    },
+    {
+      "name": "merge",
+      "source_code": "    def merge(self, params: QueryParamTypes | None = None) -> QueryParams:\n        \"\"\"\n        Return a new QueryParams instance, updated with.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpx/_urls.py",
+      "line_number": 582
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/testutil.py",
+      "line": 44,
+      "caller": "test_should_raise_TypeError_using_typesafe_replace_strategy_if_types_differ",
+      "source_code": "@contextmanager\ndef assertRaises(typ: type, msg: str = '') -> Iterator[None]:\n    try:\n        yield\n    except Exception as e:\n        assert isinstance(e, typ), f\"{e!r} is not a {typ.__name__}\"\n        assert msg in str(e), f'Message \"{e}\" does not match \"{msg}\"'\n    else:\n        assert False, f\"Expected {typ.__name__} but got no exception\"\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test-data/fixtures/testutil.py",
+      "line": 44,
+      "caller": "test_should_raise_TypeError_using_typesafe_replace_strategy_if_types_differ",
+      "source_code": "@contextmanager\ndef assertRaises(typ: type, msg: str = '') -> Iterator[None]:\n    try:\n        yield\n    except Exception as e:\n        assert isinstance(e, typ), f\"{e!r} is not a {typ.__name__}\"\n        assert msg in str(e), f'Message \"{e}\" does not match \"{msg}\"'\n    else:\n        assert False, f\"Expected {typ.__name__} but got no exception\"\n\n"
+    },
+    {
+      "function": "merge",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpx/_urls.py",
+      "line": 582,
+      "caller": "test_should_raise_TypeError_using_typesafe_replace_strategy_if_types_differ",
+      "source_code": "    def merge(self, params: QueryParamTypes | None = None) -> QueryParams:\n        \"\"\"\n        Return a new QueryParams instance, updated with.\n\n        Usage:\n\n        q = httpx.QueryParams(\"a=123\")\n        q = q.merge({\"b\": \"456\"})\n        assert q == httpx.QueryParams(\"a=123&b=456\")\n\n        q = httpx.QueryParams(\"a=123\")\n        q = q.merge({\"a\": \"456\", \"b\": \"789\"})\n        assert q == httpx.QueryParams(\"a=456&b=789\")\n        \"\"\"\n        q = QueryParams(params)\n        q._dict = {**self._dict, **q._dict}\n        return q\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_should_raise_TypeError_using_typesafe_replace_strategy_if_types_differ(self,):\n        a = {\"a\": {\"b\": {\"c\": 5}}, \"d\": 1, \"e\": {2: 3}, \"f\": [1, 2, 3]}\n        b = {\"a\": {\"B\": {\"C\": 10}}, \"d\": 2, \"e\": 2, \"f\": [4, 5, 6]}\n        c = {\"a\": {\"b\": {\"_c\": 15}}, \"d\": 3, \"e\": {1: 2, \"a\": {\"f\": 2}}}\n\n        with self.assertRaises(TypeError):\n            merge({}, a, b, c, strategy=Strategy.TYPESAFE_REPLACE)"
+}

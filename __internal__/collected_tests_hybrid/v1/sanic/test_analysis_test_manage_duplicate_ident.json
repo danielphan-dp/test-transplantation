@@ -1,0 +1,38 @@
+{
+  "test_name": "test_manage_duplicate_ident",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_manager.py",
+  "static_methods": [
+    {
+      "name": "manager.manage",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n    ) -> None:\n        \"\"\"Manages the initiation and monitoring of a worker process.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line_number": 42
+    },
+    {
+      "name": "manager.manage",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n    ) -> None:\n        \"\"\"Manages the initiation and monitoring of a worker process.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line_number": 42
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "manager.manage",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line": 42,
+      "caller": "test_manage_duplicate_ident",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n"
+    },
+    {
+      "function": "manager.manage",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/multiplexer.py",
+      "line": 42,
+      "caller": "test_manage_duplicate_ident",
+      "source_code": "    def manage(\n        self,\n        ident: str,\n        func: Callable[..., Any],\n        kwargs: Dict[str, Any],\n        transient: bool = False,\n        restartable: Optional[bool] = None,\n        tracked: bool = False,\n        auto_start: bool = True,\n        workers: int = 1,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_manage_duplicate_ident(manager: WorkerManager):\n    manager.manage(\"TEST\", fake_serve, kwargs={\"foo\": \"bar\"})\n    message = \"Worker TEST already exists\"\n    with pytest.raises(ValueError, match=message):\n        manager.manage(\"TEST\", fake_serve, kwargs={\"foo\": \"bar\"})"
+}

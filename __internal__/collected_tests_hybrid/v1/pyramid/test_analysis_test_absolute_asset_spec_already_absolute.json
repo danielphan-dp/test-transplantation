@@ -1,0 +1,51 @@
+{
+  "test_name": "test_absolute_asset_spec_already_absolute",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.absolute_asset_spec",
+      "source_code": "    def absolute_asset_spec(self, relative_spec):\n        \"\"\"Resolve the potentially relative :term:`asset\n        specification` string passed as ``relative_spec`` into an\n        absolute asset specification string and return the string.\n        Use the ``package`` of this configurator as the package to\n        which the asset specification will be considered relative\n        when generating an absolute asset specification.  If the\n        provided ``relative_spec`` argument is already absolute, or if\n        the ``relative_spec`` is not a string, it is simply returned.\"\"\"\n        if not isinstance(relative_spec, str):\n            return relative_spec\n        return self._make_spec(relative_spec)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 742
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_absolute_asset_spec_already_absolute",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.absolute_asset_spec",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 742,
+      "caller": "test_absolute_asset_spec_already_absolute",
+      "source_code": "    def absolute_asset_spec(self, relative_spec):\n        \"\"\"Resolve the potentially relative :term:`asset\n        specification` string passed as ``relative_spec`` into an\n        absolute asset specification string and return the string.\n        Use the ``package`` of this configurator as the package to\n        which the asset specification will be considered relative\n        when generating an absolute asset specification.  If the\n        provided ``relative_spec`` argument is already absolute, or if\n        the ``relative_spec`` is not a string, it is simply returned.\"\"\"\n        if not isinstance(relative_spec, str):\n            return relative_spec\n        return self._make_spec(relative_spec)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_absolute_asset_spec_already_absolute",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_absolute_asset_spec_already_absolute(self):\n        import tests.test_config\n\n        config = self._makeOne(package=tests.test_config)\n        result = config.absolute_asset_spec('already:absolute')\n        self.assertEqual(result, 'already:absolute')"
+}

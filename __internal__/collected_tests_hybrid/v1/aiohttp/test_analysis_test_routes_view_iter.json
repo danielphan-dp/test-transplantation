@@ -1,0 +1,66 @@
+{
+  "test_name": "test_routes_view_iter",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "fill_routes",
+      "source_code": "def fill_routes(router: web.UrlDispatcher) -> Callable[[], List[web.AbstractRoute]]:\n    def go() -> List[web.AbstractRoute]:\n        route1 = router.add_route(\"GET\", \"/plain\", make_handler())\n        route2 = router.add_route(\"GET\", \"/variable/{name}\", make_handler())\n        resource = router.add_static(\"/static\", pathlib.Path(aiohttp.__file__).parent)\n        return [route1, route2] + list(resource)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+      "line_number": 49
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "router.routes",
+      "source_code": "    def routes(self) -> RoutesView:\n        return RoutesView(self._resources)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1055
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "fill_routes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+      "line": 49,
+      "caller": "test_routes_view_iter",
+      "source_code": "@pytest.fixture\ndef fill_routes(router: web.UrlDispatcher) -> Callable[[], List[web.AbstractRoute]]:\n    def go() -> List[web.AbstractRoute]:\n        route1 = router.add_route(\"GET\", \"/plain\", make_handler())\n        route2 = router.add_route(\"GET\", \"/variable/{name}\", make_handler())\n        resource = router.add_static(\"/static\", pathlib.Path(aiohttp.__file__).parent)\n        return [route1, route2] + list(resource)\n\n    return go\n\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_routes_view_iter",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_routes_view_iter",
+      "source_code": ""
+    },
+    {
+      "function": "router.routes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1055,
+      "caller": "test_routes_view_iter",
+      "source_code": "    def routes(self) -> RoutesView:\n        return RoutesView(self._resources)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert list(routes) == list(router.routes())"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_routes_view_iter(\n    router: web.UrlDispatcher, fill_routes: Callable[[], List[web.AbstractRoute]]\n) -> None:\n    routes = fill_routes()\n    assert list(routes) == list(router.routes())"
+}

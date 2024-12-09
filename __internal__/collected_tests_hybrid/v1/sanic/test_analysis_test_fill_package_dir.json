@@ -1,0 +1,106 @@
+{
+  "test_name": "test_fill_package_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_expand.py",
+  "static_methods": [
+    {
+      "name": "write_files",
+      "source_code": "    def write_files(self, base_dir):\n        log.info(f\"creating '{self.filename}' and adding '{base_dir}' to it\")\n        deferred = []\n        for root, dirnames, filenames in os.walk(base_dir):\n            # Sort the directory names so that `os.walk` will walk them in a\n            # defined order on the next iteration.\n            dirnames.sort()\n            for name in sorted(filenames):\n                path = os.path.normpath(os.path.join(root, name))\n                if os.path.isfile(path):\n                    arcname = os.path.relpath(path, base_dir).replace(os.path.sep, \"/\")\n                    if arcname == self.record_path:\n                        pass\n                    elif root.endswith(\".dist-info\"):\n                        deferred.append((path, arcname))\n                    else:\n                        self.write(path, arcname)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/wheelfile.py",
+      "line_number": 122
+    },
+    {
+      "name": "expand.find_packages",
+      "source_code": "    def find_packages(self, requirement) -> None:\n        self.scan_url(self.index_url + requirement.unsafe_name + '/')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 500
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "find_package_path",
+      "source_code": "def find_package_path(\n    name: str, package_dir: Mapping[str, str], root_dir: StrPath",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/discovery.py",
+      "line_number": 577
+    },
+    {
+      "name": "pkg_dir.items",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 105
+    },
+    {
+      "name": "expected_package_dir.items",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 105
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "write_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/wheelfile.py",
+      "line": 122,
+      "caller": "test_fill_package_dir",
+      "source_code": "    def write_files(self, base_dir):\n        log.info(f\"creating '{self.filename}' and adding '{base_dir}' to it\")\n        deferred = []\n        for root, dirnames, filenames in os.walk(base_dir):\n            # Sort the directory names so that `os.walk` will walk them in a\n            # defined order on the next iteration.\n            dirnames.sort()\n            for name in sorted(filenames):\n                path = os.path.normpath(os.path.join(root, name))\n                if os.path.isfile(path):\n                    arcname = os.path.relpath(path, base_dir).replace(os.path.sep, \"/\")\n                    if arcname == self.record_path:\n                        pass\n                    elif root.endswith(\".dist-info\"):\n                        deferred.append((path, arcname))\n                    else:\n                        self.write(path, arcname)\n\n        deferred.sort()\n        for path, arcname in deferred:\n            self.write(path, arcname)\n\n"
+    },
+    {
+      "function": "expand.find_packages",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 500,
+      "caller": "test_fill_package_dir",
+      "source_code": "    def find_packages(self, requirement) -> None:\n        self.scan_url(self.index_url + requirement.unsafe_name + '/')\n\n        if not self.package_pages.get(requirement.key):\n            # Fall back to safe version of the name\n            self.scan_url(self.index_url + requirement.project_name + '/')\n\n        if not self.package_pages.get(requirement.key):\n            # We couldn't find the target package, so search the index page too\n            self.not_found_in_index(requirement)\n\n        for url in list(self.package_pages.get(requirement.key, ())):\n            # scan each page that might be related to the desired package\n            self.scan_url(url)\n\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fill_package_dir",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fill_package_dir",
+      "source_code": ""
+    },
+    {
+      "function": "find_package_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/discovery.py",
+      "line": 577,
+      "caller": "test_fill_package_dir",
+      "source_code": "def find_package_path(\n    name: str, package_dir: Mapping[str, str], root_dir: StrPath\n"
+    },
+    {
+      "function": "pkg_dir.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 105,
+      "caller": "test_fill_package_dir",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)\n\n"
+    },
+    {
+      "function": "expected_package_dir.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 105,
+      "caller": "test_fill_package_dir",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert set(pkg_dir.items()) == set(expected_package_dir.items())",
+    "assert os.path.exists(pkg_path)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_fill_package_dir(tmp_path, files, where, expected_package_dir):\n    write_files({k: \"\" for k in files}, tmp_path)\n    pkg_dir = {}\n    kwargs = {\"root_dir\": tmp_path, \"fill_package_dir\": pkg_dir, \"namespaces\": False}\n    pkgs = expand.find_packages(where=where, **kwargs)\n    assert set(pkg_dir.items()) == set(expected_package_dir.items())\n    for pkg in pkgs:\n        pkg_path = find_package_path(pkg, pkg_dir, tmp_path)\n        assert os.path.exists(pkg_path)"
+}

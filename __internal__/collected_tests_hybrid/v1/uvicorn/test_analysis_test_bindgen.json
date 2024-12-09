@@ -1,0 +1,134 @@
+{
+  "test_name": "test_bindgen",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_bindgen.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "StringIO",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "code_from_xml",
+      "source_code": "def code_from_xml(xml, path, bus_name, fh):\n    if isinstance(fh, (bytes, str)):\n        with open(fh, 'w') as f:\n            return code_from_xml(xml, path, bus_name, f)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bindgen.py",
+      "line_number": 85
+    },
+    {
+      "name": "exec",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Service.SearchItems",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "f.read",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line_number": 145
+    },
+    {
+      "name": "sio.getvalue",
+      "source_code": "    def getvalue(self) -> str:\n        assert isinstance(self.buffer, io.BytesIO)\n        return self.buffer.getvalue().decode(\"UTF-8\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 187
+    },
+    {
+      "name": "Service",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bindgen",
+      "source_code": ""
+    },
+    {
+      "function": "StringIO",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bindgen",
+      "source_code": ""
+    },
+    {
+      "function": "code_from_xml",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bindgen.py",
+      "line": 85,
+      "caller": "test_bindgen",
+      "source_code": "def code_from_xml(xml, path, bus_name, fh):\n    if isinstance(fh, (bytes, str)):\n        with open(fh, 'w') as f:\n            return code_from_xml(xml, path, bus_name, f)\n\n    root = ET.fromstring(xml)\n    fh.write(MODULE_TEMPLATE.format(version=__version__, path=path,\n                                    bus_name=bus_name))\n\n    i = 0\n    for interface_node in root.findall('interface'):\n        if interface_node.attrib['name'] in IGNORE_INTERFACES:\n            continue\n        fh.write(Interface(interface_node, path, bus_name).make_code())\n        i += 1\n\n    return i\n\n"
+    },
+    {
+      "function": "exec",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bindgen",
+      "source_code": ""
+    },
+    {
+      "function": "Service.SearchItems",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bindgen",
+      "source_code": ""
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bindgen",
+      "source_code": ""
+    },
+    {
+      "function": "f.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line": 145,
+      "caller": "test_bindgen",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None\n\n        self.position += len(token.text)\n        self.next_token = None\n\n        return token\n\n"
+    },
+    {
+      "function": "sio.getvalue",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 187,
+      "caller": "test_bindgen",
+      "source_code": "    def getvalue(self) -> str:\n        assert isinstance(self.buffer, io.BytesIO)\n        return self.buffer.getvalue().decode(\"UTF-8\")\n\n\n"
+    },
+    {
+      "function": "Service",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bindgen",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert n_interfaces == 2",
+    "assert Service.interface == 'org.freedesktop.Secret.Service'",
+    "assert msg.header.message_type is MessageType.method_call",
+    "assert msg.header.fields[HeaderFields.destination] == 'org.freedesktop.secrets'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bindgen():\n    with open(sample_file) as f:\n        xml = f.read()\n    sio = StringIO()\n    n_interfaces = code_from_xml(xml, path='/org/freedesktop/secrets',\n                                 bus_name='org.freedesktop.secrets',\n                                 fh=sio)\n    # 5 interfaces defined, but we ignore Properties, Introspectable, Peer\n    assert n_interfaces == 2\n\n    # Run the generated code, defining the message generator classes.\n    binding_ns = {}\n    exec(sio.getvalue(), binding_ns)\n    Service = binding_ns['Service']\n\n    # Check basic functionality of the Service class\n    assert Service.interface == 'org.freedesktop.Secret.Service'\n    msg = Service().SearchItems({\"service\": \"foo\", \"user\": \"bar\"})\n    assert msg.header.message_type is MessageType.method_call\n    assert msg.header.fields[HeaderFields.destination] == 'org.freedesktop.secrets'"
+}

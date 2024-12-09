@@ -1,0 +1,53 @@
+{
+  "test_name": "test_get_abi_tag_fallback",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_bdist_wheel.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "get_abi_tag",
+      "source_code": "def get_abi_tag():\n    \"\"\"Return the ABI tag based on SOABI (if available) or emulate SOABI (PyPy2).\"\"\"\n    soabi = sysconfig.get_config_var(\"SOABI\")\n    impl = tags.interpreter_name()\n    if not soabi and impl in (\"cp\", \"pp\") and hasattr(sys, \"maxunicode\"):\n        d = \"\"\n        m = \"\"\n        u = \"\"\n        if get_flag(\"Py_DEBUG\", hasattr(sys, \"gettotalrefcount\"), warn=(impl == \"cp\")):\n            d = \"d\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/bdist_wheel.py",
+      "line_number": 100
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_abi_tag_fallback",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_abi_tag_fallback",
+      "source_code": ""
+    },
+    {
+      "function": "get_abi_tag",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/wheel/bdist_wheel.py",
+      "line": 100,
+      "caller": "test_get_abi_tag_fallback",
+      "source_code": "def get_abi_tag():\n    \"\"\"Return the ABI tag based on SOABI (if available) or emulate SOABI (PyPy2).\"\"\"\n    soabi = sysconfig.get_config_var(\"SOABI\")\n    impl = tags.interpreter_name()\n    if not soabi and impl in (\"cp\", \"pp\") and hasattr(sys, \"maxunicode\"):\n        d = \"\"\n        m = \"\"\n        u = \"\"\n        if get_flag(\"Py_DEBUG\", hasattr(sys, \"gettotalrefcount\"), warn=(impl == \"cp\")):\n            d = \"d\"\n\n        if get_flag(\n            \"WITH_PYMALLOC\",\n            impl == \"cp\",\n            warn=(impl == \"cp\" and sys.version_info < (3, 8)),\n        ) and sys.version_info < (3, 8):\n            m = \"m\"\n\n        abi = f\"{impl}{tags.interpreter_version()}{d}{m}{u}\"\n    elif soabi and impl == \"cp\" and soabi.startswith(\"cpython\"):\n        # non-Windows\n        abi = \"cp\" + soabi.split(\"-\")[1]\n    elif soabi and impl == \"cp\" and soabi.startswith(\"cp\"):\n        # Windows\n        abi = soabi.split(\"-\")[0]\n    elif soabi and impl == \"pp\":\n        # we want something like pypy36-pp73\n        abi = \"-\".join(soabi.split(\"-\")[:2])\n        abi = abi.replace(\".\", \"_\").replace(\"-\", \"_\")\n    elif soabi and impl == \"graalpy\":\n        abi = \"-\".join(soabi.split(\"-\")[:3])\n        abi = abi.replace(\".\", \"_\").replace(\"-\", \"_\")\n    elif soabi:\n        abi = soabi.replace(\".\", \"_\").replace(\"-\", \"_\")\n    else:\n        abi = None\n\n    return abi\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert get_abi_tag() == 'unknown_python_310'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_abi_tag_fallback(monkeypatch):\n    monkeypatch.setattr(sysconfig, \"get_config_var\", lambda x: \"unknown-python-310\")\n    monkeypatch.setattr(tags, \"interpreter_name\", lambda: \"unknown-python\")\n    assert get_abi_tag() == \"unknown_python_310\""
+}

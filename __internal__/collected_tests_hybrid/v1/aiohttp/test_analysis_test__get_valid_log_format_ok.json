@@ -1,0 +1,27 @@
+{
+  "test_name": "test__get_valid_log_format_ok",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_worker.py",
+  "static_methods": [
+    {
+      "name": "worker._get_valid_log_format",
+      "source_code": "    def _get_valid_log_format(self, source_format: str) -> str:\n        if source_format == self.DEFAULT_GUNICORN_LOG_FORMAT:\n            return self.DEFAULT_AIOHTTP_LOG_FORMAT\n        elif re.search(r\"%\\([^\\)]+\\)\", source_format):\n            raise ValueError(\n                \"Gunicorn's style options in form of `%(name)s` are not \"\n                \"supported for the log formatting. Please use aiohttp's \"\n                \"format specification to configure access log formatting: \"\n                \"http://docs.aiohttp.org/en/stable/logging.html\"\n                \"#format-specification\"\n            )\n        else:\n            return source_format",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line_number": 215
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "worker._get_valid_log_format",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/worker.py",
+      "line": 215,
+      "caller": "test__get_valid_log_format_ok",
+      "source_code": "    def _get_valid_log_format(self, source_format: str) -> str:\n        if source_format == self.DEFAULT_GUNICORN_LOG_FORMAT:\n            return self.DEFAULT_AIOHTTP_LOG_FORMAT\n        elif re.search(r\"%\\([^\\)]+\\)\", source_format):\n            raise ValueError(\n                \"Gunicorn's style options in form of `%(name)s` are not \"\n                \"supported for the log formatting. Please use aiohttp's \"\n                \"format specification to configure access log formatting: \"\n                \"http://docs.aiohttp.org/en/stable/logging.html\"\n                \"#format-specification\"\n            )\n        else:\n            return source_format\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert result == worker._get_valid_log_format(source)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__get_valid_log_format_ok(\n    worker: base_worker.GunicornWebWorker, source: str, result: str\n) -> None:\n    assert result == worker._get_valid_log_format(source)"
+}

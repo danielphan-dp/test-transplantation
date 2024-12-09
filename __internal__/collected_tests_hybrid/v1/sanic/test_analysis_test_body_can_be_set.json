@@ -1,0 +1,27 @@
+{
+  "test_name": "test_body_can_be_set",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response_json.py",
+  "static_methods": [
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_body_can_be_set",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert resp.body == new_body"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_body_can_be_set(json_app: Sanic):\n    new_body = b'{\"hello\":\"world\"}'\n\n    @json_app.on_response\n    def set_body(request: Request, response: JSONResponse):\n        response.body = new_body\n\n    _, resp = json_app.test_client.get(\"/json\")\n    assert resp.body == new_body"
+}

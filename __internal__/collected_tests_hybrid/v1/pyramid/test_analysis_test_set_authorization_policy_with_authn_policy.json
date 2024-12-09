@@ -1,0 +1,116 @@
+{
+  "test_name": "test_set_authorization_policy_with_authn_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_security.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.registerUtility",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1189
+    },
+    {
+      "name": "config.set_authorization_policy",
+      "source_code": "    def set_authorization_policy(self, policy):\n        \"\"\"\n        .. deprecated:: 2.0",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.commit",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 639
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.getUtility",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line_number": 300
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": ""
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.registerUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1189,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility\n\n        :param factory:\n           Factory for the component to be registered.\n\n        :param component:\n           The registered component\n\n        :param provided:\n           This is the interface provided by the utility.  If the\n           component provides a single interface, then this\n           argument is optional and the component-implemented\n           interface will be used.\n\n        :param name:\n           The utility name.\n\n        :param info:\n           An object that can be converted to a string to provide\n           information about the registration.\n\n        Only one of *component* and *factory* can be used.\n\n        A `IRegistered` event is generated with an `IUtilityRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "config.set_authorization_policy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line": 120,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": "    @action_method\n    def set_authorization_policy(self, policy):\n        \"\"\"\n        .. deprecated:: 2.0\n\n            Authentication policies have been replaced by security policies.\n            See :ref:`upgrading_auth_20` for more information.\n\n        Override the :app:`Pyramid` :term:`authorization policy` in the\n        current configuration.  The ``policy`` argument must be an instance\n        of an authorization policy or a :term:`dotted Python name` that points\n        at an instance of an authorization policy.\n\n        .. note::\n\n           Using the ``authorization_policy`` argument to the\n           :class:`pyramid.config.Configurator` constructor can be used to\n           achieve the same purpose.\n\n        \"\"\"\n        warnings.warn(\n            'Authentication and authorization policies have been deprecated '\n            'in favor of security policies.  See \"Upgrading '\n            'Authentication/Authorization\" in \"What\\'s New in Pyramid 2.0\" '\n            'of the documentation for more information.',\n            DeprecationWarning,\n            stacklevel=3,\n        )\n\n        def register():\n            self.registry.registerUtility(policy, IAuthorizationPolicy)\n\n        def ensure():\n            if self.autocommit:\n                return\n            if self.registry.queryUtility(IAuthenticationPolicy) is None:\n                raise ConfigurationError(\n                    'Cannot configure an authorization policy without '\n                    'also configuring an authentication policy '\n                    '(use the set_authorization_policy method)'\n                )\n\n        policy = self.maybe_dotted(policy)\n        intr = self.introspectable(\n            'authorization policy',\n            None,\n            self.object_description(policy),\n            'authorization policy',\n        )\n        intr['policy'] = policy\n        # authorization policy used by view config (phase 3) and\n        # authentication policy (phase 2)\n        self.action(\n            IAuthorizationPolicy,\n            register,\n            order=PHASE1_CONFIG,\n            introspectables=(intr,),\n        )\n        self.action(None, ensure)\n\n"
+    },
+    {
+      "function": "config.commit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 639,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.getUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/registry.py",
+      "line": 300,
+      "caller": "test_set_authorization_policy_with_authn_policy",
+      "source_code": "    def getUtility(self, provided, name=''):\n        utility = self.utilities.lookup((), provided, name)\n        if utility is None:\n            raise ComponentLookupError(provided, name)\n        return utility\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_authorization_policy_with_authn_policy(self):\n        from pyramid.interfaces import (\n            IAuthenticationPolicy,\n            IAuthorizationPolicy,\n        )\n\n        config = self._makeOne()\n        authn_policy = object()\n        authz_policy = object()\n        config.registry.registerUtility(authn_policy, IAuthenticationPolicy)\n        config.set_authorization_policy(authz_policy)\n        config.commit()\n        self.assertEqual(\n            config.registry.getUtility(IAuthorizationPolicy), authz_policy\n        )"
+}

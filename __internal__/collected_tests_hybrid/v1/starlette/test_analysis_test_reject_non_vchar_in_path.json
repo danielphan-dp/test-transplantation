@@ -1,0 +1,64 @@
+{
+  "test_name": "test_reject_non_vchar_in_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+  "static_methods": [
+    {
+      "name": "bytearray",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "message.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "message.extend",
+      "source_code": "    def extend(self, lines: Iterable[\"Text\"]) -> None:\n        self._lines.extend(lines)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/containers.py",
+      "line_number": 105
+    },
+    {
+      "name": "tr",
+      "source_code": "def tr(reader: Any, data: bytes, expected: Any) -> None:\n    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line_number": 99
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "bytearray",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reject_non_vchar_in_path",
+      "source_code": ""
+    },
+    {
+      "function": "message.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_reject_non_vchar_in_path",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "message.extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/rich/containers.py",
+      "line": 105,
+      "caller": "test_reject_non_vchar_in_path",
+      "source_code": "    def extend(self, lines: Iterable[\"Text\"]) -> None:\n        self._lines.extend(lines)\n\n"
+    },
+    {
+      "function": "tr",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+      "line": 99,
+      "caller": "test_reject_non_vchar_in_path",
+      "source_code": "def tr(reader: Any, data: bytes, expected: Any) -> None:\n    def check(got: Any) -> None:\n        assert got == expected\n        # Headers should always be returned as bytes, not e.g. bytearray\n        # https://github.com/python-hyper/wsproto/pull/54#issuecomment-377709478\n        for name, value in getattr(got, \"headers\", []):\n            assert type(name) is bytes\n            assert type(value) is bytes\n\n    # Simple: consume whole thing\n    buf = makebuf(data)\n    check(reader(buf))\n    assert not buf\n\n    # Incrementally growing buffer\n    buf = ReceiveBuffer()\n    for i in range(len(data)):\n        assert reader(buf) is None\n        buf += data[i : i + 1]\n    check(reader(buf))\n\n    # Trailing data\n    buf = makebuf(data)\n    buf += b\"trailing\"\n    check(reader(buf))\n    assert bytes(buf) == b\"trailing\"\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reject_non_vchar_in_path() -> None:\n    for bad_char in b\"\\x00\\x20\\x7f\\xee\":\n        message = bytearray(b\"HEAD /\")\n        message.append(bad_char)\n        message.extend(b\" HTTP/1.1\\r\\nHost: foobar\\r\\n\\r\\n\")\n        with pytest.raises(LocalProtocolError):\n            tr(READERS[CLIENT, IDLE], message, None)"
+}

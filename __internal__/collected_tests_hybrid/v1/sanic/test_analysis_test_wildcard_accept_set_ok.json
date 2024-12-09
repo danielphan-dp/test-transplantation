@@ -1,0 +1,61 @@
+{
+  "test_name": "test_wildcard_accept_set_ok",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    },
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    },
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_wildcard_accept_set_ok",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    },
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_wildcard_accept_set_ok",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    },
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_wildcard_accept_set_ok",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert accept.type == '*'",
+    "assert accept.subtype == '*'",
+    "assert accept.has_wildcard",
+    "assert accept.type == 'foo'",
+    "assert accept.subtype == '*'",
+    "assert accept.has_wildcard",
+    "assert accept.type == 'foo'",
+    "assert accept.subtype == 'bar'",
+    "assert not accept.has_wildcard"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_wildcard_accept_set_ok():\n    accept = headers.parse_accept(\"*/*\")[0]\n    assert accept.type == \"*\"\n    assert accept.subtype == \"*\"\n    assert accept.has_wildcard\n\n    accept = headers.parse_accept(\"foo/*\")[0]\n    assert accept.type == \"foo\"\n    assert accept.subtype == \"*\"\n    assert accept.has_wildcard\n\n    accept = headers.parse_accept(\"foo/bar\")[0]\n    assert accept.type == \"foo\"\n    assert accept.subtype == \"bar\"\n    assert not accept.has_wildcard"
+}

@@ -1,0 +1,67 @@
+{
+  "test_name": "test_timeout_handle",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.TimeoutHandle",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "handle.register",
+      "source_code": "    def register(self, metadata):  # pragma: no cover\n        \"\"\"\n        Register a distribution on PyPI, using the provided metadata.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 107
+    },
+    {
+      "name": "handle.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.TimeoutHandle",
+      "filename": "",
+      "line": 0,
+      "caller": "test_timeout_handle",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_timeout_handle",
+      "source_code": ""
+    },
+    {
+      "function": "handle.register",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 107,
+      "caller": "test_timeout_handle",
+      "source_code": "    def register(self, metadata):  # pragma: no cover\n        \"\"\"\n        Register a distribution on PyPI, using the provided metadata.\n\n        :param metadata: A :class:`Metadata` instance defining at least a name\n                         and version number for the distribution to be\n                         registered.\n        :return: The HTTP response received from PyPI upon submission of the\n                request.\n        \"\"\"\n        self.check_credentials()\n        metadata.validate()\n        d = metadata.todict()\n        d[':action'] = 'verify'\n        request = self.encode_request(d.items(), [])\n        response = self.send_request(request)\n        d[':action'] = 'submit'\n        request = self.encode_request(d.items(), [])\n        return self.send_request(request)\n\n"
+    },
+    {
+      "function": "handle.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_timeout_handle",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert cb == handle._callbacks[0][0]",
+    "assert not handle._callbacks"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_timeout_handle(loop: asyncio.AbstractEventLoop) -> None:\n    handle = helpers.TimeoutHandle(loop, 10.2)\n    cb = mock.Mock()\n    handle.register(cb)\n    assert cb == handle._callbacks[0][0]\n    handle.close()\n    assert not handle._callbacks"
+}

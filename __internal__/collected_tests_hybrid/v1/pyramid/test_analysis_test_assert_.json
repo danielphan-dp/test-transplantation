@@ -1,0 +1,90 @@
+{
+  "test_name": "test_assert_",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "renderer",
+      "source_code": "    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line_number": 424
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "renderer.assert_",
+      "source_code": "    def assert_(self, **kw):\n        \"\"\"Accept an arbitrary set of assertion key/value pairs.  For\n        each assertion key/value pair assert that the renderer\n        (eg. :func:`pyramid.renderers.render_to_response`)\n        received the key with a value that equals the asserted\n        value. If the renderer did not receive the key at all, or the\n        value received by the renderer doesn't match the assertion\n        value, raise an :exc:`AssertionError`.\"\"\"\n        for k, v in kw.items():\n            myval = self._received.get(k, _marker)\n            if myval is _marker:\n                myval = self._implementation._received.get(k, _marker)\n                if myval is _marker:\n                    raise AssertionError(\n                        'A value for key \"%s\" was not passed to the renderer'\n                        % k\n                    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line_number": 116
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_assert_",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "renderer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/renderers.py",
+      "line": 424,
+      "caller": "test_assert_",
+      "source_code": "    @reify\n    def renderer(self):\n        factory = self.registry.queryUtility(IRendererFactory, name=self.type)\n        if factory is None:\n            raise ValueError('No such renderer factory %s' % str(self.type))\n        return factory(self)\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assert_",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assert_",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assert_",
+      "source_code": ""
+    },
+    {
+      "function": "renderer.assert_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line": 116,
+      "caller": "test_assert_",
+      "source_code": "    def assert_(self, **kw):\n        \"\"\"Accept an arbitrary set of assertion key/value pairs.  For\n        each assertion key/value pair assert that the renderer\n        (eg. :func:`pyramid.renderers.render_to_response`)\n        received the key with a value that equals the asserted\n        value. If the renderer did not receive the key at all, or the\n        value received by the renderer doesn't match the assertion\n        value, raise an :exc:`AssertionError`.\"\"\"\n        for k, v in kw.items():\n            myval = self._received.get(k, _marker)\n            if myval is _marker:\n                myval = self._implementation._received.get(k, _marker)\n                if myval is _marker:\n                    raise AssertionError(\n                        'A value for key \"%s\" was not passed to the renderer'\n                        % k\n                    )\n\n            if myval != v:\n                raise AssertionError(\n                    '\\nasserted value for %s: %r\\nactual value: %r'\n                    % (k, v, myval)\n                )\n        return True\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_assert_(self):\n        renderer = self._makeOne()\n        renderer({'a': 1, 'b': 2})\n        self.assertRaises(AssertionError, renderer.assert_, c=1)\n        self.assertRaises(AssertionError, renderer.assert_, b=3)\n        self.assertTrue(renderer.assert_(a=1, b=2))"
+}

@@ -1,0 +1,92 @@
+{
+  "test_name": "test_reloader_triggers_start_stop_listeners",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+  "static_methods": [
+    {
+      "name": "Reloader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_reloader",
+      "source_code": "def run_reloader(reloader):\n    def stop(*_):\n        reloader.stop()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line_number": 39
+    },
+    {
+      "name": "results.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "results.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Reloader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reloader_triggers_start_stop_listeners",
+      "source_code": ""
+    },
+    {
+      "function": "run_reloader",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+      "line": 39,
+      "caller": "test_reloader_triggers_start_stop_listeners",
+      "source_code": "def run_reloader(reloader):\n    def stop(*_):\n        reloader.stop()\n\n    signal.signal(signal.SIGALRM, stop)\n    signal.alarm(1)\n    reloader()\n\n\n"
+    },
+    {
+      "function": "results.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_reloader_triggers_start_stop_listeners",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "results.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_reloader_triggers_start_stop_listeners",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reloader_triggers_start_stop_listeners",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reloader_triggers_start_stop_listeners",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert results == ['reload_process_start', 'reload_process_stop']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reloader_triggers_start_stop_listeners(\n    app: Sanic, app_loader: AppLoader\n):\n    results = []\n\n    @app.reload_process_start\n    def reload_process_start(_):\n        results.append(\"reload_process_start\")\n\n    @app.reload_process_stop\n    def reload_process_stop(_):\n        results.append(\"reload_process_stop\")\n\n    reloader = Reloader(Mock(), 0.1, set(), app_loader)\n    run_reloader(reloader)\n\n    assert results == [\"reload_process_start\", \"reload_process_stop\"]"
+}

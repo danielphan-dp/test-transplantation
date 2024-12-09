@@ -1,0 +1,129 @@
+{
+  "test_name": "test_reload_call_hupper_with_correct_args",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripts/test_pserve.py",
+  "static_methods": [
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AttrDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "inst.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "super.__init__",
+      "source_code": "    def __init__(self, scheme, path=\"\", options=None, fragment=\"\"):\n        self.scheme = scheme",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/plaster/uri.py",
+      "line_number": 32
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "super",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": ""
+    },
+    {
+      "function": "AttrDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "inst.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "super.__init__",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/plaster/uri.py",
+      "line": 32,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": "    def __init__(self, scheme, path=\"\", options=None, fragment=\"\"):\n        self.scheme = scheme\n\n        if not path:\n            path = \"\"\n        self.path = path\n\n        if options is None:\n            options = {}\n        self.options = options\n\n        if not fragment:\n            fragment = \"\"\n        self.fragment = fragment\n\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": ""
+    },
+    {
+      "function": "super",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_call_hupper_with_correct_args",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reload_call_hupper_with_correct_args(self):\n        from pyramid.scripts import pserve\n\n        class AttrDict(dict):\n            def __init__(self, *args, **kwargs):\n                super().__init__(*args, **kwargs)\n                self.__dict__ = self\n\n        def dummy_start_reloader(*args, **kwargs):\n            dummy_start_reloader.args = args\n            dummy_start_reloader.kwargs = kwargs\n\n        orig_hupper = pserve.hupper\n        try:\n            pserve.hupper = AttrDict(\n                is_active=lambda: False, start_reloader=dummy_start_reloader\n            )\n\n            inst = self._makeOne('--reload', 'development.ini')\n            inst.run()\n        finally:\n            pserve.hupper = orig_hupper\n\n        self.assertEqual(\n            dummy_start_reloader.args, ('pyramid.scripts.pserve.main',)\n        )\n        self.assertEqual(\n            dummy_start_reloader.kwargs,\n            {\n                'reload_interval': 1,\n                'verbose': 1,\n                'worker_kwargs': {\n                    'argv': ['pserve', '--reload', 'development.ini'],\n                    'quiet': False,\n                    'original_ignore_files': set(),\n                },\n                'ignore_files': set(),\n            },\n        )"
+}

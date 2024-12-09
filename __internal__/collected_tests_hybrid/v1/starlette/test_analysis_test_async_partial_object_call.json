@@ -1,0 +1,67 @@
+{
+  "test_name": "test_async_partial_object_call",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test__utils.py",
+  "static_methods": [
+    {
+      "name": "is_async_callable",
+      "source_code": "def is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 28
+    },
+    {
+      "name": "Async",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sync",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "is_async_callable",
+      "source_code": "def is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 28
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "is_async_callable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 28,
+      "caller": "test_async_partial_object_call",
+      "source_code": "@typing.overload\ndef is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...\n\n\n"
+    },
+    {
+      "function": "Async",
+      "filename": "",
+      "line": 0,
+      "caller": "test_async_partial_object_call",
+      "source_code": ""
+    },
+    {
+      "function": "Sync",
+      "filename": "",
+      "line": 0,
+      "caller": "test_async_partial_object_call",
+      "source_code": ""
+    },
+    {
+      "function": "is_async_callable",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 28,
+      "caller": "test_async_partial_object_call",
+      "source_code": "@typing.overload\ndef is_async_callable(obj: AwaitableCallable[T]) -> TypeGuard[AwaitableCallable[T]]: ...\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert is_async_callable(partial)",
+    "assert not is_async_callable(partial)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_async_partial_object_call() -> None:\n    class Async:\n        async def __call__(\n            self,\n            a: Any,\n            b: Any,\n        ) -> None: ...  # pragma: no cover\n\n    class Sync:\n        def __call__(\n            self,\n            a: Any,\n            b: Any,\n        ) -> None: ...  # pragma: no cover\n\n    partial = functools.partial(Async(), 1)\n    assert is_async_callable(partial)\n\n    partial = functools.partial(Sync(), 1)  # type: ignore\n    assert not is_async_callable(partial)"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_add_response_adapter_dottednames",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_adapters.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_response_adapter",
+      "source_code": "    def add_response_adapter(self, adapter, type_or_iface):\n        \"\"\"When an object of type (or interface) ``type_or_iface`` is\n        returned from a view callable, Pyramid will use the adapter\n        ``adapter`` to convert it into an object which implements the\n        :class:`pyramid.interfaces.IResponse` interface.  If ``adapter`` is\n        None, an object returned of type (or interface) ``type_or_iface``\n        will itself be used as a response object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line_number": 163
+    },
+    {
+      "name": "config.registry.queryAdapter",
+      "source_code": "    def queryAdapter(\n        object, provided, name='', default=None,\n    ):  # pylint:disable=redefined-builtin\n        \"\"\"Adapt an object using a registered adapter factory.\n        \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 869
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_response_adapter_dottednames",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_response_adapter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/adapters.py",
+      "line": 163,
+      "caller": "test_add_response_adapter_dottednames",
+      "source_code": "    @action_method\n    def add_response_adapter(self, adapter, type_or_iface):\n        \"\"\"When an object of type (or interface) ``type_or_iface`` is\n        returned from a view callable, Pyramid will use the adapter\n        ``adapter`` to convert it into an object which implements the\n        :class:`pyramid.interfaces.IResponse` interface.  If ``adapter`` is\n        None, an object returned of type (or interface) ``type_or_iface``\n        will itself be used as a response object.\n\n        ``adapter`` and ``type_or_interface`` may be Python objects or\n        strings representing dotted names to importable Python global\n        objects.\n\n        See :ref:`using_iresponse` for more information.\"\"\"\n        adapter = self.maybe_dotted(adapter)\n        type_or_iface = self.maybe_dotted(type_or_iface)\n\n        def register():\n            reg = self.registry\n            if adapter is None:\n                reg.registerSelfAdapter((type_or_iface,), IResponse)\n            else:\n                reg.registerAdapter(adapter, (type_or_iface,), IResponse)\n\n        discriminator = (IResponse, type_or_iface)\n        intr = self.introspectable(\n            'response adapters',\n            discriminator,\n            self.object_description(adapter),\n            'response adapter',\n        )\n        intr['adapter'] = adapter\n        intr['type'] = type_or_iface\n        self.action(discriminator, register, introspectables=(intr,))\n\n"
+    },
+    {
+      "function": "config.registry.queryAdapter",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 869,
+      "caller": "test_add_response_adapter_dottednames",
+      "source_code": "    def queryAdapter(\n        object, provided, name='', default=None,\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_response_adapter_dottednames",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_response_adapter_dottednames(self):\n        from pyramid.interfaces import IResponse\n\n        config = self._makeOne(autocommit=True)\n        str_name = 'builtins.str'\n        config.add_response_adapter('pyramid.response.Response', str_name)\n        result = config.registry.queryAdapter('foo', IResponse)\n        self.assertTrue(result.body, b'foo')"
+}

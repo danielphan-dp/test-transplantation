@@ -1,0 +1,53 @@
+{
+  "test_name": "test_setter_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emitclass.py",
+  "static_methods": [
+    {
+      "name": "ClassIR",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "NameGenerator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "setter_name",
+      "source_code": "def setter_name(cl: ClassIR, attribute: str, names: NameGenerator) -> str:\n    return names.private_name(cl.module_name, f\"{cl.name}_set_{attribute}\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitclass.py",
+      "line_number": 376
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ClassIR",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setter_name",
+      "source_code": ""
+    },
+    {
+      "function": "NameGenerator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setter_name",
+      "source_code": ""
+    },
+    {
+      "function": "setter_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emitclass.py",
+      "line": 376,
+      "caller": "test_setter_name",
+      "source_code": "def setter_name(cl: ClassIR, attribute: str, names: NameGenerator) -> str:\n    return names.private_name(cl.module_name, f\"{cl.name}_set_{attribute}\")\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert setter_name(cls, 'up', generator) == 'testing___SomeClass_set_up'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_setter_name(self) -> None:\n        cls = ClassIR(module_name=\"testing\", name=\"SomeClass\")\n        generator = NameGenerator([[\"mod\"]])\n\n        # This should never be `setup`, as it will conflict with the class `setup`\n        assert setter_name(cls, \"up\", generator) == \"testing___SomeClass_set_up\""
+}

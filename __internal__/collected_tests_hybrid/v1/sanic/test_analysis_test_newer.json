@@ -1,0 +1,94 @@
+{
+  "test_name": "test_newer",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_modified.py",
+  "static_methods": [
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.write_file",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 391
+    },
+    {
+      "name": "newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 499
+    },
+    {
+      "name": "newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 499
+    },
+    {
+      "name": "newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 499
+    },
+    {
+      "name": "newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 499
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_newer",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    },
+    {
+      "function": "self.write_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 391,
+      "caller": "test_newer",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()\n\n        for field in _version2fieldlist(self['Metadata-Version']):\n            values = self.get(field)\n            if skip_unknown and values in ('UNKNOWN', [], ['UNKNOWN']):\n                continue\n            if field in _ELEMENTSFIELD:\n                self._write_field(fileobject, field, ','.join(values))\n                continue\n            if field not in _LISTFIELDS:\n                if field == 'Description':\n                    if self.metadata_version in ('1.0', '1.1'):\n                        values = values.replace('\\n', '\\n        ')\n                    else:\n                        values = values.replace('\\n', '\\n       |')\n                values = [values]\n\n            if field in _LISTTUPLEFIELDS:\n                values = [','.join(value) for value in values]\n\n            for value in values:\n                self._write_field(fileobject, field, value)\n\n"
+    },
+    {
+      "function": "newer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 499,
+      "caller": "test_newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.\n\n        Returns true if 'source' exists and is more recently modified than\n        'target', or if 'source' exists and 'target' doesn't.\n\n        Returns false if both exist and 'target' is the same age or younger\n        than 'source'. Raise PackagingFileError if 'source' does not exist.\n\n        Note that this test is not very accurate: files created in the same\n        second will have the same \"age\".\n        \"\"\"\n        if not os.path.exists(source):\n            raise DistlibException(\"file '%r' does not exist\" %\n                                   os.path.abspath(source))\n        if not os.path.exists(target):\n            return True\n\n        return os.stat(source).st_mtime > os.stat(target).st_mtime\n\n"
+    },
+    {
+      "function": "newer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 499,
+      "caller": "test_newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.\n\n        Returns true if 'source' exists and is more recently modified than\n        'target', or if 'source' exists and 'target' doesn't.\n\n        Returns false if both exist and 'target' is the same age or younger\n        than 'source'. Raise PackagingFileError if 'source' does not exist.\n\n        Note that this test is not very accurate: files created in the same\n        second will have the same \"age\".\n        \"\"\"\n        if not os.path.exists(source):\n            raise DistlibException(\"file '%r' does not exist\" %\n                                   os.path.abspath(source))\n        if not os.path.exists(target):\n            return True\n\n        return os.stat(source).st_mtime > os.stat(target).st_mtime\n\n"
+    },
+    {
+      "function": "newer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 499,
+      "caller": "test_newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.\n\n        Returns true if 'source' exists and is more recently modified than\n        'target', or if 'source' exists and 'target' doesn't.\n\n        Returns false if both exist and 'target' is the same age or younger\n        than 'source'. Raise PackagingFileError if 'source' does not exist.\n\n        Note that this test is not very accurate: files created in the same\n        second will have the same \"age\".\n        \"\"\"\n        if not os.path.exists(source):\n            raise DistlibException(\"file '%r' does not exist\" %\n                                   os.path.abspath(source))\n        if not os.path.exists(target):\n            return True\n\n        return os.stat(source).st_mtime > os.stat(target).st_mtime\n\n"
+    },
+    {
+      "function": "newer",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 499,
+      "caller": "test_newer",
+      "source_code": "    def newer(self, source, target):\n        \"\"\"Tell if the target is newer than the source.\n\n        Returns true if 'source' exists and is more recently modified than\n        'target', or if 'source' exists and 'target' doesn't.\n\n        Returns false if both exist and 'target' is the same age or younger\n        than 'source'. Raise PackagingFileError if 'source' does not exist.\n\n        Note that this test is not very accurate: files created in the same\n        second will have the same \"age\".\n        \"\"\"\n        if not os.path.exists(source):\n            raise DistlibException(\"file '%r' does not exist\" %\n                                   os.path.abspath(source))\n        if not os.path.exists(target):\n            return True\n\n        return os.stat(source).st_mtime > os.stat(target).st_mtime\n\n"
+    }
+  ],
+  "assertions": [
+    "assert newer(new_file, 'I_dont_exist')",
+    "assert newer(new_file, old_file)",
+    "assert not newer(old_file, new_file)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_newer(self):\n        tmpdir = self.mkdtemp()\n        new_file = os.path.join(tmpdir, 'new')\n        old_file = os.path.abspath(__file__)\n\n        # Raise DistutilsFileError if 'new_file' does not exist.\n        with pytest.raises(DistutilsFileError):\n            newer(new_file, old_file)\n\n        # Return true if 'new_file' exists and is more recently modified than\n        # 'old_file', or if 'new_file' exists and 'old_file' doesn't.\n        self.write_file(new_file)\n        assert newer(new_file, 'I_dont_exist')\n        assert newer(new_file, old_file)\n\n        # Return false if both exist and 'old_file' is the same age or younger\n        # than 'new_file'.\n        assert not newer(old_file, new_file)"
+}

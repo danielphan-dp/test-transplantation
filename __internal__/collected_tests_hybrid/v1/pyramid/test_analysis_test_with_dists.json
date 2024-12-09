@@ -1,0 +1,103 @@
+{
+  "test_name": "test_with_dists",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripts/test_pdistreport.py",
+  "static_methods": [
+    {
+      "name": "DummyImportlibMetadata",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyDistribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyDistribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "L.extend",
+      "source_code": "    def extend(self, lines: Iterable[\"Text\"]) -> None:\n        self._lines.extend(lines)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/containers.py",
+      "line_number": 105
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyImportlibMetadata",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_dists",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_with_dists",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_dists",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_dists",
+      "source_code": ""
+    },
+    {
+      "function": "DummyDistribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_dists",
+      "source_code": ""
+    },
+    {
+      "function": "DummyDistribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_with_dists",
+      "source_code": ""
+    },
+    {
+      "function": "L.extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/containers.py",
+      "line": 105,
+      "caller": "test_with_dists",
+      "source_code": "    def extend(self, lines: Iterable[\"Text\"]) -> None:\n        self._lines.extend(lines)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_with_dists(self):\n        def platform():\n            return 'myplatform'\n\n        working_set = (DummyDistribution('abc'), DummyDistribution('def'))\n        importlib_metadata = DummyImportlibMetadata(working_set)\n        L = []\n\n        def out(*args):\n            L.extend(args)\n\n        result = self._callFUT(\n            importlib_metadata=importlib_metadata, platform=platform, out=out\n        )\n        self.assertEqual(result, None)\n        self.assertEqual(\n            L,\n            [\n                'Pyramid version:',\n                '1',\n                'Platform:',\n                'myplatform',\n                'Packages:',\n                ' ',\n                'abc',\n                '1',\n                '   ',\n                'summary for name=\\'abc\\'',\n                ' ',\n                'def',\n                '1',\n                '   ',\n                'summary for name=\\'def\\'',\n            ],\n        )"
+}

@@ -1,0 +1,116 @@
+{
+  "test_name": "test_testing_add_subscriber_multiple",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_testing.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.testing_add_subscriber",
+      "source_code": "    def testing_add_subscriber(self, event_iface=None):\n        \"\"\"Unit/integration testing helper: Registers a\n        :term:`subscriber` which listens for events of the type\n        ``event_iface``.  This method returns a list object which is\n        appended to by the subscriber whenever an event is captured.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/testing.py",
+      "line_number": 110
+    },
+    {
+      "name": "DummyEvent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.registry.subscribers",
+      "source_code": "    def subscribers(objects, provided):\n        \"\"\"\n        Get a sequence of subscription **adapters**.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 944
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.testing_add_subscriber",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/testing.py",
+      "line": 110,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": "    @action_method\n    def testing_add_subscriber(self, event_iface=None):\n        \"\"\"Unit/integration testing helper: Registers a\n        :term:`subscriber` which listens for events of the type\n        ``event_iface``.  This method returns a list object which is\n        appended to by the subscriber whenever an event is captured.\n\n        When an event is dispatched that matches the value implied by\n        the ``event_iface`` argument, that event will be appended to\n        the list.  You can then compare the values in the list to\n        expected event notifications.  This method is useful when\n        testing code that wants to call\n        :meth:`pyramid.registry.Registry.notify`,\n        or :func:`zope.component.event.dispatch`.\n\n        The default value of ``event_iface`` (``None``) implies a\n        subscriber registered for *any* kind of event.\n        \"\"\"\n        event_iface = self.maybe_dotted(event_iface)\n        L = []\n\n        def subscriber(*event):\n            L.extend(event)\n\n        self.add_subscriber(subscriber, event_iface)\n        return L\n\n"
+    },
+    {
+      "function": "DummyEvent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "config.registry.subscribers",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 944,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": "    def subscribers(objects, provided):\n        \"\"\"\n        Get a sequence of subscription **adapters**.\n\n        This is like :meth:`subscriptions`, but calls the returned\n        subscribers with *objects* (and optionally returns the results\n        of those calls), instead of returning the subscribers directly.\n\n        :param objects: A sequence of objects; they will be used to\n            determine the *required* argument to :meth:`subscriptions`.\n        :param provided: A single interface, or ``None``, to pass\n            as the *provided* parameter to :meth:`subscriptions`.\n            If an interface is given, the results of calling each returned\n            subscriber with the the *objects* are collected and returned\n            from this method; each result should be an object implementing\n            the *provided* interface. If ``None``, the resulting subscribers\n            are still called, but the results are ignored.\n        :return: A sequence of the results of calling the subscribers\n            if *provided* is not ``None``. If there are no registered\n            subscribers, or *provided* is ``None``, this will be an empty\n            sequence.\n\n        .. versionchanged:: 5.1.1\n           Correct the method signature to remove the ``name`` parameter.\n           Subscribers have no names.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_testing_add_subscriber_multiple",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_testing_add_subscriber_multiple(self):\n        from zope.interface import Interface\n\n        config = self._makeOne(autocommit=True)\n        L = config.testing_add_subscriber((Interface, IDummy))\n        event = DummyEvent()\n        event.object = 'foo'\n        # the below is the equivalent of z.c.event.objectEventNotify(event)\n        config.registry.subscribers((event.object, event), None)\n        self.assertEqual(len(L), 2)\n        self.assertEqual(L[0], 'foo')\n        self.assertEqual(L[1], event)"
+}

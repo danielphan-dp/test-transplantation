@@ -1,0 +1,71 @@
+{
+  "test_name": "test_build_example_from_complex_schema",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_mock2.py",
+  "static_methods": [
+    {
+      "name": "build_example_from_schema",
+      "source_code": "def build_example_from_schema(schema):\n    if \"example\" in schema:\n        return schema[\"example\"]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line_number": 517
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "all",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_example_from_schema",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line": 517,
+      "caller": "test_build_example_from_complex_schema",
+      "source_code": "def build_example_from_schema(schema):\n    if \"example\" in schema:\n        return schema[\"example\"]\n\n    if \"properties\" in schema:\n        # Recurse if schema is an object\n        return {\n            key: build_example_from_schema(value)\n            for (key, value) in schema[\"properties\"].items()\n        }\n\n    if \"items\" in schema:\n        # Recurse if schema is an array\n        min_item_count = schema.get(\"minItems\", 0)\n        max_item_count = schema.get(\"maxItems\")\n\n        if max_item_count is None or max_item_count >= min_item_count + 1:\n            item_count = min_item_count + 1\n        else:\n            item_count = min_item_count\n\n        return [build_example_from_schema(schema[\"items\"]) for n in range(item_count)]\n\n    try:\n        from jsf import JSF\n    except ImportError:\n        return None\n\n    faker = JSF(schema)\n    return faker.generate()\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_example_from_complex_schema",
+      "source_code": ""
+    },
+    {
+      "function": "all",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_example_from_complex_schema",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_build_example_from_complex_schema",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert example['integerField'] == 4",
+    "assert isinstance(example['arrayOfNumbersField'], list)",
+    "assert 3 <= len(example['arrayOfNumbersField']) <= 5",
+    "assert all((0.1 <= num <= 0.9 for num in example['arrayOfNumbersField']))",
+    "assert example_boolean is True or example_boolean is False",
+    "assert example['objectField']['stringWithExample'] == 'example-string'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_example_from_complex_schema():\n    schema = {\n        \"type\": \"object\",\n        \"properties\": {\n            \"datetimeField\": {\"type\": \"string\", \"format\": \"date-time\"},\n            \"integerField\": {\n                \"type\": \"integer\",\n                \"minimum\": 2,\n                \"maximum\": 5,\n                \"exclusiveMinimum\": True,\n                \"multipleOf\": 2,\n            },\n            \"arrayOfNumbersField\": {\n                \"type\": \"array\",\n                \"items\": {\n                    \"type\": \"number\",\n                    \"format\": \"float\",\n                    \"minimum\": 0.1,\n                    \"maximum\": 0.9,\n                    \"multipleOf\": 0.1,\n                },\n                \"minItems\": 3,\n                \"maxItems\": 5,\n            },\n            \"objectField\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"nestedBoolean\": {\"type\": \"boolean\"},\n                    \"stringWithExample\": {\n                        \"type\": \"string\",\n                        \"example\": \"example-string\",\n                    },\n                },\n            },\n        },\n    }\n    example = build_example_from_schema(schema)\n\n    # Check that ValueError is not raised on invalid datetime.\n    datetime.fromisoformat(example[\"datetimeField\"])\n    assert example[\"integerField\"] == 4\n\n    assert isinstance(example[\"arrayOfNumbersField\"], list)\n    assert 3 <= len(example[\"arrayOfNumbersField\"]) <= 5\n    assert all(0.1 <= num <= 0.9 for num in example[\"arrayOfNumbersField\"])\n\n    example_boolean = example[\"objectField\"][\"nestedBoolean\"]\n    assert example_boolean is True or example_boolean is False\n\n    # Check that if an example is provided then it is used directly.\n    assert example[\"objectField\"][\"stringWithExample\"] == \"example-string\""
+}

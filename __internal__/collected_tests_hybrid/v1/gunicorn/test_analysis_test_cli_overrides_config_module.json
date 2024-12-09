@@ -1,0 +1,67 @@
+{
+  "test_name": "test_cli_overrides_config_module",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "AltArgs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AltArgs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "NoConfigApp",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cfg_module",
+      "source_code": "def cfg_module():\n    return 'config.test_cfg'",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+      "line_number": 21
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "AltArgs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_overrides_config_module",
+      "source_code": ""
+    },
+    {
+      "function": "AltArgs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_overrides_config_module",
+      "source_code": ""
+    },
+    {
+      "function": "NoConfigApp",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cli_overrides_config_module",
+      "source_code": ""
+    },
+    {
+      "function": "cfg_module",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+      "line": 21,
+      "caller": "test_cli_overrides_config_module",
+      "source_code": "def cfg_module():\n    return 'config.test_cfg'\n"
+    }
+  ],
+  "assertions": [
+    "assert app.cfg.bind == ['blarney']",
+    "assert app.cfg.proc_name == 'fooey'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_cli_overrides_config_module():\n    with AltArgs([\"prog_name\", \"-c\", \"python:%s\" % cfg_module(), \"-b\", \"blarney\"]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"blarney\"]\n    assert app.cfg.proc_name == \"fooey\""
+}

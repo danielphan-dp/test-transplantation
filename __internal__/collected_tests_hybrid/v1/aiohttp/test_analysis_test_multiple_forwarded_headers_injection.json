@@ -1,0 +1,82 @@
+{
+  "test_name": "test_multiple_forwarded_headers_injection",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_request.py",
+  "static_methods": [
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "headers.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "headers.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "make_mocked_request",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 605
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_forwarded_headers_injection",
+      "source_code": ""
+    },
+    {
+      "function": "headers.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_multiple_forwarded_headers_injection",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "headers.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_multiple_forwarded_headers_injection",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "make_mocked_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 605,
+      "caller": "test_multiple_forwarded_headers_injection",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_multiple_forwarded_headers_injection",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(req.forwarded) == 2",
+    "assert 'by' not in req.forwarded[0]",
+    "assert req.forwarded[1]['for'] == '_real'",
+    "assert req.forwarded[1]['by'] == '_actual_proxy'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_multiple_forwarded_headers_injection() -> None:\n    headers = CIMultiDict[str]()\n    # This could be sent by an attacker, hoping to \"shadow\" the second header.\n    headers.add(\"Forwarded\", 'for=_injected;by=\"')\n    # This is added by our trusted reverse proxy.\n    headers.add(\"Forwarded\", \"for=_real;by=_actual_proxy\")\n    req = make_mocked_request(\"GET\", \"/\", headers=headers)\n    assert len(req.forwarded) == 2\n    assert \"by\" not in req.forwarded[0]\n    assert req.forwarded[1][\"for\"] == \"_real\"\n    assert req.forwarded[1][\"by\"] == \"_actual_proxy\""
+}

@@ -1,0 +1,80 @@
+{
+  "test_name": "test_read_configuration",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "create_example",
+      "source_code": "def create_example(path, pkg_root):\n    files = {\n        \"pyproject.toml\": EXAMPLE,\n        \"README.md\": \"hello world\",\n        \"_files\": {\n            \"file.txt\": \"\",\n        },\n    }\n    packages = {\n        \"pkg\": {\n            \"__init__.py\": \"\",\n            \"mod.py\": \"class CustomSdist: pass\",\n            \"__version__.py\": \"VERSION = (3, 10)\",\n            \"__main__.py\": \"def exec(): print('hello')\",\n        },\n    }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line_number": 85
+    },
+    {
+      "name": "read_configuration",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 73
+    },
+    {
+      "name": "verify_example",
+      "source_code": "def verify_example(config, path, pkg_root):\n    pyproject = path / \"pyproject.toml\"\n    pyproject.write_text(tomli_w.dumps(config), encoding=\"utf-8\")\n    expanded = expand_configuration(config, path)\n    expanded_project = expanded[\"project\"]\n    assert read_configuration(pyproject, expand=True) == expanded\n    assert expanded_project[\"version\"] == \"3.10\"\n    assert expanded_project[\"readme\"][\"text\"] == \"hello world\"\n    assert \"packages\" in expanded[\"tool\"][\"setuptools\"]\n    if pkg_root == \".\":\n        # Auto-discovery will raise error for multi-package dist\n        assert set(expanded[\"tool\"][\"setuptools\"][\"packages\"]) == {\"pkg\"}\n    else:\n        assert set(expanded[\"tool\"][\"setuptools\"][\"packages\"]) == {\n            \"pkg\",\n            \"other\",\n            \"other.nested\",\n        }\n    assert expanded[\"tool\"][\"setuptools\"][\"include-package-data\"] is True\n    assert \"\" in expanded[\"tool\"][\"setuptools\"][\"package-data\"]\n    assert \"*\" not in expanded[\"tool\"][\"setuptools\"][\"package-data\"]\n    assert expanded[\"tool\"][\"setuptools\"][\"data-files\"] == [\n        (\"data\", [\"_files/file.txt\"])\n    ]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line_number": 114
+    },
+    {
+      "name": "config.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "config.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "create_example",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line": 85,
+      "caller": "test_read_configuration",
+      "source_code": "def create_example(path, pkg_root):\n    files = {\n        \"pyproject.toml\": EXAMPLE,\n        \"README.md\": \"hello world\",\n        \"_files\": {\n            \"file.txt\": \"\",\n        },\n    }\n    packages = {\n        \"pkg\": {\n            \"__init__.py\": \"\",\n            \"mod.py\": \"class CustomSdist: pass\",\n            \"__version__.py\": \"VERSION = (3, 10)\",\n            \"__main__.py\": \"def exec(): print('hello')\",\n        },\n    }\n\n    assert pkg_root  # Meta-test: cannot be empty string.\n\n    if pkg_root == \".\":\n        files = {**files, **packages}\n        # skip other files: flat-layout will raise error for multi-package dist\n    else:\n        # Use this opportunity to ensure namespaces are discovered\n        files[pkg_root] = {**packages, \"other\": {\"nested\": {\"__init__.py\": \"\"}}}\n\n    jaraco.path.build(files, prefix=path)\n\n\n"
+    },
+    {
+      "function": "read_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 73,
+      "caller": "test_read_configuration",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)\n\n"
+    },
+    {
+      "function": "verify_example",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+      "line": 114,
+      "caller": "test_read_configuration",
+      "source_code": "def verify_example(config, path, pkg_root):\n    pyproject = path / \"pyproject.toml\"\n    pyproject.write_text(tomli_w.dumps(config), encoding=\"utf-8\")\n    expanded = expand_configuration(config, path)\n    expanded_project = expanded[\"project\"]\n    assert read_configuration(pyproject, expand=True) == expanded\n    assert expanded_project[\"version\"] == \"3.10\"\n    assert expanded_project[\"readme\"][\"text\"] == \"hello world\"\n    assert \"packages\" in expanded[\"tool\"][\"setuptools\"]\n    if pkg_root == \".\":\n        # Auto-discovery will raise error for multi-package dist\n        assert set(expanded[\"tool\"][\"setuptools\"][\"packages\"]) == {\"pkg\"}\n    else:\n        assert set(expanded[\"tool\"][\"setuptools\"][\"packages\"]) == {\n            \"pkg\",\n            \"other\",\n            \"other.nested\",\n        }\n    assert expanded[\"tool\"][\"setuptools\"][\"include-package-data\"] is True\n    assert \"\" in expanded[\"tool\"][\"setuptools\"][\"package-data\"]\n    assert \"*\" not in expanded[\"tool\"][\"setuptools\"][\"package-data\"]\n    assert expanded[\"tool\"][\"setuptools\"][\"data-files\"] == [\n        (\"data\", [\"_files/file.txt\"])\n    ]\n\n\n"
+    },
+    {
+      "function": "config.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_read_configuration",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "config.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_read_configuration",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert config['project'].get('version') is None",
+    "assert config['project'].get('readme') is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_read_configuration(tmp_path):\n    create_example(tmp_path, \"src\")\n    pyproject = tmp_path / \"pyproject.toml\"\n\n    config = read_configuration(pyproject, expand=False)\n    assert config[\"project\"].get(\"version\") is None\n    assert config[\"project\"].get(\"readme\") is None\n\n    verify_example(config, tmp_path, \"src\")"
+}

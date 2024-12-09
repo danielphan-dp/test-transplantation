@@ -1,0 +1,40 @@
+{
+  "test_name": "test_load_from_missing_envvar",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "app.config.load",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line_number": 57
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.config.load",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tomli/_parser.py",
+      "line": 57,
+      "caller": "test_load_from_missing_envvar",
+      "source_code": "def load(__fp: BinaryIO, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_load_from_missing_envvar",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert str(e.value) == \"The environment variable 'non-existent variable' is not set and thus configuration could not be loaded.\""
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_load_from_missing_envvar(app: Sanic):\n    with pytest.raises(IOError) as e:\n        app.config.load(\"non-existent variable\")\n        assert str(e.value) == (\n            \"The environment variable 'non-existent \"\n            \"variable' is not set and thus configuration \"\n            \"could not be loaded.\"\n        )"
+}

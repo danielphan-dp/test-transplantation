@@ -1,0 +1,64 @@
+{
+  "test_name": "test_aiohttp_plugin_async_gen_fixture",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_pytest_plugin.py",
+  "static_methods": [
+    {
+      "name": "testdir.makepyfile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.makeconftest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testdir.runpytest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "result.assert_outcomes",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testdir.makepyfile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_gen_fixture",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.makeconftest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_gen_fixture",
+      "source_code": ""
+    },
+    {
+      "function": "testdir.runpytest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_gen_fixture",
+      "source_code": ""
+    },
+    {
+      "function": "result.assert_outcomes",
+      "filename": "",
+      "line": 0,
+      "caller": "test_aiohttp_plugin_async_gen_fixture",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_aiohttp_plugin_async_gen_fixture(testdir: pytest.Testdir) -> None:\n    testdir.makepyfile(\n        \"\"\"\\\nimport pytest\nfrom unittest import mock\n\nfrom aiohttp import web\n\n\ncanary = mock.Mock()\n\n\nasync def hello(request):\n    return web.Response(body=b'Hello, world')\n\n\ndef create_app():\n    app = web.Application()\n    app.router.add_route('GET', '/', hello)\n    return app\n\n\n@pytest.fixture\nasync def cli(aiohttp_client, loop):\n    yield await aiohttp_client(create_app())\n    canary()\n\n\nasync def test_hello(cli) -> None:\n    resp = await cli.get('/')\n    assert resp.status == 200\n\n\ndef test_finalized() -> None:\n    assert canary.called is True\n\"\"\"\n    )\n    testdir.makeconftest(CONFTEST)\n    result = testdir.runpytest(\"-p\", \"no:sugar\", \"--aiohttp-loop=pyloop\")\n    result.assert_outcomes(passed=2)"
+}

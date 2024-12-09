@@ -1,0 +1,29 @@
+{
+  "test_name": "test_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_headers",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    }
+  ],
+  "assertions": [
+    "assert 'CONTENT-TYPE' in req.headers",
+    "assert req.headers['CONTENT-TYPE'] == 'text/plain'",
+    "assert req.headers['ACCEPT-ENCODING'] == 'gzip, deflate, br'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_headers(make_request: _RequestMaker) -> None:\n    req = make_request(\n        \"post\", \"http://python.org/\", headers={\"Content-Type\": \"text/plain\"}\n    )\n\n    assert \"CONTENT-TYPE\" in req.headers\n    assert req.headers[\"CONTENT-TYPE\"] == \"text/plain\"\n    assert req.headers[\"ACCEPT-ENCODING\"] == \"gzip, deflate, br\""
+}

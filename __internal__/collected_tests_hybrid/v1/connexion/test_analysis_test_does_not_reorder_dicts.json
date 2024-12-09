@@ -1,0 +1,25 @@
+{
+  "test_name": "test_does_not_reorder_dicts",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "self.assertShows",
+      "source_code": "    def assertShows(self, expected, **kwargs):\n        expected = textwrap.dedent(expected).rstrip(\"\\n\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+      "line_number": 520
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertShows",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+      "line": 520,
+      "caller": "test_does_not_reorder_dicts",
+      "source_code": "    def assertShows(self, expected, **kwargs):\n        expected = textwrap.dedent(expected).rstrip(\"\\n\")\n\n        error = self.make_error(**kwargs)\n        message_line, _, rest = str(error).partition(\"\\n\")\n        self.assertEqual(message_line, error.message)\n        self.assertEqual(rest, expected)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_does_not_reorder_dicts(self):\n        self.assertShows(\n            \"\"\"\n            Failed validating 'type' in schema:\n                {'do': 3, 'not': 7, 'sort': 37, 'me': 73}\n\n            On instance:\n                {'here': 73, 'too': 37, 'no': 7, 'sorting': 3}\n            \"\"\",\n            schema={\n                \"do\": 3,\n                \"not\": 7,\n                \"sort\": 37,\n                \"me\": 73,\n            },\n            instance={\n                \"here\": 73,\n                \"too\": 37,\n                \"no\": 7,\n                \"sorting\": 3,\n            },\n        )"
+}

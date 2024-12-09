@@ -1,0 +1,32 @@
+{
+  "test_name": "test_parse",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(messages) == 1",
+    "assert msg.compression is None",
+    "assert not msg.upgrade",
+    "assert msg.method == 'GET'",
+    "assert msg.path == '/test'",
+    "assert msg.version == (1, 1)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse(parser: HttpRequestParser) -> None:\n    text = b\"GET /test HTTP/1.1\\r\\n\\r\\n\"\n    messages, upgrade, tail = parser.feed_data(text)\n    assert len(messages) == 1\n    msg, _ = messages[0]\n    assert msg.compression is None\n    assert not msg.upgrade\n    assert msg.method == \"GET\"\n    assert msg.path == \"/test\"\n    assert msg.version == (1, 1)"
+}

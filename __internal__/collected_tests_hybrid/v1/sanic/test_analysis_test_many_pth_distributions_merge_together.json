@@ -1,0 +1,188 @@
+{
+  "test_name": "test_many_pth_distributions_merge_together",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "tmpdir.join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "pth_subdir.mkdir",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "PthDistributions",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "PthDistributions",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "tmpdir.join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "new_src_path.mkdir",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "pth1.paths.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "pth1.save",
+      "source_code": "        def save(self):\n            self._save_context[\"default_whitespace\"] = ParserElement.DEFAULT_WHITE_CHARS\n            self._save_context[\"default_keyword_chars\"] = Keyword.DEFAULT_KEYWORD_CHARS",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/testing.py",
+      "line_number": 48
+    },
+    {
+      "name": "pth2.save",
+      "source_code": "        def save(self):\n            self._save_context[\"default_whitespace\"] = ParserElement.DEFAULT_WHITE_CHARS\n            self._save_context[\"default_keyword_chars\"] = Keyword.DEFAULT_KEYWORD_CHARS",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/testing.py",
+      "line_number": 48
+    },
+    {
+      "name": "pth_subdir.join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "PthDistributions",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tmpdir.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "pth_subdir.mkdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line": 123,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": ""
+    },
+    {
+      "function": "PthDistributions",
+      "filename": "",
+      "line": 0,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": ""
+    },
+    {
+      "function": "PthDistributions",
+      "filename": "",
+      "line": 0,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": ""
+    },
+    {
+      "function": "tmpdir.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "new_src_path.mkdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line": 123,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": ""
+    },
+    {
+      "function": "pth1.paths.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "pth1.save",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/testing.py",
+      "line": 48,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "        def save(self):\n            self._save_context[\"default_whitespace\"] = ParserElement.DEFAULT_WHITE_CHARS\n            self._save_context[\"default_keyword_chars\"] = Keyword.DEFAULT_KEYWORD_CHARS\n\n            self._save_context[\n                \"literal_string_class\"\n            ] = ParserElement._literalStringClass\n\n            self._save_context[\"verbose_stacktrace\"] = ParserElement.verbose_stacktrace\n\n            self._save_context[\"packrat_enabled\"] = ParserElement._packratEnabled\n            if ParserElement._packratEnabled:\n                self._save_context[\n                    \"packrat_cache_size\"\n                ] = ParserElement.packrat_cache.size\n            else:\n                self._save_context[\"packrat_cache_size\"] = None\n            self._save_context[\"packrat_parse\"] = ParserElement._parse\n            self._save_context[\n                \"recursion_enabled\"\n            ] = ParserElement._left_recursion_enabled\n\n            self._save_context[\"__diag__\"] = {\n                name: getattr(__diag__, name) for name in __diag__._all_names\n            }\n\n            self._save_context[\"__compat__\"] = {\n                \"collect_all_And_tokens\": __compat__.collect_all_And_tokens\n            }\n\n            return self\n\n"
+    },
+    {
+      "function": "pth2.save",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyparsing/testing.py",
+      "line": 48,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "        def save(self):\n            self._save_context[\"default_whitespace\"] = ParserElement.DEFAULT_WHITE_CHARS\n            self._save_context[\"default_keyword_chars\"] = Keyword.DEFAULT_KEYWORD_CHARS\n\n            self._save_context[\n                \"literal_string_class\"\n            ] = ParserElement._literalStringClass\n\n            self._save_context[\"verbose_stacktrace\"] = ParserElement.verbose_stacktrace\n\n            self._save_context[\"packrat_enabled\"] = ParserElement._packratEnabled\n            if ParserElement._packratEnabled:\n                self._save_context[\n                    \"packrat_cache_size\"\n                ] = ParserElement.packrat_cache.size\n            else:\n                self._save_context[\"packrat_cache_size\"] = None\n            self._save_context[\"packrat_parse\"] = ParserElement._parse\n            self._save_context[\n                \"recursion_enabled\"\n            ] = ParserElement._left_recursion_enabled\n\n            self._save_context[\"__diag__\"] = {\n                name: getattr(__diag__, name) for name in __diag__._all_names\n            }\n\n            self._save_context[\"__compat__\"] = {\n                \"collect_all_And_tokens\": __compat__.collect_all_And_tokens\n            }\n\n            return self\n\n"
+    },
+    {
+      "function": "pth_subdir.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "PthDistributions",
+      "filename": "",
+      "line": 0,
+      "caller": "test_many_pth_distributions_merge_together",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert pth1.paths == pth2.paths == [], 'unless there would be some default added at some point'",
+    "assert pth1.paths, 'the new_src_path added must still be present/valid in pth1 after save'",
+    "assert new_src_path_str not in pth2.paths, 'right before we save the entry should still not be present'",
+    "assert new_src_path_str in pth2.paths, 'the new_src_path entry should have been added by pth2 with its save() call'",
+    "assert pth2.paths[-1] == new_src_path, 'and it should match exactly on the last entry actually given we append to it in save()'",
+    "assert PthDistributions(pth_path).paths == pth2.paths, 'and we should have the exact same list at the end with a fresh PthDistributions instance'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_many_pth_distributions_merge_together(self, tmpdir):\n        \"\"\"\n        If the pth file is modified under the hood, then PthDistribution\n        will refresh its content before saving, merging contents when\n        necessary.\n        \"\"\"\n        # putting the pth file in a dedicated sub-folder,\n        pth_subdir = tmpdir.join(\"pth_subdir\")\n        pth_subdir.mkdir()\n        pth_path = str(pth_subdir.join(\"file1.pth\"))\n        pth1 = PthDistributions(pth_path)\n        pth2 = PthDistributions(pth_path)\n        assert pth1.paths == pth2.paths == [], (\n            \"unless there would be some default added at some point\"\n        )\n        # and so putting the src_subdir in folder distinct than the pth one,\n        # so to keep it absolute by PthDistributions\n        new_src_path = tmpdir.join(\"src_subdir\")\n        new_src_path.mkdir()  # must exist to be accounted\n        new_src_path_str = str(new_src_path)\n        pth1.paths.append(new_src_path_str)\n        pth1.save()\n        assert pth1.paths, (\n            \"the new_src_path added must still be present/valid in pth1 after save\"\n        )\n        # now,\n        assert new_src_path_str not in pth2.paths, (\n            \"right before we save the entry should still not be present\"\n        )\n        pth2.save()\n        assert new_src_path_str in pth2.paths, (\n            \"the new_src_path entry should have been added by pth2 with its save() call\"\n        )\n        assert pth2.paths[-1] == new_src_path, (\n            \"and it should match exactly on the last entry actually \"\n            \"given we append to it in save()\"\n        )\n        # finally,\n        assert PthDistributions(pth_path).paths == pth2.paths, (\n            \"and we should have the exact same list at the end \"\n            \"with a fresh PthDistributions instance\"\n        )"
+}

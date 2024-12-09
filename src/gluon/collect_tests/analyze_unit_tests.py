@@ -483,38 +483,67 @@ def print_metrics(metrics: Dict):
     required=True,
     help="Directory to store analysis results",
 )
-def main(input_dir: str, output_dir: str):
+@click.option(
+    "--log-file",
+    type=click.Path(),
+    help="Path to log file (optional)",
+)
+def main(input_dir: str, output_dir: str, log_file: str = None):
     """Analyze unit tests in the given repository."""
-    # Set up logging
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+    # Set up logging to file if specified
+    log_format = "%(asctime)s - %(levelname)s - %(message)s"
+    if log_file:
+        logging.basicConfig(
+            level=logging.INFO, format=log_format, handlers=[logging.FileHandler(log_file), logging.StreamHandler()]
+        )
+    else:
+        logging.basicConfig(level=logging.INFO, format=log_format)
+
     logger = logging.getLogger(__name__)
+    logger.info(f"Starting analysis of {input_dir}")
 
     analyzer = TestAnalyzer(input_dir, tests_dir=input_dir)
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
     # Run static analysis
-    click.echo("Running static analysis...")
+    logger.info("Running static analysis...")
     test_collection = analyzer.run_static_analysis()
 
     # Analyze each test
-    click.echo("\nAnalyzing tests...")
+    logger.info("\nAnalyzing tests...")
     total_tests = len(test_collection.tests)
     logger.info(f"Total tests to analyze: {total_tests}")
+
+    analyses = []
     for idx, test_case in enumerate(test_collection.tests, start=1):
         logger.info(f"Analyzing test {idx}/{total_tests}: {test_case.name}")
         try:
             analysis = analyzer.analyze_test(test_case.model_dump())
-            analyzer.print_analysis(analysis)
+            analyses.append(analysis)
 
-            # Save detailed results
+            # Save individual test analysis
             output_file = output_path / f"test_analysis_{test_case.name}.json"
             with open(output_file, "w") as f:
                 json.dump(analysis, f, indent=2)
-            click.echo(f"Detailed analysis saved to: {output_file}")
+            logger.info(f"Saved analysis to: {output_file}")
         except Exception as e:
-            click.echo(f"Error analyzing test {test_case.name}: {str(e)}", err=True)
-            traceback.print_exc()
+            logger.error(f"Error analyzing test {test_case.name}: {str(e)}")
+            logger.debug(traceback.format_exc())
+
+    # Calculate and save metrics
+    metrics = calculate_advanced_metrics(test_collection, analyses)
+    metrics_file = output_path / "metrics.json"
+    with open(metrics_file, "w") as f:
+        json.dump(metrics, f, indent=2)
+    logger.info(f"Saved metrics to: {metrics_file}")
+
+    # Save full analysis
+    full_analysis = {"metrics": metrics, "analyses": analyses}
+    full_analysis_file = output_path / "full_analysis.json"
+    with open(full_analysis_file, "w") as f:
+        json.dump(full_analysis, f, indent=2)
+    logger.info(f"Saved full analysis to: {full_analysis_file}")
 
 
 if __name__ == "__main__":

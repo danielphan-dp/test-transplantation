@@ -1,0 +1,69 @@
+{
+  "test_name": "test_shutdown_timeout_handler",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "aiohttp_unused_port",
+      "source_code": "def aiohttp_unused_port() -> Callable[[], int]:\n    \"\"\"Return a port that is unused on the current host.\"\"\"\n    return _unused_port",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line_number": 293
+    },
+    {
+      "name": "self.run_app",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n    ) -> Tuple[\"asyncio.Task[None]\", int]:\n        num_connections = -1\n        t = test_task = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 1007
+    },
+    {
+      "name": "t.done",
+      "source_code": "    def done(self):\n        if self._future is None:\n            return False\n        return self._future.done()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 3474
+    },
+    {
+      "name": "t.cancelled",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "aiohttp_unused_port",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/pytest_plugin.py",
+      "line": 293,
+      "caller": "test_shutdown_timeout_handler",
+      "source_code": "@pytest.fixture\ndef aiohttp_unused_port() -> Callable[[], int]:\n    \"\"\"Return a port that is unused on the current host.\"\"\"\n    return _unused_port\n\n\n"
+    },
+    {
+      "function": "self.run_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 1007,
+      "caller": "test_shutdown_timeout_handler",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n"
+    },
+    {
+      "function": "t.done",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 3474,
+      "caller": "test_shutdown_timeout_handler",
+      "source_code": "    @property\n    def done(self):\n        if self._future is None:\n            return False\n        return self._future.done()\n\n"
+    },
+    {
+      "function": "t.cancelled",
+      "filename": "",
+      "line": 0,
+      "caller": "test_shutdown_timeout_handler",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert finished is False",
+    "assert t.done()",
+    "assert t.cancelled()",
+    "assert connection_count == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_shutdown_timeout_handler(\n        self, aiohttp_unused_port: Callable[[], int]\n    ) -> None:\n        port = aiohttp_unused_port()\n        finished = False\n\n        async def task() -> None:\n            nonlocal finished\n            await asyncio.sleep(2)\n            finished = True\n\n        t, connection_count = self.run_app(port, 1, task)\n\n        assert finished is False\n        assert t.done()\n        assert t.cancelled()\n        assert connection_count == 1"
+}

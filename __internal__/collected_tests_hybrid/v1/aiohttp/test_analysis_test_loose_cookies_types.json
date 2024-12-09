@@ -1,0 +1,116 @@
+{
+  "test_name": "test_loose_cookies_types",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "ClientRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Morsel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "morsel.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SimpleCookie",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "req.update_cookies",
+      "source_code": "    def update_cookies(self, cookies: Optional[LooseCookies]) -> None:\n        \"\"\"Update request cookies header.\"\"\"\n        if not cookies:\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line_number": 405
+    },
+    {
+      "name": "BaseCookie",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "BaseCookie",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ClientRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_loose_cookies_types",
+      "source_code": ""
+    },
+    {
+      "function": "Morsel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_loose_cookies_types",
+      "source_code": ""
+    },
+    {
+      "function": "morsel.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_loose_cookies_types",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_loose_cookies_types",
+      "source_code": ""
+    },
+    {
+      "function": "SimpleCookie",
+      "filename": "",
+      "line": 0,
+      "caller": "test_loose_cookies_types",
+      "source_code": ""
+    },
+    {
+      "function": "req.update_cookies",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line": 405,
+      "caller": "test_loose_cookies_types",
+      "source_code": "    def update_cookies(self, cookies: Optional[LooseCookies]) -> None:\n        \"\"\"Update request cookies header.\"\"\"\n        if not cookies:\n            return\n\n        c = SimpleCookie()\n        if hdrs.COOKIE in self.headers:\n            c.load(self.headers.get(hdrs.COOKIE, \"\"))\n            del self.headers[hdrs.COOKIE]\n\n        if isinstance(cookies, Mapping):\n            iter_cookies = cookies.items()\n        else:\n            iter_cookies = cookies  # type: ignore[assignment]\n        for name, value in iter_cookies:\n            if isinstance(value, Morsel):\n                # Preserve coded_value\n                mrsl_val = value.get(value.key, Morsel())\n                mrsl_val.set(value.key, value.value, value.coded_value)\n                c[name] = mrsl_val\n            else:\n                c[name] = value  # type: ignore[assignment]\n\n        self.headers[hdrs.COOKIE] = c.output(header=\"\", sep=\";\").strip()\n\n"
+    },
+    {
+      "function": "BaseCookie",
+      "filename": "",
+      "line": 0,
+      "caller": "test_loose_cookies_types",
+      "source_code": ""
+    },
+    {
+      "function": "BaseCookie",
+      "filename": "",
+      "line": 0,
+      "caller": "test_loose_cookies_types",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_loose_cookies_types(loop: asyncio.AbstractEventLoop) -> None:\n    req = ClientRequest(\"get\", URL(\"http://python.org\"), loop=loop)\n    morsel: \"Morsel[str]\" = Morsel()\n    morsel.set(key=\"string\", val=\"Another string\", coded_val=\"really\")\n\n    accepted_types: List[LooseCookies] = [\n        [(\"str\", BaseCookie())],\n        [(\"str\", morsel)],\n        [\n            (\"str\", \"str\"),\n        ],\n        {\"str\": BaseCookie()},\n        {\"str\": morsel},\n        {\"str\": \"str\"},\n        SimpleCookie(),\n    ]\n\n    for loose_cookies_type in accepted_types:\n        req.update_cookies(cookies=loose_cookies_type)"
+}

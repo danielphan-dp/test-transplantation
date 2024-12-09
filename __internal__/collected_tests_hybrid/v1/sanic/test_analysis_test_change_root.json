@@ -1,0 +1,147 @@
+{
+  "test_name": "test_change_root",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line_number": 27
+    },
+    {
+      "name": "change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line_number": 27
+    },
+    {
+      "name": "path.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "path.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line_number": 27
+    },
+    {
+      "name": "change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line_number": 27
+    },
+    {
+      "name": "change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line_number": 27
+    },
+    {
+      "name": "path.replace",
+      "source_code": "    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line_number": 58
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_change_root",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "change_root",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line": 27,
+      "caller": "test_change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.\n\n    If 'pathname' is relative, this is equivalent to os.path.join(new_root, pathname).\n    Otherwise, it requires making 'pathname' relative and then joining the\n    two, which is tricky on DOS/Windows and Mac OS.\n\n    This is borrowed from Python's standard library's distutils module.\n    \"\"\"\n    if os.name == \"posix\":\n        if not os.path.isabs(pathname):\n            return os.path.join(new_root, pathname)\n        else:\n            return os.path.join(new_root, pathname[1:])\n\n    elif os.name == \"nt\":\n        (drive, path) = os.path.splitdrive(pathname)\n        if path[0] == \"\\\\\":\n            path = path[1:]\n        return os.path.join(new_root, path)\n\n    else:\n        raise InstallationError(\n            f\"Unknown platform: {os.name}\\n\"\n            \"Can not change root path prefix on unknown platform.\"\n        )\n\n\n"
+    },
+    {
+      "function": "change_root",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line": 27,
+      "caller": "test_change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.\n\n    If 'pathname' is relative, this is equivalent to os.path.join(new_root, pathname).\n    Otherwise, it requires making 'pathname' relative and then joining the\n    two, which is tricky on DOS/Windows and Mac OS.\n\n    This is borrowed from Python's standard library's distutils module.\n    \"\"\"\n    if os.name == \"posix\":\n        if not os.path.isabs(pathname):\n            return os.path.join(new_root, pathname)\n        else:\n            return os.path.join(new_root, pathname[1:])\n\n    elif os.name == \"nt\":\n        (drive, path) = os.path.splitdrive(pathname)\n        if path[0] == \"\\\\\":\n            path = path[1:]\n        return os.path.join(new_root, path)\n\n    else:\n        raise InstallationError(\n            f\"Unknown platform: {os.name}\\n\"\n            \"Can not change root path prefix on unknown platform.\"\n        )\n\n\n"
+    },
+    {
+      "function": "path.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_change_root",
+      "source_code": ""
+    },
+    {
+      "function": "path.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_change_root",
+      "source_code": ""
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_change_root",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "change_root",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line": 27,
+      "caller": "test_change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.\n\n    If 'pathname' is relative, this is equivalent to os.path.join(new_root, pathname).\n    Otherwise, it requires making 'pathname' relative and then joining the\n    two, which is tricky on DOS/Windows and Mac OS.\n\n    This is borrowed from Python's standard library's distutils module.\n    \"\"\"\n    if os.name == \"posix\":\n        if not os.path.isabs(pathname):\n            return os.path.join(new_root, pathname)\n        else:\n            return os.path.join(new_root, pathname[1:])\n\n    elif os.name == \"nt\":\n        (drive, path) = os.path.splitdrive(pathname)\n        if path[0] == \"\\\\\":\n            path = path[1:]\n        return os.path.join(new_root, path)\n\n    else:\n        raise InstallationError(\n            f\"Unknown platform: {os.name}\\n\"\n            \"Can not change root path prefix on unknown platform.\"\n        )\n\n\n"
+    },
+    {
+      "function": "change_root",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line": 27,
+      "caller": "test_change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.\n\n    If 'pathname' is relative, this is equivalent to os.path.join(new_root, pathname).\n    Otherwise, it requires making 'pathname' relative and then joining the\n    two, which is tricky on DOS/Windows and Mac OS.\n\n    This is borrowed from Python's standard library's distutils module.\n    \"\"\"\n    if os.name == \"posix\":\n        if not os.path.isabs(pathname):\n            return os.path.join(new_root, pathname)\n        else:\n            return os.path.join(new_root, pathname[1:])\n\n    elif os.name == \"nt\":\n        (drive, path) = os.path.splitdrive(pathname)\n        if path[0] == \"\\\\\":\n            path = path[1:]\n        return os.path.join(new_root, path)\n\n    else:\n        raise InstallationError(\n            f\"Unknown platform: {os.name}\\n\"\n            \"Can not change root path prefix on unknown platform.\"\n        )\n\n\n"
+    },
+    {
+      "function": "change_root",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/locations/base.py",
+      "line": 27,
+      "caller": "test_change_root",
+      "source_code": "def change_root(new_root: str, pathname: str) -> str:\n    \"\"\"Return 'pathname' with 'new_root' prepended.\n\n    If 'pathname' is relative, this is equivalent to os.path.join(new_root, pathname).\n    Otherwise, it requires making 'pathname' relative and then joining the\n    two, which is tricky on DOS/Windows and Mac OS.\n\n    This is borrowed from Python's standard library's distutils module.\n    \"\"\"\n    if os.name == \"posix\":\n        if not os.path.isabs(pathname):\n            return os.path.join(new_root, pathname)\n        else:\n            return os.path.join(new_root, pathname[1:])\n\n    elif os.name == \"nt\":\n        (drive, path) = os.path.splitdrive(pathname)\n        if path[0] == \"\\\\\":\n            path = path[1:]\n        return os.path.join(new_root, path)\n\n    else:\n        raise InstallationError(\n            f\"Unknown platform: {os.name}\\n\"\n            \"Can not change root path prefix on unknown platform.\"\n        )\n\n\n"
+    },
+    {
+      "function": "path.replace",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line": 58,
+      "caller": "test_change_root",
+      "source_code": "    @classmethod\n    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.\n\n        Args:\n            text (str): A string with emojis codes, e.g. \"Hello :smiley:!\"\n\n        Returns:\n            str: A string with emoji codes replaces with actual emoji.\n        \"\"\"\n        return _emoji_replace(text)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert change_root('/root', '/old/its/here') == '/root/old/its/here'",
+    "assert change_root('/root', 'its/here') == '/root/its/here'",
+    "assert change_root('c:\\\\root', 'c:\\\\old\\\\its\\\\here') == 'c:\\\\root\\\\old\\\\its\\\\here'",
+    "assert change_root('c:\\\\root', 'its\\\\here') == 'c:\\\\root\\\\its\\\\here'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_change_root(self):\n        # linux/mac\n        os.name = 'posix'\n\n        def _isabs(path):\n            return path[0] == '/'\n\n        os.path.isabs = _isabs\n\n        def _join(*path):\n            return '/'.join(path)\n\n        os.path.join = _join\n\n        assert change_root('/root', '/old/its/here') == '/root/old/its/here'\n        assert change_root('/root', 'its/here') == '/root/its/here'\n\n        # windows\n        os.name = 'nt'\n        os.sep = '\\\\'\n\n        def _isabs(path):\n            return path.startswith('c:\\\\')\n\n        os.path.isabs = _isabs\n\n        def _splitdrive(path):\n            if path.startswith('c:'):\n                return ('', path.replace('c:', ''))\n            return ('', path)\n\n        os.path.splitdrive = _splitdrive\n\n        def _join(*path):\n            return '\\\\'.join(path)\n\n        os.path.join = _join\n\n        assert (\n            change_root('c:\\\\root', 'c:\\\\old\\\\its\\\\here') == 'c:\\\\root\\\\old\\\\its\\\\here'\n        )\n        assert change_root('c:\\\\root', 'its\\\\here') == 'c:\\\\root\\\\its\\\\here'\n\n        # BugsBunny os (it's a great os)\n        os.name = 'BugsBunny'\n        with pytest.raises(DistutilsPlatformError):\n            change_root('c:\\\\root', 'its\\\\here')"
+}

@@ -1,0 +1,77 @@
+{
+  "test_name": "test_dictless_wo_existing_Implements_cant_assign___implemented__",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "property",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "NotImplementedError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "NotImplementedError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Foo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dictless_wo_existing_Implements_cant_assign___implemented__",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_dictless_wo_existing_Implements_cant_assign___implemented__",
+      "source_code": ""
+    },
+    {
+      "function": "property",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dictless_wo_existing_Implements_cant_assign___implemented__",
+      "source_code": ""
+    },
+    {
+      "function": "NotImplementedError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dictless_wo_existing_Implements_cant_assign___implemented__",
+      "source_code": ""
+    },
+    {
+      "function": "NotImplementedError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_dictless_wo_existing_Implements_cant_assign___implemented__",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dictless_wo_existing_Implements_cant_assign___implemented__(self):\n\n        class Foo:\n            def _get_impl(self):\n                raise NotImplementedError()\n\n            def _set_impl(self, val):\n                raise TypeError\n\n            __implemented__ = property(_get_impl, _set_impl)\n\n            def __call__(self):\n                # act like a factory\n                raise NotImplementedError()\n\n        foo = Foo()\n        self.assertRaises(TypeError, self._callFUT, foo)"
+}

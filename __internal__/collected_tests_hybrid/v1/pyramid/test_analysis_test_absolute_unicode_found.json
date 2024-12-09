@@ -1,0 +1,103 @@
+{
+  "test_name": "test_absolute_unicode_found",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+  "static_methods": [
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "text_",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line_number": 26
+    },
+    {
+      "name": "self._registerTraverser",
+      "source_code": "    def _registerTraverser(self, traverser):\n        from pyramid.threadlocal import get_current_registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 552
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "text_",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line_number": 26
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_absolute_unicode_found",
+      "source_code": ""
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_absolute_unicode_found",
+      "source_code": ""
+    },
+    {
+      "function": "text_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line": 26,
+      "caller": "test_absolute_unicode_found",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s\n\n"
+    },
+    {
+      "function": "self._registerTraverser",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 552,
+      "caller": "test_absolute_unicode_found",
+      "source_code": "    def _registerTraverser(self, traverser):\n        from pyramid.threadlocal import get_current_registry\n\n        reg = get_current_registry()\n        from zope.interface import Interface\n\n        from pyramid.interfaces import ITraverser\n\n        reg.registerAdapter(traverser, (Interface,), ITraverser)\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_absolute_unicode_found",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_absolute_unicode_found",
+      "source_code": ""
+    },
+    {
+      "function": "text_",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/compat.py",
+      "line": 26,
+      "caller": "test_absolute_unicode_found",
+      "source_code": "def text_(s, encoding='latin-1', errors='strict'):\n    if isinstance(s, bytes):\n        return s.decode(encoding, errors)\n    return s\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_absolute_unicode_found(self):\n        # test for bug wiggy found in wild, traceback stack:\n        # root = '/%E6%B5%81%E8%A1%8C%E8%B6%8B%E5%8A%BF'\n        # wiggy's code: section=find_resource(page, root)\n        # find_resource L76: D = traverse(resource, path)\n        # traverse L291: return traverser(request)\n        # __call__ line 568: vpath_tuple = traversal_path(vpath)\n        # lru_cached line 91: f(*arg)\n        # traversal_path line 443: path.encode('ascii')\n        # UnicodeEncodeError: 'ascii' codec can't encode characters in\n        #     position 1-12: ordinal not in range(128)\n        #\n        # solution: encode string to ascii in pyramid.traversal.traverse\n        # before passing it along to webob as path_info\n        from pyramid.traversal import ResourceTreeTraverser\n\n        unprintable = DummyContext()\n        root = DummyContext(unprintable)\n        unprintable.__parent__ = root\n        unprintable.__name__ = text_(\n            b'/\\xe6\\xb5\\x81\\xe8\\xa1\\x8c\\xe8\\xb6\\x8b\\xe5\\x8a\\xbf', 'utf-8'\n        )\n        root.__parent__ = None\n        root.__name__ = None\n        traverser = ResourceTreeTraverser\n        self._registerTraverser(traverser)\n        result = self._callFUT(\n            root, text_(b'/%E6%B5%81%E8%A1%8C%E8%B6%8B%E5%8A%BF')\n        )\n        self.assertEqual(result, unprintable)"
+}

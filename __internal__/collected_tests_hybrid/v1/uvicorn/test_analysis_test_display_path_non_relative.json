@@ -1,0 +1,40 @@
+{
+  "test_name": "test_display_path_non_relative",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+  "static_methods": [
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_display_path",
+      "source_code": "def _display_path(path: Path) -> str:\n    try:\n        return f\"'{path.relative_to(Path.cwd())}'\"\n    except ValueError:\n        return f\"'{path}'\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/supervisors/basereload.py",
+      "line_number": 117
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_display_path_non_relative",
+      "source_code": ""
+    },
+    {
+      "function": "_display_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/uvicorn/supervisors/basereload.py",
+      "line": 117,
+      "caller": "test_display_path_non_relative",
+      "source_code": "def _display_path(path: Path) -> str:\n    try:\n        return f\"'{path.relative_to(Path.cwd())}'\"\n    except ValueError:\n        return f\"'{path}'\"\n"
+    }
+  ],
+  "assertions": [
+    "assert _display_path(p) in (\"'/foo/bar.py'\", \"'\\\\foo\\\\bar.py'\")"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_display_path_non_relative():\n    p = Path(\"/foo/bar.py\")\n    assert _display_path(p) in (\"'/foo/bar.py'\", \"'\\\\foo\\\\bar.py'\")"
+}

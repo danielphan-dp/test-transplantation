@@ -1,0 +1,80 @@
+{
+  "test_name": "test_instrument_task_spawn_exit",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_instrumentation.py",
+  "static_methods": [
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "_core.current_task",
+      "source_code": "def current_task() -> Task:\n    \"\"\"Return the :class:`Task` object representing the current task.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 2730
+    },
+    {
+      "name": "record.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "record.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "SpawnExitRecorder",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_instrument_task_spawn_exit",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "_core.current_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 2730,
+      "caller": "test_instrument_task_spawn_exit",
+      "source_code": "def current_task() -> Task:\n    \"\"\"Return the :class:`Task` object representing the current task.\n\n    Returns:\n      Task: the :class:`Task` that called :func:`current_task`.\n\n    \"\"\"\n\n    try:\n        return GLOBAL_RUN_CONTEXT.task\n    except AttributeError:\n        raise RuntimeError(\"must be called from async context\") from None\n\n\n"
+    },
+    {
+      "function": "record.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_instrument_task_spawn_exit",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "record.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_instrument_task_spawn_exit",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "SpawnExitRecorder",
+      "filename": "",
+      "line": 0,
+      "caller": "test_instrument_task_spawn_exit",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ('spawned', main_task) in record",
+    "assert ('exited', main_task) in record"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_instrument_task_spawn_exit() -> None:\n    record = []\n\n    class SpawnExitRecorder(_abc.Instrument):\n        def task_spawned(self, task: Task) -> None:\n            record.append((\"spawned\", task))\n\n        def task_exited(self, task: Task) -> None:\n            record.append((\"exited\", task))\n\n    async def main() -> Task:\n        return _core.current_task()\n\n    main_task = _core.run(main, instruments=[SpawnExitRecorder()])\n    assert (\"spawned\", main_task) in record\n    assert (\"exited\", main_task) in record"
+}

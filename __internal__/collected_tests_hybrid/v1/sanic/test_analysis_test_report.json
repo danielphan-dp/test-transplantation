@@ -1,0 +1,27 @@
+{
+  "test_name": "test_report",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "checker.report",
+      "source_code": "def report() -> None:  # pragma: no cover\n    \"\"\"Print a report to the terminal with debugging information\"\"\"\n    console = Console()\n    inspect(console)\n    features = get_windows_console_features()\n    inspect(features)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/diagnose.py",
+      "line_number": 10
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "checker.report",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/diagnose.py",
+      "line": 10,
+      "caller": "test_report",
+      "source_code": "def report() -> None:  # pragma: no cover\n    \"\"\"Print a report to the terminal with debugging information\"\"\"\n    console = Console()\n    inspect(console)\n    features = get_windows_console_features()\n    inspect(features)\n\n    env_names = (\n        \"TERM\",\n        \"COLORTERM\",\n        \"CLICOLOR\",\n        \"NO_COLOR\",\n        \"TERM_PROGRAM\",\n        \"COLUMNS\",\n        \"LINES\",\n        \"JUPYTER_COLUMNS\",\n        \"JUPYTER_LINES\",\n        \"JPY_PARENT_PID\",\n        \"VSCODE_VERBOSE_LOGGING\",\n    )\n    env = {name: os.getenv(name) for name in env_names}\n    console.print(Panel.fit((Pretty(env)), title=\"[b]Environment Variables\"))\n\n    console.print(f'platform=\"{platform.system()}\"')\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert rep == 'My message about md5'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_report(self):\n        checker = setuptools.package_index.HashChecker.from_url(\n            'http://foo/bar#md5=f12895fdffbd45007040d2e44df98478'\n        )\n        rep = checker.report(lambda x: x, 'My message about %s')\n        assert rep == 'My message about md5'"
+}

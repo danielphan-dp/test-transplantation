@@ -1,0 +1,40 @@
+{
+  "test_name": "test_import_app_bad",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "util.import_app",
+      "source_code": "def import_app(module):\n    parts = module.split(\":\", 1)\n    if len(parts) == 1:\n        obj = \"application\"\n    else:\n        module, obj = parts[0], parts[1]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line_number": 358
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "util.import_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line": 358,
+      "caller": "test_import_app_bad",
+      "source_code": "def import_app(module):\n    parts = module.split(\":\", 1)\n    if len(parts) == 1:\n        obj = \"application\"\n    else:\n        module, obj = parts[0], parts[1]\n\n    try:\n        mod = importlib.import_module(module)\n    except ImportError:\n        if module.endswith(\".py\") and os.path.exists(module):\n            msg = \"Failed to find application, did you mean '%s:%s'?\"\n            raise ImportError(msg % (module.rsplit(\".\", 1)[0], obj))\n        raise\n\n    # Parse obj as a single expression to determine if it's a valid\n    # attribute name or function call.\n    try:\n        expression = ast.parse(obj, mode=\"eval\").body\n    except SyntaxError:\n        raise AppImportError(\n            \"Failed to parse %r as an attribute name or function call.\" % obj\n        )\n\n    if isinstance(expression, ast.Name):\n        name = expression.id\n        args = kwargs = None\n    elif isinstance(expression, ast.Call):\n        # Ensure the function name is an attribute name only.\n        if not isinstance(expression.func, ast.Name):\n            raise AppImportError(\"Function reference must be a simple name: %r\" % obj)\n\n        name = expression.func.id\n\n        # Parse the positional and keyword arguments as literals.\n        try:\n            args = [ast.literal_eval(arg) for arg in expression.args]\n            kwargs = {kw.arg: ast.literal_eval(kw.value) for kw in expression.keywords}\n        except ValueError:\n            # literal_eval gives cryptic error messages, show a generic\n            # message with the full expression instead.\n            raise AppImportError(\n                \"Failed to parse arguments as literal values: %r\" % obj\n            )\n    else:\n        raise AppImportError(\n            \"Failed to parse %r as an attribute name or function call.\" % obj\n        )\n\n    is_debug = logging.root.level == logging.DEBUG\n    try:\n        app = getattr(mod, name)\n    except AttributeError:\n        if is_debug:\n            traceback.print_exception(*sys.exc_info())\n        raise AppImportError(\"Failed to find attribute %r in %r.\" % (name, module))\n\n    # If the expression was a function call, call the retrieved object\n    # to get the real application.\n    if args is not None:\n        try:\n            app = app(*args, **kwargs)\n        except TypeError as e:\n            # If the TypeError was due to bad arguments to the factory\n            # function, show Python's nice error message without a\n            # traceback.\n            if _called_with_wrong_args(app):\n                raise AppImportError(\n                    \"\".join(traceback.format_exception_only(TypeError, e)).strip()\n                )\n\n            # Otherwise it was raised from within the function, show the\n            # full traceback.\n            raise\n\n    if app is None:\n        raise AppImportError(\"Failed to find application object: %r\" % obj)\n\n    if not callable(app):\n        raise AppImportError(\"Application object must be callable.\")\n    return app\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_import_app_bad",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert msg in str(exc_info.value)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_import_app_bad(value, exc_type, msg):\n    with pytest.raises(exc_type) as exc_info:\n        util.import_app(value)\n\n    assert msg in str(exc_info.value)"
+}

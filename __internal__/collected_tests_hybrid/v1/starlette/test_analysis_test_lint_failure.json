@@ -1,0 +1,77 @@
+{
+  "test_name": "test_lint_failure",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/tools/test_gen_exports.py",
+  "static_methods": [
+    {
+      "name": "File",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_linters",
+      "source_code": "def run_linters(file: File, source: str) -> str:\n    \"\"\"Format the specified file using black and ruff.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line_number": 173
+    },
+    {
+      "name": "run_linters",
+      "source_code": "def run_linters(file: File, source: str) -> str:\n    \"\"\"Format the specified file using black and ruff.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line_number": 173
+    },
+    {
+      "name": "skip_if_optional_else_raise",
+      "source_code": "def skip_if_optional_else_raise(error: ImportError) -> NoReturn:\n    if SKIP_OPTIONAL_IMPORTS:\n        pytest.skip(error.msg, allow_module_level=True)\n    else:  # pragma: no cover\n        raise error",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/pytest_plugin.py",
+      "line_number": 50
+    },
+    {
+      "name": "skip_lints",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "File",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lint_failure",
+      "source_code": ""
+    },
+    {
+      "function": "run_linters",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line": 173,
+      "caller": "test_lint_failure",
+      "source_code": "def run_linters(file: File, source: str) -> str:\n    \"\"\"Format the specified file using black and ruff.\n\n    Returns:\n      Formatted source code.\n\n    Raises:\n      ImportError: If either is not installed.\n      SystemExit: If either failed.\n    \"\"\"\n\n    success, response = run_black(file, source)\n    if not success:\n        print(response)\n        sys.exit(1)\n\n    success, response = run_ruff(file, response)\n    if not success:  # pragma: no cover  # Test for run_ruff should catch\n        print(response)\n        sys.exit(1)\n\n    return response\n\n\n"
+    },
+    {
+      "function": "run_linters",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line": 173,
+      "caller": "test_lint_failure",
+      "source_code": "def run_linters(file: File, source: str) -> str:\n    \"\"\"Format the specified file using black and ruff.\n\n    Returns:\n      Formatted source code.\n\n    Raises:\n      ImportError: If either is not installed.\n      SystemExit: If either failed.\n    \"\"\"\n\n    success, response = run_black(file, source)\n    if not success:\n        print(response)\n        sys.exit(1)\n\n    success, response = run_ruff(file, response)\n    if not success:  # pragma: no cover  # Test for run_ruff should catch\n        print(response)\n        sys.exit(1)\n\n    return response\n\n\n"
+    },
+    {
+      "function": "skip_if_optional_else_raise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/pytest_plugin.py",
+      "line": 50,
+      "caller": "test_lint_failure",
+      "source_code": "def skip_if_optional_else_raise(error: ImportError) -> NoReturn:\n    if SKIP_OPTIONAL_IMPORTS:\n        pytest.skip(error.msg, allow_module_level=True)\n    else:  # pragma: no cover\n        raise error\n"
+    },
+    {
+      "function": "skip_lints",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lint_failure",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_lint_failure(tmp_path: Path) -> None:\n    \"\"\"Test that processing properly fails if black or ruff does.\"\"\"\n    try:\n        import black  # noqa: F401\n        import ruff  # noqa: F401\n    except ImportError as error:  # pragma: no cover\n        skip_if_optional_else_raise(error)\n\n    file = File(tmp_path / \"module.py\", \"module\")\n\n    with pytest.raises(SystemExit):\n        run_linters(file, \"class not valid code ><\")\n\n    with pytest.raises(SystemExit):\n        run_linters(file, \"import waffle\\n;import trio\")"
+}

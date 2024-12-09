@@ -1,0 +1,155 @@
+{
+  "test_name": "test_assignment_to__class__2",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._getTargetClass",
+      "source_code": "    def _getTargetClass(self):\n        from zope.interface.interface import Element\n        return Element",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 116
+    },
+    {
+      "name": "MyInterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "IFoo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "IBar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ISpam",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ISpam",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "self._getTargetClass",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 116,
+      "caller": "test_assignment_to__class__2",
+      "source_code": "    def _getTargetClass(self):\n        from zope.interface.interface import Element\n        return Element\n\n"
+    },
+    {
+      "function": "MyInterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "IFoo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "IBar",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "ISpam",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    },
+    {
+      "function": "ISpam",
+      "filename": "",
+      "line": 0,
+      "caller": "test_assignment_to__class__2",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_assignment_to__class__2(self):\n        # https://github.com/zopefoundation/zope.interface/issues/6\n        # This is essentially a transcription of the\n        # test presented in the bug report.\n        from zope.interface import Interface\n\n        class MyInterfaceClass(self._getTargetClass()):\n            def __call__(self, *args):\n                return args\n\n        IFoo = MyInterfaceClass('IFoo', (Interface,))\n        self.assertEqual(IFoo(1), (1,))\n\n        class IBar(IFoo):\n            pass\n\n        self.assertEqual(IBar(1), (1,))\n\n        class ISpam(Interface):\n            pass\n\n        with self.assertRaises(TypeError):\n            ISpam()\n\n        ISpam.__class__ = MyInterfaceClass\n        self.assertEqual(ISpam(1), (1,))"
+}

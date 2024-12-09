@@ -1,0 +1,40 @@
+{
+  "test_name": "test_newer_group_no_sources_no_target",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_modified.py",
+  "static_methods": [
+    {
+      "name": "newer_group",
+      "source_code": "def newer_group(sources, target, missing='error'):\n    \"\"\"\n    Is target out-of-date with respect to any file in sources.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line_number": 46
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "newer_group",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/_modified.py",
+      "line": 46,
+      "caller": "test_newer_group_no_sources_no_target",
+      "source_code": "def newer_group(sources, target, missing='error'):\n    \"\"\"\n    Is target out-of-date with respect to any file in sources.\n\n    Return True if 'target' is out-of-date with respect to any file\n    listed in 'sources'. In other words, if 'target' exists and is newer\n    than every file in 'sources', return False; otherwise return True.\n    ``missing`` controls how to handle a missing source file:\n\n    - error (default): allow the ``stat()`` call to fail.\n    - ignore: silently disregard any missing source files.\n    - newer: treat missing source files as \"target out of date\". This\n      mode is handy in \"dry-run\" mode: it will pretend to carry out\n      commands that wouldn't work because inputs are missing, but\n      that doesn't matter because dry-run won't run the commands.\n    \"\"\"\n\n    def missing_as_newer(source):\n        return missing == 'newer' and not os.path.exists(source)\n\n    ignored = os.path.exists if missing == 'ignore' else None\n    return not os.path.exists(target) or any(\n        missing_as_newer(source) or _newer(source, target)\n        for source in filter(ignored, sources)\n    )\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_newer_group_no_sources_no_target",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert newer_group([], str(tmp_path / 'does-not-exist'))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_newer_group_no_sources_no_target(tmp_path):\n    \"\"\"\n    Consider no sources and no target \"newer\".\n    \"\"\"\n    assert newer_group([], str(tmp_path / 'does-not-exist'))"
+}

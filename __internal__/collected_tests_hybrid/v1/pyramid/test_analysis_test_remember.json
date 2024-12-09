@@ -1,0 +1,77 @@
+{
+  "test_name": "test_remember",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+  "static_methods": [
+    {
+      "name": "_makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "LegacySecurityPolicy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_registerAuthenticationPolicy",
+      "source_code": "def _registerAuthenticationPolicy(reg, result):\n    from pyramid.interfaces import IAuthenticationPolicy",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+      "line_number": 629
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "policy.remember",
+      "source_code": "    def remember(self, request, userid, **kw):\n        self.remembered = userid\n        return self.remember_result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line_number": 63
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_remember",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "LegacySecurityPolicy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember",
+      "source_code": ""
+    },
+    {
+      "function": "_registerAuthenticationPolicy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_security.py",
+      "line": 629,
+      "caller": "test_remember",
+      "source_code": "def _registerAuthenticationPolicy(reg, result):\n    from pyramid.interfaces import IAuthenticationPolicy\n\n    policy = DummyAuthenticationPolicy(result)\n    reg.registerUtility(policy, IAuthenticationPolicy)\n    return policy\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_remember",
+      "source_code": ""
+    },
+    {
+      "function": "policy.remember",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/testing.py",
+      "line": 63,
+      "caller": "test_remember",
+      "source_code": "    def remember(self, request, userid, **kw):\n        self.remembered = userid\n        return self.remember_result\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_remember(self):\n        from pyramid.security import LegacySecurityPolicy\n\n        request = _makeRequest()\n        policy = LegacySecurityPolicy()\n        _registerAuthenticationPolicy(request.registry, None)\n\n        self.assertEqual(\n            policy.remember(request, 'userid'), [('X-Pyramid-Test', 'userid')]\n        )"
+}

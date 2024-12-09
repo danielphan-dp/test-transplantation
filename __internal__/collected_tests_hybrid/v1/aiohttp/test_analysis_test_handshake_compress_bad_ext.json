@@ -1,0 +1,67 @@
+{
+  "test_name": "test_handshake_compress_bad_ext",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_handshake.py",
+  "static_methods": [
+    {
+      "name": "gen_ws_headers",
+      "source_code": "def gen_ws_headers(\n    protocols: str = \"\",\n    compress: int = 0,\n    extension_text: str = \"\",\n    server_notakeover: bool = False,\n    client_notakeover: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_handshake.py",
+      "line_number": 13
+    },
+    {
+      "name": "make_mocked_request",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 605
+    },
+    {
+      "name": "web.WebSocketResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ws._handshake",
+      "source_code": "    def _handshake(\n        self, request: BaseRequest\n    ) -> Tuple[\"CIMultiDict[str]\", str, bool, bool]:\n        headers = request.headers\n        if \"websocket\" != headers.get(hdrs.UPGRADE, \"\").lower().strip():\n            raise HTTPBadRequest(\n                text=(\n                    \"No WebSocket UPGRADE hdr: {}\\n Can \"\n                    '\"Upgrade\" only to \"WebSocket\".'\n                ).format(headers.get(hdrs.UPGRADE))\n            )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_ws.py",
+      "line_number": 241
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "gen_ws_headers",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_handshake.py",
+      "line": 13,
+      "caller": "test_handshake_compress_bad_ext",
+      "source_code": "def gen_ws_headers(\n    protocols: str = \"\",\n    compress: int = 0,\n    extension_text: str = \"\",\n    server_notakeover: bool = False,\n    client_notakeover: bool = False,\n"
+    },
+    {
+      "function": "make_mocked_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 605,
+      "caller": "test_handshake_compress_bad_ext",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,\n"
+    },
+    {
+      "function": "web.WebSocketResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handshake_compress_bad_ext",
+      "source_code": ""
+    },
+    {
+      "function": "ws._handshake",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_ws.py",
+      "line": 241,
+      "caller": "test_handshake_compress_bad_ext",
+      "source_code": "    def _handshake(\n        self, request: BaseRequest\n"
+    }
+  ],
+  "assertions": [
+    "assert 'Sec-Websocket-Extensions' not in headers",
+    "assert compress == 0"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_handshake_compress_bad_ext() -> None:\n    hdrs, sec_key = gen_ws_headers(compress=15, extension_text=\"bad\")\n\n    req = make_mocked_request(\"GET\", \"/\", headers=hdrs)\n\n    ws = web.WebSocketResponse()\n    headers, _, compress, notakeover = ws._handshake(req)\n\n    assert \"Sec-Websocket-Extensions\" not in headers\n    assert compress == 0"
+}

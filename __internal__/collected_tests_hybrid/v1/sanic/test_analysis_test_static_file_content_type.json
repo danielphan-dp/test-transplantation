@@ -1,0 +1,68 @@
+{
+  "test_name": "test_static_file_content_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_static.py",
+  "static_methods": [
+    {
+      "name": "app.static",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n    ):\n        \"\"\"Register a root to serve files from. The input can either be a file or a directory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line_number": 31
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "get_file_path",
+      "source_code": "    def get_file_path(self, name, relative_path):\n        \"\"\"\n        Return the path to a resource file.\n        \"\"\"\n        dist = self.get_distribution(name)\n        if dist is None:\n            raise LookupError('no distribution named %r found' % name)\n        return dist.get_resource_path(relative_path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/database.py",
+      "line_number": 295
+    },
+    {
+      "name": "get_file_content",
+      "source_code": "def get_file_content(url: str, session: PipSession) -> Tuple[str, str]:\n    \"\"\"Gets the content of a file; it may be a filename, file: URL, or\n    http: URL.  Returns (location, content).  Content is unicode.\n    Respects # -*- coding: declarations on the retrieved files.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_file.py",
+      "line_number": 522
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line": 31,
+      "caller": "test_static_file_content_type",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_static_file_content_type",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "get_file_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/database.py",
+      "line": 295,
+      "caller": "test_static_file_content_type",
+      "source_code": "    def get_file_path(self, name, relative_path):\n        \"\"\"\n        Return the path to a resource file.\n        \"\"\"\n        dist = self.get_distribution(name)\n        if dist is None:\n            raise LookupError('no distribution named %r found' % name)\n        return dist.get_resource_path(relative_path)\n\n"
+    },
+    {
+      "function": "get_file_content",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_internal/req/req_file.py",
+      "line": 522,
+      "caller": "test_static_file_content_type",
+      "source_code": "def get_file_content(url: str, session: PipSession) -> Tuple[str, str]:\n    \"\"\"Gets the content of a file; it may be a filename, file: URL, or\n    http: URL.  Returns (location, content).  Content is unicode.\n    Respects # -*- coding: declarations on the retrieved files.\n\n    :param url:         File path or url.\n    :param session:     PipSession instance.\n    \"\"\"\n    scheme = get_url_scheme(url)\n\n    # Pip has special support for file:// URLs (LocalFSAdapter).\n    if scheme in [\"http\", \"https\", \"file\"]:\n        resp = session.get(url)\n        raise_for_status(resp)\n        return resp.url, resp.text\n\n    # Assume this is a bare path.\n    try:\n        with open(url, \"rb\") as f:\n            content = auto_decode(f.read())\n    except OSError as exc:\n        raise InstallationError(f\"Could not open requirements file: {exc}\")\n    return url, content\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status == 200",
+    "assert response.body == get_file_content(static_file_directory, file_name)",
+    "assert response.headers['Content-Type'] == 'text/html; charset=utf-8'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_static_file_content_type(app, static_file_directory, file_name):\n    app.static(\n        \"/testing.file\",\n        get_file_path(static_file_directory, file_name),\n        content_type=\"text/html; charset=utf-8\",\n    )\n\n    request, response = app.test_client.get(\"/testing.file\")\n    assert response.status == 200\n    assert response.body == get_file_content(static_file_directory, file_name)\n    assert response.headers[\"Content-Type\"] == \"text/html; charset=utf-8\""
+}

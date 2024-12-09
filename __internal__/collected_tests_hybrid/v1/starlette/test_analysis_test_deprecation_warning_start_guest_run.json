@@ -1,0 +1,53 @@
+{
+  "test_name": "test_deprecation_warning_start_guest_run",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_deprecate_strict_exception_groups_false.py",
+  "static_methods": [
+    {
+      "name": "trivial_guest_run",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line_number": 51
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "trio.lowlevel.checkpoint",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "trivial_guest_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line": 51,
+      "caller": "test_deprecation_warning_start_guest_run",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_deprecation_warning_start_guest_run",
+      "source_code": ""
+    },
+    {
+      "function": "trio.lowlevel.checkpoint",
+      "filename": "",
+      "line": 0,
+      "caller": "test_deprecation_warning_start_guest_run",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(record) == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_deprecation_warning_start_guest_run() -> None:\n    # \"The simplest possible \"host\" loop.\"\n    from .._core._tests.test_guest_mode import trivial_guest_run\n\n    async def trio_return(in_host: object) -> str:\n        await trio.lowlevel.checkpoint()\n        return \"ok\"\n\n    with pytest.warns(\n        trio.TrioDeprecationWarning, match=\"strict_exception_groups=False\"\n    ) as record:\n        trivial_guest_run(\n            trio_return,\n            strict_exception_groups=False,\n        )\n    assert len(record) == 1"
+}

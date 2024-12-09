@@ -1,0 +1,53 @@
+{
+  "test_name": "test_blank_md5",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "checker.feed",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line_number": 84
+    },
+    {
+      "name": "checker.is_valid",
+      "source_code": "    def is_valid(self):\n        \"\"\"\n        Check the hash. Return False if validation fails.\n        \"\"\"\n        return True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 253
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "checker.feed",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/chardet/escprober.py",
+      "line": 84,
+      "caller": "test_blank_md5",
+      "source_code": "    def feed(self, byte_str: Union[bytes, bytearray]) -> ProbingState:\n        for c in byte_str:\n            for coding_sm in self.coding_sm:\n                if not coding_sm.active:\n                    continue\n                coding_state = coding_sm.next_state(c)\n                if coding_state == MachineState.ERROR:\n                    coding_sm.active = False\n                    self.active_sm_count -= 1\n                    if self.active_sm_count <= 0:\n                        self._state = ProbingState.NOT_ME\n                        return self.state\n                elif coding_state == MachineState.ITS_ME:\n                    self._state = ProbingState.FOUND_IT\n                    self._detected_charset = coding_sm.get_coding_state_machine()\n                    self._detected_language = coding_sm.language\n                    return self.state\n\n        return self.state\n"
+    },
+    {
+      "function": "checker.is_valid",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 253,
+      "caller": "test_blank_md5",
+      "source_code": "    def is_valid(self):\n        \"\"\"\n        Check the hash. Return False if validation fails.\n        \"\"\"\n        return True\n\n"
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_blank_md5",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert checker.is_valid()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_blank_md5(self):\n        \"Content checks should succeed if a hash is empty\"\n        checker = setuptools.package_index.HashChecker.from_url('http://foo/bar#md5=')\n        checker.feed('anything'.encode('ascii'))\n        assert checker.is_valid()"
+}

@@ -1,0 +1,40 @@
+{
+  "test_name": "test_id_delegates_to_specification",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Specification",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Resource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Specification",
+      "filename": "",
+      "line": 0,
+      "caller": "test_id_delegates_to_specification",
+      "source_code": ""
+    },
+    {
+      "function": "Resource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_id_delegates_to_specification",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert resource.id() == 'urn:fixedID'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_id_delegates_to_specification(self):\n        specification = Specification(\n            name=\"\",\n            id_of=lambda contents: \"urn:fixedID\",\n            subresources_of=lambda contents: [],\n            anchors_in=lambda specification, contents: [],\n            maybe_in_subresource=(\n                lambda segments, resolver, subresource: resolver\n            ),\n        )\n        resource = Resource(\n            contents={\"foo\": \"baz\"},\n            specification=specification,\n        )\n        assert resource.id() == \"urn:fixedID\""
+}

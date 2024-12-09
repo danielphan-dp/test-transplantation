@@ -1,0 +1,90 @@
+{
+  "test_name": "test_route_url_with_elements",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyRoutesMapper",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.registry.registerUtility",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1189
+    },
+    {
+      "name": "request.route_url",
+      "source_code": "def route_url(route_name, request, *elements, **kw):\n    \"\"\"\n    This is a backwards compatibility function.  Its result is the same as\n    calling::",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/url.py",
+      "line_number": 783
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyRoute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_route_url_with_elements",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyRoutesMapper",
+      "filename": "",
+      "line": 0,
+      "caller": "test_route_url_with_elements",
+      "source_code": ""
+    },
+    {
+      "function": "request.registry.registerUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1189,
+      "caller": "test_route_url_with_elements",
+      "source_code": "    def registerUtility(component=None, provided=None, name='',\n                        info='', factory=None):\n        \"\"\"Register a utility\n\n        :param factory:\n           Factory for the component to be registered.\n\n        :param component:\n           The registered component\n\n        :param provided:\n           This is the interface provided by the utility.  If the\n           component provides a single interface, then this\n           argument is optional and the component-implemented\n           interface will be used.\n\n        :param name:\n           The utility name.\n\n        :param info:\n           An object that can be converted to a string to provide\n           information about the registration.\n\n        Only one of *component* and *factory* can be used.\n\n        A `IRegistered` event is generated with an `IUtilityRegistration`.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "request.route_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/url.py",
+      "line": 783,
+      "caller": "test_route_url_with_elements",
+      "source_code": "def route_url(route_name, request, *elements, **kw):\n    \"\"\"\n    This is a backwards compatibility function.  Its result is the same as\n    calling::\n\n        request.route_url(route_name, *elements, **kw)\n\n    See :meth:`pyramid.request.Request.route_url` for more information.\n    \"\"\"\n    return request.route_url(route_name, *elements, **kw)\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_route_url_with_elements",
+      "source_code": ""
+    },
+    {
+      "function": "DummyRoute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_route_url_with_elements",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_route_url_with_elements(self):\n        from pyramid.interfaces import IRoutesMapper\n\n        request = self._makeOne()\n        mapper = DummyRoutesMapper(route=DummyRoute('/1/2/3'))\n        request.registry.registerUtility(mapper, IRoutesMapper)\n        result = request.route_url('flub', 'extra1', 'extra2')\n        self.assertEqual(result, 'http://example.com:5432/1/2/3/extra1/extra2')"
+}

@@ -1,0 +1,93 @@
+{
+  "test_name": "test_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "message_bus.Hello",
+      "source_code": "    def Hello(self):\n        return new_method_call(self, 'Hello')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line_number": 31
+    },
+    {
+      "name": "router.outgoing",
+      "source_code": "    def outgoing(self, msg):\n        \"\"\"Set the serial number in the message & make a handle if a method call\n        \"\"\"\n        self.outgoing_serial += 1\n        msg.header.serial = self.outgoing_serial",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/routing.py",
+      "line_number": 31
+    },
+    {
+      "name": "router.incoming",
+      "source_code": "    def incoming(self, msg):\n        \"\"\"Route an incoming message.\n        \"\"\"\n        hdr = msg.header",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/routing.py",
+      "line_number": 48
+    },
+    {
+      "name": "new_error",
+      "source_code": "def new_error(parent_msg, error_name, signature=None, body=()):\n    \"\"\"Construct a new error response message",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/wrappers.py",
+      "line_number": 89
+    },
+    {
+      "name": "future.result",
+      "source_code": "    def result(self) -> TResult:\n        \"\"\"The return value of the call, if it didn't raise.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line_number": 307
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_error",
+      "source_code": ""
+    },
+    {
+      "function": "message_bus.Hello",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/bus_messages.py",
+      "line": 31,
+      "caller": "test_error",
+      "source_code": "    def Hello(self):\n        return new_method_call(self, 'Hello')\n\n"
+    },
+    {
+      "function": "router.outgoing",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/routing.py",
+      "line": 31,
+      "caller": "test_error",
+      "source_code": "    def outgoing(self, msg):\n        \"\"\"Set the serial number in the message & make a handle if a method call\n        \"\"\"\n        self.outgoing_serial += 1\n        msg.header.serial = self.outgoing_serial\n\n        if msg.header.message_type is MessageType.method_call:\n            self.awaiting_reply[msg.header.serial] = handle = self.handle_factory()\n            return handle\n\n"
+    },
+    {
+      "function": "router.incoming",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/routing.py",
+      "line": 48,
+      "caller": "test_error",
+      "source_code": "    def incoming(self, msg):\n        \"\"\"Route an incoming message.\n        \"\"\"\n        hdr = msg.header\n\n        # Signals:\n        if hdr.message_type is MessageType.signal:\n            key = (hdr.fields.get(HeaderFields.path, None),\n                   hdr.fields.get(HeaderFields.interface, None),\n                   hdr.fields.get(HeaderFields.member, None)\n                  )\n            cb = self.signal_callbacks.get(key, None)\n            if cb is not None:\n                cb(msg.body)\n                return\n\n        # Method returns & errors\n        reply_serial = hdr.fields.get(HeaderFields.reply_serial, -1)\n        reply_handle = self.awaiting_reply.pop(reply_serial, None)\n        if reply_handle is not None:\n            if hdr.message_type is MessageType.method_return:\n                reply_handle.set_result(msg.body)\n                return\n            elif hdr.message_type is MessageType.error:\n                reply_handle.set_exception(DBusErrorResponse(msg))\n                return\n\n        if self.on_unhandled:\n            self.on_unhandled(msg)\n"
+    },
+    {
+      "function": "new_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/wrappers.py",
+      "line": 89,
+      "caller": "test_error",
+      "source_code": "def new_error(parent_msg, error_name, signature=None, body=()):\n    \"\"\"Construct a new error response message\n\n    :param Message parent_msg: The method call this is a reply to\n    :param str error_name: The name of the error\n    :param str signature: The DBus signature of the body data\n    :param tuple body: Body data\n    \"\"\"\n    header = new_header(MessageType.error)\n    header.fields[HeaderFields.reply_serial] = parent_msg.header.serial\n    header.fields[HeaderFields.error_name] = error_name\n    sender = parent_msg.header.fields.get(HeaderFields.sender, None)\n    if sender is not None:\n        header.fields[HeaderFields.destination] = sender\n    if signature is not None:\n        header.fields[HeaderFields.signature] = signature\n    return Message(header, body)\n\n"
+    },
+    {
+      "function": "future.result",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/runner.py",
+      "line": 307,
+      "caller": "test_error",
+      "source_code": "    @property\n    def result(self) -> TResult:\n        \"\"\"The return value of the call, if it didn't raise.\n\n        Can only be accessed if excinfo is None.\n        \"\"\"\n        if self.excinfo is not None:\n            raise AttributeError(f\"{self!r} has no valid result\")\n        # The cast is safe because an exception wasn't raised, hence\n        # _result has the expected function return type (which may be\n        #  None, that's why a cast and not an assert).\n        return cast(TResult, self._result)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert e.value.name == 'TestError'",
+    "assert e.value.data == (31,)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_error():\n    router = Router(Future)\n    call = message_bus.Hello()\n    future = router.outgoing(call)\n    router.incoming(new_error(call, 'TestError', 'u', (31,)))\n    with pytest.raises(DBusErrorResponse) as e:\n        future.result()\n    assert e.value.name == 'TestError'\n    assert e.value.data == (31,)"
+}

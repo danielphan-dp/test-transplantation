@@ -1,0 +1,25 @@
+{
+  "test_name": "test_redundant_implementer_empty_class_declarations",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "self.__check_implementer_redundant",
+      "source_code": "    def __check_implementer_redundant(self, Base):\n        # If we @implementer exactly what was already present, we write no\n        # declared attributes on the parent (we still set everything, though)\n        Base, IBase = self._check_implementer(Base)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+      "line_number": 1006
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.__check_implementer_redundant",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+      "line": 1006,
+      "caller": "test_redundant_implementer_empty_class_declarations",
+      "source_code": "    def __check_implementer_redundant(self, Base):\n        # If we @implementer exactly what was already present, we write no\n        # declared attributes on the parent (we still set everything, though)\n        Base, IBase = self._check_implementer(Base)\n\n        class Child(Base):\n            pass\n\n        returned = self._callFUT(Child, IBase)\n        self.assertIn('__implemented__', returned.__dict__)\n        self.assertNotIn('__providedBy__', returned.__dict__)\n        self.assertIn('__provides__', returned.__dict__)\n\n        spec = Child.__implemented__\n        self.assertEqual(spec.declared, ())\n        self.assertEqual(spec.inherit, Child)\n\n        self.assertTrue(IBase.providedBy(Child()))\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_redundant_implementer_empty_class_declarations(self):\n\n        class Foo:\n            pass\n\n        self.__check_implementer_redundant(Foo)"
+}

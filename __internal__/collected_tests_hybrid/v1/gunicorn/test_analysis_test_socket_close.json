@@ -1,0 +1,77 @@
+{
+  "test_name": "test_socket_close",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_sock.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sock.close_sockets",
+      "source_code": "def close_sockets(listeners, unlink=True):\n    for sock in listeners:\n        sock_name = sock.getsockname()\n        sock.close()\n        if unlink and _sock_type(sock_name) is UnixSocket:\n            os.unlink(sock_name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/sock.py",
+      "line_number": 207
+    },
+    {
+      "name": "listener1.close.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "listener2.close.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_socket_close",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_socket_close",
+      "source_code": ""
+    },
+    {
+      "function": "sock.close_sockets",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/sock.py",
+      "line": 207,
+      "caller": "test_socket_close",
+      "source_code": "def close_sockets(listeners, unlink=True):\n    for sock in listeners:\n        sock_name = sock.getsockname()\n        sock.close()\n        if unlink and _sock_type(sock_name) is UnixSocket:\n            os.unlink(sock_name)\n\n\n"
+    },
+    {
+      "function": "listener1.close.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_socket_close",
+      "source_code": ""
+    },
+    {
+      "function": "listener2.close.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_socket_close",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_socket_close():\n    listener1 = mock.Mock()\n    listener1.getsockname.return_value = ('127.0.0.1', '80')\n    listener2 = mock.Mock()\n    listener2.getsockname.return_value = ('192.168.2.5', '80')\n    sock.close_sockets([listener1, listener2])\n    listener1.close.assert_called_with()\n    listener2.close.assert_called_with()"
+}

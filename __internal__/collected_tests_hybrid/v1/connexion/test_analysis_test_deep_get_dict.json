@@ -1,0 +1,27 @@
+{
+  "test_name": "test_deep_get_dict",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_utils.py",
+  "static_methods": [
+    {
+      "name": "utils.deep_get",
+      "source_code": "def deep_get(obj, keys):\n    \"\"\"\n    Recurses through a nested object get a leaf value.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line_number": 95
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "utils.deep_get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line": 95,
+      "caller": "test_deep_get_dict",
+      "source_code": "def deep_get(obj, keys):\n    \"\"\"\n    Recurses through a nested object get a leaf value.\n\n    There are cases where the use of inheritance or polymorphism-- the use of allOf or\n    oneOf keywords-- will cause the obj to be a list. In this case the keys will\n    contain one or more strings containing integers.\n\n    :type obj: list or dict\n    :type keys: list of strings\n    \"\"\"\n    if not keys:\n        return obj\n\n    if isinstance(obj, list):\n        return deep_get(obj[int(keys[0])], keys[1:])\n    else:\n        return deep_get(obj[keys[0]], keys[1:])\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert utils.deep_get(obj, ['properties', 'id']) == {'type': 'string'}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_deep_get_dict():\n    obj = {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}}}\n    assert utils.deep_get(obj, [\"properties\", \"id\"]) == {\"type\": \"string\"}"
+}

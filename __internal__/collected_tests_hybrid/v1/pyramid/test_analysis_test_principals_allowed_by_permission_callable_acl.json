@@ -1,0 +1,77 @@
+{
+  "test_name": "test_principals_allowed_by_permission_callable_acl",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_authorization.py",
+  "static_methods": [
+    {
+      "name": "ACLHelper",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sorted",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helper.principals_allowed_by_permission",
+      "source_code": "    def principals_allowed_by_permission(context, permission):\n        \"\"\"Return a set of principal identifiers allowed by the\n        ``permission`` in ``context``.  This behavior is optional; if you\n        choose to not implement it you should define this method as\n        something which raises a ``NotImplementedError``.  This method\n        will only be called when the\n        ``pyramid.security.principals_allowed_by_permission`` API is\n        used.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 614
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ACLHelper",
+      "filename": "",
+      "line": 0,
+      "caller": "test_principals_allowed_by_permission_callable_acl",
+      "source_code": ""
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_principals_allowed_by_permission_callable_acl",
+      "source_code": ""
+    },
+    {
+      "function": "sorted",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_principals_allowed_by_permission_callable_acl",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_principals_allowed_by_permission_callable_acl",
+      "source_code": ""
+    },
+    {
+      "function": "helper.principals_allowed_by_permission",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 614,
+      "caller": "test_principals_allowed_by_permission_callable_acl",
+      "source_code": "    def principals_allowed_by_permission(context, permission):\n        \"\"\"Return a set of principal identifiers allowed by the\n        ``permission`` in ``context``.  This behavior is optional; if you\n        choose to not implement it you should define this method as\n        something which raises a ``NotImplementedError``.  This method\n        will only be called when the\n        ``pyramid.security.principals_allowed_by_permission`` API is\n        used.\"\"\"\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_principals_allowed_by_permission_callable_acl(self):\n        from pyramid.authorization import DENY_ALL, ACLHelper, Allow\n\n        helper = ACLHelper()\n        context = DummyContext()\n        acl = lambda: [\n            (Allow, 'chrism', ('read', 'write')),\n            DENY_ALL,\n            (Allow, 'other', 'read'),\n        ]\n        context.__acl__ = acl\n        result = sorted(\n            helper.principals_allowed_by_permission(context, 'read')\n        )\n        self.assertEqual(result, ['chrism'])"
+}

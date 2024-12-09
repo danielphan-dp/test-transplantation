@@ -1,0 +1,119 @@
+{
+  "test_name": "test_provides_extras_deterministic_order",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "reversed",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    },
+    {
+      "function": "reversed",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_provides_extras_deterministic_order",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert list(dist.metadata.provides_extras) == ['a', 'b']",
+    "assert list(dist.metadata.provides_extras) == ['b', 'a']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_provides_extras_deterministic_order():\n    attrs = dict(extras_require=dict(a=['foo'], b=['bar']))\n    dist = Distribution(attrs)\n    assert list(dist.metadata.provides_extras) == ['a', 'b']\n    attrs['extras_require'] = dict(reversed(attrs['extras_require'].items()))\n    dist = Distribution(attrs)\n    assert list(dist.metadata.provides_extras) == ['b', 'a']"
+}

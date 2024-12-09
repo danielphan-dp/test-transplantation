@@ -1,0 +1,131 @@
+{
+  "test_name": "test_response_links_multiple_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_response.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ClientResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDictProxy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WriterMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TimerNoop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "ClientResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDictProxy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "WriterMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "TimerNoop",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_response_links_multiple_headers",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.links == {'next': {'url': URL('http://example.com/page/1.html'), 'rel': 'next'}, 'home': {'url': URL('http://example.com/'), 'rel': 'home'}}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_response_links_multiple_headers(\n    loop: asyncio.AbstractEventLoop, session: ClientSession\n) -> None:\n    url = URL(\"http://def-cl-resp.org/\")\n    response = ClientResponse(\n        \"get\",\n        url,\n        request_info=mock.Mock(),\n        writer=WriterMock(),\n        continue100=None,\n        timer=TimerNoop(),\n        traces=[],\n        loop=loop,\n        session=session,\n    )\n    h = (\n        (\"Link\", \"<http://example.com/page/1.html>; rel=next\"),\n        (\"Link\", \"<http://example.com/>; rel=home\"),\n    )\n    response._headers = CIMultiDictProxy(CIMultiDict(h))\n    assert response.links == {\n        \"next\": {\"url\": URL(\"http://example.com/page/1.html\"), \"rel\": \"next\"},\n        \"home\": {\"url\": URL(\"http://example.com/\"), \"rel\": \"home\"},\n    }"
+}

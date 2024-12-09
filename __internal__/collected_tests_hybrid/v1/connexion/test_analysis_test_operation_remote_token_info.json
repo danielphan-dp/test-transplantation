@@ -1,0 +1,90 @@
+{
+  "test_name": "test_operation_remote_token_info",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "SecurityHandlerFactory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SecurityOperation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "verify_oauth.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "oauth_security_handler.get_token_info_remote.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "SecurityHandlerFactory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_remote_token_info",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_remote_token_info",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_remote_token_info",
+      "source_code": ""
+    },
+    {
+      "function": "SecurityOperation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_remote_token_info",
+      "source_code": ""
+    },
+    {
+      "function": "verify_oauth.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_remote_token_info",
+      "source_code": ""
+    },
+    {
+      "function": "oauth_security_handler.get_token_info_remote.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_operation_remote_token_info",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_operation_remote_token_info():\n    class MockOAuthHandler(OAuthSecurityHandler):\n        \"\"\"Mock.\"\"\"\n\n    security_handler_factory = SecurityHandlerFactory({\"oauth2\": MockOAuthHandler})\n    oauth_security_handler = security_handler_factory.security_handlers[\"oauth2\"]\n    verify_oauth = mock.MagicMock(return_value=\"verify_oauth_result\")\n    oauth_security_handler._get_verify_func = verify_oauth\n    oauth_security_handler.get_token_info_remote = mock.MagicMock(\n        return_value=\"get_token_info_remote_result\"\n    )\n\n    SecurityOperation(\n        next_app=mock.Mock,\n        security_handler_factory=security_handler_factory,\n        security=[{\"oauth\": [\"uid\"]}],\n        security_schemes=SECURITY_DEFINITIONS_REMOTE,\n    )\n\n    verify_oauth.assert_called_with(\n        \"get_token_info_remote_result\",\n        oauth_security_handler.validate_scope,\n        [\"uid\"],\n    )\n    oauth_security_handler.get_token_info_remote.assert_called_with(\n        \"https://oauth.example/token_info\"\n    )"
+}

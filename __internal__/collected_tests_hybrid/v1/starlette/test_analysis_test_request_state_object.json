@@ -1,0 +1,27 @@
+{
+  "test_name": "test_request_state_object",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_requests.py",
+  "static_methods": [
+    {
+      "name": "State",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "State",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_state_object",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert s.new == 'value'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_state_object() -> None:\n    scope = {\"state\": {\"old\": \"foo\"}}\n\n    s = State(scope[\"state\"])\n\n    s.new = \"value\"\n    assert s.new == \"value\"\n\n    del s.new\n\n    with pytest.raises(AttributeError):\n        s.new"
+}

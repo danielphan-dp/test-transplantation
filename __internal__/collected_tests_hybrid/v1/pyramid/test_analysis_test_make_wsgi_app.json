@@ -1,0 +1,181 @@
+{
+  "test_name": "test_make_wsgi_app",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_init.py",
+  "static_methods": [
+    {
+      "name": "DummyThreadLocalManager",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._registerEventListener",
+      "source_code": "    def _registerEventListener(self, iface):\n        L = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line_number": 102
+    },
+    {
+      "name": "config.make_wsgi_app",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 884
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "IApplicationCreated.providedBy",
+      "source_code": "    def providedBy(self, ob):\n        \"\"\"Is the interface implemented by an object\n        \"\"\"\n        spec = providedBy(ob)\n        return self in spec._implied",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line_number": 159
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyThreadLocalManager",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_make_wsgi_app",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._registerEventListener",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line": 102,
+      "caller": "test_make_wsgi_app",
+      "source_code": "    def _registerEventListener(self, iface):\n        L = []\n\n        def listener(event):\n            L.append(event)\n\n        self.registry.registerHandler(listener, (iface,))\n        return L\n\n"
+    },
+    {
+      "function": "config.make_wsgi_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 884,
+      "caller": "test_make_wsgi_app",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)\n\n        # Allow tools like \"pshell development.ini\" to find the 'last'\n        # registry configured.\n        global_registries.add(self.registry)\n\n        # Push the registry onto the stack in case any code that depends on\n        # the registry threadlocal APIs used in listeners subscribed to the\n        # IApplicationCreated event.\n        self.begin()\n        try:\n            self.registry.notify(ApplicationCreated(app))\n        finally:\n            self.end()\n\n        return app\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_make_wsgi_app",
+      "source_code": ""
+    },
+    {
+      "function": "IApplicationCreated.providedBy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interface.py",
+      "line": 159,
+      "caller": "test_make_wsgi_app",
+      "source_code": "    def providedBy(self, ob):\n        \"\"\"Is the interface implemented by an object\n        \"\"\"\n        spec = providedBy(ob)\n        return self in spec._implied\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_make_wsgi_app(self):\n        import pyramid.config\n        from pyramid.interfaces import IApplicationCreated\n        from pyramid.router import Router\n\n        manager = DummyThreadLocalManager()\n        config = self._makeOne()\n        subscriber = self._registerEventListener(config, IApplicationCreated)\n        config.manager = manager\n        app = config.make_wsgi_app()\n        self.assertEqual(app.__class__, Router)\n        self.assertEqual(manager.pushed['registry'], config.registry)\n        self.assertEqual(manager.pushed['request'], None)\n        self.assertTrue(manager.popped)\n        self.assertEqual(pyramid.config.global_registries.last, app.registry)\n        self.assertEqual(len(subscriber), 1)\n        self.assertTrue(IApplicationCreated.providedBy(subscriber[0]))\n        pyramid.config.global_registries.empty()"
+}

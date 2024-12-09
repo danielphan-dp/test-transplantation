@@ -1,0 +1,90 @@
+{
+  "test_name": "test_wheel_no_dist_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_wheel.py",
+  "static_methods": [
+    {
+      "name": "tempdir",
+      "source_code": "def tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 416
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "tempdir",
+      "source_code": "def tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 416
+    },
+    {
+      "name": "tempdir",
+      "source_code": "def tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 416
+    },
+    {
+      "name": "tempdir",
+      "source_code": "def tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 416
+    },
+    {
+      "name": "_check_wheel_install",
+      "source_code": "def _check_wheel_install(\n    filename, install_dir, install_tree_includes, project_name, version, requires_txt",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_wheel.py",
+      "line_number": 151
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tempdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 416,
+      "caller": "test_wheel_no_dist_dir",
+      "source_code": "@contextlib.contextmanager\ndef tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)\n\n"
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_wheel_no_dist_dir",
+      "source_code": ""
+    },
+    {
+      "function": "tempdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 416,
+      "caller": "test_wheel_no_dist_dir",
+      "source_code": "@contextlib.contextmanager\ndef tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)\n\n"
+    },
+    {
+      "function": "tempdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 416,
+      "caller": "test_wheel_no_dist_dir",
+      "source_code": "@contextlib.contextmanager\ndef tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)\n\n"
+    },
+    {
+      "function": "tempdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 416,
+      "caller": "test_wheel_no_dist_dir",
+      "source_code": "@contextlib.contextmanager\ndef tempdir():\n    td = tempfile.mkdtemp()\n    try:\n        yield td\n    finally:\n        shutil.rmtree(td)\n\n"
+    },
+    {
+      "function": "_check_wheel_install",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_wheel.py",
+      "line": 151,
+      "caller": "test_wheel_no_dist_dir",
+      "source_code": "def _check_wheel_install(\n    filename, install_dir, install_tree_includes, project_name, version, requires_txt\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_wheel_no_dist_dir():\n    project_name = 'nodistinfo'\n    version = '1.0'\n    wheel_name = '{0}-{1}-py2.py3-none-any.whl'.format(project_name, version)\n    with tempdir() as source_dir:\n        wheel_path = os.path.join(source_dir, wheel_name)\n        # create an empty zip file\n        zipfile.ZipFile(wheel_path, 'w').close()\n        with tempdir() as install_dir:\n            with pytest.raises(ValueError):\n                _check_wheel_install(\n                    wheel_path, install_dir, None, project_name, version, None\n                )"
+}

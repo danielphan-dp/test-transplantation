@@ -1,0 +1,51 @@
+{
+  "test_name": "test_add_route_no_pattern_with_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_routes.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.add_route",
+      "source_code": "    def add_route(\n        self,\n        name,\n        pattern=None,\n        factory=None,\n        for_=None,\n        header=None,\n        xhr=None,\n        accept=None,\n        path_info=None,\n        request_method=None,\n        request_param=None,\n        traverse=None,\n        custom_predicates=(),\n        use_global_views=False,\n        path=None,\n        pregenerator=None,\n        static=False,\n        inherit_slash=None,\n        **predicates,\n    ):\n        \"\"\"Add a :term:`route configuration` to the current configuration\n        state.  Arguments to ``add_route`` are divided into *predicate*\n        and *non-predicate* types.  :term:`Route predicate` arguments\n        narrow the circumstances in which a route will match a\n        request; non-predicate arguments are informational.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line_number": 22
+    },
+    {
+      "name": "self._assertRoute",
+      "source_code": "    def _assertRoute(self, config, name, path, num_predicates=0):\n        from pyramid.interfaces import IRoutesMapper",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_routes.py",
+      "line_number": 16
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_route_no_pattern_with_path",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/routes.py",
+      "line": 22,
+      "caller": "test_add_route_no_pattern_with_path",
+      "source_code": "    @action_method\n    def add_route(\n        self,\n        name,\n        pattern=None,\n        factory=None,\n        for_=None,\n        header=None,\n        xhr=None,\n        accept=None,\n        path_info=None,\n        request_method=None,\n        request_param=None,\n        traverse=None,\n        custom_predicates=(),\n        use_global_views=False,\n        path=None,\n        pregenerator=None,\n        static=False,\n        inherit_slash=None,\n        **predicates,\n"
+    },
+    {
+      "function": "self._assertRoute",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_routes.py",
+      "line": 16,
+      "caller": "test_add_route_no_pattern_with_path",
+      "source_code": "    def _assertRoute(self, config, name, path, num_predicates=0):\n        from pyramid.interfaces import IRoutesMapper\n\n        mapper = config.registry.getUtility(IRoutesMapper)\n        routes = mapper.get_routes()\n        route = routes[0]\n        self.assertEqual(len(routes), 1)\n        self.assertEqual(route.name, name)\n        self.assertEqual(route.path, path)\n        self.assertEqual(len(routes[0].predicates), num_predicates)\n        return route\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_route_no_pattern_with_path(self):\n        config = self._makeOne(autocommit=True)\n        config.add_route('name', path='path')\n        self._assertRoute(config, 'name', 'path')"
+}

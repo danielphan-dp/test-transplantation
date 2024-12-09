@@ -1,6 +1,6 @@
 {
   "test_name": "test_environbuilder_json_dumps",
-  "test_file": "__internal__/_data/flask/tests/test_testing.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_testing.py",
   "static_methods": [
     {
       "name": "EnvironBuilder",
@@ -10,15 +10,15 @@
     },
     {
       "name": "eb.input_stream.read.decode",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line_number": 122
     },
     {
       "name": "eb.input_stream.read",
-      "source_code": "    def read():\n        return str(flask.session.get(\"foo\", 0))",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
-      "line_number": 482
+      "source_code": "            def read() -> t.Iterator[bytes]:\n                while True:\n                    try:\n                        data = resp.read(self.chunk_size)\n                    except OSError:\n                        break",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/middleware/http_proxy.py",
+      "line_number": 209
     }
   ],
   "dynamic_methods": [
@@ -31,17 +31,17 @@
     },
     {
       "function": "eb.input_stream.read.decode",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line": 122,
       "caller": "test_environbuilder_json_dumps",
-      "source_code": ""
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.\n\n        Args:\n            lines (Iterable[str]): An iterable of lines of terminal output.\n\n        Yields:\n            Text: Marked up Text.\n        \"\"\"\n        for line in terminal_text.splitlines():\n            yield self.decode_line(line)\n\n"
     },
     {
       "function": "eb.input_stream.read",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
-      "line": 482,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/middleware/http_proxy.py",
+      "line": 209,
       "caller": "test_environbuilder_json_dumps",
-      "source_code": "    @app.route(\"/read\")\n    def read():\n        return str(flask.session.get(\"foo\", 0))\n\n"
+      "source_code": "            def read() -> t.Iterator[bytes]:\n                while True:\n                    try:\n                        data = resp.read(self.chunk_size)\n                    except OSError:\n                        break\n\n                    if not data:\n                        break\n\n                    yield data\n\n"
     }
   ],
   "assertions": [

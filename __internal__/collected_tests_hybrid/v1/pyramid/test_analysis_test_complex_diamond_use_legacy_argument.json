@@ -1,0 +1,64 @@
+{
+  "test_name": "test_complex_diamond_use_legacy_argument",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_ro.py",
+  "static_methods": [
+    {
+      "name": "self._make_complex_diamond",
+      "source_code": "    def _make_complex_diamond(self, base):\n        # https://github.com/zopefoundation/zope.interface/issues/21",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_ro.py",
+      "line_number": 236
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertNotEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._check_handler_complex_diamond",
+      "source_code": "    def _check_handler_complex_diamond(self):\n        handler = self.log_handler\n        self.assertEqual(1, len(handler.records))\n        record = handler.records[0]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_ro.py",
+      "line_number": 294
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._make_complex_diamond",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_ro.py",
+      "line": 236,
+      "caller": "test_complex_diamond_use_legacy_argument",
+      "source_code": "    def _make_complex_diamond(self, base):\n        # https://github.com/zopefoundation/zope.interface/issues/21\n\n        class F(base):\n            pass\n\n        class E(base):\n            pass\n\n        class D(base):\n            pass\n\n        class C(D, F):\n            pass\n\n        class B(D, E):\n            pass\n\n        class A(B, C):\n            pass\n\n        if hasattr(A, 'mro'):\n            self.assertEqual(A.mro(), self._callFUT(A))\n\n        return A\n\n"
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_complex_diamond_use_legacy_argument",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertNotEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_complex_diamond_use_legacy_argument",
+      "source_code": ""
+    },
+    {
+      "function": "self._check_handler_complex_diamond",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_ro.py",
+      "line": 294,
+      "caller": "test_complex_diamond_use_legacy_argument",
+      "source_code": "    def _check_handler_complex_diamond(self):\n        handler = self.log_handler\n        self.assertEqual(1, len(handler.records))\n        record = handler.records[0]\n\n        expected = \"\"\"\\\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_complex_diamond_use_legacy_argument(self):\n        from zope.interface import Interface\n\n        A = self._make_complex_diamond(Interface)\n        legacy_A_iro = self._callFUT(A, use_legacy_ro=True)\n        self.assertNotEqual(A.__iro__, legacy_A_iro)\n\n        # And logging happened as a side-effect.\n        self._check_handler_complex_diamond()"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_pong_frame",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "WSMessagePong",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pong_frame",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pong_frame",
+      "source_code": ""
+    },
+    {
+      "function": "WSMessagePong",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pong_frame",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert res == WSMessagePong(data=b'data', extra='')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_pong_frame(out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [(1, WSMsgType.PONG, b\"data\", False)]\n\n        parser.feed_data(b\"\")\n        res = out._buffer[0]\n        assert res == WSMessagePong(data=b\"data\", extra=\"\")"
+}

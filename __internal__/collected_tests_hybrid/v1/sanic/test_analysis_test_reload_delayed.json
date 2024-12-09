@@ -1,0 +1,103 @@
+{
+  "test_name": "test_reload_delayed",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_reloader.py",
+  "static_methods": [
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WorkerProcess",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "sleep",
+      "source_code": "def sleep(seconds: float) -> None:\n    \"\"\"\n    Sleep strategy that delays execution for a given number of seconds.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/nap.py",
+      "line_number": 25
+    },
+    {
+      "name": "self._target",
+      "source_code": "    def _target(self) -> Mapping[_K, _V_co]:\n        if self._value is None:\n            self._value = self._obtain()\n        return self._value",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/expand.py",
+      "line_number": 437
+    },
+    {
+      "name": "worker_process.restart",
+      "source_code": "    def restart(\n        self,\n        transient_processes: List[WorkerProcess],\n        durable_processes: List[WorkerProcess],\n        process_names: Optional[List[str]] = None,\n        restart_order=RestartOrder.SHUTDOWN_FIRST,\n        **kwargs,\n    ) -> None:\n        \"\"\"Restart the worker processes.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/restarter.py",
+      "line_number": 9
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_delayed",
+      "source_code": ""
+    },
+    {
+      "function": "WorkerProcess",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reload_delayed",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_delayed",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_reload_delayed",
+      "source_code": ""
+    },
+    {
+      "function": "sleep",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/nap.py",
+      "line": 25,
+      "caller": "test_reload_delayed",
+      "source_code": "def sleep(seconds: float) -> None:\n    \"\"\"\n    Sleep strategy that delays execution for a given number of seconds.\n\n    This is the default strategy, and may be mocked out for unit testing.\n    \"\"\"\n    time.sleep(seconds)\n\n\n"
+    },
+    {
+      "function": "self._target",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/expand.py",
+      "line": 437,
+      "caller": "test_reload_delayed",
+      "source_code": "    def _target(self) -> Mapping[_K, _V_co]:\n        if self._value is None:\n            self._value = self._obtain()\n        return self._value\n\n"
+    },
+    {
+      "function": "worker_process.restart",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/worker/restarter.py",
+      "line": 9,
+      "caller": "test_reload_delayed",
+      "source_code": "    def restart(\n        self,\n        transient_processes: List[WorkerProcess],\n        durable_processes: List[WorkerProcess],\n        process_names: Optional[List[str]] = None,\n        restart_order=RestartOrder.SHUTDOWN_FIRST,\n        **kwargs,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_reload_delayed(monkeypatch):\n    WorkerProcess.THRESHOLD = 1\n\n    current_process = Mock()\n    worker_process = WorkerProcess(\n        lambda **_: current_process,\n        \"Test\",\n        \"TST\",\n        lambda **_: ...,\n        {},\n        {},\n    )\n\n    def start(self):\n        sleep(0.2)\n        self._target()\n\n    orig = threading.Thread.start\n    monkeypatch.setattr(threading.Thread, \"start\", start)\n\n    message = \"Worker Test failed to come ack within 0.1 seconds\"\n    with pytest.raises(TimeoutError, match=message):\n        worker_process.restart(restart_order=RestartOrder.STARTUP_FIRST)\n\n    monkeypatch.setattr(threading.Thread, \"start\", orig)"
+}

@@ -1,0 +1,145 @@
+{
+  "test_name": "test_build_wheel_inplace",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_meta.py",
+  "static_methods": [
+    {
+      "name": "path.build",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 363
+    },
+    {
+      "name": "self.get_build_backend",
+      "source_code": "    def get_build_backend(self):\n        return BuildBackend(backend_name=self.backend_name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_meta.py",
+      "line_number": 226
+    },
+    {
+      "name": "Path.mkdir",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "build_backend.prepare_metadata_for_build_wheel",
+      "source_code": "    def prepare_metadata_for_build_wheel(\n            self, metadata_directory, config_settings=None,\n            _allow_fallback=True):\n        \"\"\"Prepare a ``*.dist-info`` folder with metadata for this project.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line_number": 170
+    },
+    {
+      "name": "build_backend.build_wheel",
+      "source_code": "    def build_wheel(\n            self, wheel_directory, config_settings=None,\n            metadata_directory=None):\n        \"\"\"Build a wheel from this project.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line_number": 192
+    },
+    {
+      "name": "Path.exists",
+      "source_code": "    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 234
+    },
+    {
+      "name": "Path.exists",
+      "source_code": "    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 234
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "path.build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 363,
+      "caller": "test_build_wheel_inplace",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}\n\n        libkey = list(filter(lambda o: o in paths, ('purelib', 'platlib')))[0]\n        if libkey == 'platlib':\n            is_pure = 'false'\n            default_pyver = [IMPVER]\n            default_abi = [ABI]\n            default_arch = [ARCH]\n        else:\n            is_pure = 'true'\n            default_pyver = [PYVER]\n            default_abi = ['none']\n            default_arch = ['any']\n\n        self.pyver = tags.get('pyver', default_pyver)\n        self.abi = tags.get('abi', default_abi)\n        self.arch = tags.get('arch', default_arch)\n\n        libdir = paths[libkey]\n\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        archive_paths = []\n\n        # First, stuff which is not in site-packages\n        for key in ('data', 'headers', 'scripts'):\n            if key not in paths:\n                continue\n            path = paths[key]\n            if os.path.isdir(path):\n                for root, dirs, files in os.walk(path):\n                    for fn in files:\n                        p = fsdecode(os.path.join(root, fn))\n                        rp = os.path.relpath(p, path)\n                        ap = to_posix(os.path.join(data_dir, key, rp))\n                        archive_paths.append((ap, p))\n                        if key == 'scripts' and not p.endswith('.exe'):\n                            with open(p, 'rb') as f:\n                                data = f.read()\n                            data = self.process_shebang(data)\n                            with open(p, 'wb') as f:\n                                f.write(data)\n\n        # Now, stuff which is in site-packages, other than the\n        # distinfo stuff.\n        path = libdir\n        distinfo = None\n        for root, dirs, files in os.walk(path):\n            if root == path:\n                # At the top level only, save distinfo for later\n                # and skip it for now\n                for i, dn in enumerate(dirs):\n                    dn = fsdecode(dn)\n                    if dn.endswith('.dist-info'):\n                        distinfo = os.path.join(root, dn)\n                        del dirs[i]\n                        break\n                assert distinfo, '.dist-info directory expected, not found'\n\n            for fn in files:\n                # comment out next suite to leave .pyc files in\n                if fsdecode(fn).endswith(('.pyc', '.pyo')):\n                    continue\n                p = os.path.join(root, fn)\n                rp = to_posix(os.path.relpath(p, path))\n                archive_paths.append((rp, p))\n\n        # Now distinfo. Assumed to be flat, i.e. os.listdir is enough.\n        files = os.listdir(distinfo)\n        for fn in files:\n            if fn not in ('RECORD', 'INSTALLER', 'SHARED', 'WHEEL'):\n                p = fsdecode(os.path.join(distinfo, fn))\n                ap = to_posix(os.path.join(info_dir, fn))\n                archive_paths.append((ap, p))\n\n        wheel_metadata = [\n            'Wheel-Version: %d.%d' % (wheel_version or self.wheel_version),\n            'Generator: distlib %s' % __version__,\n            'Root-Is-Purelib: %s' % is_pure,\n        ]\n        for pyver, abi, arch in self.tags:\n            wheel_metadata.append('Tag: %s-%s-%s' % (pyver, abi, arch))\n        p = os.path.join(distinfo, 'WHEEL')\n        with open(p, 'w') as f:\n            f.write('\\n'.join(wheel_metadata))\n        ap = to_posix(os.path.join(info_dir, 'WHEEL'))\n        archive_paths.append((ap, p))\n\n        # sort the entries by archive path. Not needed by any spec, but it\n        # keeps the archive listing and RECORD tidier than they would otherwise\n        # be. Use the number of path segments to keep directory entries together,\n        # and keep the dist-info stuff at the end.\n        def sorter(t):\n            ap = t[0]\n            n = ap.count('/')\n            if '.dist-info' in ap:\n                n += 10000\n            return (n, ap)\n        archive_paths = sorted(archive_paths, key=sorter)\n\n        # Now, at last, RECORD.\n        # Paths in here are archive paths - nothing else makes sense.\n        self.write_records((distinfo, info_dir), libdir, archive_paths)\n        # Now, ready to build the zip file\n        pathname = os.path.join(self.dirname, self.filename)\n        self.build_zip(pathname, archive_paths)\n        return pathname\n\n"
+    },
+    {
+      "function": "self.get_build_backend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_build_meta.py",
+      "line": 226,
+      "caller": "test_build_wheel_inplace",
+      "source_code": "    def get_build_backend(self):\n        return BuildBackend(backend_name=self.backend_name)\n\n"
+    },
+    {
+      "function": "Path.mkdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line": 123,
+      "caller": "test_build_wheel_inplace",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")\n\n"
+    },
+    {
+      "function": "build_backend.prepare_metadata_for_build_wheel",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line": 170,
+      "caller": "test_build_wheel_inplace",
+      "source_code": "    def prepare_metadata_for_build_wheel(\n            self, metadata_directory, config_settings=None,\n            _allow_fallback=True):\n        \"\"\"Prepare a ``*.dist-info`` folder with metadata for this project.\n\n        :returns: Name of the newly created subfolder within\n                  ``metadata_directory``, containing the metadata.\n        :rtype: str\n\n        .. admonition:: Fallback\n\n            If the build backend does not define a hook with this name and\n            ``_allow_fallback`` is truthy, the backend will be asked to build a\n            wheel via the ``build_wheel`` hook and the dist-info extracted from\n            that will be returned.\n        \"\"\"\n        return self._call_hook('prepare_metadata_for_build_wheel', {\n            'metadata_directory': abspath(metadata_directory),\n            'config_settings': config_settings,\n            '_allow_fallback': _allow_fallback,\n        })\n\n"
+    },
+    {
+      "function": "build_backend.build_wheel",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pyproject_hooks/_impl.py",
+      "line": 192,
+      "caller": "test_build_wheel_inplace",
+      "source_code": "    def build_wheel(\n            self, wheel_directory, config_settings=None,\n            metadata_directory=None):\n        \"\"\"Build a wheel from this project.\n\n        :returns:\n            The name of the newly created wheel within ``wheel_directory``.\n\n        .. admonition:: Interaction with fallback\n\n            If the ``build_wheel`` hook was called in the fallback for\n            :meth:`prepare_metadata_for_build_wheel`, the build backend would\n            not be invoked. Instead, the previously built wheel will be copied\n            to ``wheel_directory`` and the name of that file will be returned.\n        \"\"\"\n        if metadata_directory is not None:\n            metadata_directory = abspath(metadata_directory)\n        return self._call_hook('build_wheel', {\n            'wheel_directory': abspath(wheel_directory),\n            'config_settings': config_settings,\n            'metadata_directory': metadata_directory,\n        })\n\n"
+    },
+    {
+      "function": "Path.exists",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 234,
+      "caller": "test_build_wheel_inplace",
+      "source_code": "    @property\n    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)\n\n"
+    },
+    {
+      "function": "Path.exists",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 234,
+      "caller": "test_build_wheel_inplace",
+      "source_code": "    @property\n    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)\n\n"
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_wheel_inplace",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_wheel_inplace",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_build_wheel_inplace",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not Path('build').exists()",
+    "assert Path('build/proj-42-py3-none-any.whl').exists()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_build_wheel_inplace(self, tmpdir_cwd):\n        config_settings = {\"--build-option\": [\"build_ext\", \"--inplace\"]}\n        path.build(self._simple_pyproject_example)\n        build_backend = self.get_build_backend()\n        assert not Path(\"build\").exists()\n        Path(\"build\").mkdir()\n        build_backend.prepare_metadata_for_build_wheel(\"build\", config_settings)\n        build_backend.build_wheel(\"build\", config_settings)\n        assert Path(\"build/proj-42-py3-none-any.whl\").exists()"
+}

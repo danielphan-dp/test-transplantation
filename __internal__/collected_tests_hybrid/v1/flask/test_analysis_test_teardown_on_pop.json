@@ -1,6 +1,6 @@
 {
   "test_name": "test_teardown_on_pop",
-  "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
     {
       "name": "app.test_request_context",
@@ -10,21 +10,21 @@
     },
     {
       "name": "ctx.push",
-      "source_code": "    def push(self) -> None:\n        \"\"\"Binds the app context to the current context.\"\"\"\n        self._cv_tokens.append(_cv_app.set(self))\n        appcontext_pushed.send(self.app, _async_wrapper=self.app.ensure_sync)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line_number": 251
+      "source_code": "    def push(self, obj: T) -> list[T]:\n        \"\"\"Add a new item to the top of the stack.\"\"\"\n        stack = self._storage.get([]).copy()\n        stack.append(obj)\n        self._storage.set(stack)\n        return stack",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line_number": 140
     },
     {
       "name": "ctx.pop",
-      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line_number": 78
+      "source_code": "    def pop(self) -> T | None:\n        \"\"\"Remove the top item from the stack and return it. If the\n        stack is empty, return ``None``.\n        \"\"\"\n        stack = self._storage.get([])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line_number": 147
     },
     {
       "name": "buffer.append",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def append(self, item: t.Any) -> t.NoReturn:\n        _immutable_error(self)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/mixins.py",
+      "line_number": 54
     }
   ],
   "dynamic_methods": [
@@ -37,24 +37,24 @@
     },
     {
       "function": "ctx.push",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line": 251,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line": 140,
       "caller": "test_teardown_on_pop",
-      "source_code": "    def push(self) -> None:\n        \"\"\"Binds the app context to the current context.\"\"\"\n        self._cv_tokens.append(_cv_app.set(self))\n        appcontext_pushed.send(self.app, _async_wrapper=self.app.ensure_sync)\n\n"
+      "source_code": "    def push(self, obj: T) -> list[T]:\n        \"\"\"Add a new item to the top of the stack.\"\"\"\n        stack = self._storage.get([]).copy()\n        stack.append(obj)\n        self._storage.set(stack)\n        return stack\n\n"
     },
     {
       "function": "ctx.pop",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/ctx.py",
-      "line": 78,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/local.py",
+      "line": 147,
       "caller": "test_teardown_on_pop",
-      "source_code": "    def pop(self, name: str, default: t.Any = _sentinel) -> t.Any:\n        \"\"\"Get and remove an attribute by name. Like :meth:`dict.pop`.\n\n        :param name: Name of attribute to pop.\n        :param default: Value to return if the attribute is not present,\n            instead of raising a ``KeyError``.\n\n        .. versionadded:: 0.11\n        \"\"\"\n        if default is _sentinel:\n            return self.__dict__.pop(name)\n        else:\n            return self.__dict__.pop(name, default)\n\n"
+      "source_code": "    def pop(self) -> T | None:\n        \"\"\"Remove the top item from the stack and return it. If the\n        stack is empty, return ``None``.\n        \"\"\"\n        stack = self._storage.get([])\n\n        if len(stack) == 0:\n            return None\n\n        rv = stack[-1]\n        self._storage.set(stack[:-1])\n        return rv\n\n"
     },
     {
       "function": "buffer.append",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/datastructures/mixins.py",
+      "line": 54,
       "caller": "test_teardown_on_pop",
-      "source_code": ""
+      "source_code": "    def append(self, item: t.Any) -> t.NoReturn:\n        _immutable_error(self)\n\n"
     }
   ],
   "assertions": [

@@ -1,0 +1,43 @@
+{
+  "test_name": "test_browser_headers_specific",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "zip",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_browser_headers_specific",
+      "source_code": ""
+    },
+    {
+      "function": "zip",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_browser_headers_specific",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert request.accept == mimes",
+    "assert a == m",
+    "assert a.mime == m",
+    "assert a.q == q"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_browser_headers_specific(header, expected):\n    mimes = [e[0] for e in expected]\n    qs = [e[1] for e in expected]\n    request = Request(b\"/\", {\"accept\": header}, \"1.1\", \"GET\", None, None)\n    assert request.accept == mimes\n    for a, m, q in zip(request.accept, mimes, qs):\n        assert a == m\n        assert a.mime == m\n        assert a.q == q"
+}

@@ -1,0 +1,70 @@
+{
+  "test_name": "test_str_to_addr_list_validation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "config.Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_str_to_addr_list_validation",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_str_to_addr_list_validation",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_str_to_addr_list_validation",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_str_to_addr_list_validation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert c.proxy_allow_ips == ['127.0.0.1', '::1']",
+    "assert c.forwarded_allow_ips == ['127.0.0.1', '::1']",
+    "assert c.forwarded_allow_ips == ['127.0.0.1', '192.0.2.1']",
+    "assert c.forwarded_allow_ips == []",
+    "assert c.forwarded_allow_ips == []"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_str_to_addr_list_validation():\n    c = config.Config()\n    assert c.proxy_allow_ips == [\"127.0.0.1\", \"::1\"]\n    assert c.forwarded_allow_ips == [\"127.0.0.1\", \"::1\"]\n    c.set(\"forwarded_allow_ips\", \"127.0.0.1,192.0.2.1\")\n    assert c.forwarded_allow_ips == [\"127.0.0.1\", \"192.0.2.1\"]\n    c.set(\"forwarded_allow_ips\", \"\")\n    assert c.forwarded_allow_ips == []\n    c.set(\"forwarded_allow_ips\", None)\n    assert c.forwarded_allow_ips == []\n    # demand addresses are specified unambiguously\n    pytest.raises(TypeError, c.set, \"forwarded_allow_ips\", 1)\n    # demand networks are specified unambiguously\n    pytest.raises(ValueError, c.set, \"forwarded_allow_ips\", \"127.0.0\")\n    # detect typos\n    pytest.raises(ValueError, c.set, \"forwarded_allow_ips\", \"::f:\")"
+}

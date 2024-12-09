@@ -1,0 +1,38 @@
+{
+  "test_name": "test_check_library_dist",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_clib.py",
+  "static_methods": [
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    },
+    {
+      "name": "build_clib",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_check_library_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    },
+    {
+      "function": "build_clib",
+      "filename": "",
+      "line": 0,
+      "caller": "test_check_library_dist",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_check_library_dist(self):\n        pkg_dir, dist = self.create_dist()\n        cmd = build_clib(dist)\n\n        # 'libraries' option must be a list\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_library_list('foo')\n\n        # each element of 'libraries' must a 2-tuple\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_library_list(['foo1', 'foo2'])\n\n        # first element of each tuple in 'libraries'\n        # must be a string (the library name)\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_library_list([(1, 'foo1'), ('name', 'foo2')])\n\n        # library name may not contain directory separators\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_library_list(\n                [('name', 'foo1'), ('another/name', 'foo2')],\n            )\n\n        # second element of each tuple must be a dictionary (build info)\n        with pytest.raises(DistutilsSetupError):\n            cmd.check_library_list(\n                [('name', {}), ('another', 'foo2')],\n            )\n\n        # those work\n        libs = [('name', {}), ('name', {'ok': 'good'})]\n        cmd.check_library_list(libs)"
+}

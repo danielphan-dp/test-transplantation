@@ -1,0 +1,177 @@
+{
+  "test_name": "test_extension_init",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_extension.py",
+  "static_methods": [
+    {
+      "name": "check_warnings",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "check_warnings",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Extension",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "check_warnings",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "check_warnings",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "Extension",
+      "filename": "",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_extension_init",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ext.name == 'name'",
+    "assert ext.sources == ['file1', 'file2']",
+    "assert ext.sources == ['file1', 'file2']",
+    "assert ext.language is None",
+    "assert ext.optional is None",
+    "assert len(w.warnings) == 1",
+    "assert str(w.warnings[0].message) == \"Unknown Extension options: 'chic'\"",
+    "assert getattr(ext, attr) == []"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_extension_init(self):\n        # the first argument, which is the name, must be a string\n        with pytest.raises(AssertionError):\n            Extension(1, [])\n        ext = Extension('name', [])\n        assert ext.name == 'name'\n\n        # the second argument, which is the list of files, must\n        # be a list of strings or PathLike objects\n        with pytest.raises(AssertionError):\n            Extension('name', 'file')\n        with pytest.raises(AssertionError):\n            Extension('name', ['file', 1])\n        ext = Extension('name', ['file1', 'file2'])\n        assert ext.sources == ['file1', 'file2']\n        ext = Extension('name', [pathlib.Path('file1'), pathlib.Path('file2')])\n        assert ext.sources == ['file1', 'file2']\n\n        # others arguments have defaults\n        for attr in (\n            'include_dirs',\n            'define_macros',\n            'undef_macros',\n            'library_dirs',\n            'libraries',\n            'runtime_library_dirs',\n            'extra_objects',\n            'extra_compile_args',\n            'extra_link_args',\n            'export_symbols',\n            'swig_opts',\n            'depends',\n        ):\n            assert getattr(ext, attr) == []\n\n        assert ext.language is None\n        assert ext.optional is None\n\n        # if there are unknown keyword options, warn about them\n        with check_warnings() as w:\n            warnings.simplefilter('always')\n            ext = Extension('name', ['file1', 'file2'], chic=True)\n\n        assert len(w.warnings) == 1\n        assert str(w.warnings[0].message) == \"Unknown Extension options: 'chic'\""
+}

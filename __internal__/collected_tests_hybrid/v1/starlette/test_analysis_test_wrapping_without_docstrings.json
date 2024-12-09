@@ -1,0 +1,12 @@
+{
+  "test_name": "test_wrapping_without_docstrings",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_path.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert func_without_docstring.__doc__ is None"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_wrapping_without_docstrings(\n    wrapper: Callable[[Callable[[], None]], Callable[[], None]]\n) -> None:\n    @wrapper\n    def func_without_docstring() -> None: ...  # pragma: no cover\n\n    assert func_without_docstring.__doc__ is None"
+}

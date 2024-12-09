@@ -1,0 +1,54 @@
+{
+  "test_name": "test_exception_reconstructed",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sandbox.py",
+  "static_methods": [
+    {
+      "name": "ValueError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "saved_exc.resume",
+      "source_code": "    def resume(self):\n        \"restore and re-raise any exception\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line_number": 147
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ValueError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_exception_reconstructed",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_exception_reconstructed",
+      "source_code": ""
+    },
+    {
+      "function": "saved_exc.resume",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/sandbox.py",
+      "line": 147,
+      "caller": "test_exception_reconstructed",
+      "source_code": "    def resume(self):\n        \"restore and re-raise any exception\"\n\n        if '_saved' not in vars(self):\n            return\n\n        _type, exc = map(pickle.loads, self._saved)\n        raise exc.with_traceback(self._tb)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(caught.value, ValueError)",
+    "assert caught.value is not orig_exc"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_exception_reconstructed(self):\n        orig_exc = ValueError(\"details\")\n\n        with setuptools.sandbox.ExceptionSaver() as saved_exc:\n            raise orig_exc\n\n        with pytest.raises(ValueError) as caught:\n            saved_exc.resume()\n\n        assert isinstance(caught.value, ValueError)\n        assert caught.value is not orig_exc"
+}

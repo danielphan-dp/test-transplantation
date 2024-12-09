@@ -1,0 +1,118 @@
+{
+  "test_name": "test_pyproject_toml_excluded",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "quiet",
+      "source_code": "def quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line_number": 49
+    },
+    {
+      "name": "touch",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "sdist",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "quiet",
+      "source_code": "def quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line_number": 49
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": ""
+    },
+    {
+      "function": "quiet",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line": 49,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": "@contextlib.contextmanager\ndef quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"\n\n    old_stdout = sys.stdout\n    old_stderr = sys.stderr\n    new_stdout = sys.stdout = io.StringIO()\n    new_stderr = sys.stderr = io.StringIO()\n    try:\n        yield new_stdout, new_stderr\n    finally:\n        new_stdout.seek(0)\n        new_stderr.seek(0)\n        sys.stdout = old_stdout\n        sys.stderr = old_stderr\n\n\n"
+    },
+    {
+      "function": "touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 57,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": "def touch(filename):\n    open(filename, 'wb').close()\n\n\n"
+    },
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": ""
+    },
+    {
+      "function": "sdist",
+      "filename": "",
+      "line": 0,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": ""
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": ""
+    },
+    {
+      "function": "quiet",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/contexts.py",
+      "line": 49,
+      "caller": "test_pyproject_toml_excluded",
+      "source_code": "@contextlib.contextmanager\ndef quiet():\n    \"\"\"\n    Redirect stdout/stderr to StringIO objects to prevent console output from\n    distutils commands.\n    \"\"\"\n\n    old_stdout = sys.stdout\n    old_stderr = sys.stderr\n    new_stdout = sys.stdout = io.StringIO()\n    new_stderr = sys.stderr = io.StringIO()\n    try:\n        yield new_stdout, new_stderr\n    finally:\n        new_stdout.seek(0)\n        new_stderr.seek(0)\n        sys.stdout = old_stdout\n        sys.stderr = old_stderr\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert 'pyproject.toml' not in manifest"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_pyproject_toml_excluded(self, source_dir):\n        \"\"\"\n        Check that pyproject.toml can excluded even if present\n        \"\"\"\n        touch(source_dir / 'pyproject.toml')\n        with open('MANIFEST.in', 'w', encoding=\"utf-8\") as mts:\n            print('exclude pyproject.toml', file=mts)\n        dist = Distribution(SETUP_ATTRS)\n        dist.script_name = 'setup.py'\n        cmd = sdist(dist)\n        cmd.ensure_finalized()\n        with quiet():\n            cmd.run()\n        manifest = cmd.filelist.files\n        assert 'pyproject.toml' not in manifest"
+}

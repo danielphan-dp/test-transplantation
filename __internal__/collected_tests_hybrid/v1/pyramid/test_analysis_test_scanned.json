@@ -1,0 +1,77 @@
+{
+  "test_name": "test_scanned",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "Configurator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.scan",
+      "source_code": "    def scan(self, pattern):\n        \"\"\"\n        Scan the text for the given pattern and update pos/match\n        and related fields. The return value is a boolean that\n        indicates if the pattern matched. The matched value is\n        stored on the instance as ``match``, the last value is\n        stored as ``last``. ``start_pos`` is the position of the\n        pointer before the pattern was matched, ``pos`` is the\n        end position.\n        \"\"\"\n        if self.eos:\n            raise EndOfText()\n        if pattern not in self._re_cache:\n            self._re_cache[pattern] = re.compile(pattern, self.flags)\n        self.last = self.match\n        m = self._re_cache[pattern].match(self.data, self.pos)\n        if m is None:\n            return False\n        self.start_pos = m.start()\n        self.pos = m.end()\n        self.match = m.group()\n        return True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pygments/scanner.py",
+      "line_number": 72
+    },
+    {
+      "name": "config.commit",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 639
+    },
+    {
+      "name": "reg.adapters.lookup",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line_number": 61
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Configurator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_scanned",
+      "source_code": ""
+    },
+    {
+      "function": "config.scan",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pygments/scanner.py",
+      "line": 72,
+      "caller": "test_scanned",
+      "source_code": "    def scan(self, pattern):\n        \"\"\"\n        Scan the text for the given pattern and update pos/match\n        and related fields. The return value is a boolean that\n        indicates if the pattern matched. The matched value is\n        stored on the instance as ``match``, the last value is\n        stored as ``last``. ``start_pos`` is the position of the\n        pointer before the pattern was matched, ``pos`` is the\n        end position.\n        \"\"\"\n        if self.eos:\n            raise EndOfText()\n        if pattern not in self._re_cache:\n            self._re_cache[pattern] = re.compile(pattern, self.flags)\n        self.last = self.match\n        m = self._re_cache[pattern].match(self.data, self.pos)\n        if m is None:\n            return False\n        self.start_pos = m.start()\n        self.pos = m.end()\n        self.match = m.group()\n        return True\n\n"
+    },
+    {
+      "function": "config.commit",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 639,
+      "caller": "test_scanned",
+      "source_code": "    def commit(self):\n        \"\"\"\n        Commit recorded changes, turn off recording, return\n        changes.\n        \"\"\"\n        assert self.record\n        result = self.files_written, self.dirs_created\n        self._init_record()\n        return result\n\n"
+    },
+    {
+      "function": "reg.adapters.lookup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/webencodings/__init__.py",
+      "line": 61,
+      "caller": "test_scanned",
+      "source_code": "def lookup(label):\n    \"\"\"\n    Look for an encoding by its label.\n    This is the spec\u2019s `get an encoding\n    <http://encoding.spec.whatwg.org/#concept-encoding-get>`_ algorithm.\n    Supported labels are listed there.\n\n    :param label: A string.\n    :returns:\n        An :class:`Encoding` object, or :obj:`None` for an unknown label.\n\n    \"\"\"\n    # Only strip ASCII whitespace: U+0009, U+000A, U+000C, U+000D, and U+0020.\n    label = ascii_lower(label.strip('\\t\\n\\f\\r '))\n    name = LABELS.get(label)\n    if name is None:\n        return None\n    encoding = CACHE.get(name)\n    if encoding is None:\n        if name == 'x-user-defined':\n            from .x_user_defined import codec_info\n        else:\n            python_name = PYTHON_NAMES.get(name, name)\n            # Any python_name value that gets to here should be valid.\n            codec_info = codecs.lookup(python_name)\n        encoding = Encoding(name, codec_info)\n        CACHE[name] = encoding\n    return encoding\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_scanned",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_scanned(self):\n        from pyramid.config import Configurator\n        from pyramid.interfaces import IRequest, IView, IViewClassifier\n\n        from . import test_integration\n\n        config = Configurator()\n        config.scan(test_integration)\n        config.commit()\n        reg = config.registry\n        view = reg.adapters.lookup(\n            (IViewClassifier, IRequest, INothing), IView, name=''\n        )\n        self.assertEqual(view.__original_view__, wsgiapptest)"
+}

@@ -1,0 +1,58 @@
+{
+  "test_name": "test_customize_compiler",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+  "static_methods": [
+    {
+      "name": "self.customize_compiler",
+      "source_code": "def customize_compiler(compiler):\n    \"\"\"Do any platform-specific customization of a CCompiler instance.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/sysconfig.py",
+      "line_number": 291
+    },
+    {
+      "name": "self.customize_compiler",
+      "source_code": "def customize_compiler(compiler):\n    \"\"\"Do any platform-specific customization of a CCompiler instance.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/sysconfig.py",
+      "line_number": 291
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.customize_compiler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/sysconfig.py",
+      "line": 291,
+      "caller": "test_customize_compiler",
+      "source_code": "def customize_compiler(compiler):\n    \"\"\"Do any platform-specific customization of a CCompiler instance.\n\n    Mainly needed on Unix, so we can plug in the information that\n    varies across Unices and is stored in Python's Makefile.\n    \"\"\"\n    if compiler.compiler_type in [\"unix\", \"cygwin\"] or (\n        compiler.compiler_type == \"mingw32\" and is_mingw()\n    ):\n        _customize_macos()\n\n        (\n            cc,\n            cxx,\n            cflags,\n            ccshared,\n            ldshared,\n            ldcxxshared,\n            shlib_suffix,\n            ar,\n            ar_flags,\n        ) = get_config_vars(\n            'CC',\n            'CXX',\n            'CFLAGS',\n            'CCSHARED',\n            'LDSHARED',\n            'LDCXXSHARED',\n            'SHLIB_SUFFIX',\n            'AR',\n            'ARFLAGS',\n        )\n\n        cxxflags = cflags\n\n        if 'CC' in os.environ:\n            newcc = os.environ['CC']\n            if 'LDSHARED' not in os.environ and ldshared.startswith(cc):\n                # If CC is overridden, use that as the default\n                #       command for LDSHARED as well\n                ldshared = newcc + ldshared[len(cc) :]\n            cc = newcc\n        cxx = os.environ.get('CXX', cxx)\n        ldshared = os.environ.get('LDSHARED', ldshared)\n        ldcxxshared = os.environ.get('LDCXXSHARED', ldcxxshared)\n        cpp = os.environ.get(\n            'CPP',\n            cc + \" -E\",  # not always\n        )\n\n        ldshared = _add_flags(ldshared, 'LD')\n        ldcxxshared = _add_flags(ldcxxshared, 'LD')\n        cflags = _add_flags(cflags, 'C')\n        ldshared = _add_flags(ldshared, 'C')\n        cxxflags = os.environ.get('CXXFLAGS', cxxflags)\n        ldcxxshared = _add_flags(ldcxxshared, 'CXX')\n        cpp = _add_flags(cpp, 'CPP')\n        cflags = _add_flags(cflags, 'CPP')\n        cxxflags = _add_flags(cxxflags, 'CPP')\n        ldshared = _add_flags(ldshared, 'CPP')\n        ldcxxshared = _add_flags(ldcxxshared, 'CPP')\n\n        ar = os.environ.get('AR', ar)\n\n        archiver = ar + ' ' + os.environ.get('ARFLAGS', ar_flags)\n        cc_cmd = cc + ' ' + cflags\n        cxx_cmd = cxx + ' ' + cxxflags\n\n        compiler.set_executables(\n            preprocessor=cpp,\n            compiler=cc_cmd,\n            compiler_so=cc_cmd + ' ' + ccshared,\n            compiler_cxx=cxx_cmd,\n            compiler_so_cxx=cxx_cmd + ' ' + ccshared,\n            linker_so=ldshared,\n            linker_so_cxx=ldcxxshared,\n            linker_exe=cc,\n            linker_exe_cxx=cxx,\n            archiver=archiver,\n        )\n\n        if 'RANLIB' in os.environ and compiler.executables.get('ranlib', None):\n            compiler.set_executables(ranlib=os.environ['RANLIB'])\n\n        compiler.shared_lib_extension = shlib_suffix\n\n\n"
+    },
+    {
+      "function": "self.customize_compiler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/sysconfig.py",
+      "line": 291,
+      "caller": "test_customize_compiler",
+      "source_code": "def customize_compiler(compiler):\n    \"\"\"Do any platform-specific customization of a CCompiler instance.\n\n    Mainly needed on Unix, so we can plug in the information that\n    varies across Unices and is stored in Python's Makefile.\n    \"\"\"\n    if compiler.compiler_type in [\"unix\", \"cygwin\"] or (\n        compiler.compiler_type == \"mingw32\" and is_mingw()\n    ):\n        _customize_macos()\n\n        (\n            cc,\n            cxx,\n            cflags,\n            ccshared,\n            ldshared,\n            ldcxxshared,\n            shlib_suffix,\n            ar,\n            ar_flags,\n        ) = get_config_vars(\n            'CC',\n            'CXX',\n            'CFLAGS',\n            'CCSHARED',\n            'LDSHARED',\n            'LDCXXSHARED',\n            'SHLIB_SUFFIX',\n            'AR',\n            'ARFLAGS',\n        )\n\n        cxxflags = cflags\n\n        if 'CC' in os.environ:\n            newcc = os.environ['CC']\n            if 'LDSHARED' not in os.environ and ldshared.startswith(cc):\n                # If CC is overridden, use that as the default\n                #       command for LDSHARED as well\n                ldshared = newcc + ldshared[len(cc) :]\n            cc = newcc\n        cxx = os.environ.get('CXX', cxx)\n        ldshared = os.environ.get('LDSHARED', ldshared)\n        ldcxxshared = os.environ.get('LDCXXSHARED', ldcxxshared)\n        cpp = os.environ.get(\n            'CPP',\n            cc + \" -E\",  # not always\n        )\n\n        ldshared = _add_flags(ldshared, 'LD')\n        ldcxxshared = _add_flags(ldcxxshared, 'LD')\n        cflags = _add_flags(cflags, 'C')\n        ldshared = _add_flags(ldshared, 'C')\n        cxxflags = os.environ.get('CXXFLAGS', cxxflags)\n        ldcxxshared = _add_flags(ldcxxshared, 'CXX')\n        cpp = _add_flags(cpp, 'CPP')\n        cflags = _add_flags(cflags, 'CPP')\n        cxxflags = _add_flags(cxxflags, 'CPP')\n        ldshared = _add_flags(ldshared, 'CPP')\n        ldcxxshared = _add_flags(ldcxxshared, 'CPP')\n\n        ar = os.environ.get('AR', ar)\n\n        archiver = ar + ' ' + os.environ.get('ARFLAGS', ar_flags)\n        cc_cmd = cc + ' ' + cflags\n        cxx_cmd = cxx + ' ' + cxxflags\n\n        compiler.set_executables(\n            preprocessor=cpp,\n            compiler=cc_cmd,\n            compiler_so=cc_cmd + ' ' + ccshared,\n            compiler_cxx=cxx_cmd,\n            compiler_so_cxx=cxx_cmd + ' ' + ccshared,\n            linker_so=ldshared,\n            linker_so_cxx=ldcxxshared,\n            linker_exe=cc,\n            linker_exe_cxx=cxx,\n            archiver=archiver,\n        )\n\n        if 'RANLIB' in os.environ and compiler.executables.get('ranlib', None):\n            compiler.set_executables(ranlib=os.environ['RANLIB'])\n\n        compiler.shared_lib_extension = shlib_suffix\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert comp.exes['archiver'] == 'env_ar --env-arflags'",
+    "assert comp.exes['preprocessor'] == 'env_cpp --env-cppflags'",
+    "assert comp.exes['compiler'] == 'env_cc --sc-cflags --env-cflags --env-cppflags'",
+    "assert comp.exes['compiler_so'] == 'env_cc --sc-cflags --env-cflags --env-cppflags --sc-ccshared'",
+    "assert comp.exes['compiler_cxx'] == 'env_cxx --env-cxx-flags --sc-cflags --env-cppflags'",
+    "assert comp.exes['linker_exe'] == 'env_cc'",
+    "assert comp.exes['linker_so'] == 'env_ldshared --env-ldflags --env-cflags --env-cppflags'",
+    "assert comp.shared_lib_extension == 'sc_shutil_suffix'",
+    "assert comp.exes['archiver'] == 'sc_ar --sc-arflags'",
+    "assert comp.exes['preprocessor'] == 'sc_cc -E'",
+    "assert comp.exes['compiler'] == 'sc_cc --sc-cflags'",
+    "assert comp.exes['compiler_so'] == 'sc_cc --sc-cflags --sc-ccshared'",
+    "assert comp.exes['compiler_cxx'] == 'sc_cxx --sc-cflags'",
+    "assert comp.exes['linker_exe'] == 'sc_cc'",
+    "assert comp.exes['linker_so'] == 'sc_ldshared'",
+    "assert comp.shared_lib_extension == 'sc_shutil_suffix'",
+    "assert 'ranlib' not in comp.exes",
+    "assert comp.exes['ranlib'] == 'env_ranlib'",
+    "assert 'ranlib' not in comp.exes"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_customize_compiler(self):\n        # Make sure that sysconfig._config_vars is initialized\n        sysconfig.get_config_vars()\n\n        os.environ['AR'] = 'env_ar'\n        os.environ['CC'] = 'env_cc'\n        os.environ['CPP'] = 'env_cpp'\n        os.environ['CXX'] = 'env_cxx --env-cxx-flags'\n        os.environ['LDSHARED'] = 'env_ldshared'\n        os.environ['LDFLAGS'] = '--env-ldflags'\n        os.environ['ARFLAGS'] = '--env-arflags'\n        os.environ['CFLAGS'] = '--env-cflags'\n        os.environ['CPPFLAGS'] = '--env-cppflags'\n        os.environ['RANLIB'] = 'env_ranlib'\n\n        comp = self.customize_compiler()\n        assert comp.exes['archiver'] == 'env_ar --env-arflags'\n        assert comp.exes['preprocessor'] == 'env_cpp --env-cppflags'\n        assert comp.exes['compiler'] == 'env_cc --sc-cflags --env-cflags --env-cppflags'\n        assert comp.exes['compiler_so'] == (\n            'env_cc --sc-cflags --env-cflags --env-cppflags --sc-ccshared'\n        )\n        assert (\n            comp.exes['compiler_cxx']\n            == 'env_cxx --env-cxx-flags --sc-cflags --env-cppflags'\n        )\n        assert comp.exes['linker_exe'] == 'env_cc'\n        assert comp.exes['linker_so'] == (\n            'env_ldshared --env-ldflags --env-cflags --env-cppflags'\n        )\n        assert comp.shared_lib_extension == 'sc_shutil_suffix'\n\n        if sys.platform == \"darwin\":\n            assert comp.exes['ranlib'] == 'env_ranlib'\n        else:\n            assert 'ranlib' not in comp.exes\n\n        del os.environ['AR']\n        del os.environ['CC']\n        del os.environ['CPP']\n        del os.environ['CXX']\n        del os.environ['LDSHARED']\n        del os.environ['LDFLAGS']\n        del os.environ['ARFLAGS']\n        del os.environ['CFLAGS']\n        del os.environ['CPPFLAGS']\n        del os.environ['RANLIB']\n\n        comp = self.customize_compiler()\n        assert comp.exes['archiver'] == 'sc_ar --sc-arflags'\n        assert comp.exes['preprocessor'] == 'sc_cc -E'\n        assert comp.exes['compiler'] == 'sc_cc --sc-cflags'\n        assert comp.exes['compiler_so'] == 'sc_cc --sc-cflags --sc-ccshared'\n        assert comp.exes['compiler_cxx'] == 'sc_cxx --sc-cflags'\n        assert comp.exes['linker_exe'] == 'sc_cc'\n        assert comp.exes['linker_so'] == 'sc_ldshared'\n        assert comp.shared_lib_extension == 'sc_shutil_suffix'\n        assert 'ranlib' not in comp.exes"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_get_function_from_name_attr_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_utils.py",
+  "static_methods": [
+    {
+      "name": "MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "utils.get_function_from_name",
+      "source_code": "def get_function_from_name(function_name):\n    \"\"\"\n    Tries to get function by fully qualified name (e.g. \"mymodule.myobj.myfunc\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line_number": 115
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_function_from_name_attr_error",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_function_from_name_attr_error",
+      "source_code": ""
+    },
+    {
+      "function": "utils.get_function_from_name",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/utils.py",
+      "line": 115,
+      "caller": "test_get_function_from_name_attr_error",
+      "source_code": "def get_function_from_name(function_name):\n    \"\"\"\n    Tries to get function by fully qualified name (e.g. \"mymodule.myobj.myfunc\")\n\n    :type function_name: str\n    \"\"\"\n    if function_name is None:\n        raise ValueError(\"Empty function name\")\n\n    if \".\" in function_name:\n        module_name, attr_path = function_name.rsplit(\".\", 1)\n    else:\n        module_name = \"\"\n        attr_path = function_name\n\n    module = None\n    last_import_error = None\n\n    while not module:\n        try:\n            module = importlib.import_module(module_name)\n        except ImportError as import_error:\n            last_import_error = import_error\n            if \".\" in module_name:\n                module_name, attr_path1 = module_name.rsplit(\".\", 1)\n                attr_path = f\"{attr_path1}.{attr_path}\"\n            else:\n                raise\n    try:\n        function = deep_getattr(module, attr_path)\n    except AttributeError:\n        if last_import_error:\n            raise last_import_error\n        else:\n            raise\n    return function\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_get_function_from_name_attr_error(monkeypatch):\n    \"\"\"\n    Test attribute error without import error on get_function_from_name.\n    Attribute errors due to import errors are tested on\n    test_api.test_invalid_operation_does_stop_application_to_setup\n    \"\"\"\n    deep_attr_mock = MagicMock()\n    deep_attr_mock.side_effect = AttributeError\n    monkeypatch.setattr(\"connexion.utils.deep_getattr\", deep_attr_mock)\n    with pytest.raises(AttributeError):\n        utils.get_function_from_name(\"math.ceil\")"
+}

@@ -1,0 +1,79 @@
+{
+  "test_name": "test_app_injection",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_request_data.py",
+  "static_methods": [
+    {
+      "name": "app.listener",
+      "source_code": "    def listener(\n        self,\n        listener_or_event: ListenerType[Sanic],\n        event_or_none: str,\n        apply: bool = ...,\n        *,\n        priority: int = 0,\n    ) -> ListenerType[Sanic]: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/listeners.py",
+      "line_number": 36
+    },
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "loads",
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line_number": 72
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.listener",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/listeners.py",
+      "line": 36,
+      "caller": "test_app_injection",
+      "source_code": "    @overload\n    def listener(\n        self,\n        listener_or_event: ListenerType[Sanic],\n        event_or_none: str,\n        apply: bool = ...,\n        *,\n        priority: int = 0,\n"
+    },
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_app_injection",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_app_injection",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "loads",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line": 72,
+      "caller": "test_app_injection",
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return\n\n        # Determine what version of the serializer the data was serialized\n        # with\n        try:\n            ver, data = data.split(b\",\", 1)\n        except ValueError:\n            ver = b\"cc=0\"\n\n        # Make sure that our \"ver\" is actually a version and isn't a false\n        # positive from a , being in the data stream.\n        if ver[:3] != b\"cc=\":\n            data = ver + data\n            ver = b\"cc=0\"\n\n        # Get the version number out of the cc=N\n        ver = ver.split(b\"=\", 1)[-1].decode(\"ascii\")\n\n        # Dispatch to the actual load method for the given version\n        try:\n            return getattr(self, \"_loads_v{}\".format(ver))(request, data, body_file)\n\n        except AttributeError:\n            # This is a version we don't have a loads function for, so we'll\n            # just treat it as a miss and return None\n            return\n\n"
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_app_injection",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response_json['injected'] == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_app_injection(app):\n    expected = random.choice(range(0, 100))\n\n    @app.listener(\"after_server_start\")\n    async def inject_data(app, loop):\n        app.ctx.injected = expected\n\n    @app.get(\"/\")\n    async def handler(request):\n        return json({\"injected\": request.app.ctx.injected})\n\n    request, response = app.test_client.get(\"/\")\n\n    response_json = loads(response.text)\n    assert response_json[\"injected\"] == expected"
+}

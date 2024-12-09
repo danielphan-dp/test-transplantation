@@ -1,0 +1,79 @@
+{
+  "test_name": "test_add_route_to_app_after_mount",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "Router",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Mount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inner_app.add_route",
+      "source_code": "    def add_route(\n        self,\n        path: str,\n        endpoint: typing.Callable[[Request], typing.Awaitable[Response] | Response],\n        methods: list[str] | None = None,\n        name: str | None = None,\n        include_in_schema: bool = True,\n    ) -> None:  # pragma: no cover\n        route = Route(\n            path,\n            endpoint=endpoint,\n            methods=methods,\n            name=name,\n            include_in_schema=include_in_schema,\n        )\n        self.routes.append(route)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line_number": 778
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Router",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_route_to_app_after_mount",
+      "source_code": ""
+    },
+    {
+      "function": "Mount",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_route_to_app_after_mount",
+      "source_code": ""
+    },
+    {
+      "function": "inner_app.add_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line": 778,
+      "caller": "test_add_route_to_app_after_mount",
+      "source_code": "    def add_route(\n        self,\n        path: str,\n        endpoint: typing.Callable[[Request], typing.Awaitable[Response] | Response],\n        methods: list[str] | None = None,\n        name: str | None = None,\n        include_in_schema: bool = True,\n"
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_add_route_to_app_after_mount",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_add_route_to_app_after_mount",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 200"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_route_to_app_after_mount(\n    test_client_factory: typing.Callable[..., TestClient],\n) -> None:\n    \"\"\"Checks that Mount will pick up routes\n    added to the underlying app after it is mounted\n    \"\"\"\n    inner_app = Router()\n    app = Mount(\"/http\", app=inner_app)\n    inner_app.add_route(\n        \"/inner\",\n        endpoint=homepage,\n        methods=[\"GET\"],\n    )\n    client = test_client_factory(app)\n    response = client.get(\"/http/inner\")\n    assert response.status_code == 200"
+}

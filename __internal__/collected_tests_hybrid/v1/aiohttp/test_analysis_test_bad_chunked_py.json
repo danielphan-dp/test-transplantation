@@ -1,0 +1,53 @@
+{
+  "test_name": "test_bad_chunked_py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "HttpRequestParserPy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "messages.exception",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line_number": 182
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "HttpRequestParserPy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bad_chunked_py",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bad_chunked_py",
+      "source_code": ""
+    },
+    {
+      "function": "messages.exception",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line": 182,
+      "caller": "test_bad_chunked_py",
+      "source_code": "    def exception(self) -> Optional[Union[Type[BaseException], BaseException]]:\n        return self._exception\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(messages[0][1].exception(), http_exceptions.TransferEncodingError)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bad_chunked_py(\n    loop: asyncio.AbstractEventLoop, protocol: BaseProtocol\n) -> None:\n    \"\"\"Test that invalid chunked encoding doesn't allow content-length to be used.\"\"\"\n    parser = HttpRequestParserPy(\n        protocol,\n        loop,\n        2**16,\n        max_line_size=8190,\n        max_field_size=8190,\n    )\n    text = (\n        b\"GET / HTTP/1.1\\r\\nHost: a\\r\\nTransfer-Encoding: chunked\\r\\n\\r\\n0_2e\\r\\n\\r\\n\"\n        + b\"GET / HTTP/1.1\\r\\nHost: a\\r\\nContent-Length: 5\\r\\n\\r\\n0\\r\\n\\r\\n\"\n    )\n    messages, upgrade, tail = parser.feed_data(text)\n    assert isinstance(messages[0][1].exception(), http_exceptions.TransferEncodingError)"
+}

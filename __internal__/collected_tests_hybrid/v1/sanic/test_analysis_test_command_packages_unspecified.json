@@ -1,0 +1,40 @@
+{
+  "test_name": "test_command_packages_unspecified",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+  "static_methods": [
+    {
+      "name": "self.create_distribution",
+      "source_code": "    def create_distribution(self, configfiles=()):\n        d = TestDistribution()\n        d._config_files = configfiles\n        d.parse_config_files()\n        d.parse_command_line()\n        return d",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+      "line_number": 55
+    },
+    {
+      "name": "d.get_command_packages",
+      "source_code": "    def get_command_packages(self):\n        \"\"\"Return a list of packages from which commands are loaded.\"\"\"\n        pkgs = self.command_packages\n        if not isinstance(pkgs, list):\n            if pkgs is None:\n                pkgs = ''\n            pkgs = [pkg.strip() for pkg in pkgs.split(',') if pkg != '']\n            if \"distutils.command\" not in pkgs:\n                pkgs.insert(0, \"distutils.command\")\n            self.command_packages = pkgs\n        return pkgs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line_number": 782
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.create_distribution",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dist.py",
+      "line": 55,
+      "caller": "test_command_packages_unspecified",
+      "source_code": "    def create_distribution(self, configfiles=()):\n        d = TestDistribution()\n        d._config_files = configfiles\n        d.parse_config_files()\n        d.parse_command_line()\n        return d\n\n"
+    },
+    {
+      "function": "d.get_command_packages",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dist.py",
+      "line": 782,
+      "caller": "test_command_packages_unspecified",
+      "source_code": "    def get_command_packages(self):\n        \"\"\"Return a list of packages from which commands are loaded.\"\"\"\n        pkgs = self.command_packages\n        if not isinstance(pkgs, list):\n            if pkgs is None:\n                pkgs = ''\n            pkgs = [pkg.strip() for pkg in pkgs.split(',') if pkg != '']\n            if \"distutils.command\" not in pkgs:\n                pkgs.insert(0, \"distutils.command\")\n            self.command_packages = pkgs\n        return pkgs\n\n"
+    }
+  ],
+  "assertions": [
+    "assert d.get_command_packages() == ['distutils.command']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_command_packages_unspecified(self, clear_argv):\n        sys.argv.append(\"build\")\n        d = self.create_distribution()\n        assert d.get_command_packages() == [\"distutils.command\"]"
+}

@@ -1,0 +1,116 @@
+{
+  "test_name": "test_overridden_authorization_policy",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "self._makeConfig",
+      "source_code": "    def _makeConfig(self):\n        from pyramid.config import Configurator",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line_number": 645
+    },
+    {
+      "name": "config.include",
+      "source_code": "    def include(self, **attrs):\n        \"\"\"Add items to distribution that are named in keyword arguments",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line_number": 908
+    },
+    {
+      "name": "config.set_authorization_policy",
+      "source_code": "    def set_authorization_policy(self, policy):\n        \"\"\"\n        .. deprecated:: 2.0",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.make_wsgi_app",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line_number": 884
+    },
+    {
+      "name": "TestApp",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.testapp.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummySecurityPolicy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeConfig",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line": 645,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": "    def _makeConfig(self):\n        from pyramid.config import Configurator\n\n        config = Configurator()\n        return config\n\n"
+    },
+    {
+      "function": "config.include",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/dist.py",
+      "line": 908,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": "    def include(self, **attrs):\n        \"\"\"Add items to distribution that are named in keyword arguments\n\n        For example, 'dist.include(py_modules=[\"x\"])' would add 'x' to\n        the distribution's 'py_modules' attribute, if it was not already\n        there.\n\n        Currently, this method only supports inclusion for attributes that are\n        lists or tuples.  If you need to add support for adding to other\n        attributes in this or a subclass, you can add an '_include_X' method,\n        where 'X' is the name of the attribute.  The method will be called with\n        the value passed to 'include()'.  So, 'dist.include(foo={\"bar\":\"baz\"})'\n        will try to call 'dist._include_foo({\"bar\":\"baz\"})', which can then\n        handle whatever special inclusion logic is needed.\n        \"\"\"\n        for k, v in attrs.items():\n            include = getattr(self, '_include_' + k, None)\n            if include:\n                include(v)\n            else:\n                self._include_misc(k, v)\n\n"
+    },
+    {
+      "function": "config.set_authorization_policy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/security.py",
+      "line": 120,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": "    @action_method\n    def set_authorization_policy(self, policy):\n        \"\"\"\n        .. deprecated:: 2.0\n\n            Authentication policies have been replaced by security policies.\n            See :ref:`upgrading_auth_20` for more information.\n\n        Override the :app:`Pyramid` :term:`authorization policy` in the\n        current configuration.  The ``policy`` argument must be an instance\n        of an authorization policy or a :term:`dotted Python name` that points\n        at an instance of an authorization policy.\n\n        .. note::\n\n           Using the ``authorization_policy`` argument to the\n           :class:`pyramid.config.Configurator` constructor can be used to\n           achieve the same purpose.\n\n        \"\"\"\n        warnings.warn(\n            'Authentication and authorization policies have been deprecated '\n            'in favor of security policies.  See \"Upgrading '\n            'Authentication/Authorization\" in \"What\\'s New in Pyramid 2.0\" '\n            'of the documentation for more information.',\n            DeprecationWarning,\n            stacklevel=3,\n        )\n\n        def register():\n            self.registry.registerUtility(policy, IAuthorizationPolicy)\n\n        def ensure():\n            if self.autocommit:\n                return\n            if self.registry.queryUtility(IAuthenticationPolicy) is None:\n                raise ConfigurationError(\n                    'Cannot configure an authorization policy without '\n                    'also configuring an authentication policy '\n                    '(use the set_authorization_policy method)'\n                )\n\n        policy = self.maybe_dotted(policy)\n        intr = self.introspectable(\n            'authorization policy',\n            None,\n            self.object_description(policy),\n            'authorization policy',\n        )\n        intr['policy'] = policy\n        # authorization policy used by view config (phase 3) and\n        # authentication policy (phase 2)\n        self.action(\n            IAuthorizationPolicy,\n            register,\n            order=PHASE1_CONFIG,\n            introspectables=(intr,),\n        )\n        self.action(None, ensure)\n\n"
+    },
+    {
+      "function": "config.make_wsgi_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/__init__.py",
+      "line": 884,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": "    def make_wsgi_app(self):\n        \"\"\"Commits any pending configuration statements, sends a\n        :class:`pyramid.events.ApplicationCreated` event to all listeners,\n        adds this configuration's registry to\n        :attr:`pyramid.config.global_registries`, and returns a\n        :app:`Pyramid` WSGI application representing the committed\n        configuration state.\"\"\"\n        self.commit()\n        app = Router(self.registry)\n\n        # Allow tools like \"pshell development.ini\" to find the 'last'\n        # registry configured.\n        global_registries.add(self.registry)\n\n        # Push the registry onto the stack in case any code that depends on\n        # the registry threadlocal APIs used in listeners subscribed to the\n        # IApplicationCreated event.\n        self.begin()\n        try:\n            self.registry.notify(ApplicationCreated(app))\n        finally:\n            self.end()\n\n        return app\n\n\n"
+    },
+    {
+      "function": "TestApp",
+      "filename": "",
+      "line": 0,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": ""
+    },
+    {
+      "function": "self.testapp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": ""
+    },
+    {
+      "function": "DummySecurityPolicy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_overridden_authorization_policy",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_overridden_authorization_policy(self):\n        config = self._makeConfig()\n        config.include(self.package)\n\n        class DummySecurityPolicy:\n            def permits(self, context, principals, permission):\n                return True\n\n        config.set_authorization_policy(DummySecurityPolicy())\n        app = config.make_wsgi_app()\n        self.testapp = TestApp(app)\n        res = self.testapp.get('/protected', status=200)\n        self.assertTrue('protected view' in res)"
+}

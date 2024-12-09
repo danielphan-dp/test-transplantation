@@ -1,0 +1,54 @@
+{
+  "test_name": "test_request_id_defaults_uuid",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_request.py",
+  "static_methods": [
+    {
+      "name": "Request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id_defaults_uuid",
+      "source_code": ""
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_id_defaults_uuid",
+      "source_code": ""
+    },
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_id_defaults_uuid",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(request.id, UUID)",
+    "assert request.id == request.id == request._id"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_request_id_defaults_uuid():\n    request = Request(b\"/\", {}, None, \"GET\", None, Mock())\n    request.app.config.REQUEST_ID_HEADER = \"foo\"\n\n    assert isinstance(request.id, UUID)\n\n    # Makes sure that it has been cached and not called multiple times\n    assert request.id == request.id == request._id"
+}

@@ -1,0 +1,95 @@
+{
+  "test_name": "test_handle_request_with_nested_sanic_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "app.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "SanicException",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handle_request_with_nested_sanic_exception",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_handle_request_with_nested_sanic_exception",
+      "source_code": ""
+    },
+    {
+      "function": "app.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_handle_request_with_nested_sanic_exception",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "SanicException",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handle_request_with_nested_sanic_exception",
+      "source_code": ""
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_handle_request_with_nested_sanic_exception",
+      "source_code": ""
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_handle_request_with_nested_sanic_exception",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert port > 0",
+    "assert response.status == 500",
+    "assert 'Mock SanicException' in response.text",
+    "assert ('sanic.error', logging.ERROR, f\"Exception occurred while handling uri: 'http://127.0.0.1:{port}/'\") in caplog.record_tuples"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_handle_request_with_nested_sanic_exception(\n    app: Sanic, monkeypatch, caplog\n):\n    def mock_error_handler_response(*args, **kwargs):\n        raise SanicException(\"Mock SanicException\")\n\n    monkeypatch.setattr(\n        app.error_handler, \"response\", mock_error_handler_response\n    )\n\n    @app.get(\"/\")\n    def handler(request):\n        raise Exception\n\n    with caplog.at_level(logging.ERROR):\n        request, response = app.test_client.get(\"/\")\n    port = request.server_port\n    assert port > 0\n    assert response.status == 500\n    assert \"Mock SanicException\" in response.text\n    assert (\n        \"sanic.error\",\n        logging.ERROR,\n        f\"Exception occurred while handling uri: 'http://127.0.0.1:{port}/'\",\n    ) in caplog.record_tuples"
+}

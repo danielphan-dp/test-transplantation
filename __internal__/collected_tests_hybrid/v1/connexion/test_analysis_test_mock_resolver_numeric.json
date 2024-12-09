@@ -1,0 +1,55 @@
+{
+  "test_name": "test_mock_resolver_numeric",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_mock.py",
+  "static_methods": [
+    {
+      "name": "MockResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Swagger2Operation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "resolver.mock_operation",
+      "source_code": "    def mock_operation(self, operation, *args, **kwargs):\n        resp, code = operation.example_response()\n        if resp is not None:\n            return resp, code\n        return (\n            \"No example response defined in the API, and response \"\n            \"auto-generation disabled. To enable response auto-generation, \"\n            \"install connexion using the mock extra (connexion[mock])\",\n            501,\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/mock.py",
+      "line_number": 50
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MockResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_resolver_numeric",
+      "source_code": ""
+    },
+    {
+      "function": "Swagger2Operation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_resolver_numeric",
+      "source_code": ""
+    },
+    {
+      "function": "resolver.mock_operation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/mock.py",
+      "line": 50,
+      "caller": "test_mock_resolver_numeric",
+      "source_code": "    def mock_operation(self, operation, *args, **kwargs):\n        resp, code = operation.example_response()\n        if resp is not None:\n            return resp, code\n        return (\n            \"No example response defined in the API, and response \"\n            \"auto-generation disabled. To enable response auto-generation, \"\n            \"install connexion using the mock extra (connexion[mock])\",\n            501,\n        )\n"
+    }
+  ],
+  "assertions": [
+    "assert operation.operation_id == 'mock-1'",
+    "assert status_code == 200",
+    "assert response == {'foo': 'bar'}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_mock_resolver_numeric():\n    resolver = MockResolver(mock_all=True)\n\n    responses = {\"200\": {\"examples\": {\"application/json\": {\"foo\": \"bar\"}}}}\n\n    operation = Swagger2Operation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation={\"responses\": responses},\n        app_produces=[\"application/json\"],\n        app_consumes=[\"application/json\"],\n        definitions={},\n        resolver=resolver,\n    )\n    assert operation.operation_id == \"mock-1\"\n\n    response, status_code = resolver.mock_operation(operation)\n    assert status_code == 200\n    assert response == {\"foo\": \"bar\"}"
+}

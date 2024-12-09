@@ -1,0 +1,79 @@
+{
+  "test_name": "test_retrieve_no_such_resource",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Resource.opaque",
+      "source_code": "    def opaque(cls, contents: D) -> Resource[D]:\n        \"\"\"\n        Create an opaque `Resource` -- i.e. one with opaque specification.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 214
+    },
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.NoSuchResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "registry.get_or_retrieve",
+      "source_code": "    def get_or_retrieve(self, uri: URI) -> Retrieved[D, Resource[D]]:\n        \"\"\"\n        Get a resource from the registry, crawling or retrieving if necessary.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 405
+    },
+    {
+      "name": "registry.get_or_retrieve",
+      "source_code": "    def get_or_retrieve(self, uri: URI) -> Retrieved[D, Resource[D]]:\n        \"\"\"\n        Get a resource from the registry, crawling or retrieving if necessary.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 405
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Resource.opaque",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 214,
+      "caller": "test_retrieve_no_such_resource",
+      "source_code": "    @classmethod\n    def opaque(cls, contents: D) -> Resource[D]:\n        \"\"\"\n        Create an opaque `Resource` -- i.e. one with opaque specification.\n\n        See `Specification.OPAQUE` for details.\n        \"\"\"\n        return Specification.OPAQUE.create_resource(contents=contents)\n\n"
+    },
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_retrieve_no_such_resource",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.NoSuchResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_retrieve_no_such_resource",
+      "source_code": ""
+    },
+    {
+      "function": "registry.get_or_retrieve",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 405,
+      "caller": "test_retrieve_no_such_resource",
+      "source_code": "    def get_or_retrieve(self, uri: URI) -> Retrieved[D, Resource[D]]:\n        \"\"\"\n        Get a resource from the registry, crawling or retrieving if necessary.\n\n        May involve crawling to find the given URI if it is not already known,\n        so the returned object is a `Retrieved` object which contains both the\n        resource value as well as the registry which ultimately contained it.\n        \"\"\"\n        resource = self._resources.get(uri)\n        if resource is not None:\n            return Retrieved(registry=self, value=resource)\n\n        registry = self.crawl()\n        resource = registry._resources.get(uri)\n        if resource is not None:\n            return Retrieved(registry=registry, value=resource)\n\n        try:\n            resource = registry._retrieve(uri)\n        except (\n            exceptions.CannotDetermineSpecification,\n            exceptions.NoSuchResource,\n        ):\n            raise\n        except Exception as error:\n            raise exceptions.Unretrievable(ref=uri) from error\n        else:\n            registry = registry.with_resource(uri, resource)\n            return Retrieved(registry=registry, value=resource)\n\n"
+    },
+    {
+      "function": "registry.get_or_retrieve",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 405,
+      "caller": "test_retrieve_no_such_resource",
+      "source_code": "    def get_or_retrieve(self, uri: URI) -> Retrieved[D, Resource[D]]:\n        \"\"\"\n        Get a resource from the registry, crawling or retrieving if necessary.\n\n        May involve crawling to find the given URI if it is not already known,\n        so the returned object is a `Retrieved` object which contains both the\n        resource value as well as the registry which ultimately contained it.\n        \"\"\"\n        resource = self._resources.get(uri)\n        if resource is not None:\n            return Retrieved(registry=self, value=resource)\n\n        registry = self.crawl()\n        resource = registry._resources.get(uri)\n        if resource is not None:\n            return Retrieved(registry=registry, value=resource)\n\n        try:\n            resource = registry._retrieve(uri)\n        except (\n            exceptions.CannotDetermineSpecification,\n            exceptions.NoSuchResource,\n        ):\n            raise\n        except Exception as error:\n            raise exceptions.Unretrievable(ref=uri) from error\n        else:\n            registry = registry.with_resource(uri, resource)\n            return Retrieved(registry=registry, value=resource)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert registry.get_or_retrieve('urn:succeed').value == foo"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_retrieve_no_such_resource(self):\n        foo = Resource.opaque({\"foo\": \"bar\"})\n\n        def retrieve(uri):\n            if uri == \"urn:succeed\":\n                return foo\n            raise exceptions.NoSuchResource(ref=uri)\n\n        registry = Registry(retrieve=retrieve)\n        assert registry.get_or_retrieve(\"urn:succeed\").value == foo\n        with pytest.raises(exceptions.NoSuchResource):\n            registry.get_or_retrieve(\"urn:uhoh\")"
+}

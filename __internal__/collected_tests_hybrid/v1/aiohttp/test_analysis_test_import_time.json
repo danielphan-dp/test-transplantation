@@ -1,0 +1,119 @@
+{
+  "test_name": "test_import_time",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_imports.py",
+  "static_methods": [
+    {
+      "name": "_TARGET_TIMINGS_BY_PYTHON_VERSION.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "pytester.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "int",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "r.stderr.str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "r.stdout.str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_TARGET_TIMINGS_BY_PYTHON_VERSION.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_import_time",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_import_time",
+      "source_code": ""
+    },
+    {
+      "function": "Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_import_time",
+      "source_code": ""
+    },
+    {
+      "function": "pytester.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_import_time",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "int",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_import_time",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_import_time",
+      "source_code": ""
+    },
+    {
+      "function": "r.stderr.str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_import_time",
+      "source_code": ""
+    },
+    {
+      "function": "r.stdout.str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_import_time",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert best_time_ms < expected_time",
+    "assert not r.stderr.str()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_import_time(pytester: pytest.Pytester) -> None:\n    \"\"\"Check that importing aiohttp doesn't take too long.\n\n    Obviously, the time may vary on different machines and may need to be adjusted\n    from time to time, but this should provide an early warning if something is\n    added that significantly increases import time.\n    \"\"\"\n    root = Path(__file__).parent.parent\n    old_path = os.environ.get(\"PYTHONPATH\")\n    os.environ[\"PYTHONPATH\"] = os.pathsep.join([str(root)] + sys.path)\n\n    best_time_ms = 1000\n    cmd = \"import timeit; print(int(timeit.timeit('import aiohttp', number=1) * 1000))\"\n    try:\n        for _ in range(3):\n            r = pytester.run(sys.executable, \"-We\", \"-c\", cmd)\n\n            assert not r.stderr.str()\n            runtime_ms = int(r.stdout.str())\n            if runtime_ms < best_time_ms:\n                best_time_ms = runtime_ms\n    finally:\n        if old_path is None:\n            os.environ.pop(\"PYTHONPATH\")\n        else:\n            os.environ[\"PYTHONPATH\"] = old_path\n\n    expected_time = _TARGET_TIMINGS_BY_PYTHON_VERSION.get(\n        f\"{sys.version_info.major}.{sys.version_info.minor}\", 200\n    )\n    assert best_time_ms < expected_time"
+}

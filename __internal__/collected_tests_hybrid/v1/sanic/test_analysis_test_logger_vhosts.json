@@ -1,0 +1,92 @@
+{
+  "test_name": "test_logger_vhosts",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.stop",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 1308
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "msg.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_vhosts",
+      "source_code": ""
+    },
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_vhosts",
+      "source_code": ""
+    },
+    {
+      "function": "app.stop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 1308,
+      "caller": "test_logger_vhosts",
+      "source_code": "    def stop(self):\n        if self.max is not None:\n            self.update(self.max)\n        self.done = True\n\n"
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_vhosts",
+      "source_code": ""
+    },
+    {
+      "function": "app.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_logger_vhosts",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "msg.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_vhosts",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert logmsg == 'Certificate vhosts: localhost, 127.0.0.1, 0:0:0:0:0:0:0:1, sanic.example, www.sanic.example, *.sanic.test, 2001:DB8:0:0:0:0:0:541C'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_logger_vhosts(caplog):\n    app = Sanic(name=\"test_logger_vhosts\")\n\n    @app.after_server_start\n    def stop(*args):\n        app.stop()\n\n    with caplog.at_level(logging.INFO):\n        app.run(\n            host=\"127.0.0.1\",\n            port=42102,\n            ssl=[localhost_dir, sanic_dir],\n            single_process=True,\n        )\n\n    logmsg = [\n        msg\n        for name, levelno, msg in caplog.record_tuples\n        if (msg.startswith(\"Certificate\"))\n    ][0]\n\n    assert logmsg == (\n        \"Certificate vhosts: localhost, 127.0.0.1, 0:0:0:0:0:0:0:1, \"\n        \"sanic.example, www.sanic.example, *.sanic.test, \"\n        \"2001:DB8:0:0:0:0:0:541C\"\n    )"
+}

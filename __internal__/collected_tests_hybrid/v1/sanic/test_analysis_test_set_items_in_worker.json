@@ -1,0 +1,132 @@
+{
+  "test_name": "test_set_items_in_worker",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_shared_ctx.py",
+  "static_methods": [
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SharedContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "caplog.at_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Pipe",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Value",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Queue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c_int32",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "SharedContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "caplog.at_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "Pipe",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "Value",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "Queue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "c_int32",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    },
+    {
+      "function": "object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_set_items_in_worker",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert ctx.is_locked is False",
+    "assert len(caplog.record_tuples) == 0"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_set_items_in_worker(item: Any, caplog):\n    ctx = SharedContext()\n\n    environ[\"SANIC_WORKER_NAME\"] = \"foo\"\n    with caplog.at_level(logging.INFO):\n        ctx.item = item\n    del environ[\"SANIC_WORKER_NAME\"]\n\n    assert ctx.is_locked is False\n    assert len(caplog.record_tuples) == 0"
+}

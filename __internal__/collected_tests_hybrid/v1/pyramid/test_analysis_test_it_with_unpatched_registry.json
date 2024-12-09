@@ -1,0 +1,103 @@
+{
+  "test_name": "test_it_with_unpatched_registry",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_testing.py",
+  "static_methods": [
+    {
+      "name": "DummyRegistry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyEvent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dummy_registry.queryAdapterOrSelf",
+      "source_code": "    def queryAdapterOrSelf(self, object, interface, default=None):\n        # queryAdapter analogue which returns the object if it implements\n        # the interface, otherwise it will return an adaptation to the\n        # interface\n        if not interface.providedBy(object):\n            return self.queryAdapter(object, interface, default=default)\n        return object",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/registry.py",
+      "line_number": 87
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRegistry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_with_unpatched_registry",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it_with_unpatched_registry",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_with_unpatched_registry",
+      "source_code": ""
+    },
+    {
+      "function": "DummyEvent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_with_unpatched_registry",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_with_unpatched_registry",
+      "source_code": ""
+    },
+    {
+      "function": "dummy_registry.queryAdapterOrSelf",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/registry.py",
+      "line": 87,
+      "caller": "test_it_with_unpatched_registry",
+      "source_code": "    def queryAdapterOrSelf(self, object, interface, default=None):\n        # queryAdapter analogue which returns the object if it implements\n        # the interface, otherwise it will return an adaptation to the\n        # interface\n        if not interface.providedBy(object):\n            return self.queryAdapter(object, interface, default=default)\n        return object\n\n"
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_it_with_unpatched_registry",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_with_unpatched_registry(self):\n        from zope.interface.registry import Components\n\n        class DummyRegistry(Components, dict):\n            pass\n\n        dummy_registry = DummyRegistry()\n        config = self._callFUT(\n            registry=dummy_registry, hook_zca=False, settings=dict(a=1)\n        )\n        self.assertEqual(config.registry.settings['a'], 1)\n        dummy = DummyEvent()\n        self.assertIs(dummy_registry.queryAdapterOrSelf(dummy, IDummy), dummy)"
+}

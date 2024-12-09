@@ -1,0 +1,131 @@
+{
+  "test_name": "test_invalid_assign",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+  "static_methods": [
+    {
+      "name": "Register",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Assign",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Return",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FuncIR",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "assert_has_error",
+      "source_code": "def assert_has_error(fn: FuncIR, error: FnError) -> None:\n    errors = check_func_ir(fn)\n    assert errors == [error]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 34
+    },
+    {
+      "name": "FnError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Integer",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.func_decl",
+      "source_code": "    def func_decl(self, name: str, ret_type: RType | None = None) -> FuncDecl:\n        if ret_type is None:\n            ret_type = none_rprimitive\n        return FuncDecl(\n            name=name,\n            class_name=None,\n            module_name=\"module\",\n            sig=FuncSignature(args=[], ret_type=ret_type),\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 56
+    },
+    {
+      "name": "self.basic_block",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 50
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Register",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_assign",
+      "source_code": ""
+    },
+    {
+      "function": "Assign",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_assign",
+      "source_code": ""
+    },
+    {
+      "function": "Return",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_assign",
+      "source_code": ""
+    },
+    {
+      "function": "FuncIR",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_assign",
+      "source_code": ""
+    },
+    {
+      "function": "assert_has_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 34,
+      "caller": "test_invalid_assign",
+      "source_code": "def assert_has_error(fn: FuncIR, error: FnError) -> None:\n    errors = check_func_ir(fn)\n    assert errors == [error]\n\n\n"
+    },
+    {
+      "function": "FnError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_assign",
+      "source_code": ""
+    },
+    {
+      "function": "Integer",
+      "filename": "",
+      "line": 0,
+      "caller": "test_invalid_assign",
+      "source_code": ""
+    },
+    {
+      "function": "self.func_decl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 56,
+      "caller": "test_invalid_assign",
+      "source_code": "    def func_decl(self, name: str, ret_type: RType | None = None) -> FuncDecl:\n        if ret_type is None:\n            ret_type = none_rprimitive\n        return FuncDecl(\n            name=name,\n            class_name=None,\n            module_name=\"module\",\n            sig=FuncSignature(args=[], ret_type=ret_type),\n        )\n\n"
+    },
+    {
+      "function": "self.basic_block",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 50,
+      "caller": "test_invalid_assign",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block\n\n"
+    }
+  ],
+  "assertions": [
+    "assert_has_error(fn, FnError(source=assign, desc='Cannot coerce source type i32 to dest type i64'))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_invalid_assign(self) -> None:\n        arg_reg = Register(type=int64_rprimitive, name=\"r1\")\n        assign = Assign(dest=arg_reg, src=Integer(value=5, rtype=int32_rprimitive))\n        ret = Return(value=NONE_VALUE)\n        fn = FuncIR(\n            decl=self.func_decl(name=\"func_1\"),\n            arg_regs=[arg_reg],\n            blocks=[self.basic_block([assign, ret])],\n        )\n        assert_has_error(\n            fn, FnError(source=assign, desc=\"Cannot coerce source type i32 to dest type i64\")\n        )"
+}

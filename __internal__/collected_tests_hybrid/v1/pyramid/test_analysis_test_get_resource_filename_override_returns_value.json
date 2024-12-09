@@ -1,0 +1,77 @@
+{
+  "test_name": "test_get_resource_filename_override_returns_value",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_assets.py",
+  "static_methods": [
+    {
+      "name": "DummyOverrides",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._registerOverrides",
+      "source_code": "    def _registerOverrides(self, overrides, name='tests.test_config'):\n        from pyramid.interfaces import IPackageOverrides\n        from pyramid.threadlocal import get_current_registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_assets.py",
+      "line_number": 346
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "provider.get_resource_filename",
+      "source_code": "    def get_resource_filename(manager, resource_name):\n        \"\"\"Return a true filesystem path for `resource_name`",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 528
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyOverrides",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_resource_filename_override_returns_value",
+      "source_code": ""
+    },
+    {
+      "function": "self._registerOverrides",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_assets.py",
+      "line": 346,
+      "caller": "test_get_resource_filename_override_returns_value",
+      "source_code": "    def _registerOverrides(self, overrides, name='tests.test_config'):\n        from pyramid.interfaces import IPackageOverrides\n        from pyramid.threadlocal import get_current_registry\n\n        reg = get_current_registry()\n        reg.registerUtility(overrides, IPackageOverrides, name=name)\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_get_resource_filename_override_returns_value",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "provider.get_resource_filename",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 528,
+      "caller": "test_get_resource_filename_override_returns_value",
+      "source_code": "    def get_resource_filename(manager, resource_name):\n        \"\"\"Return a true filesystem path for `resource_name`\n\n        `manager` must be an ``IResourceManager``\"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_resource_filename_override_returns_value",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_resource_filename_override_returns_value(self):\n        overrides = DummyOverrides('value')\n        import tests.test_config\n\n        self._registerOverrides(overrides)\n        provider = self._makeOne(tests.test_config)\n        result = provider.get_resource_filename(None, 'test_assets.py')\n        self.assertEqual(result, 'value')"
+}

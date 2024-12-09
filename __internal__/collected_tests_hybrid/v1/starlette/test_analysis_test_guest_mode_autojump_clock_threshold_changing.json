@@ -1,0 +1,107 @@
+{
+  "test_name": "test_guest_mode_autojump_clock_threshold_changing",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+  "static_methods": [
+    {
+      "name": "trio.testing.MockClock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "trivial_guest_run",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line_number": 51
+    },
+    {
+      "name": "in_host",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "trio.current_time",
+      "source_code": "    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line_number": 33
+    },
+    {
+      "name": "trio.sleep",
+      "source_code": "def sleep(seconds: float) -> None:\n    \"\"\"\n    Sleep strategy that delays execution for a given number of seconds.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/nap.py",
+      "line_number": 25
+    },
+    {
+      "name": "trio.current_time",
+      "source_code": "    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line_number": 33
+    },
+    {
+      "name": "setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "trio.testing.MockClock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guest_mode_autojump_clock_threshold_changing",
+      "source_code": ""
+    },
+    {
+      "function": "trivial_guest_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_guest_mode.py",
+      "line": 51,
+      "caller": "test_guest_mode_autojump_clock_threshold_changing",
+      "source_code": "def trivial_guest_run(\n    trio_fn: Callable[..., Awaitable[T]],\n    *,\n    in_host_after_start: Callable[[], None] | None = None,\n    **start_guest_run_kwargs: Any,\n"
+    },
+    {
+      "function": "in_host",
+      "filename": "",
+      "line": 0,
+      "caller": "test_guest_mode_autojump_clock_threshold_changing",
+      "source_code": ""
+    },
+    {
+      "function": "trio.current_time",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line": 33,
+      "caller": "test_guest_mode_autojump_clock_threshold_changing",
+      "source_code": "    @abstractmethod\n    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.\n\n        This is used to implement functions like :func:`trio.current_time` and\n        :func:`trio.move_on_after`.\n\n        Returns:\n            float: The current time.\n\n        \"\"\"\n\n"
+    },
+    {
+      "function": "trio.sleep",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/tenacity/nap.py",
+      "line": 25,
+      "caller": "test_guest_mode_autojump_clock_threshold_changing",
+      "source_code": "def sleep(seconds: float) -> None:\n    \"\"\"\n    Sleep strategy that delays execution for a given number of seconds.\n\n    This is the default strategy, and may be mocked out for unit testing.\n    \"\"\"\n    time.sleep(seconds)\n\n\n"
+    },
+    {
+      "function": "trio.current_time",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_abc.py",
+      "line": 33,
+      "caller": "test_guest_mode_autojump_clock_threshold_changing",
+      "source_code": "    @abstractmethod\n    def current_time(self) -> float:\n        \"\"\"Return the current time, according to this clock.\n\n        This is used to implement functions like :func:`trio.current_time` and\n        :func:`trio.move_on_after`.\n\n        Returns:\n            float: The current time.\n\n        \"\"\"\n\n"
+    },
+    {
+      "function": "setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_guest_mode_autojump_clock_threshold_changing",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert end - start < DURATION / 2",
+    "assert trio.current_time() == 0",
+    "assert trio.current_time() == DURATION"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_guest_mode_autojump_clock_threshold_changing() -> None:\n    # This is super obscure and probably no-one will ever notice, but\n    # technically mutating the MockClock.autojump_threshold from the host\n    # should wake up the guest, so let's test it.\n\n    clock = trio.testing.MockClock()\n\n    DURATION = 120\n\n    async def trio_main(in_host: InHost) -> None:\n        assert trio.current_time() == 0\n        in_host(lambda: setattr(clock, \"autojump_threshold\", 0))\n        await trio.sleep(DURATION)\n        assert trio.current_time() == DURATION\n\n    start = time.monotonic()\n    trivial_guest_run(trio_main, clock=clock)\n    end = time.monotonic()\n    # Should be basically instantaneous, but we'll leave a generous buffer to\n    # account for any CI weirdness\n    assert end - start < DURATION / 2"
+}

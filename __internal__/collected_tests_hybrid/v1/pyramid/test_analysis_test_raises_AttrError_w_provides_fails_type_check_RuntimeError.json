@@ -1,0 +1,90 @@
+{
+  "test_name": "test_raises_AttrError_w_provides_fails_type_check_RuntimeError",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "MissingSomeAttrs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "Foo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raises_AttrError_w_provides_fails_type_check_RuntimeError",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raises_AttrError_w_provides_fails_type_check_RuntimeError",
+      "source_code": ""
+    },
+    {
+      "function": "MissingSomeAttrs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raises_AttrError_w_provides_fails_type_check_RuntimeError",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raises_AttrError_w_provides_fails_type_check_RuntimeError",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_raises_AttrError_w_provides_fails_type_check_RuntimeError",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "Foo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_raises_AttrError_w_provides_fails_type_check_RuntimeError",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_raises_AttrError_w_provides_fails_type_check_RuntimeError(self):\n        # isinstance(ob.__provides__, SpecificationBase) is not\n        # protected inside any kind of block.\n        class Foo:\n            __provides__ = MissingSomeAttrs(RuntimeError)\n\n        with self.assertRaises(RuntimeError) as exc:\n            self._callFUT(Foo())\n\n        self.assertEqual('__class__', exc.exception.args[0])"
+}

@@ -1,0 +1,103 @@
+{
+  "test_name": "test_add_cachebuster_overwrite_explicit",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+  "static_methods": [
+    {
+      "name": "DummyConfig",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyCacheBuster",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyCacheBuster",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inst.add_cache_buster",
+      "source_code": "    def add_cache_buster(config, spec, cache_buster):\n        \"\"\"Add a new cache buster to a particular set of assets\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 719
+    },
+    {
+      "name": "inst.add_cache_buster",
+      "source_code": "    def add_cache_buster(config, spec, cache_buster):\n        \"\"\"Add a new cache buster to a particular set of assets\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 719
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyConfig",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_cachebuster_overwrite_explicit",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_cachebuster_overwrite_explicit",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyCacheBuster",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_cachebuster_overwrite_explicit",
+      "source_code": ""
+    },
+    {
+      "function": "DummyCacheBuster",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_cachebuster_overwrite_explicit",
+      "source_code": ""
+    },
+    {
+      "function": "inst.add_cache_buster",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 719,
+      "caller": "test_add_cachebuster_overwrite_explicit",
+      "source_code": "    def add_cache_buster(config, spec, cache_buster):\n        \"\"\"Add a new cache buster to a particular set of assets\"\"\"\n\n\n"
+    },
+    {
+      "function": "inst.add_cache_buster",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 719,
+      "caller": "test_add_cachebuster_overwrite_explicit",
+      "source_code": "    def add_cache_buster(config, spec, cache_buster):\n        \"\"\"Add a new cache buster to a particular set of assets\"\"\"\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_cachebuster_overwrite_explicit",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_cachebuster_overwrite_explicit(self):\n        config = DummyConfig()\n        inst = self._makeOne()\n        cb1 = DummyCacheBuster('foo')\n        cb2 = DummyCacheBuster('bar')\n        inst.add_cache_buster(config, 'mypackage:path/', cb1)\n        inst.add_cache_buster(config, 'mypackage:path', cb2, True)\n        self.assertEqual(\n            inst.cache_busters,\n            [('mypackage:path/', cb1, False), ('mypackage:path/', cb2, True)],\n        )"
+}

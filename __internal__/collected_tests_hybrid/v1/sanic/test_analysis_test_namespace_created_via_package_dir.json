@@ -1,0 +1,116 @@
+{
+  "test_name": "test_namespace_created_via_package_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "jaraco.path.build",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 363
+    },
+    {
+      "name": "namespaces.build_pep420_namespace_package",
+      "source_code": "def build_pep420_namespace_package(tmpdir, name):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    pyproject = src_dir / \"pyproject.toml\"\n    namespace, _, rest = name.rpartition(\".\")\n    script = f\"\"\"\\\n        [build-system]\n        requires = [\"setuptools\"]\n        build-backend = \"setuptools.build_meta\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line_number": 58
+    },
+    {
+      "name": "namespaces.build_pep420_namespace_package",
+      "source_code": "def build_pep420_namespace_package(tmpdir, name):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    pyproject = src_dir / \"pyproject.toml\"\n    namespace, _, rest = name.rpartition(\".\")\n    script = f\"\"\"\\\n        [build-system]\n        requires = [\"setuptools\"]\n        build-backend = \"setuptools.build_meta\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line_number": 58
+    },
+    {
+      "name": "opts.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    },
+    {
+      "name": "dedent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "jaraco.path.build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 363,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}\n\n        libkey = list(filter(lambda o: o in paths, ('purelib', 'platlib')))[0]\n        if libkey == 'platlib':\n            is_pure = 'false'\n            default_pyver = [IMPVER]\n            default_abi = [ABI]\n            default_arch = [ARCH]\n        else:\n            is_pure = 'true'\n            default_pyver = [PYVER]\n            default_abi = ['none']\n            default_arch = ['any']\n\n        self.pyver = tags.get('pyver', default_pyver)\n        self.abi = tags.get('abi', default_abi)\n        self.arch = tags.get('arch', default_arch)\n\n        libdir = paths[libkey]\n\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        archive_paths = []\n\n        # First, stuff which is not in site-packages\n        for key in ('data', 'headers', 'scripts'):\n            if key not in paths:\n                continue\n            path = paths[key]\n            if os.path.isdir(path):\n                for root, dirs, files in os.walk(path):\n                    for fn in files:\n                        p = fsdecode(os.path.join(root, fn))\n                        rp = os.path.relpath(p, path)\n                        ap = to_posix(os.path.join(data_dir, key, rp))\n                        archive_paths.append((ap, p))\n                        if key == 'scripts' and not p.endswith('.exe'):\n                            with open(p, 'rb') as f:\n                                data = f.read()\n                            data = self.process_shebang(data)\n                            with open(p, 'wb') as f:\n                                f.write(data)\n\n        # Now, stuff which is in site-packages, other than the\n        # distinfo stuff.\n        path = libdir\n        distinfo = None\n        for root, dirs, files in os.walk(path):\n            if root == path:\n                # At the top level only, save distinfo for later\n                # and skip it for now\n                for i, dn in enumerate(dirs):\n                    dn = fsdecode(dn)\n                    if dn.endswith('.dist-info'):\n                        distinfo = os.path.join(root, dn)\n                        del dirs[i]\n                        break\n                assert distinfo, '.dist-info directory expected, not found'\n\n            for fn in files:\n                # comment out next suite to leave .pyc files in\n                if fsdecode(fn).endswith(('.pyc', '.pyo')):\n                    continue\n                p = os.path.join(root, fn)\n                rp = to_posix(os.path.relpath(p, path))\n                archive_paths.append((rp, p))\n\n        # Now distinfo. Assumed to be flat, i.e. os.listdir is enough.\n        files = os.listdir(distinfo)\n        for fn in files:\n            if fn not in ('RECORD', 'INSTALLER', 'SHARED', 'WHEEL'):\n                p = fsdecode(os.path.join(distinfo, fn))\n                ap = to_posix(os.path.join(info_dir, fn))\n                archive_paths.append((ap, p))\n\n        wheel_metadata = [\n            'Wheel-Version: %d.%d' % (wheel_version or self.wheel_version),\n            'Generator: distlib %s' % __version__,\n            'Root-Is-Purelib: %s' % is_pure,\n        ]\n        for pyver, abi, arch in self.tags:\n            wheel_metadata.append('Tag: %s-%s-%s' % (pyver, abi, arch))\n        p = os.path.join(distinfo, 'WHEEL')\n        with open(p, 'w') as f:\n            f.write('\\n'.join(wheel_metadata))\n        ap = to_posix(os.path.join(info_dir, 'WHEEL'))\n        archive_paths.append((ap, p))\n\n        # sort the entries by archive path. Not needed by any spec, but it\n        # keeps the archive listing and RECORD tidier than they would otherwise\n        # be. Use the number of path segments to keep directory entries together,\n        # and keep the dist-info stuff at the end.\n        def sorter(t):\n            ap = t[0]\n            n = ap.count('/')\n            if '.dist-info' in ap:\n                n += 10000\n            return (n, ap)\n        archive_paths = sorted(archive_paths, key=sorter)\n\n        # Now, at last, RECORD.\n        # Paths in here are archive paths - nothing else makes sense.\n        self.write_records((distinfo, info_dir), libdir, archive_paths)\n        # Now, ready to build the zip file\n        pathname = os.path.join(self.dirname, self.filename)\n        self.build_zip(pathname, archive_paths)\n        return pathname\n\n"
+    },
+    {
+      "function": "namespaces.build_pep420_namespace_package",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line": 58,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": "def build_pep420_namespace_package(tmpdir, name):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    pyproject = src_dir / \"pyproject.toml\"\n    namespace, _, rest = name.rpartition(\".\")\n    script = f\"\"\"\\\n        [build-system]\n        requires = [\"setuptools\"]\n        build-backend = \"setuptools.build_meta\"\n\n        [project]\n        name = \"{name}\"\n        version = \"3.14159\"\n        \"\"\"\n    pyproject.write_text(textwrap.dedent(script), encoding='utf-8')\n    ns_pkg_dir = Path(src_dir, namespace.replace(\".\", \"/\"))\n    ns_pkg_dir.mkdir(parents=True)\n    pkg_mod = ns_pkg_dir / (rest + \".py\")\n    some_functionality = f\"name = {rest!r}\"\n    pkg_mod.write_text(some_functionality, encoding='utf-8')\n    return src_dir\n\n\n"
+    },
+    {
+      "function": "namespaces.build_pep420_namespace_package",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/namespaces.py",
+      "line": 58,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": "def build_pep420_namespace_package(tmpdir, name):\n    src_dir = tmpdir / name\n    src_dir.mkdir()\n    pyproject = src_dir / \"pyproject.toml\"\n    namespace, _, rest = name.rpartition(\".\")\n    script = f\"\"\"\\\n        [build-system]\n        requires = [\"setuptools\"]\n        build-backend = \"setuptools.build_meta\"\n\n        [project]\n        name = \"{name}\"\n        version = \"3.14159\"\n        \"\"\"\n    pyproject.write_text(textwrap.dedent(script), encoding='utf-8')\n    ns_pkg_dir = Path(src_dir, namespace.replace(\".\", \"/\"))\n    ns_pkg_dir.mkdir(parents=True)\n    pkg_mod = ns_pkg_dir / (rest + \".py\")\n    some_functionality = f\"name = {rest!r}\"\n    pkg_mod.write_text(some_functionality, encoding='utf-8')\n    return src_dir\n\n\n"
+    },
+    {
+      "function": "opts.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    },
+    {
+      "function": "dedent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_namespace_created_via_package_dir",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_namespace_created_via_package_dir(self, venv, tmp_path, editable_opts):\n        \"\"\"Currently users can create a namespace by tweaking `package_dir`\"\"\"\n        files = {\n            \"pkgA\": {\n                \"pyproject.toml\": dedent(\n                    \"\"\"\\\n                    [build-system]\n                    requires = [\"setuptools\", \"wheel\"]\n                    build-backend = \"setuptools.build_meta\"\n\n                    [project]\n                    name = \"pkgA\"\n                    version = \"3.14159\"\n\n                    [tool.setuptools]\n                    package-dir = {\"myns.n.pkgA\" = \"src\"}\n                    \"\"\"\n                ),\n                \"src\": {\"__init__.py\": \"a = 1\"},\n            },\n        }\n        jaraco.path.build(files, prefix=tmp_path)\n        pkg_A = tmp_path / \"pkgA\"\n        pkg_B = namespaces.build_pep420_namespace_package(tmp_path, 'myns.n.pkgB')\n        pkg_C = namespaces.build_pep420_namespace_package(tmp_path, 'myns.n.pkgC')\n\n        # use pip to install to the target directory\n        opts = editable_opts[:]\n        opts.append(\"--no-build-isolation\")  # force current version of setuptools\n        venv.run([\"python\", \"-m\", \"pip\", \"install\", str(pkg_A), *opts])\n        venv.run([\"python\", \"-m\", \"pip\", \"install\", \"-e\", str(pkg_B), *opts])\n        venv.run([\"python\", \"-m\", \"pip\", \"install\", \"-e\", str(pkg_C), *opts])\n        venv.run([\"python\", \"-c\", \"from myns.n import pkgA, pkgB, pkgC\"])"
+}

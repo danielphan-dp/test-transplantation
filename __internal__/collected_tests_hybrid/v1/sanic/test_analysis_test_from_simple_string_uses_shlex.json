@@ -1,0 +1,41 @@
+{
+  "test_name": "test_from_simple_string_uses_shlex",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "ei.CommandSpec.from_param",
+      "source_code": "    def from_param(cls, value: \"WindowsCoordinates\") -> COORD:\n        \"\"\"Converts a WindowsCoordinates into a wintypes _COORD structure.\n        This classmethod is internally called by ctypes to perform the conversion.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 43
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ei.CommandSpec.from_param",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 43,
+      "caller": "test_from_simple_string_uses_shlex",
+      "source_code": "    @classmethod\n    def from_param(cls, value: \"WindowsCoordinates\") -> COORD:\n        \"\"\"Converts a WindowsCoordinates into a wintypes _COORD structure.\n        This classmethod is internally called by ctypes to perform the conversion.\n\n        Args:\n            value (WindowsCoordinates): The input coordinates to convert.\n\n        Returns:\n            wintypes._COORD: The converted coordinates struct.\n        \"\"\"\n        return COORD(value.col, value.row)\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_from_simple_string_uses_shlex",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(cmd) == 2",
+    "assert '\"' not in cmd.as_header()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_from_simple_string_uses_shlex(self):\n        \"\"\"\n        In order to support `executable = /usr/bin/env my-python`, make sure\n        from_param invokes shlex on that input.\n        \"\"\"\n        cmd = ei.CommandSpec.from_param('/usr/bin/env my-python')\n        assert len(cmd) == 2\n        assert '\"' not in cmd.as_header()"
+}

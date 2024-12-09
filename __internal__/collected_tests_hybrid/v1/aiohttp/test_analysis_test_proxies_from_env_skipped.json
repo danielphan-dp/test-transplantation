@@ -1,0 +1,81 @@
+{
+  "test_name": "test_proxies_from_env_skipped",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.proxies_from_env",
+      "source_code": "def proxies_from_env() -> Dict[str, ProxyInfo]:\n    proxy_urls = {\n        k: URL(v)\n        for k, v in getproxies().items()\n        if k in (\"http\", \"https\", \"ws\", \"wss\")\n    }\n    netrc_obj = netrc_from_env()\n    stripped = {k: strip_auth_from_url(v) for k, v in proxy_urls.items()}\n    ret = {}\n    for proto, val in stripped.items():\n        proxy, auth = val\n        if proxy.scheme in (\"https\", \"wss\"):\n            client_logger.warning(\n                \"%s proxies %s are not supported, ignoring\", proxy.scheme.upper(), proxy\n            )\n            continue\n        if netrc_obj and auth is None:\n            if proxy.host is not None:\n                try:\n                    auth = basicauth_from_netrc(netrc_obj, proxy.host)\n                except LookupError:\n                    auth = None\n        ret[proto] = ProxyInfo(proxy, auth)\n    return ret",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 266
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "expected_scheme.upper",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_proxies_from_env_skipped",
+      "source_code": ""
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_proxies_from_env_skipped",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.proxies_from_env",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 266,
+      "caller": "test_proxies_from_env_skipped",
+      "source_code": "def proxies_from_env() -> Dict[str, ProxyInfo]:\n    proxy_urls = {\n        k: URL(v)\n        for k, v in getproxies().items()\n        if k in (\"http\", \"https\", \"ws\", \"wss\")\n    }\n    netrc_obj = netrc_from_env()\n    stripped = {k: strip_auth_from_url(v) for k, v in proxy_urls.items()}\n    ret = {}\n    for proto, val in stripped.items():\n        proxy, auth = val\n        if proxy.scheme in (\"https\", \"wss\"):\n            client_logger.warning(\n                \"%s proxies %s are not supported, ignoring\", proxy.scheme.upper(), proxy\n            )\n            continue\n        if netrc_obj and auth is None:\n            if proxy.host is not None:\n                try:\n                    auth = basicauth_from_netrc(netrc_obj, proxy.host)\n                except LookupError:\n                    auth = None\n        ret[proto] = ProxyInfo(proxy, auth)\n    return ret\n\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_proxies_from_env_skipped",
+      "source_code": ""
+    },
+    {
+      "function": "expected_scheme.upper",
+      "filename": "",
+      "line": 0,
+      "caller": "test_proxies_from_env_skipped",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert helpers.proxies_from_env() == {}",
+    "assert len(caplog.records) == 1",
+    "assert caplog.record_tuples == [('aiohttp.client', 30, log_message)]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_proxies_from_env_skipped(\n    caplog: pytest.LogCaptureFixture, url_input: str, expected_scheme: str\n) -> None:\n    url = URL(url_input)\n    assert helpers.proxies_from_env() == {}\n    assert len(caplog.records) == 1\n    log_message = \"{proto!s} proxies {url!s} are not supported, ignoring\".format(\n        proto=expected_scheme.upper(), url=url\n    )\n    assert caplog.record_tuples == [(\"aiohttp.client\", 30, log_message)]"
+}

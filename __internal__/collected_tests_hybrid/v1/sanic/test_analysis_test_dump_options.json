@@ -1,0 +1,27 @@
+{
+  "test_name": "test_dump_options",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_cmd.py",
+  "static_methods": [
+    {
+      "name": "msgs.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "msgs.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_dump_options",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    }
+  ],
+  "assertions": [
+    "assert msgs == wanted"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_dump_options(self, cmd):\n        msgs = []\n\n        def _announce(msg, level):\n            msgs.append(msg)\n\n        cmd.announce = _announce\n        cmd.option1 = 1\n        cmd.option2 = 1\n        cmd.user_options = [('option1', '', ''), ('option2', '', '')]\n        cmd.dump_options()\n\n        wanted = [\"command options for 'MyCmd':\", '  option1 = 1', '  option2 = 1']\n        assert msgs == wanted"
+}

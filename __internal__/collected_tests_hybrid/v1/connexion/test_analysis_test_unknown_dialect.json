@@ -1,0 +1,27 @@
+{
+  "test_name": "test_unknown_dialect",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_jsonschema.py",
+  "static_methods": [
+    {
+      "name": "Resource.from_contents",
+      "source_code": "    def from_contents(\n        cls,\n        contents: D,\n        default_specification: (\n            type[Specification[D]] | Specification[D]\n        ) = Specification,\n    ) -> Resource[D]:\n        \"\"\"\n        Create a resource guessing which specification applies to the contents.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 191
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Resource.from_contents",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 191,
+      "caller": "test_unknown_dialect",
+      "source_code": "    @classmethod\n    def from_contents(\n        cls,\n        contents: D,\n        default_specification: (\n            type[Specification[D]] | Specification[D]\n        ) = Specification,\n"
+    }
+  ],
+  "assertions": [
+    "assert excinfo.value.uri == dialect_id"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unknown_dialect():\n    dialect_id = \"http://example.com/unknown-json-schema-dialect-id\"\n    with pytest.raises(referencing.jsonschema.UnknownDialect) as excinfo:\n        Resource.from_contents({\"$schema\": dialect_id})\n    assert excinfo.value.uri == dialect_id"
+}

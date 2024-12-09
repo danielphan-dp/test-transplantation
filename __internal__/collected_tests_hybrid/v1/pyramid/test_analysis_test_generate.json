@@ -1,0 +1,64 @@
+{
+  "test_name": "test_generate",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyRoute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mapper.generate",
+      "source_code": "        def generate():\n            # Special case for urllib3.\n            if hasattr(self.raw, \"stream\"):\n                try:\n                    yield from self.raw.stream(chunk_size, decode_content=True)\n                except ProtocolError as e:\n                    raise ChunkedEncodingError(e)\n                except DecodeError as e:\n                    raise ContentDecodingError(e)\n                except ReadTimeoutError as e:\n                    raise ConnectionError(e)\n                except SSLError as e:\n                    raise RequestsSSLError(e)\n            else:\n                # Standard file-like object.\n                while True:\n                    chunk = self.raw.read(chunk_size)\n                    if not chunk:\n                        break\n                    yield chunk",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 812
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_generate",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyRoute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_generate",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_generate",
+      "source_code": ""
+    },
+    {
+      "function": "mapper.generate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 812,
+      "caller": "test_generate",
+      "source_code": "        def generate():\n            # Special case for urllib3.\n            if hasattr(self.raw, \"stream\"):\n                try:\n                    yield from self.raw.stream(chunk_size, decode_content=True)\n                except ProtocolError as e:\n                    raise ChunkedEncodingError(e)\n                except DecodeError as e:\n                    raise ContentDecodingError(e)\n                except ReadTimeoutError as e:\n                    raise ConnectionError(e)\n                except SSLError as e:\n                    raise RequestsSSLError(e)\n            else:\n                # Standard file-like object.\n                while True:\n                    chunk = self.raw.read(chunk_size)\n                    if not chunk:\n                        break\n                    yield chunk\n\n            self._content_consumed = True\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_generate(self):\n        mapper = self._makeOne()\n\n        def generator(kw):\n            return 123\n\n        route = DummyRoute(generator)\n        mapper.routes['abc'] = route\n        self.assertEqual(mapper.generate('abc', {}), 123)"
+}

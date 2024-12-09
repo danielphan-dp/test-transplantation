@@ -1,0 +1,40 @@
+{
+  "test_name": "test_missing_symlink",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_filelist.py",
+  "static_methods": [
+    {
+      "name": "filelist.findall",
+      "source_code": "    def findall(self):\n        \"\"\"Find all files under the base and set ``allfiles`` to the absolute\n        pathnames of files found.\n        \"\"\"\n        from stat import S_ISREG, S_ISDIR, S_ISLNK",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/manifest.py",
+      "line_number": 57
+    },
+    {
+      "name": "os_helper.skip_unless_symlink",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "filelist.findall",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/manifest.py",
+      "line": 57,
+      "caller": "test_missing_symlink",
+      "source_code": "    def findall(self):\n        \"\"\"Find all files under the base and set ``allfiles`` to the absolute\n        pathnames of files found.\n        \"\"\"\n        from stat import S_ISREG, S_ISDIR, S_ISLNK\n\n        self.allfiles = allfiles = []\n        root = self.base\n        stack = [root]\n        pop = stack.pop\n        push = stack.append\n\n        while stack:\n            root = pop()\n            names = os.listdir(root)\n\n            for name in names:\n                fullname = os.path.join(root, name)\n\n                # Avoid excess stat calls -- just one will do, thank you!\n                stat = os.stat(fullname)\n                mode = stat.st_mode\n                if S_ISREG(mode):\n                    allfiles.append(fsdecode(fullname))\n                elif S_ISDIR(mode) and not S_ISLNK(mode):\n                    push(fullname)\n\n"
+    },
+    {
+      "function": "os_helper.skip_unless_symlink",
+      "filename": "",
+      "line": 0,
+      "caller": "test_missing_symlink",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert filelist.findall() == []"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_missing_symlink(self, temp_cwd):\n        os.symlink('foo', 'bar')\n        assert filelist.findall() == []"
+}

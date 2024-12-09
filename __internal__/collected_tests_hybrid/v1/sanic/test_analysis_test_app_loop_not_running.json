@@ -1,0 +1,27 @@
+{
+  "test_name": "test_app_loop_not_running",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_app.py",
+  "static_methods": [
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_app_loop_not_running",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert str(excinfo.value) == 'Loop can only be retrieved after the app has started running. Not supported with `create_server` function'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_app_loop_not_running(app: Sanic):\n    with pytest.raises(SanicException) as excinfo:\n        app.loop\n\n    assert str(excinfo.value) == (\n        \"Loop can only be retrieved after the app has started \"\n        \"running. Not supported with `create_server` function\"\n    )"
+}

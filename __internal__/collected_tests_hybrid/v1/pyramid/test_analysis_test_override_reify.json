@@ -1,0 +1,77 @@
+{
+  "test_name": "test_override_reify",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "foo.set_property",
+      "source_code": "    def set_property(cls, target, callable, name=None, reify=False):\n        \"\"\"A helper method to apply a single property to an instance.\"\"\"\n        prop = cls.make_property(callable, name=name, reify=reify)\n        cls.apply_properties(target, [prop])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line_number": 170
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_override_reify",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "foo.set_property",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/util.py",
+      "line": 170,
+      "caller": "test_override_reify",
+      "source_code": "    @classmethod\n    def set_property(cls, target, callable, name=None, reify=False):\n        \"\"\"A helper method to apply a single property to an instance.\"\"\"\n        prop = cls.make_property(callable, name=name, reify=reify)\n        cls.apply_properties(target, [prop])\n\n"
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_reify",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_reify",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_reify",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_override_reify(self):\n        def worker(obj):\n            pass\n\n        foo = self._makeOne()\n        foo.set_property(worker, name='x', reify=True)\n        self.assertIsNone(foo.x)\n        foo.x = 1\n        self.assertEqual(1, foo.x)\n        foo.x = 2\n        self.assertEqual(2, foo.x)"
+}

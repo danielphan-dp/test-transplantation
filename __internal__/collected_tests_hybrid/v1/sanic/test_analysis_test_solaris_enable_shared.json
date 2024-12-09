@@ -1,0 +1,66 @@
+{
+  "test_name": "test_solaris_enable_shared",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "Distribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.build_ext",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 90
+    },
+    {
+      "name": "_config_vars.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Distribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_solaris_enable_shared",
+      "source_code": ""
+    },
+    {
+      "function": "self.build_ext",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 90,
+      "caller": "test_solaris_enable_shared",
+      "source_code": "    def build_ext(self, *args, **kwargs):\n        return build_ext(*args, **kwargs)\n\n"
+    },
+    {
+      "function": "_config_vars.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_solaris_enable_shared",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_solaris_enable_shared",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(cmd.library_dirs) > 0"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_solaris_enable_shared(self):\n        dist = Distribution({'name': 'xx'})\n        cmd = self.build_ext(dist)\n        old = sys.platform\n\n        sys.platform = 'sunos'  # fooling finalize_options\n        from distutils.sysconfig import _config_vars\n\n        old_var = _config_vars.get('Py_ENABLE_SHARED')\n        _config_vars['Py_ENABLE_SHARED'] = True\n        try:\n            cmd.ensure_finalized()\n        finally:\n            sys.platform = old\n            if old_var is None:\n                del _config_vars['Py_ENABLE_SHARED']\n            else:\n                _config_vars['Py_ENABLE_SHARED'] = old_var\n\n        # make sure we get some library dirs under solaris\n        assert len(cmd.library_dirs) > 0"
+}

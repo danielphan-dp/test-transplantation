@@ -1,0 +1,80 @@
+{
+  "test_name": "test_continuation_with_close",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "WSMessageClose",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WSMessageText",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "build_close_frame",
+      "source_code": "def build_close_frame(\n    code: int = 1000, message: bytes = b\"\", noheader: bool = False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_continuation_with_close",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_continuation_with_close",
+      "source_code": ""
+    },
+    {
+      "function": "WSMessageClose",
+      "filename": "",
+      "line": 0,
+      "caller": "test_continuation_with_close",
+      "source_code": ""
+    },
+    {
+      "function": "WSMessageText",
+      "filename": "",
+      "line": 0,
+      "caller": "test_continuation_with_close",
+      "source_code": ""
+    },
+    {
+      "function": "build_close_frame",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+      "line": 88,
+      "caller": "test_continuation_with_close",
+      "source_code": "def build_close_frame(\n    code: int = 1000, message: bytes = b\"\", noheader: bool = False\n"
+    }
+  ],
+  "assertions": [
+    "assert res == WSMessageClose(data=1002, extra='test')",
+    "assert res == WSMessageText(data='line1line2', extra='')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_continuation_with_close(\n    out: aiohttp.DataQueue[WSMessage], parser: WebSocketReader\n) -> None:\n    with mock.patch.object(parser, \"parse_frame\", autospec=True) as m:\n        m.return_value = [\n            (0, WSMsgType.TEXT, b\"line1\", False),\n            (\n                0,\n                WSMsgType.CLOSE,\n                build_close_frame(1002, b\"test\", noheader=True),\n                False,\n            ),\n            (1, WSMsgType.CONTINUATION, b\"line2\", False),\n        ]\n\n        parser.feed_data(b\"\")\n        res = out._buffer[0]\n        assert res == WSMessageClose(data=1002, extra=\"test\")\n        res = out._buffer[1]\n        assert res == WSMessageText(data=\"line1line2\", extra=\"\")"
+}

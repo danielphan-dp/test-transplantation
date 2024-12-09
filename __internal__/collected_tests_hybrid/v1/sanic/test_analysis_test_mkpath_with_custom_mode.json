@@ -1,0 +1,41 @@
+{
+  "test_name": "test_mkpath_with_custom_mode",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+  "static_methods": [
+    {
+      "name": "mkpath",
+      "source_code": "def mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 48
+    },
+    {
+      "name": "mkpath",
+      "source_code": "def mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 48
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mkpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 48,
+      "caller": "test_mkpath_with_custom_mode",
+      "source_code": "@functools.singledispatch\n@wrapper\ndef mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.\n\n    If the directory already exists (or if 'name' is the empty string, which\n    means the current directory, which of course exists), then do nothing.\n    Raise DistutilsFileError if unable to create some directory along the way\n    (eg. some sub-path exists, but is a file rather than a directory).\n    If 'verbose' is true, log the directory created.\n    \"\"\"\n    if verbose and not name.is_dir():\n        log.info(\"creating %s\", name)\n\n    try:\n        dry_run or name.mkdir(mode=mode, parents=True, exist_ok=True)\n    except OSError as exc:\n        raise DistutilsFileError(f\"could not create '{name}': {exc.args[-1]}\")\n\n\n"
+    },
+    {
+      "function": "mkpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 48,
+      "caller": "test_mkpath_with_custom_mode",
+      "source_code": "@functools.singledispatch\n@wrapper\ndef mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.\n\n    If the directory already exists (or if 'name' is the empty string, which\n    means the current directory, which of course exists), then do nothing.\n    Raise DistutilsFileError if unable to create some directory along the way\n    (eg. some sub-path exists, but is a file rather than a directory).\n    If 'verbose' is true, log the directory created.\n    \"\"\"\n    if verbose and not name.is_dir():\n        log.info(\"creating %s\", name)\n\n    try:\n        dry_run or name.mkdir(mode=mode, parents=True, exist_ok=True)\n    except OSError as exc:\n        raise DistutilsFileError(f\"could not create '{name}': {exc.args[-1]}\")\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert stat.S_IMODE(os.stat(self.target).st_mode) == 448 & ~umask",
+    "assert stat.S_IMODE(os.stat(self.target2).st_mode) == 365 & ~umask"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_mkpath_with_custom_mode(self):\n        # Get and set the current umask value for testing mode bits.\n        umask = os.umask(0o002)\n        os.umask(umask)\n        mkpath(self.target, 0o700)\n        assert stat.S_IMODE(os.stat(self.target).st_mode) == 0o700 & ~umask\n        mkpath(self.target2, 0o555)\n        assert stat.S_IMODE(os.stat(self.target2).st_mode) == 0o555 & ~umask"
+}

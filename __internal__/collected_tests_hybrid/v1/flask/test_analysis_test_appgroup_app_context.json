@@ -1,24 +1,24 @@
 {
   "test_name": "test_appgroup_app_context",
-  "test_file": "__internal__/_data/flask/tests/test_cli.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_cli.py",
   "static_methods": [
     {
       "name": "cli.command",
-      "source_code": "    def command(  # type: ignore[override]\n        self, *args: t.Any, **kwargs: t.Any\n    ) -> t.Callable[[t.Callable[..., t.Any]], click.Command]:\n        \"\"\"This works exactly like the method of the same name on a regular\n        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`\n        unless it's disabled by passing ``with_appcontext=False``.\n        \"\"\"\n        wrap_for_ctx = kwargs.pop(\"with_appcontext\", True)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line_number": 413
+      "source_code": "def command(name: _AnyCallable) -> Command:\n    ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/decorators.py",
+      "line_number": 137
     },
     {
       "name": "cli.group",
-      "source_code": "    def group(  # type: ignore[override]\n        self, *args: t.Any, **kwargs: t.Any\n    ) -> t.Callable[[t.Callable[..., t.Any]], click.Group]:\n        \"\"\"This works exactly like the method of the same name on a regular\n        :class:`click.Group` but it defaults the group class to\n        :class:`AppGroup`.\n        \"\"\"\n        kwargs.setdefault(\"cls\", AppGroup)\n        return super().group(*args, **kwargs)  # type: ignore[no-any-return]",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line_number": 429
+      "source_code": "def group(fit: bool = True) -> Callable[..., Callable[..., Group]]:\n    \"\"\"A decorator that turns an iterable of renderables in to a group.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 495
     },
     {
       "name": "subgroup.command",
-      "source_code": "    def command(  # type: ignore[override]\n        self, *args: t.Any, **kwargs: t.Any\n    ) -> t.Callable[[t.Callable[..., t.Any]], click.Command]:\n        \"\"\"This works exactly like the method of the same name on a regular\n        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`\n        unless it's disabled by passing ``with_appcontext=False``.\n        \"\"\"\n        wrap_for_ctx = kwargs.pop(\"with_appcontext\", True)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line_number": 413
+      "source_code": "def command(name: _AnyCallable) -> Command:\n    ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/decorators.py",
+      "line_number": 137
     },
     {
       "name": "ScriptInfo",
@@ -28,15 +28,15 @@
     },
     {
       "name": "runner.invoke",
-      "source_code": "    def invoke(  # type: ignore\n        self, cli: t.Any = None, args: t.Any = None, **kwargs: t.Any\n    ) -> Result:\n        \"\"\"Invokes a CLI command in an isolated environment. See\n        :meth:`CliRunner.invoke <click.testing.CliRunner.invoke>` for\n        full method documentation. See :ref:`testing-cli` for examples.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
-      "line_number": 275
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n    ) -> Result:\n        \"\"\"Invokes a command in an isolated environment.  The arguments are\n        forwarded directly to the command line script, the `extra` keyword\n        arguments are passed to the :meth:`~clickpkg.Command.main` function of\n        the command.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/testing.py",
+      "line_number": 349
     },
     {
       "name": "runner.invoke",
-      "source_code": "    def invoke(  # type: ignore\n        self, cli: t.Any = None, args: t.Any = None, **kwargs: t.Any\n    ) -> Result:\n        \"\"\"Invokes a CLI command in an isolated environment. See\n        :meth:`CliRunner.invoke <click.testing.CliRunner.invoke>` for\n        full method documentation. See :ref:`testing-cli` for examples.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
-      "line_number": 275
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n    ) -> Result:\n        \"\"\"Invokes a command in an isolated environment.  The arguments are\n        forwarded directly to the command line script, the `extra` keyword\n        arguments are passed to the :meth:`~clickpkg.Command.main` function of\n        the command.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/testing.py",
+      "line_number": 349
     },
     {
       "name": "Flask",
@@ -48,24 +48,24 @@
   "dynamic_methods": [
     {
       "function": "cli.command",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line": 413,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/decorators.py",
+      "line": 137,
       "caller": "test_appgroup_app_context",
-      "source_code": "    def command(  # type: ignore[override]\n        self, *args: t.Any, **kwargs: t.Any\n"
+      "source_code": "@t.overload\ndef command(name: _AnyCallable) -> Command:\n    ...\n\n\n"
     },
     {
       "function": "cli.group",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line": 429,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 495,
       "caller": "test_appgroup_app_context",
-      "source_code": "    def group(  # type: ignore[override]\n        self, *args: t.Any, **kwargs: t.Any\n"
+      "source_code": "def group(fit: bool = True) -> Callable[..., Callable[..., Group]]:\n    \"\"\"A decorator that turns an iterable of renderables in to a group.\n\n    Args:\n        fit (bool, optional): Fit dimension of group to contents, or fill available space. Defaults to True.\n    \"\"\"\n\n    def decorator(\n        method: Callable[..., Iterable[RenderableType]]\n    ) -> Callable[..., Group]:\n        \"\"\"Convert a method that returns an iterable of renderables in to a Group.\"\"\"\n\n        @wraps(method)\n        def _replace(*args: Any, **kwargs: Any) -> Group:\n            renderables = method(*args, **kwargs)\n            return Group(*renderables, fit=fit)\n\n        return _replace\n\n    return decorator\n\n\n"
     },
     {
       "function": "subgroup.command",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/cli.py",
-      "line": 413,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/decorators.py",
+      "line": 137,
       "caller": "test_appgroup_app_context",
-      "source_code": "    def command(  # type: ignore[override]\n        self, *args: t.Any, **kwargs: t.Any\n"
+      "source_code": "@t.overload\ndef command(name: _AnyCallable) -> Command:\n    ...\n\n\n"
     },
     {
       "function": "ScriptInfo",
@@ -76,17 +76,17 @@
     },
     {
       "function": "runner.invoke",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
-      "line": 275,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/testing.py",
+      "line": 349,
       "caller": "test_appgroup_app_context",
-      "source_code": "    def invoke(  # type: ignore\n        self, cli: t.Any = None, args: t.Any = None, **kwargs: t.Any\n"
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n"
     },
     {
       "function": "runner.invoke",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/testing.py",
-      "line": 275,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/click/testing.py",
+      "line": 349,
       "caller": "test_appgroup_app_context",
-      "source_code": "    def invoke(  # type: ignore\n        self, cli: t.Any = None, args: t.Any = None, **kwargs: t.Any\n"
+      "source_code": "    def invoke(\n        self,\n        cli: \"BaseCommand\",\n        args: t.Optional[t.Union[str, t.Sequence[str]]] = None,\n        input: t.Optional[t.Union[str, bytes, t.IO[t.Any]]] = None,\n        env: t.Optional[t.Mapping[str, t.Optional[str]]] = None,\n        catch_exceptions: bool = True,\n        color: bool = False,\n        **extra: t.Any,\n"
     },
     {
       "function": "Flask",

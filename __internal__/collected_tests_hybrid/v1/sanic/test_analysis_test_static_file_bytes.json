@@ -1,0 +1,38 @@
+{
+  "test_name": "test_static_file_bytes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_static.py",
+  "static_methods": [
+    {
+      "name": "app.static",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n    ):\n        \"\"\"Register a root to serve files from. The input can either be a file or a directory.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line_number": 31
+    },
+    {
+      "name": "static_file_directory.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/static.py",
+      "line": 31,
+      "caller": "test_static_file_bytes",
+      "source_code": "    def static(\n        self,\n        uri: str,\n        file_or_directory: Union[PathLike, str],\n        pattern: str = r\"/?.+\",\n        use_modified_since: bool = True,\n        use_content_range: bool = False,\n        stream_large_files: Union[bool, int] = False,\n        name: str = \"static\",\n        host: Optional[str] = None,\n        strict_slashes: Optional[bool] = None,\n        content_type: Optional[str] = None,\n        apply: bool = True,\n        resource_type: Optional[str] = None,\n        index: Optional[Union[str, Sequence[str]]] = None,\n        directory_view: bool = False,\n        directory_handler: Optional[DirectoryHandler] = None,\n"
+    },
+    {
+      "function": "static_file_directory.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_static_file_bytes",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_static_file_bytes(app, static_file_directory, file_name):\n    bsep = os.path.sep.encode(\"utf-8\")\n    file_path = static_file_directory.encode(\"utf-8\") + bsep + file_name\n    message = \"Static file or directory must be a path-like object or string\"\n    with pytest.raises(TypeError, match=message):\n        app.static(\"/testing.file\", file_path)"
+}

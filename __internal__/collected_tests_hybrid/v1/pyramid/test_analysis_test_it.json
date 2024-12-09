@@ -1,0 +1,81 @@
+{
+  "test_name": "test_it",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki/src/tests/tests/test_views.py",
+  "static_methods": [
+    {
+      "name": "testing.DummyResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testing.DummyResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testing.DummyResource",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "testing.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testing.DummyResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it",
+      "source_code": ""
+    },
+    {
+      "function": "testing.DummyResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it",
+      "source_code": ""
+    },
+    {
+      "function": "testing.DummyResource",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it",
+      "source_code": ""
+    },
+    {
+      "function": "testing.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_it",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert info['page'] == context",
+    "assert info['page_text'] == '<div class=\"document\">\\n<p>Hello <a href=\"http://example.com/add_page/CruelWorld\">CruelWorld</a> <a href=\"http://example.com/IDoExist/\">IDoExist</a></p>\\n</div>\\n'",
+    "assert info['edit_url'] == 'http://example.com/thepage/edit_page'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it(self):\n        wiki = testing.DummyResource()\n        wiki['IDoExist'] = testing.DummyResource()\n        context = testing.DummyResource(data='Hello CruelWorld IDoExist')\n        context.__parent__ = wiki\n        context.__name__ = 'thepage'\n        request = testing.DummyRequest()\n        info = self._callFUT(context, request)\n        assert info['page'] == context\n        assert info['page_text'] == (\n            '<div class=\"document\">\\n'\n            '<p>Hello <a href=\"http://example.com/add_page/CruelWorld\">'\n            'CruelWorld</a> '\n            '<a href=\"http://example.com/IDoExist/\">'\n            'IDoExist</a>'\n            '</p>\\n</div>\\n')\n        assert info['edit_url'] == 'http://example.com/thepage/edit_page'"
+}

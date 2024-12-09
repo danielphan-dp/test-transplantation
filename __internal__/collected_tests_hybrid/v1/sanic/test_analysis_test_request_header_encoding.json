@@ -1,0 +1,93 @@
+{
+  "test_name": "test_request_header_encoding",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+  "static_methods": [
+    {
+      "name": "generate_protocol",
+      "source_code": "def generate_protocol(app):\n    connection = QuicConnection(configuration=QuicConfiguration())\n    connection._ack_delay = 0\n    connection._loss = Mock()\n    connection._loss.spaces = []\n    connection._loss.get_loss_detection_time = lambda: None\n    connection.datagrams_to_send = Mock(return_value=[])  # type: ignore\n    return Http3Protocol(\n        connection,\n        app=app,\n        stream_handler=None,\n    )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+      "line_number": 46
+    },
+    {
+      "name": "Http3",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "http3.http_event_received",
+      "source_code": "    def http_event_received(self, event: H3Event) -> None:\n        logger.debug(  # no cov\n            f\"{Colors.BLUE}[http_event_received]: \"\n            f\"{Colors.YELLOW}{event}{Colors.END}\",\n            extra={\"verbosity\": 2},\n        )\n        receiver, created_new = self.get_or_make_receiver(event)\n        receiver = cast(HTTPReceiver, receiver)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line_number": 307
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "HeadersReceived",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "generate_protocol",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+      "line": 46,
+      "caller": "test_request_header_encoding",
+      "source_code": "def generate_protocol(app):\n    connection = QuicConnection(configuration=QuicConfiguration())\n    connection._ack_delay = 0\n    connection._loss = Mock()\n    connection._loss.spaces = []\n    connection._loss.get_loss_detection_time = lambda: None\n    connection.datagrams_to_send = Mock(return_value=[])  # type: ignore\n    return Http3Protocol(\n        connection,\n        app=app,\n        stream_handler=None,\n    )\n\n\n"
+    },
+    {
+      "function": "Http3",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_header_encoding",
+      "source_code": ""
+    },
+    {
+      "function": "http3.http_event_received",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line": 307,
+      "caller": "test_request_header_encoding",
+      "source_code": "    def http_event_received(self, event: H3Event) -> None:\n        logger.debug(  # no cov\n            f\"{Colors.BLUE}[http_event_received]: \"\n            f\"{Colors.YELLOW}{event}{Colors.END}\",\n            extra={\"verbosity\": 2},\n        )\n        receiver, created_new = self.get_or_make_receiver(event)\n        receiver = cast(HTTPReceiver, receiver)\n\n        if isinstance(event, HeadersReceived) and created_new:\n            receiver.future = asyncio.ensure_future(receiver.run())\n        elif isinstance(event, DataReceived):\n            try:\n                receiver.receive_body(event.data)\n            except Exception as e:\n                receiver.future.cancel()\n                receiver.future = asyncio.ensure_future(receiver.run(e))\n        else:\n            ...  # Intentionally here to help out Touchup\n            logger.debug(  # no cov\n                f\"{Colors.RED}DOING NOTHING{Colors.END}\",\n                extra={\"verbosity\": 2},\n            )\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_request_header_encoding",
+      "source_code": ""
+    },
+    {
+      "function": "HeadersReceived",
+      "filename": "",
+      "line": 0,
+      "caller": "test_request_header_encoding",
+      "source_code": ""
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_request_header_encoding",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert exc_info.value.status_code == 400",
+    "assert str(exc_info.value) == 'Header names may only contain US-ASCII characters.'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_request_header_encoding(app):\n    protocol = generate_protocol(app)\n    http3 = Http3(protocol, protocol.transmit)\n    with pytest.raises(BadRequest) as exc_info:\n        http3.http_event_received(\n            HeadersReceived(\n                [\n                    (b\":method\", b\"GET\"),\n                    (b\":path\", b\"/location\"),\n                    (b\":scheme\", b\"https\"),\n                    (b\":authority\", b\"localhost:8443\"),\n                    (\"foo\\u00a0\".encode(), b\"bar\"),\n                ],\n                1,\n                False,\n            )\n        )\n    assert exc_info.value.status_code == 400\n    assert (\n        str(exc_info.value)\n        == \"Header names may only contain US-ASCII characters.\"\n    )"
+}

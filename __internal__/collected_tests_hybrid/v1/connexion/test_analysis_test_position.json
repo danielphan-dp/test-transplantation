@@ -1,0 +1,40 @@
+{
+  "test_name": "test_position",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_middleware.py",
+  "static_methods": [
+    {
+      "name": "build_app_from_fixture",
+      "source_code": "def build_app_from_fixture(\n    api_spec_folder, *, app_class, spec_file, middlewares=None, **kwargs",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/conftest.py",
+      "line_number": 75
+    },
+    {
+      "name": "app.add_middleware",
+      "source_code": "    def add_middleware(\n        self,\n        middleware_class: _MiddlewareFactory[P],\n        *args: P.args,\n        **kwargs: P.kwargs,\n    ) -> None:\n        if self.middleware_stack is not None:  # pragma: no cover\n            raise RuntimeError(\"Cannot add middleware after an application has started\")\n        self.user_middleware.insert(0, Middleware(middleware_class, *args, **kwargs))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/applications.py",
+      "line_number": 124
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_app_from_fixture",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/conftest.py",
+      "line": 75,
+      "caller": "test_position",
+      "source_code": "def build_app_from_fixture(\n    api_spec_folder, *, app_class, spec_file, middlewares=None, **kwargs\n"
+    },
+    {
+      "function": "app.add_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/starlette/applications.py",
+      "line": 124,
+      "caller": "test_position",
+      "source_code": "    def add_middleware(\n        self,\n        middleware_class: _MiddlewareFactory[P],\n        *args: P.args,\n        **kwargs: P.kwargs,\n"
+    }
+  ],
+  "assertions": [
+    "assert exc_info.value.args[0] == f'Could not insert middleware at position BEFORE_SWAGGER. Please make sure you have a {SwaggerUIMiddleware} in your stack.'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_position(spec, app_class):\n    \"\"\"Test adding middleware via the `add_middleware` method.\"\"\"\n    middlewares = [\n        middleware\n        for middleware in ConnexionMiddleware.default_middlewares\n        if middleware != SwaggerUIMiddleware\n    ]\n    app = build_app_from_fixture(\n        \"simple\", app_class=app_class, spec_file=spec, middlewares=middlewares\n    )\n\n    with pytest.raises(ValueError) as exc_info:\n        app.add_middleware(TestMiddleware, position=MiddlewarePosition.BEFORE_SWAGGER)\n\n    assert (\n        exc_info.value.args[0]\n        == f\"Could not insert middleware at position BEFORE_SWAGGER. \"\n        f\"Please make sure you have a {SwaggerUIMiddleware} in your stack.\"\n    )"
+}

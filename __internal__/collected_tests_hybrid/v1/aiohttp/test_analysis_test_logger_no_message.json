@@ -1,0 +1,90 @@
+{
+  "test_name": "test_logger_no_message",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_log.py",
+  "static_methods": [
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "AccessLogger",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "access_logger.log",
+      "source_code": "    def log(\n        self,\n        *objects: Any,\n        sep: str = \" \",\n        end: str = \"\\n\",\n        style: Optional[Union[str, Style]] = None,\n        justify: Optional[JustifyMethod] = None,\n        emoji: Optional[bool] = None,\n        markup: Optional[bool] = None,\n        highlight: Optional[bool] = None,\n        log_locals: bool = False,\n        _stack_offset: int = 1,\n    ) -> None:\n        \"\"\"Log rich content to the terminal.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line_number": 1902
+    },
+    {
+      "name": "mock_logger.info.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "make_mocked_request",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line_number": 605
+    },
+    {
+      "name": "web.Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_no_message",
+      "source_code": ""
+    },
+    {
+      "function": "AccessLogger",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_no_message",
+      "source_code": ""
+    },
+    {
+      "function": "access_logger.log",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/console.py",
+      "line": 1902,
+      "caller": "test_logger_no_message",
+      "source_code": "    def log(\n        self,\n        *objects: Any,\n        sep: str = \" \",\n        end: str = \"\\n\",\n        style: Optional[Union[str, Style]] = None,\n        justify: Optional[JustifyMethod] = None,\n        emoji: Optional[bool] = None,\n        markup: Optional[bool] = None,\n        highlight: Optional[bool] = None,\n        log_locals: bool = False,\n        _stack_offset: int = 1,\n"
+    },
+    {
+      "function": "mock_logger.info.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_no_message",
+      "source_code": ""
+    },
+    {
+      "function": "make_mocked_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/test_utils.py",
+      "line": 605,
+      "caller": "test_logger_no_message",
+      "source_code": "def make_mocked_request(\n    method: str,\n    path: str,\n    headers: Optional[LooseHeaders] = None,\n    *,\n    match_info: Optional[Dict[str, str]] = None,\n    version: HttpVersion = HttpVersion(1, 1),\n    closing: bool = False,\n    app: Optional[Application] = None,\n    writer: Optional[AbstractStreamWriter] = None,\n    protocol: Optional[RequestHandler[Request]] = None,\n    transport: Optional[asyncio.Transport] = None,\n    payload: StreamReader = EMPTY_PAYLOAD,\n    sslcontext: Optional[SSLContext] = None,\n    client_max_size: int = 1024**2,\n    loop: Any = ...,\n"
+    },
+    {
+      "function": "web.Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logger_no_message",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_logger_no_message() -> None:\n    mock_logger = mock.Mock()\n    access_logger = AccessLogger(mock_logger, \"%r %{content-type}i\")\n    extra_dict = {\n        \"first_request_line\": \"GET / HTTP/1.1\",\n        \"request_header\": {\"content-type\": \"-\"},\n    }\n\n    access_logger.log(make_mocked_request(\"GET\", \"/\"), web.Response(), 0.0)\n    mock_logger.info.assert_called_with(\"GET / HTTP/1.1 -\", extra=extra_dict)"
+}

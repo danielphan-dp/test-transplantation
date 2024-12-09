@@ -1,0 +1,40 @@
+{
+  "test_name": "test_sanity_check_setuptools_own_sdist",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+  "static_methods": [
+    {
+      "name": "tar.getnames",
+      "source_code": "    def getnames(self):\n        \"\"\"Return the members of the archive as a list of their names. It has\n           the same order as the list returned by getmembers().\n        \"\"\"\n        return [tarinfo.name for tarinfo in self.getmembers()]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/backports/tarfile/__init__.py",
+      "line_number": 2022
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tar.getnames",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/backports/tarfile/__init__.py",
+      "line": 2022,
+      "caller": "test_sanity_check_setuptools_own_sdist",
+      "source_code": "    def getnames(self):\n        \"\"\"Return the members of the archive as a list of their names. It has\n           the same order as the list returned by getmembers().\n        \"\"\"\n        return [tarinfo.name for tarinfo in self.getmembers()]\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_sanity_check_setuptools_own_sdist",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(tox_files) == 0, f'not empty {tox_files}'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_sanity_check_setuptools_own_sdist(setuptools_sdist):\n    with tarfile.open(setuptools_sdist) as tar:\n        files = tar.getnames()\n\n    # setuptools sdist should not include the .tox folder\n    tox_files = [name for name in files if \".tox\" in name]\n    assert len(tox_files) == 0, f\"not empty {tox_files}\""
+}

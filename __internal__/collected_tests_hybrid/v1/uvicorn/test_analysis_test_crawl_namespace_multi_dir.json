@@ -1,0 +1,80 @@
+{
+  "test_name": "test_crawl_namespace_multi_dir",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/test_find_sources.py",
+  "static_methods": [
+    {
+      "name": "Options",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SourceFinder",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FakeFSCache",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "crawl",
+      "source_code": "def crawl(finder: SourceFinder, f: str) -> tuple[str, str]:\n    module, base_dir = finder.crawl_up(f)\n    return module, normalise_path(base_dir)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/test_find_sources.py",
+      "line_number": 50
+    },
+    {
+      "name": "crawl",
+      "source_code": "def crawl(finder: SourceFinder, f: str) -> tuple[str, str]:\n    module, base_dir = finder.crawl_up(f)\n    return module, normalise_path(base_dir)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/test_find_sources.py",
+      "line_number": 50
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Options",
+      "filename": "",
+      "line": 0,
+      "caller": "test_crawl_namespace_multi_dir",
+      "source_code": ""
+    },
+    {
+      "function": "SourceFinder",
+      "filename": "",
+      "line": 0,
+      "caller": "test_crawl_namespace_multi_dir",
+      "source_code": ""
+    },
+    {
+      "function": "FakeFSCache",
+      "filename": "",
+      "line": 0,
+      "caller": "test_crawl_namespace_multi_dir",
+      "source_code": ""
+    },
+    {
+      "function": "crawl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/test_find_sources.py",
+      "line": 50,
+      "caller": "test_crawl_namespace_multi_dir",
+      "source_code": "def crawl(finder: SourceFinder, f: str) -> tuple[str, str]:\n    module, base_dir = finder.crawl_up(f)\n    return module, normalise_path(base_dir)\n\n\n"
+    },
+    {
+      "function": "crawl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/test_find_sources.py",
+      "line": 50,
+      "caller": "test_crawl_namespace_multi_dir",
+      "source_code": "def crawl(finder: SourceFinder, f: str) -> tuple[str, str]:\n    module, base_dir = finder.crawl_up(f)\n    return module, normalise_path(base_dir)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert crawl(finder, '/a/pkg/a.py') == ('pkg.a', '/a')",
+    "assert crawl(finder, '/b/pkg/b.py') == ('pkg.b', '/b')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_crawl_namespace_multi_dir(self) -> None:\n        options = Options()\n        options.namespace_packages = True\n        options.explicit_package_bases = True\n        options.mypy_path = [\"/a\", \"/b\"]\n\n        finder = SourceFinder(FakeFSCache({\"/a/pkg/a.py\", \"/b/pkg/b.py\"}), options)\n        assert crawl(finder, \"/a/pkg/a.py\") == (\"pkg.a\", \"/a\")\n        assert crawl(finder, \"/b/pkg/b.py\") == (\"pkg.b\", \"/b\")"
+}

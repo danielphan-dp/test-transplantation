@@ -1,0 +1,81 @@
+{
+  "test_name": "test_compat_install",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "install_project",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line_number": 1242
+    },
+    {
+      "name": "comparable_path",
+      "source_code": "def comparable_path(str_with_path: str) -> str:\n    return str_with_path.lower().replace(os.sep, \"/\").replace(\"//\", \"/\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line_number": 1288
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "comparable_path",
+      "source_code": "def comparable_path(str_with_path: str) -> str:\n    return str_with_path.lower().replace(os.sep, \"/\").replace(\"//\", \"/\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line_number": 1288
+    },
+    {
+      "name": "dedent",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "install_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line": 1242,
+      "caller": "test_compat_install",
+      "source_code": "def install_project(name, venv, tmp_path, files, *opts):\n    project = tmp_path / name\n    project.mkdir()\n    jaraco.path.build(files, prefix=project)\n    opts = [*opts, \"--no-build-isolation\"]  # force current version of setuptools\n    out = venv.run(\n        [\"python\", \"-m\", \"pip\", \"-v\", \"install\", \"-e\", str(project), *opts],\n        stderr=subprocess.STDOUT,\n    )\n    return project, out\n\n\n"
+    },
+    {
+      "function": "comparable_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line": 1288,
+      "caller": "test_compat_install",
+      "source_code": "def comparable_path(str_with_path: str) -> str:\n    return str_with_path.lower().replace(os.sep, \"/\").replace(\"//\", \"/\")\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_compat_install",
+      "source_code": ""
+    },
+    {
+      "function": "comparable_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+      "line": 1288,
+      "caller": "test_compat_install",
+      "source_code": "def comparable_path(str_with_path: str) -> str:\n    return str_with_path.lower().replace(os.sep, \"/\").replace(\"//\", \"/\")\n"
+    },
+    {
+      "function": "dedent",
+      "filename": "",
+      "line": 0,
+      "caller": "test_compat_install",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert '42' in out",
+    "assert \"cannot import name 'subpackage'\" in out",
+    "assert expected_path in out"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_compat_install(tmp_path, venv):\n    # TODO: Remove `compat` after Dec/2022.\n    opts = [\"--config-settings\", \"editable-mode=compat\"]\n    files = TestOverallBehaviour.EXAMPLES[\"custom-layout\"]\n    install_project(\"mypkg\", venv, tmp_path, files, *opts)\n\n    out = venv.run([\"python\", \"-c\", \"import mypkg.mod1; print(mypkg.mod1.var)\"])\n    assert \"42\" in out\n\n    expected_path = comparable_path(str(tmp_path))\n\n    # Compatible behaviour will make spurious modules and excluded\n    # files importable directly from the original path\n    for cmd in (\n        \"import otherfile; print(otherfile)\",\n        \"import other; print(other)\",\n        \"import mypkg; print(mypkg)\",\n    ):\n        out = comparable_path(venv.run([\"python\", \"-c\", cmd]))\n        assert expected_path in out\n\n    # Compatible behaviour will not consider custom mappings\n    cmd = \"\"\"\\\n    try:\n        from mypkg import subpackage;\n    except ImportError as ex:\n        print(ex)\n    \"\"\"\n    out = venv.run([\"python\", \"-c\", dedent(cmd)])\n    assert \"cannot import name 'subpackage'\" in out"
+}

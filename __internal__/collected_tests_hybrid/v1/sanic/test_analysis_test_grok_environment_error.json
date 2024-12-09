@@ -1,0 +1,40 @@
+{
+  "test_name": "test_grok_environment_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "OSError",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "grok_environment_error",
+      "source_code": "def grok_environment_error(exc, prefix=\"error: \"):\n    # Function kept for backward compatibility.\n    # Used to try clever things with EnvironmentErrors,\n    # but nowadays str(exception) produces good messages.\n    return prefix + str(exc)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line_number": 226
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "OSError",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_grok_environment_error",
+      "source_code": ""
+    },
+    {
+      "function": "grok_environment_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line": 226,
+      "caller": "test_grok_environment_error",
+      "source_code": "def grok_environment_error(exc, prefix=\"error: \"):\n    # Function kept for backward compatibility.\n    # Used to try clever things with EnvironmentErrors,\n    # but nowadays str(exception) produces good messages.\n    return prefix + str(exc)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert msg == 'error: Unable to find batch file'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_grok_environment_error(self):\n        # test obsolete function to ensure backward compat (#4931)\n        exc = OSError(\"Unable to find batch file\")\n        msg = grok_environment_error(exc)\n        assert msg == \"error: Unable to find batch file\""
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_state_restricted_operation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+  "static_methods": [
+    {
+      "name": "gen_state",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line_number": 6
+    },
+    {
+      "name": "state.update",
+      "source_code": "    def update(self, *args, **kwargs):\n        \"\"\"Update the dictionary from *other*, overwriting existing keys.\"\"\"\n        self._extend(args, kwargs, \"update\", self._update_items)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 360
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "gen_state",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_state.py",
+      "line": 6,
+      "caller": "test_state_restricted_operation",
+      "source_code": "def gen_state(**kwargs):\n    return WorkerState({\"foo\": kwargs}, \"foo\")\n\n\n"
+    },
+    {
+      "function": "state.update",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 360,
+      "caller": "test_state_restricted_operation",
+      "source_code": "    def update(self, *args, **kwargs):\n        \"\"\"Update the dictionary from *other*, overwriting existing keys.\"\"\"\n        self._extend(args, kwargs, \"update\", self._update_items)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_state_restricted_operation(key):\n    state = gen_state()\n    message = f\"Cannot set restricted key on WorkerState: {key}\"\n    with pytest.raises(LookupError, match=message):\n        state[key] = \"Nope\"\n        del state[key]\n\n    with pytest.raises(LookupError, match=message):\n        state.update({\"okay\": True, key: \"bad\"})"
+}

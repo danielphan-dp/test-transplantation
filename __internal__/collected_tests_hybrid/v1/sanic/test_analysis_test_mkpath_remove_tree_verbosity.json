@@ -1,0 +1,81 @@
+{
+  "test_name": "test_mkpath_remove_tree_verbosity",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+  "static_methods": [
+    {
+      "name": "mkpath",
+      "source_code": "def mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 48
+    },
+    {
+      "name": "remove_tree",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 215
+    },
+    {
+      "name": "mkpath",
+      "source_code": "def mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 48
+    },
+    {
+      "name": "caplog.clear",
+      "source_code": "    def clear(self):\n        \"\"\"Remove all items from MultiDict.\"\"\"\n        self._impl._items.clear()\n        self._impl.incr_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 271
+    },
+    {
+      "name": "remove_tree",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line_number": 215
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mkpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 48,
+      "caller": "test_mkpath_remove_tree_verbosity",
+      "source_code": "@functools.singledispatch\n@wrapper\ndef mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.\n\n    If the directory already exists (or if 'name' is the empty string, which\n    means the current directory, which of course exists), then do nothing.\n    Raise DistutilsFileError if unable to create some directory along the way\n    (eg. some sub-path exists, but is a file rather than a directory).\n    If 'verbose' is true, log the directory created.\n    \"\"\"\n    if verbose and not name.is_dir():\n        log.info(\"creating %s\", name)\n\n    try:\n        dry_run or name.mkdir(mode=mode, parents=True, exist_ok=True)\n    except OSError as exc:\n        raise DistutilsFileError(f\"could not create '{name}': {exc.args[-1]}\")\n\n\n"
+    },
+    {
+      "function": "remove_tree",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 215,
+      "caller": "test_mkpath_remove_tree_verbosity",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.\n\n    Any errors are ignored (apart from being reported to stdout if 'verbose'\n    is true).\n    \"\"\"\n    if verbose >= 1:\n        log.info(\"removing '%s' (and everything under it)\", directory)\n    if dry_run:\n        return\n    cmdtuples = []\n    _build_cmdtuple(directory, cmdtuples)\n    for cmd in cmdtuples:\n        try:\n            cmd[0](cmd[1])\n            # Clear the cache\n            SkipRepeatAbsolutePaths.clear()\n        except OSError as exc:\n            log.warning(\"error removing %s: %s\", directory, exc)\n\n\n"
+    },
+    {
+      "function": "mkpath",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 48,
+      "caller": "test_mkpath_remove_tree_verbosity",
+      "source_code": "@functools.singledispatch\n@wrapper\ndef mkpath(name: pathlib.Path, mode=0o777, verbose=True, dry_run=False) -> None:\n    \"\"\"Create a directory and any missing ancestor directories.\n\n    If the directory already exists (or if 'name' is the empty string, which\n    means the current directory, which of course exists), then do nothing.\n    Raise DistutilsFileError if unable to create some directory along the way\n    (eg. some sub-path exists, but is a file rather than a directory).\n    If 'verbose' is true, log the directory created.\n    \"\"\"\n    if verbose and not name.is_dir():\n        log.info(\"creating %s\", name)\n\n    try:\n        dry_run or name.mkdir(mode=mode, parents=True, exist_ok=True)\n    except OSError as exc:\n        raise DistutilsFileError(f\"could not create '{name}': {exc.args[-1]}\")\n\n\n"
+    },
+    {
+      "function": "caplog.clear",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 271,
+      "caller": "test_mkpath_remove_tree_verbosity",
+      "source_code": "    def clear(self):\n        \"\"\"Remove all items from MultiDict.\"\"\"\n        self._impl._items.clear()\n        self._impl.incr_version()\n\n"
+    },
+    {
+      "function": "remove_tree",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/dir_util.py",
+      "line": 215,
+      "caller": "test_mkpath_remove_tree_verbosity",
+      "source_code": "def remove_tree(directory, verbose=True, dry_run=False):\n    \"\"\"Recursively remove an entire directory tree.\n\n    Any errors are ignored (apart from being reported to stdout if 'verbose'\n    is true).\n    \"\"\"\n    if verbose >= 1:\n        log.info(\"removing '%s' (and everything under it)\", directory)\n    if dry_run:\n        return\n    cmdtuples = []\n    _build_cmdtuple(directory, cmdtuples)\n    for cmd in cmdtuples:\n        try:\n            cmd[0](cmd[1])\n            # Clear the cache\n            SkipRepeatAbsolutePaths.clear()\n        except OSError as exc:\n            log.warning(\"error removing %s: %s\", directory, exc)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert not caplog.records",
+    "assert caplog.messages == wanted",
+    "assert caplog.messages == wanted"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_mkpath_remove_tree_verbosity(self, caplog):\n        mkpath(self.target, verbose=False)\n        assert not caplog.records\n        remove_tree(self.root_target, verbose=False)\n\n        mkpath(self.target, verbose=True)\n        wanted = [f'creating {self.target}']\n        assert caplog.messages == wanted\n        caplog.clear()\n\n        remove_tree(self.root_target, verbose=True)\n        wanted = [f\"removing '{self.root_target}' (and everything under it)\"]\n        assert caplog.messages == wanted"
+}

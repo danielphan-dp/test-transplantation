@@ -1,0 +1,25 @@
+{
+  "test_name": "test_module_metadata_is_fixed_up",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_util.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert trio.Cancelled.__module__ == 'trio'",
+    "assert trio.open_nursery.__module__ == 'trio'",
+    "assert trio.abc.Stream.__module__ == 'trio.abc'",
+    "assert trio.lowlevel.wait_task_rescheduled.__module__ == 'trio.lowlevel'",
+    "assert trio.testing.trio_test.__module__ == 'trio.testing'",
+    "assert trio.lowlevel.ParkingLot.__init__.__module__ == 'trio.lowlevel'",
+    "assert trio.abc.Stream.send_all.__module__ == 'trio.abc'",
+    "assert trio.Cancelled.__name__ == 'Cancelled'",
+    "assert trio.Cancelled.__qualname__ == 'Cancelled'",
+    "assert trio.abc.SendStream.send_all.__name__ == 'send_all'",
+    "assert trio.abc.SendStream.send_all.__qualname__ == 'SendStream.send_all'",
+    "assert trio.to_thread.__name__ == 'trio.to_thread'",
+    "assert trio.to_thread.run_sync.__name__ == 'run_sync'",
+    "assert trio.to_thread.run_sync.__qualname__ == 'run_sync'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_module_metadata_is_fixed_up() -> None:\n    import trio\n    import trio.testing\n\n    assert trio.Cancelled.__module__ == \"trio\"\n    assert trio.open_nursery.__module__ == \"trio\"\n    assert trio.abc.Stream.__module__ == \"trio.abc\"\n    assert trio.lowlevel.wait_task_rescheduled.__module__ == \"trio.lowlevel\"\n    assert trio.testing.trio_test.__module__ == \"trio.testing\"\n\n    # Also check methods\n    assert trio.lowlevel.ParkingLot.__init__.__module__ == \"trio.lowlevel\"\n    assert trio.abc.Stream.send_all.__module__ == \"trio.abc\"\n\n    # And names\n    assert trio.Cancelled.__name__ == \"Cancelled\"\n    assert trio.Cancelled.__qualname__ == \"Cancelled\"\n    assert trio.abc.SendStream.send_all.__name__ == \"send_all\"\n    assert trio.abc.SendStream.send_all.__qualname__ == \"SendStream.send_all\"\n    assert trio.to_thread.__name__ == \"trio.to_thread\"\n    assert trio.to_thread.run_sync.__name__ == \"run_sync\"\n    assert trio.to_thread.run_sync.__qualname__ == \"run_sync\""
+}

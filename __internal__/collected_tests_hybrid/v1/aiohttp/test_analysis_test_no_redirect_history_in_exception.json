@@ -1,0 +1,144 @@
+{
+  "test_name": "test_no_redirect_history_in_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_response.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDictProxy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ClientResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response.raise_for_status",
+      "source_code": "    def raise_for_status(self):\n        \"\"\"Raises :class:`HTTPError`, if one occurred.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line_number": 994
+    },
+    {
+      "name": "RequestInfo",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WriterMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TimerNoop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDictProxy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "ClientResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "response.raise_for_status",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/models.py",
+      "line": 994,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": "    def raise_for_status(self):\n        \"\"\"Raises :class:`HTTPError`, if one occurred.\"\"\"\n\n        http_error_msg = \"\"\n        if isinstance(self.reason, bytes):\n            # We attempt to decode utf-8 first because some servers\n            # choose to localize their reason strings. If the string\n            # isn't utf-8, we fall back to iso-8859-1 for all other\n            # encodings. (See PR #3538)\n            try:\n                reason = self.reason.decode(\"utf-8\")\n            except UnicodeDecodeError:\n                reason = self.reason.decode(\"iso-8859-1\")\n        else:\n            reason = self.reason\n\n        if 400 <= self.status_code < 500:\n            http_error_msg = (\n                f\"{self.status_code} Client Error: {reason} for url: {self.url}\"\n            )\n\n        elif 500 <= self.status_code < 600:\n            http_error_msg = (\n                f\"{self.status_code} Server Error: {reason} for url: {self.url}\"\n            )\n\n        if http_error_msg:\n            raise HTTPError(http_error_msg, response=self)\n\n"
+    },
+    {
+      "function": "RequestInfo",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "WriterMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "TimerNoop",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_redirect_history_in_exception",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert () == cm.value.history"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_redirect_history_in_exception() -> None:\n    url = URL(\"http://def-cl-resp.org\")\n    h = {\"Content-Type\": \"application/json;charset=cp1251\"}\n    headers = CIMultiDictProxy(CIMultiDict(h))\n    response = ClientResponse(\n        \"get\",\n        url,\n        request_info=RequestInfo(url, \"get\", headers, url),\n        writer=WriterMock(),\n        continue100=None,\n        timer=TimerNoop(),\n        traces=[],\n        loop=mock.Mock(),\n        session=mock.Mock(),\n    )\n    response.status = 409\n    response.reason = \"CONFLICT\"\n    with pytest.raises(aiohttp.ClientResponseError) as cm:\n        response.raise_for_status()\n    assert () == cm.value.history"
+}

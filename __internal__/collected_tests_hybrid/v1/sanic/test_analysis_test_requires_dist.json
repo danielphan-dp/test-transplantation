@@ -1,0 +1,54 @@
+{
+  "test_name": "test_requires_dist",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_core_metadata.py",
+  "static_methods": [
+    {
+      "name": "self.base_example",
+      "source_code": "    def base_example(self):\n        attrs = dict(\n            **EXAMPLE_BASE_INFO,\n            # Example with complex requirement definition\n            python_requires=\">=3.8\",\n            install_requires=\"\"\"\n            packaging==23.2\n            more-itertools==8.8.0; extra == \"other\"\n            jaraco.text==3.7.0\n            importlib-resources==5.10.2; python_version<\"3.8\"\n            importlib-metadata==6.0.0 ; python_version<\"3.8\"\n            colorama>=0.4.4; sys_platform == \"win32\"\n            \"\"\",\n            extras_require={\n                \"testing\": \"\"\"\n                    pytest >= 6\n                    pytest-checkdocs >= 2.4\n                    tomli ; \\\\\n                            # Using stdlib when possible\n                            python_version < \"3.11\"\n                    ini2toml[lite]>=0.9\n                    \"\"\",\n                \"other\": [],\n            },\n        )\n        # Generate a PKG-INFO file using setuptools\n        return Distribution(attrs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_core_metadata.py",
+      "line_number": 319
+    },
+    {
+      "name": "_get_pkginfo",
+      "source_code": "def _get_pkginfo(dist: Distribution):\n    with io.StringIO() as fp:\n        dist.metadata.write_pkg_file(fp)\n        return fp.getvalue()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_core_metadata.py",
+      "line_number": 476
+    },
+    {
+      "name": "_valid_metadata",
+      "source_code": "def _valid_metadata(text: str) -> bool:\n    metadata = Metadata.from_email(text, validate=True)  # can raise exceptions\n    return metadata is not None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_core_metadata.py",
+      "line_number": 482
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.base_example",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_core_metadata.py",
+      "line": 319,
+      "caller": "test_requires_dist",
+      "source_code": "    def base_example(self):\n        attrs = dict(\n            **EXAMPLE_BASE_INFO,\n            # Example with complex requirement definition\n            python_requires=\">=3.8\",\n            install_requires=\"\"\"\n            packaging==23.2\n            more-itertools==8.8.0; extra == \"other\"\n            jaraco.text==3.7.0\n            importlib-resources==5.10.2; python_version<\"3.8\"\n            importlib-metadata==6.0.0 ; python_version<\"3.8\"\n            colorama>=0.4.4; sys_platform == \"win32\"\n            \"\"\",\n            extras_require={\n                \"testing\": \"\"\"\n                    pytest >= 6\n                    pytest-checkdocs >= 2.4\n                    tomli ; \\\\\n                            # Using stdlib when possible\n                            python_version < \"3.11\"\n                    ini2toml[lite]>=0.9\n                    \"\"\",\n                \"other\": [],\n            },\n        )\n        # Generate a PKG-INFO file using setuptools\n        return Distribution(attrs)\n\n"
+    },
+    {
+      "function": "_get_pkginfo",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_core_metadata.py",
+      "line": 476,
+      "caller": "test_requires_dist",
+      "source_code": "def _get_pkginfo(dist: Distribution):\n    with io.StringIO() as fp:\n        dist.metadata.write_pkg_file(fp)\n        return fp.getvalue()\n\n\n"
+    },
+    {
+      "function": "_valid_metadata",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_core_metadata.py",
+      "line": 482,
+      "caller": "test_requires_dist",
+      "source_code": "def _valid_metadata(text: str) -> bool:\n    metadata = Metadata.from_email(text, validate=True)  # can raise exceptions\n    return metadata is not None\n"
+    }
+  ],
+  "assertions": [
+    "assert _valid_metadata(pkg_info)",
+    "assert line in pkg_info"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_requires_dist(self, tmp_path):\n        dist = self.base_example()\n        pkg_info = _get_pkginfo(dist)\n        assert _valid_metadata(pkg_info)\n\n        # Ensure Requires-Dist is present\n        expected = [\n            'Metadata-Version:',\n            'Requires-Python: >=3.8',\n            'Provides-Extra: other',\n            'Provides-Extra: testing',\n            'Requires-Dist: tomli; python_version < \"3.11\" and extra == \"testing\"',\n            'Requires-Dist: more-itertools==8.8.0; extra == \"other\"',\n            'Requires-Dist: ini2toml[lite]>=0.9; extra == \"testing\"',\n        ]\n        for line in expected:\n            assert line in pkg_info"
+}

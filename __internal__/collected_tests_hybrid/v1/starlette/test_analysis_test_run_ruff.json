@@ -1,0 +1,81 @@
+{
+  "test_name": "test_run_ruff",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/tools/test_gen_exports.py",
+  "static_methods": [
+    {
+      "name": "File",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run_ruff",
+      "source_code": "def run_ruff(file: File, source: str) -> tuple[bool, str]:\n    \"\"\"Run ruff on the specified file.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line_number": 135
+    },
+    {
+      "name": "run_ruff",
+      "source_code": "def run_ruff(file: File, source: str) -> tuple[bool, str]:\n    \"\"\"Run ruff on the specified file.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line_number": 135
+    },
+    {
+      "name": "skip_if_optional_else_raise",
+      "source_code": "def skip_if_optional_else_raise(error: ImportError) -> NoReturn:\n    if SKIP_OPTIONAL_IMPORTS:\n        pytest.skip(error.msg, allow_module_level=True)\n    else:  # pragma: no cover\n        raise error",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/pytest_plugin.py",
+      "line_number": 50
+    },
+    {
+      "name": "skip_lints",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "File",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_ruff",
+      "source_code": ""
+    },
+    {
+      "function": "run_ruff",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line": 135,
+      "caller": "test_run_ruff",
+      "source_code": "def run_ruff(file: File, source: str) -> tuple[bool, str]:\n    \"\"\"Run ruff on the specified file.\n\n    Returns:\n      Tuple of success and result string.\n      ex.:\n        (False, \"Failed to run ruff!\\nerror: Failed to parse ...\")\n        (True, \"<formatted source>\")\n\n    Raises:\n      ImportError: If ruff is not installed.\n    \"\"\"\n    # imported to check that `subprocess` calls will succeed\n    import ruff  # noqa: F401\n\n    result = subprocess.run(\n        # \"-\" as a filename = use stdin, return on stdout.\n        [\n            sys.executable,\n            \"-m\",\n            \"ruff\",\n            \"check\",\n            \"--fix\",\n            \"--unsafe-fixes\",\n            \"--stdin-filename\",\n            file.path,\n            \"-\",\n        ],\n        input=source,\n        capture_output=True,\n        encoding=\"utf8\",\n    )\n\n    if result.returncode != 0:\n        return False, f\"Failed to run ruff!\\n{result.stderr}\"\n    return True, result.stdout\n\n\n"
+    },
+    {
+      "function": "run_ruff",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line": 135,
+      "caller": "test_run_ruff",
+      "source_code": "def run_ruff(file: File, source: str) -> tuple[bool, str]:\n    \"\"\"Run ruff on the specified file.\n\n    Returns:\n      Tuple of success and result string.\n      ex.:\n        (False, \"Failed to run ruff!\\nerror: Failed to parse ...\")\n        (True, \"<formatted source>\")\n\n    Raises:\n      ImportError: If ruff is not installed.\n    \"\"\"\n    # imported to check that `subprocess` calls will succeed\n    import ruff  # noqa: F401\n\n    result = subprocess.run(\n        # \"-\" as a filename = use stdin, return on stdout.\n        [\n            sys.executable,\n            \"-m\",\n            \"ruff\",\n            \"check\",\n            \"--fix\",\n            \"--unsafe-fixes\",\n            \"--stdin-filename\",\n            file.path,\n            \"-\",\n        ],\n        input=source,\n        capture_output=True,\n        encoding=\"utf8\",\n    )\n\n    if result.returncode != 0:\n        return False, f\"Failed to run ruff!\\n{result.stderr}\"\n    return True, result.stdout\n\n\n"
+    },
+    {
+      "function": "skip_if_optional_else_raise",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/pytest_plugin.py",
+      "line": 50,
+      "caller": "test_run_ruff",
+      "source_code": "def skip_if_optional_else_raise(error: ImportError) -> NoReturn:\n    if SKIP_OPTIONAL_IMPORTS:\n        pytest.skip(error.msg, allow_module_level=True)\n    else:  # pragma: no cover\n        raise error\n"
+    },
+    {
+      "function": "skip_lints",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_ruff",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not success",
+    "assert success",
+    "assert response == test_function"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_ruff(tmp_path: Path) -> None:\n    \"\"\"Test that processing properly fails if ruff does.\"\"\"\n    try:\n        import ruff  # noqa: F401\n    except ImportError as error:  # pragma: no cover\n        skip_if_optional_else_raise(error)\n\n    file = File(tmp_path / \"module.py\", \"module\")\n\n    success, _ = run_ruff(file, \"class not valid code ><\")\n    assert not success\n\n    test_function = '''def combine_and(data: list[str]) -> str:\n    \"\"\"Join values of text, and have 'and' with the last one properly.\"\"\"\n    if len(data) >= 2:\n        data[-1] = 'and ' + data[-1]\n    if len(data) > 2:\n        return ', '.join(data)\n    return ' '.join(data)'''\n\n    success, response = run_ruff(file, test_function)\n    assert success\n    assert response == test_function"
+}

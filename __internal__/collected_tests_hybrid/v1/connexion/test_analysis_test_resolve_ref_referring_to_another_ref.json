@@ -1,0 +1,28 @@
+{
+  "test_name": "test_resolve_ref_referring_to_another_ref",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_references.py",
+  "static_methods": [
+    {
+      "name": "resolve_refs",
+      "source_code": "def resolve_refs(spec, store=None, base_uri=\"\"):\n    \"\"\"\n    Resolve JSON references like {\"$ref\": <some URI>} in a spec.\n    Optionally takes a store, which is a mapping from reference URLs to a\n    dereferenced objects. Prepopulating the store can avoid network calls.\n    \"\"\"\n    spec = deepcopy(spec)\n    store = store or {}\n    resolver = RefResolver(base_uri, spec, store, handlers=handlers)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/json_schema.py",
+      "line_number": 73
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "resolve_refs",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/json_schema.py",
+      "line": 73,
+      "caller": "test_resolve_ref_referring_to_another_ref",
+      "source_code": "def resolve_refs(spec, store=None, base_uri=\"\"):\n    \"\"\"\n    Resolve JSON references like {\"$ref\": <some URI>} in a spec.\n    Optionally takes a store, which is a mapping from reference URLs to a\n    dereferenced objects. Prepopulating the store can avoid network calls.\n    \"\"\"\n    spec = deepcopy(spec)\n    store = store or {}\n    resolver = RefResolver(base_uri, spec, store, handlers=handlers)\n\n    def _do_resolve(node):\n        if isinstance(node, Mapping) and \"$ref\" in node:\n            path = node[\"$ref\"][2:].split(\"/\")\n            try:\n                # resolve known references\n                retrieved = deep_get(spec, path)\n                node.update(retrieved)\n                if isinstance(retrieved, Mapping) and \"$ref\" in retrieved:\n                    node = _do_resolve(node)\n                node.pop(\"$ref\", None)\n                return node\n            except KeyError:\n                # resolve external references\n                with resolver.resolving(node[\"$ref\"]) as resolved:\n                    return _do_resolve(resolved)\n        elif isinstance(node, Mapping):\n            for k, v in node.items():\n                node[k] = _do_resolve(v)\n        elif isinstance(node, (list, tuple)):\n            for i, _ in enumerate(node):\n                node[i] = _do_resolve(node[i])\n        return node\n\n    res = _do_resolve(spec)\n    return res\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert spec['parameters'][0]['schema'] == expected",
+    "assert spec['definitions']['A'] == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_resolve_ref_referring_to_another_ref(api):\n    expected = {\"type\": \"string\"}\n    op_spec = {\n        \"parameters\": [\n            {\n                \"schema\": {\"$ref\": \"#/definitions/A\"},\n            }\n        ],\n        \"definitions\": {\n            \"A\": {\n                \"$ref\": \"#/definitions/B\",\n            },\n            \"B\": expected,\n        },\n    }\n\n    spec = resolve_refs(op_spec)\n    assert spec[\"parameters\"][0][\"schema\"] == expected\n    assert spec[\"definitions\"][\"A\"] == expected"
+}

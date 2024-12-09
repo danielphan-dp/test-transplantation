@@ -1,0 +1,40 @@
+{
+  "test_name": "test_staticfiles_instantiated_with_missing_directory",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_staticfiles.py",
+  "static_methods": [
+    {
+      "name": "StaticFiles",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "StaticFiles",
+      "filename": "",
+      "line": 0,
+      "caller": "test_staticfiles_instantiated_with_missing_directory",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_instantiated_with_missing_directory",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'does not exist' in str(exc_info.value)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_staticfiles_instantiated_with_missing_directory(tmpdir: Path) -> None:\n    with pytest.raises(RuntimeError) as exc_info:\n        path = os.path.join(tmpdir, \"no_such_directory\")\n        StaticFiles(directory=path)\n    assert \"does not exist\" in str(exc_info.value)"
+}

@@ -1,0 +1,95 @@
+{
+  "test_name": "test_lifespan_scope_asgi3app",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/test_lifespan.py",
+  "static_methods": [
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "loop.close",
+      "source_code": "    def close(self) -> None:\n        self.session.close()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line_number": 89
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "LifespanOn",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "lifespan.startup",
+      "source_code": "        def startup(self):\n            calls.append(\"startup\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line_number": 388
+    },
+    {
+      "name": "lifespan.shutdown",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line_number": 655
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_scope_asgi3app",
+      "source_code": ""
+    },
+    {
+      "function": "loop.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/twine/repository.py",
+      "line": 89,
+      "caller": "test_lifespan_scope_asgi3app",
+      "source_code": "    def close(self) -> None:\n        self.session.close()\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_scope_asgi3app",
+      "source_code": ""
+    },
+    {
+      "function": "LifespanOn",
+      "filename": "",
+      "line": 0,
+      "caller": "test_lifespan_scope_asgi3app",
+      "source_code": ""
+    },
+    {
+      "function": "lifespan.startup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+      "line": 388,
+      "caller": "test_lifespan_scope_asgi3app",
+      "source_code": "        def startup(self):\n            calls.append(\"startup\")\n\n"
+    },
+    {
+      "function": "lifespan.shutdown",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/urllib3/contrib/securetransport.py",
+      "line": 655,
+      "caller": "test_lifespan_scope_asgi3app",
+      "source_code": "    def shutdown(self):\n        with self._raise_on_error():\n            Security.SSLClose(self.context)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert scope == {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}}",
+    "assert not lifespan.startup_failed",
+    "assert not lifespan.error_occured",
+    "assert not lifespan.should_exit"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_lifespan_scope_asgi3app():\n    async def asgi3app(scope, receive, send):\n        assert scope == {\n            \"type\": \"lifespan\",\n            \"asgi\": {\"version\": \"3.0\", \"spec_version\": \"2.0\"},\n            \"state\": {},\n        }\n\n    async def test():\n        config = Config(app=asgi3app, lifespan=\"on\")\n        lifespan = LifespanOn(config)\n\n        await lifespan.startup()\n        assert not lifespan.startup_failed\n        assert not lifespan.error_occured\n        assert not lifespan.should_exit\n        await lifespan.shutdown()\n\n    loop = asyncio.new_event_loop()\n    loop.run_until_complete(test())\n    loop.close()"
+}

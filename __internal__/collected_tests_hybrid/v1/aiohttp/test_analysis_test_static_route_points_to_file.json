@@ -1,0 +1,25 @@
+{
+  "test_name": "test_static_route_points_to_file",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_static",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n    ) -> StaticResource:\n        \"\"\"Add static files view.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1152
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1152,
+      "caller": "test_static_route_points_to_file",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_static_route_points_to_file(router: web.UrlDispatcher) -> None:\n    here = pathlib.Path(aiohttp.__file__).parent / \"__init__.py\"\n    with pytest.raises(ValueError):\n        router.add_static(\"/st\", here)"
+}

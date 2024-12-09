@@ -1,0 +1,67 @@
+{
+  "test_name": "test_http_receiver_receive_body",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+  "static_methods": [
+    {
+      "name": "generate_http_receiver",
+      "source_code": "def generate_http_receiver(app, http_request) -> HTTPReceiver:\n    protocol = generate_protocol(app)\n    receiver = HTTPReceiver(\n        protocol.transmit,\n        protocol,\n        http_request,\n    )\n    http_request.stream = receiver\n    return receiver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+      "line_number": 60
+    },
+    {
+      "name": "receiver.receive_body",
+      "source_code": "    def receive_body(self, data: bytes) -> None:\n        \"\"\"Receive request body from client\"\"\"\n        self.request_bytes += len(data)\n        if self.request_bytes > self.request_max_size:\n            raise PayloadTooLarge(\"Request body exceeds the size limit\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line_number": 222
+    },
+    {
+      "name": "receiver.receive_body",
+      "source_code": "    def receive_body(self, data: bytes) -> None:\n        \"\"\"Receive request body from client\"\"\"\n        self.request_bytes += len(data)\n        if self.request_bytes > self.request_max_size:\n            raise PayloadTooLarge(\"Request body exceeds the size limit\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line_number": 222
+    },
+    {
+      "name": "receiver.receive_body",
+      "source_code": "    def receive_body(self, data: bytes) -> None:\n        \"\"\"Receive request body from client\"\"\"\n        self.request_bytes += len(data)\n        if self.request_bytes > self.request_max_size:\n            raise PayloadTooLarge(\"Request body exceeds the size limit\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line_number": 222
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "generate_http_receiver",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/http3/test_http_receiver.py",
+      "line": 60,
+      "caller": "test_http_receiver_receive_body",
+      "source_code": "def generate_http_receiver(app, http_request) -> HTTPReceiver:\n    protocol = generate_protocol(app)\n    receiver = HTTPReceiver(\n        protocol.transmit,\n        protocol,\n        http_request,\n    )\n    http_request.stream = receiver\n    return receiver\n\n\n"
+    },
+    {
+      "function": "receiver.receive_body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line": 222,
+      "caller": "test_http_receiver_receive_body",
+      "source_code": "    def receive_body(self, data: bytes) -> None:\n        \"\"\"Receive request body from client\"\"\"\n        self.request_bytes += len(data)\n        if self.request_bytes > self.request_max_size:\n            raise PayloadTooLarge(\"Request body exceeds the size limit\")\n\n        self.request.body += data\n\n"
+    },
+    {
+      "function": "receiver.receive_body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line": 222,
+      "caller": "test_http_receiver_receive_body",
+      "source_code": "    def receive_body(self, data: bytes) -> None:\n        \"\"\"Receive request body from client\"\"\"\n        self.request_bytes += len(data)\n        if self.request_bytes > self.request_max_size:\n            raise PayloadTooLarge(\"Request body exceeds the size limit\")\n\n        self.request.body += data\n\n"
+    },
+    {
+      "function": "receiver.receive_body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/http/http3.py",
+      "line": 222,
+      "caller": "test_http_receiver_receive_body",
+      "source_code": "    def receive_body(self, data: bytes) -> None:\n        \"\"\"Receive request body from client\"\"\"\n        self.request_bytes += len(data)\n        if self.request_bytes > self.request_max_size:\n            raise PayloadTooLarge(\"Request body exceeds the size limit\")\n\n        self.request.body += data\n\n"
+    }
+  ],
+  "assertions": [
+    "assert receiver.request.body == b'..'",
+    "assert receiver.request.body == b'....'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_receiver_receive_body(app: Sanic, http_request: Request):\n    receiver = generate_http_receiver(app, http_request)\n    receiver.request_max_size = 4\n\n    receiver.receive_body(b\"..\")\n    assert receiver.request.body == b\"..\"\n\n    receiver.receive_body(b\"..\")\n    assert receiver.request.body == b\"....\"\n\n    with pytest.raises(\n        PayloadTooLarge, match=\"Request body exceeds the size limit\"\n    ):\n        receiver.receive_body(b\"..\")"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_its_own_wheel_does_not_contain_tests",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_setuptools.py",
+  "static_methods": [
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ZipFile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "f.replace",
+      "source_code": "    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line_number": 58
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_its_own_wheel_does_not_contain_tests",
+      "source_code": ""
+    },
+    {
+      "function": "ZipFile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_its_own_wheel_does_not_contain_tests",
+      "source_code": ""
+    },
+    {
+      "function": "f.replace",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line": 58,
+      "caller": "test_its_own_wheel_does_not_contain_tests",
+      "source_code": "    @classmethod\n    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.\n\n        Args:\n            text (str): A string with emojis codes, e.g. \"Hello :smiley:!\"\n\n        Returns:\n            str: A string with emoji codes replaces with actual emoji.\n        \"\"\"\n        return _emoji_replace(text)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert '/tests/' not in member"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_its_own_wheel_does_not_contain_tests(setuptools_wheel):\n    with ZipFile(setuptools_wheel) as zipfile:\n        contents = [f.replace(os.sep, '/') for f in zipfile.namelist()]\n\n    for member in contents:\n        assert '/tests/' not in member"
+}

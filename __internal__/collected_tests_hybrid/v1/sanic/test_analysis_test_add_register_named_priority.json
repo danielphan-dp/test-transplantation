@@ -1,0 +1,97 @@
+{
+  "test_name": "test_add_register_named_priority",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_middleware_priority.py",
+  "static_methods": [
+    {
+      "name": "app.register_named_middleware",
+      "source_code": "    def register_named_middleware(\n        self,\n        middleware: MiddlewareType,\n        route_names: Iterable[str],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n    ):\n        \"\"\"Used to register named middleqare (middleware typically on blueprints)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 515
+    },
+    {
+      "name": "app.register_named_middleware",
+      "source_code": "    def register_named_middleware(\n        self,\n        middleware: MiddlewareType,\n        route_names: Iterable[str],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n    ):\n        \"\"\"Used to register named middleqare (middleware typically on blueprints)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line_number": 515
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.register_named_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 515,
+      "caller": "test_add_register_named_priority",
+      "source_code": "    def register_named_middleware(\n        self,\n        middleware: MiddlewareType,\n        route_names: Iterable[str],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n"
+    },
+    {
+      "function": "app.register_named_middleware",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/app.py",
+      "line": 515,
+      "caller": "test_add_register_named_priority",
+      "source_code": "    def register_named_middleware(\n        self,\n        middleware: MiddlewareType,\n        route_names: Iterable[str],\n        attach_to: str = \"request\",\n        *,\n        priority: Union[Default, int] = _default,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_named_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_named_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_named_priority",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_register_named_priority",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(app.named_request_middleware) == 1",
+    "assert len(app.named_response_middleware) == 0",
+    "assert app.named_request_middleware['foo'][0].priority == 999",
+    "assert len(app.named_request_middleware) == 1",
+    "assert len(app.named_response_middleware) == 1",
+    "assert app.named_response_middleware['foo'][0].priority == 999"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_register_named_priority(app: Sanic):\n    def foo(*_): ...\n\n    app.register_named_middleware(foo, route_names=[\"foo\"], priority=999)\n    assert len(app.named_request_middleware) == 1\n    assert len(app.named_response_middleware) == 0\n    assert app.named_request_middleware[\"foo\"][0].priority == 999  # type: ignore\n    app.register_named_middleware(\n        foo, attach_to=\"response\", route_names=[\"foo\"], priority=999\n    )\n    assert len(app.named_request_middleware) == 1\n    assert len(app.named_response_middleware) == 1\n    assert app.named_response_middleware[\"foo\"][0].priority == 999"
+}

@@ -1,0 +1,51 @@
+{
+  "test_name": "test_pip_upgrade_from_source",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_virtualenv.py",
+  "static_methods": [
+    {
+      "name": "access_pypi",
+      "source_code": "def access_pypi():\n    # Detect if tests are being run without connectivity\n    if not os.environ.get('NETWORK_REQUIRED', False):  # pragma: nocover\n        try:\n            urlopen('https://pypi.org', timeout=1)\n        except URLError:\n            # No network, disable most of these tests\n            return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_virtualenv.py",
+      "line_number": 29
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "access_pypi",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_virtualenv.py",
+      "line": 29,
+      "caller": "test_pip_upgrade_from_source",
+      "source_code": "def access_pypi():\n    # Detect if tests are being run without connectivity\n    if not os.environ.get('NETWORK_REQUIRED', False):  # pragma: nocover\n        try:\n            urlopen('https://pypi.org', timeout=1)\n        except URLError:\n            # No network, disable most of these tests\n            return False\n\n    return True\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pip_upgrade_from_source",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pip_upgrade_from_source",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_pip_upgrade_from_source(\n    pip_version, venv_without_setuptools, setuptools_wheel, setuptools_sdist\n):\n    \"\"\"\n    Check pip can upgrade setuptools from source.\n    \"\"\"\n    # Install pip/wheel, in a venv without setuptools (as it\n    # should not be needed for bootstrapping from source)\n    venv = venv_without_setuptools\n    venv.run([\"pip\", \"install\", \"-U\", \"wheel\"])\n    if pip_version is not None:\n        venv.run([\"python\", \"-m\", \"pip\", \"install\", \"-U\", pip_version, \"--retries=1\"])\n    with pytest.raises(subprocess.CalledProcessError):\n        # Meta-test to make sure setuptools is not installed\n        venv.run([\"python\", \"-c\", \"import setuptools\"])\n\n    # Then install from wheel.\n    venv.run([\"pip\", \"install\", str(setuptools_wheel)])\n    # And finally try to upgrade from source.\n    venv.run([\"pip\", \"install\", \"--no-cache-dir\", \"--upgrade\", str(setuptools_sdist)])"
+}

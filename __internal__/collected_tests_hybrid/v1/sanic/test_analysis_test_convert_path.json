@@ -1,0 +1,55 @@
+{
+  "test_name": "test_convert_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "convert_path",
+      "source_code": "def convert_path(pathname):\n    \"\"\"Return 'pathname' as a name that will work on the native filesystem.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 457
+    },
+    {
+      "name": "convert_path",
+      "source_code": "def convert_path(pathname):\n    \"\"\"Return 'pathname' as a name that will work on the native filesystem.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 457
+    },
+    {
+      "name": "convert_path",
+      "source_code": "def convert_path(pathname):\n    \"\"\"Return 'pathname' as a name that will work on the native filesystem.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line_number": 457
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "convert_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 457,
+      "caller": "test_convert_path",
+      "source_code": "def convert_path(pathname):\n    \"\"\"Return 'pathname' as a name that will work on the native filesystem.\n\n    The path is split on '/' and put back together again using the current\n    directory separator.  Needed because filenames in the setup script are\n    always supplied in Unix style, and have to be converted to the local\n    convention before we can actually use them in the filesystem.  Raises\n    ValueError on non-Unix-ish systems if 'pathname' either starts or\n    ends with a slash.\n    \"\"\"\n    if os.sep == '/':\n        return pathname\n    if not pathname:\n        return pathname\n    if pathname[0] == '/':\n        raise ValueError(\"path '%s' cannot be absolute\" % pathname)\n    if pathname[-1] == '/':\n        raise ValueError(\"path '%s' cannot end with '/'\" % pathname)\n\n    paths = pathname.split('/')\n    while os.curdir in paths:\n        paths.remove(os.curdir)\n    if not paths:\n        return os.curdir\n    return os.path.join(*paths)\n\n\n"
+    },
+    {
+      "function": "convert_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 457,
+      "caller": "test_convert_path",
+      "source_code": "def convert_path(pathname):\n    \"\"\"Return 'pathname' as a name that will work on the native filesystem.\n\n    The path is split on '/' and put back together again using the current\n    directory separator.  Needed because filenames in the setup script are\n    always supplied in Unix style, and have to be converted to the local\n    convention before we can actually use them in the filesystem.  Raises\n    ValueError on non-Unix-ish systems if 'pathname' either starts or\n    ends with a slash.\n    \"\"\"\n    if os.sep == '/':\n        return pathname\n    if not pathname:\n        return pathname\n    if pathname[0] == '/':\n        raise ValueError(\"path '%s' cannot be absolute\" % pathname)\n    if pathname[-1] == '/':\n        raise ValueError(\"path '%s' cannot end with '/'\" % pathname)\n\n    paths = pathname.split('/')\n    while os.curdir in paths:\n        paths.remove(os.curdir)\n    if not paths:\n        return os.curdir\n    return os.path.join(*paths)\n\n\n"
+    },
+    {
+      "function": "convert_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/util.py",
+      "line": 457,
+      "caller": "test_convert_path",
+      "source_code": "def convert_path(pathname):\n    \"\"\"Return 'pathname' as a name that will work on the native filesystem.\n\n    The path is split on '/' and put back together again using the current\n    directory separator.  Needed because filenames in the setup script are\n    always supplied in Unix style, and have to be converted to the local\n    convention before we can actually use them in the filesystem.  Raises\n    ValueError on non-Unix-ish systems if 'pathname' either starts or\n    ends with a slash.\n    \"\"\"\n    if os.sep == '/':\n        return pathname\n    if not pathname:\n        return pathname\n    if pathname[0] == '/':\n        raise ValueError(\"path '%s' cannot be absolute\" % pathname)\n    if pathname[-1] == '/':\n        raise ValueError(\"path '%s' cannot end with '/'\" % pathname)\n\n    paths = pathname.split('/')\n    while os.curdir in paths:\n        paths.remove(os.curdir)\n    if not paths:\n        return os.curdir\n    return os.path.join(*paths)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert convert_path('/home/to/my/stuff') == expected",
+    "assert convert_path(pathlib.Path('/home/to/my/stuff')) == expected",
+    "assert convert_path('.') == os.curdir"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_convert_path(self):\n        expected = os.sep.join(('', 'home', 'to', 'my', 'stuff'))\n        assert convert_path('/home/to/my/stuff') == expected\n        assert convert_path(pathlib.Path('/home/to/my/stuff')) == expected\n        assert convert_path('.') == os.curdir"
+}

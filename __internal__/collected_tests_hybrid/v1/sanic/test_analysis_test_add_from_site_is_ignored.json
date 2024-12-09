@@ -1,0 +1,67 @@
+{
+  "test_name": "test_add_from_site_is_ignored",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "pkg_resources.normalize_path",
+      "source_code": "def normalize_path(filename):\n    \"\"\"Normalize a file/dir name for comparison purposes\"\"\"\n    return os.path.normcase(os.path.realpath(os.path.normpath(_cygwin_patch(filename))))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 2329
+    },
+    {
+      "name": "PthDistributions",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "pth.add",
+      "source_code": "    def add(self, key, value):\n        identity = self._title(key)\n        self._impl._items.append((identity, self._key(key), value))\n        self._impl.incr_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 214
+    },
+    {
+      "name": "PRDistribution",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pkg_resources.normalize_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 2329,
+      "caller": "test_add_from_site_is_ignored",
+      "source_code": "def normalize_path(filename):\n    \"\"\"Normalize a file/dir name for comparison purposes\"\"\"\n    return os.path.normcase(os.path.realpath(os.path.normpath(_cygwin_patch(filename))))\n\n\n"
+    },
+    {
+      "function": "PthDistributions",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_from_site_is_ignored",
+      "source_code": ""
+    },
+    {
+      "function": "pth.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 214,
+      "caller": "test_add_from_site_is_ignored",
+      "source_code": "    def add(self, key, value):\n        identity = self._title(key)\n        self._impl._items.append((identity, self._key(key), value))\n        self._impl.incr_version()\n\n"
+    },
+    {
+      "function": "PRDistribution",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_from_site_is_ignored",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert not pth.dirty",
+    "assert not pth.dirty"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_from_site_is_ignored(self):\n        location = '/test/location/does-not-have-to-exist'\n        # PthDistributions expects all locations to be normalized\n        location = pkg_resources.normalize_path(location)\n        pth = PthDistributions(\n            'does-not_exist',\n            [\n                location,\n            ],\n        )\n        assert not pth.dirty\n        pth.add(PRDistribution(location))\n        assert not pth.dirty"
+}

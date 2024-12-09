@@ -1,0 +1,77 @@
+{
+  "test_name": "test_wsgi_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_wsgi.py",
+  "static_methods": [
+    {
+      "name": "collapse_excgroups",
+      "source_code": "def collapse_excgroups() -> typing.Generator[None, None, None]:\n    try:\n        yield\n    except BaseException as exc:\n        if has_exceptiongroups:\n            while isinstance(exc, BaseExceptionGroup) and len(exc.exceptions) == 1:\n                exc = exc.exceptions[0]  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 74
+    },
+    {
+      "name": "WSGIMiddleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "collapse_excgroups",
+      "source_code": "def collapse_excgroups() -> typing.Generator[None, None, None]:\n    try:\n        yield\n    except BaseException as exc:\n        if has_exceptiongroups:\n            while isinstance(exc, BaseExceptionGroup) and len(exc.exceptions) == 1:\n                exc = exc.exceptions[0]  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line_number": 74
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "collapse_excgroups",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 74,
+      "caller": "test_wsgi_exception",
+      "source_code": "@contextmanager\ndef collapse_excgroups() -> typing.Generator[None, None, None]:\n    try:\n        yield\n    except BaseException as exc:\n        if has_exceptiongroups:\n            while isinstance(exc, BaseExceptionGroup) and len(exc.exceptions) == 1:\n                exc = exc.exceptions[0]  # pragma: no cover\n\n        raise exc\n\n\n"
+    },
+    {
+      "function": "WSGIMiddleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_wsgi_exception",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_wsgi_exception",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "collapse_excgroups",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/_utils.py",
+      "line": 74,
+      "caller": "test_wsgi_exception",
+      "source_code": "@contextmanager\ndef collapse_excgroups() -> typing.Generator[None, None, None]:\n    try:\n        yield\n    except BaseException as exc:\n        if has_exceptiongroups:\n            while isinstance(exc, BaseExceptionGroup) and len(exc.exceptions) == 1:\n                exc = exc.exceptions[0]  # pragma: no cover\n\n        raise exc\n\n\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_wsgi_exception",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_wsgi_exception(test_client_factory: TestClientFactory) -> None:\n    # Note that we're testing the WSGI app directly here.\n    # The HTTP protocol implementations would catch this error and return 500.\n    app = WSGIMiddleware(raise_exception)\n    client = test_client_factory(app)\n    with pytest.raises(RuntimeError), collapse_excgroups():\n        client.get(\"/\")"
+}

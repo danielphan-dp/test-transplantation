@@ -1,0 +1,54 @@
+{
+  "test_name": "test_build_environ",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/middleware/test_wsgi.py",
+  "static_methods": [
+    {
+      "name": "build_environ",
+      "source_code": "def build_environ(scope: Scope, body: bytes) -> dict[str, typing.Any]:\n    \"\"\"\n    Builds a scope and request body into a WSGI environ object.\n    \"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/middleware/wsgi.py",
+      "line_number": 21
+    },
+    {
+      "name": "environ.pop",
+      "source_code": "    def pop(self, cls: type[Warning] = Warning) -> warnings.WarningMessage:\n        \"\"\"Pop the first recorded warning which is an instance of ``cls``,\n        but not an instance of a child class of any other match.\n        Raises ``AssertionError`` if there is no match.\n        \"\"\"\n        best_idx: int | None = None\n        for i, w in enumerate(self._list):\n            if w.category == cls:\n                return self._list.pop(i)  # exact match, stop looking\n            if issubclass(w.category, cls) and (\n                best_idx is None\n                or not issubclass(w.category, self._list[best_idx].category)\n            ):\n                best_idx = i\n        if best_idx is not None:\n            return self._list.pop(best_idx)\n        __tracebackhide__ = True\n        raise AssertionError(f\"{cls!r} not found in warning list\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line_number": 206
+    },
+    {
+      "name": "stream.read",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line_number": 145
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "build_environ",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/middleware/wsgi.py",
+      "line": 21,
+      "caller": "test_build_environ",
+      "source_code": "def build_environ(scope: Scope, body: bytes) -> dict[str, typing.Any]:\n    \"\"\"\n    Builds a scope and request body into a WSGI environ object.\n    \"\"\"\n\n    script_name = scope.get(\"root_path\", \"\").encode(\"utf8\").decode(\"latin1\")\n    path_info = scope[\"path\"].encode(\"utf8\").decode(\"latin1\")\n    if path_info.startswith(script_name):\n        path_info = path_info[len(script_name) :]\n\n    environ = {\n        \"REQUEST_METHOD\": scope[\"method\"],\n        \"SCRIPT_NAME\": script_name,\n        \"PATH_INFO\": path_info,\n        \"QUERY_STRING\": scope[\"query_string\"].decode(\"ascii\"),\n        \"SERVER_PROTOCOL\": f\"HTTP/{scope['http_version']}\",\n        \"wsgi.version\": (1, 0),\n        \"wsgi.url_scheme\": scope.get(\"scheme\", \"http\"),\n        \"wsgi.input\": io.BytesIO(body),\n        \"wsgi.errors\": sys.stdout,\n        \"wsgi.multithread\": True,\n        \"wsgi.multiprocess\": True,\n        \"wsgi.run_once\": False,\n    }\n\n    # Get server name and port - required in WSGI, not in ASGI\n    server = scope.get(\"server\") or (\"localhost\", 80)\n    environ[\"SERVER_NAME\"] = server[0]\n    environ[\"SERVER_PORT\"] = server[1]\n\n    # Get client IP address\n    if scope.get(\"client\"):\n        environ[\"REMOTE_ADDR\"] = scope[\"client\"][0]\n\n    # Go through headers and make them into environ entries\n    for name, value in scope.get(\"headers\", []):\n        name = name.decode(\"latin1\")\n        if name == \"content-length\":\n            corrected_name = \"CONTENT_LENGTH\"\n        elif name == \"content-type\":\n            corrected_name = \"CONTENT_TYPE\"\n        else:\n            corrected_name = f\"HTTP_{name}\".upper().replace(\"-\", \"_\")\n        # HTTPbis say only ASCII chars are allowed in headers, but we latin1 just in\n        # case\n        value = value.decode(\"latin1\")\n        if corrected_name in environ:\n            value = environ[corrected_name] + \",\" + value\n        environ[corrected_name] = value\n    return environ\n\n\n"
+    },
+    {
+      "function": "environ.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line": 206,
+      "caller": "test_build_environ",
+      "source_code": "    def pop(self, cls: type[Warning] = Warning) -> warnings.WarningMessage:\n        \"\"\"Pop the first recorded warning which is an instance of ``cls``,\n        but not an instance of a child class of any other match.\n        Raises ``AssertionError`` if there is no match.\n        \"\"\"\n        best_idx: int | None = None\n        for i, w in enumerate(self._list):\n            if w.category == cls:\n                return self._list.pop(i)  # exact match, stop looking\n            if issubclass(w.category, cls) and (\n                best_idx is None\n                or not issubclass(w.category, self._list[best_idx].category)\n            ):\n                best_idx = i\n        if best_idx is not None:\n            return self._list.pop(best_idx)\n        __tracebackhide__ = True\n        raise AssertionError(f\"{cls!r} not found in warning list\")\n\n"
+    },
+    {
+      "function": "stream.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line": 145,
+      "caller": "test_build_environ",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None\n\n        self.position += len(token.text)\n        self.next_token = None\n\n        return token\n\n"
+    }
+  ],
+  "assertions": [
+    "assert stream.read() == b'{\"example\":\"body\"}'",
+    "assert environ == {'CONTENT_LENGTH': '18', 'CONTENT_TYPE': 'application/json', 'HTTP_ACCEPT': 'application/json,text/plain', 'HTTP_HOST': 'www.example.org', 'PATH_INFO': '/', 'QUERY_STRING': 'a=123&b=456', 'REMOTE_ADDR': '134.56.78.4', 'REQUEST_METHOD': 'GET', 'SCRIPT_NAME': '/sub', 'SERVER_NAME': 'www.example.org', 'SERVER_PORT': 443, 'SERVER_PROTOCOL': 'HTTP/1.1', 'wsgi.errors': sys.stdout, 'wsgi.multiprocess': True, 'wsgi.multithread': True, 'wsgi.run_once': False, 'wsgi.url_scheme': 'https', 'wsgi.version': (1, 0)}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_build_environ() -> None:\n    scope = {\n        \"type\": \"http\",\n        \"http_version\": \"1.1\",\n        \"method\": \"GET\",\n        \"scheme\": \"https\",\n        \"path\": \"/sub/\",\n        \"root_path\": \"/sub\",\n        \"query_string\": b\"a=123&b=456\",\n        \"headers\": [\n            (b\"host\", b\"www.example.org\"),\n            (b\"content-type\", b\"application/json\"),\n            (b\"content-length\", b\"18\"),\n            (b\"accept\", b\"application/json\"),\n            (b\"accept\", b\"text/plain\"),\n        ],\n        \"client\": (\"134.56.78.4\", 1453),\n        \"server\": (\"www.example.org\", 443),\n    }\n    body = b'{\"example\":\"body\"}'\n    environ = build_environ(scope, body)\n    stream = environ.pop(\"wsgi.input\")\n    assert stream.read() == b'{\"example\":\"body\"}'\n    assert environ == {\n        \"CONTENT_LENGTH\": \"18\",\n        \"CONTENT_TYPE\": \"application/json\",\n        \"HTTP_ACCEPT\": \"application/json,text/plain\",\n        \"HTTP_HOST\": \"www.example.org\",\n        \"PATH_INFO\": \"/\",\n        \"QUERY_STRING\": \"a=123&b=456\",\n        \"REMOTE_ADDR\": \"134.56.78.4\",\n        \"REQUEST_METHOD\": \"GET\",\n        \"SCRIPT_NAME\": \"/sub\",\n        \"SERVER_NAME\": \"www.example.org\",\n        \"SERVER_PORT\": 443,\n        \"SERVER_PROTOCOL\": \"HTTP/1.1\",\n        \"wsgi.errors\": sys.stdout,\n        \"wsgi.multiprocess\": True,\n        \"wsgi.multithread\": True,\n        \"wsgi.run_once\": False,\n        \"wsgi.url_scheme\": \"https\",\n        \"wsgi.version\": (1, 0),\n    }"
+}

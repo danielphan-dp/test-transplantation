@@ -1,0 +1,90 @@
+{
+  "test_name": "test_subscribed_empty",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_adapter.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "registry.subscribed",
+      "source_code": "    def subscribed(required, provided, subscriber):\n        \"\"\"\n        Check whether the object *subscriber* is registered directly\n        with this object via a previous call to\n        ``subscribe(required, provided, subscriber)``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 909
+    },
+    {
+      "name": "registry.allSubscriptions",
+      "source_code": "    def allSubscriptions(self):\n        \"\"\"\n        Yields tuples ``(required, provided, value)`` for all the\n        subscribers that this object holds.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/adapter.py",
+      "line_number": 460
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_subscribed_empty",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subscribed_empty",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_subscribed_empty",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_subscribed_empty",
+      "source_code": ""
+    },
+    {
+      "function": "registry.subscribed",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 909,
+      "caller": "test_subscribed_empty",
+      "source_code": "    def subscribed(required, provided, subscriber):\n        \"\"\"\n        Check whether the object *subscriber* is registered directly\n        with this object via a previous call to\n        ``subscribe(required, provided, subscriber)``.\n\n        If the *subscriber*, or one equal to it, has been subscribed,\n        for the given *required* sequence and *provided* interface,\n        return that object. (This does not guarantee whether the *subscriber*\n        itself is returned, or an object equal to it.)\n\n        If it has not, return ``None``.\n\n        Unlike :meth:`subscriptions`, this method won't retrieve\n        components registered for more specific required interfaces or\n        less specific provided interfaces.\n\n        .. versionadded:: 5.3.0\n        \"\"\"\n\n"
+    },
+    {
+      "function": "registry.allSubscriptions",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/adapter.py",
+      "line": 460,
+      "caller": "test_subscribed_empty",
+      "source_code": "    def allSubscriptions(self):\n        \"\"\"\n        Yields tuples ``(required, provided, value)`` for all the\n        subscribers that this object holds.\n\n        These tuples could be passed as the arguments to the\n        :meth:`subscribe` method on another adapter registry to\n        duplicate the registrations this object holds.\n\n        .. versionadded:: 5.3.0\n        \"\"\"\n        for required, provided, _name, value in self._all_entries(\n            self._subscribers,\n        ):\n            for v in value:\n                yield (required, provided, v)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_subscribed_empty(self):\n        registry = self._makeOne()\n        self.assertIsNone(registry.subscribed([None], None, ''))\n        subscribed = list(registry.allSubscriptions())\n        self.assertEqual(subscribed, [])"
+}

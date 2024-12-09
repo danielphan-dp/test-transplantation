@@ -1,0 +1,67 @@
+{
+  "test_name": "test_symlinked_extension_sources",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+  "static_methods": [
+    {
+      "name": "self.setup_with_extension",
+      "source_code": "    def setup_with_extension(self):\n        setup_attrs = {**SETUP_ATTRS, 'ext_modules': [EXTENSION]}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line_number": 165
+    },
+    {
+      "name": "self.assert_package_data_in_manifest",
+      "source_code": "    def assert_package_data_in_manifest(self, cmd):\n        manifest = cmd.filelist.files\n        assert os.path.join('sdist_test', 'a.txt') in manifest\n        assert os.path.join('sdist_test', 'b.txt') in manifest\n        assert os.path.join('sdist_test', 'c.rst') not in manifest\n        assert os.path.join('d', 'e.dat') in manifest",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line_number": 158
+    },
+    {
+      "name": "symlink_or_skip_test",
+      "source_code": "def symlink_or_skip_test(src, dst):\n    try:\n        os.symlink(src, dst)\n    except (OSError, NotImplementedError):\n        pytest.skip(\"symlink not supported in OS\")\n        return None\n    return dst",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line_number": 123
+    },
+    {
+      "name": "symlinked.append",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 917
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.setup_with_extension",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line": 165,
+      "caller": "test_symlinked_extension_sources",
+      "source_code": "    def setup_with_extension(self):\n        setup_attrs = {**SETUP_ATTRS, 'ext_modules': [EXTENSION]}\n\n        dist = Distribution(setup_attrs)\n        dist.script_name = 'setup.py'\n        cmd = sdist(dist)\n        cmd.ensure_finalized()\n\n        with quiet():\n            cmd.run()\n\n        return cmd\n\n"
+    },
+    {
+      "function": "self.assert_package_data_in_manifest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line": 158,
+      "caller": "test_symlinked_extension_sources",
+      "source_code": "    def assert_package_data_in_manifest(self, cmd):\n        manifest = cmd.filelist.files\n        assert os.path.join('sdist_test', 'a.txt') in manifest\n        assert os.path.join('sdist_test', 'b.txt') in manifest\n        assert os.path.join('sdist_test', 'c.rst') not in manifest\n        assert os.path.join('d', 'e.dat') in manifest\n\n"
+    },
+    {
+      "function": "symlink_or_skip_test",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_sdist.py",
+      "line": 123,
+      "caller": "test_symlinked_extension_sources",
+      "source_code": "def symlink_or_skip_test(src, dst):\n    try:\n        os.symlink(src, dst)\n    except (OSError, NotImplementedError):\n        pytest.skip(\"symlink not supported in OS\")\n        return None\n    return dst\n\n\n"
+    },
+    {
+      "function": "symlinked.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 917,
+      "caller": "test_symlinked_extension_sources",
+      "source_code": "    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n"
+    }
+  ],
+  "assertions": [
+    "assert path in manifest",
+    "assert path not in manifest"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_symlinked_extension_sources(self):\n        \"\"\"\n        Similar to test_extension_sources_in_sdist but the referenced files are\n        instead symbolic links to project-local files. Referenced file paths\n        should be included. Symlink targets themselves should NOT be included.\n        \"\"\"\n        symlinked = []\n        for path in EXTENSION_SOURCES:\n            base, ext = os.path.splitext(path)\n            target = base + \"_target.\" + ext\n\n            os.rename(path, target)\n            symlink_or_skip_test(os.path.basename(target), path)\n            symlinked.append(target)\n\n        cmd = self.setup_with_extension()\n        self.assert_package_data_in_manifest(cmd)\n        manifest = cmd.filelist.files\n        for path in EXTENSION_SOURCES:\n            assert path in manifest\n        for path in symlinked:\n            assert path not in manifest"
+}

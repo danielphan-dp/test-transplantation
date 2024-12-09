@@ -1,0 +1,77 @@
+{
+  "test_name": "test_match_predicate_succeeds",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mv.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_match_predicate_succeeds",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_match_predicate_succeeds",
+      "source_code": ""
+    },
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_match_predicate_succeeds",
+      "source_code": ""
+    },
+    {
+      "function": "mv.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_match_predicate_succeeds",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_match_predicate_succeeds",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_match_predicate_succeeds(self):\n        mv = self._makeOne()\n\n        def view(context, request):\n            \"\"\" \"\"\"\n\n        view.__predicated__ = lambda *arg: True\n        mv.views = [(100, view, None)]\n        context = DummyContext()\n        request = DummyRequest()\n        result = mv.match(context, request)\n        self.assertEqual(result, view)"
+}

@@ -1,6 +1,6 @@
 {
   "test_name": "test_create_update_validate",
-  "test_file": "__internal__/_data/flask/examples/tutorial/tests/test_blog.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/tutorial/tests/test_blog.py",
   "static_methods": [
     {
       "name": "auth.login",
@@ -10,9 +10,9 @@
     },
     {
       "name": "client.post",
-      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line_number": 304
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1164
     }
   ],
   "dynamic_methods": [
@@ -25,10 +25,10 @@
     },
     {
       "function": "client.post",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line": 304,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1164,
       "caller": "test_create_update_validate",
-      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)\n\n"
     }
   ],
   "assertions": [

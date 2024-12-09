@@ -1,0 +1,64 @@
+{
+  "test_name": "test_call_request_factory_raises",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+  "static_methods": [
+    {
+      "name": "self._makeEnviron",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line_number": 24
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyStartResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exc_raised",
+      "source_code": "def exc_raised(exc, func, *arg, **kw):\n    try:\n        func(*arg, **kw)\n    except exc as e:\n        return e\n    else:\n        raise AssertionError('%s not raised' % exc)  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line_number": 1756
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeEnviron",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_view.py",
+      "line": 24,
+      "caller": "test_call_request_factory_raises",
+      "source_code": "    def _makeEnviron(self, **extras):\n        environ = {\n            'wsgi.url_scheme': 'http',\n            'wsgi.version': (1, 0),\n            'SERVER_NAME': 'localhost',\n            'SERVER_PORT': '8080',\n            'REQUEST_METHOD': 'GET',\n            'PATH_INFO': '/',\n        }\n        environ.update(extras)\n        return environ\n\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_call_request_factory_raises",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyStartResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_call_request_factory_raises",
+      "source_code": ""
+    },
+    {
+      "function": "exc_raised",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_router.py",
+      "line": 1756,
+      "caller": "test_call_request_factory_raises",
+      "source_code": "def exc_raised(exc, func, *arg, **kw):\n    try:\n        func(*arg, **kw)\n    except exc as e:\n        return e\n    else:\n        raise AssertionError('%s not raised' % exc)  # pragma: no cover\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_call_request_factory_raises(self):\n        # making sure finally doesnt barf when a request cannot be created\n        environ = self._makeEnviron()\n        router = self._makeOne()\n\n        def dummy_request_factory(environ):\n            raise NotImplementedError\n\n        router.request_factory = dummy_request_factory\n        start_response = DummyStartResponse()\n        exc_raised(NotImplementedError, router, environ, start_response)"
+}

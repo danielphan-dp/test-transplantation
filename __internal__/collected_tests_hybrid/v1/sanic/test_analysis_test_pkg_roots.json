@@ -1,0 +1,185 @@
+{
+  "test_name": "test_pkg_roots",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_editable_install.py",
+  "static_methods": [
+    {
+      "name": "jaraco.path.build",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 363
+    },
+    {
+      "name": "_find_package_roots",
+      "source_code": "def _find_package_roots(\n    packages: Iterable[str],\n    package_dir: Mapping[str, str],\n    src_root: StrPath,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line_number": 682
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_find_virtual_namespaces",
+      "source_code": "def _find_virtual_namespaces(pkg_roots: dict[str, str]) -> Iterator[str]:\n    \"\"\"By carefully designing ``package_dir``, it is possible to implement the logical\n    structure of PEP 420 in a package without the corresponding directories.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line_number": 706
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_find_namespaces",
+      "source_code": "def _find_namespaces(\n    packages: list[str], pkg_roots: dict[str, str]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line_number": 730
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "jaraco.path.build",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 363,
+      "caller": "test_pkg_roots",
+      "source_code": "    def build(self, paths, tags=None, wheel_version=None):\n        \"\"\"\n        Build a wheel from files in specified paths, and use any specified tags\n        when determining the name of the wheel.\n        \"\"\"\n        if tags is None:\n            tags = {}\n\n        libkey = list(filter(lambda o: o in paths, ('purelib', 'platlib')))[0]\n        if libkey == 'platlib':\n            is_pure = 'false'\n            default_pyver = [IMPVER]\n            default_abi = [ABI]\n            default_arch = [ARCH]\n        else:\n            is_pure = 'true'\n            default_pyver = [PYVER]\n            default_abi = ['none']\n            default_arch = ['any']\n\n        self.pyver = tags.get('pyver', default_pyver)\n        self.abi = tags.get('abi', default_abi)\n        self.arch = tags.get('arch', default_arch)\n\n        libdir = paths[libkey]\n\n        name_ver = '%s-%s' % (self.name, self.version)\n        data_dir = '%s.data' % name_ver\n        info_dir = '%s.dist-info' % name_ver\n\n        archive_paths = []\n\n        # First, stuff which is not in site-packages\n        for key in ('data', 'headers', 'scripts'):\n            if key not in paths:\n                continue\n            path = paths[key]\n            if os.path.isdir(path):\n                for root, dirs, files in os.walk(path):\n                    for fn in files:\n                        p = fsdecode(os.path.join(root, fn))\n                        rp = os.path.relpath(p, path)\n                        ap = to_posix(os.path.join(data_dir, key, rp))\n                        archive_paths.append((ap, p))\n                        if key == 'scripts' and not p.endswith('.exe'):\n                            with open(p, 'rb') as f:\n                                data = f.read()\n                            data = self.process_shebang(data)\n                            with open(p, 'wb') as f:\n                                f.write(data)\n\n        # Now, stuff which is in site-packages, other than the\n        # distinfo stuff.\n        path = libdir\n        distinfo = None\n        for root, dirs, files in os.walk(path):\n            if root == path:\n                # At the top level only, save distinfo for later\n                # and skip it for now\n                for i, dn in enumerate(dirs):\n                    dn = fsdecode(dn)\n                    if dn.endswith('.dist-info'):\n                        distinfo = os.path.join(root, dn)\n                        del dirs[i]\n                        break\n                assert distinfo, '.dist-info directory expected, not found'\n\n            for fn in files:\n                # comment out next suite to leave .pyc files in\n                if fsdecode(fn).endswith(('.pyc', '.pyo')):\n                    continue\n                p = os.path.join(root, fn)\n                rp = to_posix(os.path.relpath(p, path))\n                archive_paths.append((rp, p))\n\n        # Now distinfo. Assumed to be flat, i.e. os.listdir is enough.\n        files = os.listdir(distinfo)\n        for fn in files:\n            if fn not in ('RECORD', 'INSTALLER', 'SHARED', 'WHEEL'):\n                p = fsdecode(os.path.join(distinfo, fn))\n                ap = to_posix(os.path.join(info_dir, fn))\n                archive_paths.append((ap, p))\n\n        wheel_metadata = [\n            'Wheel-Version: %d.%d' % (wheel_version or self.wheel_version),\n            'Generator: distlib %s' % __version__,\n            'Root-Is-Purelib: %s' % is_pure,\n        ]\n        for pyver, abi, arch in self.tags:\n            wheel_metadata.append('Tag: %s-%s-%s' % (pyver, abi, arch))\n        p = os.path.join(distinfo, 'WHEEL')\n        with open(p, 'w') as f:\n            f.write('\\n'.join(wheel_metadata))\n        ap = to_posix(os.path.join(info_dir, 'WHEEL'))\n        archive_paths.append((ap, p))\n\n        # sort the entries by archive path. Not needed by any spec, but it\n        # keeps the archive listing and RECORD tidier than they would otherwise\n        # be. Use the number of path segments to keep directory entries together,\n        # and keep the dist-info stuff at the end.\n        def sorter(t):\n            ap = t[0]\n            n = ap.count('/')\n            if '.dist-info' in ap:\n                n += 10000\n            return (n, ap)\n        archive_paths = sorted(archive_paths, key=sorter)\n\n        # Now, at last, RECORD.\n        # Paths in here are archive paths - nothing else makes sense.\n        self.write_records((distinfo, info_dir), libdir, archive_paths)\n        # Now, ready to build the zip file\n        pathname = os.path.join(self.dirname, self.filename)\n        self.build_zip(pathname, archive_paths)\n        return pathname\n\n"
+    },
+    {
+      "function": "_find_package_roots",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line": 682,
+      "caller": "test_pkg_roots",
+      "source_code": "def _find_package_roots(\n    packages: Iterable[str],\n    package_dir: Mapping[str, str],\n    src_root: StrPath,\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "_find_virtual_namespaces",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line": 706,
+      "caller": "test_pkg_roots",
+      "source_code": "def _find_virtual_namespaces(pkg_roots: dict[str, str]) -> Iterator[str]:\n    \"\"\"By carefully designing ``package_dir``, it is possible to implement the logical\n    structure of PEP 420 in a package without the corresponding directories.\n\n    Moreover a parent package can be purposefully/accidentally skipped in the discovery\n    phase (e.g. ``find_packages(include=[\"mypkg.*\"])``, when ``mypkg.foo`` is included\n    by ``mypkg`` itself is not).\n    We consider this case to also be a virtual namespace (ignoring the original\n    directory) to emulate a non-editable installation.\n\n    This function will try to find these kinds of namespaces.\n    \"\"\"\n    for pkg in pkg_roots:\n        if \".\" not in pkg:\n            continue\n        parts = pkg.split(\".\")\n        for i in range(len(parts) - 1, 0, -1):\n            partial_name = \".\".join(parts[:i])\n            path = Path(find_package_path(partial_name, pkg_roots, \"\"))\n            if not path.exists() or partial_name not in pkg_roots:\n                # partial_name not in pkg_roots ==> purposefully/accidentally skipped\n                yield partial_name\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_pkg_roots",
+      "source_code": ""
+    },
+    {
+      "function": "_find_namespaces",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/command/editable_wheel.py",
+      "line": 730,
+      "caller": "test_pkg_roots",
+      "source_code": "def _find_namespaces(\n    packages: list[str], pkg_roots: dict[str, str]\n"
+    }
+  ],
+  "assertions": [
+    "assert roots == {'a': str(tmp_path / 'a'), 'a.b.c': str(tmp_path / 'other'), 'a.b.c.x.y.z': str(tmp_path / 'another'), 'd': str(tmp_path / 'd'), 'f': str(tmp_path / 'f'), 'm.n.o.p.q': str(tmp_path / 'yet_another')}",
+    "assert ns == {'f', 'f.g'}",
+    "assert ns == {'a.b', 'a.b.c.x', 'a.b.c.x.y', 'm', 'm.n', 'm.n.o', 'm.n.o.p'}"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_pkg_roots(tmp_path):\n    \"\"\"This test focus in getting a particular implementation detail right.\n    If at some point in time the implementation is changed for something different,\n    this test can be modified or even excluded.\n    \"\"\"\n    files = {\n        \"a\": {\"b\": {\"__init__.py\": \"ab = 1\"}, \"__init__.py\": \"a = 1\"},\n        \"d\": {\"__init__.py\": \"d = 1\", \"e\": {\"__init__.py\": \"de = 1\"}},\n        \"f\": {\"g\": {\"h\": {\"__init__.py\": \"fgh = 1\"}}},\n        \"other\": {\"__init__.py\": \"abc = 1\"},\n        \"another\": {\"__init__.py\": \"abcxyz = 1\"},\n        \"yet_another\": {\"__init__.py\": \"mnopq = 1\"},\n    }\n    jaraco.path.build(files, prefix=tmp_path)\n    package_dir = {\n        \"a.b.c\": \"other\",\n        \"a.b.c.x.y.z\": \"another\",\n        \"m.n.o.p.q\": \"yet_another\",\n    }\n    packages = [\n        \"a\",\n        \"a.b\",\n        \"a.b.c\",\n        \"a.b.c.x.y\",\n        \"a.b.c.x.y.z\",\n        \"d\",\n        \"d.e\",\n        \"f\",\n        \"f.g\",\n        \"f.g.h\",\n        \"m.n.o.p.q\",\n    ]\n    roots = _find_package_roots(packages, package_dir, tmp_path)\n    assert roots == {\n        \"a\": str(tmp_path / \"a\"),\n        \"a.b.c\": str(tmp_path / \"other\"),\n        \"a.b.c.x.y.z\": str(tmp_path / \"another\"),\n        \"d\": str(tmp_path / \"d\"),\n        \"f\": str(tmp_path / \"f\"),\n        \"m.n.o.p.q\": str(tmp_path / \"yet_another\"),\n    }\n\n    ns = set(dict(_find_namespaces(packages, roots)))\n    assert ns == {\"f\", \"f.g\"}\n\n    ns = set(_find_virtual_namespaces(roots))\n    assert ns == {\"a.b\", \"a.b.c.x\", \"a.b.c.x.y\", \"m\", \"m.n\", \"m.n.o\", \"m.n.o.p\"}"
+}

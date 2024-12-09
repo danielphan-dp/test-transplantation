@@ -1,0 +1,103 @@
+{
+  "test_name": "test_error_handler_noisy_log",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_exceptions_handler.py",
+  "static_methods": [
+    {
+      "name": "Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "exception_handler_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "err_logger.exception.assert_not_called",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exception_handler_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "err_logger.exception.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_error_handler_noisy_log",
+      "source_code": ""
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_error_handler_noisy_log",
+      "source_code": ""
+    },
+    {
+      "function": "exception_handler_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_error_handler_noisy_log",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "err_logger.exception.assert_not_called",
+      "filename": "",
+      "line": 0,
+      "caller": "test_error_handler_noisy_log",
+      "source_code": ""
+    },
+    {
+      "function": "exception_handler_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_error_handler_noisy_log",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "err_logger.exception.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_error_handler_noisy_log",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_error_handler_noisy_log",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_error_handler_noisy_log(\n    exception_handler_app: Sanic, monkeypatch: MonkeyPatch\n):\n    err_logger = Mock()\n    monkeypatch.setattr(handlers.error, \"error_logger\", err_logger)\n\n    exception_handler_app.config[\"NOISY_EXCEPTIONS\"] = False\n    exception_handler_app.test_client.get(\"/1\")\n    err_logger.exception.assert_not_called()\n\n    exception_handler_app.config[\"NOISY_EXCEPTIONS\"] = True\n    request, _ = exception_handler_app.test_client.get(\"/1\")\n    err_logger.exception.assert_called_with(\n        \"Exception occurred while handling uri: %s\", repr(request.url)\n    )"
+}

@@ -1,0 +1,64 @@
+{
+  "test_name": "test_action_branching_nonautocommit_without_config_info",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_actions.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "DummyActionState",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "config.action",
+      "source_code": "    def action(\n        self,\n        discriminator,\n        callable=None,\n        args=(),\n        kw=None,\n        order=0,\n        introspectables=(),\n        **extra,\n    ):\n        \"\"\"Register an action which will be executed when\n        :meth:`pyramid.config.Configurator.commit` is called (or executed\n        immediately if ``autocommit`` is ``True``).",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/actions.py",
+      "line_number": 30
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_action_branching_nonautocommit_without_config_info",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "DummyActionState",
+      "filename": "",
+      "line": 0,
+      "caller": "test_action_branching_nonautocommit_without_config_info",
+      "source_code": ""
+    },
+    {
+      "function": "config.action",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/actions.py",
+      "line": 30,
+      "caller": "test_action_branching_nonautocommit_without_config_info",
+      "source_code": "    def action(\n        self,\n        discriminator,\n        callable=None,\n        args=(),\n        kw=None,\n        order=0,\n        introspectables=(),\n        **extra,\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_action_branching_nonautocommit_without_config_info",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_action_branching_nonautocommit_without_config_info(self):\n        config = self._makeOne(autocommit=False)\n        config.info = ''\n        config._ainfo = ['z']\n        state = DummyActionState()\n        config.action_state = state\n        state.autocommit = False\n        config.action('discrim', kw={'a': 1})\n        self.assertEqual(\n            state.actions,\n            [\n                (\n                    (),\n                    {\n                        'args': (),\n                        'callable': None,\n                        'discriminator': 'discrim',\n                        'includepath': (),\n                        'info': 'z',\n                        'introspectables': (),\n                        'kw': {'a': 1},\n                        'order': 0,\n                    },\n                )\n            ],\n        )"
+}

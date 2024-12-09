@@ -1,0 +1,103 @@
+{
+  "test_name": "test_http_invalid_response_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_http.py",
+  "static_methods": [
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Response",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response.start_response",
+      "source_code": "    def start_response(self, status, headers, exc_info=None):\n        if exc_info:\n            try:\n                if self.status and self.headers_sent:\n                    util.reraise(exc_info[0], exc_info[1], exc_info[2])\n            finally:\n                exc_info = None\n        elif self.status is not None:\n            raise AssertionError(\"Response headers already set!\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/http/wsgi.py",
+      "line_number": 230
+    },
+    {
+      "name": "response.start_response",
+      "source_code": "    def start_response(self, status, headers, exc_info=None):\n        if exc_info:\n            try:\n                if self.status and self.headers_sent:\n                    util.reraise(exc_info[0], exc_info[1], exc_info[2])\n            finally:\n                exc_info = None\n        elif self.status is not None:\n            raise AssertionError(\"Response headers already set!\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/http/wsgi.py",
+      "line_number": 230
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_invalid_response_header",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_invalid_response_header",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_invalid_response_header",
+      "source_code": ""
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_invalid_response_header",
+      "source_code": ""
+    },
+    {
+      "function": "Response",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_invalid_response_header",
+      "source_code": ""
+    },
+    {
+      "function": "response.start_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/http/wsgi.py",
+      "line": 230,
+      "caller": "test_http_invalid_response_header",
+      "source_code": "    def start_response(self, status, headers, exc_info=None):\n        if exc_info:\n            try:\n                if self.status and self.headers_sent:\n                    util.reraise(exc_info[0], exc_info[1], exc_info[2])\n            finally:\n                exc_info = None\n        elif self.status is not None:\n            raise AssertionError(\"Response headers already set!\")\n\n        self.status = status\n\n        # get the status code from the response here so we can use it to check\n        # the need for the connection header later without parsing the string\n        # each time.\n        try:\n            self.status_code = int(self.status.split()[0])\n        except ValueError:\n            self.status_code = None\n\n        self.process_headers(headers)\n        self.chunked = self.is_chunked()\n        return self.write\n\n"
+    },
+    {
+      "function": "response.start_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/http/wsgi.py",
+      "line": 230,
+      "caller": "test_http_invalid_response_header",
+      "source_code": "    def start_response(self, status, headers, exc_info=None):\n        if exc_info:\n            try:\n                if self.status and self.headers_sent:\n                    util.reraise(exc_info[0], exc_info[1], exc_info[2])\n            finally:\n                exc_info = None\n        elif self.status is not None:\n            raise AssertionError(\"Response headers already set!\")\n\n        self.status = status\n\n        # get the status code from the response here so we can use it to check\n        # the need for the connection header later without parsing the string\n        # each time.\n        try:\n            self.status_code = int(self.status.split()[0])\n        except ValueError:\n            self.status_code = None\n\n        self.process_headers(headers)\n        self.chunked = self.is_chunked()\n        return self.write\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_http_invalid_response_header():\n    \"\"\" tests whether http response headers are contains control chars \"\"\"\n\n    mocked_socket = mock.MagicMock()\n    mocked_socket.sendall = mock.MagicMock()\n\n    mocked_request = mock.MagicMock()\n    response = Response(mocked_request, mocked_socket, None)\n\n    with pytest.raises(InvalidHeader):\n        response.start_response(\"200 OK\", [('foo', 'essai\\r\\n')])\n\n    response = Response(mocked_request, mocked_socket, None)\n    with pytest.raises(InvalidHeaderName):\n        response.start_response(\"200 OK\", [('foo\\r\\n', 'essai')])"
+}

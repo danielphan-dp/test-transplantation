@@ -1,6 +1,6 @@
 {
   "test_name": "test_environ_for_valid_idna_completes",
-  "test_file": "__internal__/_data/flask/tests/test_reqctx.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_reqctx.py",
   "static_methods": [
     {
       "name": "app.request_context",
@@ -22,9 +22,9 @@
     },
     {
       "name": "builder.get_environ",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get_environ(self) -> WSGIEnvironment:\n        \"\"\"Return the built environ.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 667
     },
     {
       "name": "app.request_context",
@@ -63,10 +63,10 @@
     },
     {
       "function": "builder.get_environ",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 667,
       "caller": "test_environ_for_valid_idna_completes",
-      "source_code": ""
+      "source_code": "    def get_environ(self) -> WSGIEnvironment:\n        \"\"\"Return the built environ.\n\n        .. versionchanged:: 0.15\n            The content type and length headers are set based on\n            input stream detection. Previously this only set the WSGI\n            keys.\n        \"\"\"\n        input_stream = self.input_stream\n        content_length = self.content_length\n\n        mimetype = self.mimetype\n        content_type = self.content_type\n\n        if input_stream is not None:\n            start_pos = input_stream.tell()\n            input_stream.seek(0, 2)\n            end_pos = input_stream.tell()\n            input_stream.seek(start_pos)\n            content_length = end_pos - start_pos\n        elif mimetype == \"multipart/form-data\":\n            input_stream, content_length, boundary = stream_encode_multipart(\n                CombinedMultiDict([self.form, self.files])\n            )\n            content_type = f'{mimetype}; boundary=\"{boundary}\"'\n        elif mimetype == \"application/x-www-form-urlencoded\":\n            form_encoded = _urlencode(self.form).encode(\"ascii\")\n            content_length = len(form_encoded)\n            input_stream = BytesIO(form_encoded)\n        else:\n            input_stream = BytesIO()\n\n        result: WSGIEnvironment = {}\n        if self.environ_base:\n            result.update(self.environ_base)\n\n        def _path_encode(x: str) -> str:\n            return _wsgi_encoding_dance(unquote(x))\n\n        raw_uri = _wsgi_encoding_dance(self.request_uri)\n        result.update(\n            {\n                \"REQUEST_METHOD\": self.method,\n                \"SCRIPT_NAME\": _path_encode(self.script_root),\n                \"PATH_INFO\": _path_encode(self.path),\n                \"QUERY_STRING\": _wsgi_encoding_dance(self.query_string),\n                # Non-standard, added by mod_wsgi, uWSGI\n                \"REQUEST_URI\": raw_uri,\n                # Non-standard, added by gunicorn\n                \"RAW_URI\": raw_uri,\n                \"SERVER_NAME\": self.server_name,\n                \"SERVER_PORT\": str(self.server_port),\n                \"HTTP_HOST\": self.host,\n                \"SERVER_PROTOCOL\": self.server_protocol,\n                \"wsgi.version\": self.wsgi_version,\n                \"wsgi.url_scheme\": self.url_scheme,\n                \"wsgi.input\": input_stream,\n                \"wsgi.errors\": self.errors_stream,\n                \"wsgi.multithread\": self.multithread,\n                \"wsgi.multiprocess\": self.multiprocess,\n                \"wsgi.run_once\": self.run_once,\n            }\n        )\n\n        headers = self.headers.copy()\n        # Don't send these as headers, they're part of the environ.\n        headers.remove(\"Content-Type\")\n        headers.remove(\"Content-Length\")\n\n        if content_type is not None:\n            result[\"CONTENT_TYPE\"] = content_type\n\n        if content_length is not None:\n            result[\"CONTENT_LENGTH\"] = str(content_length)\n\n        combined_headers = defaultdict(list)\n\n        for key, value in headers.to_wsgi_list():\n            combined_headers[f\"HTTP_{key.upper().replace('-', '_')}\"].append(value)\n\n        for key, values in combined_headers.items():\n            result[key] = \", \".join(values)\n\n        if self.environ_overrides:\n            result.update(self.environ_overrides)\n\n        return result\n\n"
     },
     {
       "function": "app.request_context",

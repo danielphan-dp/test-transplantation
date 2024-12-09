@@ -1,0 +1,51 @@
+{
+  "test_name": "test_unrelate",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_registry.py",
+  "static_methods": [
+    {
+      "name": "self._makeOnePopulated",
+      "source_code": "    def _makeOnePopulated(self):\n        return self._makeOne('category', 'discrim', 'title', 'type')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_registry.py",
+      "line_number": 345
+    },
+    {
+      "name": "inst.unrelate",
+      "source_code": "    def unrelate(*pairs):\n        \"\"\"Given any number of ``(category_name, discriminator)`` pairs\n        passed as positional arguments, unrelate the associated introspectables\n        from each other. The introspectable related to each pair must have\n        already been added via ``.add`` or ``.add_intr``; a :exc:`KeyError`\n        will result if this is not true.  An error will not be raised if any\n        pair is not already related to another.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 1315
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOnePopulated",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_registry.py",
+      "line": 345,
+      "caller": "test_unrelate",
+      "source_code": "    def _makeOnePopulated(self):\n        return self._makeOne('category', 'discrim', 'title', 'type')\n\n"
+    },
+    {
+      "function": "inst.unrelate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 1315,
+      "caller": "test_unrelate",
+      "source_code": "    def unrelate(*pairs):\n        \"\"\"Given any number of ``(category_name, discriminator)`` pairs\n        passed as positional arguments, unrelate the associated introspectables\n        from each other. The introspectable related to each pair must have\n        already been added via ``.add`` or ``.add_intr``; a :exc:`KeyError`\n        will result if this is not true.  An error will not be raised if any\n        pair is not already related to another.\n\n        This method is not typically called directly, instead it's called\n        indirectly by :meth:`pyramid.interfaces.IIntrospector.register`\n        \"\"\"\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unrelate",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_unrelate(self):\n        inst = self._makeOnePopulated()\n        inst.unrelate('a', 'b')\n        self.assertEqual(inst._relations, [(False, 'a', 'b')])"
+}

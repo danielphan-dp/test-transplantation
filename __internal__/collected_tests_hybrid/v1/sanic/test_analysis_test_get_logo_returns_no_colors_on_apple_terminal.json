@@ -1,0 +1,55 @@
+{
+  "test_name": "test_get_logo_returns_no_colors_on_apple_terminal",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_logo.py",
+  "static_methods": [
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "get_logo",
+      "source_code": "def get_logo(full: bool = False, coffee: bool = False) -> str:\n    \"\"\"Get the Sanic logo.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/application/logo.py",
+      "line_number": 48
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_get_logo_returns_no_colors_on_apple_terminal",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_get_logo_returns_no_colors_on_apple_terminal",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "get_logo",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/application/logo.py",
+      "line": 48,
+      "caller": "test_get_logo_returns_no_colors_on_apple_terminal",
+      "source_code": "def get_logo(full: bool = False, coffee: bool = False) -> str:\n    \"\"\"Get the Sanic logo.\n\n    Will return the full color logo if the terminal supports it.\n\n    Args:\n        full (bool, optional): Use the full color logo. Defaults to `False`.\n        coffee (bool, optional): Use the coffee logo. Defaults to `False`.\n\n    Returns:\n        str: Sanic logo.\n    \"\"\"\n    logo = (\n        (FULL_COLOR_LOGO if full else (COFFEE_LOGO if coffee else COLOR_LOGO))\n        if is_atty()\n        else BASE_LOGO\n    )\n\n    if (\n        sys.platform == \"darwin\"\n        and environ.get(\"TERM_PROGRAM\") == \"Apple_Terminal\"\n    ):\n        logo = ansi_pattern.sub(\"\", logo)\n\n    return logo\n"
+    }
+  ],
+  "assertions": [
+    "assert '\\x1b' not in logo"
+  ],
+  "mocks": [
+    "patch('sys.stdout.isatty')"
+  ],
+  "success": true,
+  "test_source_code": "def test_get_logo_returns_no_colors_on_apple_terminal():\n    platform = sys.platform\n    sys.platform = \"darwin\"\n    os.environ[\"TERM_PROGRAM\"] = \"Apple_Terminal\"\n    with patch(\"sys.stdout.isatty\") as isatty:\n        isatty.return_value = False\n        logo = get_logo()\n    assert \"\\033\" not in logo\n    sys.platform = platform\n    del os.environ[\"TERM_PROGRAM\"]"
+}

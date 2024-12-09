@@ -1,0 +1,51 @@
+{
+  "test_name": "test_system_task_crash",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_run.py",
+  "static_methods": [
+    {
+      "name": "_core.spawn_system_task",
+      "source_code": "    def spawn_system_task(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n        context: contextvars.Context | None = None,\n    ) -> Task:\n        \"\"\"Spawn a \"system\" task.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1855
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "sleep_forever",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_core.spawn_system_task",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1855,
+      "caller": "test_system_task_crash",
+      "source_code": "    @_public\n    def spawn_system_task(\n        self,\n        async_fn: Callable[[Unpack[PosArgT]], Awaitable[object]],\n        *args: Unpack[PosArgT],\n        name: object = None,\n        context: contextvars.Context | None = None,\n"
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_system_task_crash",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "sleep_forever",
+      "filename": "",
+      "line": 0,
+      "caller": "test_system_task_crash",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_system_task_crash() -> None:\n    async def crasher() -> NoReturn:\n        raise KeyError\n\n    async def main() -> None:\n        _core.spawn_system_task(crasher)\n        await sleep_forever()\n\n    with pytest.raises(_core.TrioInternalError):\n        _core.run(main)"
+}

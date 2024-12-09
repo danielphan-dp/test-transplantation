@@ -1,0 +1,106 @@
+{
+  "test_name": "test_signal_server_lifecycle_exception",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signal_handlers.py",
+  "static_methods": [
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "app.signal",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n    ) -> Callable[[SignalHandler], SignalHandler]:\n        \"\"\"\n        For creating a signal handler, used similar to a route handler:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line_number": 20
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "HTTPResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ServerError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.run",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line_number": 28
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_signal_server_lifecycle_exception",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "app.signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line": 20,
+      "caller": "test_signal_server_lifecycle_exception",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_signal_server_lifecycle_exception",
+      "source_code": ""
+    },
+    {
+      "function": "HTTPResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_signal_server_lifecycle_exception",
+      "source_code": ""
+    },
+    {
+      "function": "ServerError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_signal_server_lifecycle_exception",
+      "source_code": ""
+    },
+    {
+      "function": "app.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/live.py",
+      "line": 28,
+      "caller": "test_signal_server_lifecycle_exception",
+      "source_code": "    def run(self) -> None:\n        while not self.done.wait(1 / self.refresh_per_second):\n            with self.live._lock:\n                if not self.done.is_set():\n                    self.live.refresh()\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_signal_server_lifecycle_exception",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(trigger, ServerError)",
+    "assert str(trigger) == 'test_before_server_start'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_signal_server_lifecycle_exception(app: Sanic):\n    trigger: Optional[Exception] = None\n\n    @app.route(\"/hello\")\n    async def hello_route(request):\n        return HTTPResponse()\n\n    @app.signal(Event.SERVER_EXCEPTION_REPORT)\n    async def test_signal(exception: Exception):\n        nonlocal trigger\n        trigger = exception\n\n    @app.before_server_start\n    async def test_before_server_start(app):\n        raise ServerError(\"test_before_server_start\")\n\n    with pytest.raises(ServerError, match=\"test_before_server_start\"):\n        app.run(single_process=True)\n\n    assert isinstance(trigger, ServerError)\n    assert str(trigger) == \"test_before_server_start\""
+}

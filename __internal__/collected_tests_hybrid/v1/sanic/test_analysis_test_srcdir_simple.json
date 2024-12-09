@@ -1,0 +1,55 @@
+{
+  "test_name": "test_srcdir_simple",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+  "static_methods": [
+    {
+      "name": "srcdir.absolute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "srcdir.is_dir",
+      "source_code": "    def is_dir(self):\n        return not self.at or self.at.endswith(\"/\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line_number": 440
+    },
+    {
+      "name": "makefile.parent.samefile",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "srcdir.absolute",
+      "filename": "",
+      "line": 0,
+      "caller": "test_srcdir_simple",
+      "source_code": ""
+    },
+    {
+      "function": "srcdir.is_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/zipp/__init__.py",
+      "line": 440,
+      "caller": "test_srcdir_simple",
+      "source_code": "    def is_dir(self):\n        return not self.at or self.at.endswith(\"/\")\n\n"
+    },
+    {
+      "function": "makefile.parent.samefile",
+      "filename": "",
+      "line": 0,
+      "caller": "test_srcdir_simple",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert srcdir.absolute()",
+    "assert srcdir.is_dir()",
+    "assert makefile.parent.samefile(srcdir)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_srcdir_simple(self):\n        # See #15364.\n        srcdir = pathlib.Path(sysconfig.get_config_var('srcdir'))\n\n        assert srcdir.absolute()\n        assert srcdir.is_dir()\n\n        makefile = pathlib.Path(sysconfig.get_makefile_filename())\n        assert makefile.parent.samefile(srcdir)"
+}

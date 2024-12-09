@@ -1,0 +1,27 @@
+{
+  "test_name": "test_raw_body_can_be_retrieved",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response_json.py",
+  "static_methods": [
+    {
+      "name": "json_app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "json_app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_raw_body_can_be_retrieved",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.raw_body == JSON_BODY"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_raw_body_can_be_retrieved(json_app: Sanic):\n    @json_app.on_response\n    def check_body(request: Request, response: JSONResponse):\n        assert response.raw_body == JSON_BODY\n\n    json_app.test_client.get(\"/json\")"
+}

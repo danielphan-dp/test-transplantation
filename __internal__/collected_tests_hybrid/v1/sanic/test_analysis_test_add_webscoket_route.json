@@ -1,0 +1,68 @@
+{
+  "test_name": "test_add_webscoket_route",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_routes.py",
+  "static_methods": [
+    {
+      "name": "app.add_websocket_route",
+      "source_code": "    def add_websocket_route(\n        self,\n        handler,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols=None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ):\n        \"\"\"A helper method to register a function as a websocket route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 728
+    },
+    {
+      "name": "app.test_client.websocket",
+      "source_code": "    def websocket(\n        self,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols: Optional[List[str]] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        apply: bool = True,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ):\n        \"\"\"Decorate a function to be registered as a websocket route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 675
+    },
+    {
+      "name": "ev.is_set",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "ev.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.add_websocket_route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 728,
+      "caller": "test_add_webscoket_route",
+      "source_code": "    def add_websocket_route(\n        self,\n        handler,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols=None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "app.test_client.websocket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 675,
+      "caller": "test_add_webscoket_route",
+      "source_code": "    def websocket(\n        self,\n        uri: str,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        subprotocols: Optional[List[str]] = None,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        apply: bool = True,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "ev.is_set",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_webscoket_route",
+      "source_code": ""
+    },
+    {
+      "function": "ev.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_webscoket_route",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.opened is True",
+    "assert ev.is_set()",
+    "assert ws.subprotocol is None"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_webscoket_route(app, strict_slashes):\n    ev = asyncio.Event()\n\n    async def handler(request, ws):\n        assert ws.subprotocol is None\n        ev.set()\n\n    app.add_websocket_route(handler, \"/ws\", strict_slashes=strict_slashes)\n    request, response = app.test_client.websocket(\"/ws\")\n    assert response.opened is True\n    assert ev.is_set()"
+}

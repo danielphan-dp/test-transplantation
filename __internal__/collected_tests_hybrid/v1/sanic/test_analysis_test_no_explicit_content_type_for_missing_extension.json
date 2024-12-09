@@ -1,0 +1,53 @@
+{
+  "test_name": "test_no_explicit_content_type_for_missing_extension",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "_pep621_example_project",
+      "source_code": "def _pep621_example_project(\n    tmp_path,\n    readme=\"README.rst\",\n    pyproject_text=PEP621_EXAMPLE,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line_number": 159
+    },
+    {
+      "name": "pyprojecttoml.apply_configuration",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line_number": 64
+    },
+    {
+      "name": "makedist",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line_number": 33
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "_pep621_example_project",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line": 159,
+      "caller": "test_no_explicit_content_type_for_missing_extension",
+      "source_code": "def _pep621_example_project(\n    tmp_path,\n    readme=\"README.rst\",\n    pyproject_text=PEP621_EXAMPLE,\n"
+    },
+    {
+      "function": "pyprojecttoml.apply_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/config/pyprojecttoml.py",
+      "line": 64,
+      "caller": "test_no_explicit_content_type_for_missing_extension",
+      "source_code": "def apply_configuration(\n    dist: Distribution,\n    filepath: StrPath,\n    ignore_option_errors: bool = False,\n"
+    },
+    {
+      "function": "makedist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_apply_pyprojecttoml.py",
+      "line": 33,
+      "caller": "test_no_explicit_content_type_for_missing_extension",
+      "source_code": "def makedist(path, **attrs):\n    return Distribution({\"src_root\": path, **attrs})\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert dist.metadata.long_description_content_type is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_explicit_content_type_for_missing_extension(tmp_path):\n    pyproject = _pep621_example_project(tmp_path, \"README\")\n    dist = pyprojecttoml.apply_configuration(makedist(tmp_path), pyproject)\n    assert dist.metadata.long_description_content_type is None"
+}

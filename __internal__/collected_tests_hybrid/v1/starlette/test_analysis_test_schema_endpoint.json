@@ -1,0 +1,67 @@
+{
+  "test_name": "test_schema_endpoint",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_schemas.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "response.text.strip",
+      "source_code": "    def strip(self) -> Source:\n        \"\"\"Return new Source object with trailing and leading blank lines removed.\"\"\"\n        start, end = 0, len(self)\n        while start < end and not self.lines[start].strip():\n            start += 1\n        while end > start and not self.lines[end - 1].strip():\n            end -= 1\n        source = Source()\n        source.lines[:] = self.lines[start:end]\n        return source",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_code/source.py",
+      "line_number": 69
+    },
+    {
+      "name": "EXPECTED_SCHEMA.strip",
+      "source_code": "    def strip(self) -> Source:\n        \"\"\"Return new Source object with trailing and leading blank lines removed.\"\"\"\n        start, end = 0, len(self)\n        while start < end and not self.lines[start].strip():\n            start += 1\n        while end > start and not self.lines[end - 1].strip():\n            end -= 1\n        source = Source()\n        source.lines[:] = self.lines[start:end]\n        return source",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_code/source.py",
+      "line_number": 69
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_schema_endpoint",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_schema_endpoint",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "response.text.strip",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_code/source.py",
+      "line": 69,
+      "caller": "test_schema_endpoint",
+      "source_code": "    def strip(self) -> Source:\n        \"\"\"Return new Source object with trailing and leading blank lines removed.\"\"\"\n        start, end = 0, len(self)\n        while start < end and not self.lines[start].strip():\n            start += 1\n        while end > start and not self.lines[end - 1].strip():\n            end -= 1\n        source = Source()\n        source.lines[:] = self.lines[start:end]\n        return source\n\n"
+    },
+    {
+      "function": "EXPECTED_SCHEMA.strip",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_code/source.py",
+      "line": 69,
+      "caller": "test_schema_endpoint",
+      "source_code": "    def strip(self) -> Source:\n        \"\"\"Return new Source object with trailing and leading blank lines removed.\"\"\"\n        start, end = 0, len(self)\n        while start < end and not self.lines[start].strip():\n            start += 1\n        while end > start and not self.lines[end - 1].strip():\n            end -= 1\n        source = Source()\n        source.lines[:] = self.lines[start:end]\n        return source\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.headers['Content-Type'] == 'application/vnd.oai.openapi'",
+    "assert response.text.strip() == EXPECTED_SCHEMA.strip()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_schema_endpoint(test_client_factory: TestClientFactory) -> None:\n    client = test_client_factory(app)\n    response = client.get(\"/schema\")\n    assert response.headers[\"Content-Type\"] == \"application/vnd.oai.openapi\"\n    assert response.text.strip() == EXPECTED_SCHEMA.strip()"
+}

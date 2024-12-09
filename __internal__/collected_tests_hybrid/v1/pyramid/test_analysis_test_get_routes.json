@@ -1,0 +1,116 @@
+{
+  "test_name": "test_get_routes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mapper.connect",
+      "source_code": "    def connect(self, f, t):\n        \"\"\"Connect two existing vertices.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 50
+    },
+    {
+      "name": "mapper.get_routes",
+      "source_code": "    def get_routes():\n        \"\"\"Return a sequence of Route objects registered in the mapper.\n        Static routes will not be returned in this sequence.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 990
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mapper.get_routes",
+      "source_code": "    def get_routes():\n        \"\"\"Return a sequence of Route objects registered in the mapper.\n        Static routes will not be returned in this sequence.\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line_number": 990
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_get_routes",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_routes",
+      "source_code": ""
+    },
+    {
+      "function": "mapper.connect",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 50,
+      "caller": "test_get_routes",
+      "source_code": "    def connect(self, f, t):\n        \"\"\"Connect two existing vertices.\n\n        Nothing happens if the vertices are already connected.\n        \"\"\"\n        if t not in self._vertices:\n            raise KeyError(t)\n        self._forwards[f].add(t)\n        self._backwards[t].add(f)\n\n"
+    },
+    {
+      "function": "mapper.get_routes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 990,
+      "caller": "test_get_routes",
+      "source_code": "    def get_routes():\n        \"\"\"Return a sequence of Route objects registered in the mapper.\n        Static routes will not be returned in this sequence.\"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_routes",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_routes",
+      "source_code": ""
+    },
+    {
+      "function": "mapper.get_routes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/interfaces.py",
+      "line": 990,
+      "caller": "test_get_routes",
+      "source_code": "    def get_routes():\n        \"\"\"Return a sequence of Route objects registered in the mapper.\n        Static routes will not be returned in this sequence.\"\"\"\n\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_routes",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_routes(self):\n        from pyramid.urldispatch import Route\n\n        mapper = self._makeOne()\n        self.assertEqual(mapper.get_routes(), [])\n        mapper.connect('whatever', 'archives/:action/:article')\n        routes = mapper.get_routes()\n        self.assertEqual(len(routes), 1)\n        self.assertEqual(routes[0].__class__, Route)"
+}

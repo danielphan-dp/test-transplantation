@@ -1,0 +1,55 @@
+{
+  "test_name": "test_should_return_html_valid_setting",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_errorpages.py",
+  "static_methods": [
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "exception",
+      "source_code": "    def exception(self) -> Exception | None:  # pragma: no cover\n        warnings.warn(  # deprecated in 10.3 - 2022-04-17\n            \"Request.exception is deprecated; \"\n            \"use ServerProtocol.handshake_exc instead\",\n            DeprecationWarning,\n        )\n        return self._exception",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/http11.py",
+      "line_number": 90
+    },
+    {
+      "name": "exception_response",
+      "source_code": "def exception_response(\n    request: Request,\n    exception: Exception,\n    debug: bool,\n    fallback: str,\n    base: t.Type[BaseRenderer],\n    renderer: t.Optional[t.Type[BaseRenderer]] = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line_number": 325
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_return_html_valid_setting",
+      "source_code": ""
+    },
+    {
+      "function": "exception",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/websockets/http11.py",
+      "line": 90,
+      "caller": "test_should_return_html_valid_setting",
+      "source_code": "    @property\n    def exception(self) -> Exception | None:  # pragma: no cover\n        warnings.warn(  # deprecated in 10.3 - 2022-04-17\n            \"Request.exception is deprecated; \"\n            \"use ServerProtocol.handshake_exc instead\",\n            DeprecationWarning,\n        )\n        return self._exception\n\n"
+    },
+    {
+      "function": "exception_response",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/errorpages.py",
+      "line": 325,
+      "caller": "test_should_return_html_valid_setting",
+      "source_code": "def exception_response(\n    request: Request,\n    exception: Exception,\n    debug: bool,\n    fallback: str,\n    base: t.Type[BaseRenderer],\n    renderer: t.Optional[t.Type[BaseRenderer]] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(response, HTTPResponse)",
+    "assert response.status == status",
+    "assert response.content_type == content_type"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_should_return_html_valid_setting(\n    fake_request, fallback, content_type, exception, status\n):\n    # Note: if fallback is None or \"auto\", prior to PR #2668 base was returned\n    # and after that a text response is given because it matches */*. Changed\n    # base to TextRenderer in this test, like it is in Sanic itself, so the\n    # test passes with either version but still covers everything that it did.\n    if fallback:\n        fake_request.app.config.FALLBACK_ERROR_FORMAT = fallback\n\n    try:\n        raise exception(\"bad stuff\")\n    except Exception as e:\n        response = exception_response(\n            fake_request,\n            e,\n            True,\n            base=TextRenderer,\n            fallback=fake_request.app.config.FALLBACK_ERROR_FORMAT,\n        )\n\n    assert isinstance(response, HTTPResponse)\n    assert response.status == status\n    assert response.content_type == content_type"
+}

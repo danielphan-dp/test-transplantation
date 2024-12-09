@@ -1,0 +1,40 @@
+{
+  "test_name": "test_srcdir_independent_of_cwd",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_sysconfig.py",
+  "static_methods": [
+    {
+      "name": "path.Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "path.Path",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "path.Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_srcdir_independent_of_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "path.Path",
+      "filename": "",
+      "line": 0,
+      "caller": "test_srcdir_independent_of_cwd",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert srcdir == srcdir2"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_srcdir_independent_of_cwd(self):\n        \"\"\"\n        srcdir should be independent of the current working directory\n        \"\"\"\n        # See #15364.\n        srcdir = sysconfig.get_config_var('srcdir')\n        with path.Path('..'):\n            srcdir2 = sysconfig.get_config_var('srcdir')\n        assert srcdir == srcdir2"
+}

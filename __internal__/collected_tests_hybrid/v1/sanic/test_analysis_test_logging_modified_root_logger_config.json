@@ -1,0 +1,27 @@
+{
+  "test_name": "test_logging_modified_root_logger_config",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_logging.py",
+  "static_methods": [
+    {
+      "name": "Sanic",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Sanic",
+      "filename": "",
+      "line": 0,
+      "caller": "test_logging_modified_root_logger_config",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert logging.getLogger('sanic.root').getEffectiveLevel() == logging.DEBUG"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_logging_modified_root_logger_config():\n    # reset_logging()\n\n    modified_config = LOGGING_CONFIG_DEFAULTS\n    modified_config[\"loggers\"][\"sanic.root\"][\"level\"] = \"DEBUG\"\n\n    Sanic(\"test_logging\", log_config=modified_config)\n\n    assert logging.getLogger(\"sanic.root\").getEffectiveLevel() == logging.DEBUG"
+}

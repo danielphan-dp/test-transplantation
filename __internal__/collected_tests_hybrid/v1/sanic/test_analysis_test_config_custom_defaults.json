@@ -1,0 +1,66 @@
+{
+  "test_name": "test_config_custom_defaults",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DEFAULT_CONFIG.items",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 105
+    },
+    {
+      "name": "custom_defaults.keys",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 101
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_config_custom_defaults",
+      "source_code": ""
+    },
+    {
+      "function": "DEFAULT_CONFIG.items",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 105,
+      "caller": "test_config_custom_defaults",
+      "source_code": "    def items(self):\n        \"\"\"Return a new view of the dictionary's items *(key, value) pairs).\"\"\"\n        return _ItemsView(self._impl)\n\n"
+    },
+    {
+      "function": "custom_defaults.keys",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 101,
+      "caller": "test_config_custom_defaults",
+      "source_code": "    def keys(self):\n        \"\"\"Return a new view of the dictionary's keys.\"\"\"\n        return _KeysView(self._impl)\n\n"
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_config_custom_defaults",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert getattr(conf, key) == value"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_config_custom_defaults():\n    \"\"\"\n    we should have all the variables from defaults rewriting them with\n    custom defaults passed in\n    Config\n    \"\"\"\n    custom_defaults = {\n        \"REQUEST_MAX_SIZE\": 1,\n        \"KEEP_ALIVE\": False,\n        \"ACCESS_LOG\": False,\n    }\n    conf = Config(defaults=custom_defaults)\n    for key, value in DEFAULT_CONFIG.items():\n        if key in custom_defaults.keys():\n            value = custom_defaults[key]\n        assert getattr(conf, key) == value"
+}

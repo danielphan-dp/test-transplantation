@@ -1,0 +1,27 @@
+{
+  "test_name": "test_has_message_body",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.has_message_body",
+      "source_code": "def has_message_body(status):\n    \"\"\"\n    According to the following RFC message body and length SHOULD NOT\n    be included in responses status 1XX, 204 and 304.\n    https://tools.ietf.org/html/rfc2616#section-4.4\n    https://tools.ietf.org/html/rfc2616#section-4.3\n    \"\"\"\n    return status not in (204, 304) and not (100 <= status < 200)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/helpers.py",
+      "line_number": 117
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.has_message_body",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/helpers.py",
+      "line": 117,
+      "caller": "test_has_message_body",
+      "source_code": "def has_message_body(status):\n    \"\"\"\n    According to the following RFC message body and length SHOULD NOT\n    be included in responses status 1XX, 204 and 304.\n    https://tools.ietf.org/html/rfc2616#section-4.4\n    https://tools.ietf.org/html/rfc2616#section-4.3\n    \"\"\"\n    return status not in (204, 304) and not (100 <= status < 200)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert helpers.has_message_body(status_code) is expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_has_message_body():\n    tests = (\n        (100, False),\n        (102, False),\n        (204, False),\n        (200, True),\n        (304, False),\n        (400, True),\n    )\n    for status_code, expected in tests:\n        assert helpers.has_message_body(status_code) is expected"
+}

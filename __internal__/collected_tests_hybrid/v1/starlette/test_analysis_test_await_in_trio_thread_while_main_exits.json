@@ -1,0 +1,158 @@
+{
+  "test_name": "test_await_in_trio_thread_while_main_exits",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_threads.py",
+  "static_methods": [
+    {
+      "name": "Event",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_core.run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "thread.join",
+      "source_code": "    def join(self, *args: os.PathLike[str], abs: bool = False) -> LocalPath:\n        \"\"\"Return a new path by appending all 'args' as path\n        components.  if abs=1 is used restart from root if any\n        of the args is an absolute path.\n        \"\"\"\n        sep = self.sep\n        strargs = [os.fspath(arg) for arg in args]\n        strpath = self.strpath\n        if abs:\n            newargs: list[str] = []\n            for arg in reversed(strargs):\n                if isabs(arg):\n                    strpath = arg\n                    strargs = newargs\n                    break\n                newargs.insert(0, arg)\n        # special case for when we have e.g. strpath == \"/\"\n        actual_sep = \"\" if strpath.endswith(sep) else sep\n        for arg in strargs:\n            arg = arg.strip(sep)\n            if iswin32:\n                # allow unix style paths even on windows.\n                arg = arg.strip(\"/\")\n                arg = arg.replace(\"/\", sep)\n            strpath = strpath + actual_sep + arg\n            actual_sep = sep\n        obj = object.__new__(self.__class__)\n        obj.strpath = normpath(strpath)\n        return obj",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 719
+    },
+    {
+      "name": "record.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    },
+    {
+      "name": "ev.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_core.current_trio_token",
+      "source_code": "    def current_trio_token(self) -> TrioToken:\n        \"\"\"Retrieve the :class:`TrioToken` for the current call to\n        :func:`trio.run`.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line_number": 1964
+    },
+    {
+      "name": "thread.start",
+      "source_code": "    def start(self) -> None:\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line_number": 290
+    },
+    {
+      "name": "_core.wait_task_rescheduled",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "from_thread_run",
+      "source_code": "def from_thread_run(\n    afn: Callable[..., Awaitable[RetT]],\n    *args: object,\n    trio_token: TrioToken | None = None,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line_number": 518
+    },
+    {
+      "name": "ev.wait",
+      "source_code": "    def wait(self, timeout: float | None = None) -> None:\n        if timeout == float(\"inf\"):  # pragma: no cover\n            timeout = None\n        if not self._event.wait(timeout=timeout):\n            raise PoolTimeout()  # pragma: nocover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpcore/_synchronization.py",
+      "line_number": 287
+    },
+    {
+      "name": "record.append",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line_number": 100
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Event",
+      "filename": "",
+      "line": 0,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": ""
+    },
+    {
+      "function": "_core.run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "thread.join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 719,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "    def join(self, *args: os.PathLike[str], abs: bool = False) -> LocalPath:\n        \"\"\"Return a new path by appending all 'args' as path\n        components.  if abs=1 is used restart from root if any\n        of the args is an absolute path.\n        \"\"\"\n        sep = self.sep\n        strargs = [os.fspath(arg) for arg in args]\n        strpath = self.strpath\n        if abs:\n            newargs: list[str] = []\n            for arg in reversed(strargs):\n                if isabs(arg):\n                    strpath = arg\n                    strargs = newargs\n                    break\n                newargs.insert(0, arg)\n        # special case for when we have e.g. strpath == \"/\"\n        actual_sep = \"\" if strpath.endswith(sep) else sep\n        for arg in strargs:\n            arg = arg.strip(sep)\n            if iswin32:\n                # allow unix style paths even on windows.\n                arg = arg.strip(\"/\")\n                arg = arg.replace(\"/\", sep)\n            strpath = strpath + actual_sep + arg\n            actual_sep = sep\n        obj = object.__new__(self.__class__)\n        obj.strpath = normpath(strpath)\n        return obj\n\n"
+    },
+    {
+      "function": "record.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    },
+    {
+      "function": "ev.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": ""
+    },
+    {
+      "function": "_core.current_trio_token",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_run.py",
+      "line": 1964,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "    @_public\n    def current_trio_token(self) -> TrioToken:\n        \"\"\"Retrieve the :class:`TrioToken` for the current call to\n        :func:`trio.run`.\n\n        \"\"\"\n        if self.trio_token is None:\n            self.trio_token = TrioToken._create(self.entry_queue)\n        return self.trio_token\n\n"
+    },
+    {
+      "function": "thread.start",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/capture.py",
+      "line": 290,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "    @abc.abstractmethod\n    def start(self) -> None:\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "_core.wait_task_rescheduled",
+      "filename": "",
+      "line": 0,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": ""
+    },
+    {
+      "function": "from_thread_run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_threads.py",
+      "line": 518,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "def from_thread_run(\n    afn: Callable[..., Awaitable[RetT]],\n    *args: object,\n    trio_token: TrioToken | None = None,\n"
+    },
+    {
+      "function": "ev.wait",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/httpcore/_synchronization.py",
+      "line": 287,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "    def wait(self, timeout: float | None = None) -> None:\n        if timeout == float(\"inf\"):  # pragma: no cover\n            timeout = None\n        if not self._event.wait(timeout=timeout):\n            raise PoolTimeout()  # pragma: nocover\n\n\n"
+    },
+    {
+      "function": "record.append",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/junitxml.py",
+      "line": 100,
+      "caller": "test_await_in_trio_thread_while_main_exits",
+      "source_code": "    def append(self, node: ET.Element) -> None:\n        self.xml.add_stats(node.tag)\n        self.nodes.append(node)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert record == ['sleeping', 'cancelled']",
+    "assert record == ['sleeping']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_await_in_trio_thread_while_main_exits() -> None:\n    record = []\n    ev = Event()\n\n    async def trio_fn() -> None:\n        record.append(\"sleeping\")\n        ev.set()\n        await _core.wait_task_rescheduled(lambda _: _core.Abort.SUCCEEDED)\n\n    def thread_fn(token: _core.TrioToken) -> None:\n        try:\n            from_thread_run(trio_fn, trio_token=token)\n        except _core.Cancelled:\n            record.append(\"cancelled\")\n\n    async def main() -> threading.Thread:\n        token = _core.current_trio_token()\n        thread = threading.Thread(target=thread_fn, args=(token,))\n        thread.start()\n        await ev.wait()\n        assert record == [\"sleeping\"]\n        return thread\n\n    thread = _core.run(main)\n    thread.join()\n    assert record == [\"sleeping\", \"cancelled\"]"
+}

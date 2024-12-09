@@ -1,0 +1,40 @@
+{
+  "test_name": "test_params_are_added_before_fragment2",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_request.py",
+  "static_methods": [
+    {
+      "name": "make_request",
+      "source_code": "def make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line_number": 45
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_request",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_websocket.py",
+      "line": 45,
+      "caller": "test_params_are_added_before_fragment2",
+      "source_code": "@pytest.fixture\ndef make_request(\n    app: web.Application, protocol: web.RequestHandler[web.Request]\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_params_are_added_before_fragment2",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert str(req.url) == 'http://example.com/path?key=value&a=b'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_params_are_added_before_fragment2(make_request: _RequestMaker) -> None:\n    req = make_request(\n        \"GET\", \"http://example.com/path?key=value#fragment\", params={\"a\": \"b\"}\n    )\n    assert str(req.url) == \"http://example.com/path?key=value&a=b\""
+}

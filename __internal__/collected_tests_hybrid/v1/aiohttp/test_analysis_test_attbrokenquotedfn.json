@@ -1,0 +1,28 @@
+{
+  "test_name": "test_attbrokenquotedfn",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_multipart_helpers.py",
+  "static_methods": [
+    {
+      "name": "parse_content_disposition",
+      "source_code": "def parse_content_disposition(content_disposition: str, default_filename: str) -> str:\n    \"\"\"\n    Parse the \"filename\" value from a Content-Disposition header, and\n    return the default filename if the result is empty.\n    \"\"\"\n    m = email.message.Message()\n    m[\"content-type\"] = content_disposition\n    filename = m.get_param(\"filename\")\n    if filename:\n        # We need to sanitize the filename to prevent directory traversal\n        # in case the filename contains \"..\" path parts.\n        filename = sanitize_content_filename(str(filename))\n    return filename or default_filename",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/network/download.py",
+      "line_number": 79
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_content_disposition",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_internal/network/download.py",
+      "line": 79,
+      "caller": "test_attbrokenquotedfn",
+      "source_code": "def parse_content_disposition(content_disposition: str, default_filename: str) -> str:\n    \"\"\"\n    Parse the \"filename\" value from a Content-Disposition header, and\n    return the default filename if the result is empty.\n    \"\"\"\n    m = email.message.Message()\n    m[\"content-type\"] = content_disposition\n    filename = m.get_param(\"filename\")\n    if filename:\n        # We need to sanitize the filename to prevent directory traversal\n        # in case the filename contains \"..\" path parts.\n        filename = sanitize_content_filename(str(filename))\n    return filename or default_filename\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert disptype is None",
+    "assert {} == params"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_attbrokenquotedfn(self) -> None:\n        with pytest.warns(aiohttp.BadContentDispositionHeader):\n            disptype, params = parse_content_disposition(\n                'attachment; filename=\"foo.html\".txt'\n            )\n        assert disptype is None\n        assert {} == params"
+}

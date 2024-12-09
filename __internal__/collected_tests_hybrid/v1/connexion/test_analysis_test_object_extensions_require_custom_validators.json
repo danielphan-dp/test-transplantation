@@ -1,0 +1,116 @@
+{
+  "test_name": "test_object_extensions_require_custom_validators",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_types.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Draft202012Validator.TYPE_CHECKER.redefine",
+      "source_code": "    def redefine(self, type: str, fn) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given type redefined.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line_number": 118
+    },
+    {
+      "name": "extend",
+      "source_code": "    def extend(\n        self,\n        arg: (\n            Headers\n            | MultiDict[str, t.Any]\n            | cabc.Mapping[str, t.Any | list[t.Any] | tuple[t.Any, ...] | set[t.Any]]\n            | cabc.Iterable[tuple[str, t.Any]]\n            | None\n        ) = None,\n        /,\n        **kwargs: str,\n    ) -> None:\n        \"\"\"Extend headers in this object with items from another object\n        containing header items as well as keyword arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line_number": 225
+    },
+    {
+      "name": "CustomValidator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "namedtuple",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "validator.validate",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line_number": 84
+    },
+    {
+      "name": "Point",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": ""
+    },
+    {
+      "function": "Draft202012Validator.TYPE_CHECKER.redefine",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_types.py",
+      "line": 118,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": "    def redefine(self, type: str, fn) -> TypeChecker:\n        \"\"\"\n        Produce a new checker with the given type redefined.\n\n        Arguments:\n\n            type:\n\n                The name of the type to check.\n\n            fn (collections.abc.Callable):\n\n                A callable taking exactly two parameters - the type\n                checker calling the function and the instance to check.\n                The function should return true if instance is of this\n                type and false otherwise.\n\n        \"\"\"\n        return self.redefine_many({type: fn})\n\n"
+    },
+    {
+      "function": "extend",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/datastructures/headers.py",
+      "line": 225,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": "    def extend(\n        self,\n        arg: (\n            Headers\n            | MultiDict[str, t.Any]\n            | cabc.Mapping[str, t.Any | list[t.Any] | tuple[t.Any, ...] | set[t.Any]]\n            | cabc.Iterable[tuple[str, t.Any]]\n            | None\n        ) = None,\n        /,\n        **kwargs: str,\n"
+    },
+    {
+      "function": "CustomValidator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": ""
+    },
+    {
+      "function": "namedtuple",
+      "filename": "",
+      "line": 0,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": ""
+    },
+    {
+      "function": "validator.validate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_util.py",
+      "line": 84,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": "def validate(\n    regex: Pattern[bytes], data: bytes, msg: str = \"malformed data\", *format_args: Any\n"
+    },
+    {
+      "function": "Point",
+      "filename": "",
+      "line": 0,
+      "caller": "test_object_extensions_require_custom_validators",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_object_extensions_require_custom_validators(self):\n        schema = {\"type\": \"object\", \"required\": [\"x\"]}\n\n        type_checker = Draft202012Validator.TYPE_CHECKER.redefine(\n            \"object\", is_object_or_named_tuple,\n        )\n\n        CustomValidator = extend(\n            Draft202012Validator,\n            type_checker=type_checker,\n        )\n        validator = CustomValidator(schema)\n\n        Point = namedtuple(\"Point\", [\"x\", \"y\"])\n        # Cannot handle required\n        with self.assertRaises(ValidationError):\n            validator.validate(Point(x=4, y=5))"
+}

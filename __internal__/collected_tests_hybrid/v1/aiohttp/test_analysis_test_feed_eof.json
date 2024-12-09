@@ -1,0 +1,27 @@
+{
+  "test_name": "test_feed_eof",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_streams.py",
+  "static_methods": [
+    {
+      "name": "buffer.feed_eof",
+      "source_code": "    def feed_eof(self) -> Optional[_MsgT]:\n        if self._payload_parser is not None:\n            self._payload_parser.feed_eof()\n            self._payload_parser = None\n        else:\n            # try to extract partial message\n            if self._tail:\n                self._lines.append(self._tail)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line_number": 275
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "buffer.feed_eof",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/http_parser.py",
+      "line": 275,
+      "caller": "test_feed_eof",
+      "source_code": "    def feed_eof(self) -> Optional[_MsgT]:\n        if self._payload_parser is not None:\n            self._payload_parser.feed_eof()\n            self._payload_parser = None\n        else:\n            # try to extract partial message\n            if self._tail:\n                self._lines.append(self._tail)\n\n            if self._lines:\n                if self._lines[-1] != \"\\r\\n\":\n                    self._lines.append(b\"\")\n                with suppress(Exception):\n                    return self.parse_message(self._lines)\n        return None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert buffer._eof"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_feed_eof(self, buffer: streams.DataQueue[bytes]) -> None:\n        buffer.feed_eof()\n        assert buffer._eof"
+}

@@ -1,0 +1,53 @@
+{
+  "test_name": "test_unreader_read_zero_size",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_http.py",
+  "static_methods": [
+    {
+      "name": "Unreader",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.MagicMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "unreader.read",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line_number": 145
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Unreader",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unreader_read_zero_size",
+      "source_code": ""
+    },
+    {
+      "function": "mock.MagicMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_unreader_read_zero_size",
+      "source_code": ""
+    },
+    {
+      "function": "unreader.read",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/venv/lib/python3.9/site-packages/packaging/_tokenizer.py",
+      "line": 145,
+      "caller": "test_unreader_read_zero_size",
+      "source_code": "    def read(self) -> Token:\n        \"\"\"Consume the next token and return it.\"\"\"\n        token = self.next_token\n        assert token is not None\n\n        self.position += len(token.text)\n        self.next_token = None\n\n        return token\n\n"
+    }
+  ],
+  "assertions": [
+    "assert unreader.read(size=0) == b''"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_unreader_read_zero_size():\n    unreader = Unreader()\n    unreader.chunk = mock.MagicMock(side_effect=[b'qwerty', b'asdfgh'])\n\n    assert unreader.read(size=0) == b''"
+}

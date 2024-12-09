@@ -1,0 +1,38 @@
+{
+  "test_name": "test_bug_545855",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/regex/test_regex.py",
+  "static_methods": [
+    {
+      "name": "self.assertRaisesRegex",
+      "source_code": "def assertRaisesRegex(self, *args, **kwargs):\n    return getattr(self, _assertRaisesRegex)(*args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/six.py",
+      "line_number": 703
+    },
+    {
+      "name": "regex.compile",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertRaisesRegex",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/six.py",
+      "line": 703,
+      "caller": "test_bug_545855",
+      "source_code": "def assertRaisesRegex(self, *args, **kwargs):\n    return getattr(self, _assertRaisesRegex)(*args, **kwargs)\n\n\n"
+    },
+    {
+      "function": "regex.compile",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_bug_545855",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bug_545855(self):\n        # Bug 545855 -- This pattern failed to cause a compile error as it\n        # should, instead provoking a TypeError.\n        self.assertRaisesRegex(regex.error, self.BAD_SET, lambda:\n          regex.compile('foo[a-'))"
+}

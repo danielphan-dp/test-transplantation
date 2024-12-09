@@ -1,0 +1,67 @@
+{
+  "test_name": "test_ignore_errors",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+  "static_methods": [
+    {
+      "name": "fake_env",
+      "source_code": "def fake_env(\n    tmpdir, setup_cfg, setup_py=None, encoding='ascii', package_path='fake_package'",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+      "line_number": 36
+    },
+    {
+      "name": "read_configuration",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 73
+    },
+    {
+      "name": "config.remove",
+      "source_code": "    def remove(self, key):\n        \"\"\"Remove a vertex from the graph, disconnecting all edges from/to it.\"\"\"\n        self._vertices.remove(key)\n        for f in self._forwards.pop(key):\n            self._backwards[f].remove(key)\n        for t in self._backwards.pop(key):\n            self._forwards[t].remove(key)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 39
+    },
+    {
+      "name": "read_configuration",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 73
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "fake_env",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_setupcfg.py",
+      "line": 36,
+      "caller": "test_ignore_errors",
+      "source_code": "def fake_env(\n    tmpdir, setup_cfg, setup_py=None, encoding='ascii', package_path='fake_package'\n"
+    },
+    {
+      "function": "read_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 73,
+      "caller": "test_ignore_errors",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)\n\n"
+    },
+    {
+      "function": "config.remove",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 39,
+      "caller": "test_ignore_errors",
+      "source_code": "    def remove(self, key):\n        \"\"\"Remove a vertex from the graph, disconnecting all edges from/to it.\"\"\"\n        self._vertices.remove(key)\n        for f in self._forwards.pop(key):\n            self._backwards[f].remove(key)\n        for t in self._backwards.pop(key):\n            self._forwards[t].remove(key)\n\n"
+    },
+    {
+      "function": "read_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 73,
+      "caller": "test_ignore_errors",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert config_dict['metadata']['keywords'] == ['one', 'two']",
+    "assert 'version' not in config_dict['metadata']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_ignore_errors(self, tmpdir):\n        _, config = fake_env(\n            tmpdir,\n            '[metadata]\\nversion = attr: none.VERSION\\nkeywords = one, two\\n',\n        )\n        with pytest.raises(ImportError):\n            read_configuration('%s' % config)\n\n        config_dict = read_configuration('%s' % config, ignore_option_errors=True)\n\n        assert config_dict['metadata']['keywords'] == ['one', 'two']\n        assert 'version' not in config_dict['metadata']\n\n        config.remove()"
+}

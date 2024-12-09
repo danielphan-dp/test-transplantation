@@ -1,0 +1,25 @@
+{
+  "test_name": "test_from_contents_with_no_discernible_information",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_core.py",
+  "static_methods": [
+    {
+      "name": "Resource.from_contents",
+      "source_code": "    def from_contents(\n        cls,\n        contents: D,\n        default_specification: (\n            type[Specification[D]] | Specification[D]\n        ) = Specification,\n    ) -> Resource[D]:\n        \"\"\"\n        Create a resource guessing which specification applies to the contents.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 191
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Resource.from_contents",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 191,
+      "caller": "test_from_contents_with_no_discernible_information",
+      "source_code": "    @classmethod\n    def from_contents(\n        cls,\n        contents: D,\n        default_specification: (\n            type[Specification[D]] | Specification[D]\n        ) = Specification,\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_from_contents_with_no_discernible_information(self):\n        \"\"\"\n        Creating a resource with no discernible way to see what\n        specification it belongs to (e.g. no ``$schema`` keyword for JSON\n        Schema) raises an error.\n        \"\"\"\n\n        with pytest.raises(exceptions.CannotDetermineSpecification):\n            Resource.from_contents({\"foo\": \"bar\"})"
+}

@@ -1,0 +1,129 @@
+{
+  "test_name": "test_custom_predicates_can_affect_traversal",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_predicates.py",
+  "static_methods": [
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "all",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "predvalseq",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "p",
+      "source_code": "            def p(a, b):\n                stack.enter_context(patch(a, b, create=True))\n            # Pretend to be on Windows\n            p(\"colorama.ansitowin32.os.name\", \"nt\")\n            p(\"colorama.ansitowin32.winapi_test\", lambda: True)\n            p(\"colorama.win32.winapi_test\", lambda: True)\n            p(\"colorama.winterm.win32.windll\", \"non-None\")\n            p(\"colorama.winterm.get_osfhandle\", lambda _: 1234)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/colorama/tests/ansitowin32_test.py",
+      "line_number": 250
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": ""
+    },
+    {
+      "function": "DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": ""
+    },
+    {
+      "function": "all",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": ""
+    },
+    {
+      "function": "predvalseq",
+      "filename": "",
+      "line": 0,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": ""
+    },
+    {
+      "function": "p",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/colorama/tests/ansitowin32_test.py",
+      "line": 250,
+      "caller": "test_custom_predicates_can_affect_traversal",
+      "source_code": "            def p(a, b):\n                stack.enter_context(patch(a, b, create=True))\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_custom_predicates_can_affect_traversal(self):\n        from pyramid.config.predicates import predvalseq\n\n        def custom(info, request):\n            m = info['match']\n            m['dummy'] = 'foo'\n            return True\n\n        _, predicates, _ = self._callFUT(\n            custom=predvalseq([custom]), traverse='/1/:dummy/:a'\n        )\n        self.assertEqual(len(predicates), 2)\n        info = {'match': {'a': 'a'}}\n        request = DummyRequest()\n        self.assertTrue(all([p(info, request) for p in predicates]))\n        self.assertEqual(\n            info,\n            {\n                'match': {\n                    'a': 'a',\n                    'dummy': 'foo',\n                    'traverse': ('1', 'foo', 'a'),\n                }\n            },\n        )"
+}

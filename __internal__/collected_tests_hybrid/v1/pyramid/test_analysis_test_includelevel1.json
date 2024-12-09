@@ -1,0 +1,38 @@
+{
+  "test_name": "test_includelevel1",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+  "static_methods": [
+    {
+      "name": "self.testapp.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    },
+    {
+      "name": "_assertBody",
+      "source_code": "def _assertBody(body, filename):\n    if defaultlocale is None:  # pragma: no cover\n        # If system locale does not have an encoding then default to utf-8\n        filename = filename.encode('utf-8')\n    # strip both \\n and \\r for windows\n    body = body.replace(b'\\r', b'')\n    body = body.replace(b'\\n', b'')\n    data = read_(filename)\n    data = data.replace(b'\\r', b'')\n    data = data.replace(b'\\n', b'')\n    assert body == data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line_number": 1017
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.testapp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_includelevel1",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    },
+    {
+      "function": "_assertBody",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_integration.py",
+      "line": 1017,
+      "caller": "test_includelevel1",
+      "source_code": "def _assertBody(body, filename):\n    if defaultlocale is None:  # pragma: no cover\n        # If system locale does not have an encoding then default to utf-8\n        filename = filename.encode('utf-8')\n    # strip both \\n and \\r for windows\n    body = body.replace(b'\\r', b'')\n    body = body.replace(b'\\n', b'')\n    data = read_(filename)\n    data = data.replace(b'\\r', b'')\n    data = data.replace(b'\\n', b'')\n    assert body == data\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_includelevel1(self):\n        res = self.testapp.get('/static/minimal.txt', status=200)\n        _assertBody(res.body, os.path.join(here, 'fixtures/minimal.txt'))"
+}

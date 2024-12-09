@@ -1,34 +1,34 @@
 {
   "test_name": "test_add",
-  "test_file": "__internal__/_data/flask/examples/javascript/tests/test_js_example.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/examples/javascript/tests/test_js_example.py",
   "static_methods": [
     {
       "name": "client.post",
-      "source_code": "    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line_number": 304
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line_number": 1164
     },
     {
       "name": "response.get_json",
-      "source_code": "",
-      "file_path": "",
-      "line_number": 0
+      "source_code": "    def get_json(self, force: bool = ..., silent: t.Literal[False] = ...) -> t.Any: ...",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wrappers/response.py",
+      "line_number": 596
     }
   ],
   "dynamic_methods": [
     {
       "function": "client.post",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/src/flask/sansio/scaffold.py",
-      "line": 304,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/test.py",
+      "line": 1164,
       "caller": "test_add",
-      "source_code": "    @setupmethod\n    def post(self, rule: str, **options: t.Any) -> t.Callable[[T_route], T_route]:\n        \"\"\"Shortcut for :meth:`route` with ``methods=[\"POST\"]``.\n\n        .. versionadded:: 2.0\n        \"\"\"\n        return self._method_route(\"POST\", rule, options)\n\n"
+      "source_code": "    def post(self, *args: t.Any, **kw: t.Any) -> TestResponse:\n        \"\"\"Call :meth:`open` with ``method`` set to ``POST``.\"\"\"\n        kw[\"method\"] = \"POST\"\n        return self.open(*args, **kw)\n\n"
     },
     {
       "function": "response.get_json",
-      "filename": "",
-      "line": 0,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wrappers/response.py",
+      "line": 596,
       "caller": "test_add",
-      "source_code": ""
+      "source_code": "    @t.overload\n    def get_json(self, force: bool = ..., silent: t.Literal[False] = ...) -> t.Any: ...\n\n"
     }
   ],
   "assertions": [

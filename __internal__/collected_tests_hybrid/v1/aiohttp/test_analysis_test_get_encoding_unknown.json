@@ -1,0 +1,118 @@
+{
+  "test_name": "test_get_encoding_unknown",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_response.py",
+  "static_methods": [
+    {
+      "name": "ClientResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDictProxy",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response.get_encoding",
+      "source_code": "    def get_encoding(self) -> str:\n        ctype = self.headers.get(hdrs.CONTENT_TYPE, \"\").lower()\n        mimetype = helpers.parse_mimetype(ctype)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line_number": 1139
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WriterMock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "TimerNoop",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ClientResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_encoding_unknown",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDictProxy",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_encoding_unknown",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_encoding_unknown",
+      "source_code": ""
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_encoding_unknown",
+      "source_code": ""
+    },
+    {
+      "function": "response.get_encoding",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line": 1139,
+      "caller": "test_get_encoding_unknown",
+      "source_code": "    def get_encoding(self) -> str:\n        ctype = self.headers.get(hdrs.CONTENT_TYPE, \"\").lower()\n        mimetype = helpers.parse_mimetype(ctype)\n\n        encoding = mimetype.parameters.get(\"charset\")\n        if encoding:\n            with contextlib.suppress(LookupError, ValueError):\n                return codecs.lookup(encoding).name\n\n        if mimetype.type == \"application\" and (\n            mimetype.subtype == \"json\" or mimetype.subtype == \"rdap\"\n        ):\n            # RFC 7159 states that the default encoding is UTF-8.\n            # RFC 7483 defines application/rdap+json\n            return \"utf-8\"\n\n        if self._body is None:\n            raise RuntimeError(\n                \"Cannot compute fallback encoding of a not yet read body\"\n            )\n\n        return self._resolve_charset(self, self._body)\n\n"
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_encoding_unknown",
+      "source_code": ""
+    },
+    {
+      "function": "WriterMock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_encoding_unknown",
+      "source_code": ""
+    },
+    {
+      "function": "TimerNoop",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_encoding_unknown",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.get_encoding() == 'utf-8'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_encoding_unknown(\n    loop: asyncio.AbstractEventLoop, session: ClientSession\n) -> None:\n    response = ClientResponse(\n        \"get\",\n        URL(\"http://def-cl-resp.org\"),\n        request_info=mock.Mock(),\n        writer=WriterMock(),\n        continue100=None,\n        timer=TimerNoop(),\n        traces=[],\n        loop=loop,\n        session=session,\n    )\n\n    h = {\"Content-Type\": \"application/json\"}\n    response._headers = CIMultiDictProxy(CIMultiDict(h))\n    assert response.get_encoding() == \"utf-8\""
+}

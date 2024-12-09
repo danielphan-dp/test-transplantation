@@ -1,0 +1,67 @@
+{
+  "test_name": "test_mock_resolver_notimplemented",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_mock.py",
+  "static_methods": [
+    {
+      "name": "MockResolver",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Swagger2Operation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Swagger2Operation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "operation._resolution.function",
+      "source_code": "    def function(self):\n        return self.handle",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/handlers.py",
+      "line_number": 24
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "MockResolver",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_resolver_notimplemented",
+      "source_code": ""
+    },
+    {
+      "function": "Swagger2Operation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_resolver_notimplemented",
+      "source_code": ""
+    },
+    {
+      "function": "Swagger2Operation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_mock_resolver_notimplemented",
+      "source_code": ""
+    },
+    {
+      "function": "operation._resolution.function",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/connexion/handlers.py",
+      "line": 24,
+      "caller": "test_mock_resolver_notimplemented",
+      "source_code": "    @property\n    def function(self):\n        return self.handle\n\n"
+    }
+  ],
+  "assertions": [
+    "assert operation.operation_id == 'fakeapi.hello.get'",
+    "assert operation._resolution.function() == ('No example response or response schema defined.', 418)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_mock_resolver_notimplemented():\n    resolver = MockResolver(mock_all=False)\n\n    responses = {\"418\": {}}\n\n    # do not mock the existent functions\n    operation = Swagger2Operation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation={\"operationId\": \"fakeapi.hello.get\"},\n        app_produces=[\"application/json\"],\n        app_consumes=[\"application/json\"],\n        definitions={},\n        resolver=resolver,\n    )\n    assert operation.operation_id == \"fakeapi.hello.get\"\n\n    # mock only the nonexistent ones\n    operation = Swagger2Operation(\n        method=\"GET\",\n        path=\"endpoint\",\n        path_parameters=[],\n        operation={\n            \"operationId\": \"fakeapi.hello.nonexistent_function\",\n            \"responses\": responses,\n        },\n        app_produces=[\"application/json\"],\n        app_consumes=[\"application/json\"],\n        definitions={},\n        resolver=resolver,\n    )\n\n    # check if it is using the mock function\n    assert operation._resolution.function() == (\n        \"No example response or response schema defined.\",\n        418,\n    )"
+}

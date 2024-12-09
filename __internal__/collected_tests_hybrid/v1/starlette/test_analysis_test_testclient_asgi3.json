@@ -1,0 +1,66 @@
+{
+  "test_name": "test_testclient_asgi3",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_testclient.py",
+  "static_methods": [
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    },
+    {
+      "name": "send",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line_number": 491
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_testclient_asgi3",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_testclient_asgi3",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_testclient_asgi3",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    },
+    {
+      "function": "send",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/h11/_connection.py",
+      "line": 491,
+      "caller": "test_testclient_asgi3",
+      "source_code": "    def send(self, event: Event) -> Optional[bytes]:\n        \"\"\"Convert a high-level event into bytes that can be sent to the peer,\n        while updating our internal state machine.\n\n        Args:\n            event: The :ref:`event <events>` to send.\n\n        Returns:\n            If ``type(event) is ConnectionClosed``, then returns\n            ``None``. Otherwise, returns a :term:`bytes-like object`.\n\n        Raises:\n            LocalProtocolError:\n                Sending this event at this time would violate our\n                understanding of the HTTP/1.1 protocol.\n\n        If this method raises any exception then it also sets\n        :attr:`Connection.our_state` to :data:`ERROR` -- see\n        :ref:`error-handling` for discussion.\n\n        \"\"\"\n        data_list = self.send_with_data_passthrough(event)\n        if data_list is None:\n            return None\n        else:\n            return b\"\".join(data_list)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.text == 'Hello, world!'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_testclient_asgi3(test_client_factory: TestClientFactory) -> None:\n    async def app(scope: Scope, receive: Receive, send: Send) -> None:\n        await send(\n            {\n                \"type\": \"http.response.start\",\n                \"status\": 200,\n                \"headers\": [[b\"content-type\", b\"text/plain\"]],\n            }\n        )\n        await send({\"type\": \"http.response.body\", \"body\": b\"Hello, world!\"})\n\n    client = test_client_factory(app)\n    response = client.get(\"/\")\n    assert response.text == \"Hello, world!\""
+}

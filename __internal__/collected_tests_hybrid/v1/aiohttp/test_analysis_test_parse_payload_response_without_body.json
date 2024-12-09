@@ -1,0 +1,40 @@
+{
+  "test_name": "test_parse_payload_response_without_body",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "response_cls",
+      "source_code": "def response_cls(request: pytest.FixtureRequest) -> Type[HttpResponseParser]:\n    # Parser implementations\n    return request.param  # type: ignore[no-any-return]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+      "line_number": 100
+    },
+    {
+      "name": "payload.is_eof",
+      "source_code": "    def is_eof(self) -> bool:\n        \"\"\"Return True if  'feed_eof' was called.\"\"\"\n        return self._eof",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line_number": 233
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "response_cls",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+      "line": 100,
+      "caller": "test_parse_payload_response_without_body",
+      "source_code": "@pytest.fixture(params=RESPONSE_PARSERS, ids=_gen_ids(RESPONSE_PARSERS))\ndef response_cls(request: pytest.FixtureRequest) -> Type[HttpResponseParser]:\n    # Parser implementations\n    return request.param  # type: ignore[no-any-return]\n\n\n"
+    },
+    {
+      "function": "payload.is_eof",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/streams.py",
+      "line": 233,
+      "caller": "test_parse_payload_response_without_body",
+      "source_code": "    def is_eof(self) -> bool:\n        \"\"\"Return True if  'feed_eof' was called.\"\"\"\n        return self._eof\n\n"
+    }
+  ],
+  "assertions": [
+    "assert payload.is_eof()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_payload_response_without_body(\n    loop: asyncio.AbstractEventLoop,\n    protocol: BaseProtocol,\n    response_cls: Type[HttpResponseParser],\n) -> None:\n    parser = response_cls(protocol, loop, 2**16, response_with_body=False)\n    text = b\"HTTP/1.1 200 Ok\\r\\ncontent-length: 10\\r\\n\\r\\n\"\n    msg, payload = parser.feed_data(text)[0][0]\n\n    assert payload.is_eof()"
+}

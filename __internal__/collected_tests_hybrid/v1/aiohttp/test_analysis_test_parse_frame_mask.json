@@ -1,0 +1,12 @@
+{
+  "test_name": "test_parse_frame_mask",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert (0, 1, b'\\x01', False) == (fin, opcode, payload, not not compress)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_frame_mask(parser: WebSocketReader) -> None:\n    parser.parse_frame(struct.pack(\"!BB\", 0b00000001, 0b10000001))\n    parser.parse_frame(b\"0001\")\n    fin, opcode, payload, compress = parser.parse_frame(b\"1\")[0]\n\n    assert (0, 1, b\"\\x01\", False) == (fin, opcode, payload, not not compress)"
+}

@@ -1,0 +1,55 @@
+{
+  "test_name": "test_warn_deprecated_formatting",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_deprecate.py",
+  "static_methods": [
+    {
+      "name": "warn_deprecated",
+      "source_code": "def warn_deprecated(\n    thing: object,\n    version: str,\n    *,\n    issue: int | None,\n    instead: object,\n    stacklevel: int = 2,\n    use_triodeprecationwarning: bool = False,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_deprecate.py",
+      "line_number": 54
+    },
+    {
+      "name": "recwarn_always.pop",
+      "source_code": "    def pop(self, cls: type[Warning] = Warning) -> warnings.WarningMessage:\n        \"\"\"Pop the first recorded warning which is an instance of ``cls``,\n        but not an instance of a child class of any other match.\n        Raises ``AssertionError`` if there is no match.\n        \"\"\"\n        best_idx: int | None = None\n        for i, w in enumerate(self._list):\n            if w.category == cls:\n                return self._list.pop(i)  # exact match, stop looking\n            if issubclass(w.category, cls) and (\n                best_idx is None\n                or not issubclass(w.category, self._list[best_idx].category)\n            ):\n                best_idx = i\n        if best_idx is not None:\n            return self._list.pop(best_idx)\n        __tracebackhide__ = True\n        raise AssertionError(f\"{cls!r} not found in warning list\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line_number": 206
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "warn_deprecated",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_deprecate.py",
+      "line": 54,
+      "caller": "test_warn_deprecated_formatting",
+      "source_code": "def warn_deprecated(\n    thing: object,\n    version: str,\n    *,\n    issue: int | None,\n    instead: object,\n    stacklevel: int = 2,\n    use_triodeprecationwarning: bool = False,\n"
+    },
+    {
+      "function": "recwarn_always.pop",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/recwarn.py",
+      "line": 206,
+      "caller": "test_warn_deprecated_formatting",
+      "source_code": "    def pop(self, cls: type[Warning] = Warning) -> warnings.WarningMessage:\n        \"\"\"Pop the first recorded warning which is an instance of ``cls``,\n        but not an instance of a child class of any other match.\n        Raises ``AssertionError`` if there is no match.\n        \"\"\"\n        best_idx: int | None = None\n        for i, w in enumerate(self._list):\n            if w.category == cls:\n                return self._list.pop(i)  # exact match, stop looking\n            if issubclass(w.category, cls) and (\n                best_idx is None\n                or not issubclass(w.category, self._list[best_idx].category)\n            ):\n                best_idx = i\n        if best_idx is not None:\n            return self._list.pop(best_idx)\n        __tracebackhide__ = True\n        raise AssertionError(f\"{cls!r} not found in warning list\")\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_warn_deprecated_formatting",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(got.message, Warning)",
+    "assert 'test_deprecate.old is deprecated' in got.message.args[0]",
+    "assert 'test_deprecate.new instead' in got.message.args[0]"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_warn_deprecated_formatting(recwarn_always: pytest.WarningsRecorder) -> None:\n    warn_deprecated(old, \"1.0\", issue=1, instead=new)\n    got = recwarn_always.pop(DeprecationWarning)\n    assert isinstance(got.message, Warning)\n    assert \"test_deprecate.old is deprecated\" in got.message.args[0]\n    assert \"test_deprecate.new instead\" in got.message.args[0]"
+}

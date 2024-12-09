@@ -1,0 +1,90 @@
+{
+  "test_name": "test___call___output",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_commandline.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line_number": 13
+    },
+    {
+      "name": "_Meta",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._capture_output",
+      "source_code": "    def _capture_output(self, func, *args, **kw):\n        buf = io.StringIO()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_commandline.py",
+      "line_number": 48
+    },
+    {
+      "name": "json_module.loads",
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line_number": 72
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_Options",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_sdist.py",
+      "line": 13,
+      "caller": "test___call___output",
+      "source_code": "    def _makeOne(self, filename=None, metadata_version=None):\n        if metadata_version is not None:\n            return self._getTargetClass()(filename, metadata_version)\n        return self._getTargetClass()(filename)\n\n"
+    },
+    {
+      "function": "_Meta",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call___output",
+      "source_code": ""
+    },
+    {
+      "function": "self._capture_output",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pkginfo/tests/test_commandline.py",
+      "line": 48,
+      "caller": "test___call___output",
+      "source_code": "    def _capture_output(self, func, *args, **kw):\n        buf = io.StringIO()\n\n        with _Monkey(sys, stdout=buf):\n            func(*args, **kw)\n        return buf.getvalue()\n\n"
+    },
+    {
+      "function": "json_module.loads",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/serialize.py",
+      "line": 72,
+      "caller": "test___call___output",
+      "source_code": "    def loads(self, request, data, body_file=None):\n        # Short circuit if we've been given an empty set of data\n        if not data:\n            return\n\n        # Determine what version of the serializer the data was serialized\n        # with\n        try:\n            ver, data = data.split(b\",\", 1)\n        except ValueError:\n            ver = b\"cc=0\"\n\n        # Make sure that our \"ver\" is actually a version and isn't a false\n        # positive from a , being in the data stream.\n        if ver[:3] != b\"cc=\":\n            data = ver + data\n            ver = b\"cc=0\"\n\n        # Get the version number out of the cc=N\n        ver = ver.split(b\"=\", 1)[-1].decode(\"ascii\")\n\n        # Dispatch to the actual load method for the given version\n        try:\n            return getattr(self, \"_loads_v{}\".format(ver))(request, data, body_file)\n\n        except AttributeError:\n            # This is a version we don't have a loads function for, so we'll\n            # just treat it as a miss and return None\n            return\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call___output",
+      "source_code": ""
+    },
+    {
+      "function": "_Options",
+      "filename": "",
+      "line": 0,
+      "caller": "test___call___output",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___call___output(self):\n        json = self._makeOne(_Options(fields=None))\n        meta = _Meta(name='foo', version='0.1', foo='Foo')\n        json(meta)\n        output = self._capture_output(json.finish)\n        output = json_module.loads(\n            output, object_pairs_hook=collections.OrderedDict)\n        expected = collections.OrderedDict([\n            ('foo', 'Foo'), ('name', 'foo'), ('version', '0.1')])\n        self.assertEqual(expected, output)"
+}

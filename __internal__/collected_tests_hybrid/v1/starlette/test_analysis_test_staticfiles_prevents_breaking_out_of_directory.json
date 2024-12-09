@@ -1,0 +1,80 @@
+{
+  "test_name": "test_staticfiles_prevents_breaking_out_of_directory",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_staticfiles.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "StaticFiles",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.get_path",
+      "source_code": "def get_path(\n    o: object, seen: dict[int, object], parents: dict[int, tuple[int, object]]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypy/server/objgraph.py",
+      "line_number": 92
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "file.write",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line_number": 36
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_prevents_breaking_out_of_directory",
+      "source_code": ""
+    },
+    {
+      "function": "StaticFiles",
+      "filename": "",
+      "line": 0,
+      "caller": "test_staticfiles_prevents_breaking_out_of_directory",
+      "source_code": ""
+    },
+    {
+      "function": "app.get_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypy/server/objgraph.py",
+      "line": 92,
+      "caller": "test_staticfiles_prevents_breaking_out_of_directory",
+      "source_code": "def get_path(\n    o: object, seen: dict[int, object], parents: dict[int, tuple[int, object]]\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_prevents_breaking_out_of_directory",
+      "source_code": ""
+    },
+    {
+      "function": "file.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line": 36,
+      "caller": "test_staticfiles_prevents_breaking_out_of_directory",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise\n"
+    }
+  ],
+  "assertions": [
+    "assert exc_info.value.status_code == 404",
+    "assert exc_info.value.detail == 'Not Found'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_staticfiles_prevents_breaking_out_of_directory(tmpdir: Path) -> None:\n    directory = os.path.join(tmpdir, \"foo\")\n    os.mkdir(directory)\n\n    path = os.path.join(tmpdir, \"example.txt\")\n    with open(path, \"w\") as file:\n        file.write(\"outside root dir\")\n\n    app = StaticFiles(directory=directory)\n    # We can't test this with 'httpx', so we test the app directly here.\n    path = app.get_path({\"path\": \"/../example.txt\"})\n    scope = {\"method\": \"GET\"}\n\n    with pytest.raises(HTTPException) as exc_info:\n        anyio.run(app.get_response, path, scope)\n\n    assert exc_info.value.status_code == 404\n    assert exc_info.value.detail == \"Not Found\""
+}

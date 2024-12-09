@@ -1,0 +1,27 @@
+{
+  "test_name": "test_url_ok",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "index.url_ok",
+      "source_code": "    def url_ok(self, url, fatal: bool = False) -> bool:\n        s = URL_SCHEME(url)\n        is_file = s and s.group(1).lower() == 'file'\n        if is_file or self.allows(urllib.parse.urlparse(url)[1]):\n            return True\n        msg = (\n            \"\\nNote: Bypassing %s (disallowed host; see \"\n            \"https://setuptools.pypa.io/en/latest/deprecated/\"\n            \"easy_install.html#restricting-downloads-with-allow-hosts for details).\\n\"\n        )\n        if fatal:\n            raise DistutilsError(msg % url)\n        else:\n            self.warn(msg, url)\n            return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 399
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "index.url_ok",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 399,
+      "caller": "test_url_ok",
+      "source_code": "    def url_ok(self, url, fatal: bool = False) -> bool:\n        s = URL_SCHEME(url)\n        is_file = s and s.group(1).lower() == 'file'\n        if is_file or self.allows(urllib.parse.urlparse(url)[1]):\n            return True\n        msg = (\n            \"\\nNote: Bypassing %s (disallowed host; see \"\n            \"https://setuptools.pypa.io/en/latest/deprecated/\"\n            \"easy_install.html#restricting-downloads-with-allow-hosts for details).\\n\"\n        )\n        if fatal:\n            raise DistutilsError(msg % url)\n        else:\n            self.warn(msg, url)\n            return False\n\n"
+    }
+  ],
+  "assertions": [
+    "assert index.url_ok(url, True)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_url_ok(self):\n        index = setuptools.package_index.PackageIndex(hosts=('www.example.com',))\n        url = 'file:///tmp/test_package_index'\n        assert index.url_ok(url, True)"
+}

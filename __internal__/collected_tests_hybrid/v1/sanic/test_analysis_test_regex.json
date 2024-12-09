@@ -1,0 +1,53 @@
+{
+  "test_name": "test_regex",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_packageindex.py",
+  "static_methods": [
+    {
+      "name": "lstrip.format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "lstrip",
+      "source_code": "def lstrip(iterable, pred):\n    \"\"\"Yield the items from *iterable*, but strip any from the beginning\n    for which *pred* returns ``True``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 2377
+    },
+    {
+      "name": "locals",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "lstrip.format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_regex",
+      "source_code": ""
+    },
+    {
+      "function": "lstrip",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 2377,
+      "caller": "test_regex",
+      "source_code": "def lstrip(iterable, pred):\n    \"\"\"Yield the items from *iterable*, but strip any from the beginning\n    for which *pred* returns ``True``.\n\n    For example, to remove a set of items from the start of an iterable:\n\n        >>> iterable = (None, False, None, 1, 2, None, 3, False, None)\n        >>> pred = lambda x: x in {None, False, ''}\n        >>> list(lstrip(iterable, pred))\n        [1, 2, None, 3, False, None]\n\n    This function is analogous to to :func:`str.lstrip`, and is essentially\n    an wrapper for :func:`itertools.dropwhile`.\n\n    \"\"\"\n    return dropwhile(pred, iterable)\n\n\n"
+    },
+    {
+      "function": "locals",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_regex",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert setuptools.package_index.PYPI_MD5.match(doc)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_regex(self):\n        hash_url = 'http://other_url?:action=show_md5&amp;'\n        hash_url += 'digest=0123456789abcdef0123456789abcdef'\n        doc = \"\"\"\n            <a href=\"http://some_url\">Name</a>\n            (<a title=\"MD5 hash\"\n            href=\"{hash_url}\">md5</a>)\n        \"\"\".lstrip().format(**locals())\n        assert setuptools.package_index.PYPI_MD5.match(doc)"
+}

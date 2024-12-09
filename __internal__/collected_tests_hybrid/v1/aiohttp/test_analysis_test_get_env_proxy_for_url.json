@@ -1,0 +1,54 @@
+{
+  "test_name": "test_get_env_proxy_for_url",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.get_env_proxy_for_url",
+      "source_code": "def get_env_proxy_for_url(url: URL) -> Tuple[URL, Optional[BasicAuth]]:\n    \"\"\"Get a permitted proxy for the given URL from the env.\"\"\"\n    if url.host is not None and proxy_bypass(url.host):\n        raise LookupError(f\"Proxying is disallowed for `{url.host!r}`\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line_number": 292
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_env_proxy_for_url",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.get_env_proxy_for_url",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/helpers.py",
+      "line": 292,
+      "caller": "test_get_env_proxy_for_url",
+      "source_code": "def get_env_proxy_for_url(url: URL) -> Tuple[URL, Optional[BasicAuth]]:\n    \"\"\"Get a permitted proxy for the given URL from the env.\"\"\"\n    if url.host is not None and proxy_bypass(url.host):\n        raise LookupError(f\"Proxying is disallowed for `{url.host!r}`\")\n\n    proxies_in_env = proxies_from_env()\n    try:\n        proxy_info = proxies_in_env[url.scheme]\n    except KeyError:\n        raise LookupError(f\"No proxies found for `{url!s}` in the env\")\n    else:\n        return proxy_info.proxy, proxy_info.proxy_auth\n\n\n"
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_env_proxy_for_url",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert proxy == URL(proxy_list)",
+    "assert proxy_auth is None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_env_proxy_for_url(proxy_env_vars: Dict[str, str], url_input: str) -> None:\n    url = URL(url_input)\n    proxy, proxy_auth = helpers.get_env_proxy_for_url(url)\n    proxy_list = proxy_env_vars[url.scheme + \"_proxy\"]\n    assert proxy == URL(proxy_list)\n    assert proxy_auth is None"
+}

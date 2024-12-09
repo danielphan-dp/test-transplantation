@@ -1,0 +1,92 @@
+{
+  "test_name": "test_multiple_lookup_recursive_ref_to_bool",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/tests/test_jsonschema.py",
+  "static_methods": [
+    {
+      "name": "Registry.with_resources.resolver",
+      "source_code": "        def resolver(self):\n            warnings.warn(\n                (\n                    f\"Accessing {self.__class__.__name__}.resolver is \"\n                    \"deprecated as of v4.18.0, in favor of the \"\n                    \"https://github.com/python-jsonschema/referencing \"\n                    \"library, which provides more compliant referencing \"\n                    \"behavior as well as more flexible APIs for \"\n                    \"customization.\"\n                ),\n                DeprecationWarning,\n                stacklevel=2,\n            )\n            if self._ref_resolver is None:\n                self._ref_resolver = _RefResolver.from_schema(\n                    self.schema,\n                    id_of=id_of,\n                )\n            return self._ref_resolver",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line_number": 320
+    },
+    {
+      "name": "resolver.lookup",
+      "source_code": "    def lookup(self, instance: t.Any) -> t.MutableMapping[str, t.Any]:\n        raise NotImplementedError",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/_internal.py",
+      "line_number": 145
+    },
+    {
+      "name": "first.resolver.lookup",
+      "source_code": "    def lookup(self, instance: t.Any) -> t.MutableMapping[str, t.Any]:\n        raise NotImplementedError",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/_internal.py",
+      "line_number": 145
+    },
+    {
+      "name": "second.resolver.lookup",
+      "source_code": "    def lookup(self, instance: t.Any) -> t.MutableMapping[str, t.Any]:\n        raise NotImplementedError",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/_internal.py",
+      "line_number": 145
+    },
+    {
+      "name": "Registry.with_resources",
+      "source_code": "    def with_resources(\n        self,\n        pairs: Iterable[tuple[URI, Resource[D]]],\n    ) -> Registry[D]:\n        r\"\"\"\n        Add the given `Resource`\\ s to the registry, without crawling them.\n        \"\"\"\n        resources = self._resources\n        uncrawled = self._uncrawled\n        for uri, resource in pairs:\n            # Empty fragment URIs are equivalent to URIs without the fragment.\n            # TODO: Is this true for non JSON Schema resources? Probably not.\n            uri = uri.rstrip(\"#\")\n            uncrawled = uncrawled.insert(uri)\n            resources = resources.insert(uri, resource)\n        return evolve(self, resources=resources, uncrawled=uncrawled)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line_number": 515
+    },
+    {
+      "name": "Registry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Registry.with_resources.resolver",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/validators.py",
+      "line": 320,
+      "caller": "test_multiple_lookup_recursive_ref_to_bool",
+      "source_code": "        @property\n        def resolver(self):\n            warnings.warn(\n                (\n                    f\"Accessing {self.__class__.__name__}.resolver is \"\n                    \"deprecated as of v4.18.0, in favor of the \"\n                    \"https://github.com/python-jsonschema/referencing \"\n                    \"library, which provides more compliant referencing \"\n                    \"behavior as well as more flexible APIs for \"\n                    \"customization.\"\n                ),\n                DeprecationWarning,\n                stacklevel=2,\n            )\n            if self._ref_resolver is None:\n                self._ref_resolver = _RefResolver.from_schema(\n                    self.schema,\n                    id_of=id_of,\n                )\n            return self._ref_resolver\n\n"
+    },
+    {
+      "function": "resolver.lookup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/_internal.py",
+      "line": 145,
+      "caller": "test_multiple_lookup_recursive_ref_to_bool",
+      "source_code": "    def lookup(self, instance: t.Any) -> t.MutableMapping[str, t.Any]:\n        raise NotImplementedError\n\n"
+    },
+    {
+      "function": "first.resolver.lookup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/_internal.py",
+      "line": 145,
+      "caller": "test_multiple_lookup_recursive_ref_to_bool",
+      "source_code": "    def lookup(self, instance: t.Any) -> t.MutableMapping[str, t.Any]:\n        raise NotImplementedError\n\n"
+    },
+    {
+      "function": "second.resolver.lookup",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/werkzeug/_internal.py",
+      "line": 145,
+      "caller": "test_multiple_lookup_recursive_ref_to_bool",
+      "source_code": "    def lookup(self, instance: t.Any) -> t.MutableMapping[str, t.Any]:\n        raise NotImplementedError\n\n"
+    },
+    {
+      "function": "Registry.with_resources",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/referencing/_core.py",
+      "line": 515,
+      "caller": "test_multiple_lookup_recursive_ref_to_bool",
+      "source_code": "    def with_resources(\n        self,\n        pairs: Iterable[tuple[URI, Resource[D]]],\n"
+    },
+    {
+      "function": "Registry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_lookup_recursive_ref_to_bool",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert fourth.contents == root.contents"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_multiple_lookup_recursive_ref_to_bool():\n    TRUE = referencing.jsonschema.DRAFT201909.create_resource(True)\n    root = referencing.jsonschema.DRAFT201909.create_resource(\n        {\n            \"$id\": \"http://example.com\",\n            \"$recursiveAnchor\": True,\n            \"$defs\": {\n                \"foo\": {\n                    \"$id\": \"foo\",\n                    \"$recursiveAnchor\": True,\n                    \"$defs\": {\n                        \"bar\": True,\n                        \"baz\": {\n                            \"$recursiveAnchor\": True,\n                            \"$anchor\": \"fooAnchor\",\n                        },\n                    },\n                },\n            },\n        },\n    )\n    resolver = (\n        Registry()\n        .with_resources(\n            [\n                (\"http://example.com\", root),\n                (\"http://example.com/foo/\", TRUE),\n                (\"http://example.com/foo/bar\", root),\n            ],\n        )\n        .resolver()\n    )\n\n    first = resolver.lookup(\"http://example.com\")\n    second = first.resolver.lookup(\"foo/\")\n    resolver = second.resolver.lookup(\"bar\").resolver\n    fourth = referencing.jsonschema.lookup_recursive_ref(resolver=resolver)\n    assert fourth.contents == root.contents"
+}

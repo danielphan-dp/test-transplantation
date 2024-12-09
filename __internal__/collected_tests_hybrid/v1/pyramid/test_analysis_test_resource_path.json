@@ -1,0 +1,77 @@
+{
+  "test_name": "test_resource_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._registerResourceURL",
+      "source_code": "    def _registerResourceURL(self, reg):\n        from zope.interface import Interface",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+      "line_number": 33
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "request.resource_path",
+      "source_code": "def resource_path(resource, *elements):\n    \"\"\"Return a string object representing the absolute physical path of the\n    resource object based on its position in the resource tree, e.g\n    ``/foo/bar``.  Any positional arguments passed in as ``elements`` will be\n    appended as path segments to the end of the resource path.  For instance,\n    if the resource's path is ``/foo/bar`` and ``elements`` equals ``('a',\n    'b')``, the returned string will be ``/foo/bar/a/b``.  The first\n    character in the string will always be the ``/`` character (a leading\n    ``/`` character in a path string represents that the path is absolute).",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/traversal.py",
+      "line_number": 111
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_resource_path",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._registerResourceURL",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_url.py",
+      "line": 33,
+      "caller": "test_resource_path",
+      "source_code": "    def _registerResourceURL(self, reg):\n        from zope.interface import Interface\n\n        from pyramid.interfaces import IResourceURL\n\n        class DummyResourceURL:\n            physical_path = '/context/'\n            virtual_path = '/context/'\n\n            def __init__(self, context, request):\n                pass\n\n        reg.registerAdapter(\n            DummyResourceURL, (Interface, Interface), IResourceURL\n        )\n        return DummyResourceURL\n\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_path",
+      "source_code": ""
+    },
+    {
+      "function": "request.resource_path",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/traversal.py",
+      "line": 111,
+      "caller": "test_resource_path",
+      "source_code": "def resource_path(resource, *elements):\n    \"\"\"Return a string object representing the absolute physical path of the\n    resource object based on its position in the resource tree, e.g\n    ``/foo/bar``.  Any positional arguments passed in as ``elements`` will be\n    appended as path segments to the end of the resource path.  For instance,\n    if the resource's path is ``/foo/bar`` and ``elements`` equals ``('a',\n    'b')``, the returned string will be ``/foo/bar/a/b``.  The first\n    character in the string will always be the ``/`` character (a leading\n    ``/`` character in a path string represents that the path is absolute).\n\n    Resource path strings returned will be escaped in the following\n    manner: each path segment will be encoded as UTF-8 and escaped via\n    Python's :mod:`urllib.quote`.\n    For example, ``/path/to%20the/La%20Pe%C3%B1a``.\n\n    This function is a logical inverse of\n    :mod:`pyramid.traversal.find_resource`: it can be used to generate\n    path references that can later be resolved via that function.\n\n    The ``resource`` passed in *must* be :term:`location`-aware.\n\n    .. note::\n\n       Each segment in the path string returned will use the ``__name__``\n       attribute of the resource it represents within the resource tree.  Each\n       of these segments *should* be a string (as per the\n       contract of :term:`location`-awareness).  However, no conversion or\n       safety checking of resource names is performed.  For instance, if one of\n       the resources in your tree has a ``__name__`` which (by error) is a\n       dictionary, the :func:`pyramid.traversal.resource_path` function will\n       attempt to append it to a string and it will cause a\n       :exc:`pyramid.exceptions.URLDecodeError`.\n\n    .. note::\n\n       The :term:`root` resource *must* have a ``__name__`` attribute with a\n       value of either ``None`` or the empty string for paths to be generated\n       properly.  If the root resource has a non-null ``__name__`` attribute,\n       its name will be prepended to the generated path rather than a single\n       leading '/' character.\n    \"\"\"\n    # joining strings is a bit expensive so we delegate to a function\n    # which caches the joined result for us\n    return _join_path_tuple(resource_path_tuple(resource, *elements))\n\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_path",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resource_path(self):\n        request = self._makeOne()\n        self._registerResourceURL(request.registry)\n        root = DummyContext()\n        result = request.resource_path(root)\n        self.assertEqual(result, '/context/')"
+}

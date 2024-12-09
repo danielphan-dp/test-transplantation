@@ -1,0 +1,216 @@
+{
+  "test_name": "test_accept_misc",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    },
+    {
+      "name": "a.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "a.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "a.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    },
+    {
+      "name": "a.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "a.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "a.match",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line_number": 129
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_accept_misc",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    },
+    {
+      "function": "a.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_accept_misc",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "a.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_accept_misc",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "a.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_accept_misc",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_accept_misc",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    },
+    {
+      "function": "a.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_accept_misc",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_accept_misc",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accept_misc",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accept_misc",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accept_misc",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accept_misc",
+      "source_code": ""
+    },
+    {
+      "function": "a.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_accept_misc",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accept_misc",
+      "source_code": ""
+    },
+    {
+      "function": "a.match",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/version.py",
+      "line": 129,
+      "caller": "test_accept_misc",
+      "source_code": "    def match(self, version):\n        \"\"\"\n        Check if the provided version matches the constraints.\n\n        :param version: The version to match against this instance.\n        :type version: String or :class:`Version` instance.\n        \"\"\"\n        if isinstance(version, string_types):\n            version = self.version_class(version)\n        for operator, constraint, prefix in self._parts:\n            f = self._operators.get(operator)\n            if isinstance(f, string_types):\n                f = getattr(self, f)\n            if not f:\n                msg = ('%r not implemented '\n                       'for %s' % (operator, self.__class__.__name__))\n                raise NotImplementedError(msg)\n            if not f(version, constraint, prefix):\n                return False\n        return True\n\n"
+    }
+  ],
+  "assertions": [
+    "assert repr(a) == '[*/plain;param=123, text/plain, text/*, foo/bar;q=0.5, foo/bar;q=0.0]'",
+    "assert str(a) == '*/plain;param=123, text/plain, text/*, foo/bar;q=0.5, foo/bar;q=0.0'",
+    "assert repr(m) == '<text/* matched */plain;param=123>'",
+    "assert m == 'text/*'",
+    "assert m.mime == 'text/*'",
+    "assert m.header.mime == '*/plain'",
+    "assert m.header.type == '*'",
+    "assert m.header.subtype == 'plain'",
+    "assert m.header.q == 1.0",
+    "assert m.header.params == dict(param='123')",
+    "assert m == a.match('text/*')",
+    "assert m != 123",
+    "assert repr(m) == '<foo/bar matched foo/bar;q=0.5>'",
+    "assert m == 'foo/bar'",
+    "assert m == 'foo/bar;q=0.5'",
+    "assert m == ''",
+    "assert m.header is None",
+    "assert a == ['*/*']",
+    "assert a.match('foo/bar')",
+    "assert a == []",
+    "assert not a.match('foo/bar')"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_accept_misc():\n    header = (\n        \"foo/bar;q=0.0, */plain;param=123, text/plain, text/*, foo/bar;q=0.5\"\n    )\n    a = headers.parse_accept(header)\n    assert repr(a) == (\n        \"[*/plain;param=123, text/plain, text/*, \"\n        \"foo/bar;q=0.5, foo/bar;q=0.0]\"\n    )  # noqa: E501\n    assert str(a) == (\n        \"*/plain;param=123, text/plain, text/*, \"\n        \"foo/bar;q=0.5, foo/bar;q=0.0\"\n    )  # noqa: E501\n    # q=1 types don't match foo/bar but match the two others,\n    # text/* comes first and matches */plain because it\n    # comes first in the header\n    m = a.match(\"foo/bar\", \"text/*\", \"text/plain\")\n    assert repr(m) == \"<text/* matched */plain;param=123>\"\n    assert m == \"text/*\"\n    assert m.mime == \"text/*\"\n    assert m.header.mime == \"*/plain\"\n    assert m.header.type == \"*\"\n    assert m.header.subtype == \"plain\"\n    assert m.header.q == 1.0\n    assert m.header.params == dict(param=\"123\")\n    # Matches object against another Matched object (by mime and header)\n    assert m == a.match(\"text/*\")\n    # Against unsupported type falls back to object id matching\n    assert m != 123\n    # Matches the highest q value\n    m = a.match(\"foo/bar\")\n    assert repr(m) == \"<foo/bar matched foo/bar;q=0.5>\"\n    assert m == \"foo/bar\"\n    assert m == \"foo/bar;q=0.5\"\n    # Matching nothing special case\n    m = a.match()\n    assert m == \"\"\n    assert m.header is None\n    # No header means anything\n    a = headers.parse_accept(None)\n    assert a == [\"*/*\"]\n    assert a.match(\"foo/bar\")\n    # Empty header means nothing\n    a = headers.parse_accept(\"\")\n    assert a == []\n    assert not a.match(\"foo/bar\")"
+}

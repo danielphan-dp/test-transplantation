@@ -1,0 +1,103 @@
+{
+  "test_name": "test_it_reraises_on_mismatch",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_tweens.py",
+  "static_methods": [
+    {
+      "name": "self.config.add_view",
+      "source_code": "    def add_view(\n        self,\n        view=None,\n        name=\"\",\n        for_=None,\n        permission=None,\n        request_type=None,\n        route_name=None,\n        request_method=None,\n        request_param=None,\n        containment=None,\n        attr=None,\n        renderer=None,\n        wrapper=None,\n        xhr=None,\n        accept=None,\n        header=None,\n        path_info=None,\n        custom_predicates=(),\n        context=None,\n        decorator=None,\n        mapper=None,\n        http_cache=None,\n        match_param=None,\n        require_csrf=None,\n        exception_only=False,\n        **view_options,\n    ):\n        \"\"\"Add a :term:`view configuration` to the current\n        configuration state.  Arguments to ``add_view`` are broken\n        down below into *predicate* arguments and *non-predicate*\n        arguments.  Predicate arguments narrow the circumstances in\n        which the view callable will be invoked when a request is\n        presented to :app:`Pyramid`; non-predicate arguments are\n        informational.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 241
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "Request.blank",
+      "source_code": "    def blank(cls, path, environ=None, base_url=None,\n              headers=None, POST=None, **kw):\n        \"\"\"\n        Create a blank request environ (and Request wrapper) with the\n        given path (path should be urlencoded), and any keys from\n        environ.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/request.py",
+      "line_number": 1330
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIsNone",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "tween",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.config.add_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 241,
+      "caller": "test_it_reraises_on_mismatch",
+      "source_code": "    @viewdefaults\n    @action_method\n    def add_view(\n        self,\n        view=None,\n        name=\"\",\n        for_=None,\n        permission=None,\n        request_type=None,\n        route_name=None,\n        request_method=None,\n        request_param=None,\n        containment=None,\n        attr=None,\n        renderer=None,\n        wrapper=None,\n        xhr=None,\n        accept=None,\n        header=None,\n        path_info=None,\n        custom_predicates=(),\n        context=None,\n        decorator=None,\n        mapper=None,\n        http_cache=None,\n        match_param=None,\n        require_csrf=None,\n        exception_only=False,\n        **view_options,\n"
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_it_reraises_on_mismatch",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "Request.blank",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/webob/request.py",
+      "line": 1330,
+      "caller": "test_it_reraises_on_mismatch",
+      "source_code": "    @classmethod\n    def blank(cls, path, environ=None, base_url=None,\n              headers=None, POST=None, **kw):\n        \"\"\"\n        Create a blank request environ (and Request wrapper) with the\n        given path (path should be urlencoded), and any keys from\n        environ.\n\n        The path will become path_info, with any query string split\n        off and used.\n\n        All necessary keys will be added to the environ, but the\n        values you pass in will take precedence.  If you pass in\n        base_url then wsgi.url_scheme, HTTP_HOST, and SCRIPT_NAME will\n        be filled in from that value.\n\n        Any extra keyword will be passed to ``__init__``.\n        \"\"\"\n        env = environ_from_url(path)\n        if base_url:\n            scheme, netloc, path, query, fragment = urlparse.urlsplit(base_url)\n            if query or fragment:\n                raise ValueError(\n                    \"base_url (%r) cannot have a query or fragment\"\n                    % base_url)\n            if scheme:\n                env['wsgi.url_scheme'] = scheme\n            if netloc:\n                if ':' not in netloc:\n                    if scheme == 'http':\n                        netloc += ':80'\n                    elif scheme == 'https':\n                        netloc += ':443'\n                    else:\n                        raise ValueError(\n                            \"Unknown scheme: %r\" % scheme)\n                host, port = netloc.split(':', 1)\n                env['SERVER_PORT'] = port\n                env['SERVER_NAME'] = host\n                env['HTTP_HOST'] = netloc\n            if path:\n                env['SCRIPT_NAME'] = url_unquote(path)\n        if environ:\n            env.update(environ)\n        content_type = kw.get('content_type', env.get('CONTENT_TYPE'))\n        if headers and 'Content-Type' in headers:\n            content_type = headers['Content-Type']\n        if content_type is not None:\n            kw['content_type'] = content_type\n        environ_add_POST(env, POST, content_type=content_type)\n        obj = cls(env, **kw)\n        if headers is not None:\n            obj.headers.update(headers)\n        return obj\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_reraises_on_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_reraises_on_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIsNone",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_reraises_on_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "tween",
+      "filename": "",
+      "line": 0,
+      "caller": "test_it_reraises_on_mismatch",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_it_reraises_on_mismatch(self):\n        from pyramid.request import Request\n\n        def excview(request):  # pragma: no cover\n            pass\n\n        self.config.add_view(excview, context=ValueError, request_method='GET')\n\n        def handler(request):\n            raise ValueError\n\n        tween = self._makeOne(handler)\n        request = Request.blank('/')\n        request.registry = self.config.registry\n        request.method = 'POST'\n        self.assertRaises(ValueError, lambda: tween(request))\n        self.assertIsNone(request.exception)\n        self.assertIsNone(request.exc_info)"
+}

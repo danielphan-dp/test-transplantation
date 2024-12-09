@@ -1,0 +1,80 @@
+{
+  "test_name": "test_object_annotation",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_emit.py",
+  "static_methods": [
+    {
+      "name": "Emitter",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "emitter.object_annotation",
+      "source_code": "    def object_annotation(self, obj: object, line: str) -> str:\n        \"\"\"Build a C comment with an object's string represention.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/codegen/emit.py",
+      "line_number": 197
+    },
+    {
+      "name": "emitter.object_annotation",
+      "source_code": "    def object_annotation(self, obj: object, line: str) -> str:\n        \"\"\"Build a C comment with an object's string represention.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/codegen/emit.py",
+      "line_number": 197
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "range",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Emitter",
+      "filename": "",
+      "line": 0,
+      "caller": "test_object_annotation",
+      "source_code": ""
+    },
+    {
+      "function": "emitter.object_annotation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/codegen/emit.py",
+      "line": 197,
+      "caller": "test_object_annotation",
+      "source_code": "    def object_annotation(self, obj: object, line: str) -> str:\n        \"\"\"Build a C comment with an object's string represention.\n\n        If the comment exceeds the line length limit, it's wrapped into a\n        multiline string (with the extra lines indented to be aligned with\n        the first line's comment).\n\n        If it contains illegal characters, an empty string is returned.\"\"\"\n        line_width = self._indent + len(line)\n        formatted = pprint.pformat(obj, compact=True, width=max(90 - line_width, 20))\n        if any(x in formatted for x in (\"/*\", \"*/\", \"\\0\")):\n            return \"\"\n\n        if \"\\n\" in formatted:\n            first_line, rest = formatted.split(\"\\n\", maxsplit=1)\n            comment_continued = textwrap.indent(rest, (line_width + 3) * \" \")\n            return f\" /* {first_line}\\n{comment_continued} */\"\n        else:\n            return f\" /* {formatted} */\"\n\n"
+    },
+    {
+      "function": "emitter.object_annotation",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/codegen/emit.py",
+      "line": 197,
+      "caller": "test_object_annotation",
+      "source_code": "    def object_annotation(self, obj: object, line: str) -> str:\n        \"\"\"Build a C comment with an object's string represention.\n\n        If the comment exceeds the line length limit, it's wrapped into a\n        multiline string (with the extra lines indented to be aligned with\n        the first line's comment).\n\n        If it contains illegal characters, an empty string is returned.\"\"\"\n        line_width = self._indent + len(line)\n        formatted = pprint.pformat(obj, compact=True, width=max(90 - line_width, 20))\n        if any(x in formatted for x in (\"/*\", \"*/\", \"\\0\")):\n            return \"\"\n\n        if \"\\n\" in formatted:\n            first_line, rest = formatted.split(\"\\n\", maxsplit=1)\n            comment_continued = textwrap.indent(rest, (line_width + 3) * \" \")\n            return f\" /* {first_line}\\n{comment_continued} */\"\n        else:\n            return f\" /* {formatted} */\"\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_object_annotation",
+      "source_code": ""
+    },
+    {
+      "function": "range",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_object_annotation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert emitter.object_annotation('hello, world', 'line;') == \" /* 'hello, world' */\"",
+    "assert emitter.object_annotation(list(range(30)), 'line;') == ' /* [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,\\n         23, 24, 25, 26, 27, 28, 29] */'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_object_annotation(self) -> None:\n        emitter = Emitter(self.context, {})\n        assert emitter.object_annotation(\"hello, world\", \"line;\") == \" /* 'hello, world' */\"\n        assert (\n            emitter.object_annotation(list(range(30)), \"line;\")\n            == \"\"\"\\\n /* [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,\n         23, 24, 25, 26, 27, 28, 29] */\"\"\"\n        )"
+}

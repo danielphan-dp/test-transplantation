@@ -1,0 +1,66 @@
+{
+  "test_name": "test_find_sources_in_dir_no_namespace",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/test/test_find_sources.py",
+  "static_methods": [
+    {
+      "name": "Options",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SourceFinder",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "FakeFSCache",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "find_sources_in_dir",
+      "source_code": "    def find_sources_in_dir(self, path: str) -> list[BuildSource]:\n        sources = []",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/find_sources.py",
+      "line_number": 102
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Options",
+      "filename": "",
+      "line": 0,
+      "caller": "test_find_sources_in_dir_no_namespace",
+      "source_code": ""
+    },
+    {
+      "function": "SourceFinder",
+      "filename": "",
+      "line": 0,
+      "caller": "test_find_sources_in_dir_no_namespace",
+      "source_code": ""
+    },
+    {
+      "function": "FakeFSCache",
+      "filename": "",
+      "line": 0,
+      "caller": "test_find_sources_in_dir_no_namespace",
+      "source_code": ""
+    },
+    {
+      "function": "find_sources_in_dir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypy/find_sources.py",
+      "line": 102,
+      "caller": "test_find_sources_in_dir_no_namespace",
+      "source_code": "    def find_sources_in_dir(self, path: str) -> list[BuildSource]:\n        sources = []\n\n        seen: set[str] = set()\n        names = sorted(self.fscache.listdir(path), key=keyfunc)\n        for name in names:\n            # Skip certain names altogether\n            if name in (\"__pycache__\", \"site-packages\", \"node_modules\") or name.startswith(\".\"):\n                continue\n            subpath = os.path.join(path, name)\n\n            if matches_exclude(subpath, self.exclude, self.fscache, self.verbosity >= 2):\n                continue\n\n            if self.fscache.isdir(subpath):\n                sub_sources = self.find_sources_in_dir(subpath)\n                if sub_sources:\n                    seen.add(name)\n                    sources.extend(sub_sources)\n            else:\n                stem, suffix = os.path.splitext(name)\n                if stem not in seen and suffix in PY_EXTENSIONS:\n                    seen.add(stem)\n                    module, base_dir = self.crawl_up(subpath)\n                    sources.append(BuildSource(subpath, module, None, base_dir))\n\n        return sources\n\n"
+    }
+  ],
+  "assertions": [
+    "assert find_sources_in_dir(finder, '/') == [('a2', '/pkg'), ('e', '/pkg/a1/b/c/d'), ('e', '/pkg/a2/b/c/d'), ('f', '/pkg/a1/b'), ('f', '/pkg/a2/b')]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_find_sources_in_dir_no_namespace(self) -> None:\n        options = Options()\n        options.namespace_packages = False\n\n        files = {\n            \"/pkg/a1/b/c/d/e.py\",\n            \"/pkg/a1/b/f.py\",\n            \"/pkg/a2/__init__.py\",\n            \"/pkg/a2/b/c/d/e.py\",\n            \"/pkg/a2/b/f.py\",\n        }\n        finder = SourceFinder(FakeFSCache(files), options)\n        assert find_sources_in_dir(finder, \"/\") == [\n            (\"a2\", \"/pkg\"),\n            (\"e\", \"/pkg/a1/b/c/d\"),\n            (\"e\", \"/pkg/a2/b/c/d\"),\n            (\"f\", \"/pkg/a1/b\"),\n            (\"f\", \"/pkg/a2/b\"),\n        ]"
+}

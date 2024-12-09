@@ -1,0 +1,53 @@
+{
+  "test_name": "test_extras_require_with_invalid_marker_in_req",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+  "static_methods": [
+    {
+      "name": "tmpl.format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self._setup_script_with_requires",
+      "source_code": "    def _setup_script_with_requires(self, requires, use_setup_cfg=False):\n        setup_script = DALS(\n            \"\"\"\n            from setuptools import setup",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line_number": 249
+    },
+    {
+      "name": "self._run_egg_info_command",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line_number": 1227
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "tmpl.format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_extras_require_with_invalid_marker_in_req",
+      "source_code": ""
+    },
+    {
+      "function": "self._setup_script_with_requires",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line": 249,
+      "caller": "test_extras_require_with_invalid_marker_in_req",
+      "source_code": "    def _setup_script_with_requires(self, requires, use_setup_cfg=False):\n        setup_script = DALS(\n            \"\"\"\n            from setuptools import setup\n\n            setup(name='foo', zip_safe=False, %s)\n            \"\"\"\n        ) % ('' if use_setup_cfg else requires)\n        setup_config = requires if use_setup_cfg else ''\n        path.build({\n            'setup.py': setup_script,\n            'setup.cfg': setup_config,\n        })\n\n"
+    },
+    {
+      "function": "self._run_egg_info_command",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_egg_info.py",
+      "line": 1227,
+      "caller": "test_extras_require_with_invalid_marker_in_req",
+      "source_code": "    def _run_egg_info_command(self, tmpdir_cwd, env, cmd=None, output=None):\n        environ = os.environ.copy().update(\n            HOME=env.paths['home'],\n        )\n        if cmd is None:\n            cmd = [\n                'egg_info',\n            ]\n        code, data = environment.run_setup_py(\n            cmd=cmd,\n            pypath=os.pathsep.join([env.paths['lib'], str(tmpdir_cwd)]),\n            data_stream=1,\n            env=environ,\n        )\n        assert not code, data\n\n        if output:\n            assert output in data\n\n"
+    }
+  ],
+  "assertions": [
+    "assert glob.glob(os.path.join(env.paths['lib'], 'barbazquux*')) == []"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_extras_require_with_invalid_marker_in_req(self, tmpdir_cwd, env):\n        tmpl = 'extras_require={{\"extra\": [\"barbazquux; {marker}\"]}},'\n        req = tmpl.format(marker=self.invalid_marker)\n        self._setup_script_with_requires(req)\n        with pytest.raises(AssertionError):\n            self._run_egg_info_command(tmpdir_cwd, env)\n        assert glob.glob(os.path.join(env.paths['lib'], 'barbazquux*')) == []"
+}

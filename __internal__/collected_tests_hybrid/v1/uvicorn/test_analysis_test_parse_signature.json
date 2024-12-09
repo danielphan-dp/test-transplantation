@@ -1,0 +1,144 @@
+{
+  "test_name": "test_parse_signature",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/tests/test_low_level.py",
+  "static_methods": [
+    {
+      "name": "parse_signature",
+      "source_code": "    def parse_signature(self, node: _MacroCall) -> None:\n        args = node.args = []\n        defaults = node.defaults = []\n        self.stream.expect(\"lparen\")\n        while self.stream.current.type != \"rparen\":\n            if args:\n                self.stream.expect(\"comma\")\n            arg = self.parse_assign_target(name_only=True)\n            arg.set_ctx(\"param\")\n            if self.stream.skip_if(\"assign\"):\n                defaults.append(self.parse_expression())\n            elif defaults:\n                self.fail(\"non-default argument follows default argument\")\n            args.append(arg)\n        self.stream.expect(\"rparen\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jinja2/parser.py",
+      "line_number": 406
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Struct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Array",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Struct",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DictEntry",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Array",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Array",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Variant",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_signature",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jinja2/parser.py",
+      "line": 406,
+      "caller": "test_parse_signature",
+      "source_code": "    def parse_signature(self, node: _MacroCall) -> None:\n        args = node.args = []\n        defaults = node.defaults = []\n        self.stream.expect(\"lparen\")\n        while self.stream.current.type != \"rparen\":\n            if args:\n                self.stream.expect(\"comma\")\n            arg = self.parse_assign_target(name_only=True)\n            arg.set_ctx(\"param\")\n            if self.stream.skip_if(\"assign\"):\n                defaults.append(self.parse_expression())\n            elif defaults:\n                self.fail(\"non-default argument follows default argument\")\n            args.append(arg)\n        self.stream.expect(\"rparen\")\n\n"
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "Struct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "Array",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "Struct",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "DictEntry",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "Array",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "Array",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    },
+    {
+      "function": "Variant",
+      "filename": "",
+      "line": 0,
+      "caller": "test_parse_signature",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert sig == Struct([Array(DictEntry([simple_types['s'], Variant()])), Struct([simple_types['o'], Array(simple_types['y']), Array(simple_types['y']), simple_types['s']]), simple_types['b']])"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_signature():\n    sig = parse_signature(list('(a{sv}(oayays)b)'))\n    print(sig)\n    assert sig == Struct([\n        Array(DictEntry([simple_types['s'], Variant()])),\n        Struct([\n            simple_types['o'],\n            Array(simple_types['y']),\n            Array(simple_types['y']),\n            simple_types['s']\n        ]),\n        simple_types['b'],\n    ])"
+}

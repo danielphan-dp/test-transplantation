@@ -1,0 +1,40 @@
+{
+  "test_name": "test_redirect_to_edit_for_existing_page",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/test_functional.py",
+  "static_methods": [
+    {
+      "name": "testapp.login",
+      "source_code": "    def login(self, params, status=303, **kw):\n        \"\"\" Convenience method to login the client.\"\"\"\n        body = dict(csrf_token=self.get_csrf_token())\n        body.update(params)\n        return self.post('/login', body, **kw)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/conftest.py",
+      "line_number": 100
+    },
+    {
+      "name": "testapp.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "testapp.login",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/tests/tests/conftest.py",
+      "line": 100,
+      "caller": "test_redirect_to_edit_for_existing_page",
+      "source_code": "    def login(self, params, status=303, **kw):\n        \"\"\" Convenience method to login the client.\"\"\"\n        body = dict(csrf_token=self.get_csrf_token())\n        body.update(params)\n        return self.post('/login', body, **kw)\n\n"
+    },
+    {
+      "function": "testapp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_redirect_to_edit_for_existing_page",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert b'FrontPage' in res.body"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_redirect_to_edit_for_existing_page(testapp):\n    testapp.login(editor_login)\n    res = testapp.get('/add_page/FrontPage', status=303)\n    assert b'FrontPage' in res.body"
+}

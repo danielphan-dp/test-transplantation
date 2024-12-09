@@ -1,0 +1,67 @@
+{
+  "test_name": "test_nopublic_is_final",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_exports.py",
+  "static_methods": [
+    {
+      "name": "class_is_final",
+      "source_code": "def class_is_final(cls: type) -> bool:\n    \"\"\"Check if a class cannot be subclassed.\"\"\"\n    try:\n        # new_class() handles metaclasses properly, type(...) does not.\n        types.new_class(\"SubclassTester\", (cls,))\n    except TypeError:\n        return True\n    else:\n        return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_exports.py",
+      "line_number": 82
+    },
+    {
+      "name": "module.__dict__.values",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line_number": 749
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "class_is_final",
+      "source_code": "def class_is_final(cls: type) -> bool:\n    \"\"\"Check if a class cannot be subclassed.\"\"\"\n    try:\n        # new_class() handles metaclasses properly, type(...) does not.\n        types.new_class(\"SubclassTester\", (cls,))\n    except TypeError:\n        return True\n    else:\n        return False",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_exports.py",
+      "line_number": 82
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "class_is_final",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_exports.py",
+      "line": 82,
+      "caller": "test_nopublic_is_final",
+      "source_code": "def class_is_final(cls: type) -> bool:\n    \"\"\"Check if a class cannot be subclassed.\"\"\"\n    try:\n        # new_class() handles metaclasses properly, type(...) does not.\n        types.new_class(\"SubclassTester\", (cls,))\n    except TypeError:\n        return True\n    else:\n        return False\n\n\n"
+    },
+    {
+      "function": "module.__dict__.values",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/pip/_vendor/distlib/compat.py",
+      "line": 749,
+      "caller": "test_nopublic_is_final",
+      "source_code": "        def values(self):\n            'od.values() -> list of values in od'\n            return [self[key] for key in self]\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_nopublic_is_final",
+      "source_code": ""
+    },
+    {
+      "function": "class_is_final",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_exports.py",
+      "line": 82,
+      "caller": "test_nopublic_is_final",
+      "source_code": "def class_is_final(cls: type) -> bool:\n    \"\"\"Check if a class cannot be subclassed.\"\"\"\n    try:\n        # new_class() handles metaclasses properly, type(...) does not.\n        types.new_class(\"SubclassTester\", (cls,))\n    except TypeError:\n        return True\n    else:\n        return False\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert class_is_final(_util.NoPublicConstructor)",
+    "assert class_is_final(class_)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_nopublic_is_final() -> None:\n    \"\"\"Check all NoPublicConstructor classes are also @final.\"\"\"\n    assert class_is_final(_util.NoPublicConstructor)  # This is itself final.\n\n    for module in ALL_MODULES:\n        for class_ in module.__dict__.values():\n            if isinstance(class_, _util.NoPublicConstructor):\n                assert class_is_final(class_)"
+}

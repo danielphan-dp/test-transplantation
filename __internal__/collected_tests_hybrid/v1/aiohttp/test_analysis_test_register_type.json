@@ -1,0 +1,66 @@
+{
+  "test_name": "test_register_type",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_payload.py",
+  "static_methods": [
+    {
+      "name": "payload.register_payload",
+      "source_code": "def register_payload(\n    factory: Type[\"Payload\"], type: Any, *, order: Order = Order.normal",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line_number": 74
+    },
+    {
+      "name": "payload.get_payload",
+      "source_code": "def get_payload(data: Any, *args: Any, **kwargs: Any) -> \"Payload\":\n    return PAYLOAD_REGISTRY.get(data, *args, **kwargs)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line_number": 70
+    },
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "TestProvider",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "payload.register_payload",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line": 74,
+      "caller": "test_register_type",
+      "source_code": "def register_payload(\n    factory: Type[\"Payload\"], type: Any, *, order: Order = Order.normal\n"
+    },
+    {
+      "function": "payload.get_payload",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/payload.py",
+      "line": 70,
+      "caller": "test_register_type",
+      "source_code": "def get_payload(data: Any, *args: Any, **kwargs: Any) -> \"Payload\":\n    return PAYLOAD_REGISTRY.get(data, *args, **kwargs)\n\n\n"
+    },
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_register_type",
+      "source_code": ""
+    },
+    {
+      "function": "TestProvider",
+      "filename": "",
+      "line": 0,
+      "caller": "test_register_type",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert isinstance(p, Payload)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_register_type(registry: payload.PayloadRegistry) -> None:\n    class TestProvider:\n        pass\n\n    payload.register_payload(Payload, TestProvider)\n    p = payload.get_payload(TestProvider())\n    assert isinstance(p, Payload)"
+}

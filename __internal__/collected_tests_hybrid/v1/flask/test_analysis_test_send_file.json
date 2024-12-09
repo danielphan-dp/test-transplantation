@@ -1,6 +1,6 @@
 {
   "test_name": "test_send_file",
-  "test_file": "__internal__/_data/flask/tests/test_helpers.py",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
   "static_methods": [
     {
       "name": "app.open_resource",
@@ -10,9 +10,9 @@
     },
     {
       "name": "rv.close",
-      "source_code": "            def close(self):\n                called.append(42)",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
-      "line_number": 274
+      "source_code": "    def close(self) -> None:\n        for callback in self._callbacks:\n            callback()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wsgi.py",
+      "line_number": 258
     },
     {
       "name": "app.open_resource",
@@ -22,9 +22,9 @@
     },
     {
       "name": "f.read",
-      "source_code": "    def read():\n        return str(flask.session.get(\"foo\", 0))",
-      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
-      "line_number": 482
+      "source_code": "            def read() -> t.Iterator[bytes]:\n                while True:\n                    try:\n                        data = resp.read(self.chunk_size)\n                    except OSError:\n                        break",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/middleware/http_proxy.py",
+      "line_number": 209
     }
   ],
   "dynamic_methods": [
@@ -37,10 +37,10 @@
     },
     {
       "function": "rv.close",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_helpers.py",
-      "line": 274,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/wsgi.py",
+      "line": 258,
       "caller": "test_send_file",
-      "source_code": "            def close(self):\n                called.append(42)\n\n"
+      "source_code": "    def close(self) -> None:\n        for callback in self._callbacks:\n            callback()\n\n\n"
     },
     {
       "function": "app.open_resource",
@@ -51,10 +51,10 @@
     },
     {
       "function": "f.read",
-      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/tests/test_basic.py",
-      "line": 482,
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/flask/venv/lib/python3.9/site-packages/werkzeug/middleware/http_proxy.py",
+      "line": 209,
       "caller": "test_send_file",
-      "source_code": "    @app.route(\"/read\")\n    def read():\n        return str(flask.session.get(\"foo\", 0))\n\n"
+      "source_code": "            def read() -> t.Iterator[bytes]:\n                while True:\n                    try:\n                        data = resp.read(self.chunk_size)\n                    except OSError:\n                        break\n\n                    if not data:\n                        break\n\n                    yield data\n\n"
     }
   ],
   "assertions": [

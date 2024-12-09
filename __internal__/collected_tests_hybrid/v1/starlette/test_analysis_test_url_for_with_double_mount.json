@@ -1,0 +1,40 @@
+{
+  "test_name": "test_url_for_with_double_mount",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "Starlette",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "app.url_path_for",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line_number": 182
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Starlette",
+      "filename": "",
+      "line": 0,
+      "caller": "test_url_for_with_double_mount",
+      "source_code": ""
+    },
+    {
+      "function": "app.url_path_for",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/starlette/routing.py",
+      "line": 182,
+      "caller": "test_url_for_with_double_mount",
+      "source_code": "    def url_path_for(self, name: str, /, **path_params: typing.Any) -> URLPath:\n        raise NotImplementedError()  # pragma: no cover\n\n"
+    }
+  ],
+  "assertions": [
+    "assert url == '/mount/static/123'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_url_for_with_double_mount() -> None:\n    app = Starlette(routes=double_mount_routes)\n    url = app.url_path_for(\"mount:static\", path=\"123\")\n    assert url == \"/mount/static/123\""
+}

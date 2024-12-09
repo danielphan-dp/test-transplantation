@@ -1,0 +1,66 @@
+{
+  "test_name": "test_my_view_success",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/docs/tutorials/wiki2/src/views/tests/test_functional.py",
+  "static_methods": [
+    {
+      "name": "models.MyModel",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dbsession.add",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line_number": 31
+    },
+    {
+      "name": "dbsession.flush",
+      "source_code": "    def flush(self) -> None:\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_null_file.py",
+      "line_number": 76
+    },
+    {
+      "name": "testapp.get",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 14
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "models.MyModel",
+      "filename": "",
+      "line": 0,
+      "caller": "test_my_view_success",
+      "source_code": ""
+    },
+    {
+      "function": "dbsession.add",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/resolvelib/structs.py",
+      "line": 31,
+      "caller": "test_my_view_success",
+      "source_code": "    def add(self, key):\n        \"\"\"Add a new vertex to the graph.\"\"\"\n        if key in self._vertices:\n            raise ValueError(\"vertex exists\")\n        self._vertices.add(key)\n        self._forwards[key] = set()\n        self._backwards[key] = set()\n\n"
+    },
+    {
+      "function": "dbsession.flush",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/rich/_null_file.py",
+      "line": 76,
+      "caller": "test_my_view_success",
+      "source_code": "    def flush(self) -> None:\n        pass\n\n"
+    },
+    {
+      "function": "testapp.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 14,
+      "caller": "test_my_view_success",
+      "source_code": "    def get(self, key):\n        raise NotImplementedError()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert res.body"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_my_view_success(testapp, dbsession):\n    model = models.MyModel(name='one', value=55)\n    dbsession.add(model)\n    dbsession.flush()\n\n    res = testapp.get('/', status=200)\n    assert res.body"
+}

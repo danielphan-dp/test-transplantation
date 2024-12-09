@@ -1,0 +1,103 @@
+{
+  "test_name": "test__find_multi_routes_some_match",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_scripts/test_pviews.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "dummy.DummyMapper",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dummy.DummyRequest",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "command._find_multi_routes",
+      "source_code": "    def _find_multi_routes(self, mapper, request):\n        infos = []\n        path = request.path_info\n        # find all routes that match path, regardless of predicates\n        for route in mapper.get_routes():\n            match = route.match(path)\n            if match is not None:\n                info = {'match': match, 'route': route}\n                infos.append(info)\n        return infos",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripts/pviews.py",
+      "line_number": 71
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dummy.DummyRoute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dummy.DummyRoute",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test__find_multi_routes_some_match",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "dummy.DummyMapper",
+      "filename": "",
+      "line": 0,
+      "caller": "test__find_multi_routes_some_match",
+      "source_code": ""
+    },
+    {
+      "function": "dummy.DummyRequest",
+      "filename": "",
+      "line": 0,
+      "caller": "test__find_multi_routes_some_match",
+      "source_code": ""
+    },
+    {
+      "function": "command._find_multi_routes",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/scripts/pviews.py",
+      "line": 71,
+      "caller": "test__find_multi_routes_some_match",
+      "source_code": "    def _find_multi_routes(self, mapper, request):\n        infos = []\n        path = request.path_info\n        # find all routes that match path, regardless of predicates\n        for route in mapper.get_routes():\n            match = route.match(path)\n            if match is not None:\n                info = {'match': match, 'route': route}\n                infos.append(info)\n        return infos\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test__find_multi_routes_some_match",
+      "source_code": ""
+    },
+    {
+      "function": "dummy.DummyRoute",
+      "filename": "",
+      "line": 0,
+      "caller": "test__find_multi_routes_some_match",
+      "source_code": ""
+    },
+    {
+      "function": "dummy.DummyRoute",
+      "filename": "",
+      "line": 0,
+      "caller": "test__find_multi_routes_some_match",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test__find_multi_routes_some_match(self):\n        command = self._makeOne()\n\n        def factory(request):  # pragma: no cover\n            pass\n\n        routes = [\n            dummy.DummyRoute('a', '/a', factory=factory),\n            dummy.DummyRoute('b', '/a', factory=factory, matchdict={}),\n        ]\n        mapper = dummy.DummyMapper(*routes)\n        request = dummy.DummyRequest()\n        request.path_info = '/a'\n        result = command._find_multi_routes(mapper, request)\n        self.assertEqual(result, [{'match': {}, 'route': routes[1]}])"
+}

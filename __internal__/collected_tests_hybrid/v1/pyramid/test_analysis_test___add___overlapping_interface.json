@@ -1,0 +1,129 @@
+{
+  "test_name": "test___add___overlapping_interface",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_declarations.py",
+  "static_methods": [
+    {
+      "name": "C3Setting",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "InterfaceClass",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "C3Setting",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "C3Setting",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    },
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    },
+    {
+      "function": "InterfaceClass",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    },
+    {
+      "function": "C3Setting",
+      "filename": "",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    },
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test___add___overlapping_interface",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test___add___overlapping_interface",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test___add___overlapping_interface(self):\n        # The derived interfaces end up with higher priority, and\n        # don't produce a C3 resolution order violation. This\n        # example produced a C3 error, and the resulting legacy order\n        # used to be wrong ([IBase, IDerived] instead of\n        # the other way).\n        from zope.interface import Interface\n        from zope.interface import ro\n        from zope.interface.interface import InterfaceClass\n        from zope.interface.tests.test_ro import C3Setting\n\n        IBase = InterfaceClass('IBase')\n        IDerived = InterfaceClass('IDerived', (IBase,))\n\n        with C3Setting(ro.C3.STRICT_IRO, True):\n            base = self._makeOne(IBase)\n            after = base + IDerived\n\n        self.assertEqual(after.__iro__, (IDerived, IBase, Interface))\n        self.assertEqual(after.__bases__, (IDerived, IBase))\n        self.assertEqual(list(after), [IDerived, IBase])"
+}

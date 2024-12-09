@@ -1,0 +1,25 @@
+{
+  "test_name": "test_deployment_target_too_low",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+  "static_methods": [
+    {
+      "name": "self._try_compile_deployment_target",
+      "source_code": "    def _try_compile_deployment_target(self, operator, target):  # pragma: no cover\n        if target is None:\n            if os.environ.get('MACOSX_DEPLOYMENT_TARGET'):\n                del os.environ['MACOSX_DEPLOYMENT_TARGET']\n        else:\n            os.environ['MACOSX_DEPLOYMENT_TARGET'] = target",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line_number": 493
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._try_compile_deployment_target",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_build_ext.py",
+      "line": 493,
+      "caller": "test_deployment_target_too_low",
+      "source_code": "    def _try_compile_deployment_target(self, operator, target):  # pragma: no cover\n        if target is None:\n            if os.environ.get('MACOSX_DEPLOYMENT_TARGET'):\n                del os.environ['MACOSX_DEPLOYMENT_TARGET']\n        else:\n            os.environ['MACOSX_DEPLOYMENT_TARGET'] = target\n\n        jaraco.path.build(\n            {\n                'deptargetmodule.c': textwrap.dedent(f\"\"\"\\\n                    #include <AvailabilityMacros.h>\n\n                    int dummy;\n\n                    #if TARGET {operator} MAC_OS_X_VERSION_MIN_REQUIRED\n                    #else\n                    #error \"Unexpected target\"\n                    #endif\n\n                    \"\"\"),\n            },\n            self.tmp_path,\n        )\n\n        # get the deployment target that the interpreter was built with\n        target = sysconfig.get_config_var('MACOSX_DEPLOYMENT_TARGET')\n        target = tuple(map(int, target.split('.')[0:2]))\n        # format the target value as defined in the Apple\n        # Availability Macros.  We can't use the macro names since\n        # at least one value we test with will not exist yet.\n        if target[:2] < (10, 10):\n            # for 10.1 through 10.9.x -> \"10n0\"\n            target = '%02d%01d0' % target\n        else:\n            # for 10.10 and beyond -> \"10nn00\"\n            if len(target) >= 2:\n                target = '%02d%02d00' % target\n            else:\n                # 11 and later can have no minor version (11 instead of 11.0)\n                target = '%02d0000' % target\n        deptarget_ext = Extension(\n            'deptarget',\n            [self.tmp_path / 'deptargetmodule.c'],\n            extra_compile_args=[f'-DTARGET={target}'],\n        )\n        dist = Distribution({'name': 'deptarget', 'ext_modules': [deptarget_ext]})\n        dist.package_dir = self.tmp_dir\n        cmd = self.build_ext(dist)\n        cmd.build_lib = self.tmp_dir\n        cmd.build_temp = self.tmp_dir\n\n        try:\n            old_stdout = sys.stdout\n            if not support.verbose:\n                # silence compiler output\n                sys.stdout = StringIO()\n            try:\n                cmd.ensure_finalized()\n                cmd.run()\n            finally:\n                sys.stdout = old_stdout\n\n        except CompileError:\n            self.fail(\"Wrong deployment target during compilation\")\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_deployment_target_too_low(self):\n        # Issue 9516: Test that an extension module is not allowed to be\n        # compiled with a deployment target less than that of the interpreter.\n        with pytest.raises(DistutilsPlatformError):\n            self._try_compile_deployment_target('>', '10.1')"
+}

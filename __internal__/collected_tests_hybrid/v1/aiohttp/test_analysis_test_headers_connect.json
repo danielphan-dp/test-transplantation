@@ -1,0 +1,28 @@
+{
+  "test_name": "test_headers_connect",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_headers_connect",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert upgrade",
+    "assert isinstance(payload, streams.StreamReader)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_headers_connect(parser: HttpRequestParser) -> None:\n    text = b\"CONNECT www.google.com HTTP/1.1\\r\\ncontent-length: 0\\r\\n\\r\\n\"\n    messages, upgrade, tail = parser.feed_data(text)\n    msg, payload = messages[0]\n    assert upgrade\n    assert isinstance(payload, streams.StreamReader)"
+}

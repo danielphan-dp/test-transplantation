@@ -1,0 +1,38 @@
+{
+  "test_name": "test_missing_value",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_utils.py",
+  "static_methods": [
+    {
+      "name": "self.assertFalse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "equal",
+      "source_code": "def equal(one, two):\n    \"\"\"\n    Check if two things are equal evading some Python type hierarchy semantics.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_utils.py",
+      "line_number": 127
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertFalse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_missing_value",
+      "source_code": ""
+    },
+    {
+      "function": "equal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/_utils.py",
+      "line": 127,
+      "caller": "test_missing_value",
+      "source_code": "def equal(one, two):\n    \"\"\"\n    Check if two things are equal evading some Python type hierarchy semantics.\n\n    Specifically in JSON Schema, evade `bool` inheriting from `int`,\n    recursing into sequences to do the same.\n    \"\"\"\n    if one is two:\n        return True\n    if isinstance(one, str) or isinstance(two, str):\n        return one == two\n    if isinstance(one, Sequence) and isinstance(two, Sequence):\n        return _sequence_equal(one, two)\n    if isinstance(one, Mapping) and isinstance(two, Mapping):\n        return _mapping_equal(one, two)\n    return unbool(one) == unbool(two)\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_missing_value(self):\n        dict_1 = {\"a\": \"b\", \"c\": \"d\"}\n        dict_2 = {\"c\": \"d\", \"a\": \"x\"}\n        self.assertFalse(equal(dict_1, dict_2))"
+}

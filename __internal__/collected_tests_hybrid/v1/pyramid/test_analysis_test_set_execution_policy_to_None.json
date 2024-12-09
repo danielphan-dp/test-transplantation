@@ -1,0 +1,64 @@
+{
+  "test_name": "test_set_execution_policy_to_None",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_factories.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "config.set_execution_policy",
+      "source_code": "    def set_execution_policy(self, policy):\n        \"\"\"\n        Override the :app:`Pyramid` :term:`execution policy` in the\n        current configuration.  The ``policy`` argument must be an instance\n        of an :class:`pyramid.interfaces.IExecutionPolicy` or a\n        :term:`dotted Python name` that points at an instance of an\n        execution policy.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/factories.py",
+      "line_number": 233
+    },
+    {
+      "name": "registry.queryUtility",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line_number": 1063
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_set_execution_policy_to_None",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "config.set_execution_policy",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/factories.py",
+      "line": 233,
+      "caller": "test_set_execution_policy_to_None",
+      "source_code": "    @action_method\n    def set_execution_policy(self, policy):\n        \"\"\"\n        Override the :app:`Pyramid` :term:`execution policy` in the\n        current configuration.  The ``policy`` argument must be an instance\n        of an :class:`pyramid.interfaces.IExecutionPolicy` or a\n        :term:`dotted Python name` that points at an instance of an\n        execution policy.\n\n        \"\"\"\n        policy = self.maybe_dotted(policy)\n        if policy is None:\n            policy = default_execution_policy\n\n        def register():\n            self.registry.registerUtility(policy, IExecutionPolicy)\n\n        intr = self.introspectable(\n            'execution policy',\n            None,\n            self.object_description(policy),\n            'execution policy',\n        )\n        intr['policy'] = policy\n        self.action(IExecutionPolicy, register, introspectables=(intr,))\n\n\n"
+    },
+    {
+      "function": "registry.queryUtility",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/interfaces.py",
+      "line": 1063,
+      "caller": "test_set_execution_policy_to_None",
+      "source_code": "    def queryUtility(interface, name='', default=None):\n        \"\"\"Look up a utility that provides an interface.\n\n        If one is not found, returns default.\n        \"\"\"\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_set_execution_policy_to_None",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_execution_policy_to_None(self):\n        from pyramid.interfaces import IExecutionPolicy\n        from pyramid.router import default_execution_policy\n\n        config = self._makeOne(autocommit=True)\n        config.set_execution_policy(None)\n        registry = config.registry\n        result = registry.queryUtility(IExecutionPolicy)\n        self.assertEqual(result, default_execution_policy)"
+}

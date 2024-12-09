@@ -1,0 +1,25 @@
+{
+  "test_name": "test_env_vars_available_during_preload",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_arbiter.py",
+  "static_methods": [
+    {
+      "name": "PreloadedAppWithEnvSettings",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "PreloadedAppWithEnvSettings",
+      "filename": "",
+      "line": 0,
+      "caller": "test_env_vars_available_during_preload",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_env_vars_available_during_preload():\n    \"\"\"Ensure that configured environmental variables are set during the\n    initial set up of the application (called from the .setup() method of\n    the Arbiter) such that they are available during the initial loading\n    of the WSGI application.\n    \"\"\"\n    # Note that we aren't making any assertions here, they are made in the\n    # dummy application object being loaded here instead.\n    gunicorn.arbiter.Arbiter(PreloadedAppWithEnvSettings())"
+}

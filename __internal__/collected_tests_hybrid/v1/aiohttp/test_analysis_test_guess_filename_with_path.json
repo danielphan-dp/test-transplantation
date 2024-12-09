@@ -1,0 +1,27 @@
+{
+  "test_name": "test_guess_filename_with_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.guess_filename",
+      "source_code": "def guess_filename(obj):\n    \"\"\"Tries to guess the filename of the given object.\"\"\"\n    name = getattr(obj, \"name\", None)\n    if name and isinstance(name, basestring) and name[0] != \"<\" and name[-1] != \">\":\n        return os.path.basename(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/utils.py",
+      "line_number": 251
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.guess_filename",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/requests/utils.py",
+      "line": 251,
+      "caller": "test_guess_filename_with_path",
+      "source_code": "def guess_filename(obj):\n    \"\"\"Tries to guess the filename of the given object.\"\"\"\n    name = getattr(obj, \"name\", None)\n    if name and isinstance(name, basestring) and name[0] != \"<\" and name[-1] != \">\":\n        return os.path.basename(name)\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert helpers.guess_filename(file_path, 'no-throw') is not None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_guess_filename_with_path(tmp_path: Path) -> None:\n    file_path = tmp_path / \"test_guess_filename\"\n    assert helpers.guess_filename(file_path, \"no-throw\") is not None"
+}

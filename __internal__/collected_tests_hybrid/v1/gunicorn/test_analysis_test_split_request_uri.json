@@ -1,0 +1,92 @@
+{
+  "test_name": "test_split_request_uri",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_util.py",
+  "static_methods": [
+    {
+      "name": "util.split_request_uri",
+      "source_code": "def split_request_uri(uri):\n    if uri.startswith(\"//\"):\n        # When the path starts with //, urlsplit considers it as a\n        # relative uri while the RFC says we should consider it as abs_path\n        # http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.1.2\n        # We use temporary dot prefix to workaround this behaviour\n        parts = urllib.parse.urlsplit(\".\" + uri)\n        return parts._replace(path=parts.path[1:])",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line_number": 617
+    },
+    {
+      "name": "SplitResult",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SplitResult",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SplitResult",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SplitResult",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SplitResult",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "util.split_request_uri",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/gunicorn/util.py",
+      "line": 617,
+      "caller": "test_split_request_uri",
+      "source_code": "def split_request_uri(uri):\n    if uri.startswith(\"//\"):\n        # When the path starts with //, urlsplit considers it as a\n        # relative uri while the RFC says we should consider it as abs_path\n        # http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.1.2\n        # We use temporary dot prefix to workaround this behaviour\n        parts = urllib.parse.urlsplit(\".\" + uri)\n        return parts._replace(path=parts.path[1:])\n\n    return urllib.parse.urlsplit(uri)\n\n\n"
+    },
+    {
+      "function": "SplitResult",
+      "filename": "",
+      "line": 0,
+      "caller": "test_split_request_uri",
+      "source_code": ""
+    },
+    {
+      "function": "SplitResult",
+      "filename": "",
+      "line": 0,
+      "caller": "test_split_request_uri",
+      "source_code": ""
+    },
+    {
+      "function": "SplitResult",
+      "filename": "",
+      "line": 0,
+      "caller": "test_split_request_uri",
+      "source_code": ""
+    },
+    {
+      "function": "SplitResult",
+      "filename": "",
+      "line": 0,
+      "caller": "test_split_request_uri",
+      "source_code": ""
+    },
+    {
+      "function": "SplitResult",
+      "filename": "",
+      "line": 0,
+      "caller": "test_split_request_uri",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert util.split_request_uri(test_input) == expected"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_split_request_uri(test_input, expected):\n    assert util.split_request_uri(test_input) == expected"
+}

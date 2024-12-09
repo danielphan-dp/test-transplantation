@@ -1,0 +1,116 @@
+{
+  "test_name": "test_strong_keywords_are_higher_priority",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_exceptions.py",
+  "static_methods": [
+    {
+      "name": "exceptions.ValidationError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.ValidationError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.ValidationError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "exceptions.by_relevance",
+      "source_code": "def by_relevance(weak=WEAK_MATCHES, strong=STRONG_MATCHES):\n    \"\"\"\n    Create a key function that can be used to sort errors by relevance.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/exceptions.py",
+      "line_number": 391
+    },
+    {
+      "name": "max",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "max",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "exceptions.ValidationError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.ValidationError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.ValidationError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": ""
+    },
+    {
+      "function": "exceptions.by_relevance",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/exceptions.py",
+      "line": 391,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": "def by_relevance(weak=WEAK_MATCHES, strong=STRONG_MATCHES):\n    \"\"\"\n    Create a key function that can be used to sort errors by relevance.\n\n    Arguments:\n        weak (set):\n            a collection of validation keywords to consider to be\n            \"weak\".  If there are two errors at the same level of the\n            instance and one is in the set of weak validation keywords,\n            the other error will take priority. By default, :kw:`anyOf`\n            and :kw:`oneOf` are considered weak keywords and will be\n            superseded by other same-level validation errors.\n\n        strong (set):\n            a collection of validation keywords to consider to be\n            \"strong\"\n\n    \"\"\"\n\n    def relevance(error):\n        validator = error.validator\n        return (                        # prefer errors which are ...\n            -len(error.path),           # 'deeper' and thereby more specific\n            error.path,                 # earlier (for sibling errors)\n            validator not in weak,      # for a non-low-priority keyword\n            validator in strong,        # for a high priority keyword\n            not error._matches_type(),  # at least match the instance's type\n        )                               # otherwise we'll treat them the same\n\n    return relevance\n\n\n"
+    },
+    {
+      "function": "max",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": ""
+    },
+    {
+      "function": "max",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_strong_keywords_are_higher_priority",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_strong_keywords_are_higher_priority(self):\n        weak = exceptions.ValidationError(\"Oh no!\", path=[], validator=\"a\")\n        normal = exceptions.ValidationError(\"Oh yes!\", path=[], validator=\"b\")\n        strong = exceptions.ValidationError(\"Oh fine!\", path=[], validator=\"c\")\n\n        best_match = exceptions.by_relevance(weak=\"a\", strong=\"c\")\n\n        match = max([weak, normal, strong], key=best_match)\n        self.assertIs(match, strong)\n\n        match = max([strong, normal, weak], key=best_match)\n        self.assertIs(match, strong)"
+}

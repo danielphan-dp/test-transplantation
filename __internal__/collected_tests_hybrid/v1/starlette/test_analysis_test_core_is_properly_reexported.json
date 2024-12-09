@@ -1,0 +1,79 @@
+{
+  "test_name": "test_core_is_properly_reexported",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_exports.py",
+  "static_methods": [
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "print",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dir",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "getattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_core_is_properly_reexported",
+      "source_code": ""
+    },
+    {
+      "function": "print",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_core_is_properly_reexported",
+      "source_code": ""
+    },
+    {
+      "function": "dir",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_core_is_properly_reexported",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_core_is_properly_reexported",
+      "source_code": ""
+    },
+    {
+      "function": "getattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_core_is_properly_reexported",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert found == 1"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_core_is_properly_reexported() -> None:\n    # Each export from _core should be re-exported by exactly one of these\n    # three modules:\n    sources = [trio, trio.lowlevel, trio.testing]\n    for symbol in dir(_core):\n        if symbol.startswith(\"_\"):\n            continue\n        found = 0\n        for source in sources:\n            if symbol in dir(source) and getattr(source, symbol) is getattr(\n                _core, symbol\n            ):\n                found += 1\n        print(symbol, found)\n        assert found == 1"
+}

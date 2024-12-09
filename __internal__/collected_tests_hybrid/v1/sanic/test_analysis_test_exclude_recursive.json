@@ -1,0 +1,53 @@
+{
+  "test_name": "test_exclude_recursive",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+  "static_methods": [
+    {
+      "name": "self._touch",
+      "source_code": "    def _touch(self, path, dir_=None):\n        if dir_:\n            path = os.path.join(dir_, path)\n        open(path, 'wb').close()\n        return path",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line_number": 58
+    },
+    {
+      "name": "self._touch",
+      "source_code": "    def _touch(self, path, dir_=None):\n        if dir_:\n            path = os.path.join(dir_, path)\n        open(path, 'wb').close()\n        return path",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line_number": 58
+    },
+    {
+      "name": "find_packages",
+      "source_code": "    def find_packages(self, requirement) -> None:\n        self.scan_url(self.index_url + requirement.unsafe_name + '/')",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line_number": 500
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line": 58,
+      "caller": "test_exclude_recursive",
+      "source_code": "    def _touch(self, path, dir_=None):\n        if dir_:\n            path = os.path.join(dir_, path)\n        open(path, 'wb').close()\n        return path\n\n"
+    },
+    {
+      "function": "self._touch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_find_packages.py",
+      "line": 58,
+      "caller": "test_exclude_recursive",
+      "source_code": "    def _touch(self, path, dir_=None):\n        if dir_:\n            path = os.path.join(dir_, path)\n        open(path, 'wb').close()\n        return path\n\n"
+    },
+    {
+      "function": "find_packages",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/package_index.py",
+      "line": 500,
+      "caller": "test_exclude_recursive",
+      "source_code": "    def find_packages(self, requirement) -> None:\n        self.scan_url(self.index_url + requirement.unsafe_name + '/')\n\n        if not self.package_pages.get(requirement.key):\n            # Fall back to safe version of the name\n            self.scan_url(self.index_url + requirement.project_name + '/')\n\n        if not self.package_pages.get(requirement.key):\n            # We couldn't find the target package, so search the index page too\n            self.not_found_in_index(requirement)\n\n        for url in list(self.package_pages.get(requirement.key, ())):\n            # scan each page that might be related to the desired package\n            self.scan_url(url)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert packages == ['pkg.subpkg']"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_exclude_recursive(self):\n        \"\"\"\n        Excluding a parent package should not exclude child packages as well.\n        \"\"\"\n        self._touch('__init__.py', self.pkg_dir)\n        self._touch('__init__.py', self.sub_pkg_dir)\n        packages = find_packages(self.dist_dir, exclude=('pkg',))\n        assert packages == ['pkg.subpkg']"
+}

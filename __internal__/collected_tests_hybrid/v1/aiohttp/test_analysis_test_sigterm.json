@@ -1,0 +1,66 @@
+{
+  "test_name": "test_sigterm",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "skip_if_on_windows",
+      "source_code": "def skip_if_on_windows() -> None:\n    if platform.system() == \"Windows\":\n        pytest.skip(\"the test is not valid for Windows\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 72
+    },
+    {
+      "name": "proc.terminate",
+      "source_code": "    def terminate(self) -> None:\n        if self.__writer is not None:\n            if not self.loop.is_closed():\n                self.__writer.cancel()\n            self.__writer.remove_done_callback(self.__reset_writer)\n            self.__writer = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line_number": 726
+    },
+    {
+      "name": "line.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "proc.wait",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "skip_if_on_windows",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 72,
+      "caller": "test_sigterm",
+      "source_code": "def skip_if_on_windows() -> None:\n    if platform.system() == \"Windows\":\n        pytest.skip(\"the test is not valid for Windows\")\n\n\n"
+    },
+    {
+      "function": "proc.terminate",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client_reqrep.py",
+      "line": 726,
+      "caller": "test_sigterm",
+      "source_code": "    def terminate(self) -> None:\n        if self.__writer is not None:\n            if not self.loop.is_closed():\n                self.__writer.cancel()\n            self.__writer.remove_done_callback(self.__reset_writer)\n            self.__writer = None\n\n"
+    },
+    {
+      "function": "line.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_sigterm",
+      "source_code": ""
+    },
+    {
+      "function": "proc.wait",
+      "filename": "",
+      "line": 0,
+      "caller": "test_sigterm",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert proc.wait() == 0"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_sigterm() -> None:\n    skip_if_on_windows()\n\n    with subprocess.Popen(\n        [sys.executable, \"-u\", \"-c\", _script_test_signal],\n        stdout=subprocess.PIPE,\n    ) as proc:\n        for line in proc.stdout:  # type: ignore[union-attr]\n            if line.startswith(b\"======== Running on\"):\n                break\n        proc.terminate()\n        assert proc.wait() == 0"
+}

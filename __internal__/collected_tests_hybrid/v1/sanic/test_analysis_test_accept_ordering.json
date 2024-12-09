@@ -1,0 +1,93 @@
+{
+  "test_name": "test_accept_ordering",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_headers.py",
+  "static_methods": [
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "headers.parse_accept",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line_number": 299
+    },
+    {
+      "name": "join",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 740
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_accept_ordering",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_accept_ordering",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "headers.parse_accept",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/headers.py",
+      "line": 299,
+      "caller": "test_accept_ordering",
+      "source_code": "def parse_accept(accept: Optional[str]) -> AcceptList:\n    \"\"\"Parse an Accept header and order the acceptable media types according to RFC 7231, s. 5.3.2\n\n    https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2\n\n    Args:\n        accept (str): The Accept header value to parse.\n\n    Returns:\n        AcceptList: A list of MediaType objects, ordered by preference.\n\n    Raises:\n        InvalidHeader: If the header value is invalid.\n    \"\"\"  # noqa: E501\n    if not accept:\n        if accept == \"\":\n            return AcceptList()  # Empty header, accept nothing\n        accept = \"*/*\"  # No header means that all types are accepted\n    try:\n        a = [\n            mt\n            for mt in [MediaType._parse(mtype) for mtype in accept.split(\",\")]\n            if mt\n        ]\n        if not a:\n            raise ValueError\n        return AcceptList(sorted(a, key=lambda x: x.key))\n    except ValueError:\n        raise InvalidHeader(f\"Invalid header value in Accept: {accept}\")\n\n\n"
+    },
+    {
+      "function": "join",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 740,
+      "caller": "test_accept_ordering",
+      "source_code": "    def join(self, lines: Iterable[\"Text\"]) -> \"Text\":\n        \"\"\"Join text together with this instance as the separator.\n\n        Args:\n            lines (Iterable[Text]): An iterable of Text instances to join.\n\n        Returns:\n            Text: A new text instance containing join text.\n        \"\"\"\n\n        new_text = self.blank_copy()\n\n        def iter_text() -> Iterable[\"Text\"]:\n            if self.plain:\n                for last, line in loop_last(lines):\n                    yield line\n                    if not last:\n                        yield self\n            else:\n                yield from lines\n\n        extend_text = new_text._text.extend\n        append_span = new_text._spans.append\n        extend_spans = new_text._spans.extend\n        offset = 0\n        _Span = Span\n\n        for text in iter_text():\n            extend_text(text._text)\n            if text.style:\n                append_span(_Span(offset, offset + len(text), text.style))\n            extend_spans(\n                _Span(offset + start, offset + end, style)\n                for start, end, style in text._spans\n            )\n            offset += len(text)\n        new_text._length = offset\n        return new_text\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accept_ordering",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accept_ordering",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert accept[0].type == 'text'",
+    "assert raw1 == raw2"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_accept_ordering(raw):\n    \"\"\"Should sort by q but also be stable.\"\"\"\n    accept = headers.parse_accept(raw)\n    assert accept[0].type == \"text\"\n    raw1 = \", \".join(str(a) for a in accept)\n    accept = headers.parse_accept(raw1)\n    raw2 = \", \".join(str(a) for a in accept)\n    assert raw1 == raw2"
+}

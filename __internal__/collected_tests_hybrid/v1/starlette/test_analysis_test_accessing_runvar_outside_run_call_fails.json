@@ -1,0 +1,90 @@
+{
+  "test_name": "test_accessing_runvar_outside_run_call_fails",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_core/_tests/test_local.py",
+  "static_methods": [
+    {
+      "name": "RunVar",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "run",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n    ) -> RunResult:\n        \"\"\"Run a command with arguments.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line_number": 1363
+    },
+    {
+      "name": "t1.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "t1.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "t1.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "t1.reset",
+      "source_code": "    def reset(self) -> None:\n        self.records = []\n        self.stream = StringIO()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/logging.py",
+      "line_number": 388
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "RunVar",
+      "filename": "",
+      "line": 0,
+      "caller": "test_accessing_runvar_outside_run_call_fails",
+      "source_code": ""
+    },
+    {
+      "function": "run",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/pytester.py",
+      "line": 1363,
+      "caller": "test_accessing_runvar_outside_run_call_fails",
+      "source_code": "    def run(\n        self,\n        *cmdargs: str | os.PathLike[str],\n        timeout: float | None = None,\n        stdin: NotSetType | bytes | IO[Any] | int = CLOSE_STDIN,\n"
+    },
+    {
+      "function": "t1.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accessing_runvar_outside_run_call_fails",
+      "source_code": ""
+    },
+    {
+      "function": "t1.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_accessing_runvar_outside_run_call_fails",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "t1.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_accessing_runvar_outside_run_call_fails",
+      "source_code": ""
+    },
+    {
+      "function": "t1.reset",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/logging.py",
+      "line": 388,
+      "caller": "test_accessing_runvar_outside_run_call_fails",
+      "source_code": "    def reset(self) -> None:\n        self.records = []\n        self.stream = StringIO()\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_accessing_runvar_outside_run_call_fails() -> None:\n    t1 = RunVar[str](\"test1\")\n\n    with pytest.raises(RuntimeError):\n        t1.set(\"asdf\")\n\n    with pytest.raises(RuntimeError):\n        t1.get()\n\n    async def get_token() -> RunVarToken[str]:\n        return t1.set(\"ok\")\n\n    token = run(get_token)\n\n    with pytest.raises(RuntimeError):\n        t1.reset(token)"
+}

@@ -1,0 +1,12 @@
+{
+  "test_name": "test_parse_compress_error_frame",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_websocket_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert ctx.value.code == WSCloseCode.PROTOCOL_ERROR"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_parse_compress_error_frame(parser: WebSocketReader) -> None:\n    parser.parse_frame(struct.pack(\"!BB\", 0b01000001, 0b00000001))\n    parser.parse_frame(b\"1\")\n\n    with pytest.raises(WebSocketError) as ctx:\n        parser.parse_frame(struct.pack(\"!BB\", 0b11000001, 0b00000001))\n        parser.parse_frame(b\"1\")\n\n    assert ctx.value.code == WSCloseCode.PROTOCOL_ERROR"
+}

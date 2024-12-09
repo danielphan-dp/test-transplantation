@@ -1,0 +1,75 @@
+{
+  "test_name": "test_http_request_parser_utf8",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "CIMultiDict",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "URL",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_http_request_parser_utf8",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "CIMultiDict",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_request_parser_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "URL",
+      "filename": "",
+      "line": 0,
+      "caller": "test_http_request_parser_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_http_request_parser_utf8",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert msg.method == 'GET'",
+    "assert msg.path == '/path'",
+    "assert msg.version == (1, 1)",
+    "assert msg.headers == CIMultiDict([('X-TEST', '\u0442\u0435\u0441\u0442')])",
+    "assert msg.raw_headers == ((b'x-test', '\u0442\u0435\u0441\u0442'.encode()),)",
+    "assert not msg.should_close",
+    "assert msg.compression is None",
+    "assert not msg.upgrade",
+    "assert not msg.chunked",
+    "assert msg.url == URL('/path')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_http_request_parser_utf8(parser: HttpRequestParser) -> None:\n    text = \"GET /path HTTP/1.1\\r\\nx-test:\u0442\u0435\u0441\u0442\\r\\n\\r\\n\".encode()\n    messages, upgrade, tail = parser.feed_data(text)\n    msg = messages[0][0]\n\n    assert msg.method == \"GET\"\n    assert msg.path == \"/path\"\n    assert msg.version == (1, 1)\n    assert msg.headers == CIMultiDict([(\"X-TEST\", \"\u0442\u0435\u0441\u0442\")])\n    assert msg.raw_headers == ((b\"x-test\", \"\u0442\u0435\u0441\u0442\".encode()),)\n    assert not msg.should_close\n    assert msg.compression is None\n    assert not msg.upgrade\n    assert not msg.chunked\n    assert msg.url == URL(\"/path\")"
+}

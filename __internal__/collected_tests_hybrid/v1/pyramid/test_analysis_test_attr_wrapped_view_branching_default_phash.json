@@ -1,0 +1,38 @@
+{
+  "test_name": "test_attr_wrapped_view_branching_default_phash",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_viewderivers.py",
+  "static_methods": [
+    {
+      "name": "self.config._derive_view",
+      "source_code": "    def _derive_view(\n        self,\n        view,\n        permission=None,\n        predicates=(),\n        attr=None,\n        renderer=None,\n        wrapper_viewname=None,\n        viewname=None,\n        accept=None,\n        order=MAX_ORDER,\n        phash=DEFAULT_PHASH,\n        decorator=None,\n        route_name=None,\n        mapper=None,\n        http_cache=None,\n        context=None,\n        require_csrf=None,\n        exception_only=False,\n        extra_options=None,\n    ):\n        view = self.maybe_dotted(view)\n        mapper = self.maybe_dotted(mapper)\n        if isinstance(renderer, str):\n            renderer = renderers.RendererHelper(\n                name=renderer, package=self.package, registry=self.registry\n            )\n        if renderer is None:\n            # use default renderer if one exists\n            if self.registry.queryUtility(IRendererFactory) is not None:\n                renderer = renderers.RendererHelper(\n                    name=None, package=self.package, registry=self.registry\n                )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line_number": 1525
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.config._derive_view",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/src/pyramid/config/views.py",
+      "line": 1525,
+      "caller": "test_attr_wrapped_view_branching_default_phash",
+      "source_code": "    def _derive_view(\n        self,\n        view,\n        permission=None,\n        predicates=(),\n        attr=None,\n        renderer=None,\n        wrapper_viewname=None,\n        viewname=None,\n        accept=None,\n        order=MAX_ORDER,\n        phash=DEFAULT_PHASH,\n        decorator=None,\n        route_name=None,\n        mapper=None,\n        http_cache=None,\n        context=None,\n        require_csrf=None,\n        exception_only=False,\n        extra_options=None,\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_attr_wrapped_view_branching_default_phash",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_attr_wrapped_view_branching_default_phash(self):\n        from pyramid.config.predicates import DEFAULT_PHASH\n\n        def view(context, request):  # pragma: no cover\n            pass\n\n        result = self.config._derive_view(view, phash=DEFAULT_PHASH)\n        self.assertEqual(result.__wraps__, view)"
+}

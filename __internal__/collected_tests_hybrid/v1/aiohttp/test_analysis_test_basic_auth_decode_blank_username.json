@@ -1,0 +1,92 @@
+{
+  "test_name": "test_basic_auth_decode_blank_username",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_helpers.py",
+  "static_methods": [
+    {
+      "name": "helpers.BasicAuth.decode",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line_number": 122
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "helpers.BasicAuth",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "credentials.encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "helpers.BasicAuth.decode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/rich/ansi.py",
+      "line": 122,
+      "caller": "test_basic_auth_decode_blank_username",
+      "source_code": "    def decode(self, terminal_text: str) -> Iterable[Text]:\n        \"\"\"Decode ANSI codes in an iterable of lines.\n\n        Args:\n            lines (Iterable[str]): An iterable of lines of terminal output.\n\n        Yields:\n            Text: Marked up Text.\n        \"\"\"\n        for line in terminal_text.splitlines():\n            yield self.decode_line(line)\n\n"
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic_auth_decode_blank_username",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic_auth_decode_blank_username",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic_auth_decode_blank_username",
+      "source_code": ""
+    },
+    {
+      "function": "helpers.BasicAuth",
+      "filename": "",
+      "line": 0,
+      "caller": "test_basic_auth_decode_blank_username",
+      "source_code": ""
+    },
+    {
+      "function": "credentials.encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_basic_auth_decode_blank_username",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    }
+  ],
+  "assertions": [
+    "assert helpers.BasicAuth.decode(header) == expected_auth"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_basic_auth_decode_blank_username(\n    credentials: str, expected_auth: helpers.BasicAuth\n) -> None:\n    header = f\"Basic {base64.b64encode(credentials.encode()).decode()}\"\n    assert helpers.BasicAuth.decode(header) == expected_auth"
+}

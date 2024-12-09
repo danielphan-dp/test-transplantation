@@ -1,0 +1,57 @@
+{
+  "test_name": "test_detach",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_client_session.py",
+  "static_methods": [
+    {
+      "name": "session.detach",
+      "source_code": "    def detach(self) -> None:\n        \"\"\"Detach connector from session without closing the former.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client.py",
+      "line_number": 1287
+    },
+    {
+      "name": "loop.run_until_complete",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "conn.close",
+      "source_code": "    def close(self):\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line_number": 23
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "session.detach",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/client.py",
+      "line": 1287,
+      "caller": "test_detach",
+      "source_code": "    def detach(self) -> None:\n        \"\"\"Detach connector from session without closing the former.\n\n        Session is switched to closed state anyway.\n        \"\"\"\n        self._connector = None\n\n"
+    },
+    {
+      "function": "loop.run_until_complete",
+      "filename": "",
+      "line": 0,
+      "caller": "test_detach",
+      "source_code": ""
+    },
+    {
+      "function": "conn.close",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/cache.py",
+      "line": 23,
+      "caller": "test_detach",
+      "source_code": "    def close(self):\n        pass\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert conn is not None",
+    "assert not conn.closed",
+    "assert session.connector is None",
+    "assert session.closed",
+    "assert not conn.closed"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_detach(loop: asyncio.AbstractEventLoop, session: ClientSession) -> None:\n    conn = session.connector\n    assert conn is not None\n    try:\n        assert not conn.closed\n        session.detach()\n        assert session.connector is None\n        assert session.closed\n        assert not conn.closed\n    finally:\n        loop.run_until_complete(conn.close())"
+}

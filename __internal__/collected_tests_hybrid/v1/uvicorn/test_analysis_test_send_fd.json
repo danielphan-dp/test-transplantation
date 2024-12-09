@@ -1,0 +1,67 @@
+{
+  "test_name": "test_send_fd",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/tests/test_blocking.py",
+  "static_methods": [
+    {
+      "name": "open_dbus_connection",
+      "source_code": "def open_dbus_connection(\n        bus='SESSION', enable_fds=False, auth_timeout=1.,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line_number": 327
+    },
+    {
+      "name": "new_method_call",
+      "source_code": "def new_method_call(remote_obj, method, signature=None, body=()):\n    \"\"\"Construct a new method call message",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/wrappers.py",
+      "line_number": 48
+    },
+    {
+      "name": "open_dbus_connection",
+      "source_code": "def open_dbus_connection(\n        bus='SESSION', enable_fds=False, auth_timeout=1.,",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line_number": 327
+    },
+    {
+      "name": "conn.send_and_get_reply",
+      "source_code": "    def send_and_get_reply(self, msg: Message) -> Any:\n        try:\n            resp_msg: Message = self._connection.send_and_get_reply(msg)\n            if resp_msg.header.message_type == MessageType.error:\n                raise DBusErrorResponse(resp_msg)\n            return resp_msg.body\n        except DBusErrorResponse as resp:\n            if resp.name in (DBUS_UNKNOWN_METHOD, DBUS_NO_SUCH_OBJECT):\n                raise ItemNotFoundException('Item does not exist!') from resp\n            elif resp.name in (DBUS_SERVICE_UNKNOWN, DBUS_EXEC_FAILED,\n                               DBUS_NO_REPLY):\n                data = resp.data\n                if isinstance(data, tuple):\n                    data = data[0]\n                raise SecretServiceNotAvailableException(data) from resp\n            raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/secretstorage/util.py",
+      "line_number": 44
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open_dbus_connection",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line": 327,
+      "caller": "test_send_fd",
+      "source_code": "def open_dbus_connection(\n        bus='SESSION', enable_fds=False, auth_timeout=1.,\n"
+    },
+    {
+      "function": "new_method_call",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/wrappers.py",
+      "line": 48,
+      "caller": "test_send_fd",
+      "source_code": "def new_method_call(remote_obj, method, signature=None, body=()):\n    \"\"\"Construct a new method call message\n\n    This is a relatively low-level method. In many cases, this will be called\n    from a :class:`MessageGenerator` subclass which provides a more convenient\n    API.\n\n    :param DBusAddress remote_obj: The object to call a method on\n    :param str method: The name of the method to call\n    :param str signature: The DBus signature of the body data\n    :param tuple body: Body data (i.e. method parameters)\n    \"\"\"\n    header = new_header(MessageType.method_call)\n    header.fields[HeaderFields.path] = remote_obj.object_path\n    if remote_obj.bus_name is None:\n        raise ValueError(\"remote_obj.bus_name cannot be None for method calls\")\n    header.fields[HeaderFields.destination] = remote_obj.bus_name\n    if remote_obj.interface is not None:\n        header.fields[HeaderFields.interface] = remote_obj.interface\n    header.fields[HeaderFields.member] = method\n    if signature is not None:\n        header.fields[HeaderFields.signature] = signature\n\n    return Message(header, body)\n\n"
+    },
+    {
+      "function": "open_dbus_connection",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/jeepney/io/blocking.py",
+      "line": 327,
+      "caller": "test_send_fd",
+      "source_code": "def open_dbus_connection(\n        bus='SESSION', enable_fds=False, auth_timeout=1.,\n"
+    },
+    {
+      "function": "conn.send_and_get_reply",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/secretstorage/util.py",
+      "line": 44,
+      "caller": "test_send_fd",
+      "source_code": "    def send_and_get_reply(self, msg: Message) -> Any:\n        try:\n            resp_msg: Message = self._connection.send_and_get_reply(msg)\n            if resp_msg.header.message_type == MessageType.error:\n                raise DBusErrorResponse(resp_msg)\n            return resp_msg.body\n        except DBusErrorResponse as resp:\n            if resp.name in (DBUS_UNKNOWN_METHOD, DBUS_NO_SUCH_OBJECT):\n                raise ItemNotFoundException('Item does not exist!') from resp\n            elif resp.name in (DBUS_SERVICE_UNKNOWN, DBUS_EXEC_FAILED,\n                               DBUS_NO_REPLY):\n                data = resp.data\n                if isinstance(data, tuple):\n                    data = data[0]\n                raise SecretServiceNotAvailableException(data) from resp\n            raise\n\n"
+    }
+  ],
+  "assertions": [
+    "assert reply.header.message_type is MessageType.method_return",
+    "assert reply.body[0] == data"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_send_fd(temp_file_and_contents, read_from_fd):\n    temp_file, data = temp_file_and_contents\n    readfd_call = new_method_call(read_from_fd, 'ReadFD', 'h', (temp_file,))\n    with open_dbus_connection(bus='SESSION', enable_fds=True) as conn:\n        reply = conn.send_and_get_reply(readfd_call, timeout=5)\n\n    assert reply.header.message_type is MessageType.method_return\n    assert reply.body[0] == data"
+}

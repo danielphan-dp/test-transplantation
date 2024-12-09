@@ -1,0 +1,38 @@
+{
+  "test_name": "test_find_validator_by_fully_qualified_object_name",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/jsonschema/tests/test_cli.py",
+  "static_methods": [
+    {
+      "name": "cli.parse_args",
+      "source_code": "    def parse_args(self, args: List[str]) -> Tuple[Values, List[str]]:\n        # factored out for testability\n        return self.parser.parse_args(args)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_internal/cli/base_command.py",
+      "line_number": 94
+    },
+    {
+      "name": "self.assertIs",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "cli.parse_args",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/pip/_internal/cli/base_command.py",
+      "line": 94,
+      "caller": "test_find_validator_by_fully_qualified_object_name",
+      "source_code": "    def parse_args(self, args: List[str]) -> Tuple[Values, List[str]]:\n        # factored out for testability\n        return self.parser.parse_args(args)\n\n"
+    },
+    {
+      "function": "self.assertIs",
+      "filename": "",
+      "line": 0,
+      "caller": "test_find_validator_by_fully_qualified_object_name",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_find_validator_by_fully_qualified_object_name(self):\n        arguments = cli.parse_args(\n            [\n                \"--validator\",\n                \"jsonschema.tests.test_cli.TestParser.FakeValidator\",\n                \"--instance\", \"mem://some/instance\",\n                \"mem://some/schema\",\n            ],\n        )\n        self.assertIs(arguments[\"validator\"], self.FakeValidator)"
+}

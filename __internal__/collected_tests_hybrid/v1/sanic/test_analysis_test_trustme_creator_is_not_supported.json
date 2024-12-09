@@ -1,0 +1,51 @@
+{
+  "test_name": "test_trustme_creator_is_not_supported",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "TrustmeCreator",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "cert_creator.check_supported",
+      "source_code": "        def check_supported(self):\n            if not self.SUPPORTED:\n                raise SanicException(\"Nope\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+      "line_number": 82
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_trustme_creator_is_not_supported",
+      "source_code": ""
+    },
+    {
+      "function": "TrustmeCreator",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trustme_creator_is_not_supported",
+      "source_code": ""
+    },
+    {
+      "function": "cert_creator.check_supported",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_tls.py",
+      "line": 82,
+      "caller": "test_trustme_creator_is_not_supported",
+      "source_code": "        def check_supported(self):\n            if not self.SUPPORTED:\n                raise SanicException(\"Nope\")\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_trustme_creator_is_not_supported(app, monkeypatch):\n    monkeypatch.setattr(sanic.http.tls.creators, \"TRUSTME_INSTALLED\", False)\n    cert_creator = TrustmeCreator(app, _default, _default)\n    with pytest.raises(\n        SanicException, match=\"Sanic is attempting to use trustme\"\n    ):\n        cert_creator.check_supported()"
+}

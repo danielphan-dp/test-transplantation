@@ -1,0 +1,54 @@
+{
+  "test_name": "test_always_use_configured_logger",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/gunicorn/tests/test_config.py",
+  "static_methods": [
+    {
+      "name": "config.Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "c.set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "config.Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_always_use_configured_logger",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_always_use_configured_logger",
+      "source_code": ""
+    },
+    {
+      "function": "c.set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_always_use_configured_logger",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert c.logger_class == MyLogger",
+    "assert c.logger_class == MyLogger"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_always_use_configured_logger():\n    c = config.Config()\n    c.set('logger_class', __name__ + '.MyLogger')\n    assert c.logger_class == MyLogger\n    c.set('statsd_host', 'localhost:12345')\n    # still uses custom logger over statsd\n    assert c.logger_class == MyLogger"
+}

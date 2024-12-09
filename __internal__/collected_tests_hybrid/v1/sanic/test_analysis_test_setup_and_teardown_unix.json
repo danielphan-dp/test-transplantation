@@ -1,0 +1,94 @@
+{
+  "test_name": "test_setup_and_teardown_unix",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_socket.py",
+  "static_methods": [
+    {
+      "name": "bind_unix_socket",
+      "source_code": "def bind_unix_socket(\n    path: Union[Path, str], *, mode=0o666, backlog=100",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/server/socket.py",
+      "line_number": 39
+    },
+    {
+      "name": "path.exists",
+      "source_code": "    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 234
+    },
+    {
+      "name": "remove_unix_socket",
+      "source_code": "def remove_unix_socket(path: Optional[Union[Path, str]]) -> None:\n    \"\"\"Remove dead unix socket during server exit.\"\"\"\n    if not path:\n        return\n    try:\n        path = Path(path)\n        if stat.S_ISSOCK(path.lstat().st_mode):\n            # Is it actually dead (doesn't belong to a new server instance)?\n            with socket.socket(socket.AF_UNIX) as testsock:\n                try:\n                    testsock.connect(path.as_posix())\n                except ConnectionRefusedError:\n                    path.unlink()\n    except FileNotFoundError:\n        pass",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/server/socket.py",
+      "line_number": 82
+    },
+    {
+      "name": "Path.cwd",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "path.exists",
+      "source_code": "    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 234
+    },
+    {
+      "name": "path.exists",
+      "source_code": "    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line_number": 234
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "bind_unix_socket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/server/socket.py",
+      "line": 39,
+      "caller": "test_setup_and_teardown_unix",
+      "source_code": "def bind_unix_socket(\n    path: Union[Path, str], *, mode=0o666, backlog=100\n"
+    },
+    {
+      "function": "path.exists",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 234,
+      "caller": "test_setup_and_teardown_unix",
+      "source_code": "    @property\n    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)\n\n"
+    },
+    {
+      "function": "remove_unix_socket",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/server/socket.py",
+      "line": 82,
+      "caller": "test_setup_and_teardown_unix",
+      "source_code": "def remove_unix_socket(path: Optional[Union[Path, str]]) -> None:\n    \"\"\"Remove dead unix socket during server exit.\"\"\"\n    if not path:\n        return\n    try:\n        path = Path(path)\n        if stat.S_ISSOCK(path.lstat().st_mode):\n            # Is it actually dead (doesn't belong to a new server instance)?\n            with socket.socket(socket.AF_UNIX) as testsock:\n                try:\n                    testsock.connect(path.as_posix())\n                except ConnectionRefusedError:\n                    path.unlink()\n    except FileNotFoundError:\n        pass\n\n\n"
+    },
+    {
+      "function": "Path.cwd",
+      "filename": "",
+      "line": 0,
+      "caller": "test_setup_and_teardown_unix",
+      "source_code": ""
+    },
+    {
+      "function": "path.exists",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 234,
+      "caller": "test_setup_and_teardown_unix",
+      "source_code": "    @property\n    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)\n\n"
+    },
+    {
+      "function": "path.exists",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/wheel.py",
+      "line": 234,
+      "caller": "test_setup_and_teardown_unix",
+      "source_code": "    @property\n    def exists(self):\n        path = os.path.join(self.dirname, self.filename)\n        return os.path.isfile(path)\n\n"
+    }
+  ],
+  "assertions": [
+    "assert not path.exists()",
+    "assert path.exists()",
+    "assert not path.exists()"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_setup_and_teardown_unix():\n    socket_address = \"./test.sock\"\n    path = Path.cwd() / socket_address\n    assert not path.exists()\n    bind_unix_socket(socket_address)\n    assert path.exists()\n    remove_unix_socket(socket_address)\n    assert not path.exists()"
+}

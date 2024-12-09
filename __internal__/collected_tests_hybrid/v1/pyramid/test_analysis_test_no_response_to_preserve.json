@@ -1,0 +1,90 @@
+{
+  "test_name": "test_no_response_to_preserve",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_renderers.py",
+  "static_methods": [
+    {
+      "name": "DummyRequestWithClassResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self._callFUT",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertFalse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "DummyResponse",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "dict",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "DummyRequestWithClassResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_response_to_preserve",
+      "source_code": ""
+    },
+    {
+      "function": "self._callFUT",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_document.py",
+      "line": 22,
+      "caller": "test_no_response_to_preserve",
+      "source_code": "    def _callFUT(self, iface):\n        from zope.interface.document import asStructuredText\n        return asStructuredText(iface)\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_response_to_preserve",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertFalse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_response_to_preserve",
+      "source_code": ""
+    },
+    {
+      "function": "DummyResponse",
+      "filename": "",
+      "line": 0,
+      "caller": "test_no_response_to_preserve",
+      "source_code": ""
+    },
+    {
+      "function": "dict",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_response_to_preserve",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_response_to_preserve(self):\n        from pyramid.decorator import reify\n\n        class DummyRequestWithClassResponse:\n            _response = DummyResponse()\n            _response.content_type = None\n            _response.default_content_type = None\n\n            @reify\n            def response(self):\n                return self._response\n\n        request = DummyRequestWithClassResponse()\n        # use a json renderer, which will mutate the response\n        result = self._callFUT('json', dict(a=1), request=request)\n        self.assertEqual(result.body, b'{\"a\": 1}')\n        self.assertFalse('response' in request.__dict__)"
+}

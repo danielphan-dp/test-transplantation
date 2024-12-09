@@ -1,0 +1,28 @@
+{
+  "test_name": "test_router_duplicate_path",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_routing.py",
+  "static_methods": [
+    {
+      "name": "client.post",
+      "source_code": "    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line_number": 310
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "client.post",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/packaging/version.py",
+      "line": 310,
+      "caller": "test_router_duplicate_path",
+      "source_code": "    @property\n    def post(self) -> int | None:\n        \"\"\"The post-release number of the version.\n\n        >>> print(Version(\"1.2.3\").post)\n        None\n        >>> Version(\"1.2.3.post1\").post\n        1\n        \"\"\"\n        return self._version.post[1] if self._version.post else None\n\n"
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 200",
+    "assert response.text == 'Hello, POST!'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_router_duplicate_path(client: TestClient) -> None:\n    response = client.post(\"/func\")\n    assert response.status_code == 200\n    assert response.text == \"Hello, POST!\""
+}

@@ -1,0 +1,67 @@
+{
+  "test_name": "test_add_signal_decorator",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_signals.py",
+  "static_methods": [
+    {
+      "name": "app.signal",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n    ) -> Callable[[SignalHandler], SignalHandler]:\n        \"\"\"\n        For creating a signal handler, used similar to a route handler:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line_number": 20
+    },
+    {
+      "name": "app.signal",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n    ) -> Callable[[SignalHandler], SignalHandler]:\n        \"\"\"\n        For creating a signal handler, used similar to a route handler:",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line_number": 20
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line": 20,
+      "caller": "test_add_signal_decorator",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n"
+    },
+    {
+      "function": "app.signal",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/signals.py",
+      "line": 20,
+      "caller": "test_add_signal_decorator",
+      "source_code": "    def signal(\n        self,\n        event: Union[str, Enum],\n        *,\n        apply: bool = True,\n        condition: Optional[Dict[str, Any]] = None,\n        exclusive: bool = True,\n        priority: int = 0,\n"
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_signal_decorator",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_add_signal_decorator",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert len(app.signal_router.routes) == 2",
+    "assert len(app.signal_router.dynamic_routes) == 1"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_add_signal_decorator(app):\n    @app.signal(\"foo.bar.baz\")\n    def sync_signal(*_): ...\n\n    @app.signal(\"foo.bar.baz\")\n    async def async_signal(*_): ...\n\n    assert len(app.signal_router.routes) == 2\n    assert len(app.signal_router.dynamic_routes) == 1"
+}

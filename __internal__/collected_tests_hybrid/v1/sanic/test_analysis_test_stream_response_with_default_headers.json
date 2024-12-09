@@ -1,0 +1,68 @@
+{
+  "test_name": "test_stream_response_with_default_headers",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/test_response.py",
+  "static_methods": [
+    {
+      "name": "app.route",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n    ) -> RouteWrapper:\n        \"\"\"Decorate a function to be registered as a route.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line_number": 42
+    },
+    {
+      "name": "app.test_client.get",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line_number": 88
+    },
+    {
+      "name": "ResponseStream",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "response_.write",
+      "source_code": "        def write(data):\n            if not isinstance(data, basestring):\n                data = str(data)\n            # If the file has an encoding, encode unicode with it.\n            if (isinstance(fp, file) and\n                    isinstance(data, unicode) and\n                    fp.encoding is not None):\n                errors = getattr(fp, \"errors\", None)\n                if errors is None:\n                    errors = \"strict\"\n                data = data.encode(fp.encoding, errors)\n            fp.write(data)\n        want_unicode = False\n        sep = kwargs.pop(\"sep\", None)\n        if sep is not None:\n            if isinstance(sep, unicode):\n                want_unicode = True\n            elif not isinstance(sep, str):\n                raise TypeError(\"sep must be None or a string\")\n        end = kwargs.pop(\"end\", None)\n        if end is not None:\n            if isinstance(end, unicode):\n                want_unicode = True\n            elif not isinstance(end, str):\n                raise TypeError(\"end must be None or a string\")\n        if kwargs:\n            raise TypeError(\"invalid keyword arguments to print()\")\n        if not want_unicode:\n            for arg in args:\n                if isinstance(arg, unicode):\n                    want_unicode = True\n                    break\n        if want_unicode:\n            newline = unicode(\"\\n\")\n            space = unicode(\" \")\n        else:\n            newline = \"\\n\"\n            space = \" \"\n        if sep is None:\n            sep = space\n        if end is None:\n            end = newline\n        for i, arg in enumerate(args):\n            if i:\n                write(sep)\n            write(arg)\n        write(end)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line_number": 765
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "app.route",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/mixins/routes.py",
+      "line": 42,
+      "caller": "test_stream_response_with_default_headers",
+      "source_code": "    def route(\n        self,\n        uri: str,\n        methods: Optional[Iterable[str]] = None,\n        host: Optional[Union[str, List[str]]] = None,\n        strict_slashes: Optional[bool] = None,\n        stream: bool = False,\n        version: Optional[Union[int, str, float]] = None,\n        name: Optional[str] = None,\n        ignore_body: bool = False,\n        apply: bool = True,\n        subprotocols: Optional[List[str]] = None,\n        websocket: bool = False,\n        unquote: bool = False,\n        static: bool = False,\n        version_prefix: str = \"/v\",\n        error_format: Optional[str] = None,\n        **ctx_kwargs: Any,\n"
+    },
+    {
+      "function": "app.test_client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/multidict/_multidict_py.py",
+      "line": 88,
+      "caller": "test_stream_response_with_default_headers",
+      "source_code": "    def get(self, key, default=None):\n        \"\"\"Get first value matching the key.\n\n        If the key is not found, returns the default (or None if no default is provided)\n        \"\"\"\n        return self.getone(key, default)\n\n"
+    },
+    {
+      "function": "ResponseStream",
+      "filename": "",
+      "line": 0,
+      "caller": "test_stream_response_with_default_headers",
+      "source_code": ""
+    },
+    {
+      "function": "response_.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/six.py",
+      "line": 765,
+      "caller": "test_stream_response_with_default_headers",
+      "source_code": "        def write(data):\n            if not isinstance(data, basestring):\n                data = str(data)\n            # If the file has an encoding, encode unicode with it.\n            if (isinstance(fp, file) and\n                    isinstance(data, unicode) and\n                    fp.encoding is not None):\n                errors = getattr(fp, \"errors\", None)\n                if errors is None:\n                    errors = \"strict\"\n                data = data.encode(fp.encoding, errors)\n            fp.write(data)\n"
+    }
+  ],
+  "assertions": [
+    "assert response.text == 'foo'",
+    "assert response.headers['Transfer-Encoding'] == 'chunked'",
+    "assert response.headers['Content-Type'] == 'text/csv'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_stream_response_with_default_headers(app: Sanic):\n    async def sample_streaming_fn(response_):\n        await response_.write(\"foo\")\n\n    @app.route(\"/\")\n    async def test(request: Request):\n        return ResponseStream(sample_streaming_fn, content_type=\"text/csv\")\n\n    _, response = app.test_client.get(\"/\")\n    assert response.text == \"foo\"\n    assert response.headers[\"Transfer-Encoding\"] == \"chunked\"\n    assert response.headers[\"Content-Type\"] == \"text/csv\""
+}

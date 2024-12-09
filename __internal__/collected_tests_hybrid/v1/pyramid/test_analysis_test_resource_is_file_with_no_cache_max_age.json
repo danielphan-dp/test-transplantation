@@ -1,0 +1,129 @@
+{
+  "test_name": "test_resource_is_file_with_no_cache_max_age",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_static.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self._makeRequest",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line_number": 1298
+    },
+    {
+      "name": "DummyContext",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "inst",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertTrue",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "header_names.sort",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line_number": 60
+    },
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "len",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self._makeRequest",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_traversal.py",
+      "line": 1298,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": "def _makeRequest(environ=None):\n    from pyramid.registry import Registry\n\n    request = DummyRequest()\n    request.registry = Registry()\n    return request\n"
+    },
+    {
+      "function": "DummyContext",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": ""
+    },
+    {
+      "function": "inst",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertTrue",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": ""
+    },
+    {
+      "function": "header_names.sort",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/setuptools/_distutils/filelist.py",
+      "line": 60,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": "    def sort(self):\n        # Not a strict lexical sort!\n        sortable_files = sorted(map(os.path.split, self.files))\n        self.files = []\n        for sort_tuple in sortable_files:\n            self.files.append(os.path.join(*sort_tuple))\n\n"
+    },
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": ""
+    },
+    {
+      "function": "len",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_resource_is_file_with_no_cache_max_age",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_resource_is_file_with_no_cache_max_age(self):\n        inst = self._makeOne('tests:fixtures/static', cache_max_age=None)\n        request = self._makeRequest()\n        request.subpath = ('index.html',)\n        context = DummyContext()\n        response = inst(context, request)\n        self.assertTrue(b'<html>static</html>' in response.body)\n        self.assertEqual(len(response.headerlist), 3)\n        header_names = [x[0] for x in response.headerlist]\n        header_names.sort()\n        self.assertEqual(\n            header_names, ['Content-Length', 'Content-Type', 'Last-Modified']\n        )"
+}

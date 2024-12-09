@@ -1,0 +1,14 @@
+{
+  "test_name": "test_conn_upgrade",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_http_parser.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert not msg.should_close",
+    "assert msg.upgrade",
+    "assert upgrade"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_conn_upgrade(parser: HttpRequestParser) -> None:\n    text = (\n        b\"GET /test HTTP/1.1\\r\\n\"\n        b\"connection: upgrade\\r\\n\"\n        b\"upgrade: websocket\\r\\n\\r\\n\"\n    )\n    messages, upgrade, tail = parser.feed_data(text)\n    msg = messages[0][0]\n    assert not msg.should_close\n    assert msg.upgrade\n    assert upgrade"
+}

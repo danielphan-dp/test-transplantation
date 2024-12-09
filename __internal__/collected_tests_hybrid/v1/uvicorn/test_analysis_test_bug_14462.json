@@ -1,0 +1,51 @@
+{
+  "test_name": "test_bug_14462",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/regex/test_regex.py",
+  "static_methods": [
+    {
+      "name": "self.assertEqual",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "regex.search.group",
+      "source_code": "    def group(self):\n        \"\"\"Return group name of file.\"\"\"\n        if iswin32:\n            raise NotImplementedError(\"XXX win32\")\n        import grp",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line_number": 229
+    },
+    {
+      "name": "regex.search",
+      "source_code": "    def search(self, terms, operator=None):  # pragma: no cover\n        if isinstance(terms, string_types):\n            terms = {'name': terms}\n        rpc_proxy = ServerProxy(self.url, timeout=3.0)\n        try:\n            return rpc_proxy.search(terms, operator or 'and')\n        finally:\n            rpc_proxy('close')()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 501
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assertEqual",
+      "filename": "",
+      "line": 0,
+      "caller": "test_bug_14462",
+      "source_code": ""
+    },
+    {
+      "function": "regex.search.group",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/_pytest/_py/path.py",
+      "line": 229,
+      "caller": "test_bug_14462",
+      "source_code": "    @property\n    def group(self):\n        \"\"\"Return group name of file.\"\"\"\n        if iswin32:\n            raise NotImplementedError(\"XXX win32\")\n        import grp\n\n        entry = error.checked_call(grp.getgrgid, self.gid)  # type:ignore[attr-defined,unused-ignore]\n        return entry[0]\n\n"
+    },
+    {
+      "function": "regex.search",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 501,
+      "caller": "test_bug_14462",
+      "source_code": "    def search(self, terms, operator=None):  # pragma: no cover\n        if isinstance(terms, string_types):\n            terms = {'name': terms}\n        rpc_proxy = ServerProxy(self.url, timeout=3.0)\n        try:\n            return rpc_proxy.search(terms, operator or 'and')\n        finally:\n            rpc_proxy('close')()\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_bug_14462(self):\n        # chr(255) is a valid identifier in Python 3.\n        group_name = '\\xFF'\n        self.assertEqual(regex.search(r'(?P<' + group_name + '>a)',\n          'abc').group(group_name), 'a')"
+}

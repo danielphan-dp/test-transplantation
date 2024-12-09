@@ -1,0 +1,25 @@
+{
+  "test_name": "test_int_sub",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+  "static_methods": [
+    {
+      "name": "self.assert_emit_binary_op",
+      "source_code": "    def assert_emit_binary_op(\n        self, op: str, dest: Value, left: Value, right: Value, expected: str\n    ) -> None:\n        if op in binary_ops:\n            ops = binary_ops[op]\n            for desc in ops:\n                if is_subtype(left.type, desc.arg_types[0]) and is_subtype(\n                    right.type, desc.arg_types[1]\n                ):\n                    args = [left, right]\n                    if desc.ordering is not None:\n                        args = [args[i] for i in desc.ordering]\n                    # This only supports primitives that map to C calls\n                    assert desc.c_function_name is not None\n                    self.assert_emit(\n                        CallC(\n                            desc.c_function_name,\n                            args,\n                            desc.return_type,\n                            desc.steals,\n                            desc.is_borrowed,\n                            desc.error_kind,\n                            55,\n                        ),\n                        expected,\n                    )\n                    return\n        else:\n            assert False, \"Could not find matching op\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line_number": 852
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.assert_emit_binary_op",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/mypyc/test/test_emitfunc.py",
+      "line": 852,
+      "caller": "test_int_sub",
+      "source_code": "    def assert_emit_binary_op(\n        self, op: str, dest: Value, left: Value, right: Value, expected: str\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_int_sub(self) -> None:\n        self.assert_emit_binary_op(\n            \"-\", self.n, self.m, self.k, \"cpy_r_r0 = CPyTagged_Subtract(cpy_r_m, cpy_r_k);\"\n        )"
+}

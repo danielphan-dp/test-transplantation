@@ -1,0 +1,51 @@
+{
+  "test_name": "test_warn_tools_typo",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/config/test_pyprojecttoml.py",
+  "static_methods": [
+    {
+      "name": "pyproject.write_text",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line_number": 397
+    },
+    {
+      "name": "cleandoc",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "read_configuration",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line_number": 73
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "pyproject.write_text",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/_win32_console.py",
+      "line": 397,
+      "caller": "test_warn_tools_typo",
+      "source_code": "    def write_text(self, text: str) -> None:\n        \"\"\"Write text directly to the terminal without any modification of styles\n\n        Args:\n            text (str): The text to write to the console\n        \"\"\"\n        self.write(text)\n        self.flush()\n\n"
+    },
+    {
+      "function": "cleandoc",
+      "filename": "",
+      "line": 0,
+      "caller": "test_warn_tools_typo",
+      "source_code": ""
+    },
+    {
+      "function": "read_configuration",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/index.py",
+      "line": 73,
+      "caller": "test_warn_tools_typo",
+      "source_code": "    def read_configuration(self):\n        \"\"\"\n        Read the PyPI access configuration as supported by distutils. This populates\n        ``username``, ``password``, ``realm`` and ``url`` attributes from the\n        configuration.\n        \"\"\"\n        from .util import _load_pypirc\n        cfg = _load_pypirc(self)\n        self.username = cfg.get('username')\n        self.password = cfg.get('password')\n        self.realm = cfg.get('realm', 'pypi')\n        self.url = cfg.get('repository', self.url)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_warn_tools_typo(tmp_path):\n    \"\"\"Test that the common ``tools.setuptools`` typo in ``pyproject.toml`` issues a warning\n\n    See https://github.com/pypa/setuptools/issues/4150\n    \"\"\"\n    config = \"\"\"\n    [build-system]\n    requires = [\"setuptools\"]\n    build-backend = \"setuptools.build_meta\"\n\n    [project]\n    name = \"myproj\"\n    version = '42'\n\n    [tools.setuptools]\n    packages = [\"package\"]\n    \"\"\"\n\n    pyproject = tmp_path / \"pyproject.toml\"\n    pyproject.write_text(cleandoc(config), encoding=\"utf-8\")\n\n    with pytest.warns(_ToolsTypoInMetadata):\n        read_configuration(pyproject)"
+}

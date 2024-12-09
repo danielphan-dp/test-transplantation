@@ -1,0 +1,77 @@
+{
+  "test_name": "test_add_accept_view_order_throws_on_type_mismatch",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/tests/test_config/test_views.py",
+  "static_methods": [
+    {
+      "name": "self._makeOne",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line_number": 120
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.assertRaises",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self._makeOne",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/pyramid/venv/lib/python3.9/site-packages/zope/interface/tests/test_interface.py",
+      "line": 120,
+      "caller": "test_add_accept_view_order_throws_on_type_mismatch",
+      "source_code": "    def _makeOne(self, name=None):\n        if name is None:\n            name = self.DEFAULT_NAME\n        return self._getTargetClass()(name)\n\n"
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_accept_view_order_throws_on_type_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_accept_view_order_throws_on_type_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_accept_view_order_throws_on_type_mismatch",
+      "source_code": ""
+    },
+    {
+      "function": "self.assertRaises",
+      "filename": "",
+      "line": 0,
+      "caller": "test_add_accept_view_order_throws_on_type_mismatch",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_add_accept_view_order_throws_on_type_mismatch(self):\n        config = self._makeOne(autocommit=True)\n        self.assertRaises(\n            ValueError,\n            config.add_accept_view_order,\n            'text/*',\n            weighs_more_than='text/html',\n        )\n        self.assertRaises(\n            ValueError,\n            config.add_accept_view_order,\n            'text/html',\n            weighs_less_than='application/*',\n        )\n        self.assertRaises(\n            ConfigurationError,\n            config.add_accept_view_order,\n            'text/html',\n            weighs_more_than='text/html;charset=utf8',\n        )\n        self.assertRaises(\n            ConfigurationError,\n            config.add_accept_view_order,\n            'text/html;charset=utf8',\n            weighs_more_than='text/plain;charset=utf8',\n        )"
+}

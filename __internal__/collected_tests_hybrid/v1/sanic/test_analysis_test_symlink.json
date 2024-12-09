@@ -1,0 +1,92 @@
+{
+  "test_name": "test_symlink",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_windows_wrappers.py",
+  "static_methods": [
+    {
+      "name": "script_dir.mkdir",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line_number": 123
+    },
+    {
+      "name": "self.create_script",
+      "source_code": "    def create_script(cls, tmpdir):\n        \"\"\"\n        Create a simple script, foo-script.py",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_windows_wrappers.py",
+      "line_number": 36
+    },
+    {
+      "name": "symlink.symlink_to",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "proc.communicate",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stdout.replace",
+      "source_code": "    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line_number": 58
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "script_dir.mkdir",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_dir_util.py",
+      "line": 123,
+      "caller": "test_symlink",
+      "source_code": "            def mkdir(self, *args, **kwargs):\n                raise OSError(\"Failed to create directory\")\n\n"
+    },
+    {
+      "function": "self.create_script",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_windows_wrappers.py",
+      "line": 36,
+      "caller": "test_symlink",
+      "source_code": "    @classmethod\n    def create_script(cls, tmpdir):\n        \"\"\"\n        Create a simple script, foo-script.py\n\n        Note that the script starts with a Unix-style '#!' line saying which\n        Python executable to run.  The wrapper will use this line to find the\n        correct Python executable.\n        \"\"\"\n\n        script = cls.prep_script(cls.script_tmpl)\n\n        with (tmpdir / cls.script_name).open('w') as f:\n            f.write(script)\n\n        # also copy cli.exe to the sample directory\n        with (tmpdir / cls.wrapper_name).open('wb') as f:\n            w = pkg_resources.resource_string('setuptools', cls.wrapper_source)\n            f.write(w)\n\n\n"
+    },
+    {
+      "function": "symlink.symlink_to",
+      "filename": "",
+      "line": 0,
+      "caller": "test_symlink",
+      "source_code": ""
+    },
+    {
+      "function": "proc.communicate",
+      "filename": "",
+      "line": 0,
+      "caller": "test_symlink",
+      "source_code": ""
+    },
+    {
+      "function": "stdout.replace",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/emoji.py",
+      "line": 58,
+      "caller": "test_symlink",
+      "source_code": "    @classmethod\n    def replace(cls, text: str) -> str:\n        \"\"\"Replace emoji markup with corresponding unicode characters.\n\n        Args:\n            text (str): A string with emojis codes, e.g. \"Hello :smiley:!\"\n\n        Returns:\n            str: A string with emoji codes replaces with actual emoji.\n        \"\"\"\n        return _emoji_replace(text)\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_symlink",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert actual == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_symlink(self, tmpdir):\n        \"\"\"\n        Ensure that symlink for the foo.exe is working correctly.\n        \"\"\"\n        script_dir = tmpdir / \"script_dir\"\n        script_dir.mkdir()\n        self.create_script(script_dir)\n        symlink = pathlib.Path(tmpdir / \"foo.exe\")\n        symlink.symlink_to(script_dir / \"foo.exe\")\n\n        cmd = [\n            str(tmpdir / 'foo.exe'),\n            'arg1',\n            'arg 2',\n            'arg \"2\\\\\"',\n            'arg 4\\\\',\n            'arg5 a\\\\\\\\b',\n        ]\n        proc = subprocess.Popen(\n            cmd,\n            stdout=subprocess.PIPE,\n            stdin=subprocess.PIPE,\n            text=True,\n            encoding=\"utf-8\",\n        )\n        stdout, _stderr = proc.communicate('hello\\nworld\\n')\n        actual = stdout.replace('\\r\\n', '\\n')\n        expected = textwrap.dedent(\n            r\"\"\"\n            \\foo-script.py\n            ['arg1', 'arg 2', 'arg \"2\\\\\"', 'arg 4\\\\', 'arg5 a\\\\\\\\b']\n            'hello\\nworld\\n'\n            non-optimized\n            \"\"\"\n        ).lstrip()\n        assert actual == expected"
+}

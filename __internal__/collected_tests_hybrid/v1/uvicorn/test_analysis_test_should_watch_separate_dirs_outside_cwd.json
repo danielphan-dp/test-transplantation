@@ -1,0 +1,118 @@
+{
+  "test_name": "test_should_watch_separate_dirs_outside_cwd",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/tests/supervisors/test_reload.py",
+  "static_methods": [
+    {
+      "name": "mocker.patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "Config",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "WatchFilesReload",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock_watch.assert_called_once",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Path.cwd",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mocker.patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "Config",
+      "filename": "",
+      "line": 0,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "WatchFilesReload",
+      "filename": "",
+      "line": 0,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "mock_watch.assert_called_once",
+      "filename": "",
+      "line": 0,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "Path.cwd",
+      "filename": "",
+      "line": 0,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_should_watch_separate_dirs_outside_cwd",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert set(mock_watch.call_args[0]) == {app_dir, app_first_dir, Path.cwd()}"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_should_watch_separate_dirs_outside_cwd(mocker, reload_directory_structure):\n    mock_watch = mocker.patch(\"uvicorn.supervisors.watchfilesreload.watch\")\n    app_dir = reload_directory_structure / \"app\"\n    app_first_dir = reload_directory_structure / \"app_first\"\n    config = Config(\n        app=\"tests.test_config:asgi_app\",\n        reload=True,\n        reload_dirs=[str(app_dir), str(app_first_dir)],\n    )\n    WatchFilesReload(config, target=run, sockets=[])\n    mock_watch.assert_called_once()\n    assert set(mock_watch.call_args[0]) == {\n        app_dir,\n        app_first_dir,\n        Path.cwd(),\n    }"
+}

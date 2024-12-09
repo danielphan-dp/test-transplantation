@@ -1,0 +1,92 @@
+{
+  "test_name": "test_run_app_https_unix_socket",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+  "static_methods": [
+    {
+      "name": "web.Application",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.Mock",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "web.run_app",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n    ) -> Tuple[\"asyncio.Task[None]\", int]:\n        num_connections = -1\n        t = test_task = None",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 1007
+    },
+    {
+      "name": "patched_loop.create_unix_server.assert_called_with",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "stopper",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line_number": 99
+    },
+    {
+      "name": "skip_if_no_unix_socks",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "web.Application",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_https_unix_socket",
+      "source_code": ""
+    },
+    {
+      "function": "mock.Mock",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_https_unix_socket",
+      "source_code": ""
+    },
+    {
+      "function": "web.run_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 1007,
+      "caller": "test_run_app_https_unix_socket",
+      "source_code": "    def run_app(\n        self,\n        port: int,\n        timeout: int,\n        task: Callable[[], Coroutine[None, None, None]],\n        extra_test: Optional[Callable[[ClientSession], Awaitable[None]]] = None,\n"
+    },
+    {
+      "function": "patched_loop.create_unix_server.assert_called_with",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_https_unix_socket",
+      "source_code": ""
+    },
+    {
+      "function": "stopper",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_run_app.py",
+      "line": 99,
+      "caller": "test_run_app_https_unix_socket",
+      "source_code": "def stopper(loop: asyncio.AbstractEventLoop) -> Callable[[], None]:\n    def raiser() -> NoReturn:\n        raise KeyboardInterrupt\n\n    def f(*args: object) -> None:\n        loop.call_soon(raiser)\n\n    return f\n\n\n"
+    },
+    {
+      "function": "skip_if_no_unix_socks",
+      "filename": "",
+      "line": 0,
+      "caller": "test_run_app_https_unix_socket",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert f'https://unix:{unix_sockname}:' in printer.call_args[0][0]"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_run_app_https_unix_socket(\n    patched_loop: asyncio.AbstractEventLoop, unix_sockname: str\n) -> None:\n    app = web.Application()\n\n    ssl_context = ssl.create_default_context()\n    printer = mock.Mock(wraps=stopper(patched_loop))\n    web.run_app(\n        app,\n        path=unix_sockname,\n        ssl_context=ssl_context,\n        print=printer,\n        loop=patched_loop,\n    )\n\n    patched_loop.create_unix_server.assert_called_with(  # type: ignore[attr-defined]\n        mock.ANY, unix_sockname, ssl=ssl_context, backlog=128\n    )\n    assert f\"https://unix:{unix_sockname}:\" in printer.call_args[0][0]"
+}

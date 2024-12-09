@@ -1,0 +1,119 @@
+{
+  "test_name": "test_get_metadata__bad_utf8",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+  "static_methods": [
+    {
+      "name": "encode",
+      "source_code": "    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line_number": 103
+    },
+    {
+      "name": "make_test_distribution",
+      "source_code": "def make_test_distribution(metadata_path, metadata):\n    \"\"\"\n    Make a test Distribution object, and return it.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+      "line_number": 175
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "actual.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "dist.get_metadata",
+      "source_code": "    def get_metadata(name):\n        \"\"\"The named metadata resource as a string\"\"\"",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 506
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "encode",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py",
+      "line": 103,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": "    @staticmethod\n    def encode(x):\n        return hashlib.sha224(x.encode()).hexdigest()\n\n"
+    },
+    {
+      "function": "make_test_distribution",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_pkg_resources.py",
+      "line": 175,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": "def make_test_distribution(metadata_path, metadata):\n    \"\"\"\n    Make a test Distribution object, and return it.\n\n    :param metadata_path: the path to the metadata file that should be\n        created. This should be inside a distribution directory that should\n        also be created. For example, an argument value might end with\n        \"<project>.dist-info/METADATA\".\n    :param metadata: the desired contents of the metadata file, as bytes.\n    \"\"\"\n    dist_dir = os.path.dirname(metadata_path)\n    os.mkdir(dist_dir)\n    with open(metadata_path, 'wb') as f:\n        f.write(metadata)\n    dists = list(pkg_resources.distributions_from_metadata(dist_dir))\n    (dist,) = dists\n\n    return dist\n\n\n"
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "actual.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": ""
+    },
+    {
+      "function": "dist.get_metadata",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 506,
+      "caller": "test_get_metadata__bad_utf8",
+      "source_code": "    def get_metadata(name):\n        \"\"\"The named metadata resource as a string\"\"\"\n\n"
+    }
+  ],
+  "assertions": [
+    "assert expected in actual, 'actual: {}'.format(actual)",
+    "assert actual.endswith(metadata_path), 'actual: {}'.format(actual)"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_get_metadata__bad_utf8(tmpdir):\n    \"\"\"\n    Test a metadata file with bytes that can't be decoded as utf-8.\n    \"\"\"\n    filename = 'METADATA'\n    # Convert the tmpdir LocalPath object to a string before joining.\n    metadata_path = os.path.join(str(tmpdir), 'foo.dist-info', filename)\n    # Encode a non-ascii string with the wrong encoding (not utf-8).\n    metadata = 'n\u00e9e'.encode('iso-8859-1')\n    dist = make_test_distribution(metadata_path, metadata=metadata)\n\n    with pytest.raises(UnicodeDecodeError) as excinfo:\n        dist.get_metadata(filename)\n\n    exc = excinfo.value\n    actual = str(exc)\n    expected = (\n        # The error message starts with \"'utf-8' codec ...\" However, the\n        # spelling of \"utf-8\" can vary (e.g. \"utf8\") so we don't include it\n        \"codec can't decode byte 0xe9 in position 1: \"\n        'invalid continuation byte in METADATA file at path: '\n    )\n    assert expected in actual, 'actual: {}'.format(actual)\n    assert actual.endswith(metadata_path), 'actual: {}'.format(actual)"
+}

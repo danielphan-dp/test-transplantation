@@ -1,0 +1,40 @@
+{
+  "test_name": "test_reg",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_emit.py",
+  "static_methods": [
+    {
+      "name": "Emitter",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "emitter.reg",
+      "source_code": "    def reg(self, reg: Value) -> str:\n        return REG_PREFIX + self.value_names[reg]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emit.py",
+      "line_number": 191
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "Emitter",
+      "filename": "",
+      "line": 0,
+      "caller": "test_reg",
+      "source_code": ""
+    },
+    {
+      "function": "emitter.reg",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/codegen/emit.py",
+      "line": 191,
+      "caller": "test_reg",
+      "source_code": "    def reg(self, reg: Value) -> str:\n        return REG_PREFIX + self.value_names[reg]\n\n"
+    }
+  ],
+  "assertions": [
+    "assert emitter.reg(self.n) == 'cpy_r_n'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_reg(self) -> None:\n        names: dict[Value, str] = {self.n: \"n\"}\n        emitter = Emitter(self.context, names)\n        assert emitter.reg(self.n) == \"cpy_r_n\""
+}

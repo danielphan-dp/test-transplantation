@@ -1,0 +1,53 @@
+{
+  "test_name": "test__obsolete_line_fold_bytes",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/tests/test_io.py",
+  "static_methods": [
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "_obsolete_line_fold",
+      "source_code": "def _obsolete_line_fold(lines: Iterable[bytes]) -> Iterable[bytes]:\n    it = iter(lines)\n    last: Optional[bytes] = None\n    for line in it:\n        match = obs_fold_re.match(line)\n        if match:\n            if last is None:\n                raise LocalProtocolError(\"continuation line at start of headers\")\n            if not isinstance(last, bytearray):\n                # Cast to a mutable type, avoiding copy on append to ensure O(n) time\n                last = bytearray(last)\n            last += b\" \"\n            last += line[match.end() :]\n        else:\n            if last is not None:\n                yield last\n            last = line\n    if last is not None:\n        yield last",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_readers.py",
+      "line_number": 43
+    },
+    {
+      "name": "bytearray",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__obsolete_line_fold_bytes",
+      "source_code": ""
+    },
+    {
+      "function": "_obsolete_line_fold",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/venv/lib/python3.9/site-packages/h11/_readers.py",
+      "line": 43,
+      "caller": "test__obsolete_line_fold_bytes",
+      "source_code": "def _obsolete_line_fold(lines: Iterable[bytes]) -> Iterable[bytes]:\n    it = iter(lines)\n    last: Optional[bytes] = None\n    for line in it:\n        match = obs_fold_re.match(line)\n        if match:\n            if last is None:\n                raise LocalProtocolError(\"continuation line at start of headers\")\n            if not isinstance(last, bytearray):\n                # Cast to a mutable type, avoiding copy on append to ensure O(n) time\n                last = bytearray(last)\n            last += b\" \"\n            last += line[match.end() :]\n        else:\n            if last is not None:\n                yield last\n            last = line\n    if last is not None:\n        yield last\n\n\n"
+    },
+    {
+      "function": "bytearray",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test__obsolete_line_fold_bytes",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert list(_obsolete_line_fold([b'aaa', b'bbb', b'  ccc', b'ddd'])) == [b'aaa', bytearray(b'bbb ccc'), b'ddd']"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test__obsolete_line_fold_bytes() -> None:\n    # _obsolete_line_fold has a defensive cast to bytearray, which is\n    # necessary to protect against O(n^2) behavior in case anyone ever passes\n    # in regular bytestrings... but right now we never pass in regular\n    # bytestrings. so this test just exists to get some coverage on that\n    # defensive cast.\n    assert list(_obsolete_line_fold([b\"aaa\", b\"bbb\", b\"  ccc\", b\"ddd\"])) == [\n        b\"aaa\",\n        bytearray(b\"bbb ccc\"),\n        b\"ddd\",\n    ]"
+}

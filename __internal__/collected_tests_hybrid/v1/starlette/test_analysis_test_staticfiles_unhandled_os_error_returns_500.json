@@ -1,0 +1,132 @@
+{
+  "test_name": "test_staticfiles_unhandled_os_error_returns_500",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/test_staticfiles.py",
+  "static_methods": [
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "Starlette",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "test_client_factory",
+      "source_code": "def test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line_number": 13
+    },
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "client.get",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line_number": 153
+    },
+    {
+      "name": "open",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "file.write",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line_number": 36
+    },
+    {
+      "name": "Mount",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "StaticFiles",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": ""
+    },
+    {
+      "function": "Starlette",
+      "filename": "",
+      "line": 0,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": ""
+    },
+    {
+      "function": "test_client_factory",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/tests/conftest.py",
+      "line": 13,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": "@pytest.fixture\ndef test_client_factory(\n    anyio_backend_name: Literal[\"asyncio\", \"trio\"],\n    anyio_backend_options: dict[str, Any],\n"
+    },
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": ""
+    },
+    {
+      "function": "client.get",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/_pytest/cacheprovider.py",
+      "line": 153,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": "    def get(self, key: str, default):\n        \"\"\"Return the cached value for the given key.\n\n        If no value was yet cached or the value cannot be read, the specified\n        default is returned.\n\n        :param key:\n            Must be a ``/`` separated value. Usually the first\n            name is the name of your plugin or your application.\n        :param default:\n            The value to return in case of a cache-miss or invalid cache value.\n        \"\"\"\n        path = self._getvaluepath(key)\n        try:\n            with path.open(\"r\", encoding=\"UTF-8\") as f:\n                return json.load(f)\n        except (ValueError, OSError):\n            return default\n\n"
+    },
+    {
+      "function": "open",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": ""
+    },
+    {
+      "function": "file.write",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/ghp_import.py",
+      "line": 36,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": "    def write(pipe, data):\n        try:\n            pipe.stdin.write(data)\n        except IOError as e:\n            if e.errno != errno.EPIPE:\n                raise\n"
+    },
+    {
+      "function": "Mount",
+      "filename": "",
+      "line": 0,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": ""
+    },
+    {
+      "function": "StaticFiles",
+      "filename": "",
+      "line": 0,
+      "caller": "test_staticfiles_unhandled_os_error_returns_500",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 500",
+    "assert response.text == 'Internal Server Error'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_staticfiles_unhandled_os_error_returns_500(\n    tmpdir: Path,\n    test_client_factory: TestClientFactory,\n    monkeypatch: pytest.MonkeyPatch,\n) -> None:\n    def mock_timeout(*args: typing.Any, **kwargs: typing.Any) -> None:\n        raise TimeoutError\n\n    path = os.path.join(tmpdir, \"example.txt\")\n    with open(path, \"w\") as file:\n        file.write(\"<file content>\")\n\n    routes = [Mount(\"/\", app=StaticFiles(directory=tmpdir), name=\"static\")]\n    app = Starlette(routes=routes)\n    client = test_client_factory(app, raise_server_exceptions=False)\n\n    monkeypatch.setattr(\"starlette.staticfiles.StaticFiles.lookup_path\", mock_timeout)\n\n    response = client.get(\"/example.txt\")\n    assert response.status_code == 500\n    assert response.text == \"Internal Server Error\""
+}

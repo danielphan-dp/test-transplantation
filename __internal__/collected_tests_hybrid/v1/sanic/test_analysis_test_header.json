@@ -1,0 +1,94 @@
+{
+  "test_name": "test_header",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_easy_install.py",
+  "static_methods": [
+    {
+      "name": "ei.WindowsScriptWriter.get_header",
+      "source_code": "    def get_header(self, name, default=None):\n        return self._r.headers.get(name, self._new_headers.get(name, default))",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/cookies.py",
+      "line_number": 75
+    },
+    {
+      "name": "hdr.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "hdr.endswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "hdr.lstrip",
+      "source_code": "def lstrip(iterable, pred):\n    \"\"\"Yield the items from *iterable*, but strip any from the beginning\n    for which *pred* returns ``True``.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line_number": 2377
+    },
+    {
+      "name": "hdr.rstrip",
+      "source_code": "    def rstrip(self) -> None:\n        \"\"\"Strip whitespace from end of text.\"\"\"\n        self.plain = self.plain.rstrip()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line_number": 623
+    },
+    {
+      "name": "hdr.startswith",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "ei.WindowsScriptWriter.get_header",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/cookies.py",
+      "line": 75,
+      "caller": "test_header",
+      "source_code": "    def get_header(self, name, default=None):\n        return self._r.headers.get(name, self._new_headers.get(name, default))\n\n"
+    },
+    {
+      "function": "hdr.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_header",
+      "source_code": ""
+    },
+    {
+      "function": "hdr.endswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_header",
+      "source_code": ""
+    },
+    {
+      "function": "hdr.lstrip",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_vendor/more_itertools/more.py",
+      "line": 2377,
+      "caller": "test_header",
+      "source_code": "def lstrip(iterable, pred):\n    \"\"\"Yield the items from *iterable*, but strip any from the beginning\n    for which *pred* returns ``True``.\n\n    For example, to remove a set of items from the start of an iterable:\n\n        >>> iterable = (None, False, None, 1, 2, None, 3, False, None)\n        >>> pred = lambda x: x in {None, False, ''}\n        >>> list(lstrip(iterable, pred))\n        [1, 2, None, 3, False, None]\n\n    This function is analogous to to :func:`str.lstrip`, and is essentially\n    an wrapper for :func:`itertools.dropwhile`.\n\n    \"\"\"\n    return dropwhile(pred, iterable)\n\n\n"
+    },
+    {
+      "function": "hdr.rstrip",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/text.py",
+      "line": 623,
+      "caller": "test_header",
+      "source_code": "    def rstrip(self) -> None:\n        \"\"\"Strip whitespace from end of text.\"\"\"\n        self.plain = self.plain.rstrip()\n\n"
+    },
+    {
+      "function": "hdr.startswith",
+      "filename": "",
+      "line": 0,
+      "caller": "test_header",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert hdr.startswith('#!')",
+    "assert hdr.endswith('\\n')",
+    "assert not hdr.startswith('\\\\\"')"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_header(self):\n        hdr = ei.WindowsScriptWriter.get_header('')\n        assert hdr.startswith('#!')\n        assert hdr.endswith('\\n')\n        hdr = hdr.lstrip('#!')\n        hdr = hdr.rstrip('\\n')\n        # header should not start with an escaped quote\n        assert not hdr.startswith('\\\\\"')"
+}

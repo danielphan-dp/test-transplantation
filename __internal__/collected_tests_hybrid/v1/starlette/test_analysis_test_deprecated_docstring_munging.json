@@ -1,0 +1,15 @@
+{
+  "test_name": "test_deprecated_docstring_munging",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/test_deprecate.py",
+  "static_methods": [],
+  "dynamic_methods": [],
+  "assertions": [
+    "assert docstring_test1.__doc__ == 'Hello!\\n\\n.. deprecated:: 2.1\\n   Use hi instead.\\n   For details, see `issue #1 <https://github.com/python-trio/trio/issues/1>`__.\\n\\n'",
+    "assert docstring_test2.__doc__ == 'Hello!\\n\\n.. deprecated:: 2.1\\n   Use hi instead.\\n\\n'",
+    "assert docstring_test3.__doc__ == 'Hello!\\n\\n.. deprecated:: 2.1\\n   For details, see `issue #1 <https://github.com/python-trio/trio/issues/1>`__.\\n\\n'",
+    "assert docstring_test4.__doc__ == 'Hello!\\n\\n.. deprecated:: 2.1\\n\\n'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_deprecated_docstring_munging() -> None:\n    assert (\n        docstring_test1.__doc__\n        == \"\"\"Hello!\n\n.. deprecated:: 2.1\n   Use hi instead.\n   For details, see `issue #1 <https://github.com/python-trio/trio/issues/1>`__.\n\n\"\"\"\n    )\n\n    assert (\n        docstring_test2.__doc__\n        == \"\"\"Hello!\n\n.. deprecated:: 2.1\n   Use hi instead.\n\n\"\"\"\n    )\n\n    assert (\n        docstring_test3.__doc__\n        == \"\"\"Hello!\n\n.. deprecated:: 2.1\n   For details, see `issue #1 <https://github.com/python-trio/trio/issues/1>`__.\n\n\"\"\"\n    )\n\n    assert (\n        docstring_test4.__doc__\n        == \"\"\"Hello!\n\n.. deprecated:: 2.1\n\n\"\"\"\n    )"
+}

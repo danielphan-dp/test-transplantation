@@ -1,0 +1,53 @@
+{
+  "test_name": "test_multiple_oauth_in_and",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/connexion/tests/test_operation2.py",
+  "static_methods": [
+    {
+      "name": "caplog.set_level",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SecurityHandlerFactory",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "SecurityOperation",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "caplog.set_level",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_oauth_in_and",
+      "source_code": ""
+    },
+    {
+      "function": "SecurityHandlerFactory",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_oauth_in_and",
+      "source_code": ""
+    },
+    {
+      "function": "SecurityOperation",
+      "filename": "",
+      "line": 0,
+      "caller": "test_multiple_oauth_in_and",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert '... multiple OAuth2 security schemes in AND fashion not supported' in caplog.text"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_multiple_oauth_in_and(caplog):\n    \"\"\"Tests an operation with multiple oauth security schemes in AND fashion.\n    These should be ignored and raise a warning.\n    \"\"\"\n    caplog.set_level(logging.WARNING, logger=\"connexion.operations.secure\")\n    security_handler_factory = SecurityHandlerFactory()\n\n    security = [{\"oauth_1\": [\"uid\"], \"oauth_2\": [\"uid\"]}]\n\n    SecurityOperation(\n        next_app=mock.Mock,\n        security_handler_factory=security_handler_factory,\n        security=security,\n        security_schemes=SECURITY_DEFINITIONS_2_OAUTH,\n    )\n\n    assert (\n        \"... multiple OAuth2 security schemes in AND fashion not supported\"\n        in caplog.text\n    )"
+}

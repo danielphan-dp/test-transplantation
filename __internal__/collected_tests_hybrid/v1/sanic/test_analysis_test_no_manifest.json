@@ -1,0 +1,40 @@
+{
+  "test_name": "test_no_manifest",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+  "static_methods": [
+    {
+      "name": "self.get_files",
+      "source_code": "    def get_files(self):\n        \"\"\"Run egg_info and get all the files to include, as a set\"\"\"\n        dist = Distribution(SETUP_ATTRS)\n        dist.script_name = 'setup.py'\n        cmd = egg_info(dist)\n        cmd.ensure_finalized()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line_number": 220
+    },
+    {
+      "name": "set",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.get_files",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/tests/test_manifest.py",
+      "line": 220,
+      "caller": "test_no_manifest",
+      "source_code": "    def get_files(self):\n        \"\"\"Run egg_info and get all the files to include, as a set\"\"\"\n        dist = Distribution(SETUP_ATTRS)\n        dist.script_name = 'setup.py'\n        cmd = egg_info(dist)\n        cmd.ensure_finalized()\n\n        cmd.run()\n\n        return set(cmd.filelist.files)\n\n"
+    },
+    {
+      "function": "set",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_no_manifest",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert default_files - set(['MANIFEST.in']) == self.get_files()"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_no_manifest(self):\n        \"\"\"Check a missing MANIFEST.in includes only the standard files.\"\"\"\n        assert (default_files - set(['MANIFEST.in'])) == self.get_files()"
+}

@@ -1,0 +1,79 @@
+{
+  "test_name": "test_block_not_terminated_empty_block",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+  "static_methods": [
+    {
+      "name": "self.basic_block",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 50
+    },
+    {
+      "name": "FuncIR",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "assert_has_error",
+      "source_code": "def assert_has_error(fn: FuncIR, error: FnError) -> None:\n    errors = check_func_ir(fn)\n    assert errors == [error]",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 34
+    },
+    {
+      "name": "FnError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.func_decl",
+      "source_code": "    def func_decl(self, name: str, ret_type: RType | None = None) -> FuncDecl:\n        if ret_type is None:\n            ret_type = none_rprimitive\n        return FuncDecl(\n            name=name,\n            class_name=None,\n            module_name=\"module\",\n            sig=FuncSignature(args=[], ret_type=ret_type),\n        )",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line_number": 56
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.basic_block",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 50,
+      "caller": "test_block_not_terminated_empty_block",
+      "source_code": "    def basic_block(self, ops: list[Op]) -> BasicBlock:\n        self.label += 1\n        block = BasicBlock(self.label)\n        block.ops = ops\n        return block\n\n"
+    },
+    {
+      "function": "FuncIR",
+      "filename": "",
+      "line": 0,
+      "caller": "test_block_not_terminated_empty_block",
+      "source_code": ""
+    },
+    {
+      "function": "assert_has_error",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 34,
+      "caller": "test_block_not_terminated_empty_block",
+      "source_code": "def assert_has_error(fn: FuncIR, error: FnError) -> None:\n    errors = check_func_ir(fn)\n    assert errors == [error]\n\n\n"
+    },
+    {
+      "function": "FnError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_block_not_terminated_empty_block",
+      "source_code": ""
+    },
+    {
+      "function": "self.func_decl",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/uvicorn/venv/lib/python3.9/site-packages/mypyc/test/test_ircheck.py",
+      "line": 56,
+      "caller": "test_block_not_terminated_empty_block",
+      "source_code": "    def func_decl(self, name: str, ret_type: RType | None = None) -> FuncDecl:\n        if ret_type is None:\n            ret_type = none_rprimitive\n        return FuncDecl(\n            name=name,\n            class_name=None,\n            module_name=\"module\",\n            sig=FuncSignature(args=[], ret_type=ret_type),\n        )\n\n"
+    }
+  ],
+  "assertions": [
+    "assert_has_error(fn, FnError(source=block, desc='Block not terminated'))"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_block_not_terminated_empty_block(self) -> None:\n        block = self.basic_block([])\n        fn = FuncIR(decl=self.func_decl(name=\"func_1\"), arg_regs=[], blocks=[block])\n        assert_has_error(fn, FnError(source=block, desc=\"Block not terminated\"))"
+}

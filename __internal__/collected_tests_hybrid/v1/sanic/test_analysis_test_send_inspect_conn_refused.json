@@ -1,0 +1,79 @@
+{
+  "test_name": "test_send_inspect_conn_refused",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/tests/worker/test_inspector.py",
+  "static_methods": [
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    },
+    {
+      "name": "URLError",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "InspectorClient.do",
+      "source_code": "    def do(self, action: str, **kwargs: Any) -> None:\n        if action == \"info\":\n            self.info()\n            return\n        result = self.request(action, **kwargs).get(\"result\")\n        if result:\n            out = (\n                dumps(result)\n                if isinstance(result, (list, dict))\n                else str(result)\n            )\n            sys.stdout.write(out + \"\\n\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/cli/inspector_client.py",
+      "line_number": 44
+    },
+    {
+      "name": "InspectorClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "patch",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line_number": 649
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_send_inspect_conn_refused",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    },
+    {
+      "function": "URLError",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_inspect_conn_refused",
+      "source_code": ""
+    },
+    {
+      "function": "InspectorClient.do",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/sanic/cli/inspector_client.py",
+      "line": 44,
+      "caller": "test_send_inspect_conn_refused",
+      "source_code": "    def do(self, action: str, **kwargs: Any) -> None:\n        if action == \"info\":\n            self.info()\n            return\n        result = self.request(action, **kwargs).get(\"result\")\n        if result:\n            out = (\n                dumps(result)\n                if isinstance(result, (list, dict))\n                else str(result)\n            )\n            sys.stdout.write(out + \"\\n\")\n\n"
+    },
+    {
+      "function": "InspectorClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_send_inspect_conn_refused",
+      "source_code": ""
+    },
+    {
+      "function": "patch",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/requests/sessions.py",
+      "line": 649,
+      "caller": "test_send_inspect_conn_refused",
+      "source_code": "    def patch(self, url, data=None, **kwargs):\n        r\"\"\"Sends a PATCH request. Returns :class:`Response` object.\n\n        :param url: URL for the new :class:`Request` object.\n        :param data: (optional) Dictionary, list of tuples, bytes, or file-like\n            object to send in the body of the :class:`Request`.\n        :param \\*\\*kwargs: Optional arguments that ``request`` takes.\n        :rtype: requests.Response\n        \"\"\"\n\n        return self.request(\"PATCH\", url, data=data, **kwargs)\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [
+    "patch('sanic.cli.inspector_client.sys')"
+  ],
+  "success": true,
+  "test_source_code": "def test_send_inspect_conn_refused(sys: Mock, urlopen):\n    urlopen.side_effect = URLError(\"\")\n    InspectorClient(\"localhost\", 9999, False, False, None).do(\"info\")\n\n    message = (\n        f\"{Colors.RED}Could not connect to inspector at: \"\n        f\"{Colors.YELLOW}http://localhost:9999{Colors.END}\\n\"\n        \"Either the application is not running, or it did not start \"\n        \"an inspector instance.\\n<urlopen error >\\n\"\n    )\n    sys.exit.assert_called_once_with(1)\n    sys.stderr.write.assert_called_once_with(message)"
+}

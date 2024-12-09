@@ -1,0 +1,41 @@
+{
+  "test_name": "test_create_pass_through_args",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tests/tools/test_gen_exports.py",
+  "static_methods": [
+    {
+      "name": "isinstance",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "create_passthrough_args",
+      "source_code": "def create_passthrough_args(funcdef: ast.FunctionDef | ast.AsyncFunctionDef) -> str:\n    \"\"\"Given a function definition, create a string that represents taking all\n    the arguments from the function, and passing them through to another\n    invocation of the same function.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line_number": 86
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "isinstance",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_create_pass_through_args",
+      "source_code": ""
+    },
+    {
+      "function": "create_passthrough_args",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/starlette/venv/lib/python3.9/site-packages/trio/_tools/gen_exports.py",
+      "line": 86,
+      "caller": "test_create_pass_through_args",
+      "source_code": "def create_passthrough_args(funcdef: ast.FunctionDef | ast.AsyncFunctionDef) -> str:\n    \"\"\"Given a function definition, create a string that represents taking all\n    the arguments from the function, and passing them through to another\n    invocation of the same function.\n\n    Example input: ast.parse(\"def f(a, *, b): ...\")\n    Example output: \"(a, b=b)\"\n    \"\"\"\n    call_args = [arg.arg for arg in funcdef.args.args]\n    if funcdef.args.vararg:\n        call_args.append(\"*\" + funcdef.args.vararg.arg)\n    for arg in funcdef.args.kwonlyargs:\n        call_args.append(arg.arg + \"=\" + arg.arg)  # noqa: PERF401  # clarity\n    if funcdef.args.kwarg:\n        call_args.append(\"**\" + funcdef.args.kwarg.arg)\n    return \"({})\".format(\", \".join(call_args))\n\n\n"
+    }
+  ],
+  "assertions": [
+    "assert isinstance(func_node, ast.FunctionDef)",
+    "assert create_passthrough_args(func_node) == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_create_pass_through_args() -> None:\n    testcases = [\n        (\"def f()\", \"()\"),\n        (\"def f(one)\", \"(one)\"),\n        (\"def f(one, two)\", \"(one, two)\"),\n        (\"def f(one, *args)\", \"(one, *args)\"),\n        (\n            \"def f(one, *args, kw1, kw2=None, **kwargs)\",\n            \"(one, *args, kw1=kw1, kw2=kw2, **kwargs)\",\n        ),\n    ]\n\n    for funcdef, expected in testcases:\n        func_node = ast.parse(funcdef + \":\\n  pass\").body[0]\n        assert isinstance(func_node, ast.FunctionDef)\n        assert create_passthrough_args(func_node) == expected"
+}

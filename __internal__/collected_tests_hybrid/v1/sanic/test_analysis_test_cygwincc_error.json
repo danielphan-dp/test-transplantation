@@ -1,0 +1,38 @@
+{
+  "test_name": "test_cygwincc_error",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_mingwccompiler.py",
+  "static_methods": [
+    {
+      "name": "monkeypatch.setattr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "is_mingw",
+      "source_code": "def is_mingw():\n    \"\"\"Returns True if the current platform is mingw.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line_number": 499
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "monkeypatch.setattr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cygwincc_error",
+      "source_code": ""
+    },
+    {
+      "function": "is_mingw",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/util.py",
+      "line": 499,
+      "caller": "test_cygwincc_error",
+      "source_code": "def is_mingw():\n    \"\"\"Returns True if the current platform is mingw.\n\n    Python compiled with Mingw-w64 has sys.platform == 'win32' and\n    get_platform() starts with 'mingw'.\n    \"\"\"\n    return sys.platform == 'win32' and get_platform().startswith('mingw')\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_cygwincc_error(self, monkeypatch):\n        import distutils.cygwinccompiler\n\n        monkeypatch.setattr(distutils.cygwinccompiler, 'is_cygwincc', lambda _: True)\n\n        with pytest.raises(CCompilerError):\n            distutils.cygwinccompiler.Mingw32CCompiler()"
+}

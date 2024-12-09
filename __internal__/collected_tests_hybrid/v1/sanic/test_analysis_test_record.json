@@ -1,0 +1,105 @@
+{
+  "test_name": "test_record",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_install.py",
+  "static_methods": [
+    {
+      "name": "self.mkdtemp",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 22
+    },
+    {
+      "name": "self.create_dist",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line_number": 38
+    },
+    {
+      "name": "self.write_file",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 391
+    },
+    {
+      "name": "self.write_file",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line_number": 391
+    },
+    {
+      "name": "install",
+      "source_code": "def install():\n    if not any(finder == _EditableFinder for finder in sys.meta_path):\n        sys.meta_path.append(_EditableFinder)",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/__editable___sanic_24_6_0_finder.py",
+      "line_number": 74
+    },
+    {
+      "name": "format",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "content.splitlines",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "self.mkdtemp",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 22,
+      "caller": "test_record",
+      "source_code": "    def mkdtemp(self):\n        \"\"\"Create a temporary directory that will be cleaned up.\n\n        Returns the path of the directory.\n        \"\"\"\n        d = tempfile.mkdtemp()\n        self.tempdirs.append(d)\n        return d\n\n"
+    },
+    {
+      "function": "self.create_dist",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/support.py",
+      "line": 38,
+      "caller": "test_record",
+      "source_code": "    def create_dist(self, pkg_name='foo', **kw):\n        \"\"\"Will generate a test environment.\n\n        This function creates:\n         - a Distribution instance using keywords\n         - a temporary directory with a package structure\n\n        It returns the package directory and the distribution\n        instance.\n        \"\"\"\n        tmp_dir = self.mkdtemp()\n        pkg_dir = os.path.join(tmp_dir, pkg_name)\n        os.mkdir(pkg_dir)\n        dist = Distribution(attrs=kw)\n\n        return pkg_dir, dist\n\n\n"
+    },
+    {
+      "function": "self.write_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 391,
+      "caller": "test_record",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()\n\n        for field in _version2fieldlist(self['Metadata-Version']):\n            values = self.get(field)\n            if skip_unknown and values in ('UNKNOWN', [], ['UNKNOWN']):\n                continue\n            if field in _ELEMENTSFIELD:\n                self._write_field(fileobject, field, ','.join(values))\n                continue\n            if field not in _LISTFIELDS:\n                if field == 'Description':\n                    if self.metadata_version in ('1.0', '1.1'):\n                        values = values.replace('\\n', '\\n        ')\n                    else:\n                        values = values.replace('\\n', '\\n       |')\n                values = [values]\n\n            if field in _LISTTUPLEFIELDS:\n                values = [','.join(value) for value in values]\n\n            for value in values:\n                self._write_field(fileobject, field, value)\n\n"
+    },
+    {
+      "function": "self.write_file",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/distlib/metadata.py",
+      "line": 391,
+      "caller": "test_record",
+      "source_code": "    def write_file(self, fileobject, skip_unknown=False):\n        \"\"\"Write the PKG-INFO format data to a file object.\"\"\"\n        self.set_metadata_version()\n\n        for field in _version2fieldlist(self['Metadata-Version']):\n            values = self.get(field)\n            if skip_unknown and values in ('UNKNOWN', [], ['UNKNOWN']):\n                continue\n            if field in _ELEMENTSFIELD:\n                self._write_field(fileobject, field, ','.join(values))\n                continue\n            if field not in _LISTFIELDS:\n                if field == 'Description':\n                    if self.metadata_version in ('1.0', '1.1'):\n                        values = values.replace('\\n', '\\n        ')\n                    else:\n                        values = values.replace('\\n', '\\n       |')\n                values = [values]\n\n            if field in _LISTTUPLEFIELDS:\n                values = [','.join(value) for value in values]\n\n            for value in values:\n                self._write_field(fileobject, field, value)\n\n"
+    },
+    {
+      "function": "install",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/__editable___sanic_24_6_0_finder.py",
+      "line": 74,
+      "caller": "test_record",
+      "source_code": "def install():\n    if not any(finder == _EditableFinder for finder in sys.meta_path):\n        sys.meta_path.append(_EditableFinder)\n\n    if not NAMESPACES:\n        return\n\n    if not any(hook == _EditableNamespaceFinder._path_hook for hook in sys.path_hooks):\n        # PathEntryFinder is needed to create NamespaceSpec without private APIS\n        sys.path_hooks.append(_EditableNamespaceFinder._path_hook)\n    if PATH_PLACEHOLDER not in sys.path:\n        sys.path.append(PATH_PLACEHOLDER)  # Used just to trigger the path hook\n"
+    },
+    {
+      "function": "format",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_record",
+      "source_code": ""
+    },
+    {
+      "function": "content.splitlines",
+      "filename": "",
+      "line": 0,
+      "caller": "test_record",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert found == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_record(self):\n        install_dir = self.mkdtemp()\n        project_dir, dist = self.create_dist(py_modules=['hello'], scripts=['sayhi'])\n        os.chdir(project_dir)\n        self.write_file('hello.py', \"def main(): print('o hai')\")\n        self.write_file('sayhi', 'from hello import main; main()')\n\n        cmd = install(dist)\n        dist.command_obj['install'] = cmd\n        cmd.root = install_dir\n        cmd.record = os.path.join(project_dir, 'filelist')\n        cmd.ensure_finalized()\n        cmd.run()\n\n        content = pathlib.Path(cmd.record).read_text(encoding='utf-8')\n\n        found = [pathlib.Path(line).name for line in content.splitlines()]\n        expected = [\n            'hello.py',\n            f'hello.{sys.implementation.cache_tag}.pyc',\n            'sayhi',\n            'UNKNOWN-0.0.0-py{}.{}.egg-info'.format(*sys.version_info[:2]),\n        ]\n        assert found == expected"
+}

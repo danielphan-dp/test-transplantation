@@ -1,0 +1,54 @@
+{
+  "test_name": "test_set_options_route",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_urldispatch.py",
+  "static_methods": [
+    {
+      "name": "router.add_static",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n    ) -> StaticResource:\n        \"\"\"Add static files view.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line_number": 1152
+    },
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    },
+    {
+      "name": "make_handler",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line_number": 1589
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "router.add_static",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/build/lib.linux-x86_64-cpython-39/aiohttp/web_urldispatcher.py",
+      "line": 1152,
+      "caller": "test_set_options_route",
+      "source_code": "    def add_static(\n        self,\n        prefix: str,\n        path: PathLike,\n        *,\n        name: Optional[str] = None,\n        expect_handler: Optional[_ExpectHandler] = None,\n        chunk_size: int = 256 * 1024,\n        show_index: bool = False,\n        follow_symlinks: bool = False,\n        append_version: bool = False,\n"
+    },
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_set_options_route",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    },
+    {
+      "function": "make_handler",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/aiohttp/tests/test_web_functional.py",
+      "line": 1589,
+      "caller": "test_set_options_route",
+      "source_code": "    def make_handler(appname: str) -> Handler:\n        async def handler(request: web.Request) -> web.Response:\n            values.append(f\"{appname}: {request.app[my_value]}\")\n            return web.Response(text=\"Ok\")\n\n        return handler\n\n"
+    }
+  ],
+  "assertions": [
+    "assert options is None",
+    "assert options is not None"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_set_options_route(router: web.UrlDispatcher) -> None:\n    resource = router.add_static(\"/static\", pathlib.Path(aiohttp.__file__).parent)\n    options = None\n    for route in resource:\n        if route.method == \"OPTIONS\":\n            options = route\n    assert options is None\n    resource.set_options_route(make_handler())\n    for route in resource:\n        if route.method == \"OPTIONS\":\n            options = route\n    assert options is not None\n\n    with pytest.raises(RuntimeError):\n        resource.set_options_route(make_handler())"
+}

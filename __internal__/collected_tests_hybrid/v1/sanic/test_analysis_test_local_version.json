@@ -1,0 +1,25 @@
+{
+  "test_name": "test_local_version",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pkg_resources/tests/test_resources.py",
+  "static_methods": [
+    {
+      "name": "parse_requirements",
+      "source_code": "def parse_requirements(strs):\n    \"\"\"Yield ``Requirement`` objects for each specification in `strs`",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line_number": 3075
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "parse_requirements",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/pkg_resources/__init__.py",
+      "line": 3075,
+      "caller": "test_local_version",
+      "source_code": "def parse_requirements(strs):\n    \"\"\"Yield ``Requirement`` objects for each specification in `strs`\n\n    `strs` must be a string, or a (possibly-nested) iterable thereof.\n    \"\"\"\n    # create a steppable iterator, so we can handle \\-continuations\n    lines = iter(yield_lines(strs))\n\n    for line in lines:\n        # Drop comments -- a hash without a space may be in a URL.\n        if ' #' in line:\n            line = line[:line.find(' #')]\n        # If there is a line continuation, drop it, and append the next line.\n        if line.endswith('\\\\'):\n            line = line[:-2].strip()\n            try:\n                line += next(lines)\n            except StopIteration:\n                return\n        yield Requirement(line)\n\n\n"
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_local_version(self):\n        parse_requirements('foo==1.0+org1')"
+}

@@ -1,0 +1,171 @@
+{
+  "test_name": "test_cc_overrides_ldshared_for_cxx_correctly",
+  "test_file": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/setuptools/_distutils/tests/test_unixccompiler.py",
+  "static_methods": [
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "EnvironmentVarGuard",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "_orig",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "mock.patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "EnvironmentVarGuard",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "self.cc.link",
+      "source_code": "    def link(self) -> Optional[str]:\n        \"\"\"Link text, if set.\"\"\"\n        return self._link",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/style.py",
+      "line_number": 458
+    },
+    {
+      "name": "list",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "map",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "EnvironmentVarGuard",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "_orig",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "mock.patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "EnvironmentVarGuard",
+      "filename": "",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "self.cc.link",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/sanic/venv/lib/python3.9/site-packages/pip/_vendor/rich/style.py",
+      "line": 458,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": "    @property\n    def link(self) -> Optional[str]:\n        \"\"\"Link text, if set.\"\"\"\n        return self._link\n\n"
+    },
+    {
+      "function": "list",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    },
+    {
+      "function": "map",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_cc_overrides_ldshared_for_cxx_correctly",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert self.cc.linker_so[0:2] == ['ccache', 'my_cc']",
+    "assert call_args[:4] == expected"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_cc_overrides_ldshared_for_cxx_correctly(self):\n        \"\"\"\n        Ensure that setting CC env variable also changes default linker\n        correctly when building C++ extensions.\n\n        pypa/distutils#126\n        \"\"\"\n\n        def gcv(v):\n            if v == 'LDSHARED':\n                return 'gcc-4.2 -bundle -undefined dynamic_lookup '\n            elif v == 'LDCXXSHARED':\n                return 'g++-4.2 -bundle -undefined dynamic_lookup '\n            elif v == 'CXX':\n                return 'g++-4.2'\n            elif v == 'CC':\n                return 'gcc-4.2'\n            return ''\n\n        def gcvs(*args, _orig=sysconfig.get_config_vars):\n            if args:\n                return list(map(sysconfig.get_config_var, args))\n            return _orig()\n\n        sysconfig.get_config_var = gcv\n        sysconfig.get_config_vars = gcvs\n        with mock.patch.object(\n            self.cc, 'spawn', return_value=None\n        ) as mock_spawn, mock.patch.object(\n            self.cc, '_need_link', return_value=True\n        ), mock.patch.object(\n            self.cc, 'mkpath', return_value=None\n        ), EnvironmentVarGuard() as env:\n            env['CC'] = 'ccache my_cc'\n            env['CXX'] = 'my_cxx'\n            del env['LDSHARED']\n            sysconfig.customize_compiler(self.cc)\n            assert self.cc.linker_so[0:2] == ['ccache', 'my_cc']\n            self.cc.link(None, [], 'a.out', target_lang='c++')\n            call_args = mock_spawn.call_args[0][0]\n            expected = ['my_cxx', '-bundle', '-undefined', 'dynamic_lookup']\n            assert call_args[:4] == expected"
+}
