@@ -1,0 +1,119 @@
+{
+  "test_name": "test_depend_err_middleware",
+  "test_file": "__internal__/_data/fastapi/tests/test_ws_router.py",
+  "static_methods": [
+    {
+      "name": "make_app",
+      "source_code": "def make_app(app=None, **kwargs):\n    app = app or FastAPI(**kwargs)\n    app.include_router(router)\n    app.include_router(prefix_router, prefix=\"/prefix\")\n    app.include_router(native_prefix_route)\n    return app",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/tests/test_ws_router.py",
+      "line_number": 107
+    },
+    {
+      "name": "TestClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "call_next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.close",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "repr",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/tests/test_ws_router.py",
+      "line": 107,
+      "caller": "test_depend_err_middleware",
+      "source_code": "def make_app(app=None, **kwargs):\n    app = app or FastAPI(**kwargs)\n    app.include_router(router)\n    app.include_router(prefix_router, prefix=\"/prefix\")\n    app.include_router(native_prefix_route)\n    return app\n\n\n"
+    },
+    {
+      "function": "TestClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_err_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_err_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_err_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "call_next",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_err_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_err_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.close",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_err_middleware",
+      "source_code": ""
+    },
+    {
+      "function": "repr",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_depend_err_middleware",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert e.value.code == status.WS_1006_ABNORMAL_CLOSURE",
+    "assert 'NotImplementedError' in e.value.reason"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_depend_err_middleware():\n    \"\"\"\n    Verify that it is possible to write custom WebSocket middleware to catch errors\n    \"\"\"\n\n    @websocket_middleware\n    async def errorhandler(websocket: WebSocket, call_next):\n        try:\n            return await call_next()\n        except Exception as e:\n            await websocket.close(code=status.WS_1006_ABNORMAL_CLOSURE, reason=repr(e))\n\n    myapp = make_app(middleware=[Middleware(errorhandler)])\n    client = TestClient(myapp)\n    with pytest.raises(WebSocketDisconnect) as e:\n        with client.websocket_connect(\"/depends-err/\"):\n            pass  # pragma: no cover\n    assert e.value.code == status.WS_1006_ABNORMAL_CLOSURE\n    assert \"NotImplementedError\" in e.value.reason"
+}

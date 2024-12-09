@@ -1,0 +1,53 @@
+{
+  "test_name": "test_fastapi_cli_not_installed",
+  "test_file": "__internal__/_data/fastapi/tests/test_fastapi_cli.py",
+  "static_methods": [
+    {
+      "name": "patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "patch.object",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    },
+    {
+      "name": "str",
+      "source_code": "",
+      "file_path": "<built-in>",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fastapi_cli_not_installed",
+      "source_code": ""
+    },
+    {
+      "function": "patch.object",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fastapi_cli_not_installed",
+      "source_code": ""
+    },
+    {
+      "function": "str",
+      "filename": "<built-in>",
+      "line": 0,
+      "caller": "test_fastapi_cli_not_installed",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert 'To use the fastapi command, please install' in str(exc_info.value)"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_fastapi_cli_not_installed():\n    with patch.object(fastapi.cli, \"cli_main\", None):\n        with pytest.raises(RuntimeError) as exc_info:\n            fastapi.cli.main()\n        assert \"To use the fastapi command, please install\" in str(exc_info.value)"
+}

@@ -1,0 +1,38 @@
+{
+  "test_name": "test_override_in_items_with_params_run",
+  "test_file": "__internal__/_data/fastapi/tests/test_tutorial/test_testing_dependencies/test_tutorial001_an_py310.py",
+  "static_methods": [
+    {
+      "name": "test_override_in_items_with_params",
+      "source_code": "def test_override_in_items_with_params():\n    response = client.get(\"/items/?q=foo&skip=100&limit=200\")\n    assert response.status_code == 200\n    assert response.json() == {\n        \"message\": \"Hello Items!\",\n        \"params\": {\"q\": \"foo\", \"skip\": 5, \"limit\": 10},\n    }",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/docs_src/dependency_testing/tutorial001.py",
+      "line_number": 53
+    },
+    {
+      "name": "needs_py310",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "test_override_in_items_with_params",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/docs_src/dependency_testing/tutorial001.py",
+      "line": 53,
+      "caller": "test_override_in_items_with_params_run",
+      "source_code": "def test_override_in_items_with_params():\n    response = client.get(\"/items/?q=foo&skip=100&limit=200\")\n    assert response.status_code == 200\n    assert response.json() == {\n        \"message\": \"Hello Items!\",\n        \"params\": {\"q\": \"foo\", \"skip\": 5, \"limit\": 10},\n    }\n"
+    },
+    {
+      "function": "needs_py310",
+      "filename": "",
+      "line": 0,
+      "caller": "test_override_in_items_with_params_run",
+      "source_code": ""
+    }
+  ],
+  "assertions": [],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_override_in_items_with_params_run():\n    from docs_src.dependency_testing.tutorial001_an_py310 import (\n        test_override_in_items_with_params,\n    )\n\n    test_override_in_items_with_params()"
+}

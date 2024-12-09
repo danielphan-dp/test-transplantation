@@ -1,0 +1,147 @@
+{
+  "test_name": "test_websocket_with_header",
+  "test_file": "__internal__/_data/fastapi/tests/test_tutorial/test_websockets/test_tutorial002_an_py310.py",
+  "static_methods": [
+    {
+      "name": "TestClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.send_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.receive_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.receive_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.send_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.receive_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "websocket.receive_text",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "needs_py310",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "TestClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.send_text",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.receive_text",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.receive_text",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.send_text",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.receive_text",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "websocket.receive_text",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    },
+    {
+      "function": "needs_py310",
+      "filename": "",
+      "line": 0,
+      "caller": "test_websocket_with_header",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert data == 'Session cookie or query token value is: some-token'",
+    "assert data == f'Message text was: {message}, for item ID: bar'",
+    "assert data == 'Session cookie or query token value is: some-token'",
+    "assert data == f'Message text was: {message}, for item ID: bar'"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_websocket_with_header(app: FastAPI):\n    client = TestClient(app)\n    with pytest.raises(WebSocketDisconnect):\n        with client.websocket_connect(\"/items/bar/ws?token=some-token\") as websocket:\n            message = \"Message one\"\n            websocket.send_text(message)\n            data = websocket.receive_text()\n            assert data == \"Session cookie or query token value is: some-token\"\n            data = websocket.receive_text()\n            assert data == f\"Message text was: {message}, for item ID: bar\"\n            message = \"Message two\"\n            websocket.send_text(message)\n            data = websocket.receive_text()\n            assert data == \"Session cookie or query token value is: some-token\"\n            data = websocket.receive_text()\n            assert data == f\"Message text was: {message}, for item ID: bar\""
+}

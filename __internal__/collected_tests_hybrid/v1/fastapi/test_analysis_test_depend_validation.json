@@ -1,0 +1,106 @@
+{
+  "test_name": "test_depend_validation",
+  "test_file": "__internal__/_data/fastapi/tests/test_ws_router.py",
+  "static_methods": [
+    {
+      "name": "make_app",
+      "source_code": "def make_app(app=None, **kwargs):\n    app = app or FastAPI(**kwargs)\n    app.include_router(router)\n    app.include_router(prefix_router, prefix=\"/prefix\")\n    app.include_router(native_prefix_route)\n    return app",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/tests/test_ws_router.py",
+      "line_number": 107
+    },
+    {
+      "name": "TestClient",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "client.websocket_connect",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "call_next",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "caught.append",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    },
+    {
+      "name": "Middleware",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "make_app",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/tests/test_ws_router.py",
+      "line": 107,
+      "caller": "test_depend_validation",
+      "source_code": "def make_app(app=None, **kwargs):\n    app = app or FastAPI(**kwargs)\n    app.include_router(router)\n    app.include_router(prefix_router, prefix=\"/prefix\")\n    app.include_router(native_prefix_route)\n    return app\n\n\n"
+    },
+    {
+      "function": "TestClient",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_validation",
+      "source_code": ""
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_validation",
+      "source_code": ""
+    },
+    {
+      "function": "client.websocket_connect",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_validation",
+      "source_code": ""
+    },
+    {
+      "function": "call_next",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_validation",
+      "source_code": ""
+    },
+    {
+      "function": "caught.append",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_validation",
+      "source_code": ""
+    },
+    {
+      "function": "Middleware",
+      "filename": "",
+      "line": 0,
+      "caller": "test_depend_validation",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert e.value.code == status.WS_1008_POLICY_VIOLATION",
+    "assert caught == []"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_depend_validation():\n    \"\"\"\n    Verify that a validation in a dependency invokes the correct exception handler\n    \"\"\"\n    caught = []\n\n    @websocket_middleware\n    async def catcher(websocket, call_next):\n        try:\n            return await call_next()\n        except Exception as e:  # pragma: no cover\n            caught.append(e)\n            raise\n\n    myapp = make_app(middleware=[Middleware(catcher)])\n\n    client = TestClient(myapp)\n    with pytest.raises(WebSocketDisconnect) as e:\n        with client.websocket_connect(\"/depends-validate/\"):\n            pass  # pragma: no cover\n    # the validation error does produce a close message\n    assert e.value.code == status.WS_1008_POLICY_VIOLATION\n    # and no error is leaked\n    assert caught == []"
+}

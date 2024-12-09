@@ -1,0 +1,29 @@
+{
+  "test_name": "test_strings_in_custom_swagger",
+  "test_file": "__internal__/_data/fastapi/tests/test_local_docs.py",
+  "static_methods": [
+    {
+      "name": "get_swagger_ui_html",
+      "source_code": "def get_swagger_ui_html(\n    *,\n    openapi_url: Annotated[\n        str,\n        Doc(\n            \"\"\"\n            The OpenAPI URL that Swagger UI should load and use.",
+      "file_path": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/fastapi/openapi/docs.py",
+      "line_number": 26
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "get_swagger_ui_html",
+      "filename": "/home/quark-ubuntu-wsl/test_transplantation_cs846_f24/test-transplantation/__internal__/_data/fastapi/fastapi/openapi/docs.py",
+      "line": 26,
+      "caller": "test_strings_in_custom_swagger",
+      "source_code": "def get_swagger_ui_html(\n    *,\n    openapi_url: Annotated[\n        str,\n        Doc(\n            \"\"\"\n            The OpenAPI URL that Swagger UI should load and use.\n\n            This is normally done automatically by FastAPI using the default URL\n            `/openapi.json`.\n            \"\"\"\n        ),\n    ],\n    title: Annotated[\n        str,\n        Doc(\n            \"\"\"\n            The HTML `<title>` content, normally shown in the browser tab.\n            \"\"\"\n        ),\n    ],\n    swagger_js_url: Annotated[\n        str,\n        Doc(\n            \"\"\"\n            The URL to use to load the Swagger UI JavaScript.\n\n            It is normally set to a CDN URL.\n            \"\"\"\n        ),\n    ] = \"https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js\",\n    swagger_css_url: Annotated[\n        str,\n        Doc(\n            \"\"\"\n            The URL to use to load the Swagger UI CSS.\n\n            It is normally set to a CDN URL.\n            \"\"\"\n        ),\n    ] = \"https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css\",\n    swagger_favicon_url: Annotated[\n        str,\n        Doc(\n            \"\"\"\n            The URL of the favicon to use. It is normally shown in the browser tab.\n            \"\"\"\n        ),\n    ] = \"https://fastapi.tiangolo.com/img/favicon.png\",\n    oauth2_redirect_url: Annotated[\n        Optional[str],\n        Doc(\n            \"\"\"\n            The OAuth2 redirect URL, it is normally automatically handled by FastAPI.\n            \"\"\"\n        ),\n    ] = None,\n    init_oauth: Annotated[\n        Optional[Dict[str, Any]],\n        Doc(\n            \"\"\"\n            A dictionary with Swagger UI OAuth2 initialization configurations.\n            \"\"\"\n        ),\n    ] = None,\n    swagger_ui_parameters: Annotated[\n        Optional[Dict[str, Any]],\n        Doc(\n            \"\"\"\n            Configuration parameters for Swagger UI.\n\n            It defaults to [swagger_ui_default_parameters][fastapi.openapi.docs.swagger_ui_default_parameters].\n            \"\"\"\n        ),\n    ] = None,\n"
+    }
+  ],
+  "assertions": [
+    "assert swagger_js_url in body_content",
+    "assert swagger_css_url in body_content",
+    "assert swagger_favicon_url in body_content"
+  ],
+  "mocks": [],
+  "success": true,
+  "test_source_code": "def test_strings_in_custom_swagger():\n    swagger_js_url = \"swagger_fake_file.js\"\n    swagger_css_url = \"swagger_fake_file.css\"\n    swagger_favicon_url = \"swagger_fake_file.png\"\n    html = get_swagger_ui_html(\n        openapi_url=\"/docs\",\n        title=\"title\",\n        swagger_js_url=swagger_js_url,\n        swagger_css_url=swagger_css_url,\n        swagger_favicon_url=swagger_favicon_url,\n    )\n    body_content = html.body.decode()\n    assert swagger_js_url in body_content\n    assert swagger_css_url in body_content\n    assert swagger_favicon_url in body_content"
+}

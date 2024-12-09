@@ -1,0 +1,28 @@
+{
+  "test_name": "test_trace",
+  "test_file": "__internal__/_data/fastapi/tests/test_extra_routes.py",
+  "static_methods": [
+    {
+      "name": "client.request",
+      "source_code": "",
+      "file_path": "",
+      "line_number": 0
+    }
+  ],
+  "dynamic_methods": [
+    {
+      "function": "client.request",
+      "filename": "",
+      "line": 0,
+      "caller": "test_trace",
+      "source_code": ""
+    }
+  ],
+  "assertions": [
+    "assert response.status_code == 200, response.text",
+    "assert response.headers['content-type'] == 'message/http'"
+  ],
+  "mocks": [],
+  "success": false,
+  "test_source_code": "def test_trace():\n    response = client.request(\"trace\", \"/items/foo\")\n    assert response.status_code == 200, response.text\n    assert response.headers[\"content-type\"] == \"message/http\""
+}
