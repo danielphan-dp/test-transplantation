@@ -13,7 +13,7 @@ REPOS=(
 )
 
 BASE_DIR="__internal__/_data"
-LOGS_DIR="__internal__/_setup_repos_envs_logs"
+LOGS_DIR="__internal__/_setup_logs/_setup_repos_envs_logs"
 
 # Create logs directory if it doesn't exist
 mkdir -p "$LOGS_DIR"
@@ -314,11 +314,17 @@ setup_sanic() {
         # Upgrade pip
         pip install --upgrade pip
         
-        # Install main package with dev extras
-        pip install -e .[dev]
+        # Install package with test extras
+        pip install -e ".[test,http3]"
         
-        # Install test requirements
+        # Install development requirements
         pip install -r requirements/dev.txt
+        
+        # Install additional tools required by tox.ini
+        pip install ruff mypy slotscheck bandit
+        
+        # Install testing tools
+        pip install pytest pytest-cov coverage
         
         deactivate
         
