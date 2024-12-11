@@ -7,7 +7,6 @@ Gluon is a framework for test transplantation.
 Set up the repos and run the tests. Check the logs if there are any installation issues.
 
 ```bash
-# Set up the repos and run the tests.
 ./pipeline.sh
 ```
 

@@ -30,8 +30,8 @@ clone_repo() {
         echo "Start time: $(date)"
         
         if [ -d "$target_dir" ]; then
-            echo "Directory already exists for $repo_name, skipping..."
-            return 0
+            echo "Removing existing directory for $repo_name..."
+            rm -rf "$target_dir"
         fi
         
         git clone "https://github.com/$repo.git" "$target_dir"
