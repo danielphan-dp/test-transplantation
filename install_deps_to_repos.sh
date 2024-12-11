@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# Array of all repositories
 REPOS=(
-    "aiohttp"
     "connexion"
     "django"
     "fastapi"

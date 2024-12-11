@@ -18,7 +18,6 @@ declare -A REPO_MAP=(
     [starlette]="encode"
     [tornado]="tornadoweb"
     [sanic]="sanic-org"
-    # [aiohttp]="aio-libs"
     [uvicorn]="encode"
 )
 

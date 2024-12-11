@@ -5,7 +5,7 @@ _DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 function prepare_conda_env() {
         # the python version to use
-        local python_version=${1:-3.9}; shift
+        local python_version=${1:-3.10}; shift
         # the conda env name
         local env_name=${1:-gluon}; shift
 
@@ -20,7 +20,6 @@ function prepare_conda_env() {
         pip install --upgrade pip
 
         # Install libraries
-        # TODO: (optional) install PyTorch if you use it, preferably using conda; check https://pytorch.org/get-started/locally/ for the latest command
         pip install -e .[dev]
 }
 
