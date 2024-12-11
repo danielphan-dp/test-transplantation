@@ -2,6 +2,15 @@
 
 Gluon is a framework for test transplantation.
 
+## Experimental Setup
+
+Set up the repos and run the tests. Check the logs if there are any installation issues.
+
+```bash
+# Set up the repos and run the tests.
+./pipeline.sh
+```
+
 ## Installation
 
 - Install `miniconda` (depending on your OS)
