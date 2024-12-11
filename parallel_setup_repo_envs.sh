@@ -2,7 +2,6 @@
 
 REPOS=(
     "connexion"
-    "django"
     "fastapi"
     "flask"
     "gunicorn"
@@ -25,10 +24,16 @@ create_venv() {
     
     # Remove existing environment if it exists
     echo "Removing existing environment if present: ${env_name}"
-    rm -rf "${env_name}"
+    rm -rf "$env_name"
     
-    echo "Creating virtual environment: ${env_name}"
-    python -m venv "${env_name}"
+    # Create new environment
+    python -m venv "$env_name"
+    
+    # Activate and upgrade pip
+    source "$env_name/bin/activate"
+    pip install --upgrade pip
+
+    deactivate
 }
 
 activate_and_install() {
@@ -38,18 +43,31 @@ activate_and_install() {
     # Activate the virtual environment
     source "${env_name}/bin/activate"
     
-    # Initialize git submodules if they exist
-    if [ -f ".gitmodules" ]; then
-        echo "Initializing git submodules..."
-        git submodule update --init --recursive
-    fi
+    # Upgrade pip first
+    echo "Upgrading pip..."
+    pip install --upgrade pip
     
-    # Install dependencies
-    echo "Installing base package..."
+    # Install base package with testing extras first
+    echo "Installing base package with testing dependencies..."
+    pip install -e .[testing] || \
+    pip install -e .[test] || \
+    pip install -e .[tests] || \
+    echo "No testing extras found, installing base package..."
     pip install -e .
     
-    echo "Installing dev dependencies..."
-    pip install -e .[dev] || pip install -e .[testing] || pip install -e .[test] || echo "No dev dependencies found for $repo"
+    # Install test requirements if they exist
+    if [ -f "test-requirements.txt" ]; then
+        echo "Installing test-requirements.txt..."
+        pip install -r test-requirements.txt
+    fi
+    if [ -f "requirements-test.txt" ]; then
+        echo "Installing requirements-test.txt..."
+        pip install -r requirements-test.txt
+    fi
+    
+    # Ensure pytest and coverage are installed regardless
+    echo "Ensuring pytest and coverage tools are installed..."
+    pip install pytest pytest-cov coverage
 }
 
 cleanup_and_deactivate() {
@@ -57,10 +75,103 @@ cleanup_and_deactivate() {
     deactivate 2>/dev/null || true
 }
 
-process_repo() {
-    local repo=$1
+setup_fastapi() {
+    local repo="fastapi"
+    local env_name="venv-${repo}"
     local log_file="$LOGS_DIR/${repo}.log"
     
+    {
+        echo "=== Setting up FastAPI ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install main package with all extras
+        pip install -e .[all]
+        
+        # Install all requirements files
+        pip install -r requirements-tests.txt
+        pip install -r requirements-docs.txt
+        pip install -r requirements-docs-tests.txt
+        pip install -r requirements-github-actions.txt
+        
+        # Install pre-commit if specified in requirements.txt
+        pip install pre-commit
+        
+        # Install playwright if specified in requirements.txt
+        pip install playwright
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished FastAPI setup ===\n"
+        
+    } &> "$log_file"
+}
+
+setup_uvicorn() {
+    local repo="uvicorn"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Uvicorn ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install main package with standard extras
+        pip install -e .[standard]
+        
+        # Install core dependencies from requirements.txt
+        pip install -r requirements.txt
+        
+        # Install development dependencies
+        pip install build==1.2.2 twine==5.1.1
+        
+        # Install testing tools
+        pip install ruff==0.6.8 pytest==8.3.3 pytest-mock==3.14.0 mypy==1.11.2
+        pip install coverage coverage-conditional-plugin
+        pip install httpx watchgod
+        
+        # Install documentation tools
+        pip install mkdocs mkdocs-material
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Uvicorn setup ===\n"
+        
+    } &> "$log_file"
+}
+
+process_repo() {
+    local repo=$1
+    
+    if [ "$repo" = "fastapi" ]; then
+        setup_fastapi
+        return $?
+    elif [ "$repo" = "uvicorn" ]; then
+        setup_uvicorn
+        return $?
+    fi
+    
+    # Original process_repo logic for other repos
+    local log_file="$LOGS_DIR/${repo}.log"
     {
         echo "=== Processing $repo ==="
         echo "Start time: $(date)"
