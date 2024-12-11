@@ -159,38 +159,299 @@ setup_uvicorn() {
     } &> "$log_file"
 }
 
+setup_connexion() {
+    local repo="connexion"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Connexion ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Install poetry
+        pip install poetry
+        
+        # Install dependencies with all extras
+        poetry install --all-extras
+        
+        # Install pre-commit hooks
+        pre-commit install
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Connexion setup ===\n"
+        
+    } &> "$log_file"
+}
+
+setup_flask() {
+    local repo="flask"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Flask ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install build dependencies
+        pip install flit_core
+        
+        # Install package in editable mode with all optional dependencies
+        pip install -e ".[async,dotenv]"
+        
+        # Install test dependencies
+        pip install -r requirements/tests.txt
+        
+        # Install additional development tools
+        pip install pytest pytest-cov coverage pre-commit
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Flask setup ===\n"
+        
+    } &> "$log_file"
+}
+
+setup_gunicorn() {
+    local repo="gunicorn"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Gunicorn ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install main package
+        pip install -e .
+        
+        # Install test requirements
+        pip install -r requirements_test.txt
+        
+        # Install testing tools
+        pip install pytest pytest-cov coverage
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Gunicorn setup ===\n"
+        
+    } &> "$log_file"
+}
+
+setup_pyramid() {
+    local repo="pyramid"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Pyramid ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install main package with testing extras
+        pip install -e .[testing]
+        
+        # Install additional testing tools
+        pip install pytest pytest-cov coverage tox
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Pyramid setup ===\n"
+        
+    } &> "$log_file"
+}
+
+setup_sanic() {
+    local repo="sanic"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Sanic ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install main package with dev extras
+        pip install -e .[dev]
+        
+        # Install test requirements
+        pip install -r requirements/dev.txt
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Sanic setup ===\n"
+        
+    } &> "$log_file"
+}
+
+setup_starlette() {
+    local repo="starlette"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Starlette ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install main package
+        pip install -e .
+        
+        # Install test requirements
+        pip install -r requirements.txt
+        
+        # Install additional testing tools
+        pip install pytest pytest-cov coverage
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Starlette setup ===\n"
+        
+    } &> "$log_file"
+}
+
+setup_tornado() {
+    local repo="tornado"
+    local env_name="venv-${repo}"
+    local log_file="$LOGS_DIR/${repo}.log"
+    
+    {
+        echo "=== Setting up Tornado ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        # Create and activate venv
+        python -m venv "$env_name"
+        source "$env_name/bin/activate"
+        
+        # Upgrade pip
+        pip install --upgrade pip
+        
+        # Install main package
+        pip install -e .
+        
+        # Install test requirements
+        pip install -r requirements.txt
+        
+        # Install testing tools
+        pip install pytest pytest-cov coverage
+        
+        deactivate
+        
+        echo "End time: $(date)"
+        echo "=== Finished Tornado setup ===\n"
+        
+    } &> "$log_file"
+}
+
 process_repo() {
     local repo=$1
     
-    if [ "$repo" = "fastapi" ]; then
-        setup_fastapi
-        return $?
-    elif [ "$repo" = "uvicorn" ]; then
-        setup_uvicorn
-        return $?
-    fi
+    case "$repo" in
+        "fastapi")
+            setup_fastapi
+            ;;
+        "uvicorn")
+            setup_uvicorn
+            ;;
+        "connexion")
+            setup_connexion
+            ;;
+        "flask")
+            setup_flask
+            ;;
+        "gunicorn")
+            setup_gunicorn
+            ;;
+        "pyramid")
+            setup_pyramid
+            ;;
+        "sanic")
+            setup_sanic
+            ;;
+        "starlette")
+            setup_starlette
+            ;;
+        "tornado")
+            setup_tornado
+            ;;
+        *)
+            # Original process_repo logic for other repos
+            local log_file="$LOGS_DIR/${repo}.log"
+            {
+                echo "=== Processing $repo ==="
+                echo "Start time: $(date)"
+                
+                # Change to repo directory first
+                cd "$BASE_DIR/$repo" || return 1
+                
+                create_venv "$repo" || return 1
+                activate_and_install "$repo" || return 1
+                cleanup_and_deactivate
+                
+                # Return to original directory
+                cd - > /dev/null
+                
+                echo "End time: $(date)"
+                echo "=== Finished $repo ===\n"
+            } &> "$log_file"
+            ;;
+    esac
     
-    # Original process_repo logic for other repos
-    local log_file="$LOGS_DIR/${repo}.log"
-    {
-        echo "=== Processing $repo ==="
-        echo "Start time: $(date)"
-        
-        # Change to repo directory first
-        cd "$BASE_DIR/$repo" || return 1
-        
-        create_venv "$repo" || return 1
-        activate_and_install "$repo" || return 1
-        cleanup_and_deactivate
-        
-        # Return to original directory
-        cd - > /dev/null
-        
-        echo "End time: $(date)"
-        echo "=== Finished $repo ===\n"
-    } &> "$log_file"
-    
-    # Return the status of the process
     return ${PIPESTATUS[0]}
 }
 
