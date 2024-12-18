@@ -1,11 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
-export PYTHONPATH="$(pwd)"
+# Initialize PYTHONPATH if it doesn't exist
+PYTHONPATH=${PYTHONPATH:-}
+export PYTHONPATH="$(pwd):$PYTHONPATH"
 
-# -----------------------------
-# Configuration
-# -----------------------------
+
+# -----------------
+# | Configuration |
+# -----------------
 REPOS=(
     "connexion"
     "fastapi"
@@ -19,70 +22,88 @@ REPOS=(
 )
 
 BASE_DIR="__internal__/_data"
-TESTS_DIR="__internal__/collected_tests_hybrid/v1"
+TESTS_DIR="__internal__/collected_tests_hybrid/v2"
 LOGS_DIR="__internal__/_setup_logs/_analyze_tests_logs"
 
-# Add timeout configuration
-TIMEOUT=1800  # 30 minutes in seconds
+TIMEOUT=$((60 * 60 * 24 * 7))  # 7 days in seconds
 
-# -----------------------------
-# Helper Functions
-# -----------------------------
+
+# --------------------
+# | Helper Functions |
+# --------------------
 analyze_framework() {
+    set +e
+
     local repo=$1
     local env_name="venv-${repo}"
     local input_dir="${BASE_DIR}/${repo}"
     local output_dir="${TESTS_DIR}/${repo}"
     local log_file="${LOGS_DIR}/${repo}.log"
     
+    local analysis_status=0
+    
     {
         echo "=== Analyzing tests for ${repo} ==="
         echo "Start time: $(date)"
         
-        cd "$BASE_DIR/$repo" || return 1
+        # Store the original directory
+        ORIGINAL_DIR=$(pwd)
+        
+        cd "$BASE_DIR/$repo" || { analysis_status=1; exit $analysis_status; }
         
         if [ ! -f "${env_name}/bin/activate" ]; then
             echo "Error: Virtual environment not found for ${repo}"
-            return 1
+            analysis_status=1
+            exit $analysis_status
         fi
         
         # Activate the framework's virtual environment
         source "${env_name}/bin/activate"
+
+        # First install the framework
+        pip install -e .[test]
         
-        # Install the gluon package and its dependencies
-        cd ../../.. # Return to project root
+        # Then install analysis dependencies
+        pip install --no-cache-dir pytest pytest-xdist coverage pytest-cov tqdm astroid stdlib-list pydantic click
+        
+        # Return to original directory to install gluon
+        cd "$ORIGINAL_DIR"
         pip install -e .
+        pip install -e .[dev]
         
         # Create output directory
         mkdir -p "$output_dir"
         
         # Run the analysis with timeout
-        timeout $TIMEOUT "${BASE_DIR}/${repo}/${env_name}/bin/python" -m src.gluon.collect_tests.analyze_unit_tests \
+        timeout $TIMEOUT python -m src.gluon.collect_tests.hybrid_analysis \
             --input-dir "$input_dir" \
             --output-dir "$output_dir"
-            
-        local analysis_status=$?
-        
+
+        analysis_status=$?
+
         deactivate
-        
+
         if [ $analysis_status -eq 124 ]; then
             echo "Analysis timed out after ${TIMEOUT} seconds"
-            return 1
+            analysis_status=1
         fi
         
         echo "End time: $(date)"
-        echo "=== Finished analyzing ${repo} ===\n"
-        
-        return $analysis_status
-        
+        echo "=== Finished analyzing ${repo} ==="
+
+        exit $analysis_status
+
     } &> "$log_file"
+
+    set -e
     
-    return ${PIPESTATUS[0]}
+    return $?
 }
 
-# -----------------------------
-# Main Script
-# -----------------------------
+
+# ---------------
+# | Main Script |
+# ---------------
 mkdir -p "$BASE_DIR" "$TESTS_DIR" "$LOGS_DIR"
 
 # Run all frameworks in parallel immediately
@@ -90,13 +111,14 @@ echo "Starting parallel analysis. Logs will be written to $LOGS_DIR/"
 declare -A pids
 failed_repos=()
 
+# This part IS parallel - each framework runs in parallel
 for repo in "${REPOS[@]}"; do
     echo "Starting analysis for $repo..."
-    analyze_framework "$repo" &
+    analyze_framework "$repo" &  # The & makes it run in background
     pids[$!]=$repo
 done
 
-# Wait for all background processes and check their exit status
+# Wait for all background processes
 for pid in "${!pids[@]}"; do
     if wait $pid; then
         echo "✅ ${pids[$pid]} completed successfully"

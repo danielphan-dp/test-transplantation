@@ -67,7 +67,7 @@ activate_and_install() {
     
     # Ensure pytest and coverage are installed regardless
     echo "Ensuring pytest and coverage tools are installed..."
-    pip install pytest pytest-cov coverage
+    pip install pytest pytest-cov coverage tqdm astroid stdlib-list pydantic click
 }
 
 cleanup_and_deactivate() {
