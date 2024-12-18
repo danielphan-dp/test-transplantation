@@ -9,28 +9,27 @@ class TestGetMethod(unittest.TestCase):
         self.registry = Registry()
         self.request = DummyRequest()
         self.request.cookies = {'test_cookie': 'test_value'}
-        self._callFUT = self.get_method
+        self.method_under_test = self.get_method
 
-    def get_method(self, request):
-        return request.cookies.get('test_cookie', None)
+    def get_method(self, name):
+        return self.request.cookies.get(name)
 
-    def test_get_cookie_value(self):
-        result = self._callFUT(self.request)
+    def test_get_existing_cookie(self):
+        result = self.method_under_test('test_cookie')
         self.assertEqual(result, 'test_value')
 
-    def test_get_non_existent_cookie(self):
-        self.request.cookies = {}
-        result = self._callFUT(self.request)
+    def test_get_non_existing_cookie(self):
+        result = self.method_under_test('non_existing_cookie')
         self.assertIsNone(result)
 
-    def test_get_cookie_with_fallback(self):
-        result = self._callFUT(self.request)
-        self.assertEqual(result, 'test_value')
-
-    def test_it_with_registry(self):
-        self._callFUT(self.registry)
+    def test_get_with_registry(self):
+        self._callFUT(registry=self.registry)
         current = manager.get()
         self.assertEqual(current['registry'], self.registry)
+
+    def _callFUT(self, registry):
+        self.request.registry = registry
+        return self.request
 
 if __name__ == '__main__':
     unittest.main()

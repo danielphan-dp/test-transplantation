@@ -19,7 +19,7 @@ class TestGetMethod(unittest.TestCase):
         result = self.request.cookies.get('empty_cookie')
         self.assertIsNone(result)
 
-    def test_get_cookie_with_special_characters(self):
-        self.request.cookies = {'special_cookie': 'value_with_special_chars_!@#$%^&*()'}
-        result = self.request.cookies.get('special_cookie')
-        self.assertEqual(result, 'value_with_special_chars_!@#$%^&*()')
+    def test_get_with_special_characters(self):
+        self.request.cookies = {'special_cookie!@#': 'value_with_special_chars'}
+        result = self.request.cookies.get('special_cookie!@#')
+        self.assertEqual(result, 'value_with_special_chars')

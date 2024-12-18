@@ -15,12 +15,17 @@ class TestGetMethod(unittest.TestCase):
         result = self.request.cookies.get('non_existing_cookie')
         self.assertIsNone(result)
 
+    def test_get_with_duplicate_cookie_key(self):
+        self.request.cookies = {'foo': 'one; foo=two'}
+        result = self.request.cookies.get('foo')
+        self.assertEqual(result, 'one; foo=two')
+
     def test_get_empty_cookie(self):
         self.request.cookies = {}
         result = self.request.cookies.get('empty_cookie')
         self.assertIsNone(result)
 
-    def test_get_with_special_characters(self):
+    def test_get_cookie_with_special_characters(self):
         self.request.cookies = {'special_cookie': 'value_with_special_chars_!@#$%^&*()'}
         result = self.request.cookies.get('special_cookie')
         self.assertEqual(result, 'value_with_special_chars_!@#$%^&*()')

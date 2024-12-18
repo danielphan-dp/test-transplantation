@@ -11,19 +11,21 @@ class TestGetMethod(unittest.TestCase):
         self.assertEqual(result, 'test_value')
 
     def test_get_non_existing_cookie(self):
-        result = self.request.cookies.get('non_existing_cookie')
-        self.assertIsNone(result)
-
-    def test_get_with_fallback(self):
         result = self.request.cookies.get('non_existing_cookie', 'fallback_value')
         self.assertEqual(result, 'fallback_value')
 
     def test_get_empty_cookie(self):
-        self.request.cookies = {}
-        result = self.request.cookies.get('empty_cookie', 'fallback_value')
-        self.assertEqual(result, 'fallback_value')
+        self.request.cookies['empty_cookie'] = ''
+        result = self.request.cookies.get('empty_cookie')
+        self.assertEqual(result, '')
 
-    def test_get_cookie_with_special_characters(self):
-        self.request.cookies = {'special_cookie': 'value_with_special_characters_!@#$%^&*()'}
-        result = self.request.cookies.get('special_cookie')
-        self.assertEqual(result, 'value_with_special_characters_!@#$%^&*()')
+    def test_get_with_default_value(self):
+        result = self.request.cookies.get('another_non_existing_cookie', 'default_value')
+        self.assertEqual(result, 'default_value')
+
+    def test_get_multiple_cookies(self):
+        self.request.cookies.update({'cookie_one': 'value_one', 'cookie_two': 'value_two'})
+        result_one = self.request.cookies.get('cookie_one')
+        result_two = self.request.cookies.get('cookie_two')
+        self.assertEqual(result_one, 'value_one')
+        self.assertEqual(result_two, 'value_two')

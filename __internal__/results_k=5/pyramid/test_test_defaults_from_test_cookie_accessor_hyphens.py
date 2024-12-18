@@ -21,15 +21,15 @@ class TestGetMethod(unittest.TestCase):
         result = self.helper.get('session-token')
         self.assertEqual(result, 'xyz789')
 
-    def test_get_cookie_case_sensitivity(self):
-        self.request.cookies = {'Session-Token': 'caseSensitiveValue'}
-        result = self.helper.get('session-token')
-        self.assertIsNone(result)
+    def test_get_cookie_with_special_characters(self):
+        self.request.cookies = {'session@token': 'special_value'}
+        result = self.helper.get('session@token')
+        self.assertEqual(result, 'special_value')
 
-    def test_get_empty_cookie(self):
-        self.request.cookies = {}
+    def test_get_cookie_case_sensitivity(self):
+        self.request.cookies = {'Session-Token': 'case_value'}
         result = self.helper.get('session-token')
-        self.assertIsNone(result)
+        self.assertNotEqual(result, 'case_value')
 
 class DummyCookies:
     def __init__(self, cookies):

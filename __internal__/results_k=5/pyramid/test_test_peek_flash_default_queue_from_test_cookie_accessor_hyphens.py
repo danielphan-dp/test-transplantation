@@ -2,6 +2,7 @@ import unittest
 from pyramid.testing import DummyRequest
 
 class TestGetMethod(unittest.TestCase):
+
     def setUp(self):
         self.request = DummyRequest()
         self.request.cookies = {'test-cookie': 'test-value'}
@@ -23,9 +24,9 @@ class TestGetMethod(unittest.TestCase):
         result = self.request.cookies.get('')
         self.assertIsNone(result)
 
-    def test_get_cookie_with_none_name(self):
-        result = self.request.cookies.get(None)
-        self.assertIsNone(result)
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_get_cookie_case_sensitivity(self):
+        self.request.cookies = {'Test-Cookie': 'value1', 'test-cookie': 'value2'}
+        result = self.request.cookies.get('Test-Cookie')
+        self.assertEqual(result, 'value1')
+        result = self.request.cookies.get('test-cookie')
+        self.assertEqual(result, 'value2')

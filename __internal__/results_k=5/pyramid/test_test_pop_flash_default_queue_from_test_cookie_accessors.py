@@ -29,6 +29,3 @@ class TestGetMethod(unittest.TestCase):
         result_two = self.request.cookies.get('cookie_two')
         self.assertEqual(result_one, 'value_one')
         self.assertEqual(result_two, 'value_two')
-
-if __name__ == '__main__':
-    unittest.main()

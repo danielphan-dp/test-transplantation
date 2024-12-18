@@ -1,4 +1,5 @@
 import unittest
+from pyramid.threadlocal import manager
 from pyramid.testing import DummyRequest
 
 class TestGetMethod(unittest.TestCase):
@@ -15,12 +16,15 @@ class TestGetMethod(unittest.TestCase):
         result = self.request.cookies.get('non_existing_cookie')
         self.assertIsNone(result)
 
+    def test_get_with_duplicate_cookie_key(self):
+        self.request.cookies = {'foo': 'one', 'foo': 'two'}
+        result = self.request.cookies.get('foo')
+        self.assertEqual(result, 'two')
+
     def test_get_empty_cookie(self):
         self.request.cookies = {}
         result = self.request.cookies.get('empty_cookie')
         self.assertIsNone(result)
 
-    def test_get_with_special_characters(self):
-        self.request.cookies = {'special_cookie!@#': 'value123'}
-        result = self.request.cookies.get('special_cookie!@#')
-        self.assertEqual(result, 'value123')
+    def tearDown(self):
+        manager.clear()

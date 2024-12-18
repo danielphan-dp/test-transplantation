@@ -21,4 +21,7 @@ class TestGetMethod(unittest.TestCase):
         self.assertEqual(current['request'], self.request)
 
     def _callFUT(self, request):
-        return request.cookies.get('test_cookie')
+        return request.cookies
+
+if __name__ == '__main__':
+    unittest.main()

@@ -17,7 +17,7 @@ class TestGetMethod(unittest.TestCase):
 
     def test_get_empty_cookie(self):
         self.request.cookies = {}
-        result = self.request.cookies.get('any_cookie')
+        result = self.request.cookies.get('empty_cookie')
         self.assertIsNone(result)
 
     def test_get_cookie_with_special_characters(self):

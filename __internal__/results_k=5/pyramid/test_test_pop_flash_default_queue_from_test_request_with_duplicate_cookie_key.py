@@ -21,8 +21,7 @@ class TestGetMethod(unittest.TestCase):
         self.assertEqual(result, '')
 
     def test_get_multiple_cookies(self):
-        self.request.cookies['foo'] = 'one'
-        self.request.cookies['foo'] = 'two'
+        self.request.cookies = {'foo': 'one', 'foo': 'two'}
         result = self.request.cookies.get('foo')
         self.assertEqual(result, 'two')  # Last value should be returned
 

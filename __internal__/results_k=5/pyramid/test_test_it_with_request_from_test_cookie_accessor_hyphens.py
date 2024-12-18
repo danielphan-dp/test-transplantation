@@ -3,6 +3,7 @@ from pyramid.threadlocal import manager
 from pyramid.testing import DummyRequest
 
 class TestGetMethod(unittest.TestCase):
+
     def setUp(self):
         self.request = DummyRequest()
         self.request.cookies = {'test-cookie': 'test-value'}

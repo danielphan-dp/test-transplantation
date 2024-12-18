@@ -21,9 +21,11 @@ class TestGetMethod(unittest.TestCase):
         self.assertIsNone(result)
 
     def test_get_multiple_cookies(self):
-        self.request.cookies = {'foo': 'one', 'foo': 'two'}
-        result = self.request.cookies.get('foo')
-        self.assertEqual(result, 'two')
+        self.request.cookies = {'foo': 'one', 'bar': 'two'}
+        result_foo = self.request.cookies.get('foo')
+        result_bar = self.request.cookies.get('bar')
+        self.assertEqual(result_foo, 'one')
+        self.assertEqual(result_bar, 'two')
 
     def test_get_cookie_with_special_characters(self):
         self.request.cookies = {'special_cookie': 'value_with_special_chars_!@#$%^&*()'}

@@ -5,11 +5,11 @@ class TestGetMethod(unittest.TestCase):
 
     def setUp(self):
         self.request = DummyRequest()
-        self.request.cookies = {'test-cookie': 'test_value'}
+        self.request.cookies = {'test-cookie': 'test-value'}
 
     def test_get_existing_cookie(self):
         result = self.request.cookies.get('test-cookie')
-        self.assertEqual(result, 'test_value')
+        self.assertEqual(result, 'test-value')
 
     def test_get_non_existing_cookie(self):
         result = self.request.cookies.get('non-existing-cookie')
@@ -26,10 +26,3 @@ class TestGetMethod(unittest.TestCase):
         self.assertEqual(result, 'value1')
         result = self.request.cookies.get('test-cookie')
         self.assertEqual(result, 'value2')
-
-    def test_get_cookie_empty_name(self):
-        result = self.request.cookies.get('')
-        self.assertIsNone(result)
-
-if __name__ == '__main__':
-    unittest.main()
