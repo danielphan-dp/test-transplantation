@@ -19,6 +19,8 @@ import inspect
 
 from pydantic import BaseModel, Field
 
+import astroid
+
 
 class MethodUnderTest(BaseModel):
     name: str
@@ -130,19 +132,19 @@ def scan_source_files(directory: str) -> Dict[str, Tuple[str, ast.Module]]:
     return source_files
 
 
-def get_full_func_name(node) -> Optional[str]:
+def get_full_func_name(node, scope: Dict[str, str] = None) -> Optional[str]:
     if isinstance(node, ast.Name):
-        return node.id
+        return scope.get(node.id, node.id) if scope else node.id
     elif isinstance(node, ast.Attribute):
-        value = get_full_func_name(node.value)
+        value = get_full_func_name(node.value, scope)
         if value:
             return f"{value}.{node.attr}"
         else:
             return node.attr
     elif isinstance(node, ast.Call):
-        return get_full_func_name(node.func)
+        return get_full_func_name(node.func, scope)
     elif isinstance(node, ast.Subscript):
-        return get_full_func_name(node.value)
+        return get_full_func_name(node.value, scope)
     elif isinstance(node, ast.Lambda):
         return "<lambda>"
     else:
@@ -160,90 +162,68 @@ def is_standard_or_third_party(
     return module_name in standard_lib_names or module_name in third_party_lib_names
 
 
-def resolve_method(func_name: str, source_files: Dict[str, Tuple[str, ast.Module]]) -> Optional[Dict[str, Any]]:
-    # Split the function name into parts (e.g., "Class.method" -> ["Class", "method"])
-    name_parts = func_name.split(".")
-    base_name = name_parts[-1]  # Get the actual method name
+def resolve_method(
+    func_name: str, current_module: str, source_files: Dict[str, Tuple[str, ast.Module]]
+) -> Optional[Dict[str, Any]]:
+    """
+    Resolve the method by considering the current module and imported names.
+    """
+    # First, attempt to find the method in the current module
+    file_content, tree = source_files.get(current_module, (None, None))
+    if tree:
+        method_info = find_method_in_tree(tree, func_name)
+        if method_info:
+            method_info["file_path"] = current_module
+            return method_info
 
-    # Handle built-in methods and standard library methods
-    if base_name in dir(builtins) or func_name.split(".")[0] in stdlib_list.stdlib_list():
-        return {
-            "name": func_name,
-            "body": f"def {base_name}(...): # Built-in or standard library method",
-            "file_path": "<built-in>",
-            "line_number": 0,
-        }
+    # Next, search imported modules
+    imports = get_imports_from_module(tree)
+    for imported_module in imports:
+        module_path = resolve_module_path(imported_module, set(source_files.keys()))
+        if module_path:
+            file_content, tree = source_files.get(module_path, (None, None))
+            method_info = find_method_in_tree(tree, func_name)
+            if method_info:
+                method_info["file_path"] = module_path
+                return method_info
 
-    for file_path, (source_code, tree) in source_files.items():
-        for node in ast.walk(tree):
-            if isinstance(node, ast.FunctionDef) and node.name == base_name:
-                try:
-                    # Get the full method source including decorators and body
-                    start_line = min(d.lineno for d in node.decorator_list) if node.decorator_list else node.lineno
-                    end_line = node.end_lineno if hasattr(node, "end_lineno") else node.lineno
+    return None
 
-                    # Find the actual end of the function by looking for the next non-indented line
-                    lines = source_code.splitlines()
-                    base_indent = len(lines[start_line]) - len(lines[start_line].lstrip())
 
-                    while end_line < len(lines):
-                        line = lines[end_line]
-                        if line.strip() and len(line) - len(line.lstrip()) <= base_indent:
-                            break
-                        end_line += 1
+def handle_decorator(decorator: ast.AST, source_files: Dict[str, Tuple[str, ast.Module]]):
+    """
+    Handle decorators that may register functions, such as Flask's @app.route or FastAPI's @app.get.
+    """
+    decorator_name = get_full_func_name(decorator)
 
-                    method_lines = lines[start_line - 1 : end_line]
-                    body = "\n".join(method_lines)
-                except Exception as e:
-                    logger.warning(f"Could not get source segment for {func_name}: {e}")
-                    body = ""
-                return {"name": func_name, "body": body, "file_path": file_path, "line_number": node.lineno}
-            elif isinstance(node, ast.ClassDef):
-                # If we're looking for a method within a class
-                if len(name_parts) > 1 and node.name == name_parts[0]:
-                    for class_node in node.body:
-                        if isinstance(class_node, ast.FunctionDef) and class_node.name == base_name:
-                            try:
-                                # Get the full source code including decorators
-                                start_line = (
-                                    min(d.lineno for d in class_node.decorator_list)
-                                    if class_node.decorator_list
-                                    else class_node.lineno
-                                )
-
-                                # Find the actual end of the method by looking for the next non-indented line
-                                lines = source_code.splitlines()
-                                base_indent = len(lines[start_line]) - len(lines[start_line].lstrip())
-                                end_line = (
-                                    class_node.end_lineno if hasattr(class_node, "end_lineno") else class_node.lineno
-                                )
-
-                                while end_line < len(lines):
-                                    line = lines[end_line]
-                                    if line.strip() and len(line) - len(line.lstrip()) <= base_indent:
-                                        break
-                                    end_line += 1
-
-                                full_lines = lines[start_line - 1 : end_line]
-                                body = "\n".join(full_lines)
-                            except Exception as e:
-                                logger.warning(f"Could not get source segment for {func_name}: {e}")
-                                body = ""
-                            return {
-                                "name": f"{node.name}.{base_name}",
-                                "body": body,
-                                "file_path": file_path,
-                                "line_number": class_node.lineno,
-                            }
+    # Check if the decorator is a route or endpoint registration
+    if decorator_name and decorator_name.endswith(
+        (".route", ".get", ".post", ".put", ".delete", ".patch", ".options", ".head")
+    ):
+        # Retrieve the method that is being decorated
+        function_node = decorator.parent
+        if isinstance(function_node, ast.FunctionDef):
+            method_name = function_node.name
+            file_path = getattr(function_node, "file_path", "")
+            line_number = function_node.lineno
+            source_code = ast.get_source_segment(function_node, function_node) or ""
+            return {
+                "name": method_name,
+                "body": source_code,
+                "file_path": file_path,
+                "line_number": line_number,
+            }
     return None
 
 
 def extract_methods_under_test(
     node: ast.FunctionDef,
+    current_module: str,
     application_modules: Set[str],
     standard_lib_names: Set[str],
     third_party_lib_names: Set[str],
     source_files: Dict[str, Tuple[str, ast.Module]],
+    scope: Dict[str, str] = None,
 ) -> List[MethodUnderTest]:
     methods_under_test = []
 
@@ -253,22 +233,27 @@ def extract_methods_under_test(
         )
 
     def process_call(call_node):
-        func_name = get_full_func_name(call_node.func)
+        func_name = get_full_func_name(call_node.func, scope)
         logger.debug(f"Processing call to function: {func_name}")
         if func_name and is_relevant_call(func_name):
-            method_info = resolve_method(func_name, source_files)
+            method_info = resolve_method(func_name, current_module, source_files)
             if method_info:
                 methods_under_test.append(MethodUnderTest(**method_info))
             else:
-                # Ensure we have default values for optional fields
-                methods_under_test.append(
-                    MethodUnderTest(
-                        name=func_name,
-                        body="",  # Empty string instead of None
-                        file_path="",  # Empty string instead of None
-                        line_number=0,  # Default to 0 instead of None
+                # Attempt to resolve using astroid
+                method_info = resolve_method_with_astroid(func_name, current_module)
+                if method_info:
+                    methods_under_test.append(MethodUnderTest(**method_info))
+                else:
+                    # Fallback method under test
+                    methods_under_test.append(
+                        MethodUnderTest(
+                            name=func_name,
+                            body="",
+                            file_path="",
+                            line_number=0,
+                        )
                     )
-                )
         else:
             logger.debug(f"Ignoring standard or third-party function: {func_name}")
 
@@ -281,25 +266,11 @@ def extract_methods_under_test(
                 if isinstance(context_expr, ast.Call):
                     process_call(context_expr)
 
+    # Handle decorators
     for decorator in node.decorator_list:
-        if isinstance(decorator, ast.Call):
-            process_call(decorator)
-        else:
-            decorator_name = get_full_func_name(decorator)
-            if decorator_name and is_relevant_call(decorator_name):
-                method_info = resolve_method(decorator_name, source_files)
-                if method_info:
-                    methods_under_test.append(MethodUnderTest(**method_info))
-                else:
-                    # Ensure we have default values for optional fields
-                    methods_under_test.append(
-                        MethodUnderTest(
-                            name=decorator_name,
-                            body="",  # Empty string instead of None
-                            file_path="",  # Empty string instead of None
-                            line_number=0,  # Default to 0 instead of None
-                        )
-                    )
+        method_info = handle_decorator(decorator, source_files)
+        if method_info:
+            methods_under_test.append(MethodUnderTest(**method_info))
 
     return methods_under_test
 
@@ -332,7 +303,11 @@ def process_test_function(
     assertions = extract_assertions(node)
     mocks = extract_mocks(node)
     methods_under_test = extract_methods_under_test(
-        node, set(), standard_lib_names, third_party_lib_names, source_files
+        node,
+        set(),
+        standard_lib_names,
+        third_party_lib_names,
+        source_files,
     )
 
     return TestCase(
@@ -377,7 +352,10 @@ def collect_tests(directory: str, application_modules: Set[str]) -> TestCollecti
         with open(test_file, "r", encoding="utf-8") as file:
             file_content = file.read()
             try:
+                # Parse the AST
                 tree = ast.parse(file_content, filename=str(test_file))
+                # Add parent references to the AST nodes
+                add_parent_references(tree)
             except SyntaxError as e:
                 logger.error(f"Failed to parse {test_file}: {e}")
                 continue
@@ -490,3 +468,115 @@ def main(repo_path: str, output_path: str, log_level: str):
 
 if __name__ == "__main__":
     main()
+
+
+def add_parent_references(node, parent=None):
+    node.parent = parent
+    for child in ast.iter_child_nodes(node):
+        add_parent_references(child, node)
+
+
+# After parsing the AST
+tree = ast.parse(file_content, filename=str(test_file))
+add_parent_references(tree)
+
+
+def build_import_graph(source_files: Dict[str, Tuple[str, ast.Module]]) -> Dict[str, Set[str]]:
+    """
+    Build a mapping from module names to the set of names imported from them.
+    """
+    import_graph = {}
+    for file_path, (source_code, tree) in source_files.items():
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom):
+                module = node.module or ""
+                for alias in node.names:
+                    full_name = f"{module}.{alias.name}"
+                    import_graph.setdefault(file_path, set()).add(full_name)
+            elif isinstance(node, ast.Import):
+                for alias in node.names:
+                    import_graph.setdefault(file_path, set()).add(alias.name)
+    return import_graph
+
+
+def resolve_method_with_astroid(func_name: str, source_file: str) -> Optional[Dict[str, Any]]:
+    try:
+        module = astroid.parse(open(source_file).read())
+        for node in module.body:
+            if isinstance(node, astroid.FunctionDef) and node.name == func_name:
+                return {
+                    "name": node.name,
+                    "body": node.as_string(),
+                    "file_path": source_file,
+                    "line_number": node.lineno,
+                }
+            elif isinstance(node, astroid.ClassDef):
+                for class_node in node.body:
+                    if isinstance(class_node, astroid.FunctionDef) and class_node.name == func_name:
+                        return {
+                            "name": f"{node.name}.{class_node.name}",
+                            "body": class_node.as_string(),
+                            "file_path": source_file,
+                            "line_number": class_node.lineno,
+                        }
+    except Exception as e:
+        logger.warning(f"Failed to resolve method {func_name} using astroid: {e}")
+    return None
+
+
+def find_method_in_tree(tree: ast.AST, func_name: str) -> Optional[Dict[str, Any]]:
+    """
+    Find a function or method definition in the AST tree by its name.
+    """
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == func_name:
+            source_code = ast.get_source_segment(tree, node) or ""
+            return {
+                "name": node.name,
+                "body": source_code,
+                "line_number": node.lineno,
+            }
+        elif isinstance(node, ast.ClassDef):
+            for class_node in node.body:
+                if isinstance(class_node, (ast.FunctionDef, ast.AsyncFunctionDef)) and class_node.name == func_name:
+                    source_code = ast.get_source_segment(tree, class_node) or ""
+                    return {
+                        "name": f"{node.name}.{class_node.name}",
+                        "body": source_code,
+                        "line_number": class_node.lineno,
+                    }
+    return None
+
+
+def get_imports_from_module(tree: ast.AST) -> List[str]:
+    """
+    Extract a list of module names imported in the given AST tree.
+    """
+    imports = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                imports.append(alias.name)
+        elif isinstance(node, ast.ImportFrom):
+            if node.module:
+                imports.append(node.module)
+            else:
+                # Handle relative imports like 'from . import module'
+                imports.append("")
+    return imports
+
+
+def resolve_module_path(module_name: str, source_file_paths: Set[str]) -> Optional[str]:
+    """
+    Resolve a module name to a file path from the given source file paths.
+    """
+    module_parts = module_name.split(".")
+    possible_paths = [
+        os.path.join(*module_parts) + ".py",
+        os.path.join(*module_parts, "__init__.py"),
+    ]
+    for file_path in source_file_paths:
+        for possible_path in possible_paths:
+            if file_path.endswith(possible_path):
+                return file_path
+    return None

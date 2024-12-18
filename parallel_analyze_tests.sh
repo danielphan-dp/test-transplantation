@@ -42,6 +42,7 @@ analyze_framework() {
     
     local analysis_status=0
     
+    # Use nohup to keep process running after terminal closes
     {
         echo "=== Analyzing tests for ${repo} ==="
         echo "Start time: $(date)"
@@ -74,10 +75,11 @@ analyze_framework() {
         # Create output directory
         mkdir -p "$output_dir"
         
-        # Run the analysis with timeout
-        timeout $TIMEOUT python -m src.gluon.collect_tests.hybrid_analysis \
+        # Run the analysis with timeout using nohup
+        nohup timeout $TIMEOUT python -m src.gluon.collect_tests.hybrid_analysis \
             --input-dir "$input_dir" \
-            --output-dir "$output_dir"
+            --output-dir "$output_dir" \
+            </dev/null >/dev/null 2>&1 &
 
         analysis_status=$?
 
@@ -133,7 +135,7 @@ echo "All analyses completed!"
 if [ ${#failed_repos[@]} -eq 0 ]; then
     echo "✅ All repository analyses completed successfully!"
 else
-    echo "❌ Analysis failed for the following repositories:"
+    echo "�� Analysis failed for the following repositories:"
     printf '%s\n' "${failed_repos[@]}"
     echo "Check individual log files in $LOGS_DIR/ for details"
     exit 1
