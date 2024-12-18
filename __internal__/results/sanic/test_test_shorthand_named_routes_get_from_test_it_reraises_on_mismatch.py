@@ -1,0 +1,57 @@
+import asyncio
+import pytest
+from sanic import Sanic
+from sanic.blueprints import Blueprint
+from sanic.exceptions import URLBuildError
+from sanic.response import text
+
+def test_get_method_response():
+    app = Sanic("app")
+    
+    @app.get("/get")
+    def handler(request):
+        return text("I am get method")
+
+    request, response = app.test_client.get("/get")
+    
+    assert response.text == "I am get method"
+    assert response.status == 200
+
+def test_get_method_invalid_route():
+    app = Sanic("app")
+    
+    @app.get("/get")
+    def handler(request):
+        return text("I am get method")
+
+    request, response = app.test_client.get("/invalid_route")
+    
+    assert response.status == 404
+    assert "Requested URL /invalid_route not found" in response.text
+
+def test_get_method_with_blueprint():
+    app = Sanic("app")
+    bp = Blueprint("test_bp", url_prefix="/bp")
+
+    @bp.get("/get")
+    def handler(request):
+        return text("Blueprint")
+
+    app.blueprint(bp)
+
+    request, response = app.test_client.get("/bp/get")
+    
+    assert response.text == "Blueprint"
+    assert response.status == 200
+
+def test_get_method_url_for():
+    app = Sanic("app")
+    
+    @app.get("/get", name="route_get")
+    def handler(request):
+        return text("I am get method")
+
+    assert app.url_for("route_get") == "/get"
+    
+    with pytest.raises(URLBuildError):
+        app.url_for("non_existent_route")

@@ -1,0 +1,80 @@
+import pytest
+from aiohttp import web
+from aiohttp.web_urldispatcher import Domain
+from your_module import make_handler  # Adjust the import according to your module structure
+
+@pytest.fixture
+def app():
+    return web.Application()
+
+@pytest.mark.asyncio
+async def test_make_handler(app):
+    appname = "test_app"
+    my_value = "my_value"
+    app[my_value] = "test_value"
+    handler = make_handler(appname)
+
+    app.router.add_get("/", handler)
+    client = await web.test_client(app)
+
+    request = await client.get("/")
+    assert request.status == 200
+    text_response = await request.text()
+    assert text_response == "Ok"
+
+    # Check if the value was appended correctly
+    assert f'{appname}: test_value' in values
+
+@pytest.mark.asyncio
+async def test_make_handler_no_value(app):
+    appname = "test_app"
+    my_value = "my_value"
+    handler = make_handler(appname)
+
+    app.router.add_get("/", handler)
+    client = await web.test_client(app)
+
+    request = await client.get("/")
+    assert request.status == 200
+    text_response = await request.text()
+    assert text_response == "Ok"
+
+    # Check if the value was appended correctly when my_value is not set
+    assert f'{appname}: None' in values
+
+@pytest.mark.asyncio
+async def test_make_handler_invalid_appname(app):
+    appname = ""
+    my_value = "my_value"
+    app[my_value] = "test_value"
+    handler = make_handler(appname)
+
+    app.router.add_get("/", handler)
+    client = await web.test_client(app)
+
+    request = await client.get("/")
+    assert request.status == 200
+    text_response = await request.text()
+    assert text_response == "Ok"
+
+    # Check if the value was appended correctly with an empty appname
+    assert f'{appname}: test_value' in values
+
+@pytest.mark.asyncio
+async def test_make_handler_multiple_requests(app):
+    appname = "test_app"
+    my_value = "my_value"
+    app[my_value] = "test_value"
+    handler = make_handler(appname)
+
+    app.router.add_get("/", handler)
+    client = await web.test_client(app)
+
+    for _ in range(5):
+        request = await client.get("/")
+        assert request.status == 200
+        text_response = await request.text()
+        assert text_response == "Ok"
+
+    # Check if the value was appended correctly multiple times
+    assert values.count(f'{appname}: test_value') == 5

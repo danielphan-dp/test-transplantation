@@ -1,0 +1,40 @@
+import pytest
+from sanic import Sanic, Request
+from sanic.response import text
+
+@pytest.fixture
+def json_app():
+    app = Sanic("test_app")
+    return app
+
+def test_get_method(json_app):
+    @json_app.get("/get-method")
+    async def handler_get(request: Request):
+        return text('I am get method')
+
+    request, response = json_app.test_client.get("/get-method")
+    assert response.text == "I am get method"
+    assert response.status == 200
+
+def test_get_method_with_invalid_route(json_app):
+    request, response = json_app.test_client.get("/invalid-route")
+    assert response.status == 404
+    assert "Requested URL /invalid-route not found" in response.text
+
+def test_get_method_with_additional_params(json_app):
+    @json_app.get("/get-method-with-params/<param>")
+    async def handler_get_with_params(request: Request, param: str):
+        return text(f"I am get method with param: {param}")
+
+    request, response = json_app.test_client.get("/get-method-with-params/test")
+    assert response.text == "I am get method with param: test"
+    assert response.status == 200
+
+def test_get_method_with_empty_request(json_app):
+    @json_app.get("/get-method-empty")
+    async def handler_get_empty(request: Request):
+        return text('I am get method with no params')
+
+    request, response = json_app.test_client.get("/get-method-empty")
+    assert response.text == "I am get method with no params"
+    assert response.status == 200

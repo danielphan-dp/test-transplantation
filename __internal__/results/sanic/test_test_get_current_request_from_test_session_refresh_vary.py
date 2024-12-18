@@ -1,0 +1,38 @@
+import pytest
+from sanic import Sanic
+from sanic.response import text
+
+@pytest.fixture
+def app():
+    app = Sanic("test_app")
+
+    @app.get("/get")
+    def get_method(request):
+        return text("I am get method")
+
+    return app
+
+def test_get_method_response(app):
+    request, response = app.test_client.get("/get")
+    assert response.text == "I am get method"
+
+def test_get_method_status_code(app):
+    request, response = app.test_client.get("/get")
+    assert response.status == 200
+
+def test_get_method_content_type(app):
+    request, response = app.test_client.get("/get")
+    assert response.content_type == "text/plain; charset=utf-8"
+
+def test_get_method_with_invalid_route(app):
+    request, response = app.test_client.get("/invalid")
+    assert response.status == 404
+    assert "Requested URL /invalid not found" in response.text
+
+def test_get_method_current_request(app):
+    @app.get("/current_request")
+    async def current_request_handler(request):
+        return text({"same": request is Request.get_current()})
+
+    _, resp = app.test_client.get("/current_request")
+    assert resp.json["same"]
