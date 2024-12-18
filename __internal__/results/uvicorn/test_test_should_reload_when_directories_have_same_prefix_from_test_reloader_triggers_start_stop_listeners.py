@@ -23,13 +23,25 @@ def test_should_reload_with_various_reloader_classes(touch_soon, reloader_class)
         assert self._reload_tester(touch_soon, reloader, app_file)
         assert self._reload_tester(touch_soon, reloader, app_first_file)
 
-        # Test with a non-existent file
-        non_existent_file = Path("non_existent_file.py")
-        assert self._reload_tester(touch_soon, reloader, non_existent_file) is None
+        # Test with no changes to ensure no reload occurs
+        assert reloader.should_restart() is None
 
-        # Test with an empty directory
-        empty_dir = Path("empty_dir")
-        empty_dir.mkdir(exist_ok=True)
-        assert self._reload_tester(touch_soon, reloader, empty_dir) is None
+        reloader.shutdown()
+
+@pytest.mark.parametrize('reloader_class', [BaseReload, WatchFilesReload])
+def test_should_not_reload_when_no_changes(touch_soon, reloader_class) -> None:
+    app_dir = Path("app")
+    app_file = app_dir / "src" / "main.py"
+
+    with as_cwd(Path(".")):
+        config = Config(
+            app="tests.test_config:asgi_app",
+            reload=True,
+            reload_dirs=[str(app_dir)],
+        )
+        reloader = self._setup_reloader(config)
+
+        # Simulate no changes
+        assert reloader.should_restart() is None
 
         reloader.shutdown()

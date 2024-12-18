@@ -6,7 +6,7 @@ from uvicorn.supervisors.basereload import BaseReload
 from uvicorn.supervisors.watchfilesreload import WatchFilesReload
 from time import sleep
 
-@pytest.mark.parametrize('reloader_class, result', [(BaseReload, False), (WatchFilesReload, True)])
+@pytest.mark.parametrize("reloader_class, result", [(BaseReload, False), (WatchFilesReload, True)])
 def test_reload_when_no_file_changes(reloader_class, result, touch_soon) -> None:
     file = Path("dummy_file.js")
     file.touch()
@@ -19,7 +19,7 @@ def test_reload_when_no_file_changes(reloader_class, result, touch_soon) -> None
 
         reloader.shutdown()
 
-@pytest.mark.parametrize('reloader_class, result', [(BaseReload, False), (WatchFilesReload, True)])
+@pytest.mark.parametrize("reloader_class, result", [(BaseReload, False), (WatchFilesReload, True)])
 def test_reload_with_multiple_files(reloader_class, result, touch_soon) -> None:
     files = [Path(f"file_{i}.js") for i in range(3)]
     for file in files:
@@ -29,8 +29,7 @@ def test_reload_with_multiple_files(reloader_class, result, touch_soon) -> None:
         config = Config(app="tests.test_config:asgi_app", reload=True, reload_includes=["*.js"])
         reloader = _setup_reloader(config)
 
-        for file in files:
-            assert self._reload_tester(touch_soon, reloader, file) is not None
+        assert bool(self._reload_tester(touch_soon, reloader, *files)) == result
 
         reloader.shutdown()
 

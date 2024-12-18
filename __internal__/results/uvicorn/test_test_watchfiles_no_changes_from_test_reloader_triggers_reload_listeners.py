@@ -1,38 +1,39 @@
 import pytest
-from unittest.mock import Mock
+from pathlib import Path
 from uvicorn.config import Config
 from uvicorn.supervisors.basereload import BaseReload
-from uvicorn.supervisors.watchfilesreload import WatchFilesReload
-from uvicorn.supervisors.watchgodreload import WatchGodReload
-from tests.utils import as_cwd
 
-@pytest.mark.parametrize("reloader_class", [WatchFilesReload, WatchGodReload])
-def test_reloader_initialization_with_different_classes(reloader_class) -> None:
-    with as_cwd("path/to/reload"):
-        config = Config(app="tests.test_config:asgi_app", reload=True)
-        reloader = _setup_reloader(config)
+class CustomReload(BaseReload):
+    def __init__(self, config):
+        super().__init__(config)
+        self.step = 0
 
-        assert isinstance(reloader, reloader_class)
-        assert config.should_reload
-        reloader.shutdown()
+    def should_restart(self):
+        self.step += 1
+        if self.step == 1:
+            return None
+        elif self.step == 2:
+            return [Path('foobar.py')]
+        else:
+            raise StopIteration()
 
-def test_reloader_should_not_start_if_not_configured() -> None:
-    config = Config(app="tests.test_config:asgi_app", reload=False)
-    reloader = _setup_reloader(config)
-
-    assert reloader is None
-
-def test_reloader_should_trigger_on_file_change(touch_soon: Callable[[Path], None]) -> None:
-    file = "path/to/reload/main.py"
+def test_custom_reloader_should_restart(tmp_path: Path):
     config = Config(app="tests.test_config:asgi_app", reload=True)
-    reloader = _setup_reloader(config)
+    reloader = CustomReload(config)
 
-    touch_soon(file)
-    assert reloader.should_restart() is not None
+    assert reloader.should_restart() is None
+    assert reloader.should_restart() == [tmp_path / 'foobar.py']
+    
+    with pytest.raises(StopIteration):
+        reloader.should_restart()
 
-def test_reloader_shutdown_properly() -> None:
+def test_custom_reloader_multiple_calls(tmp_path: Path):
     config = Config(app="tests.test_config:asgi_app", reload=True)
-    reloader = _setup_reloader(config)
+    reloader = CustomReload(config)
 
-    reloader.shutdown()
-    assert reloader.should_exit.is_set()
+    assert reloader.should_restart() is None
+    assert reloader.should_restart() == [tmp_path / 'foobar.py']
+    
+    reloader.should_restart()  # Call to advance step
+    with pytest.raises(StopIteration):
+        reloader.should_restart()

@@ -12,8 +12,8 @@ def test_reload_tester_edge_cases(touch_soon, reloader_class) -> None:
     reload_path = Path("path/to/reload")  # Adjust path as necessary
     dotted_file = reload_path / ".dotted"
     non_dotted_file = reload_path / "non_dotted.txt"
-    python_file = reload_path / "script.py"
-    
+    python_file = reload_path / "main.py"
+
     dotted_file.touch()
     non_dotted_file.touch()
     python_file.touch()
@@ -24,16 +24,17 @@ def test_reload_tester_edge_cases(touch_soon, reloader_class) -> None:
         reload_includes=[".*", "*.txt"],
         reload_excludes=["*.py"],
     )
-    reloader = BaseReload(config)  # Adjust to use the correct reloader class
+    reloader = BaseReload(config)
 
     assert self._reload_tester(touch_soon, reloader, dotted_file) is not None
     assert self._reload_tester(touch_soon, reloader, non_dotted_file) is not None
     assert not self._reload_tester(touch_soon, reloader, python_file)
 
-    # Test with no changes
-    assert reloader.should_restart() is None
+    # Simulate file modification
+    non_dotted_file.touch()
+    assert self._reload_tester(touch_soon, reloader, non_dotted_file) is not None
 
-    # Test with multiple files
-    assert self._reload_tester(touch_soon, reloader, dotted_file, non_dotted_file) is not None
+    # Test with no files
+    assert self._reload_tester(touch_soon, reloader) is None
 
     reloader.shutdown()

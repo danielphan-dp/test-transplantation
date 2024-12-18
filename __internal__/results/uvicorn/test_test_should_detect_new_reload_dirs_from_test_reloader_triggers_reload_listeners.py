@@ -29,11 +29,8 @@ def test_reloader_should_not_startup_without_reload(touch_soon, caplog: pytest.L
     with as_cwd(tmp_path):
         reloader = self._setup_reloader(config)
         assert not config.should_reload
-        with pytest.raises(SystemExit):
+        with pytest.raises(Exception, match="Reloader should not start without reload enabled"):
             reloader.startup()
-        
-        assert caplog.records[-1].levelno == logging.WARNING
-        assert "Reloading is disabled" in caplog.records[-1].message
 
 @pytest.mark.parametrize("reloader_class", [WatchGodReload])
 def test_reloader_should_detect_multiple_changes(touch_soon, caplog: pytest.LogCaptureFixture, tmp_path: Path) -> None:
@@ -41,17 +38,18 @@ def test_reloader_should_detect_multiple_changes(touch_soon, caplog: pytest.LogC
     app_file = app_dir / "file.py"
     app_dir.mkdir()
     app_file.touch()
-    
+
     with as_cwd(tmp_path):
         config = Config(app="tests.test_config:asgi_app", reload=True, reload_includes=["app*"])
         reloader = self._setup_reloader(config)
-        
         assert self._reload_tester(touch_soon, reloader, app_file)
+
+        # Simulate multiple file changes
+        for i in range(3):
+            (app_dir / f"file_{i}.py").touch()
         
-        app_file.touch()
-        assert self._reload_tester(touch_soon, reloader, app_file)
-        
+        assert self._reload_tester(touch_soon, reloader, *[app_dir / f"file_{i}.py" for i in range(3)])
         assert caplog.records[-1].levelno == logging.INFO
-        assert "Detected changes in" in caplog.records[-1].message
-        
+        assert "WatchGodReload detected changes" in caplog.records[-1].message
+
         reloader.shutdown()

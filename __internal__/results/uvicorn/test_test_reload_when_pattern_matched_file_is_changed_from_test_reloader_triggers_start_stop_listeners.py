@@ -5,8 +5,8 @@ from uvicorn.supervisors.basereload import BaseReload
 from uvicorn.supervisors.watchfilesreload import WatchFilesReload
 from tests.utils.as_cwd import as_cwd
 
-@pytest.mark.parametrize("reloader_class, result", [(BaseReload, False), (WatchFilesReload, True)])
-def test_reload_when_no_files_changed(reloader_class, result, touch_soon) -> None:
+@pytest.mark.parametrize('reloader_class, result', [(BaseReload, False), (WatchFilesReload, True)])
+def test_reload_when_no_file_changes(reloader_class, result, touch_soon) -> None:
     file = Path("dummy_file.js")
     file.touch()
 
@@ -18,7 +18,7 @@ def test_reload_when_no_files_changed(reloader_class, result, touch_soon) -> Non
 
         reloader.shutdown()
 
-@pytest.mark.parametrize("reloader_class, result", [(BaseReload, False), (WatchFilesReload, True)])
+@pytest.mark.parametrize('reloader_class, result', [(BaseReload, False), (WatchFilesReload, True)])
 def test_reload_with_multiple_files(reloader_class, result, touch_soon) -> None:
     files = [Path(f"file_{i}.js") for i in range(3)]
     for file in files:
@@ -32,7 +32,7 @@ def test_reload_with_multiple_files(reloader_class, result, touch_soon) -> None:
 
         reloader.shutdown()
 
-@pytest.mark.parametrize("reloader_class, result", [(BaseReload, False), (WatchFilesReload, True)])
+@pytest.mark.parametrize('reloader_class, result', [(BaseReload, False), (WatchFilesReload, True)])
 def test_reload_with_nonexistent_file(reloader_class, result, touch_soon) -> None:
     nonexistent_file = Path("nonexistent_file.js")
 

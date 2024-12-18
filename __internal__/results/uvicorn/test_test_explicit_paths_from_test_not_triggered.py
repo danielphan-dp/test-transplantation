@@ -51,20 +51,19 @@ def test_multiple_file_changes(touch_soon) -> None:
 
 @pytest.mark.skipif(WatchFilesReload is None, reason="watchfiles not available")
 @pytest.mark.parametrize("reloader_class", [WatchFilesReload])
-def test_file_touching_with_sleep(touch_soon) -> None:
+def test_file_not_found(touch_soon) -> None:
     reload_path = Path("path/to/reload")
-    file_to_touch = reload_path / "main.py"
-    file_to_touch.touch()
+    non_existent_file = reload_path / "non_existent.py"
 
     with as_cwd(reload_path):
         config = Config(
             app="tests.test_config:asgi_app",
             reload=True,
-            reload_includes=["main.py"],
+            reload_includes=["non_existent.py"],
         )
         reloader = self._setup_reloader(config)
 
-        sleep(0.2)  # Simulate delay before touching the file
-        assert self._reload_tester(touch_soon, reloader, file_to_touch)
+        with pytest.raises(FileNotFoundError):
+            self._reload_tester(touch_soon, reloader, non_existent_file)
 
         reloader.shutdown()

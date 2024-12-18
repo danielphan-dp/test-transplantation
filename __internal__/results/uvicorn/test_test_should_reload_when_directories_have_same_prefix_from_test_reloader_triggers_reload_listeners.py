@@ -2,9 +2,10 @@ import pytest
 from pathlib import Path
 from uvicorn.config import Config
 from uvicorn.supervisors.basereload import BaseReload
-from uvicorn.supervisors.watchfilesreload import WatchFilesReload
 from uvicorn.supervisors.statreload import StatReload
+from uvicorn.supervisors.watchfilesreload import WatchFilesReload
 from uvicorn.supervisors.watchgodreload import WatchGodReload
+from tests.utils.as_cwd import as_cwd
 
 class TestBaseReload:
     @pytest.fixture(autouse=True)
@@ -33,35 +34,39 @@ class TestBaseReload:
         return next(reloader)
 
     @pytest.mark.parametrize("reloader_class", [StatReload, WatchGodReload, WatchFilesReload])
-    def test_reloader_should_not_start_when_reload_disabled(self, touch_soon: Callable[[Path], None]) -> None:
-        app_dir = self.reload_path / "app"
-        app_file = app_dir / "src" / "main.py"
-
+    def test_should_reload_with_empty_reload_dirs(self, touch_soon) -> None:
         with as_cwd(self.reload_path):
-            config = Config(
-                app="tests.test_config:asgi_app",
-                reload=False,
-                reload_dirs=[str(app_dir)],
-            )
+            config = Config(app="tests.test_config:asgi_app", reload=True, reload_dirs=[])
             reloader = self._setup_reloader(config)
-
-            assert not self._reload_tester(touch_soon, reloader, app_file)
+            assert not self._reload_tester(touch_soon, reloader)
 
             reloader.shutdown()
 
     @pytest.mark.parametrize("reloader_class", [StatReload, WatchGodReload, WatchFilesReload])
-    def test_reloader_should_trigger_on_file_change(self, touch_soon: Callable[[Path], None]) -> None:
+    def test_should_reload_when_file_is_added(self, touch_soon) -> None:
         app_dir = self.reload_path / "app"
-        app_file = app_dir / "src" / "main.py"
+        new_file = app_dir / "new_file.py"
 
         with as_cwd(self.reload_path):
-            config = Config(
-                app="tests.test_config:asgi_app",
-                reload=True,
-                reload_dirs=[str(app_dir)],
-            )
+            config = Config(app="tests.test_config:asgi_app", reload=True, reload_dirs=[str(app_dir)])
             reloader = self._setup_reloader(config)
 
-            assert self._reload_tester(touch_soon, reloader, app_file)
+            new_file.touch()
+            assert self._reload_tester(touch_soon, reloader, new_file)
+
+            reloader.shutdown()
+
+    @pytest.mark.parametrize("reloader_class", [StatReload, WatchGodReload, WatchFilesReload])
+    def test_should_not_reload_when_file_is_deleted(self, touch_soon) -> None:
+        app_dir = self.reload_path / "app"
+        app_file = app_dir / "main.py"
+        app_file.touch()
+
+        with as_cwd(self.reload_path):
+            config = Config(app="tests.test_config:asgi_app", reload=True, reload_dirs=[str(app_dir)])
+            reloader = self._setup_reloader(config)
+
+            app_file.unlink()
+            assert not self._reload_tester(touch_soon, reloader, app_file)
 
             reloader.shutdown()

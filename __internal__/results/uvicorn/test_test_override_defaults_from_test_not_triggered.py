@@ -8,62 +8,33 @@ from time import sleep
 
 @pytest.mark.skipif(WatchFilesReload is None, reason="watchfiles not available")
 @pytest.mark.parametrize("reloader_class", [WatchFilesReload])
-def test_reload_tester_with_no_changes(touch_soon) -> None:
+def test_reload_tester_edge_cases(touch_soon, reloader_class) -> None:
     reload_path = Path("path/to/reload")
-    file_to_touch = reload_path / "file.txt"
-    file_to_touch.touch()
+    dotted_file = reload_path / ".dotted"
+    non_dotted_file = reload_path / "non_dotted.txt"
+    python_file = reload_path / "main.py"
+    
+    dotted_file.touch()
+    non_dotted_file.touch()
+    python_file.touch()
 
     with as_cwd(reload_path):
         config = Config(
             app="tests.test_config:asgi_app",
             reload=True,
-            reload_includes=["*.txt"],
+            reload_includes=[".*", "*.txt"],
             reload_excludes=["*.py"],
         )
-        reloader = self._setup_reloader(config)
+        reloader = _setup_reloader(config)
 
-        assert self._reload_tester(touch_soon, reloader, file_to_touch) is None
+        assert self._reload_tester(touch_soon, reloader, dotted_file) is not None
+        assert self._reload_tester(touch_soon, reloader, non_dotted_file) is not None
+        assert not self._reload_tester(touch_soon, reloader, python_file)
 
-        reloader.shutdown()
+        # Simulate no changes
+        assert reloader.should_restart() is None
 
-@pytest.mark.skipif(WatchFilesReload is None, reason="watchfiles not available")
-@pytest.mark.parametrize("reloader_class", [WatchFilesReload])
-def test_reload_tester_with_multiple_files(touch_soon) -> None:
-    reload_path = Path("path/to/reload")
-    file1 = reload_path / "file1.txt"
-    file2 = reload_path / "file2.txt"
-    file1.touch()
-    file2.touch()
-
-    with as_cwd(reload_path):
-        config = Config(
-            app="tests.test_config:asgi_app",
-            reload=True,
-            reload_includes=["*.txt"],
-            reload_excludes=["*.py"],
-        )
-        reloader = self._setup_reloader(config)
-
-        assert self._reload_tester(touch_soon, reloader, file1, file2) is not None
-
-        reloader.shutdown()
-
-@pytest.mark.skipif(WatchFilesReload is None, reason="watchfiles not available")
-@pytest.mark.parametrize("reloader_class", [WatchFilesReload])
-def test_reload_tester_with_non_existent_file(touch_soon) -> None:
-    reload_path = Path("path/to/reload")
-    non_existent_file = reload_path / "non_existent.txt"
-
-    with as_cwd(reload_path):
-        config = Config(
-            app="tests.test_config:asgi_app",
-            reload=True,
-            reload_includes=["*.txt"],
-            reload_excludes=["*.py"],
-        )
-        reloader = self._setup_reloader(config)
-
-        with pytest.raises(FileNotFoundError):
-            self._reload_tester(touch_soon, reloader, non_existent_file)
+        # Test with multiple files
+        assert self._reload_tester(touch_soon, reloader, dotted_file, non_dotted_file) is not None
 
         reloader.shutdown()

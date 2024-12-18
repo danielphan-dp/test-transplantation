@@ -38,7 +38,7 @@ class TestBaseReload:
         ("app.js", True),
         ("non_existent_file.py", False)
     ])
-    def test_reload_when_file_changes(self, file_name, result, touch_soon):
+    def test_reload_when_file_is_changed(self, file_name, result, touch_soon):
         file = self.reload_path / file_name
 
         with as_cwd(self.reload_path):
@@ -50,8 +50,7 @@ class TestBaseReload:
             reloader.shutdown()
 
     def test_reloader_should_not_start_if_not_configured(self):
-        with as_cwd(self.reload_path):
-            config = Config(app="tests.test_config:asgi_app", reload=False)
-            reloader = self._setup_reloader(config)
-            assert not config.should_reload
-            reloader.shutdown()
+        config = Config(app="tests.test_config:asgi_app", reload=False)
+        reloader = self._setup_reloader(config)
+        assert not config.should_reload
+        reloader.shutdown()

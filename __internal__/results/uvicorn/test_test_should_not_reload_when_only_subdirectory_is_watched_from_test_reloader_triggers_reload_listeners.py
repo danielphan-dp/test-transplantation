@@ -33,15 +33,9 @@ class TestBaseReload:
         return next(reloader)
 
     @pytest.mark.parametrize("reloader_class", [StatReload, WatchGodReload, pytest.param(WatchFilesReload, marks=skip_if_m1)])
-    def test_should_reload_when_file_in_root_directory_is_modified(self, touch_soon) -> None:
-        app_dir = self.reload_path / "app"
+    def test_should_reload_when_file_in_root_directory_is_changed(self, touch_soon: Callable[[Path], None]) -> None:
         root_file = self.reload_path / "main.py"
-
-        config = Config(
-            app="tests.test_config:asgi_app",
-            reload=True,
-            reload_dirs=[str(app_dir)],
-        )
+        config = Config(app="tests.test_config:asgi_app", reload=True, reload_dirs=[str(self.reload_path)])
         reloader = self._setup_reloader(config)
 
         assert self._reload_tester(touch_soon, reloader, root_file)
@@ -49,17 +43,11 @@ class TestBaseReload:
         reloader.shutdown()
 
     @pytest.mark.parametrize("reloader_class", [StatReload, WatchGodReload, pytest.param(WatchFilesReload, marks=skip_if_m1)])
-    def test_should_not_reload_when_ignored_file_is_modified(self, touch_soon) -> None:
+    def test_should_not_reload_when_no_files_are_changed(self, touch_soon: Callable[[Path], None]) -> None:
         app_dir = self.reload_path / "app"
-        ignored_file = app_dir / "~ignored"
-
-        config = Config(
-            app="tests.test_config:asgi_app",
-            reload=True,
-            reload_dirs=[str(app_dir)],
-        )
+        config = Config(app="tests.test_config:asgi_app", reload=True, reload_dirs=[str(app_dir)])
         reloader = self._setup_reloader(config)
 
-        assert not self._reload_tester(touch_soon, reloader, ignored_file)
+        assert not self._reload_tester(touch_soon, reloader, app_dir / "non_existent_file.py")
 
         reloader.shutdown()

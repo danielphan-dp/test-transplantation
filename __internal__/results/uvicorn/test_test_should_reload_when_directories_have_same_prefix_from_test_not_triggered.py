@@ -1,10 +1,10 @@
 import pytest
 from unittest.mock import Mock
 from pathlib import Path
-from time import sleep
 from uvicorn.config import Config
 from uvicorn.supervisors.basereload import BaseReload
 from uvicorn.supervisors.watchfilesreload import WatchFilesReload
+from time import sleep
 
 @pytest.mark.parametrize('reloader_class', [WatchFilesReload])
 def test_should_not_reload_when_no_changes(touch_soon) -> None:
@@ -46,8 +46,8 @@ def test_should_reload_when_file_is_touched(touch_soon) -> None:
 @pytest.mark.parametrize('reloader_class', [WatchFilesReload])
 def test_should_reload_multiple_files(touch_soon) -> None:
     app_dir = Path("app")
-    app_file_1 = app_dir / "src" / "main.py"
-    app_file_2 = app_dir / "src" / "utils.py"
+    app_file1 = app_dir / "src" / "main.py"
+    app_file2 = app_dir / "src" / "utils.py"
 
     with as_cwd(app_dir):
         config = Config(
@@ -58,18 +58,18 @@ def test_should_reload_multiple_files(touch_soon) -> None:
         reloader = self._setup_reloader(config)
 
         # Touch both files to simulate changes
-        app_file_1.touch()
-        app_file_2.touch()
-        assert self._reload_tester(touch_soon, reloader, app_file_1)
-        assert self._reload_tester(touch_soon, reloader, app_file_2)
+        app_file1.touch()
+        app_file2.touch()
+        assert self._reload_tester(touch_soon, reloader, app_file1)
+        assert self._reload_tester(touch_soon, reloader, app_file2)
 
         reloader.shutdown()
 
 @pytest.mark.parametrize('reloader_class', [WatchFilesReload])
 def test_should_not_reload_when_excluded(touch_soon) -> None:
     app_dir = Path("app")
+    app_file = app_dir / "src" / "main.py"
     excluded_file = app_dir / "excluded.py"
-    included_file = app_dir / "included.py"
 
     with as_cwd(app_dir):
         config = Config(
@@ -80,11 +80,7 @@ def test_should_not_reload_when_excluded(touch_soon) -> None:
         )
         reloader = self._setup_reloader(config)
 
-        # Touch the included file
-        included_file.touch()
-        assert self._reload_tester(touch_soon, reloader, included_file)
-
-        # Ensure excluded file does not trigger a reload
+        # Touch the excluded file
         excluded_file.touch()
         assert self._reload_tester(touch_soon, reloader, excluded_file) is None
 

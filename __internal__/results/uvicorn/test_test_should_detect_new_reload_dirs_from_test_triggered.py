@@ -10,42 +10,30 @@ from tests.utils import as_cwd
 
 @pytest.mark.skipif(WatchFilesReload is None, reason="watchfiles not available")
 @pytest.mark.parametrize("reloader_class", [WatchFilesReload])
-def test_should_reload_on_file_touch(touch_soon, caplog, tmp_path):
+def test_reload_tester_edge_cases(touch_soon, caplog: pytest.LogCaptureFixture, tmp_path: Path) -> None:
     app_dir = tmp_path / "app"
     app_file = app_dir / "file.py"
     app_dir.mkdir()
     app_file.touch()
-
+    
+    # Test with no files
     with as_cwd(tmp_path):
         config = Config(app="tests.test_config:asgi_app", reload=True, reload_includes=["app*"])
         reloader = self._setup_reloader(config)
-        
-        assert self._reload_tester(touch_soon, reloader, app_file)
+        assert self._reload_tester(touch_soon, reloader) is None
 
-        app_file.touch()  # Simulate touching the file
-        assert self._reload_tester(touch_soon, reloader, app_file)
-        assert caplog.records[-1].levelno == logging.INFO
-        assert caplog.records[-1].message == f"WatchGodReload detected a change in '{app_file.name}'; Reloading."
+        # Test with a non-existent file
+        non_existent_file = app_dir / "non_existent.py"
+        assert self._reload_tester(touch_soon, reloader, non_existent_file) is None
+        assert caplog.records[-1].levelno == logging.WARNING
+        assert caplog.records[-1].message == f"File '{non_existent_file}' does not exist."
 
-        reloader.shutdown()
+        # Test with multiple files
+        app_second_file = app_dir / "file2.py"
+        app_second_file.touch()
+        assert self._reload_tester(touch_soon, reloader, app_file, app_second_file)
 
-@pytest.mark.skipif(WatchFilesReload is None, reason="watchfiles not available")
-@pytest.mark.parametrize("reloader_class", [WatchFilesReload])
-def test_should_not_reload_on_no_changes(touch_soon, caplog, tmp_path):
-    app_dir = tmp_path / "app"
-    app_file = app_dir / "file.py"
-    app_dir.mkdir()
-    app_file.touch()
-
-    with as_cwd(tmp_path):
-        config = Config(app="tests.test_config:asgi_app", reload=True, reload_includes=["app*"])
-        reloader = self._setup_reloader(config)
-
-        assert self._reload_tester(touch_soon, reloader, app_file)
-
-        sleep(0.2)  # Wait to ensure no changes are detected
-        assert not self._reload_tester(touch_soon, reloader, app_file)
-        assert caplog.records[-1].levelno == logging.DEBUG
-        assert caplog.records[-1].message == f"No changes detected for '{app_file.name}'; No reload."
+        # Test with a directory instead of a file
+        assert self._reload_tester(touch_soon, reloader, app_dir)
 
         reloader.shutdown()

@@ -4,6 +4,7 @@ from uvicorn.config import Config
 from uvicorn.supervisors.basereload import BaseReload
 from uvicorn.supervisors.watchfilesreload import WatchFilesReload
 from uvicorn.supervisors.watchgodreload import WatchGodReload
+from tests.utils.as_cwd import as_cwd
 
 class TestBaseReload:
     @pytest.fixture(autouse=True)
@@ -32,35 +33,32 @@ class TestBaseReload:
         return next(reloader)
 
     @pytest.mark.parametrize("reloader_class", [WatchFilesReload, WatchGodReload])
-    def test_reloader_should_trigger_on_file_change(self, touch_soon: Callable[[Path], None]) -> None:
+    def test_reloader_should_trigger_on_file_change(self, touch_soon) -> None:
         test_file = self.reload_path / "test_file.txt"
-        with as_cwd(self.reload_path):
-            config = Config(app="tests.test_config:asgi_app", reload=True)
-            reloader = self._setup_reloader(config)
+        config = Config(app="tests.test_config:asgi_app", reload=True)
+        reloader = self._setup_reloader(config)
 
-            assert self._reload_tester(touch_soon, reloader, test_file)
+        assert self._reload_tester(touch_soon, reloader, test_file)
 
-            reloader.shutdown()
+        reloader.shutdown()
 
     @pytest.mark.parametrize("reloader_class", [WatchFilesReload, WatchGodReload])
-    def test_reloader_should_not_trigger_on_excluded_file_change(self, touch_soon: Callable[[Path], None]) -> None:
+    def test_reloader_should_not_trigger_on_excluded_file_change(self, touch_soon) -> None:
         excluded_file = self.reload_path / "excluded_file.py"
-        with as_cwd(self.reload_path):
-            config = Config(app="tests.test_config:asgi_app", reload=True, reload_excludes=["*.py"])
-            reloader = self._setup_reloader(config)
+        config = Config(app="tests.test_config:asgi_app", reload=True, reload_excludes=["*.py"])
+        reloader = self._setup_reloader(config)
 
-            assert not self._reload_tester(touch_soon, reloader, excluded_file)
+        assert not self._reload_tester(touch_soon, reloader, excluded_file)
 
-            reloader.shutdown()
+        reloader.shutdown()
 
     @pytest.mark.parametrize("reloader_class", [WatchFilesReload, WatchGodReload])
-    def test_reloader_should_handle_multiple_file_changes(self, touch_soon: Callable[[Path], None]) -> None:
+    def test_reloader_should_handle_multiple_file_changes(self, touch_soon) -> None:
         file1 = self.reload_path / "file1.txt"
         file2 = self.reload_path / "file2.txt"
-        with as_cwd(self.reload_path):
-            config = Config(app="tests.test_config:asgi_app", reload=True)
-            reloader = self._setup_reloader(config)
+        config = Config(app="tests.test_config:asgi_app", reload=True)
+        reloader = self._setup_reloader(config)
 
-            assert self._reload_tester(touch_soon, reloader, file1, file2)
+        assert self._reload_tester(touch_soon, reloader, file1, file2)
 
-            reloader.shutdown()
+        reloader.shutdown()

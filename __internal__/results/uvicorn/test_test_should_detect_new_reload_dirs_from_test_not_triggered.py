@@ -30,7 +30,7 @@ def test_should_not_trigger_on_no_changes(touch_soon, caplog, tmp_path):
 
 @pytest.mark.skipif(WatchFilesReload is None, reason="watchfiles not available")
 @pytest.mark.parametrize("reloader_class", [WatchFilesReload])
-def test_should_handle_multiple_file_changes(touch_soon, caplog, tmp_path):
+def test_should_detect_multiple_file_changes(touch_soon, caplog, tmp_path):
     app_dir = tmp_path / "app"
     app_file1 = app_dir / "file1.py"
     app_file2 = app_dir / "file2.py"
@@ -49,6 +49,8 @@ def test_should_handle_multiple_file_changes(touch_soon, caplog, tmp_path):
         assert reloader.should_restart() is not None
 
         assert caplog.records[-1].levelno == logging.INFO
-        assert caplog.records[-1].message == "WatchGodReload detected changes in files; restarting."
+        assert (
+            caplog.records[-1].message == "WatchGodReload detected changes in files; restarting."
+        )
 
         reloader.shutdown()

@@ -14,7 +14,7 @@ class TestBaseReload:
         self.reloader_class = reloader_class
 
     def _setup_reloader(self, config: Config) -> BaseReload:
-        config.reload_delay = 0  # save time
+        config.reload_delay = 0
         reloader = self.reloader_class(config, target=run, sockets=[])
         assert config.should_reload
         reloader.startup()
@@ -72,12 +72,12 @@ class TestBaseReload:
             reloader.shutdown()
 
     @pytest.mark.parametrize("reloader_class", [WatchFilesReload, WatchGodReload])
-    def test_should_not_reload_when_no_files_are_changed(self, touch_soon) -> None:
+    def test_should_not_reload_when_no_files_changed(self, touch_soon) -> None:
         with as_cwd(self.reload_path):
             config = Config(
                 app="tests.test_config:asgi_app",
                 reload=True,
-                reload_includes=["*.py"],
+                reload_includes=["*"],
                 reload_excludes=["*.js"],
             )
             reloader = self._setup_reloader(config)

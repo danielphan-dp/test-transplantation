@@ -1,7 +1,6 @@
 import pytest
 from unittest.mock import Mock
 from pathlib import Path
-from time import sleep
 from uvicorn.config import Config
 from uvicorn.supervisors.basereload import BaseReload
 from uvicorn.supervisors.watchfilesreload import WatchFilesReload
@@ -11,6 +10,7 @@ from tests.utils.as_cwd import as_cwd
 def test_should_reload_when_python_file_in_included_dir_is_changed(self, touch_soon) -> None:
     included_dir = Path("app/included")
     included_file = included_dir / "included.py"
+    included_dir.mkdir(parents=True, exist_ok=True)
     included_file.touch()
 
     with as_cwd(included_dir):
@@ -27,7 +27,7 @@ def test_should_reload_when_python_file_in_included_dir_is_changed(self, touch_s
 
 @pytest.mark.parametrize('reloader_class', [WatchFilesReload])
 def test_should_not_reload_when_non_python_file_is_changed(self, touch_soon) -> None:
-    non_python_file = Path("app/included/image.jpg")
+    non_python_file = Path("app/included/non_python.txt")
     non_python_file.touch()
 
     with as_cwd(non_python_file.parent):
@@ -47,6 +47,7 @@ def test_should_reload_when_multiple_files_are_changed(self, touch_soon) -> None
     included_dir = Path("app/included")
     included_file1 = included_dir / "included1.py"
     included_file2 = included_dir / "included2.py"
+    included_dir.mkdir(parents=True, exist_ok=True)
     included_file1.touch()
     included_file2.touch()
 
