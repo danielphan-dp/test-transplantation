@@ -199,6 +199,76 @@ class UnitTestsGenerator:
             "host_test_teardown_method": host_test.get("teardown_method")
         })
 
+    def _create_baseline1_prompt_template(self) -> ChatPromptTemplate:
+        template = """You are tasked with generating a Python unit test. Generate ONLY the Python code without any explanations or markdown formatting.
+
+        This is a test generation task for the **host project method** . The goal is to improve the coverage of the method under test while utilizing relevant information from the host project's test code.
+
+        ---
+
+        **Method to Test (from {repo_name}):**
+        {method_under_test}
+
+        **Existing Host Test Code:**
+        {host_test_source_code}
+
+        **Host Test Information:**
+        1. Test Name: {host_test_name}
+        2. Module: {host_test_module}
+        3. Imports: {host_test_imports}
+        4. Assertions: {host_test_assertions}
+        5. Arguments: {host_test_arguments}
+        6. Fixtures: {host_test_fixtures}
+        7. Decorators: {host_test_decorators}
+        8. Setup Method: {host_test_setup_method}
+        9. Teardown Method: {host_test_teardown_method}
+
+        ---
+
+        ### Requirements:
+        1. **Leverage Host Test Information**: Use existing imports, structure, naming conventions, and argument/fixture usage from the host test where applicable.
+        2. **Avoid Duplication**: If the host test already tests certain aspects, focus on covering edge cases or alternative scenarios for the method.
+        3. **Increase Coverage**: Ensure the generated test improves test coverage by testing edge cases, negative cases, or underexplored aspects of the method.
+        5. Include any **necessary imports**, **fixtures**, or **mocks** to make the test runnable.
+        6. Generate ONLY the Python code without any explanations or markdown formatting.
+
+        ---
+
+        **Hint**: If the existing host test lacks sufficient coverage, expand upon it by generating as many unique test cases as possible.
+
+        Generate the test code now:
+        """
+
+        return ChatPromptTemplate.from_messages([
+            ("system", "You are a test generation assistant. Generate only Python code without any explanations or markdown formatting."),
+            ("user", template)
+        ])
+    
+
+    def generate_baseline1_test(self, repo_name: str, host_test) -> str:
+        """Generate a unit test for the given method using multiple sources of context"""
+        
+        method_under_test = host_test["methods_under_test"][0]["body"]
+
+        # Generate test using LLM with flattened parameters
+        chain = self.prompt | self.llm | StrOutputParser()
+        return chain.invoke({
+            "repo_name": repo_name,
+            "method_under_test": method_under_test,
+            
+            # Host Test Information
+            "host_test_name": host_test["name"],
+            "host_test_module": host_test["module"],
+            "host_test_source_code": host_test["source_code"],
+            "host_test_imports": host_test.get("imports", []),
+            "host_test_assertions": host_test.get("assertions", []),
+            "host_test_arguments": host_test.get("arguments", []),
+            "host_test_fixtures": host_test.get("fixtures", []),
+            "host_test_decorators": host_test.get("decorators", []),
+            "host_test_setup_method": host_test.get("setup_method"),
+            "host_test_teardown_method": host_test.get("teardown_method")
+        })
+
 
     def generator_processor(self, repo_name: str) -> None:
         """Process test pairs from JSON file and generate unit tests.
@@ -264,8 +334,31 @@ class UnitTestsGenerator:
             Path to the generated file
         """
         # Create sanitized filename from test names
-        # filename = f"test_{host_test_name}_from_{donor_test_name}.py"
-        filename = f"new_test_from_{donor_test_name}.py"
+        filename = f"test_{host_test_name}_from_{donor_test_name}.py"
+        # filename = f"new_test_from_{donor_test_name}.py"
+        filename = "".join(c if c.isalnum() or c in "._- " else "_" for c in filename)
+        
+        file_path = output_dir / filename
+        
+        # Write content to file
+        with open(file_path, 'w') as f:
+            f.write(generated_content)
+            
+        return str(file_path)
+
+    def baseline_file_generator(self, output_dir: Path, host_test_name: str, generated_content: str) -> str:
+        """Generate a file containing the test code.
+        
+        Args:
+            output_dir: Directory to write file to
+            host_test_name: Name of the host test
+            generated_content: The generated test content
+            
+        Returns:
+            Path to the generated file
+        """
+        # Create sanitized filename from test names
+        filename = f"test_{host_test_name}_new.py"
         filename = "".join(c if c.isalnum() or c in "._- " else "_" for c in filename)
         
         file_path = output_dir / filename
