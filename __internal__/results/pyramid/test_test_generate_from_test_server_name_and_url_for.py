@@ -1,0 +1,34 @@
+import unittest
+from pyramid.urldispatch import Route
+
+class TestRouteGenerate(unittest.TestCase):
+    def setUp(self):
+        self.route = Route('name', ':path')
+
+    def test_generate_with_valid_path(self):
+        result = self.route.generate({'path': 'abc'})
+        self.assertEqual(result, '/abc')
+
+    def test_generate_with_empty_path(self):
+        result = self.route.generate({'path': ''})
+        self.assertEqual(result, '/')
+
+    def test_generate_with_special_characters(self):
+        result = self.route.generate({'path': 'a/b/c'})
+        self.assertEqual(result, '/a/b/c')
+
+    def test_generate_with_encoded_characters(self):
+        result = self.route.generate({'path': ':@&+$,'})
+        self.assertEqual(result, '/:@&+$,')
+
+    def test_generate_with_multiple_segments(self):
+        result = self.route.generate({'path': 'segment1/segment2'})
+        self.assertEqual(result, '/segment1/segment2')
+
+    def test_generate_with_non_string_path(self):
+        with self.assertRaises(TypeError):
+            self.route.generate({'path': 123})
+
+    def test_generate_with_none_path(self):
+        with self.assertRaises(TypeError):
+            self.route.generate({'path': None})
