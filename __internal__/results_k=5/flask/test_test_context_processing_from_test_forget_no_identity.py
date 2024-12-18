@@ -5,26 +5,24 @@ import pytest
 def client(app):
     return app.test_client()
 
-def test_get_session_value_none(client):
-    response = client.get('/get')
-    assert response.data == b'None'
-
-def test_get_session_value_set(client):
+def test_get_value_from_session(client):
     with client.session_transaction() as session:
-        session['value'] = 'Test Value'
-    response = client.get('/get')
-    assert response.data == b'Test Value'
+        session['value'] = 'test_value'
+    rv = client.get('/get')
+    assert rv.data == b'test_value'
 
-def test_get_session_value_empty(client):
+def test_get_value_not_set(client):
+    rv = client.get('/get')
+    assert rv.data == b'None'
+
+def test_get_value_empty_string(client):
     with client.session_transaction() as session:
         session['value'] = ''
-    response = client.get('/get')
-    assert response.data == b''
+    rv = client.get('/get')
+    assert rv.data == b''
 
-def test_get_session_value_overwrite(client):
+def test_get_value_none(client):
     with client.session_transaction() as session:
-        session['value'] = 'Initial Value'
-    with client.session_transaction() as session:
-        session['value'] = 'Overwritten Value'
-    response = client.get('/get')
-    assert response.data == b'Overwritten Value'
+        session['value'] = None
+    rv = client.get('/get')
+    assert rv.data == b'None'

@@ -8,17 +8,20 @@ def client(app):
 def test_get_value_from_session(client):
     with client.session_transaction() as session:
         session['value'] = 'test_value'
-    
-    response = client.get('/get')
-    assert response.data == b'test_value'
+    rv = client.get('/get')
+    assert rv.data == b'test_value'
 
 def test_get_value_not_set(client):
-    response = client.get('/get')
-    assert response.data == b'None'
+    rv = client.get('/get')
+    assert rv.data == b'None'
 
-def test_get_value_empty_string(client):
+def test_get_value_overwrite(client):
     with client.session_transaction() as session:
-        session['value'] = ''
+        session['value'] = 'initial_value'
+    rv = client.get('/get')
+    assert rv.data == b'initial_value'
     
-    response = client.get('/get')
-    assert response.data == b''
+    with client.session_transaction() as session:
+        session['value'] = 'new_value'
+    rv = client.get('/get')
+    assert rv.data == b'new_value'

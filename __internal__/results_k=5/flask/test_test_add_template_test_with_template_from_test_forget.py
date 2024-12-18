@@ -1,34 +1,24 @@
-import pytest
 import flask
+import pytest
 
 @pytest.fixture
 def client(app):
     return app.test_client()
 
-def test_get_session_value_none(client):
-    response = client.get('/get')
-    assert response.data == b'None'
-
-def test_get_session_value_set(client):
+def test_get_value_from_session(client):
     with client.session_transaction() as session:
         session['value'] = 'test_value'
-    response = client.get('/get')
-    assert response.data == b'test_value'
+    
+    rv = client.get('/get')
+    assert rv.data == b'test_value'
 
-def test_get_session_value_empty(client):
-    with client.session_transaction() as session:
-        session['value'] = ''
-    response = client.get('/get')
-    assert response.data == b''
+def test_get_value_not_set(client):
+    rv = client.get('/get')
+    assert rv.data == b'None'
 
-def test_get_session_value_nonexistent(client):
-    response = client.get('/get')
-    assert response.data == b'None'  # Testing default value when session key does not exist
-
-def test_get_session_value_overwrite(client):
+def test_get_value_with_none(client):
     with client.session_transaction() as session:
-        session['value'] = 'initial_value'
-    with client.session_transaction() as session:
-        session['value'] = 'new_value'
-    response = client.get('/get')
-    assert response.data == b'new_value'
+        session['value'] = None
+    
+    rv = client.get('/get')
+    assert rv.data == b'None'
