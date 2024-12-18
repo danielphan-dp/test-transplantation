@@ -1,11 +1,40 @@
 #!/bin/bash
 
+echo "----- BATCH JOB LOG: SETUP PERMISSIONS... -----"
 chmod +x ./parallel_clone_repos.sh
 chmod +x ./parallel_setup_repo_envs.sh
 chmod +x ./parallel_run_tests.sh
 chmod +x ./parallel_analyze_tests.sh
+echo "----- BATCH JOB LOG: SETUP PERMISSIONS COMPLETED -----"
 
-./parallel_clone_repos.sh
-./parallel_setup_repo_envs.sh
-./parallel_run_tests.sh
-./parallel_analyze_tests.sh
+
+echo "----- BATCH JOB LOG: SETTING PARALLEL PROCESSES... -----"
+CLONE_PARALLEL_PROCESSES=10
+SETUP_REPO_ENVS_PARALLEL_PROCESSES=10
+RUN_TESTS_PARALLEL_PROCESSES=10
+ANALYZE_TESTS_PARALLEL_PROCESSES=10
+echo "CLONE_PARALLEL_PROCESSES: $CLONE_PARALLEL_PROCESSES"
+echo "SETUP_REPO_ENVS_PARALLEL_PROCESSES: $SETUP_REPO_ENVS_PARALLEL_PROCESSES"
+echo "RUN_TESTS_PARALLEL_PROCESSES: $RUN_TESTS_PARALLEL_PROCESSES"
+echo "ANALYZE_TESTS_PARALLEL_PROCESSES: $ANALYZE_TESTS_PARALLEL_PROCESSES"
+echo "----- BATCH JOB LOG: SETTING PARALLEL PROCESSES COMPLETED -----"
+
+
+echo "----- BATCH JOB LOG: CLONE PROCESSES STARTING... -----"
+./parallel_clone_repos.sh $CLONE_PARALLEL_PROCESSES
+echo "----- BATCH JOB LOG: CLONE PROCESSES COMPLETED -----"
+
+
+echo "----- BATCH JOB LOG: SETUP REPO ENV PROCESSES STARTING... -----"
+./parallel_setup_repo_envs.sh $SETUP_REPO_ENVS_PARALLEL_PROCESSES
+echo "----- BATCH JOB LOG: SETUP REPO ENV PROCESSES COMPLETED -----"
+
+
+echo "----- BATCH JOB LOG: RUN TESTS PROCESSES STARTING... -----"
+./parallel_run_tests.sh $RUN_TESTS_PARALLEL_PROCESSES
+echo "----- BATCH JOB LOG: RUN TESTS PROCESSES COMPLETED -----"
+
+
+echo "----- BATCH JOB LOG: ANALYZE TESTS PROCESSES STARTING... -----"
+./parallel_analyze_tests.sh $ANALYZE_TESTS_PARALLEL_PROCESSES
+echo "----- BATCH JOB LOG: ANALYZE TESTS PROCESSES COMPLETED -----"

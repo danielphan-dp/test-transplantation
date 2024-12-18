@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Parse command line argument for MAX_PARALLEL_PROCESSES
+# Default to 8 if not provided
+MAX_PARALLEL_PROCESSES=${1:-8}
+
+
+# Add debug output
+set -x  # This will print each command as it's executed
 REPOS=(
     "spec-first/connexion"
     "tiangolo/fastapi"
@@ -11,9 +18,22 @@ REPOS=(
     "benoitc/gunicorn"
     "encode/uvicorn"
 )
-
 BASE_DIR="__internal__/_data"
 LOGS_DIR="__internal__/_setup_logs/_clone_repos_logs"
+
+
+# Print parallel job processing configuration
+echo "Configuration:"
+echo "MAX_PARALLEL_PROCESSES: $MAX_PARALLEL_PROCESSES"
+echo "BASE_DIR: $BASE_DIR"
+echo "LOGS_DIR: $LOGS_DIR"
+
+
+# Add debug output for directory creation
+echo "Creating directories:"
+echo "BASE_DIR: $BASE_DIR"
+echo "LOGS_DIR: $LOGS_DIR"
+
 
 # Create base and logs directories if they don't exist
 mkdir -p "$BASE_DIR"
@@ -46,24 +66,30 @@ clone_repo() {
     return ${PIPESTATUS[0]}
 }
 
-# Array to store process IDs and their corresponding repo names
-declare -A pids
-failed_repos=()
 
-# Main execution with parallelization
+# Replace the manual parallel implementation with GNU parallel
 echo "Starting parallel repository cloning to $BASE_DIR/. Logs will be written to $LOGS_DIR/"
-for repo in "${REPOS[@]}"; do
-    clone_repo "$repo" &
-    pids[$!]=$repo
-done
 
-# Wait for all background processes and check their exit status
-for pid in "${!pids[@]}"; do
-    wait $pid
-    if [ $? -ne 0 ]; then
-        failed_repos+=("${pids[$pid]}")
+
+# Export the functions and variables so parallel can use them
+export -f clone_repo
+export BASE_DIR LOGS_DIR
+
+
+# Use parallel to clone repos with max 8 jobs
+printf '%s\n' "${REPOS[@]}" | parallel -j $MAX_PARALLEL_PROCESSES clone_repo
+
+
+# Check for any failures in the log files
+failed_repos=()
+for repo in "${REPOS[@]}"; do
+    repo_name=$(echo "$repo" | cut -d'/' -f2)
+    log_file="$LOGS_DIR/${repo_name}.log"
+    if grep -q "fatal\|error" "$log_file" 2>/dev/null; then
+        failed_repos+=("$repo")
     fi
 done
+
 
 # Report results
 echo "All clone operations completed!"

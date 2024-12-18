@@ -461,22 +461,30 @@ process_repo() {
     return ${PIPESTATUS[0]}
 }
 
-# Array to store process IDs and their corresponding repo names
-declare -A pids
-failed_repos=()
+# Export functions and variables for GNU parallel
+export -f process_repo create_venv activate_and_install cleanup_and_deactivate
+export -f setup_fastapi setup_uvicorn setup_connexion setup_flask setup_gunicorn
+export -f setup_pyramid setup_sanic setup_starlette setup_tornado
+export BASE_DIR LOGS_DIR
 
-# Main execution with parallelization
+# Default to 8 parallel processes if not specified
+MAX_PARALLEL_PROCESSES=${1:-8}
+
+echo "Configuration:"
+echo "MAX_PARALLEL_PROCESSES: $MAX_PARALLEL_PROCESSES"
+echo "BASE_DIR: $BASE_DIR"
+echo "LOGS_DIR: $LOGS_DIR"
+
+# Use GNU parallel to process repos
 echo "Starting parallel processing. Logs will be written to $LOGS_DIR/"
-for repo in "${REPOS[@]}"; do
-    process_repo "$repo" &
-    pids[$!]=$repo
-done
+printf '%s\n' "${REPOS[@]}" | parallel -j "$MAX_PARALLEL_PROCESSES" process_repo
 
-# Wait for all background processes and check their exit status
-for pid in "${!pids[@]}"; do
-    wait $pid
-    if [ $? -ne 0 ]; then
-        failed_repos+=("${pids[$pid]}")
+# Check for failures in log files
+failed_repos=()
+for repo in "${REPOS[@]}"; do
+    log_file="$LOGS_DIR/${repo}.log"
+    if grep -q "error\|failed\|failure" "$log_file" 2>/dev/null; then
+        failed_repos+=("$repo")
     fi
 done
 
