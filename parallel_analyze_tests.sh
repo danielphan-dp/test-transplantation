@@ -32,17 +32,12 @@ TIMEOUT=$((60 * 60 * 24 * 7))  # 7 days in seconds
 # | Helper Functions |
 # --------------------
 analyze_framework() {
-    set +e
-
     local repo=$1
     local env_name="venv-${repo}"
     local input_dir="${BASE_DIR}/${repo}"
     local output_dir="${TESTS_DIR}/${repo}"
     local log_file="${LOGS_DIR}/${repo}.log"
     
-    local analysis_status=0
-    
-    # Use nohup to keep process running after terminal closes
     {
         echo "=== Analyzing tests for ${repo} ==="
         echo "Start time: $(date)"
@@ -50,12 +45,11 @@ analyze_framework() {
         # Store the original directory
         ORIGINAL_DIR=$(pwd)
         
-        cd "$BASE_DIR/$repo" || { analysis_status=1; exit $analysis_status; }
+        cd "$BASE_DIR/$repo" || return 1
         
         if [ ! -f "${env_name}/bin/activate" ]; then
             echo "Error: Virtual environment not found for ${repo}"
-            analysis_status=1
-            exit $analysis_status
+            return 1
         fi
         
         # Activate the framework's virtual environment
@@ -75,58 +69,58 @@ analyze_framework() {
         # Create output directory
         mkdir -p "$output_dir"
         
-        # Run the analysis with timeout using nohup
-        nohup timeout $TIMEOUT python -m src.gluon.collect_tests.hybrid_analysis \
+        # Run the analysis with timeout
+        timeout $TIMEOUT python -m src.gluon.collect_tests.hybrid_analysis \
             --input-dir "$input_dir" \
-            --output-dir "$output_dir" \
-            </dev/null >/dev/null 2>&1 &
+            --output-dir "$output_dir"
 
-        analysis_status=$?
+        local analysis_status=$?
 
         deactivate
-
+        
         if [ $analysis_status -eq 124 ]; then
             echo "Analysis timed out after ${TIMEOUT} seconds"
-            analysis_status=1
+            return 1
         fi
         
         echo "End time: $(date)"
         echo "=== Finished analyzing ${repo} ==="
 
-        exit $analysis_status
+        return $analysis_status
 
     } &> "$log_file"
-
-    set -e
     
-    return $?
+    return ${PIPESTATUS[0]}
 }
 
+# Export function and variables for GNU parallel
+export -f analyze_framework
+export BASE_DIR TESTS_DIR LOGS_DIR TIMEOUT PYTHONPATH
 
-# ---------------
-# | Main Script |
-# ---------------
-mkdir -p "$BASE_DIR" "$TESTS_DIR" "$LOGS_DIR"
+# Default to 8 parallel processes if not specified
+MAX_PARALLEL_PROCESSES=${1:-8}
 
-# Run all frameworks in parallel immediately
+# Create required directories
+mkdir -p "$BASE_DIR"
+mkdir -p "$TESTS_DIR"
+mkdir -p "$LOGS_DIR"
+
+echo "Configuration:"
+echo "MAX_PARALLEL_PROCESSES: $MAX_PARALLEL_PROCESSES"
+echo "BASE_DIR: $BASE_DIR"
+echo "TESTS_DIR: $TESTS_DIR"
+echo "LOGS_DIR: $LOGS_DIR"
+
+# Use GNU parallel to run analyses
 echo "Starting parallel analysis. Logs will be written to $LOGS_DIR/"
-declare -A pids
+printf '%s\n' "${REPOS[@]}" | parallel -j "$MAX_PARALLEL_PROCESSES" analyze_framework
+
+# Check for failures in log files
 failed_repos=()
-
-# This part IS parallel - each framework runs in parallel
 for repo in "${REPOS[@]}"; do
-    echo "Starting analysis for $repo..."
-    analyze_framework "$repo" &  # The & makes it run in background
-    pids[$!]=$repo
-done
-
-# Wait for all background processes
-for pid in "${!pids[@]}"; do
-    if wait $pid; then
-        echo "✅ ${pids[$pid]} completed successfully"
-    else
-        failed_repos+=("${pids[$pid]}")
-        echo "❌ ${pids[$pid]} failed"
+    log_file="$LOGS_DIR/${repo}.log"
+    if ! grep -q "=== Finished analyzing ${repo} ===" "$log_file" 2>/dev/null; then
+        failed_repos+=("$repo")
     fi
 done
 
@@ -135,7 +129,7 @@ echo "All analyses completed!"
 if [ ${#failed_repos[@]} -eq 0 ]; then
     echo "✅ All repository analyses completed successfully!"
 else
-    echo "�� Analysis failed for the following repositories:"
+    echo "Analysis failed for the following repositories:"
     printf '%s\n' "${failed_repos[@]}"
     echo "Check individual log files in $LOGS_DIR/ for details"
     exit 1
