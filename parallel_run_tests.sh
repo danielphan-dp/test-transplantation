@@ -23,90 +23,67 @@ run_tests() {
     local env_name="venv-${repo}"
     local log_file="$LOGS_DIR/${repo}.log"
     
-    case "$repo" in
-        "tornado")
-            {
-                echo "=== Running tests for tornado ==="
-                echo "Start time: $(date)"
-                
-                cd "$BASE_DIR/$repo" || return 1
-                
-                if [ ! -f "${env_name}/bin/activate" ]; then
-                    echo "Error: Virtual environment not found for tornado"
-                    return 1
-                fi
-                
-                source "${env_name}/bin/activate"
-                
-                # Run tornado's test suite using its test module
-                echo "Running tornado tests..."
-                python -m pytest tornado/test
-                
-                local test_status=$?
-                
-                deactivate
-                
-                cd - > /dev/null
-                
-                echo "End time: $(date)"
-                echo "=== Finished testing tornado ===\n"
-                
-                return $test_status
-                
-            } &> "$log_file"
-            ;;
-        *)
-            # Original test logic for other repos
-            {
-                echo "=== Running tests for $repo ==="
-                echo "Start time: $(date)"
-                
-                cd "$BASE_DIR/$repo" || return 1
-                
-                if [ ! -f "${env_name}/bin/activate" ]; then
-                    echo "Error: Virtual environment not found for $repo"
-                    return 1
-                fi
-                
-                source "${env_name}/bin/activate"
-                
-                echo "Running pytest for $repo..."
-                python -m pytest tests/ -v
-                
-                local test_status=$?
-                
-                deactivate
-                
-                cd - > /dev/null
-                
-                echo "End time: $(date)"
-                echo "=== Finished testing $repo ===\n"
-                
-                return $test_status
-                
-            } &> "$log_file"
-            ;;
-    esac
+    {
+        echo "=== Running tests for $repo ==="
+        echo "Start time: $(date)"
+        
+        cd "$BASE_DIR/$repo" || return 1
+        
+        if [ ! -f "${env_name}/bin/activate" ]; then
+            echo "Error: Virtual environment not found for $repo"
+            return 1
+        fi
+        
+        source "${env_name}/bin/activate"
+        
+        # Special handling for tornado
+        if [ "$repo" = "tornado" ]; then
+            echo "Running tornado tests..."
+            python -m pytest tornado/test
+        else
+            echo "Running pytest for $repo..."
+            python -m pytest tests/ -v
+        fi
+        
+        local test_status=$?
+        
+        deactivate
+        
+        cd - > /dev/null
+        
+        echo "End time: $(date)"
+        echo "=== Finished testing $repo ===\n"
+        
+        return $test_status
+        
+    } &> "$log_file"
     
     return ${PIPESTATUS[0]}
 }
 
-# Array to store process IDs and their corresponding repo names
-declare -A pids
-failed_repos=()
+# Export function and variables for GNU parallel
+export -f run_tests
+export BASE_DIR LOGS_DIR
 
-# Main execution with parallelization
+# Default to 8 parallel processes if not specified
+MAX_PARALLEL_PROCESSES=${1:-8}
+
+echo "Configuration:"
+echo "MAX_PARALLEL_PROCESSES: $MAX_PARALLEL_PROCESSES"
+echo "BASE_DIR: $BASE_DIR"
+echo "LOGS_DIR: $LOGS_DIR"
+
+# Use GNU parallel to run tests
 echo "Starting parallel test runs. Logs will be written to $LOGS_DIR/"
-for repo in "${REPOS[@]}"; do
-    run_tests "$repo" &
-    pids[$!]=$repo
-done
+printf '%s\n' "${REPOS[@]}" | parallel -j "$MAX_PARALLEL_PROCESSES" run_tests
 
-# Wait for all background processes and check their exit status
-for pid in "${!pids[@]}"; do
-    wait $pid
-    if [ $? -ne 0 ]; then
-        failed_repos+=("${pids[$pid]}")
+# Check for failures in log files
+failed_repos=()
+for repo in "${REPOS[@]}"; do
+    log_file="$LOGS_DIR/${repo}.log"
+    if ! grep -q "=== Finished testing $repo ===" "$log_file" 2>/dev/null || \
+       grep -q "FAILED" "$log_file" 2>/dev/null; then
+        failed_repos+=("$repo")
     fi
 done
 
@@ -119,4 +96,4 @@ else
     printf '%s\n' "${failed_repos[@]}"
     echo "Check individual log files in $LOGS_DIR/ for details"
     exit 1
-fi 
+fi
