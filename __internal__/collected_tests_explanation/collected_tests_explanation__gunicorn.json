@@ -1,0 +1,1549 @@
+{
+    "tests": [
+        {
+            "repo_name": "gunicorn",
+            "name": "test_create_sockets_unix_bytes",
+            "module": "test_sock",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_sock.py",
+            "line_number": 11,
+            "end_line_number": 18,
+            "source_code": "def test_create_sockets_unix_bytes(stat):\n    conf = mock.Mock(address=[b'127.0.0.1:8000'])\n    log = mock.Mock()\n    with mock.patch.object(sock.UnixSocket, '__init__', lambda *args: None):\n        listeners = sock.create_sockets(conf, log)\n        assert len(listeners) == 1\n        print(type(listeners[0]))\n        assert isinstance(listeners[0], sock.UnixSocket)",
+            "docstring": null,
+            "decorators": [
+                "mock.patch('os.stat')"
+            ],
+            "arguments": [
+                "stat"
+            ],
+            "imports": [
+                "unittest.mock",
+                "gunicorn.sock"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert len(listeners) == 1",
+                "assert isinstance(listeners[0], sock.UnixSocket)"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [
+                "mock.patch('os.stat')",
+                "mock.Mock(address=[b'127.0.0.1:8000'])",
+                "mock.Mock()"
+            ],
+            "methods_under_test": [
+                {
+                    "name": "len",
+                    "body": "def len(self):\n    return self.tmp.len",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `len` method is designed to return the length of a specific attribute (`tmp.len`) from the instance of the class it belongs to. This is typically used to provide a way to access the length of a data structure or collection managed by the class.\n\n**How It Works**:\nWhen the `len` method is called, it accesses the `tmp` attribute of the instance (which is expected to be an object with a `len` attribute) and returns its value. This method is likely intended to be used in conjunction with Python's built-in `len()` function, allowing users to retrieve the length of the `tmp` attribute in a straightforward manner. The method assumes that `self.tmp` is properly initialized and has a `len` attribute that holds the desired length value."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_create_sockets_unix_strings",
+            "module": "test_sock",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_sock.py",
+            "line_number": 22,
+            "end_line_number": 28,
+            "source_code": "def test_create_sockets_unix_strings(stat):\n    conf = mock.Mock(address=['127.0.0.1:8000'])\n    log = mock.Mock()\n    with mock.patch.object(sock.UnixSocket, '__init__', lambda *args: None):\n        listeners = sock.create_sockets(conf, log)\n        assert len(listeners) == 1\n        assert isinstance(listeners[0], sock.UnixSocket)",
+            "docstring": null,
+            "decorators": [
+                "mock.patch('os.stat')"
+            ],
+            "arguments": [
+                "stat"
+            ],
+            "imports": [
+                "unittest.mock",
+                "gunicorn.sock"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert len(listeners) == 1",
+                "assert isinstance(listeners[0], sock.UnixSocket)"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [
+                "mock.patch('os.stat')",
+                "mock.Mock(address=['127.0.0.1:8000'])",
+                "mock.Mock()"
+            ],
+            "methods_under_test": [
+                {
+                    "name": "len",
+                    "body": "def len(self):\n    return self.tmp.len",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `len` method is designed to return the length of a specific attribute (`tmp.len`) from the instance of the class it belongs to. This method provides a way to access the length property in a controlled manner.\n\n**How It Works**:\nWhen the `len` method is called, it retrieves the value of `self.tmp.len`, which is expected to be an integer representing the length of some data or collection. This allows users to easily obtain the length without directly accessing the `tmp` attribute, promoting encapsulation and potentially allowing for additional logic or validation in the future."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_listen_fds_ignores_wrong_pid",
+            "module": "test_systemd",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_systemd.py",
+            "line_number": 44,
+            "end_line_number": 50,
+            "source_code": "def test_listen_fds_ignores_wrong_pid(unset):\n    with mock.patch.dict(os.environ):\n        os.environ['LISTEN_FDS'] = str(5)\n        os.environ['LISTEN_PID'] = str(1)\n        with check_environ(False):  # early exit \u2014 never changes the environment\n            assert systemd.listen_fds(unset) == 0, \\\n                \"should ignore listen fds not intended for this pid\"",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('unset', [True, False])"
+            ],
+            "arguments": [
+                "unset"
+            ],
+            "imports": [
+                "contextlib.contextmanager",
+                "os",
+                "unittest.mock",
+                "pytest",
+                "gunicorn.systemd"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert systemd.listen_fds(unset) == 0, 'should ignore listen fds not intended for this pid'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "check_environ",
+                    "body": "@contextmanager\ndef check_environ(unset=True):\n    \"\"\"\n    A context manager that asserts post-conditions of ``listen_fds`` at exit.\n\n    This helper is used to ease checking of the test post-conditions for the\n    systemd socket activation tests that parametrize the call argument.\n    \"\"\"\n    with mock.patch.dict(os.environ):\n        old_fds = os.environ.get('LISTEN_FDS', None)\n        old_pid = os.environ.get('LISTEN_PID', None)\n        yield\n        if unset:\n            assert 'LISTEN_FDS' not in os.environ, 'LISTEN_FDS should have been unset'\n            assert 'LISTEN_PID' not in os.environ, 'LISTEN_PID should have been unset'\n        else:\n            new_fds = os.environ.get('LISTEN_FDS', None)\n            new_pid = os.environ.get('LISTEN_PID', None)\n            assert new_fds == old_fds, 'LISTEN_FDS should not have been changed'\n            assert new_pid == old_pid, 'LISTEN_PID should not have been changed'",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `check_environ` method is a context manager designed to validate the state of specific environment variables (`LISTEN_FDS` and `LISTEN_PID`) after exiting a block of code. It is particularly useful for testing scenarios involving systemd socket activation, ensuring that these environment variables are either unset or remain unchanged based on the provided parameter.\n\n**How It Works**:\nThe method uses the `@contextmanager` decorator to create a context manager. Inside the context, it temporarily patches the environment variables using `mock.patch.dict`. It captures the initial values of `LISTEN_FDS` and `LISTEN_PID` before yielding control back to the block of code that uses the context manager. After the block executes, it checks the state of the environment variables:\n- If `unset` is `True`, it asserts that both variables are no longer present in the environment.\n- If `unset` is `False`, it verifies that the values of these variables remain unchanged from their original state. This allows for robust testing of code that interacts with systemd's socket activation mechanism."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_listen_fds_returns_count",
+            "module": "test_systemd",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_systemd.py",
+            "line_number": 54,
+            "end_line_number": 60,
+            "source_code": "def test_listen_fds_returns_count(unset):\n    with mock.patch.dict(os.environ):\n        os.environ['LISTEN_FDS'] = str(5)\n        os.environ['LISTEN_PID'] = str(os.getpid())\n        with check_environ(unset):\n            assert systemd.listen_fds(unset) == 5, \\\n                \"should return the correct count of fds\"",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('unset', [True, False])"
+            ],
+            "arguments": [
+                "unset"
+            ],
+            "imports": [
+                "contextlib.contextmanager",
+                "os",
+                "unittest.mock",
+                "pytest",
+                "gunicorn.systemd"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert systemd.listen_fds(unset) == 5, 'should return the correct count of fds'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "check_environ",
+                    "body": "@contextmanager\ndef check_environ(unset=True):\n    \"\"\"\n    A context manager that asserts post-conditions of ``listen_fds`` at exit.\n\n    This helper is used to ease checking of the test post-conditions for the\n    systemd socket activation tests that parametrize the call argument.\n    \"\"\"\n    with mock.patch.dict(os.environ):\n        old_fds = os.environ.get('LISTEN_FDS', None)\n        old_pid = os.environ.get('LISTEN_PID', None)\n        yield\n        if unset:\n            assert 'LISTEN_FDS' not in os.environ, 'LISTEN_FDS should have been unset'\n            assert 'LISTEN_PID' not in os.environ, 'LISTEN_PID should have been unset'\n        else:\n            new_fds = os.environ.get('LISTEN_FDS', None)\n            new_pid = os.environ.get('LISTEN_PID', None)\n            assert new_fds == old_fds, 'LISTEN_FDS should not have been changed'\n            assert new_pid == old_pid, 'LISTEN_PID should not have been changed'",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `check_environ` method is a context manager designed to validate the state of specific environment variables (`LISTEN_FDS` and `LISTEN_PID`) after exiting a block of code. It is particularly useful for testing scenarios involving systemd socket activation, ensuring that these environment variables are either unset or remain unchanged based on the provided parameter.\n\n**How It Works**:\n1. The method uses the `@contextmanager` decorator to define a context manager that temporarily modifies the environment variables within its scope.\n2. It captures the current values of `LISTEN_FDS` and `LISTEN_PID` before yielding control back to the block of code that uses the context manager.\n3. After the block of code executes, it checks the state of the environment variables:\n   - If `unset` is `True`, it asserts that both variables are no longer present in the environment.\n   - If `unset` is `False`, it verifies that the values of these variables remain unchanged from their original state.\n4. This ensures that the tests can reliably check the behavior of code that interacts with these environment variables without side effects."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_instrument",
+            "module": "test_statsd",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+            "line_number": 85,
+            "end_line_number": 117,
+            "source_code": "def test_instrument():\n    logger = Statsd(Config())\n    # Capture logged messages\n    sio = io.StringIO()\n    logger.error_log.addHandler(logging.StreamHandler(sio))\n    logger.sock = MockSocket(False)\n\n    # Regular message\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"\n    logger.sock.reset()\n\n    # Only metrics, no logging\n    logger.info(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    # Debug logging also supports metrics\n    logger.debug(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.debug\", \"value\": 667})\n    assert logger.sock.msgs[0] == b\"gunicorn.debug:667|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    logger.critical(\"Boom\")\n    assert logger.sock.msgs[0] == b\"gunicorn.log.critical:1|c|@1.0\"\n    logger.sock.reset()\n\n    logger.access(SimpleNamespace(status=\"200 OK\"), None, {}, timedelta(seconds=7))\n    assert logger.sock.msgs[0] == b\"gunicorn.request.duration:7000.0|ms\"\n    assert logger.sock.msgs[1] == b\"gunicorn.requests:1|c|@1.0\"\n    assert logger.sock.msgs[2] == b\"gunicorn.request.status.200:1|c|@1.0\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "logging",
+                "os",
+                "shutil",
+                "socket",
+                "tempfile",
+                "datetime.timedelta",
+                "types.SimpleNamespace",
+                "gunicorn.config.Config",
+                "gunicorn.instrument.statsd.Statsd"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.debug:667|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.log.critical:1|c|@1.0'",
+                "assert logger.sock.msgs[0] == b'gunicorn.request.duration:7000.0|ms'",
+                "assert logger.sock.msgs[1] == b'gunicorn.requests:1|c|@1.0'",
+                "assert logger.sock.msgs[2] == b'gunicorn.request.status.200:1|c|@1.0'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "logger.sock.reset",
+                    "body": "def reset(self):\n    self.msgs = []",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `reset` method is designed to clear the internal message storage of the logger by resetting the `msgs` attribute to an empty list. This is useful for reinitializing the logger's state, allowing it to start fresh without any previously stored messages.\n\n**How It Works**:\nWhen the `reset` method is called, it sets the instance variable `self.msgs` to an empty list (`[]`). This effectively removes all previously logged messages, making the logger ready to collect new messages without any interference from old data. This method is typically used in scenarios where the logger needs to be refreshed, such as during a reload of the application or when changing logging configurations."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_instrument",
+            "module": "test_statsd",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+            "line_number": 85,
+            "end_line_number": 117,
+            "source_code": "def test_instrument():\n    logger = Statsd(Config())\n    # Capture logged messages\n    sio = io.StringIO()\n    logger.error_log.addHandler(logging.StreamHandler(sio))\n    logger.sock = MockSocket(False)\n\n    # Regular message\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"\n    logger.sock.reset()\n\n    # Only metrics, no logging\n    logger.info(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    # Debug logging also supports metrics\n    logger.debug(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.debug\", \"value\": 667})\n    assert logger.sock.msgs[0] == b\"gunicorn.debug:667|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    logger.critical(\"Boom\")\n    assert logger.sock.msgs[0] == b\"gunicorn.log.critical:1|c|@1.0\"\n    logger.sock.reset()\n\n    logger.access(SimpleNamespace(status=\"200 OK\"), None, {}, timedelta(seconds=7))\n    assert logger.sock.msgs[0] == b\"gunicorn.request.duration:7000.0|ms\"\n    assert logger.sock.msgs[1] == b\"gunicorn.requests:1|c|@1.0\"\n    assert logger.sock.msgs[2] == b\"gunicorn.request.status.200:1|c|@1.0\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "logging",
+                "os",
+                "shutil",
+                "socket",
+                "tempfile",
+                "datetime.timedelta",
+                "types.SimpleNamespace",
+                "gunicorn.config.Config",
+                "gunicorn.instrument.statsd.Statsd"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.debug:667|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.log.critical:1|c|@1.0'",
+                "assert logger.sock.msgs[0] == b'gunicorn.request.duration:7000.0|ms'",
+                "assert logger.sock.msgs[1] == b'gunicorn.requests:1|c|@1.0'",
+                "assert logger.sock.msgs[2] == b'gunicorn.request.status.200:1|c|@1.0'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "logger.sock.reset",
+                    "body": "def reset(self):\n    self.msgs = []",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `reset` method is designed to clear the internal message storage of the logger by resetting the `msgs` attribute to an empty list. This is useful for reinitializing the logger's state, allowing it to start fresh without any previously stored messages.\n\n**How It Works**:\nWhen the `reset` method is called, it sets the `msgs` attribute (which presumably holds logged messages) to an empty list (`[]`). This effectively removes all previously logged messages, preparing the logger for a new session of logging without any residual data from prior operations. This method is likely used in scenarios where the logger needs to be refreshed, such as during a reload of the application or when changing logging configurations."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_instrument",
+            "module": "test_statsd",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+            "line_number": 85,
+            "end_line_number": 117,
+            "source_code": "def test_instrument():\n    logger = Statsd(Config())\n    # Capture logged messages\n    sio = io.StringIO()\n    logger.error_log.addHandler(logging.StreamHandler(sio))\n    logger.sock = MockSocket(False)\n\n    # Regular message\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"\n    logger.sock.reset()\n\n    # Only metrics, no logging\n    logger.info(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    # Debug logging also supports metrics\n    logger.debug(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.debug\", \"value\": 667})\n    assert logger.sock.msgs[0] == b\"gunicorn.debug:667|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    logger.critical(\"Boom\")\n    assert logger.sock.msgs[0] == b\"gunicorn.log.critical:1|c|@1.0\"\n    logger.sock.reset()\n\n    logger.access(SimpleNamespace(status=\"200 OK\"), None, {}, timedelta(seconds=7))\n    assert logger.sock.msgs[0] == b\"gunicorn.request.duration:7000.0|ms\"\n    assert logger.sock.msgs[1] == b\"gunicorn.requests:1|c|@1.0\"\n    assert logger.sock.msgs[2] == b\"gunicorn.request.status.200:1|c|@1.0\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "logging",
+                "os",
+                "shutil",
+                "socket",
+                "tempfile",
+                "datetime.timedelta",
+                "types.SimpleNamespace",
+                "gunicorn.config.Config",
+                "gunicorn.instrument.statsd.Statsd"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.debug:667|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.log.critical:1|c|@1.0'",
+                "assert logger.sock.msgs[0] == b'gunicorn.request.duration:7000.0|ms'",
+                "assert logger.sock.msgs[1] == b'gunicorn.requests:1|c|@1.0'",
+                "assert logger.sock.msgs[2] == b'gunicorn.request.status.200:1|c|@1.0'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "logger.sock.reset",
+                    "body": "def reset(self):\n    self.msgs = []",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `reset` method is designed to clear the internal message storage of the logger by resetting the `msgs` attribute to an empty list. This is useful for reinitializing the logger's state, allowing it to start fresh without any previously stored messages.\n\n**How It Works**:\nWhen the `reset` method is called, it sets the `msgs` attribute (which presumably holds logged messages) to an empty list (`[]`). This effectively removes all previously logged messages, preparing the logger for new entries. The method does not take any parameters and does not return any value, making it a straightforward operation to clear the logger's message history."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_instrument",
+            "module": "test_statsd",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_statsd.py",
+            "line_number": 85,
+            "end_line_number": 117,
+            "source_code": "def test_instrument():\n    logger = Statsd(Config())\n    # Capture logged messages\n    sio = io.StringIO()\n    logger.error_log.addHandler(logging.StreamHandler(sio))\n    logger.sock = MockSocket(False)\n\n    # Regular message\n    logger.info(\"Blah\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"\n    logger.sock.reset()\n\n    # Only metrics, no logging\n    logger.info(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.test\", \"value\": 666})\n    assert logger.sock.msgs[0] == b\"gunicorn.test:666|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    # Debug logging also supports metrics\n    logger.debug(\"\", extra={\"mtype\": \"gauge\", \"metric\": \"gunicorn.debug\", \"value\": 667})\n    assert logger.sock.msgs[0] == b\"gunicorn.debug:667|g\"\n    assert sio.getvalue() == \"Blah\\n\"  # log is unchanged\n    logger.sock.reset()\n\n    logger.critical(\"Boom\")\n    assert logger.sock.msgs[0] == b\"gunicorn.log.critical:1|c|@1.0\"\n    logger.sock.reset()\n\n    logger.access(SimpleNamespace(status=\"200 OK\"), None, {}, timedelta(seconds=7))\n    assert logger.sock.msgs[0] == b\"gunicorn.request.duration:7000.0|ms\"\n    assert logger.sock.msgs[1] == b\"gunicorn.requests:1|c|@1.0\"\n    assert logger.sock.msgs[2] == b\"gunicorn.request.status.200:1|c|@1.0\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "logging",
+                "os",
+                "shutil",
+                "socket",
+                "tempfile",
+                "datetime.timedelta",
+                "types.SimpleNamespace",
+                "gunicorn.config.Config",
+                "gunicorn.instrument.statsd.Statsd"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.test:666|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.debug:667|g'",
+                "assert sio.getvalue() == 'Blah\\n'",
+                "assert logger.sock.msgs[0] == b'gunicorn.log.critical:1|c|@1.0'",
+                "assert logger.sock.msgs[0] == b'gunicorn.request.duration:7000.0|ms'",
+                "assert logger.sock.msgs[1] == b'gunicorn.requests:1|c|@1.0'",
+                "assert logger.sock.msgs[2] == b'gunicorn.request.status.200:1|c|@1.0'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "logger.sock.reset",
+                    "body": "def reset(self):\n    self.msgs = []",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `reset` method is designed to clear the internal message storage of the logger by resetting the `msgs` attribute to an empty list. This is useful for reinitializing the logger's state, allowing it to start fresh without any previously stored messages.\n\n**How It Works**:\nWhen the `reset` method is called, it sets the `msgs` attribute (which presumably holds logged messages) to an empty list (`[]`). This effectively removes all previously logged messages, preparing the logger for new entries. The method does not take any parameters and does not return any value, making it a straightforward operation to clear the logger's message history."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_http_parser",
+            "module": "test_invalid_requests",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_invalid_requests.py",
+            "line_number": 18,
+            "end_line_number": 26,
+            "source_code": "def test_http_parser(fname):\n    env = treq.load_py(os.path.splitext(fname)[0] + \".py\")\n\n    expect = env[\"request\"]\n    cfg = env[\"cfg\"]\n    req = treq.badrequest(fname)\n\n    with pytest.raises(expect):\n        req.check(cfg)",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('fname', httpfiles)"
+            ],
+            "arguments": [
+                "fname"
+            ],
+            "imports": [
+                "glob",
+                "os",
+                "pytest",
+                "treq"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "treq.load_py",
+                    "body": "def load_py(fname):\n    module_name = '__config__'\n    mod = types.ModuleType(module_name)\n    setattr(mod, 'uri', uri)\n    setattr(mod, 'cfg', Config())\n    loader = importlib.machinery.SourceFileLoader(module_name, fname)\n    loader.exec_module(mod)\n    return vars(mod)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `load_py` method is designed to load a Python module from a specified file, execute its code, and return its attributes as a dictionary. This is useful for dynamically loading configuration or other Python code at runtime.\n\n**How It Works**:\n1. It creates a new module named `__config__` using `types.ModuleType`.\n2. It sets two attributes on this module: `uri` and `cfg`, where `cfg` is an instance of the `Config` class.\n3. It uses `importlib.machinery.SourceFileLoader` to load the specified Python file (`fname`) into the newly created module.\n4. The module's code is executed with `loader.exec_module(mod)`, which runs the file in the context of the new module.\n5. Finally, it returns the module's attributes as a dictionary using `vars(mod)`, allowing access to any variables or functions defined in the loaded module."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_http_parser",
+            "module": "test_invalid_requests",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_invalid_requests.py",
+            "line_number": 18,
+            "end_line_number": 26,
+            "source_code": "def test_http_parser(fname):\n    env = treq.load_py(os.path.splitext(fname)[0] + \".py\")\n\n    expect = env[\"request\"]\n    cfg = env[\"cfg\"]\n    req = treq.badrequest(fname)\n\n    with pytest.raises(expect):\n        req.check(cfg)",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('fname', httpfiles)"
+            ],
+            "arguments": [
+                "fname"
+            ],
+            "imports": [
+                "glob",
+                "os",
+                "pytest",
+                "treq"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "req.check",
+                    "body": "def check(self, cfg, sender, sizer, matcher):\n    cases = self.expect[:]\n    p = RequestParser(cfg, sender(), None)\n    parsed_request_idx = -1\n    for (parsed_request_idx, req) in enumerate(p):\n        self.same(req, sizer, matcher, cases.pop(0))\n    assert len(self.expect) == parsed_request_idx + 1\n    assert not cases",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `check` method is designed to validate a series of parsed HTTP requests against expected values. It ensures that the requests conform to specified configurations and match the expected attributes, such as method, URI, headers, and body content.\n\n**How It Works**:\n1. It initializes a list of expected cases from `self.expect`.\n2. A `RequestParser` instance is created using the provided configuration (`cfg`) and a sender function (`sender()`).\n3. The method iterates over the parsed requests generated by the `RequestParser`.\n4. For each parsed request, it calls the `same` method to compare the request's attributes with the expected values, popping the first case from the `cases` list.\n5. After processing all requests, it asserts that the number of expected cases matches the number of parsed requests and that there are no remaining cases to validate, ensuring complete and accurate validation of the requests."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_http_parser",
+            "module": "test_valid_requests",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_valid_requests.py",
+            "line_number": 18,
+            "end_line_number": 26,
+            "source_code": "def test_http_parser(fname):\n    env = treq.load_py(os.path.splitext(fname)[0] + \".py\")\n\n    expect = env['request']\n    cfg = env['cfg']\n    req = treq.request(fname, expect)\n\n    for case in req.gen_cases(cfg):\n        case[0](*case[1:])",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('fname', httpfiles)"
+            ],
+            "arguments": [
+                "fname"
+            ],
+            "imports": [
+                "glob",
+                "os",
+                "pytest",
+                "treq"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "treq.load_py",
+                    "body": "def load_py(fname):\n    module_name = '__config__'\n    mod = types.ModuleType(module_name)\n    setattr(mod, 'uri', uri)\n    setattr(mod, 'cfg', Config())\n    loader = importlib.machinery.SourceFileLoader(module_name, fname)\n    loader.exec_module(mod)\n    return vars(mod)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `load_py` method is designed to load a Python module from a specified file, execute its code, and return its attributes as a dictionary. This is useful for dynamically loading configuration or other Python code at runtime.\n\n**How It Works**:\n1. It creates a new module named `__config__` using `types.ModuleType`.\n2. It sets two attributes on this module: `uri` and `cfg`, where `cfg` is an instance of the `Config` class.\n3. It uses `importlib.machinery.SourceFileLoader` to load the specified Python file (`fname`) into the newly created module.\n4. The module's code is executed with `loader.exec_module(mod)`, which runs the file in the context of the new module.\n5. Finally, it returns the module's attributes as a dictionary using `vars(mod)`, allowing access to any variables or functions defined in the loaded file."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_http_parser",
+            "module": "test_valid_requests",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_valid_requests.py",
+            "line_number": 18,
+            "end_line_number": 26,
+            "source_code": "def test_http_parser(fname):\n    env = treq.load_py(os.path.splitext(fname)[0] + \".py\")\n\n    expect = env['request']\n    cfg = env['cfg']\n    req = treq.request(fname, expect)\n\n    for case in req.gen_cases(cfg):\n        case[0](*case[1:])",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('fname', httpfiles)"
+            ],
+            "arguments": [
+                "fname"
+            ],
+            "imports": [
+                "glob",
+                "os",
+                "pytest",
+                "treq"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "req.gen_cases",
+                    "body": "def gen_cases(self, cfg):\n\n    def get_funs(p):\n        return [v for (k, v) in inspect.getmembers(self) if k.startswith(p)]\n    senders = get_funs('send_')\n    sizers = get_funs('size_')\n    matchers = get_funs('match_')\n    cfgs = [(mt, sz, sn) for mt in matchers for sz in sizers for sn in senders]\n    ret = []\n    for (mt, sz, sn) in cfgs:\n        if hasattr(mt, 'funcname'):\n            mtn = mt.func_name[6:]\n            szn = sz.func_name[5:]\n            snn = sn.func_name[5:]\n        else:\n            mtn = mt.__name__[6:]\n            szn = sz.__name__[5:]\n            snn = sn.__name__[5:]\n\n        def test_req(sn, sz, mt):\n            self.check(cfg, sn, sz, mt)\n        desc = '%s: MT: %s SZ: %s SN: %s' % (self.name, mtn, szn, snn)\n        test_req.description = desc\n        ret.append((test_req, sn, sz, mt))\n    return ret",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `gen_cases` method generates a list of test cases by creating combinations of sender, size, and matcher functions. It prepares these combinations for testing configurations in a structured manner.\n\n**How It Works**:\n1. **Function Discovery**: It defines a helper function `get_funs` that retrieves all member functions of the class whose names start with a specified prefix (e.g., 'send_', 'size_', 'match_').\n2. **Combinations Creation**: It generates all possible combinations of the discovered sender, size, and matcher functions using a nested list comprehension.\n3. **Test Case Preparation**: For each combination, it extracts the function names (removing the prefix) and defines a `test_req` function that calls `self.check` with the current configuration and the selected functions.\n4. **Description Assignment**: It assigns a descriptive string to `test_req.description` for clarity when the test cases are executed.\n5. **Return Value**: Finally, it returns a list of tuples, each containing the `test_req` function and its associated sender, size, and matcher functions, ready for execution in a testing framework."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_load_config",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 262,
+            "end_line_number": 267,
+            "source_code": "def test_load_config():\n    with AltArgs([\"prog_name\", \"-c\", cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"unix:/tmp/bar/baz\"]\n    assert app.cfg.workers == 3\n    assert app.cfg.proc_name == \"fooey\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.bind == ['unix:/tmp/bar/baz']",
+                "assert app.cfg.workers == 3",
+                "assert app.cfg.proc_name == 'fooey'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:  \nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it suitable for file operations. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_load_config_explicit_file",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 270,
+            "end_line_number": 275,
+            "source_code": "def test_load_config_explicit_file():\n    with AltArgs([\"prog_name\", \"-c\", \"file:%s\" % cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"unix:/tmp/bar/baz\"]\n    assert app.cfg.workers == 3\n    assert app.cfg.proc_name == \"fooey\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.bind == ['unix:/tmp/bar/baz']",
+                "assert app.cfg.workers == 3",
+                "assert app.cfg.proc_name == 'fooey'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:  \nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it suitable for file operations. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_load_config_module",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 278,
+            "end_line_number": 283,
+            "source_code": "def test_load_config_module():\n    with AltArgs([\"prog_name\", \"-c\", \"python:%s\" % cfg_module()]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"unix:/tmp/bar/baz\"]\n    assert app.cfg.workers == 3\n    assert app.cfg.proc_name == \"fooey\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.bind == ['unix:/tmp/bar/baz']",
+                "assert app.cfg.workers == 3",
+                "assert app.cfg.proc_name == 'fooey'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_module",
+                    "body": "def cfg_module():\n    return 'config.test_cfg'",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_module` method returns a string that specifies the module name for a configuration file, specifically `'config.test_cfg'`. This is used to load configuration settings for an application.\n\n**How It Works**:  \nWhen called, `cfg_module` simply returns the hardcoded string `'config.test_cfg'`. This string can be used in various tests to reference a specific configuration module. For example, in the `test_load_config_module` and `test_cli_overrides_config_module` functions, it is used to dynamically load configuration settings when running the application, allowing for modular and flexible configuration management."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_cli_overrides_config",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 286,
+            "end_line_number": 290,
+            "source_code": "def test_cli_overrides_config():\n    with AltArgs([\"prog_name\", \"-c\", cfg_file(), \"-b\", \"blarney\"]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"blarney\"]\n    assert app.cfg.proc_name == \"fooey\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.bind == ['blarney']",
+                "assert app.cfg.proc_name == 'fooey'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:  \nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it suitable for file operations. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_cli_overrides_config_module",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 293,
+            "end_line_number": 297,
+            "source_code": "def test_cli_overrides_config_module():\n    with AltArgs([\"prog_name\", \"-c\", \"python:%s\" % cfg_module(), \"-b\", \"blarney\"]):\n        app = NoConfigApp()\n    assert app.cfg.bind == [\"blarney\"]\n    assert app.cfg.proc_name == \"fooey\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.bind == ['blarney']",
+                "assert app.cfg.proc_name == 'fooey'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_module",
+                    "body": "def cfg_module():\n    return 'config.test_cfg'",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_module` method returns a string that specifies the name of a configuration module, which is used to load application settings in a structured manner.\n\n**How It Works**:  \nWhen called, `cfg_module` simply returns the string `'config.test_cfg'`. This string is typically used in conjunction with configuration loading mechanisms in the application, allowing the application to dynamically load settings from the specified module. In the provided test cases, this method is utilized to verify that the application can correctly load and apply configurations from the specified module, ensuring that the application behaves as expected when using different configuration sources."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_config_file_environment_variable",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 405,
+            "end_line_number": 414,
+            "source_code": "def test_config_file_environment_variable(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--config=\" + alt_cfg_file())\n    with AltArgs():\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"not-fooey\"\n    assert app.cfg.config == alt_cfg_file()\n    with AltArgs([\"prog_name\", \"--config\", cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"fooey\"\n    assert app.cfg.config == cfg_file()",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [
+                "monkeypatch"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.proc_name == 'not-fooey'",
+                "assert app.cfg.config == alt_cfg_file()",
+                "assert app.cfg.proc_name == 'fooey'",
+                "assert app.cfg.config == cfg_file()"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "alt_cfg_file",
+                    "body": "def alt_cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg_alt.py')",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `alt_cfg_file` method constructs and returns the file path to an alternative configuration file named `test_cfg_alt.py`, located in a `config` directory relative to the current file's directory.\n\n**How It Works**:\nThe method uses the `os.path.join` function to concatenate the directory name of the current file (`dirname`), the subdirectory `config`, and the filename `test_cfg_alt.py`. This results in a complete file path that can be used to access the alternative configuration file within the application's directory structure."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_config_file_environment_variable",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 405,
+            "end_line_number": 414,
+            "source_code": "def test_config_file_environment_variable(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--config=\" + alt_cfg_file())\n    with AltArgs():\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"not-fooey\"\n    assert app.cfg.config == alt_cfg_file()\n    with AltArgs([\"prog_name\", \"--config\", cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"fooey\"\n    assert app.cfg.config == cfg_file()",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [
+                "monkeypatch"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.proc_name == 'not-fooey'",
+                "assert app.cfg.config == alt_cfg_file()",
+                "assert app.cfg.proc_name == 'fooey'",
+                "assert app.cfg.config == cfg_file()"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:  \nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it suitable for file operations. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_config_file_environment_variable",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 405,
+            "end_line_number": 414,
+            "source_code": "def test_config_file_environment_variable(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--config=\" + alt_cfg_file())\n    with AltArgs():\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"not-fooey\"\n    assert app.cfg.config == alt_cfg_file()\n    with AltArgs([\"prog_name\", \"--config\", cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"fooey\"\n    assert app.cfg.config == cfg_file()",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [
+                "monkeypatch"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.proc_name == 'not-fooey'",
+                "assert app.cfg.config == alt_cfg_file()",
+                "assert app.cfg.proc_name == 'fooey'",
+                "assert app.cfg.config == cfg_file()"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "alt_cfg_file",
+                    "body": "def alt_cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg_alt.py')",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `alt_cfg_file` method constructs and returns the file path to an alternative configuration file named `test_cfg_alt.py` located in a `config` directory within the current module's directory.\n\n**How It Works**:\nThe method uses the `os.path.join` function to concatenate the directory name of the current file (`dirname`), the subdirectory `config`, and the filename `test_cfg_alt.py`. This results in a complete file path that can be used to access the alternative configuration file. The method does not take any parameters and simply returns the constructed path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_config_file_environment_variable",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 405,
+            "end_line_number": 414,
+            "source_code": "def test_config_file_environment_variable(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--config=\" + alt_cfg_file())\n    with AltArgs():\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"not-fooey\"\n    assert app.cfg.config == alt_cfg_file()\n    with AltArgs([\"prog_name\", \"--config\", cfg_file()]):\n        app = NoConfigApp()\n    assert app.cfg.proc_name == \"fooey\"\n    assert app.cfg.config == cfg_file()",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [
+                "monkeypatch"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.proc_name == 'not-fooey'",
+                "assert app.cfg.config == alt_cfg_file()",
+                "assert app.cfg.proc_name == 'fooey'",
+                "assert app.cfg.config == cfg_file()"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:  \nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it suitable for file operations. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_cli_overrides_enviroment_variables_module",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 425,
+            "end_line_number": 429,
+            "source_code": "def test_cli_overrides_enviroment_variables_module(monkeypatch):\n    monkeypatch.setenv(\"GUNICORN_CMD_ARGS\", \"--workers=4\")\n    with AltArgs([\"prog_name\", \"-c\", cfg_file(), \"--workers\", \"3\"]):\n        app = NoConfigApp()\n    assert app.cfg.workers == 3",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [
+                "monkeypatch"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.cfg.workers == 3"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:  \nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it suitable for file operations. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_wsgi_app_config",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 438,
+            "end_line_number": 443,
+            "source_code": "def test_wsgi_app_config(options, expected):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        app = WSGIApp()\n    assert app.app_uri == expected",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('options, expected', [(['app:app'], 'app:app'), (['-c', cfg_file(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app()], 'app1:app1')])"
+            ],
+            "arguments": [
+                "options",
+                "expected"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.app_uri == expected"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:\nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it easy to access the configuration file in a consistent manner. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_wsgi_app_config",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 438,
+            "end_line_number": 443,
+            "source_code": "def test_wsgi_app_config(options, expected):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        app = WSGIApp()\n    assert app.app_uri == expected",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('options, expected', [(['app:app'], 'app:app'), (['-c', cfg_file(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app()], 'app1:app1')])"
+            ],
+            "arguments": [
+                "options",
+                "expected"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.app_uri == expected"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file_with_wsgi_app",
+                    "body": "def cfg_file_with_wsgi_app():\n    return os.path.join(dirname, 'config', 'test_cfg_with_wsgi_app.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file_with_wsgi_app` method is designed to construct and return the file path to a specific configuration file (`test_cfg_with_wsgi_app.py`) that is likely used for testing a WSGI application in a Django project.\n\n**How It Works**:  \nThe method uses the `os.path.join` function to concatenate the directory name (`dirname`) with the subdirectory `'config'` and the filename `'test_cfg_with_wsgi_app.py'`. This results in a complete file path that points to the configuration file, which is essential for setting up the WSGI application in a testing environment. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_wsgi_app_config",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 438,
+            "end_line_number": 443,
+            "source_code": "def test_wsgi_app_config(options, expected):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        app = WSGIApp()\n    assert app.app_uri == expected",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('options, expected', [(['app:app'], 'app:app'), (['-c', cfg_file(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app(), 'app:app'], 'app:app'), (['-c', cfg_file_with_wsgi_app()], 'app1:app1')])"
+            ],
+            "arguments": [
+                "options",
+                "expected"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert app.app_uri == expected"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file_with_wsgi_app",
+                    "body": "def cfg_file_with_wsgi_app():\n    return os.path.join(dirname, 'config', 'test_cfg_with_wsgi_app.py')",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `cfg_file_with_wsgi_app` method is designed to construct and return the file path to a specific configuration file (`test_cfg_with_wsgi_app.py`) that is likely used for testing a WSGI application in a Django project.\n\n**How It Works**:\nThe method uses the `os.path.join` function to concatenate the directory name (`dirname`) with the subdirectory `'config'` and the filename `'test_cfg_with_wsgi_app.py'`. This results in a complete file path that points to the configuration file, which is essential for setting up the WSGI application in a testing environment. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_non_wsgi_app",
+            "module": "test_config",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_config.py",
+            "line_number": 450,
+            "end_line_number": 457,
+            "source_code": "def test_non_wsgi_app(options, capsys):\n    cmdline = [\"prog_name\"]\n    cmdline.extend(options)\n    with AltArgs(cmdline):\n        with pytest.raises(SystemExit):\n            WSGIApp()\n        _, err = capsys.readouterr()\n        assert  \"Error: No application module specified.\" in err",
+            "docstring": null,
+            "decorators": [
+                "pytest.mark.parametrize('options', [[], ['-c', cfg_file()]])"
+            ],
+            "arguments": [
+                "options",
+                "capsys"
+            ],
+            "imports": [
+                "os",
+                "re",
+                "sys",
+                "pytest",
+                "gunicorn.config",
+                "gunicorn.app.base.Application",
+                "gunicorn.app.wsgiapp.WSGIApplication",
+                "gunicorn.errors.ConfigError",
+                "gunicorn.util.load_class",
+                "gunicorn.workers.sync.SyncWorker",
+                "gunicorn.glogging",
+                "gunicorn.instrument.statsd",
+                "os.path.isdir"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert 'Error: No application module specified.' in err"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "cfg_file",
+                    "body": "def cfg_file():\n    return os.path.join(dirname, 'config', 'test_cfg.py')",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `cfg_file` method constructs and returns the file path to a configuration file named `test_cfg.py`, which is located in a subdirectory called `config` within the current directory.\n\n**How It Works**:  \nThe method uses `os.path.join` to concatenate the directory name (`dirname`) with the subdirectory `config` and the filename `test_cfg.py`. This ensures that the resulting path is correctly formatted for the operating system, making it suitable for file operations. The method does not take any parameters and simply returns the constructed file path."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_readline_empty_body",
+            "module": "test_http",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+            "line_number": 29,
+            "end_line_number": 31,
+            "source_code": "def test_readline_empty_body():\n    assert_readline(b\"\", None, b\"\")\n    assert_readline(b\"\", 1, b\"\")",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "t",
+                "pytest",
+                "unittest.mock",
+                "gunicorn.util",
+                "gunicorn.http.body.Body",
+                "gunicorn.http.body.LengthReader",
+                "gunicorn.http.body.EOFReader",
+                "gunicorn.http.wsgi.Response",
+                "gunicorn.http.unreader.Unreader",
+                "gunicorn.http.unreader.IterUnreader",
+                "gunicorn.http.unreader.SocketUnreader",
+                "gunicorn.http.errors.InvalidHeader",
+                "gunicorn.http.errors.InvalidHeaderName",
+                "gunicorn.http.errors.InvalidHTTPVersion",
+                "gunicorn.http.message.TOKEN_RE"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "assert_readline",
+                    "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `assert_readline` method is designed to verify that a specific number of bytes can be read from a given payload using the `readline` method of a `Body` object, and that the result matches an expected byte string.\n\n**How It Works**:\n1. It takes three parameters: `payload` (the byte data to be read), `size` (the number of bytes to read), and `expected` (the expected output after reading).\n2. A `Body` object is instantiated with the `payload` wrapped in a `BytesIO` stream, allowing for buffered reading.\n3. The method then calls `body.readline(size)`, which reads up to `size` bytes from the stream until a newline character is encountered or the end of the stream is reached.\n4. Finally, it asserts that the result of the `readline` call matches the `expected` value, raising an `AssertionError` if they do not match. This is useful for testing and validating the behavior of the `readline` method in various scenarios."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_readline_empty_body",
+            "module": "test_http",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+            "line_number": 29,
+            "end_line_number": 31,
+            "source_code": "def test_readline_empty_body():\n    assert_readline(b\"\", None, b\"\")\n    assert_readline(b\"\", 1, b\"\")",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "t",
+                "pytest",
+                "unittest.mock",
+                "gunicorn.util",
+                "gunicorn.http.body.Body",
+                "gunicorn.http.body.LengthReader",
+                "gunicorn.http.body.EOFReader",
+                "gunicorn.http.wsgi.Response",
+                "gunicorn.http.unreader.Unreader",
+                "gunicorn.http.unreader.IterUnreader",
+                "gunicorn.http.unreader.SocketUnreader",
+                "gunicorn.http.errors.InvalidHeader",
+                "gunicorn.http.errors.InvalidHeaderName",
+                "gunicorn.http.errors.InvalidHTTPVersion",
+                "gunicorn.http.message.TOKEN_RE"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "assert_readline",
+                    "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `assert_readline` method is designed to verify that a specific number of bytes can be read from a given payload using the `readline` method of a `Body` object, and that the result matches an expected byte sequence.\n\n**How It Works**:  \nThe method takes three parameters: `payload`, `size`, and `expected`. It initializes a `Body` object with the `payload` wrapped in a `BytesIO` stream. It then calls the `readline` method of the `Body` object with the specified `size` and asserts that the returned value is equal to the `expected` byte sequence. If the assertion fails, an `AssertionError` is raised, indicating that the actual output did not match the expected output. This method is useful for testing the behavior of the `readline` function under controlled conditions."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_readline_zero_size",
+            "module": "test_http",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+            "line_number": 34,
+            "end_line_number": 36,
+            "source_code": "def test_readline_zero_size():\n    assert_readline(b\"abc\", 0, b\"\")\n    assert_readline(b\"\\n\", 0, b\"\")",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "t",
+                "pytest",
+                "unittest.mock",
+                "gunicorn.util",
+                "gunicorn.http.body.Body",
+                "gunicorn.http.body.LengthReader",
+                "gunicorn.http.body.EOFReader",
+                "gunicorn.http.wsgi.Response",
+                "gunicorn.http.unreader.Unreader",
+                "gunicorn.http.unreader.IterUnreader",
+                "gunicorn.http.unreader.SocketUnreader",
+                "gunicorn.http.errors.InvalidHeader",
+                "gunicorn.http.errors.InvalidHeaderName",
+                "gunicorn.http.errors.InvalidHTTPVersion",
+                "gunicorn.http.message.TOKEN_RE"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "assert_readline",
+                    "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `assert_readline` method is designed to verify that a specific number of bytes can be read from a given payload and that the result matches an expected byte string. It is primarily used for testing the behavior of reading lines from a byte stream.\n\n**How It Works**:  \nThe method takes three parameters: `payload`, `size`, and `expected`. It creates a `Body` object initialized with a `BytesIO` stream containing the `payload`. It then calls the `readline` method of the `Body` object with the specified `size` and asserts that the result equals the `expected` byte string. If the assertion fails, it raises an `AssertionError`, indicating that the actual output did not match the expected output. This method is useful in unit tests to ensure that the reading functionality behaves as intended."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_readline_zero_size",
+            "module": "test_http",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+            "line_number": 34,
+            "end_line_number": 36,
+            "source_code": "def test_readline_zero_size():\n    assert_readline(b\"abc\", 0, b\"\")\n    assert_readline(b\"\\n\", 0, b\"\")",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "t",
+                "pytest",
+                "unittest.mock",
+                "gunicorn.util",
+                "gunicorn.http.body.Body",
+                "gunicorn.http.body.LengthReader",
+                "gunicorn.http.body.EOFReader",
+                "gunicorn.http.wsgi.Response",
+                "gunicorn.http.unreader.Unreader",
+                "gunicorn.http.unreader.IterUnreader",
+                "gunicorn.http.unreader.SocketUnreader",
+                "gunicorn.http.errors.InvalidHeader",
+                "gunicorn.http.errors.InvalidHeaderName",
+                "gunicorn.http.errors.InvalidHTTPVersion",
+                "gunicorn.http.message.TOKEN_RE"
+            ],
+            "fixtures": [],
+            "assertions": [],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "assert_readline",
+                    "body": "def assert_readline(payload, size, expected):\n    body = Body(io.BytesIO(payload))\n    assert body.readline(size) == expected",
+                    "method_explanation": "**Main Purpose of the Method**:  \nThe `assert_readline` method is designed to verify that a specific number of bytes can be read from a given payload using the `readline` method of a `Body` object, and that the result matches an expected byte sequence.\n\n**How It Works**:  \nThe method takes three parameters: `payload`, which is the byte data to be read; `size`, which specifies the number of bytes to read; and `expected`, the expected byte output. It creates a `Body` instance initialized with the `payload` wrapped in a `BytesIO` stream. It then calls the `readline` method of the `Body` instance with the specified `size` and asserts that the result equals the `expected` value. If the assertion fails, an `AssertionError` is raised, indicating that the actual output did not match the expected output."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_readline_buffer_loaded",
+            "module": "test_http",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_http.py",
+            "line_number": 60,
+            "end_line_number": 68,
+            "source_code": "def test_readline_buffer_loaded():\n    reader = io.BytesIO(b\"abc\\ndef\")\n    body = Body(reader)\n    body.read(1) # load internal buffer\n    reader.write(b\"g\\nhi\")\n    reader.seek(7)\n    assert body.readline() == b\"bc\\n\"\n    assert body.readline() == b\"defg\\n\"\n    assert body.readline() == b\"hi\"",
+            "docstring": null,
+            "decorators": [],
+            "arguments": [],
+            "imports": [
+                "io",
+                "t",
+                "pytest",
+                "unittest.mock",
+                "gunicorn.util",
+                "gunicorn.http.body.Body",
+                "gunicorn.http.body.LengthReader",
+                "gunicorn.http.body.EOFReader",
+                "gunicorn.http.wsgi.Response",
+                "gunicorn.http.unreader.Unreader",
+                "gunicorn.http.unreader.IterUnreader",
+                "gunicorn.http.unreader.SocketUnreader",
+                "gunicorn.http.errors.InvalidHeader",
+                "gunicorn.http.errors.InvalidHeaderName",
+                "gunicorn.http.errors.InvalidHTTPVersion",
+                "gunicorn.http.message.TOKEN_RE"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert body.readline() == b'bc\\n'",
+                "assert body.readline() == b'defg\\n'",
+                "assert body.readline() == b'hi'"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [],
+            "methods_under_test": [
+                {
+                    "name": "reader.seek",
+                    "body": "def seek(self, offset, whence=0):\n    self.tmp.seek(offset, whence)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `seek` method is designed to change the current position of the file pointer within a stream, allowing for random access to the data being read or written.\n\n**How It Works**:\nThe method takes two parameters: `offset`, which specifies the number of bytes to move the pointer, and `whence`, which determines the reference point for the offset (defaulting to the beginning of the stream). It calls the `seek` method on an internal stream object (`self.tmp`), effectively repositioning the file pointer according to the specified offset and reference point. This enables the user to navigate through the data in the stream efficiently."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_validate_no_file",
+            "module": "test_pidfile",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+            "line_number": 16,
+            "end_line_number": 19,
+            "source_code": "def test_validate_no_file(_open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    _open.side_effect = IOError(errno.ENOENT)\n    assert pidfile.validate() is None",
+            "docstring": null,
+            "decorators": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open)"
+            ],
+            "arguments": [
+                "_open"
+            ],
+            "imports": [
+                "errno",
+                "unittest.mock",
+                "gunicorn.pidfile"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert pidfile.validate() is None"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open)"
+            ],
+            "methods_under_test": [
+                {
+                    "name": "builtin",
+                    "body": "def builtin(name):\n    return 'builtins.{}'.format(name)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `builtin` method generates a string that represents a reference to a built-in object in Python's `builtins` module, based on the provided name.\n\n**How It Works**:\nThe method takes a single argument, `name`, and returns a formatted string that prefixes the name with `'builtins.'`. This is useful for dynamically referencing built-in functions or types, allowing developers to easily construct the full name of a built-in object for use in code that requires such references. For example, calling `builtin('len')` would return the string `'builtins.len'`."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_validate_file_pid_exists",
+            "module": "test_pidfile",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+            "line_number": 24,
+            "end_line_number": 27,
+            "source_code": "def test_validate_file_pid_exists(kill, _open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    assert pidfile.validate() == 1\n    assert kill.called",
+            "docstring": null,
+            "decorators": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+                "mock.patch('os.kill')"
+            ],
+            "arguments": [
+                "kill",
+                "_open"
+            ],
+            "imports": [
+                "errno",
+                "unittest.mock",
+                "gunicorn.pidfile"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert pidfile.validate() == 1",
+                "assert kill.called"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+                "mock.patch('os.kill')"
+            ],
+            "methods_under_test": [
+                {
+                    "name": "builtin",
+                    "body": "def builtin(name):\n    return 'builtins.{}'.format(name)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `builtin` method generates a string that represents a reference to a built-in object in Python, formatted as `builtins.<name>`, where `<name>` is the input parameter.\n\n**How It Works**:\nThe method takes a single argument, `name`, and uses the `format` method to create a string that prefixes the provided name with `builtins.`. This is useful for dynamically referencing built-in functions or types in Python, allowing developers to easily construct the full name of a built-in object for further use, such as importing or documentation purposes."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_validate_file_pid_malformed",
+            "module": "test_pidfile",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+            "line_number": 31,
+            "end_line_number": 33,
+            "source_code": "def test_validate_file_pid_malformed(_open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    assert pidfile.validate() is None",
+            "docstring": null,
+            "decorators": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='a')"
+            ],
+            "arguments": [
+                "_open"
+            ],
+            "imports": [
+                "errno",
+                "unittest.mock",
+                "gunicorn.pidfile"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert pidfile.validate() is None"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='a')"
+            ],
+            "methods_under_test": [
+                {
+                    "name": "builtin",
+                    "body": "def builtin(name):\n    return 'builtins.{}'.format(name)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `builtin` method generates a string that represents a reference to a built-in object in Python's `builtins` module, based on the provided name.\n\n**How It Works**:\nThe method takes a single argument, `name`, and returns a formatted string that prefixes the name with `'builtins.'`. This is useful for dynamically referencing built-in functions or types, allowing developers to easily construct the full name of a built-in object for use in code that requires such references. For example, calling `builtin('len')` would return the string `'builtins.len'`."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_validate_file_pid_exists_kill_exception",
+            "module": "test_pidfile",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+            "line_number": 38,
+            "end_line_number": 41,
+            "source_code": "def test_validate_file_pid_exists_kill_exception(kill, _open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    kill.side_effect = OSError(errno.EPERM)\n    assert pidfile.validate() == 1",
+            "docstring": null,
+            "decorators": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+                "mock.patch('os.kill')"
+            ],
+            "arguments": [
+                "kill",
+                "_open"
+            ],
+            "imports": [
+                "errno",
+                "unittest.mock",
+                "gunicorn.pidfile"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert pidfile.validate() == 1"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+                "mock.patch('os.kill')"
+            ],
+            "methods_under_test": [
+                {
+                    "name": "builtin",
+                    "body": "def builtin(name):\n    return 'builtins.{}'.format(name)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `builtin` method generates a string that represents a reference to a built-in object in Python, formatted as `builtins.<name>`, where `<name>` is the input parameter.\n\n**How It Works**:\nThe method takes a single argument, `name`, and uses the `format` method to create a string that prefixes the provided name with `builtins.`. This is useful for dynamically referencing built-in functions or types in Python, allowing developers to easily construct the full name of a built-in object for further use, such as importing or documentation purposes."
+                }
+            ]
+        },
+        {
+            "repo_name": "gunicorn",
+            "name": "test_validate_file_pid_does_not_exist",
+            "module": "test_pidfile",
+            "class_name": null,
+            "file_path": "__internal__/data/gunicorn/tests/test_pidfile.py",
+            "line_number": 46,
+            "end_line_number": 49,
+            "source_code": "def test_validate_file_pid_does_not_exist(kill, _open):\n    pidfile = gunicorn.pidfile.Pidfile('test.pid')\n    kill.side_effect = OSError(errno.ESRCH)\n    assert pidfile.validate() is None",
+            "docstring": null,
+            "decorators": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+                "mock.patch('os.kill')"
+            ],
+            "arguments": [
+                "kill",
+                "_open"
+            ],
+            "imports": [
+                "errno",
+                "unittest.mock",
+                "gunicorn.pidfile"
+            ],
+            "fixtures": [],
+            "assertions": [
+                "assert pidfile.validate() is None"
+            ],
+            "setup_method": null,
+            "teardown_method": null,
+            "mocks": [
+                "mock.patch(builtin('open'), new_callable=mock.mock_open, read_data='1')",
+                "mock.patch('os.kill')"
+            ],
+            "methods_under_test": [
+                {
+                    "name": "builtin",
+                    "body": "def builtin(name):\n    return 'builtins.{}'.format(name)",
+                    "method_explanation": "**Main Purpose of the Method**:\nThe `builtin` method generates a string that represents a reference to a built-in object in Python by prefixing the provided name with `'builtins.'`.\n\n**How It Works**:\nThe method takes a single argument, `name`, which is expected to be a string. It uses the `format` method to concatenate `'builtins.'` with the provided `name`, effectively creating a fully qualified name for a built-in object. The result is returned as a string, allowing developers to easily reference built-in functions or types in their code. For example, calling `builtin('len')` would return the string `'builtins.len'`."
+                }
+            ]
+        }
+    ]
+}
