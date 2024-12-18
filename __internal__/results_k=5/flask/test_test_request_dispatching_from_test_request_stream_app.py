@@ -1,0 +1,35 @@
+import pytest
+from flask import Flask
+
+@pytest.fixture
+def app():
+    app = Flask(__name__)
+
+    @app.route("/delete", methods=["DELETE"])
+    def delete():
+        return 'DELETE'
+
+    return app
+
+def test_delete_method(client):
+    rv = client.delete("/delete")
+    assert rv.status_code == 200
+    assert rv.data == b'DELETE'
+
+def test_delete_method_not_allowed(client):
+    rv = client.get("/delete")
+    assert rv.status_code == 405
+    assert sorted(rv.allow) == ["DELETE", "HEAD", "OPTIONS"] 
+
+def test_delete_method_with_invalid_route(client):
+    rv = client.delete("/nonexistent")
+    assert rv.status_code == 404
+
+def test_delete_method_with_additional_methods(client):
+    @app.route("/more", methods=["GET", "POST", "DELETE"])
+    def more():
+        return flask.request.method
+
+    assert client.delete("/more").status_code == 200
+    assert client.post("/more").data == b"POST"
+    assert client.get("/more").data == b"GET"
