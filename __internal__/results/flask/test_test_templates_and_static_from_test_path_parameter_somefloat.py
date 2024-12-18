@@ -1,0 +1,31 @@
+import pytest
+import flask
+from blueprintapp import app
+
+@pytest.fixture
+def client():
+    with app.test_client() as client:
+        yield client
+
+def test_get_value_in_session(client):
+    with app.test_request_context():
+        flask.session['value'] = 'Test Value'
+        rv = client.get('/get')
+        assert rv.data == b'Test Value'
+
+def test_get_value_not_in_session(client):
+    with app.test_request_context():
+        rv = client.get('/get')
+        assert rv.data == b'None'
+
+def test_get_value_empty_string_in_session(client):
+    with app.test_request_context():
+        flask.session['value'] = ''
+        rv = client.get('/get')
+        assert rv.data == b''
+
+def test_get_value_none_in_session(client):
+    with app.test_request_context():
+        flask.session['value'] = None
+        rv = client.get('/get')
+        assert rv.data == b'None'

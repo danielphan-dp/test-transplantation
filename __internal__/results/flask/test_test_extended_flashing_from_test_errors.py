@@ -1,0 +1,27 @@
+def test_get_value_from_session(app):
+    client = app.test_client()
+
+    # Test default value when session is empty
+    response = client.get('/get')
+    assert response.data.decode() == 'None'
+
+    # Test setting a value in the session
+    with client.session_transaction() as session:
+        session['value'] = 'Test Value'
+    
+    response = client.get('/get')
+    assert response.data.decode() == 'Test Value'
+
+    # Test changing the session value
+    with client.session_transaction() as session:
+        session['value'] = 'New Value'
+    
+    response = client.get('/get')
+    assert response.data.decode() == 'New Value'
+
+    # Test removing the session value
+    with client.session_transaction() as session:
+        session.pop('value', None)
+    
+    response = client.get('/get')
+    assert response.data.decode() == 'None'

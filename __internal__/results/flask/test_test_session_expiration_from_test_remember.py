@@ -1,0 +1,51 @@
+import flask
+import pytest
+
+def test_get_session_value(app, client):
+    @app.route("/set")
+    def set_value():
+        flask.session['value'] = 'test_value'
+        return ""
+
+    @app.route("/get")
+    def get_value():
+        return flask.session.get('value', 'None')
+
+    # Set the session value
+    client.get("/set")
+    
+    # Test retrieving the session value
+    rv = client.get("/get")
+    assert rv.data == b'test_value'
+
+def test_get_session_value_default(app, client):
+    @app.route("/get")
+    def get_value():
+        return flask.session.get('value', 'None')
+
+    # Test retrieving the session value when it is not set
+    rv = client.get("/get")
+    assert rv.data == b'None'
+
+def test_get_session_value_after_expiration(app, client):
+    @app.route("/set")
+    def set_value():
+        flask.session['value'] = 'test_value'
+        flask.session.permanent = True
+        return ""
+
+    @app.route("/get")
+    def get_value():
+        return flask.session.get('value', 'None')
+
+    # Set the session value
+    client.get("/set")
+    
+    # Simulate session expiration
+    with app.app_context():
+        flask.session.modified = True
+        flask.session.clear()
+
+    # Test retrieving the session value after expiration
+    rv = client.get("/get")
+    assert rv.data == b'None'
