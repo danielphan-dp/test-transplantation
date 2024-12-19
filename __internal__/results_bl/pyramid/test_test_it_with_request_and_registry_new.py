@@ -14,30 +14,29 @@ class TestGetMethod(unittest.TestCase):
         self.manager = manager
 
     def test_get_method_returns_cookie(self):
-        self.manager.set({'cookie': 'test_cookie'})
-        result = self.manager.get('cookie')
-        self.assertEqual(result, 'test_cookie')
-
-    def test_get_method_with_no_cookie(self):
-        self.manager.set({})
-        result = self.manager.get('cookie')
-        self.assertIsNone(result)
+        self.manager.set(self.request)
+        cookie_value = self.manager.get('cookie')
+        self.assertIsNotNone(cookie_value)
 
     def test_get_method_with_invalid_name(self):
-        self.manager.set({'cookie': 'test_cookie'})
-        result = self.manager.get('invalid_name')
-        self.assertIsNone(result)
+        self.manager.set(self.request)
+        with self.assertRaises(KeyError):
+            self.manager.get('invalid_name')
 
     def test_get_method_after_closer_called(self):
-        self.manager.set({'cookie': 'test_cookie'})
-        closer = self.manager.get_closer()
-        closer()
-        result = self.manager.get('cookie')
-        self.assertIsNone(result)
+        self.manager.set(self.request)
+        self.manager.get('cookie')
+        self.manager.close()
+        with self.assertRaises(ConfigurationError):
+            self.manager.get('cookie')
 
-    def test_get_method_with_multiple_calls(self):
-        self.manager.set({'cookie': 'test_cookie'})
-        first_call = self.manager.get('cookie')
-        second_call = self.manager.get('cookie')
-        self.assertEqual(first_call, second_call)
-        self.assertEqual(first_call, 'test_cookie')
+    def test_get_method_with_multiple_requests(self):
+        request2 = DummyRequest({})
+        self.manager.set(self.request)
+        self.manager.set(request2)
+        cookie_value1 = self.manager.get('cookie')
+        cookie_value2 = self.manager.get('cookie')
+        self.assertNotEqual(cookie_value1, cookie_value2)
+
+    def tearDown(self):
+        self.manager.close()

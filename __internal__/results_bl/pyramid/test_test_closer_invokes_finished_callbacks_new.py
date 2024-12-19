@@ -36,7 +36,7 @@ class TestCloserFunction(unittest.TestCase):
         self.assertTrue(finish_called[0])
         self.assertTrue(finish_called[1])
 
-    def test_closer_called_twice(self):
+    def test_closer_called_multiple_times(self):
         finish_called = [False]
 
         def finished_callback(request):

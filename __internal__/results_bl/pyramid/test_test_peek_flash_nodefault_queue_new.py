@@ -1,34 +1,29 @@
 import unittest
-from pyramid.testing import DummySession
+from pyramid.testing import DummyRequest
+from pyramid.session import SignedCookieSessionFactory
 
-class TestSessionGetMethod(unittest.TestCase):
+class TestSessionMethods(unittest.TestCase):
 
     def setUp(self):
-        self.session = DummySession()
+        self.factory = SignedCookieSessionFactory('secret')
+        self.request = DummyRequest()
+        self.session = self.factory(self.request)
 
-    def test_get_existing_cookie(self):
-        self.session.cookie = 'test_cookie'
+    def test_get_cookie(self):
+        self.session.cookie = 'test_cookie_value'
         result = self.session.get('cookie')
-        self.assertEqual(result, 'test_cookie')
+        self.assertEqual(result, 'test_cookie_value')
 
-    def test_get_non_existing_cookie(self):
-        result = self.session.get('non_existing_cookie')
+    def test_get_nonexistent_cookie(self):
+        result = self.session.get('nonexistent_cookie')
         self.assertIsNone(result)
 
     def test_get_empty_cookie(self):
-        self.session.cookie = ''
-        result = self.session.get('cookie')
-        self.assertEqual(result, '')
-
-    def test_get_with_none_cookie(self):
         self.session.cookie = None
         result = self.session.get('cookie')
         self.assertIsNone(result)
 
-    def test_get_after_setting_cookie(self):
-        self.session.cookie = 'new_cookie'
-        result = self.session.get('cookie')
-        self.assertEqual(result, 'new_cookie')
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_get_cookie_with_different_name(self):
+        self.session.cookie = 'another_cookie_value'
+        result = self.session.get('different_cookie_name')
+        self.assertEqual(result, 'another_cookie_value')

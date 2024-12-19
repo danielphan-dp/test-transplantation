@@ -5,33 +5,27 @@ from pyramid.threadlocal import manager
 class TestGetMethod(unittest.TestCase):
 
     def setUp(self):
-        self.registry = self._makeRegistry()
-        self.app = DummyApp(registry=self.registry)
-        self.root, self.closer = self._callFUT(self.app)
+        self.registry = self._makeRegistry([DummyFactory, None, DummyFactory])
+        self.info = self._callFUT(registry=self.registry)
+        self.root, self.closer, self.request = self.info['root'], self.info['closer'], self.info['request']
+        self.manager = manager
+
+    def test_get_method_with_valid_name(self):
+        pushed = self.manager.get('valid_name')
+        self.assertEqual(pushed['registry'], self.registry)
+        self.assertEqual(pushed['request'].registry, self.registry)
+
+    def test_get_method_with_none_name(self):
+        pushed = self.manager.get(None)
+        self.assertIsNone(pushed)
+
+    def test_get_method_with_empty_string(self):
+        pushed = self.manager.get('')
+        self.assertIsNone(pushed)
+
+    def test_get_method_with_unregistered_name(self):
+        pushed = self.manager.get('unregistered_name')
+        self.assertIsNone(pushed)
 
     def tearDown(self):
         self.closer()
-
-    def test_get_method_returns_cookie(self):
-        expected_cookie = 'test_cookie'
-        self.app.cookie = expected_cookie
-        result = self.app.get('test_name')
-        self.assertEqual(result, expected_cookie)
-
-    def test_get_method_with_no_cookie(self):
-        self.app.cookie = None
-        result = self.app.get('test_name')
-        self.assertIsNone(result)
-
-    def test_get_method_with_different_name(self):
-        self.app.cookie = 'another_cookie'
-        result = self.app.get('different_name')
-        self.assertEqual(result, 'another_cookie')
-
-    def test_get_method_registry_access(self):
-        pushed = manager.get()
-        self.assertEqual(pushed['registry'], self.registry)
-
-    def test_get_method_request_environ(self):
-        pushed = manager.get()
-        self.assertEqual(pushed['request'].environ['path'], '/')

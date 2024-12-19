@@ -1,27 +1,28 @@
 import unittest
-from pyramid.testing import DummyRequest
+from pyramid.registry import Registry
+from pyramid.registry import Introspectable
 
-class TestEventGetMethod(unittest.TestCase):
-
-    def _makeOne(self, system):
-        return DummyRequest(system)
+class TestGetMethod(unittest.TestCase):
+    def setUp(self):
+        self.registry = Registry()
+        self.introspectable = Introspectable('test')
 
     def test_get_existing_cookie(self):
-        system = {'cookie': 'test_cookie'}
-        event = self._makeOne(system)
-        self.assertEqual(event.get('cookie'), 'test_cookie')
+        self.registry.cookie = 'existing_cookie'
+        self.assertEqual(self.registry.get('cookie'), 'existing_cookie')
 
     def test_get_non_existing_cookie(self):
-        system = {}
-        event = self._makeOne(system)
-        self.assertEqual(event.get('non_existing_cookie'), None)
+        self.registry.cookie = None
+        self.assertIsNone(self.registry.get('cookie'))
+
+    def test_get_with_different_name(self):
+        self.registry.cookie = 'another_cookie'
+        self.assertEqual(self.registry.get('different_name'), 'another_cookie')
 
     def test_get_empty_cookie(self):
-        system = {'cookie': ''}
-        event = self._makeOne(system)
-        self.assertEqual(event.get('cookie'), '')
+        self.registry.cookie = ''
+        self.assertEqual(self.registry.get('cookie'), '')
 
-    def test_get_with_special_characters(self):
-        system = {'cookie': 'cookie_with_special_chars!@#$%^&*()'}
-        event = self._makeOne(system)
-        self.assertEqual(event.get('cookie'), 'cookie_with_special_chars!@#$%^&*()')
+    def test_get_none_name(self):
+        self.registry.cookie = 'none_name_cookie'
+        self.assertEqual(self.registry.get(None), 'none_name_cookie')
