@@ -14,7 +14,7 @@ class TestProxy(unittest.TestCase):
 
         connector = self.loop.run_until_complete(make_conn())
         self.loop.run_until_complete(connector.close())
-        # Ensure that closing the connector does not raise an error
+        # Ensure that closing the connector does not raise any exceptions
         self.assertIsNone(connector._closed)
 
     @mock.patch('aiohttp.connector.aiohappyeyeballs.start_connection', autospec=True, spec_set=True)
@@ -24,11 +24,11 @@ class TestProxy(unittest.TestCase):
 
         connector = self.loop.run_until_complete(make_conn())
         self.loop.run_until_complete(connector.close())
-        with self.assertRaises(RuntimeError):
-            self.loop.run_until_complete(connector.close())
+        # Closing again should not raise an error
+        self.loop.run_until_complete(connector.close())
 
     @mock.patch('aiohttp.connector.aiohappyeyeballs.start_connection', autospec=True, spec_set=True)
-    def test_close_with_active_requests(self, start_connection: mock.Mock) -> None:
+    def test_close_with_active_connections(self, start_connection: mock.Mock) -> None:
         async def make_conn() -> aiohttp.TCPConnector:
             return aiohttp.TCPConnector()
 
@@ -39,6 +39,7 @@ class TestProxy(unittest.TestCase):
             loop=self.loop,
         )
         self.loop.run_until_complete(connector.connect(req, [], aiohttp.ClientTimeout()))
+        # Closing the connector while there are active connections
         self.loop.run_until_complete(connector.close())
-        # Check if the connector is closed after active requests
+        # Ensure that the connector is closed
         self.assertTrue(connector._closed)

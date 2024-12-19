@@ -5,7 +5,6 @@ import ssl
 import unittest
 from unittest import mock
 from unittest.mock import AsyncMock
-import pytest
 from yarl import URL
 import aiohttp
 from aiohttp.client_reqrep import ClientRequest, ClientResponse

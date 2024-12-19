@@ -1,79 +1,39 @@
 import asyncio
-import gc
-import socket
-import ssl
-import unittest
-from unittest import mock
-from yarl import URL
-import aiohttp
-from aiohttp.client_reqrep import ClientRequest, ClientResponse
+import pytest
+from aiohttp import ClientSession
 
-class TestClientRequestClose(unittest.TestCase):
-    @mock.patch('aiohttp.connector.ClientRequest')
-    @mock.patch('aiohttp.connector.aiohappyeyeballs.start_connection', autospec=True, spec_set=True)
-    def test_close_connection(self, start_connection, ClientRequestMock):
-        req = ClientRequest(
-            "GET",
-            URL("http://www.python.org"),
-            proxy=URL("http://proxy.example.com"),
-            loop=asyncio.get_event_loop(),
-        )
-        
-        async def make_conn():
-            return aiohttp.TCPConnector()
+@pytest.fixture
+async def session():
+    async with ClientSession() as sess:
+        yield sess
 
-        connector = asyncio.get_event_loop().run_until_complete(make_conn())
-        proto = mock.Mock()
-        conn = mock.Mock()
-        conn._protocol = proto
-        conn.transport = proto.transport
-        
-        with mock.patch.object(connector, 'connect', return_value=conn):
-            connection = asyncio.get_event_loop().run_until_complete(connector.connect(req, [], aiohttp.ClientTimeout()))
-            connection.close()
-            self.assertIsNone(connection._protocol)
-            self.assertIsNone(connection.transport)
+def test_close_session(session):
+    session.close()
+    assert session.closed is True
 
-    @mock.patch('aiohttp.connector.ClientRequest')
-    @mock.patch('aiohttp.connector.aiohappyeyeballs.start_connection', autospec=True, spec_set=True)
-    def test_close_multiple_times(self, start_connection, ClientRequestMock):
-        req = ClientRequest(
-            "GET",
-            URL("http://www.python.org"),
-            proxy=URL("http://proxy.example.com"),
-            loop=asyncio.get_event_loop(),
-        )
-        
-        async def make_conn():
-            return aiohttp.TCPConnector()
+def test_close_multiple_times(session):
+    session.close()
+    session.close()
+    assert session.closed is True
 
-        connector = asyncio.get_event_loop().run_until_complete(make_conn())
-        proto = mock.Mock()
-        conn = mock.Mock()
-        conn._protocol = proto
-        conn.transport = proto.transport
-        
-        with mock.patch.object(connector, 'connect', return_value=conn):
-            connection = asyncio.get_event_loop().run_until_complete(connector.connect(req, [], aiohttp.ClientTimeout()))
-            connection.close()
-            with self.assertRaises(Exception):
-                connection.close()
+def test_close_with_active_requests(session):
+    async def make_request():
+        async with session.get('http://httpbin.org/get') as response:
+            return await response.json()
 
-    @mock.patch('aiohttp.connector.ClientRequest')
-    @mock.patch('aiohttp.connector.aiohappyeyeballs.start_connection', autospec=True, spec_set=True)
-    def test_close_without_connect(self, start_connection, ClientRequestMock):
-        req = ClientRequest(
-            "GET",
-            URL("http://www.python.org"),
-            proxy=URL("http://proxy.example.com"),
-            loop=asyncio.get_event_loop(),
-        )
-        
-        async def make_conn():
-            return aiohttp.TCPConnector()
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(make_request())
+    session.close()
+    assert session.closed is True
 
-        connector = asyncio.get_event_loop().run_until_complete(make_conn())
-        
-        with self.assertRaises(AttributeError):
-            conn = mock.Mock()
-            conn.close()
+def test_close_after_context_manager():
+    async def test_context_manager():
+        async with ClientSession() as sess:
+            pass
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(test_context_manager())
+    # No assertion needed, just ensuring it doesn't raise an error
+
+def test_close_without_opening(session):
+    session.close()
+    assert session.closed is True

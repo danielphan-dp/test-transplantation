@@ -1,0 +1,40 @@
+import asyncio
+import pytest
+from sanic import Sanic
+from sanic.response import text
+
+@pytest.fixture
+def app():
+    app = Sanic("TestApp")
+    return app
+
+def test_get_method_returns_correct_response(app):
+    @app.route("/get")
+    async def get_handler(request):
+        return text('I am get method')
+
+    request, response = app.test_client.get("/get")
+    assert response.status == 200
+    assert response.text == 'I am get method'
+
+def test_get_method_with_invalid_route(app):
+    @app.route("/get")
+    async def get_handler(request):
+        return text('I am get method')
+
+    request, response = app.test_client.get("/invalid")
+    assert response.status == 404
+
+def test_get_method_exception_handling(app):
+    event = asyncio.Event()
+
+    @app.report_exception
+    async def catch_any_exception(app: Sanic, exception: Exception):
+        event.set()
+
+    @app.route("/get")
+    async def get_handler(request):
+        raise Exception("Test Exception")
+
+    app.test_client.get("/get")
+    assert event.is_set()
