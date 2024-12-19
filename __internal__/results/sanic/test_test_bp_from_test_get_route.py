@@ -1,53 +1,41 @@
 import pytest
-from sanic import Sanic
+from sanic import Sanic, Blueprint
 from sanic.response import text
-from sanic.blueprints import Blueprint
 
 @pytest.fixture
 def app():
-    app = Sanic("test_app")
+    app = Sanic("TestApp")
     return app
 
-def test_get_method(app):
-    class DummyView:
-        def get(self, request):
-            return text("I am get method")
+@pytest.fixture
+def handler():
+    async def handler(request):
+        return text("I am get method")
+    return handler
 
-    app.add_route(DummyView().get, "/get")
+def test_get_method(app, handler):
+    bp = Blueprint("Test", version=1)
+    bp.route("/")(handler)
+    app.blueprint(bp)
 
-    request, response = app.test_client.get("/get")
-    
+    request, response = app.test_client.get("/v1")
     assert response.status == 200
     assert response.text == "I am get method"
 
-def test_get_method_not_found(app):
-    request, response = app.test_client.get("/nonexistent")
-    
+def test_get_method_not_found(app, handler):
+    bp = Blueprint("Test", version=1)
+    bp.route("/")(handler)
+    app.blueprint(bp)
+
+    request, response = app.test_client.get("/invalid")
     assert response.status == 404
-    assert "Requested URL /nonexistent not found" in response.text
+    assert "Requested URL /invalid not found" in response.text
 
-def test_get_method_with_query_param(app):
-    class DummyView:
-        def get(self, request):
-            param = request.args.get('param', 'default')
-            return text(f"Received param: {param}")
+def test_get_method_with_query_param(app, handler):
+    bp = Blueprint("Test", version=1)
+    bp.route("/")(handler)
+    app.blueprint(bp)
 
-    app.add_route(DummyView().get, "/get_with_param")
-
-    request, response = app.test_client.get("/get_with_param?param=test")
-    
+    request, response = app.test_client.get("/v1?param=test")
     assert response.status == 200
-    assert response.text == "Received param: test"
-
-def test_get_method_with_empty_query_param(app):
-    class DummyView:
-        def get(self, request):
-            param = request.args.get('param', 'default')
-            return text(f"Received param: {param}")
-
-    app.add_route(DummyView().get, "/get_with_param")
-
-    request, response = app.test_client.get("/get_with_param?param=")
-    
-    assert response.status == 200
-    assert response.text == "Received param: "
+    assert response.text == "I am get method"

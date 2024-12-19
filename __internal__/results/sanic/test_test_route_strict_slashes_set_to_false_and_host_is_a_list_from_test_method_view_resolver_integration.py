@@ -1,0 +1,39 @@
+import pytest
+from sanic import Sanic
+from sanic.response import text
+from sanic_testing import SanicTestClient
+
+@pytest.fixture
+def app():
+    app = Sanic("TestApp")
+
+    @app.put("/put", host=["127.0.0.1:42101", "site2.com"], strict_slashes=False)
+    def put_handler(request):
+        return text("I am put method")
+
+    return app
+
+def test_put_method_response(app):
+    test_client = SanicTestClient(app, port=42101)
+    request, response = test_client.put("http://127.0.0.1:42101/put")
+    assert response.text == "I am put method"
+
+def test_put_method_with_invalid_host(app):
+    test_client = SanicTestClient(app, port=42101)
+    request, response = test_client.put("http://invalidhost:42101/put")
+    assert response.status == 404
+
+def test_put_method_with_different_host(app):
+    test_client = SanicTestClient(app, port=42101)
+    request, response = test_client.put("http://site2.com/put")
+    assert response.text == "I am put method"
+
+def test_put_method_with_strict_slashes(app):
+    test_client = SanicTestClient(app, port=42101)
+    request, response = test_client.put("http://127.0.0.1:42101/put/")
+    assert response.status == 404
+
+def test_put_method_with_empty_body(app):
+    test_client = SanicTestClient(app, port=42101)
+    request, response = test_client.put("http://127.0.0.1:42101/put", data="")
+    assert response.text == "I am put method"

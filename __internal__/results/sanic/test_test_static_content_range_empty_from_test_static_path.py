@@ -1,52 +1,34 @@
 import os
 import pytest
 from sanic import Sanic
-from sanic.blueprints import Blueprint
+from sanic.exceptions import FileNotFound
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt', 'non_existent.file'])
-def test_static_content_range_edge_cases(file_name, static_file_directory):
-    app = Sanic("base")
-    app.static(
-        "/testing.file",
-        get_file_path(static_file_directory, file_name),
-        use_content_range=True,
-    )
-
-    request, response = app.test_client.get("/testing.file")
-    
-    if file_name == 'non_existent.file':
-        assert response.status == 404
+@pytest.mark.parametrize("file_name", ["test.file", "decode me.txt", "non_existent.file"])
+@pytest.mark.parametrize("static_file_directory", ["./static", "./another_static"])
+def test_get_file_path(app, file_name, static_file_directory):
+    if file_name == "non_existent.file":
+        with pytest.raises(FileNotFound):
+            get_file_path(static_file_directory, file_name)
     else:
-        assert response.status == 200
-        assert "Content-Length" in response.headers
-        assert "Content-Range" not in response.headers
-        assert int(response.headers["Content-Length"]) == len(
-            get_file_content(static_file_directory, file_name)
-        )
-        assert response.body == bytes(
-            get_file_content(static_file_directory, file_name)
-        )
+        path = get_file_path(static_file_directory, file_name)
+        assert os.path.join(static_file_directory, file_name) == path
 
-    bp = Blueprint("test_bp_static", url_prefix="/bp")
-    bp.static(
-        "/testing.file",
-        get_file_path(static_file_directory, file_name),
-        use_content_range=True,
-    )
-    app.blueprint(bp)
+@pytest.mark.parametrize("file_name", ["test.file", "decode me.txt"])
+def test_get_file_path_with_different_directories(app, file_name):
+    static_file_directory = "./static"
+    path = get_file_path(static_file_directory, file_name)
+    assert os.path.exists(path)  # Assuming the file exists in the static directory
 
-    uri = app.url_for("test_bp_static.static")
-    request, response = app.test_client.get(uri)
-    
-    if file_name == 'non_existent.file':
-        assert response.status == 404
-    else:
-        assert response.status == 200
-        assert "Content-Length" in response.headers
-        assert "Content-Range" not in response.headers
-        assert int(response.headers["Content-Length"]) == len(
-            get_file_content(static_file_directory, file_name)
-        )
-        assert response.body == bytes(
-            get_file_content(static_file_directory, file_name)
-        )
+    static_file_directory = "./another_static"
+    path = get_file_path(static_file_directory, file_name)
+    assert os.path.exists(path)  # Assuming the file exists in the another_static directory
+
+def test_get_file_path_edge_cases(app):
+    static_file_directory = "./static"
+    file_name = ""
+    path = get_file_path(static_file_directory, file_name)
+    assert path == os.path.join(static_file_directory, "")
+
+    file_name = "   "
+    path = get_file_path(static_file_directory, file_name)
+    assert path == os.path.join(static_file_directory, "   ")

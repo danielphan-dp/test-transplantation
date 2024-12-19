@@ -1,39 +1,43 @@
 import pytest
-from sanic import Sanic
-from sanic.response import text
-from sanic.blueprints import Blueprint
+from sanic import Sanic, Blueprint, text
 
 @pytest.fixture
 def app():
-    app = Sanic("test_app")
+    app = Sanic("TestApp")
     return app
 
-def test_get_method(app):
-    @app.route("/get")
-    def get_method(request):
+@pytest.fixture
+def handler():
+    def handler_function(request):
         return text("I am get method")
+    return handler_function
 
-    request, response = app.test_client.get("/get")
+def test_bp_group(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler)
+    group = Blueprint.group(bp, version=1)
+    app.blueprint(group)
+
+    _, response = app.test_client.get("/v1")
+    assert response.status == 200
     assert response.text == "I am get method"
 
-def test_get_method_not_found(app):
-    request, response = app.test_client.get("/nonexistent")
+def test_bp_group_invalid_route(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler)
+    group = Blueprint.group(bp, version=1)
+    app.blueprint(group)
+
+    _, response = app.test_client.get("/v2")
     assert response.status == 404
+    assert "Requested URL /v2 not found" in response.text
 
-def test_get_method_with_query_param(app):
-    @app.route("/get")
-    def get_method_with_param(request):
-        param = request.args.get("param", "default")
-        return text(f"I am get method with param: {param}")
+def test_bp_group_method_not_allowed(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler)
+    group = Blueprint.group(bp, version=1)
+    app.blueprint(group)
 
-    request, response = app.test_client.get("/get?param=test")
-    assert response.text == "I am get method with param: test"
-
-def test_get_method_empty_query_param(app):
-    @app.route("/get")
-    def get_method_empty_param(request):
-        param = request.args.get("param", "default")
-        return text(f"I am get method with param: {param}")
-
-    request, response = app.test_client.get("/get?param=")
-    assert response.text == "I am get method with param: "
+    _, response = app.test_client.post("/v1")
+    assert response.status == 405
+    assert "Method POST not allowed for URL /v1" in response.text

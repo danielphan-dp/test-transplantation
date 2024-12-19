@@ -1,53 +1,23 @@
 import pytest
 from sanic import Sanic
-from sanic.response import text
-from sanic.blueprints import Blueprint
+from sanic.text import text
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_get_method_response(app):
-    app = Sanic("test_app")
+@pytest.mark.parametrize('request_data', [
+    {'method': 'GET', 'url': '/get', 'expected': 'I am get method'},
+    {'method': 'POST', 'url': '/get', 'expected_status': 405},
+    {'method': 'PUT', 'url': '/get', 'expected_status': 405},
+    {'method': 'DELETE', 'url': '/get', 'expected_status': 405},
+])
+def test_get_method(app, request_data):
+    class DummyView:
+        def get(self, request):
+            return text('I am get method')
 
-    @app.route('/get')
-    def get_method(request):
-        return text('I am get method')
-
-    request, response = app.test_client.get('/get')
-    assert response.status == 200
-    assert response.text == 'I am get method'
-
-def test_get_method_with_blueprint(app):
-    app = Sanic("test_app")
-    bp = Blueprint("test_bp")
-
-    @bp.route('/get')
-    def get_method(request):
-        return text('I am get method from blueprint')
-
-    app.blueprint(bp)
-
-    request, response = app.test_client.get('/get')
-    assert response.status == 200
-    assert response.text == 'I am get method from blueprint'
-
-def test_get_method_with_invalid_route(app):
-    app = Sanic("test_app")
-
-    request, response = app.test_client.get('/invalid_route')
-    assert response.status == 404
-    assert "Requested URL /invalid_route not found" in response.text
-
-def test_get_method_with_query_params(app):
-    app = Sanic("test_app")
-
-    @app.route('/get')
-    def get_method(request):
-        param = request.args.get('param', 'default')
-        return text(f'Param value is {param}')
-
-    request, response = app.test_client.get('/get?param=test')
-    assert response.status == 200
-    assert response.text == 'Param value is test'
-
-    request, response = app.test_client.get('/get')
-    assert response.status == 200
-    assert response.text == 'Param value is default'
+    app.add_route(DummyView().get, request_data['url'], methods=['GET'])
+    
+    if request_data['method'] == 'GET':
+        request, response = app.test_client.get(request_data['url'])
+        assert response.text == request_data['expected']
+    else:
+        request, response = app.test_client.get(request_data['url'], method=request_data['method'])
+        assert response.status == request_data['expected_status']

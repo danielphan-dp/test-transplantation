@@ -7,31 +7,32 @@ from sanic.response import text
 def app():
     app = Sanic("test_app")
 
-    @app.get("/")
-    async def get_method(request):
+    @app.route("/get_test", methods=["GET"])
+    def get_method(request):
         return text("I am get method")
 
     return app
 
-@pytest.mark.asyncio
-async def test_get_method(app):
-    request, response = await app.test_client.get("/")
+def test_get_method(app):
+    request, response = app.test_client.get("/get_test")
     assert response.status == 200
     assert response.text == "I am get method"
 
-@pytest.mark.asyncio
-async def test_get_method_not_found(app):
-    request, response = await app.test_client.get("/nonexistent")
+def test_get_method_not_found(app):
+    request, response = app.test_client.get("/non_existent_route")
     assert response.status == 404
 
-@pytest.mark.asyncio
-async def test_get_method_with_query_param(app):
-    request, response = await app.test_client.get("/?param=value")
-    assert response.status == 200
-    assert response.text == "I am get method"
+def test_get_method_invalid_method(app):
+    request, response = app.test_client.post("/get_test")
+    assert response.status == 405
+    assert "Method POST not allowed for URL /get_test" in response.text
 
-@pytest.mark.asyncio
-async def test_get_method_with_headers(app):
-    request, response = await app.test_client.get("/", headers={"Custom-Header": "value"})
+def test_get_method_with_query_params(app):
+    @app.route("/get_test_with_params", methods=["GET"])
+    def get_method_with_params(request):
+        param = request.args.get("param", "default")
+        return text(f"I am get method with param: {param}")
+
+    request, response = app.test_client.get("/get_test_with_params?param=test")
     assert response.status == 200
-    assert response.text == "I am get method"
+    assert response.text == "I am get method with param: test"

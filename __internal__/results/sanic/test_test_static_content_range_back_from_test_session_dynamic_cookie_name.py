@@ -1,46 +1,49 @@
 import pytest
 from sanic import Sanic
-from sanic.response import text
+from sanic.text import text
 
-@pytest.mark.parametrize('request_method', ['GET', 'POST'])
-def test_get_method_response(request_method):
-    app = Sanic("test_app")
+@pytest.mark.parametrize('request_path', ['/get', '/another_get'])
+def test_get_method(app, request_path):
+    class DummyView:
+        def get(self, request):
+            return text('I am get method')
 
-    @app.route("/", methods=[request_method])
-    def get_method(request):
-        return text("I am get method")
+    app.add_route(DummyView().get, request_path)
 
-    request, response = app.test_client.get("/") if request_method == 'GET' else app.test_client.post("/")
-    
+    request, response = app.test_client.get(request_path)
     assert response.status == 200
-    assert response.text == "I am get method"
+    assert response.text == 'I am get method'
 
-def test_get_method_invalid_route():
-    app = Sanic("test_app")
-
-    @app.route("/valid", methods=["GET"])
-    def valid_route(request):
-        return text("This is a valid route")
-
-    request, response = app.test_client.get("/invalid")
-    
+def test_get_method_with_invalid_route(app):
+    request, response = app.test_client.get('/invalid_route')
     assert response.status == 404
-    assert "Requested URL /invalid not found" in response.text
+    assert "Requested URL /invalid_route not found" in response.text
 
-def test_get_method_with_query_params():
-    app = Sanic("test_app")
+def test_get_method_with_custom_header(app):
+    class DummyView:
+        def get(self, request):
+            return text('I am get method with custom header')
 
-    @app.route("/query", methods=["GET"])
-    def query_method(request):
-        param = request.args.get('param', 'default')
-        return text(f"Query param is {param}")
+    app.add_route(DummyView().get, '/custom_header')
 
-    request, response = app.test_client.get("/query?param=test")
-    
+    headers = {'X-Custom-Header': 'value'}
+    request, response = app.test_client.get('/custom_header', headers=headers)
     assert response.status == 200
-    assert response.text == "Query param is test"
+    assert response.text == 'I am get method with custom header'
+    assert response.headers['X-Custom-Header'] == 'value'  # Assuming the header is echoed back
 
-    request, response = app.test_client.get("/query")
-    
+def test_get_method_with_query_params(app):
+    class DummyView:
+        def get(self, request):
+            param = request.args.get('param', 'default')
+            return text(f'Param value is {param}')
+
+    app.add_route(DummyView().get, '/query')
+
+    request, response = app.test_client.get('/query?param=test')
     assert response.status == 200
-    assert response.text == "Query param is default"
+    assert response.text == 'Param value is test'
+
+    request, response = app.test_client.get('/query')
+    assert response.status == 200
+    assert response.text == 'Param value is default'

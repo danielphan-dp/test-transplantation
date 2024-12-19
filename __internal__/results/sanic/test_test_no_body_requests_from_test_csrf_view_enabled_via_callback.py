@@ -1,0 +1,52 @@
+import pytest
+from sanic import Sanic
+from sanic.response import text
+from sanic_testing.reusable import ReusableClient
+
+@pytest.fixture
+def app():
+    app = Sanic("test_app")
+
+    @app.get("/")
+    async def handler(request):
+        return text('I am get method')
+
+    return app
+
+def test_get_method_response(app):
+    client = ReusableClient(app)
+
+    with client:
+        _, response = client.get("/")
+    
+    assert response.status == 200
+    assert response.text == 'I am get method'
+
+def test_get_method_multiple_requests(app):
+    client = ReusableClient(app)
+
+    with client:
+        _, response1 = client.get("/")
+        _, response2 = client.get("/")
+
+    assert response1.status == response2.status == 200
+    assert response1.text == response2.text == 'I am get method'
+
+def test_get_method_edge_case(app):
+    client = ReusableClient(app)
+
+    with client:
+        _, response = client.get("/nonexistent")
+
+    assert response.status == 404
+    assert "Requested URL /nonexistent not found" in response.text
+
+def test_get_method_with_headers(app):
+    client = ReusableClient(app)
+
+    with client:
+        _, response = client.get("/", headers={"Custom-Header": "value"})
+
+    assert response.status == 200
+    assert response.text == 'I am get method'
+    assert response.headers.get("Custom-Header") is None  # No custom header in response

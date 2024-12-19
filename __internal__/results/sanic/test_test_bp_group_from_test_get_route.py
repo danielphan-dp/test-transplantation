@@ -1,43 +1,51 @@
-import asyncio
 import pytest
-from sanic import Sanic
-from sanic.blueprints import Blueprint
+from sanic import Sanic, Blueprint
 from sanic.response import text
 
 @pytest.fixture
 def app():
-    app = Sanic("test_app")
+    app = Sanic("TestApp")
     return app
 
-def test_get_method(app):
-    @app.route("/get")
-    def get_handler(request):
-        return text("I am get method")
+@pytest.fixture
+def handler():
+    class DummyView:
+        def get(self, request):
+            return text("I am get method")
+    return DummyView()
 
-    request, response = app.test_client.get("/get")
+def test_get_method_response(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler.get)
+    app.blueprint(bp)
+
+    request, response = app.test_client.get("/")
     assert response.status == 200
     assert response.text == "I am get method"
 
-def test_get_method_not_found(app):
-    request, response = app.test_client.get("/nonexistent")
+def test_get_method_invalid_route(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler.get)
+    app.blueprint(bp)
+
+    request, response = app.test_client.get("/invalid")
     assert response.status == 404
+    assert "Requested URL /invalid not found" in response.text
 
-def test_get_method_with_query_param(app):
-    @app.route("/get_with_param")
-    def get_with_param(request):
-        param = request.args.get("param", "default")
-        return text(f"Received param: {param}")
+def test_get_method_with_query_param(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler.get)
+    app.blueprint(bp)
 
-    request, response = app.test_client.get("/get_with_param?param=test")
+    request, response = app.test_client.get("/?param=value")
     assert response.status == 200
-    assert response.text == "Received param: test"
+    assert response.text == "I am get method"  # Assuming the handler does not change based on query params
 
-def test_get_method_empty_query_param(app):
-    @app.route("/get_with_param")
-    def get_with_param(request):
-        param = request.args.get("param", "default")
-        return text(f"Received param: {param}")
+def test_get_method_with_headers(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler.get)
+    app.blueprint(bp)
 
-    request, response = app.test_client.get("/get_with_param")
+    request, response = app.test_client.get("/", headers={"Custom-Header": "value"})
     assert response.status == 200
-    assert response.text == "Received param: default"
+    assert response.text == "I am get method"  # Assuming the handler does not change based on headers

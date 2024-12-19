@@ -1,25 +1,30 @@
 import pytest
 from sanic import Sanic
-from sanic.response import text
+from sanic.text import text
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt', 'python.png'])
-def test_get_method(static_file_directory, file_name):
+@pytest.fixture
+def app():
     app = Sanic("test_app")
 
-    @app.get("/get")
-    def get_method(request):
-        return text('I am get method')
+    class DummyView:
+        def get(self, request):
+            return text("I am get method")
 
-    app.router.finalize()
+    app.add_route(DummyView().get, "/")
+    return app
 
-    request, response = app.test_client.get("/get")
+@pytest.mark.parametrize('path', ["/", "/nonexistent"])
+def test_get_method(app, path):
+    request, response = app.test_client.get(path)
+    
+    if path == "/":
+        assert response.status == 200
+        assert response.text == "I am get method"
+    else:
+        assert response.status == 404
+        assert "Requested URL" in response.text
+
+def test_get_method_with_query_params(app):
+    request, response = app.test_client.get("/?param=value")
     assert response.status == 200
-    assert response.text == 'I am get method'
-
-    # Test for invalid route
-    request, response = app.test_client.get("/invalid")
-    assert response.status == 404
-
-    # Test for other parameters
-    uri = app.url_for("get_method", _external=True, _server="http://localhost")
-    assert uri == "http://localhost/get"
+    assert response.text == "I am get method"

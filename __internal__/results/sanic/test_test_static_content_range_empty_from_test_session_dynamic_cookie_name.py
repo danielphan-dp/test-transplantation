@@ -1,24 +1,19 @@
 import pytest
 from sanic import Sanic
-from sanic.response import text
+from sanic.text import text
 
-@pytest.mark.parametrize('request_path', ['/test', '/another_test'])
-def test_get_method(request_path):
-    app = Sanic("test_app")
+@pytest.mark.parametrize('request_method', ['GET', 'POST'])
+def test_get_method_response(app, request_method):
+    class DummyView:
+        def get(self, request):
+            return text('I am get method')
 
-    @app.get(request_path)
-    def get_method(request):
-        return text('I am get method')
+    app.add_route(DummyView().get, '/get')
 
-    request, response = app.test_client.get(request_path)
+    if request_method == 'GET':
+        request, response = app.test_client.get('/get')
+    else:
+        request, response = app.test_client.post('/get')
+
     assert response.status == 200
     assert response.text == 'I am get method'
-
-    # Test for a non-existing route
-    request, response = app.test_client.get('/non_existing')
-    assert response.status == 404
-
-    # Test for method not allowed
-    request, response = app.test_client.post(request_path)
-    assert response.status == 405
-    assert "Method POST not allowed for URL" in response.text

@@ -1,52 +1,41 @@
 import os
 import pytest
 from sanic import Sanic
-from sanic.blueprints import Blueprint
+from sanic.response import json
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt', 'non_existent.file'])
-def test_static_content_range_edge_cases(file_name, static_file_directory):
-    app = Sanic("base")
-    app.static(
-        "/testing.file",
-        get_file_path(static_file_directory, file_name),
-        use_content_range=True,
-    )
+@pytest.fixture
+def app():
+    app = Sanic("TestApp")
+    return app
 
+@pytest.mark.parametrize("file_name", ["test.file", "decode me.txt", "non_existent.file"])
+@pytest.mark.parametrize("static_file_directory", ["./static", "./another_static"])
+def test_get_file_path(app, file_name, static_file_directory):
+    if file_name == "non_existent.file":
+        with pytest.raises(FileNotFoundError):
+            get_file_path(static_file_directory, file_name)
+    else:
+        file_path = get_file_path(static_file_directory, file_name)
+        assert os.path.join(static_file_directory, file_name) == file_path
+
+@pytest.mark.parametrize("file_name", ["test.file", "decode me.txt"])
+def test_static_file_with_valid_files(app, static_file_directory, file_name):
+    app.static("/testing.file", get_file_path(static_file_directory, file_name))
     request, response = app.test_client.get("/testing.file")
-    
-    if file_name == 'non_existent.file':
-        assert response.status == 404
-    else:
-        assert response.status == 200
-        assert "Content-Length" in response.headers
-        assert "Content-Range" not in response.headers
-        assert int(response.headers["Content-Length"]) == len(
-            get_file_content(static_file_directory, file_name)
-        )
-        assert response.body == bytes(
-            get_file_content(static_file_directory, file_name)
-        )
+    assert response.status == 200
+    assert "Content-Length" in response.headers
+    assert response.body == bytes(get_file_content(static_file_directory, file_name))
 
-    bp = Blueprint("test_bp_static", url_prefix="/bp")
-    bp.static(
-        "/testing.file",
-        get_file_path(static_file_directory, file_name),
-        use_content_range=True,
-    )
-    app.blueprint(bp)
+@pytest.mark.parametrize("file_name", ["test.file", "decode me.txt"])
+def test_static_file_with_invalid_directory(app, file_name):
+    invalid_directory = "./invalid_static"
+    app.static("/testing.file", get_file_path(invalid_directory, file_name))
+    request, response = app.test_client.get("/testing.file")
+    assert response.status == 404
 
-    uri = app.url_for("test_bp_static.static")
-    request, response = app.test_client.get(uri)
-    
-    if file_name == 'non_existent.file':
-        assert response.status == 404
-    else:
-        assert response.status == 200
-        assert "Content-Length" in response.headers
-        assert "Content-Range" not in response.headers
-        assert int(response.headers["Content-Length"]) == len(
-            get_file_content(static_file_directory, file_name)
-        )
-        assert response.body == bytes(
-            get_file_content(static_file_directory, file_name)
-        )
+@pytest.mark.parametrize("file_name", ["test.file", "decode me.txt"])
+def test_static_file_with_empty_file_name(app, static_file_directory):
+    empty_file_name = ""
+    app.static("/testing.file", get_file_path(static_file_directory, empty_file_name))
+    request, response = app.test_client.get("/testing.file")
+    assert response.status == 404

@@ -1,54 +1,15 @@
 import os
 import pytest
 from sanic import Sanic
-from sanic.blueprints import Blueprint
+from sanic.exceptions import FileNotFound
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt', 'non_existent.file'])
-def test_static_file_path_not_found(app, static_file_directory, file_name):
-    app.static("/testing.file", get_file_path(static_file_directory, file_name))
-
-    request, response = app.test_client.get("/testing.file")
-    if file_name == 'non_existent.file':
-        assert response.status == 404
+@pytest.mark.parametrize("file_name", ["test.file", "decode me.txt", "non_existent.file"])
+def test_get_file_path(app, file_name, static_file_directory):
+    if file_name == "non_existent.file":
+        with pytest.raises(FileNotFound):
+            get_file_path(static_file_directory, file_name)
     else:
-        assert response.status == 200
-        assert response.body == get_file_content(static_file_directory, file_name)
-
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_static_file_with_invalid_range(app, static_file_directory, file_name):
-    app.static("/testing.file", get_file_path(static_file_directory, file_name))
-
-    headers = {"Range": "bytes=999-1000"}
-    request, response = app.test_client.get("/testing.file", headers=headers)
-    assert response.status == 416  # Range Not Satisfiable
-
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_static_file_with_empty_range(app, static_file_directory, file_name):
-    app.static("/testing.file", get_file_path(static_file_directory, file_name))
-
-    headers = {"Range": "bytes=0-0"}
-    request, response = app.test_client.get("/testing.file", headers=headers)
-    static_content = bytes(get_file_content(static_file_directory, file_name))[:1]
-    assert response.status == 206
-    assert int(response.headers["Content-Length"]) == len(static_content)
-    assert response.body == static_content
-
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_static_file_with_large_range(app, static_file_directory, file_name):
-    app.static("/testing.file", get_file_path(static_file_directory, file_name))
-
-    headers = {"Range": "bytes=0-"}
-    request, response = app.test_client.get("/testing.file", headers=headers)
-    static_content = bytes(get_file_content(static_file_directory, file_name))
-    assert response.status == 206
-    assert int(response.headers["Content-Length"]) == len(static_content)
-    assert response.body == static_content
-
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_static_file_with_multiple_requests(app, static_file_directory, file_name):
-    app.static("/testing.file", get_file_path(static_file_directory, file_name))
-
-    for _ in range(5):
-        request, response = app.test_client.get("/testing.file")
-        assert response.status == 200
-        assert response.body == get_file_content(static_file_directory, file_name)
+        file_path = get_file_path(static_file_directory, file_name)
+        assert os.path.exists(file_path)
+        assert os.path.isfile(file_path)
+        assert file_path.startswith(static_file_directory)

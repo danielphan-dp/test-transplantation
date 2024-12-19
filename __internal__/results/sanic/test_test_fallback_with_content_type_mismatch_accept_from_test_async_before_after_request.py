@@ -1,0 +1,42 @@
+import pytest
+from sanic import Sanic
+from sanic.response import text
+
+@pytest.fixture
+def app():
+    app = Sanic("test_app")
+
+    @app.route("/get")
+    def get_method(request):
+        return text("I am get method")
+
+    return app
+
+def test_get_method_response(app):
+    request, response = app.test_client.get("/get")
+    assert response.status == 200
+    assert response.text == "I am get method"
+    assert response.content_type == "text/plain; charset=utf-8"
+
+def test_get_method_with_invalid_accept_header(app):
+    request, response = app.test_client.get("/get", headers={"accept": "application/json"})
+    assert response.status == 200
+    assert response.text == "I am get method"
+    assert response.content_type == "text/plain; charset=utf-8"
+
+def test_get_method_with_no_content_type(app):
+    request, response = app.test_client.get("/get", headers={"content-type": ""})
+    assert response.status == 200
+    assert response.text == "I am get method"
+    assert response.content_type == "text/plain; charset=utf-8"
+
+def test_get_method_with_unexpected_method(app):
+    request, response = app.test_client.post("/get")
+    assert response.status == 405
+    assert "Method POST not allowed for URL /get" in response.text
+
+def test_get_method_with_custom_header(app):
+    request, response = app.test_client.get("/get", headers={"X-Custom-Header": "value"})
+    assert response.status == 200
+    assert response.text == "I am get method"
+    assert response.content_type == "text/plain; charset=utf-8"

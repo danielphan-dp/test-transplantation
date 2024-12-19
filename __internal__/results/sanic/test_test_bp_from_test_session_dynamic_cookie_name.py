@@ -1,40 +1,41 @@
 import pytest
-from sanic import Sanic
-from sanic.blueprints import Blueprint
+from sanic import Sanic, Blueprint
 from sanic.response import text
 
 @pytest.fixture
 def app():
-    app = Sanic("test_app")
+    app = Sanic("TestApp")
     return app
 
-def test_get_method(app):
-    @app.route("/get")
-    def get_method(request):
+@pytest.fixture
+def handler():
+    async def handler(request):
         return text("I am get method")
+    return handler
 
-    request, response = app.test_client.get("/get")
+def test_bp_get_method(app, handler):
+    bp = Blueprint("Test", version=1)
+    bp.route("/v1")(handler)
+    app.blueprint(bp)
+
+    request, response = app.test_client.get("/v1")
+    assert response.status == 200
     assert response.text == "I am get method"
 
-def test_get_method_not_found(app):
-    request, response = app.test_client.get("/nonexistent")
+def test_bp_get_method_not_found(app, handler):
+    bp = Blueprint("Test", version=1)
+    bp.route("/v1")(handler)
+    app.blueprint(bp)
+
+    request, response = app.test_client.get("/invalid_route")
     assert response.status == 404
-    assert "Requested URL /nonexistent not found" in response.text
+    assert "Requested URL /invalid_route not found" in response.text
 
-def test_get_method_with_query_param(app):
-    @app.route("/get")
-    def get_method_with_param(request):
-        param = request.args.get("param", "default")
-        return text(f"I am get method with param: {param}")
+def test_bp_get_method_with_query_param(app, handler):
+    bp = Blueprint("Test", version=1)
+    bp.route("/v1")(handler)
+    app.blueprint(bp)
 
-    request, response = app.test_client.get("/get?param=test")
-    assert response.text == "I am get method with param: test"
-
-def test_get_method_empty_query_param(app):
-    @app.route("/get")
-    def get_method_empty_param(request):
-        param = request.args.get("param", "default")
-        return text(f"I am get method with param: {param}")
-
-    request, response = app.test_client.get("/get?param=")
-    assert response.text == "I am get method with param: "
+    request, response = app.test_client.get("/v1?param=value")
+    assert response.status == 200
+    assert response.text == "I am get method"

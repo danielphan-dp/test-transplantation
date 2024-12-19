@@ -1,31 +1,31 @@
 import pytest
 from sanic import Sanic
-from sanic.response import text
+from sanic.text import text
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt', 'python.png'])
-def test_get_method(file_name):
-    app = Sanic("test_app")
+@pytest.mark.parametrize('path', ['/test', '/another_test'])
+def test_get_method(app, path):
+    class DummyView:
+        def get(self, request):
+            return text('I am get method')
 
-    @app.get("/get")
-    def get_method(request):
-        return text('I am get method')
+    app.add_route(DummyView().get, path)
 
-    request, response = app.test_client.get("/get")
-    
+    request, response = app.test_client.get(path)
     assert response.status == 200
     assert response.text == 'I am get method'
 
-    # Test with additional parameters
-    request, response = app.test_client.get("/get?param=value")
-    assert response.status == 200
-    assert response.text == 'I am get method'
-
-    # Test for invalid method
-    request, response = app.test_client.post("/get")
-    assert response.status == 405
-    assert "Method POST not allowed for URL /get" in response.text
-
-    # Test for non-existent route
-    request, response = app.test_client.get("/nonexistent")
+def test_get_method_not_found(app):
+    request, response = app.test_client.get('/non_existent_path')
     assert response.status == 404
-    assert "Requested URL /nonexistent not found" in response.text
+    assert "Requested URL /non_existent_path not found" in response.text
+
+def test_get_method_with_query_param(app):
+    class DummyView:
+        def get(self, request):
+            return text(f'I am get method with param: {request.args.get("param")}')
+
+    app.add_route(DummyView().get, '/query_test')
+
+    request, response = app.test_client.get('/query_test?param=test')
+    assert response.status == 200
+    assert response.text == 'I am get method with param: test'

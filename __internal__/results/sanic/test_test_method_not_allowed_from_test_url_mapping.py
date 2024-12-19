@@ -1,45 +1,46 @@
 import pytest
-from sanic import Sanic, response
-from sanic.request import Request
+from sanic import Sanic
+from sanic.response import text
 
 @pytest.fixture
 def app():
-    app = Sanic("test_app")
-
-    @app.post("/")
-    async def post_method(request: Request):
-        return response.text('I am post method')
-
+    app = Sanic("TestApp")
     return app
 
 @pytest.mark.asyncio
 async def test_post_method(app):
-    request, response = app.test_client.post("/")
+    @app.route("/test_post", methods=["POST"])
+    async def handler(request):
+        return text("I am post method")
+
+    request, response = await app.test_client.post("/test_post")
     assert response.status == 200
-    assert response.text == 'I am post method'
+    assert response.text == "I am post method"
 
 @pytest.mark.asyncio
 async def test_post_method_not_allowed(app):
-    request, response = app.test_client.get("/")
+    @app.route("/test_post", methods=["GET"])
+    async def handler(request):
+        return text("OK")
+
+    request, response = await app.test_client.get("/test_post")
+    assert response.status == 200
+
+    request, response = await app.test_client.post("/test_post")
     assert response.status == 405
-    assert set(response.headers["Allow"].split(", ")) == {"POST"}
-    assert response.headers["Content-Length"] == "0"
 
 @pytest.mark.asyncio
-async def test_post_method_with_invalid_data(app):
-    request, response = app.test_client.post("/", data="invalid_data")
-    assert response.status == 200
-    assert response.text == 'I am post method'  # Ensure it still responds correctly
+async def test_post_with_invalid_route(app):
+    request, response = await app.test_client.post("/invalid_route")
+    assert response.status == 404
+    assert "Requested URL /invalid_route not found" in response.text
 
 @pytest.mark.asyncio
-async def test_post_method_with_empty_body(app):
-    request, response = app.test_client.post("/", data="")
-    assert response.status == 200
-    assert response.text == 'I am post method'  # Ensure it still responds correctly
+async def test_post_with_empty_body(app):
+    @app.route("/test_post_empty", methods=["POST"])
+    async def handler(request):
+        return text("Received empty body" if not request.body else "Received body")
 
-@pytest.mark.asyncio
-async def test_post_method_with_headers(app):
-    headers = {"Custom-Header": "value"}
-    request, response = app.test_client.post("/", headers=headers)
+    request, response = await app.test_client.post("/test_post_empty", data="")
     assert response.status == 200
-    assert response.text == 'I am post method'  # Ensure it still responds correctly
+    assert response.text == "Received empty body"

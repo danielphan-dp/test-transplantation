@@ -1,37 +1,32 @@
 import pytest
 from sanic import Sanic
-from sanic.response import text
+from sanic.text import text
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_get_method(file_name):
-    app = Sanic("test_app")
+@pytest.mark.parametrize('path', ['/test', '/another_test'])
+def test_get_method(app, path):
+    class DummyView:
+        def get(self, request):
+            return text('I am get method')
 
-    @app.get("/get")
-    def get_method(request):
-        return text('I am get method')
+    app.add_route(DummyView().get, path)
 
-    request, response = app.test_client.get("/get")
+    request, response = app.test_client.get(path)
     assert response.status == 200
     assert response.text == 'I am get method'
 
-def test_get_method_with_invalid_route():
-    app = Sanic("test_app")
-
-    @app.get("/get")
-    def get_method(request):
-        return text('I am get method')
-
-    request, response = app.test_client.get("/invalid_route")
+def test_get_method_with_invalid_route(app):
+    request, response = app.test_client.get('/invalid_route')
     assert response.status == 404
     assert "Requested URL /invalid_route not found" in response.text
 
-def test_get_method_with_query_params():
-    app = Sanic("test_app")
+def test_get_method_with_custom_header(app):
+    class DummyView:
+        def get(self, request):
+            return text('I am get method', headers={'X-Custom-Header': 'value'})
 
-    @app.get("/get")
-    def get_method(request):
-        return text('I am get method with query')
+    app.add_route(DummyView().get, '/custom_header')
 
-    request, response = app.test_client.get("/get?param=value")
+    request, response = app.test_client.get('/custom_header')
     assert response.status == 200
-    assert response.text == 'I am get method with query'
+    assert response.text == 'I am get method'
+    assert response.headers['X-Custom-Header'] == 'value'

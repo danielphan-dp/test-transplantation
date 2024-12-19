@@ -1,44 +1,31 @@
 import pytest
 from sanic import Sanic
-from sanic.response import text
+from sanic.text import text
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_get_method_response(file_name, static_file_directory):
-    app = Sanic("test_app")
-
-    @app.get("/test")
-    def get_method(request):
-        return text('I am get method')
-
-    request, response = app.test_client.get("/test")
+@pytest.mark.parametrize('request_path', ['/'])
+def test_get_method(app, request_path):
+    request, response = app.test_client.get(request_path)
     assert response.status == 200
     assert response.text == 'I am get method'
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_get_method_with_invalid_route(file_name, static_file_directory):
-    app = Sanic("test_app")
-
-    @app.get("/test")
-    def get_method(request):
-        return text('I am get method')
-
-    request, response = app.test_client.get("/invalid_route")
+def test_get_method_with_invalid_route(app):
+    request, response = app.test_client.get('/invalid_route')
     assert response.status == 404
     assert "Requested URL /invalid_route not found" in response.text
 
-@pytest.mark.parametrize('file_name', ['test.file', 'decode me.txt'])
-def test_get_method_with_query_params(file_name, static_file_directory):
-    app = Sanic("test_app")
-
-    @app.get("/test")
-    def get_method(request):
-        param = request.args.get('param', 'default')
-        return text(f'I am get method with param: {param}')
-
-    request, response = app.test_client.get("/test?param=value")
+def test_get_method_with_custom_headers(app):
+    headers = {'Custom-Header': 'CustomValue'}
+    request, response = app.test_client.get('/', headers=headers)
     assert response.status == 200
-    assert response.text == 'I am get method with param: value'
+    assert response.text == 'I am get method'
+    assert response.headers['Custom-Header'] == 'CustomValue'  # Assuming headers are passed through
 
-    request, response = app.test_client.get("/test")
+def test_get_method_with_query_parameters(app):
+    request, response = app.test_client.get('/?param=value')
     assert response.status == 200
-    assert response.text == 'I am get method with param: default'
+    assert response.text == 'I am get method'  # Assuming query parameters do not affect response
+
+def test_get_method_with_empty_request(app):
+    request, response = app.test_client.get('/')
+    assert response.status == 200
+    assert response.text == 'I am get method'  # Ensure it handles empty requests correctly

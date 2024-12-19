@@ -1,37 +1,42 @@
 import pytest
-from sanic import Sanic
-from sanic.blueprints import Blueprint
-from sanic.response import text
+from sanic import Sanic, Blueprint, text
 
 @pytest.fixture
 def app():
-    app = Sanic("test_app")
+    app = Sanic("TestApp")
     return app
 
-def test_get_method(app):
-    class DummyView:
-        def get(self, request):
-            return text('I am get method')
+@pytest.fixture
+def handler():
+    def handler(request):
+        return text("I am get method")
+    return handler
 
-    app.add_route(DummyView().get, "/get")
+def test_bp_group(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler)
+    group = Blueprint.group(bp, version=1)
+    app.blueprint(group)
 
-    request, response = app.test_client.get("/get")
+    _, response = app.test_client.get("/v1")
+    assert response.status == 200
     assert response.text == "I am get method"
 
-def test_get_method_not_found(app):
-    request, response = app.test_client.get("/non_existent")
+def test_bp_group_invalid_route(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler)
+    group = Blueprint.group(bp, version=1)
+    app.blueprint(group)
+
+    _, response = app.test_client.get("/invalid_route")
     assert response.status == 404
 
-def test_get_method_with_query_param(app):
-    class DummyView:
-        def get(self, request):
-            param = request.args.get('param', 'default')
-            return text(f'Param is {param}')
+def test_bp_group_with_query_params(app, handler):
+    bp = Blueprint("Test")
+    bp.route("/")(handler)
+    group = Blueprint.group(bp, version=1)
+    app.blueprint(group)
 
-    app.add_route(DummyView().get, "/get_with_param")
-
-    request, response = app.test_client.get("/get_with_param?param=test")
-    assert response.text == "Param is test"
-
-    request, response = app.test_client.get("/get_with_param")
-    assert response.text == "Param is default"
+    _, response = app.test_client.get("/v1?param=value")
+    assert response.status == 200
+    assert response.text == "I am get method"
