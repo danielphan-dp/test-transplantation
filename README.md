@@ -2,6 +2,8 @@
 
 Gluon is a framework for test transplantation.
 
+[Notion notes](https://childlike-feeling-7e1.notion.site/Recap-1768e948699d80d2ba9bffcc5b07523d?pvs=4)
+
 ## Experimental Setup
 
 Set up the repos and run the tests. Check the logs if there are any installation issues.
