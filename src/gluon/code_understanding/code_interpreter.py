@@ -1,318 +1,443 @@
-from pathlib import Path
-import json
-from typing import Dict
-from uuid import uuid4
-
-from langchain_openai import ChatOpenAI
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS  
-from langchain_community.docstore.in_memory import InMemoryDocstore
-# from langchain_community.document_loaders import GenericLoader
-from langchain_community.document_loaders import DirectoryLoader, PythonLoader
-from langchain_community.document_loaders.parsers import LanguageParser
-from langchain_text_splitters import Language, RecursiveCharacterTextSplitter
-from langchain.prompts import ChatPromptTemplate
-from langchain_core.documents import Document
-from langchain_core.output_parsers import StrOutputParser
-
 import os
-# Set OpenAI API key
-os.environ["OPENAI_API_KEY"] = "sk-<API_KEY>"
+import json
+import glob
+from openai import OpenAI
+import time
 
-class CodebaseIndexer:
-    """Index and manage source code repositories using FAISS"""
-    def __init__(self, embedding_model_name="sentence-transformers/all-mpnet-base-v2"):
-        self.embeddings = HuggingFaceEmbeddings(model_name=embedding_model_name)
-        self.db_cache: Dict[str, FAISS] = {}
-        
-    def index_repository(self, repo_path: str) -> FAISS:
-        """Index a source code repository and return vectorstore"""
-        # Check cache
-        if (repo_path in self.db_cache):
-            return self.db_cache[repo_path]
-        
-        loader = DirectoryLoader(
-            repo_path,
-            glob="**/*.py",
-            show_progress=True,
-            loader_cls=PythonLoader
-        )
-        documents = loader.load()
-        
-        python_splitter = RecursiveCharacterTextSplitter.from_language(
-            language=Language.PYTHON,
-            chunk_size=2000,
-            chunk_overlap=200
-        )
-        texts = python_splitter.split_documents(documents)
-        
-        db = FAISS.from_documents(
-            texts,
-            self.embeddings,
-        )
-        
-        self.db_cache[repo_path] = db
-        return db
+# Initialize the OpenAI client
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-class TestDataLoader:
-    """Load and process test data from JSON files"""
-    @staticmethod 
-    def load_test_data(json_file: str) -> dict:
-        with open(json_file, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    
-    @staticmethod
-    def save_test_data(data: dict, output_file: str):
-        with open(output_file, 'w', encoding='utf-8') as f: 
-            json.dump(data, f, indent=2)
+def read_file_content(file_path):
+    """Read file content, handling potential errors and large files intelligently."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
             
-    @staticmethod
-    def get_repo_path(test_file: str) -> str:
-        """Get repository path from test file path"""
-        # Extract repo name from collected_tests__<repo>.json
-        repo_name = Path(test_file).stem.split("__")[1]
-        return f"__internal__/data_repo/{repo_name}"
+            # If the file is very large, try to extract the most relevant parts
+            if len(content) > 30000:
+                # For test files, prioritize test functions and test classes
+                if '/test_' in file_path or '/tests/' in file_path:
+                    # Extract imports, class definitions, and test functions
+                    import re
+                    
+                    # Get imports
+                    imports = '\n'.join(re.findall(r'^import.*|^from.*', content, re.MULTILINE))
+                    
+                    # Get class definitions and test functions
+                    class_defs = re.findall(r'^\s*class\s+\w+.*?(?=^\s*class|\Z)', content, re.MULTILINE | re.DOTALL)
+                    test_funcs = re.findall(r'^\s*def\s+test_\w+.*?(?=^\s*def|\Z)', content, re.MULTILINE | re.DOTALL)
+                    
+                    # Combine the most important parts
+                    reduced_content = imports + '\n\n' + '\n\n'.join(class_defs[:3]) + '\n\n' + '\n\n'.join(test_funcs[:10])
+                    
+                    if len(reduced_content) > 1000:  # Make sure we have enough content
+                        return reduced_content[:30000]
+            
+            return content[:15000]  # Default case: return first 15K chars
+    except Exception as e:
+        return f"Error reading file: {str(e)}"
+
+def generate_pair_summary(test_content, code_content, test_file, code_file, comments):
+    """Generate a detailed summary of the test-code pair using GPT-4o."""
+    # Construct the prompt optimized for embedding and similarity search
+    prompt = f"""
+You are an expert code analyzer tasked with explaining test-code pairs from a Python web framework project. Your summaries will be used in an embedding-based search system to find similar test-code relationships.
+
+TEST FILE: {test_file}
+```python
+{test_content[:30000]}
+```
+
+CODE FILE: {code_file}
+```python
+{code_content[:30000]}
+```
+
+COMMENTS FROM MAINTAINER: {', '.join(comments)}
+
+Generate a semantically rich summary (400-600 words) optimized for embedding and similarity search that covers:
+
+1. TECHNICAL SPECIFICS:
+   - Specific classes, methods, and functions being tested (use exact names)
+   - Framework components and their interactions
+   - Design patterns implemented (e.g., Factory, Singleton, Observer)
+   - Technical mechanisms (e.g., dependency injection, middleware processing)
+
+2. TESTING APPROACH:
+   - Testing methodologies used (unit, integration, mock objects, fixtures)
+   - Edge cases and boundary conditions tested
+   - Error handling and exception testing strategies
+
+3. CODE ARCHITECTURE:
+   - Component relationships and dependencies
+   - Data flow patterns
+   - Key abstractions and their implementations
+   - API surface and public interfaces
+
+4. DISTINCTIVE FEATURES:
+   - Unusual or noteworthy implementation details
+   - Performance considerations
+   - Security-related testing
+   - Framework-specific patterns
+
+Make your summary technically precise with specific terminology that would distinguish this test-code pair from others. Include meaningful technical details that would create a distinctive semantic signature for embedding models. Avoid generic descriptions that could apply to many test-code pairs.
+
+Format as a dense, information-rich paragraph without headings or sections. Use specific technical terms rather than general descriptions whenever possible.
+"""
+
+    # Make the API call with retry logic for rate limits
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "You are an expert code analyzer that provides technically precise, semantically rich summaries of test-code relationships in Python web frameworks. Your summaries should be optimized for embedding-based similarity search, focusing on specific technical details, distinctive implementation patterns, and precise terminology rather than general descriptions."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0,  # Lower temperature for more consistent output
+                max_tokens=1000
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            error_msg = str(e).lower()
+            if "rate limit" in error_msg and attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 5  # Exponential backoff: 5s, 10s, 20s, etc.
+                print(f"    Rate limit hit. Waiting {wait_time} seconds before retry...")
+                time.sleep(wait_time)
+                continue
+            else:
+                return f"Error generating summary: {str(e)}"
+
+def generate_code_summary(code_content, code_file):
+    """Generate a summary focused only on the code file, optimized for embedding and similarity search."""
+    # Construct the prompt for code-only summary
+    prompt = f"""
+You are an expert code analyzer tasked with explaining Python code files from web frameworks. Your code summaries will be used in an embedding-based search system to find similar implementation patterns across frameworks.
+
+CODE FILE: {code_file}
+```python
+{code_content[:30000]}
+```
+
+Generate a technically precise, semantically rich summary (300-400 words) of ONLY this code file, optimized for embedding-based similarity search. Focus on:
+
+1. CORE FUNCTIONALITY:
+   - Specific classes and methods implemented (use exact names)
+   - Primary responsibilities and purpose of this module
+   - Public APIs and interfaces exposed
+
+2. IMPLEMENTATION DETAILS:
+   - Algorithms and data structures used
+   - Design patterns implemented (e.g., Factory, Singleton, Observer)
+   - Core mechanisms (e.g., event handling, middleware, routing)
+
+3. ARCHITECTURAL ROLE:
+   - How this component fits into the larger framework
+   - Dependencies on other components
+   - What dependencies this component resolves
+   - Initialization and lifecycle patterns
+
+4. DISTINCTIVE CHARACTERISTICS:
+   - Unique implementation approaches 
+   - Performance optimizations
+   - Security features
+   - Error handling strategies
+   - Framework-specific idioms
+
+Make your summary technically precise with specific terminology that would distinguish this code from similar implementations in other frameworks. Include meaningful technical details that would create a distinctive semantic signature for embedding models.
+
+Format as a dense, information-rich paragraph without headings or sections. Use specific technical terms rather than general descriptions. Focus on what makes this code distinctive for accurate similarity matching across frameworks.
+"""
+
+    # Make the API call with retry logic for rate limits
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "You are an expert code analyzer that provides technically precise, semantically rich summaries of Python web framework code. Your summaries should be optimized for embedding-based similarity search, focusing on specific implementation details, architectural patterns, and precise technical terminology to enable accurate cross-framework comparisons."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0,  # Lower temperature for more consistent output
+                max_tokens=800
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            error_msg = str(e).lower()
+            if "rate limit" in error_msg and attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 5  # Exponential backoff: 5s, 10s, 20s, etc.
+                print(f"    Rate limit hit. Waiting {wait_time} seconds before retry...")
+                time.sleep(wait_time)
+                continue
+            else:
+                return f"Error generating code summary: {str(e)}"
+
+def process_tcm_file(tcm_file_path):
+    """Process a single TCM JSON file."""
+    print(f"Processing {tcm_file_path}...")
     
-    @staticmethod
-    def get_repo_name(test_file: str) -> str:
-        """Extract the repository name from the test file path."""
-        return Path(test_file).stem.split("__")[1]
-
-class TestExplainer:
-    """Generate explanations for test cases using LLM and RAG"""
-    def __init__(self, model_name="gpt-4o", temperature=0):
-        self.llm = ChatOpenAI(model=model_name, temperature=temperature)
-        # self.prompt = self._create_test_explanation_prompt()
-        self.prompt = self._create_method_explanation_prompt()
+    # Load the TCM JSON file
+    with open(tcm_file_path, 'r') as f:
+        tcm_data = json.load(f)
     
-    def _create_test_explanation_prompt(self) -> ChatPromptTemplate:
-        template = """You are an expert code reviewer analyzing Python unit tests.
-        Given the following test and relevant code from the codebase:
-
-        Test Information:
-        This is one of the unit tests for the {repository_name} repository.
-        Name: {test_name}
-        Source Code:
-        {source_code}
-
-        Methods Under Test:
-        {methods_under_test}
-
-        Module: {module}
-        Arguments: {arguments}
-        Assertions: {assertions}
-        Docstring: {docstring}
-
-        Relevant Code from Codebase:
-        {relevant_code}
-
-        Provide a **concise** and **clear** explanation in the following format:
-
-        **Main Purpose of the Test**:
-        [Your explanation here]
-
-        **Specific Functionality or Behavior Verified**:
-        [Your explanation here]
-
-        **Code Being Tested and How It Works**:
-        [Your explanation here]
-
-        **Notable Testing Patterns or Techniques Used**:
-        [Your explanation here]
-
-        Focus on the most important aspects of the test and the code. Use clear and precise language to describe the test case.
-        """
-        
-        return ChatPromptTemplate.from_messages([
-            # ("system", "You are a specialized code analysis AI that explains unit tests."),
-            ("system", "You are a highly skilled software engineer and code analyst specializing in Python unit tests. Your task is to provide detailed and insightful explanations of unit tests, focusing on their purpose, functionality, and implementation details. Be thorough yet concise in your explanations."),
-            ("user", template)
-        ])
-
-    def generate_test_explanation(self, test: dict, repo_name: str, relevant_docs: list) -> str:
-        """Generate explanation for a test using context from codebase"""
-        # Format methods under test
-        methods_str = "None" if not test.get('methods_under_test') else \
-            "\n".join([f"- {m.get('name', 'Unknown')}: {m.get('body', 'No body')}" 
-                    for m in test['methods_under_test']])
-        
-        # Format relevant code
-        relevant_code = "\n\n".join([
-            f"```python\n{doc.page_content}\n```\n" 
-            for doc in relevant_docs
-        ])
-
-        # Create chain
-        chain = self.prompt | self.llm | StrOutputParser()
-        
-        return chain.invoke({
-            "repository_name": repo_name,
-            "test_name": test['name'],
-            "source_code": test['source_code'],
-            "docstring": test['docstring'],
-            "methods_under_test": methods_str, 
-            "module": test.get('module', 'Unknown'),
-            "arguments": ", ".join(test.get('arguments', [])),
-            "assertions": "\n".join(test.get('assertions', [])),
-            "relevant_code": relevant_code
-        })
+    # Extract the framework name from the file path (e.g., flask from flask_tcm.json)
+    framework = os.path.basename(tcm_file_path).split('_')[0]
+    repo_path = f"./__internal__/data_repo/{framework}"
     
-    def _create_method_explanation_prompt(self) -> ChatPromptTemplate:
-        template = """You are an expert assistant helping to explain Python methods.
-        Given the following method details and relevant code snippets from the repository:
-
-        **Method Name**:
-        {method_name}
-
-        **Method Body**:
-        ```python
-        {method_body}
-        ```
-
-        Relevant Code Snippets:
-        {relevant_code}
-
-        Provide a **concise** explanation in the following format:
-
-        **Main Purpose of the Method**:
-        [Your explanation here]
-
-        **How It Works**:
-        [Your explanation here]
-
-        Focus on clarity and relevance, ensuring the explanation assists developers in understanding the method's functionality and usage.
-        """
+    # Process each test-code pair
+    total_pairs = len(tcm_data["aligned_tc"])
+    for idx, pair in enumerate(tcm_data["aligned_tc"]):
+        test_file = pair["test"]
+        code_file = pair["code"].strip()  # Remove any leading/trailing spaces
+        comments = pair.get("comments", [])
         
-        return ChatPromptTemplate.from_messages([
-            ("system", "You are a skilled Python code assistant focused on explaining methods clearly and concisely."),
-            ("user", template)
-        ])
-
-    def generate_explanation(self, method: dict, relevant_docs: list) -> str:
-        """Generate explanation for a method using context from codebase"""
-        # Format relevant code
-        relevant_code = "\n\n".join([
-            f"```python\n{doc.page_content}\n```\n" 
-            for doc in relevant_docs
-        ])
-
-        # Create chain
-        chain = self.prompt | self.llm | StrOutputParser()
+        # Check if summaries already exist
+        has_pair_summary = "pair_summary" in pair and pair["pair_summary"] and not pair["pair_summary"].startswith("Error")
+        has_code_summary = "code_summary" in pair and pair["code_summary"] and not pair["code_summary"].startswith("Error")
         
-        return chain.invoke({
-            "method_name": method.get("name", "Unknown"),
-            "method_body": method.get("body", "No body provided"),
-            "relevant_code": relevant_code
-        })
+        # For backward compatibility, check for "summary" field and rename it to "pair_summary" if needed
+        if "summary" in pair and pair["summary"] and not pair["summary"].startswith("Error"):
+            if not has_pair_summary:
+                pair["pair_summary"] = pair["summary"]
+                has_pair_summary = True
+            # Keep the original summary field as well for backward compatibility
+        
+        if has_pair_summary and has_code_summary:
+            print(f"  [{idx+1}/{total_pairs}] Skipping (summaries exist): {test_file} -> {code_file}")
+            continue
+        
+        print(f"  [{idx+1}/{total_pairs}] Analyzing: {test_file} -> {code_file}")
+        
+        # Construct file paths
+        test_path = os.path.join(repo_path, test_file)
+        code_path = os.path.join(repo_path, code_file)
+        
+        # Check if files exist
+        if not os.path.exists(test_path) or not os.path.exists(code_path):
+            error_msg = f"Error: One or more files not found. Test: {os.path.exists(test_path)}, Code: {os.path.exists(code_path)}"
+            print(f"    {error_msg}")
+            if not has_pair_summary:
+                pair["pair_summary"] = error_msg
+            if not has_code_summary:
+                pair["code_summary"] = error_msg
+            continue
+            
+        # Read file contents
+        test_content = read_file_content(test_path)
+        code_content = read_file_content(code_path)
+        
+        # Generate pair summary if needed
+        if not has_pair_summary:
+            print(f"    Generating pair summary...")
+            pair_summary = generate_pair_summary(test_content, code_content, test_file, code_file, comments)
+            pair["pair_summary"] = pair_summary
+        
+        # Generate code summary if needed
+        if not has_code_summary:
+            print(f"    Generating code summary...")
+            code_summary = generate_code_summary(code_content, code_file)
+            pair["code_summary"] = code_summary
+        
+        # Save progress after each analysis
+        with open(f"{framework}_tcm_with_summaries.json", 'w') as f:
+            json.dump(tcm_data, f, indent=2)
+            
+        print(f"    Summaries generated and progress saved.")
+        
+        # Sleep to avoid API rate limits
+        time.sleep(2)
+    
+    # Save the updated TCM file
+    output_path = f"./__internal__/tc_sets/{framework}_tcm_with_summaries.json"
+    with open(output_path, 'w') as f:
+        json.dump(tcm_data, f, indent=2)
+    
+    print(f"  Saved updated file to {output_path}")
+    return output_path
+
+def extract_summaries_for_embedding(tcm_files):
+    """
+    Extracts summaries from processed TCM files and prepares them for embedding.
+    Returns two dataframes: one for pair summaries and one for code summaries.
+    """
+    try:
+        import pandas as pd
+    except ImportError:
+        print("pandas is required for this function. Install with: pip install pandas")
+        return None, None
+    
+    pair_summaries = []
+    code_summaries = []
+    
+    for tcm_file in tcm_files:
+        try:
+            with open(tcm_file, 'r') as f:
+                tcm_data = json.load(f)
+                
+            # Extract the framework name
+            framework = os.path.basename(tcm_file).split('_')[0]
+            
+            # Process each test-code pair
+            for pair in tcm_data.get("aligned_tc", []):
+                # Handle pair summaries
+                pair_summary = None
+                if "pair_summary" in pair and pair["pair_summary"] and not pair["pair_summary"].startswith("Error"):
+                    pair_summary = pair["pair_summary"]
+                elif "summary" in pair and pair["summary"] and not pair["summary"].startswith("Error"):
+                    # For backward compatibility
+                    pair_summary = pair["summary"]
+                
+                if pair_summary:
+                    summary_data = {
+                        "framework": framework,
+                        "test_file": pair["test"],
+                        "code_file": pair["code"],
+                        "summary": pair_summary,
+                        "comments": ", ".join(pair.get("comments", [])),
+                        "summary_type": "pair"
+                    }
+                    pair_summaries.append(summary_data)
+                
+                # Handle code summaries
+                if "code_summary" in pair and pair["code_summary"] and not pair["code_summary"].startswith("Error"):
+                    summary_data = {
+                        "framework": framework,
+                        "test_file": pair["test"],
+                        "code_file": pair["code"],
+                        "summary": pair["code_summary"],
+                        "comments": ", ".join(pair.get("comments", [])),
+                        "summary_type": "code"
+                    }
+                    code_summaries.append(summary_data)
+                    
+        except Exception as e:
+            print(f"Error processing {tcm_file}: {str(e)}")
+    
+    if not pair_summaries and not code_summaries:
+        print("No valid summaries found.")
+        return None, None
+    
+    # Create DataFrames
+    pair_df = pd.DataFrame(pair_summaries) if pair_summaries else None
+    code_df = pd.DataFrame(code_summaries) if code_summaries else None
+    
+    if pair_df is not None:
+        print(f"Extracted {len(pair_df)} pair summaries for embedding.")
+    if code_df is not None:
+        print(f"Extracted {len(code_df)} code summaries for embedding.")
+        
+    return pair_df, code_df
 
 def main():
-    # Initialize
-    loader = TestDataLoader()
-    indexer = CodebaseIndexer()
-    explainer = TestExplainer()
+    import argparse
+    import sys
     
-    data_dir = Path("./__internal__/collected_tests/tests_v3_without_django")
-    for json_file in data_dir.glob("collected_tests__*.json"):
-
-        if not json_file.stem.endswith("flask"):
-            print(f"Skipping {json_file}")
-            continue
-
-        print(f"\nProcessing tests from: {json_file}")
+    # Create the main parser
+    parser = argparse.ArgumentParser(description='Tools for test-code mapping analysis')
+    subparsers = parser.add_subparsers(dest='command', help='Command to run')
+    
+    # Subparser for generating summaries
+    generate_parser = subparsers.add_parser('generate', 
+                                            help='Generate summaries for test-code mappings')
+    generate_parser.add_argument('--files', nargs='+', help='Specific TCM files to process (e.g., flask_tcm.json)')
+    generate_parser.add_argument('--all', action='store_true', help='Process all TCM files in the current directory')
+    generate_parser.add_argument('--frameworks', nargs='+', help='Specific frameworks to process (e.g., flask sanic)')
+    generate_parser.add_argument('--api-key', help='OpenAI API key (or set OPENAI_API_KEY environment variable)')
+    generate_parser.add_argument('--pair-only', action='store_true', help='Generate only pair summaries')
+    generate_parser.add_argument('--code-only', action='store_true', help='Generate only code summaries')
+    
+    # Subparser for extracting summaries for embedding
+    extract_parser = subparsers.add_parser('extract', help='Extract summaries for embedding')
+    extract_parser.add_argument('--files', nargs='+', required=True, 
+                               help='Processed TCM files to extract from (e.g., flask_tcm_with_summaries.json)')
+    extract_parser.add_argument('--output-prefix', default='summaries_for_embedding', 
+                               help='Output CSV file prefix')
+    extract_parser.add_argument('--pair-only', action='store_true', help='Extract only pair summaries')
+    extract_parser.add_argument('--code-only', action='store_true', help='Extract only code summaries')
+    
+    args = parser.parse_args()
+    
+    # If no command provided, show help
+    if not args.command:
+        parser.print_help()
+        sys.exit(1)
+    
+    # Handle different commands
+    if args.command == 'generate':
+        # Set API key if provided
+        if args.api_key:
+            os.environ["OPENAI_API_KEY"] = args.api_key
         
-        test_data = loader.load_test_data(json_file)
-        repo_name = loader.get_repo_name(json_file)
-        repo_path = loader.get_repo_path(json_file)
-        print(f"Indexing repository: {repo_path}")
-        db = indexer.index_repository(repo_path)
+        # Check for API key
+        if not os.environ.get("OPENAI_API_KEY"):
+            print("Error: No OpenAI API key provided. Please set OPENAI_API_KEY environment variable or use --api-key")
+            return
         
-        retriever = db.as_retriever(
-            search_type="mmr",
-            search_kwargs={"k": 5}
-        )
+        # Determine which files to process
+        tcm_files = []
         
-        total = len(test_data["tests"])
-        count = 0
-
-        for test in test_data["tests"]:
-            print(f"({count+1}/{total}) Processing test {test['name']}")
-            count += 1
+        if args.files:
+            # Process specific files
+            tcm_files = [f for f in args.files if os.path.exists(f)]
+            missing = [f for f in args.files if not os.path.exists(f)]
+            if missing:
+                print(f"Warning: These files were not found: {', '.join(missing)}")
+        elif args.frameworks:
+            # Process specific frameworks
+            for framework in args.frameworks:
+                file = f"{framework}_tcm.json"
+                if os.path.exists(file):
+                    tcm_files.append(file)
+                else:
+                    print(f"Warning: File not found for framework '{framework}': {file}")
+        elif args.all or not (args.files or args.frameworks):
+            # Process all files or default behavior
+            tcm_files = glob.glob("*_tcm.json")
+        
+        if not tcm_files:
+            print("No TCM JSON files found to process.")
+            return
+        
+        print(f"Will process {len(tcm_files)} files: {', '.join(tcm_files)}")
+        
+        processed_files = []
+        for tcm_file in tcm_files:
+            processed_file = process_tcm_file(tcm_file)
+            processed_files.append(processed_file)
+        
+        print("\nProcessing complete. Files generated:")
+        for file in processed_files:
+            print(f"- {file}")
             
-            methods = test.get("methods_under_test", [])
-            if not methods:
-                print(f"Skipping test {test['name']} as it has no methods under test.")
-                continue
-
-            for method in methods:
-                try:
-                    # Use method details and relevant code for retrieval
-                    query = f"{method['name']}\n{method['body']}"
-                    relevant_docs = retriever.get_relevant_documents(query)
-
-                    explanation = explainer.generate_explanation(method, relevant_docs)
-                    method["method_explanation"] = explanation
-
-                except Exception as e:
-                    print(f"Error processing method {method['name']}: {str(e)}")
-                    method["method_explanation"] = f"Error generating explanation: {str(e)}"
-
+    elif args.command == 'extract':
+        # Extract summaries for embedding
+        pair_df, code_df = extract_summaries_for_embedding(args.files)
         
-        # Save augmented test data
-        output_dir = Path("./__internal__/collected_tests_explanation")
-        output_dir.mkdir(exist_ok=True)
-        output_file = output_dir / f"collected_tests_explanation__{json_file.stem.split('__')[1]}.json"
-        loader.save_test_data(test_data, output_file)
-        print(f"Saved explained tests to {output_file}")
-
-
-def generate_eval_pairs_explanation():
-    # Initialize
-    loader = TestDataLoader()
-    indexer = CodebaseIndexer()
-    explainer = TestExplainer()
-    
-    data_dir = Path("./__internal__/collected_tests/tests_v3_without_django")
-    for json_file in data_dir.glob("collected_tests__*.json"):
-
-        print(f"\nProcessing tests from: {json_file}")
+        # Save pair summaries if available and requested
+        if pair_df is not None and not args.code_only:
+            pair_output = f"{args.output_prefix}_pair.csv"
+            pair_df.to_csv(pair_output, index=False)
+            print(f"Pair summaries saved to {pair_output}")
+            
+            # Print sample statistics
+            print("\nPair Summary Statistics:")
+            print(f"Total summaries: {len(pair_df)}")
+            print(f"Frameworks: {', '.join(pair_df['framework'].unique())}")
         
-        test_data = loader.load_test_data(json_file)
-        repo_name = loader.get_repo_name(json_file)
-        repo_path = loader.get_repo_path(json_file)
-        print(f"Indexing repository: {repo_path}")
-        db = indexer.index_repository(repo_path)
-        
-        retriever = db.as_retriever(
-            search_type="mmr",
-            search_kwargs={"k": 5}
-        )
-        
-        total = len(test_data["tests"])
-        count = 0
-
-        for test in test_data["tests"]:
-            print(f"({count+1}/{total}) Processing test {test['name']}")
-            count += 1
-            try:
-                # Use method details and relevant code for retrieval
-                # query = f"{method['name']}\n{method['body']}"
-                query = f"{test['name']}\n{test['source_code']}\n{test['methods_under_test']}"
-                relevant_docs = retriever.get_relevant_documents(query)
-
-                explanation = explainer.generate_test_explanation(test, repo_name, relevant_docs)
-                test["code_explanation"] = explanation
-
-            except Exception as e:
-                print(f"Error processing test {test['name']}: {str(e)}")
-                test["code_explanation"] = f"Error generating explanation: {str(e)}"
-
-        
-        # Save augmented test data
-        output_dir = Path("./__internal__/collected_evaluate_explanation")
-        output_dir.mkdir(exist_ok=True)
-        output_file = output_dir / f"collected_tests_explanation__{json_file.stem.split('__')[1]}.json"
-        loader.save_test_data(test_data, output_file)
-        print(f"Saved explained tests to {output_file}")
+        # Save code summaries if available and requested
+        if code_df is not None and not args.pair_only:
+            code_output = f"{args.output_prefix}_code.csv"
+            code_df.to_csv(code_output, index=False)
+            print(f"Code summaries saved to {code_output}")
+            
+            # Print sample statistics
+            print("\nCode Summary Statistics:")
+            print(f"Total summaries: {len(code_df)}")
+            print(f"Frameworks: {', '.join(code_df['framework'].unique())}")
+            
+        print("\nYou can now use these summaries with an embedding model like sentence-transformers/all-mpnet-base-v2")
 
 if __name__ == "__main__":
     main()
