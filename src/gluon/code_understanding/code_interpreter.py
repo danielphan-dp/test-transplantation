@@ -8,37 +8,41 @@ import time
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 def read_file_content(file_path):
-    """Read file content, handling potential errors and large files intelligently."""
+    """Read file content, handling potential errors."""
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
-            
-            # If the file is very large, try to extract the most relevant parts
-            if len(content) > 30000:
-                # For test files, prioritize test functions and test classes
-                if '/test_' in file_path or '/tests/' in file_path:
-                    # Extract imports, class definitions, and test functions
-                    import re
-                    
-                    # Get imports
-                    imports = '\n'.join(re.findall(r'^import.*|^from.*', content, re.MULTILINE))
-                    
-                    # Get class definitions and test functions
-                    class_defs = re.findall(r'^\s*class\s+\w+.*?(?=^\s*class|\Z)', content, re.MULTILINE | re.DOTALL)
-                    test_funcs = re.findall(r'^\s*def\s+test_\w+.*?(?=^\s*def|\Z)', content, re.MULTILINE | re.DOTALL)
-                    
-                    # Combine the most important parts
-                    reduced_content = imports + '\n\n' + '\n\n'.join(class_defs[:3]) + '\n\n' + '\n\n'.join(test_funcs[:10])
-                    
-                    if len(reduced_content) > 1000:  # Make sure we have enough content
-                        return reduced_content[:30000]
-            
-            return content[:15000]  # Default case: return first 15K chars
+            return content
     except Exception as e:
         return f"Error reading file: {str(e)}"
 
-def generate_pair_summary(test_content, code_content, test_file, code_file, comments):
-    """Generate a detailed summary of the test-code pair using GPT-4o."""
+def generate_pair_summary(test_content, code_contents, test_file, code_files, comments):
+    """Generate a detailed summary of the test-code pair using GPT-4o.
+    
+    Parameters:
+    - test_content: Content of the test file
+    - code_contents: List of contents of code files or single content string
+    - test_file: Path of the test file
+    - code_files: List of paths of code files or single path string
+    - comments: List of comments from maintainer
+    """
+    # Handle both single code file and multiple code files cases
+    if isinstance(code_files, list):
+        # Multiple code files
+        code_files_str = ", ".join(code_files)
+        code_blocks = []
+        
+        for i in range(len(code_contents)):
+            file_content = code_contents[i]
+            # Add the code block with the file name
+            code_blocks.append(f"CODE FILE {i+1}: {code_files[i]}\n```python\n{file_content}\n```")
+                
+        code_section = "\n\n".join(code_blocks)
+    else:
+        # Single code file
+        code_files_str = code_files
+        code_section = f"CODE FILE: {code_files}\n```python\n{code_contents}\n```"
+
     # Construct the prompt optimized for embedding and similarity search
     prompt = f"""
 You are an expert code analyzer tasked with explaining test-code pairs from a Python web framework project. Your summaries will be used in an embedding-based search system to find similar test-code relationships.
@@ -48,10 +52,7 @@ TEST FILE: {test_file}
 {test_content[:30000]}
 ```
 
-CODE FILE: {code_file}
-```python
-{code_content[:30000]}
-```
+{code_section}
 
 COMMENTS FROM MAINTAINER: {', '.join(comments)}
 
@@ -110,17 +111,38 @@ Format as a information-rich list of bullet points, without headings or sections
                 return f"Error generating summary: {str(e)}"
 
 def generate_code_summary(code_content, code_file):
-    """Generate a summary focused only on the code file, optimized for embedding and similarity search."""
+    """Generate a summary focused only on the code file, optimized for embedding and similarity search.
+    
+    Parameters:
+    - code_content: Content of the code file or list of contents
+    - code_file: Path of the code file or list of paths
+    """
+    # Handle both single code file and multiple code files cases
+    if isinstance(code_file, list):
+        # Multiple code files
+        code_files_str = ", ".join(code_file)
+        
+        # Use the first code file for the summary or combine multiple if manageable
+        if len(code_file) == 1:
+            code_display = f"CODE FILE: {code_file[0]}\n```python\n{code_content[0]}\n```"
+        else:
+            # Include all files
+            code_blocks = []
+            for i in range(len(code_file)):
+                code_blocks.append(f"CODE FILE {i+1}: {code_file[i]}\n```python\n{code_content[i]}\n```")
+            code_display = "\n\n".join(code_blocks)
+    else:
+        # Single code file
+        code_files_str = code_file
+        code_display = f"CODE FILE: {code_file}\n```python\n{code_content}\n```"
+
     # Construct the prompt for code-only summary
     prompt = f"""
 You are an expert code analyzer tasked with explaining Python code files from web frameworks. Your code summaries will be used in an embedding-based search system to find similar implementation patterns across frameworks.
 
-CODE FILE: {code_file}
-```python
-{code_content[:30000]}
-```
+{code_display}
 
-Generate a technically precise, semantically rich summary (300-400 words) of ONLY this code file, optimized for embedding-based similarity search. Focus on:
+Generate a technically precise, semantically rich summary (300-400 words) of this code, optimized for embedding-based similarity search. Focus on:
 
 1. CORE FUNCTIONALITY:
    - Specific classes and methods implemented (use exact names)
@@ -190,7 +212,7 @@ def process_tcm_file(tcm_file_path):
     total_pairs = len(tcm_data["aligned_tc"])
     for idx, pair in enumerate(tcm_data["aligned_tc"]):
         test_file = pair["test"]
-        code_file = pair["code"].strip()  # Remove any leading/trailing spaces
+        code_file = pair["code"].strip() if isinstance(pair["code"], str) else [cf.strip() for cf in pair["code"]]
         comments = pair.get("comments", [])
         
         # Check if summaries already exist
@@ -205,18 +227,25 @@ def process_tcm_file(tcm_file_path):
             # Keep the original summary field as well for backward compatibility
         
         if has_pair_summary and has_code_summary:
-            print(f"  [{idx+1}/{total_pairs}] Skipping (summaries exist): {test_file} -> {code_file}")
+            if isinstance(code_file, list):
+                code_file_display = f"[{len(code_file)} files]"
+            else:
+                code_file_display = code_file
+            print(f"  [{idx+1}/{total_pairs}] Skipping (summaries exist): {test_file} -> {code_file_display}")
             continue
         
-        print(f"  [{idx+1}/{total_pairs}] Analyzing: {test_file} -> {code_file}")
+        if isinstance(code_file, list):
+            code_file_display = f"[{len(code_file)} files]"
+        else:
+            code_file_display = code_file
+        print(f"  [{idx+1}/{total_pairs}] Analyzing: {test_file} -> {code_file_display}")
         
-        # Construct file paths
+        # Construct file paths and read content
         test_path = os.path.join(repo_path, test_file)
-        code_path = os.path.join(repo_path, code_file)
         
-        # Check if files exist
-        if not os.path.exists(test_path) or not os.path.exists(code_path):
-            error_msg = f"Error: One or more files not found. Test: {os.path.exists(test_path)}, Code: {os.path.exists(code_path)}"
+        # Check if test file exists
+        if not os.path.exists(test_path):
+            error_msg = f"Error: Test file not found: {test_path}"
             print(f"    {error_msg}")
             if not has_pair_summary:
                 pair["pair_summary"] = error_msg
@@ -224,20 +253,51 @@ def process_tcm_file(tcm_file_path):
                 pair["code_summary"] = error_msg
             continue
             
-        # Read file contents
+        # Read test file content
         test_content = read_file_content(test_path)
-        code_content = read_file_content(code_path)
+        
+        # Handle single code file or multiple code files
+        if isinstance(code_file, list):
+            # Multiple code files
+            code_paths = [os.path.join(repo_path, cf) for cf in code_file]
+            code_exists = [os.path.exists(cp) for cp in code_paths]
+            
+            if not all(code_exists):
+                missing_files = [cf for cf, exists in zip(code_file, code_exists) if not exists]
+                error_msg = f"Error: Some code files not found: {', '.join(missing_files)}"
+                print(f"    {error_msg}")
+                if not has_pair_summary:
+                    pair["pair_summary"] = error_msg
+                if not has_code_summary:
+                    pair["code_summary"] = error_msg
+                continue
+            
+            # Read content of all code files
+            code_contents = [read_file_content(cp) for cp in code_paths]
+        else:
+            # Single code file
+            code_path = os.path.join(repo_path, code_file)
+            if not os.path.exists(code_path):
+                error_msg = f"Error: Code file not found: {code_path}"
+                print(f"    {error_msg}")
+                if not has_pair_summary:
+                    pair["pair_summary"] = error_msg
+                if not has_code_summary:
+                    pair["code_summary"] = error_msg
+                continue
+            
+            code_contents = read_file_content(code_path)
         
         # Generate pair summary if needed
         if not has_pair_summary:
             print(f"    Generating pair summary...")
-            pair_summary = generate_pair_summary(test_content, code_content, test_file, code_file, comments)
+            pair_summary = generate_pair_summary(test_content, code_contents, test_file, code_file, comments)
             pair["pair_summary"] = pair_summary
         
         # Generate code summary if needed
         if not has_code_summary:
             print(f"    Generating code summary...")
-            code_summary = generate_code_summary(code_content, code_file)
+            code_summary = generate_code_summary(code_contents, code_file)
             pair["code_summary"] = code_summary
         
         # Save progress after each analysis
