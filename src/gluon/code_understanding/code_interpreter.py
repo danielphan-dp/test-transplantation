@@ -82,7 +82,7 @@ Generate a semantically rich summary (400-600 words) optimized for embedding and
 
 Make your summary technically precise with specific terminology that would distinguish this test-code pair from others. Include meaningful technical details that would create a distinctive semantic signature for embedding models. Avoid generic descriptions that could apply to many test-code pairs.
 
-Format as a dense, information-rich paragraph without headings or sections. Use specific technical terms rather than general descriptions whenever possible.
+Format as a information-rich list of bullet points, without headings or sections. Use specific technical terms rather than general descriptions whenever possible.
 """
 
     # Make the API call with retry logic for rate limits
@@ -147,7 +147,7 @@ Generate a technically precise, semantically rich summary (300-400 words) of ONL
 
 Make your summary technically precise with specific terminology that would distinguish this code from similar implementations in other frameworks. Include meaningful technical details that would create a distinctive semantic signature for embedding models.
 
-Format as a dense, information-rich paragraph without headings or sections. Use specific technical terms rather than general descriptions. Focus on what makes this code distinctive for accurate similarity matching across frameworks.
+Format as a information-rich list of bullet points, without headings or sections. Use specific technical terms rather than general descriptions. Focus on what makes this code distinctive for accurate similarity matching across frameworks.
 """
 
     # Make the API call with retry logic for rate limits
@@ -241,7 +241,8 @@ def process_tcm_file(tcm_file_path):
             pair["code_summary"] = code_summary
         
         # Save progress after each analysis
-        with open(f"{framework}_tcm_with_summaries.json", 'w') as f:
+        progress_file = os.path.join("./__internal__/tc_sets_summary", f"{framework}_tcm_with_summaries.json")
+        with open(progress_file, 'w') as f:
             json.dump(tcm_data, f, indent=2)
             
         print(f"    Summaries generated and progress saved.")
@@ -250,85 +251,12 @@ def process_tcm_file(tcm_file_path):
         time.sleep(2)
     
     # Save the updated TCM file
-    output_path = f"./__internal__/tc_sets/{framework}_tcm_with_summaries.json"
+    output_path = os.path.join("./__internal__/tc_sets_summary", f"{framework}_tcm_with_summaries.json")
     with open(output_path, 'w') as f:
         json.dump(tcm_data, f, indent=2)
     
     print(f"  Saved updated file to {output_path}")
     return output_path
-
-def extract_summaries_for_embedding(tcm_files):
-    """
-    Extracts summaries from processed TCM files and prepares them for embedding.
-    Returns two dataframes: one for pair summaries and one for code summaries.
-    """
-    try:
-        import pandas as pd
-    except ImportError:
-        print("pandas is required for this function. Install with: pip install pandas")
-        return None, None
-    
-    pair_summaries = []
-    code_summaries = []
-    
-    for tcm_file in tcm_files:
-        try:
-            with open(tcm_file, 'r') as f:
-                tcm_data = json.load(f)
-                
-            # Extract the framework name
-            framework = os.path.basename(tcm_file).split('_')[0]
-            
-            # Process each test-code pair
-            for pair in tcm_data.get("aligned_tc", []):
-                # Handle pair summaries
-                pair_summary = None
-                if "pair_summary" in pair and pair["pair_summary"] and not pair["pair_summary"].startswith("Error"):
-                    pair_summary = pair["pair_summary"]
-                elif "summary" in pair and pair["summary"] and not pair["summary"].startswith("Error"):
-                    # For backward compatibility
-                    pair_summary = pair["summary"]
-                
-                if pair_summary:
-                    summary_data = {
-                        "framework": framework,
-                        "test_file": pair["test"],
-                        "code_file": pair["code"],
-                        "summary": pair_summary,
-                        "comments": ", ".join(pair.get("comments", [])),
-                        "summary_type": "pair"
-                    }
-                    pair_summaries.append(summary_data)
-                
-                # Handle code summaries
-                if "code_summary" in pair and pair["code_summary"] and not pair["code_summary"].startswith("Error"):
-                    summary_data = {
-                        "framework": framework,
-                        "test_file": pair["test"],
-                        "code_file": pair["code"],
-                        "summary": pair["code_summary"],
-                        "comments": ", ".join(pair.get("comments", [])),
-                        "summary_type": "code"
-                    }
-                    code_summaries.append(summary_data)
-                    
-        except Exception as e:
-            print(f"Error processing {tcm_file}: {str(e)}")
-    
-    if not pair_summaries and not code_summaries:
-        print("No valid summaries found.")
-        return None, None
-    
-    # Create DataFrames
-    pair_df = pd.DataFrame(pair_summaries) if pair_summaries else None
-    code_df = pd.DataFrame(code_summaries) if code_summaries else None
-    
-    if pair_df is not None:
-        print(f"Extracted {len(pair_df)} pair summaries for embedding.")
-    if code_df is not None:
-        print(f"Extracted {len(code_df)} code summaries for embedding.")
-        
-    return pair_df, code_df
 
 def main():
     import argparse
@@ -336,26 +264,13 @@ def main():
     
     # Create the main parser
     parser = argparse.ArgumentParser(description='Tools for test-code mapping analysis')
-    subparsers = parser.add_subparsers(dest='command', help='Command to run')
-    
-    # Subparser for generating summaries
-    generate_parser = subparsers.add_parser('generate', 
-                                            help='Generate summaries for test-code mappings')
-    generate_parser.add_argument('--files', nargs='+', help='Specific TCM files to process (e.g., flask_tcm.json)')
-    generate_parser.add_argument('--all', action='store_true', help='Process all TCM files in the current directory')
-    generate_parser.add_argument('--frameworks', nargs='+', help='Specific frameworks to process (e.g., flask sanic)')
-    generate_parser.add_argument('--api-key', help='OpenAI API key (or set OPENAI_API_KEY environment variable)')
-    generate_parser.add_argument('--pair-only', action='store_true', help='Generate only pair summaries')
-    generate_parser.add_argument('--code-only', action='store_true', help='Generate only code summaries')
-    
-    # Subparser for extracting summaries for embedding
-    extract_parser = subparsers.add_parser('extract', help='Extract summaries for embedding')
-    extract_parser.add_argument('--files', nargs='+', required=True, 
-                               help='Processed TCM files to extract from (e.g., flask_tcm_with_summaries.json)')
-    extract_parser.add_argument('--output-prefix', default='summaries_for_embedding', 
-                               help='Output CSV file prefix')
-    extract_parser.add_argument('--pair-only', action='store_true', help='Extract only pair summaries')
-    extract_parser.add_argument('--code-only', action='store_true', help='Extract only code summaries')
+
+    parser.add_argument('--files', nargs='+', help='Specific TCM files to process (e.g., flask_tcm.json)')
+    parser.add_argument('--all', action='store_true', help='Process all TCM files in ./__internal__/tc_sets')
+    parser.add_argument('--frameworks', nargs='+', help='Specific frameworks to process (e.g., flask sanic)')
+    parser.add_argument('--api-key', help='OpenAI API key (or set OPENAI_API_KEY environment variable)')
+    parser.add_argument('--pair-only', action='store_true', help='Generate only pair summaries')
+    parser.add_argument('--code-only', action='store_true', help='Generate only code summaries')
     
     args = parser.parse_args()
     
@@ -364,80 +279,51 @@ def main():
         parser.print_help()
         sys.exit(1)
     
-    # Handle different commands
-    if args.command == 'generate':
-        # Set API key if provided
-        if args.api_key:
-            os.environ["OPENAI_API_KEY"] = args.api_key
-        
-        # Check for API key
-        if not os.environ.get("OPENAI_API_KEY"):
-            print("Error: No OpenAI API key provided. Please set OPENAI_API_KEY environment variable or use --api-key")
-            return
-        
-        # Determine which files to process
-        tcm_files = []
-        
-        if args.files:
-            # Process specific files
-            tcm_files = [f for f in args.files if os.path.exists(f)]
-            missing = [f for f in args.files if not os.path.exists(f)]
-            if missing:
-                print(f"Warning: These files were not found: {', '.join(missing)}")
-        elif args.frameworks:
-            # Process specific frameworks
-            for framework in args.frameworks:
-                file = f"{framework}_tcm.json"
-                if os.path.exists(file):
-                    tcm_files.append(file)
-                else:
-                    print(f"Warning: File not found for framework '{framework}': {file}")
-        elif args.all or not (args.files or args.frameworks):
-            # Process all files or default behavior
-            tcm_files = glob.glob("*_tcm.json")
-        
-        if not tcm_files:
-            print("No TCM JSON files found to process.")
-            return
-        
-        print(f"Will process {len(tcm_files)} files: {', '.join(tcm_files)}")
-        
-        processed_files = []
-        for tcm_file in tcm_files:
-            processed_file = process_tcm_file(tcm_file)
-            processed_files.append(processed_file)
-        
-        print("\nProcessing complete. Files generated:")
-        for file in processed_files:
-            print(f"- {file}")
-            
-    elif args.command == 'extract':
-        # Extract summaries for embedding
-        pair_df, code_df = extract_summaries_for_embedding(args.files)
-        
-        # Save pair summaries if available and requested
-        if pair_df is not None and not args.code_only:
-            pair_output = f"{args.output_prefix}_pair.csv"
-            pair_df.to_csv(pair_output, index=False)
-            print(f"Pair summaries saved to {pair_output}")
-            
-            # Print sample statistics
-            print("\nPair Summary Statistics:")
-            print(f"Total summaries: {len(pair_df)}")
-            print(f"Frameworks: {', '.join(pair_df['framework'].unique())}")
-        
-        # Save code summaries if available and requested
-        if code_df is not None and not args.pair_only:
-            code_output = f"{args.output_prefix}_code.csv"
-            code_df.to_csv(code_output, index=False)
-            print(f"Code summaries saved to {code_output}")
-            
-            # Print sample statistics
-            print("\nCode Summary Statistics:")
-            print(f"Total summaries: {len(code_df)}")
-            print(f"Frameworks: {', '.join(code_df['framework'].unique())}")
-            
-        print("\nYou can now use these summaries with an embedding model like sentence-transformers/all-mpnet-base-v2")
+    # Set API key if provided
+    if args.api_key:
+        os.environ["OPENAI_API_KEY"] = args.api_key
+
+    # Check for API key
+    if not os.environ.get("OPENAI_API_KEY"):
+        print("Error: No OpenAI API key provided. Please set OPENAI_API_KEY environment variable or use --api-key")
+        return
+
+    # Determine which files to process
+    tcm_files = []
+
+    if args.files:
+        # Process specific files
+        tcm_files = [os.path.join("./__internal__/tc_sets", f) for f in args.files]
+        tcm_files = [f for f in tcm_files if os.path.exists(f)]
+        missing = [f for f in args.files if not os.path.exists(os.path.join("./__internal__/tc_sets", f))]
+        if missing:
+            print(f"Warning: These files were not found: {', '.join(missing)}")
+    elif args.frameworks:
+        # Process specific frameworks
+        for framework in args.frameworks:
+            file = os.path.join("./__internal__/tc_sets", f"{framework}_tcm.json")
+            if os.path.exists(file):
+                tcm_files.append(file)
+            else:
+                print(f"Warning: File not found for framework '{framework}': {file}")
+    elif args.all or not (args.files or args.frameworks):
+        # Process all files or default behavior
+        tcm_files = glob.glob("./__internal__/tc_sets/*_tcm.json")
+
+    if not tcm_files:
+        print("No TCM JSON files found to process.")
+        return
+
+    print(f"Will process {len(tcm_files)} files: {', '.join(tcm_files)}")
+
+    processed_files = []
+    for tcm_file in tcm_files:
+        processed_file = process_tcm_file(tcm_file)
+        processed_files.append(processed_file)
+
+    print("\nProcessing complete. Files generated:")
+    for file in processed_files:
+        print(f"- {file}")
 
 if __name__ == "__main__":
     main()
