@@ -241,6 +241,8 @@ def process_tcm_file(tcm_file_path):
             pair["code_summary"] = code_summary
         
         # Save progress after each analysis
+        if not os.path.exists("./__internal__/tc_sets_summary"):
+            os.makedirs("./__internal__/tc_sets_summary")
         progress_file = os.path.join("./__internal__/tc_sets_summary", f"{framework}_tcm_with_summaries.json")
         with open(progress_file, 'w') as f:
             json.dump(tcm_data, f, indent=2)
@@ -273,7 +275,7 @@ def main():
     parser.add_argument('--code-only', action='store_true', help='Generate only code summaries')
     
     args = parser.parse_args()
-    
+
     
     # Set API key if provided
     if args.api_key:
