@@ -274,10 +274,6 @@ def main():
     
     args = parser.parse_args()
     
-    # If no command provided, show help
-    if not args.command:
-        parser.print_help()
-        sys.exit(1)
     
     # Set API key if provided
     if args.api_key:
