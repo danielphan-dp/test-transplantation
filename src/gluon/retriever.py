@@ -239,6 +239,9 @@ class RetrieverProcessor:
         all_donor_extracted_data = []
         for donor in donor_repos:
             donor_data = self.data_extractor.load_data(os.path.join(self.tcm_summary_path.replace(f"{self.host_repo}_tcm_with_summaries.json", ""), f"{donor}_tcm_with_summaries.json"))
+            # Add donor framework name to each item
+            for item in donor_data:
+                item["framework"] = donor
             donor_extracted_data = self._extract_data_by_type(donor_data)
             all_donor_data.extend(donor_data)
             all_donor_extracted_data.extend(donor_extracted_data)
@@ -299,6 +302,8 @@ class RetrieverProcessor:
             json.dump({"relevant_pairs": output_data}, f, indent=2, ensure_ascii=False)
 
         print(f"Stored {len(results)} relevant pairs in {output_path}")
+
+        return output_path
     
 
 def main(args):
@@ -336,8 +341,8 @@ def main(args):
         elif args.process_code:
             retriever_processor = RetrieverProcessor(tcm_summary, "code", args.retrieve_method, args.embedding_model_name)
             results = retriever_processor.process_tcm_summary_file()
-            retriever_processor.save_results(results)
-            processed_files.append(tcm_summary)
+            output_path = retriever_processor.save_results(results)
+            processed_files.append(output_path)
 
     print("\nProcessing complete. Files generated:")
     for file in processed_files:
