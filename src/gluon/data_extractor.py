@@ -58,10 +58,10 @@ class DataExtractor:
         return code_summaries
     
     @staticmethod
-    def extract_code_file_paths(repo_path, pair_data):
+    def extract_code_file_paths(repo_path, framework):
         """Extract file paths from the repository"""
         file_paths = []
-        src_path = os.path.join(repo_path, pair_data["code"].split("/")[0])
+        src_path = os.path.join(repo_path, framework)
         # Get all file paths in the src_path
         for root, dirs, files in os.walk(src_path):
             for file in files:
