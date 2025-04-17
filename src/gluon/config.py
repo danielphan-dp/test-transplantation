@@ -32,6 +32,10 @@ RETRIEVE_METHODS = {
         "similarity_search_with_relevance_scores": {
             "k": 5,
         },
+        "similarity_search_with_relevance_scores_threshold": {
+            "k": 5,
+            "score_threshold": 0.65,
+        },
         "similarity_search_with_score": {
             "k": 5,
         },
@@ -55,6 +59,10 @@ RETRIEVE_METHODS = {
         "similarity_search_with_relevance_scores": {
             "k": 5,
         },
+        "similarity_search_with_relevance_scores_threshold": {
+            "k": 5,
+            "score_threshold": 0.65,
+        },
         "similarity_search_with_score": {
             "k": 5,
         },
@@ -64,6 +72,7 @@ RETRIEVE_METHODS = {
         },
         "similarity_score_threshold": {
             "k": 5,
+            "score_threshold": 0.65,
         },
         "ensemble": {
             "k": 5,

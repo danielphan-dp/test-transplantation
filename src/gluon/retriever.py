@@ -120,6 +120,18 @@ class Retriever():
         """
         # retriever = db.as_retriever(search_type="similarity_search_with_relevance_scores", search_kwargs={"k": topk, "score_threshold": 0.6})
         return db.similarity_search_with_relevance_scores(query, k=topk)
+    
+    @classmethod
+    def similarity_search_with_relevance_scores_threshold(cls, db, query, topk, score_threshold):
+        """
+        Perform similarity search with relevance scores threshold, retrieve top-k results with relevance scores threshold
+        :param db: FAISS DB vector store
+        :param query: Query to search for
+        :param topk: Number of top-k results to retrieve
+        :param score_threshold: Similarity score threshold
+        :return: Top-k results with relevance scores threshold
+        """
+        return db.similarity_search_with_relevance_scores(query, k=topk, score_threshold=score_threshold)
 
     @classmethod
     def similarity_score_threshold(cls, db, query, topk, score_threshold):
@@ -201,6 +213,8 @@ class RetrieverProcessor:
             return Retriever.similarity_search(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"])
         elif self.retrieve_method == "similarity_search_with_relevance_scores":
             return Retriever.similarity_search_with_relevance_scores(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"])
+        elif self.retrieve_method == "similarity_search_with_relevance_scores_threshold":
+            return Retriever.similarity_search_with_relevance_scores_threshold(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"], RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["score_threshold"])
         elif self.retrieve_method == "similarity_search_with_score":
             return Retriever.similarity_search_with_score(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"])
         elif self.retrieve_method == "mmr":
@@ -242,7 +256,7 @@ class RetrieverProcessor:
         # Process and retrieve similar items
         results = []
         for idx, host_item in enumerate(host_extracted_data):
-            if self.retrieve_method in ["similarity_search_with_relevance_scores", "similarity_search_with_score"]:
+            if self.retrieve_method in ["similarity_search_with_relevance_scores", "similarity_search_with_score", "similarity_search_with_relevance_scores_threshold"]:
                 retrieved_items = self._retrieve_similar_items(host_item, all_donor_extracted_data)
                 if not retrieved_items:
                     print(f"No retrieved items for host item {idx}")
@@ -251,8 +265,8 @@ class RetrieverProcessor:
                 target_host_item = host_data[idx]
                 similar_items = []
 
-                for retrieved, score in retrieved_items:
-                    donor_pair_idx = all_donor_extracted_data.index(retrieved.page_content)
+                for retrieved_item, score in retrieved_items:
+                    donor_pair_idx = all_donor_extracted_data.index(retrieved_item.page_content)
                     donor_pair = all_donor_data[donor_pair_idx]
                     donor_pair[f"{self.summary_type}_similarity_score"] = float(score)
                     similar_items.append(donor_pair)
