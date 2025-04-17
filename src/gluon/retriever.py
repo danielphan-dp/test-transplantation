@@ -268,7 +268,7 @@ class RetrieverProcessor:
 
         output_dir = "./__internal__/relevant_pairs"
         os.makedirs(output_dir, exist_ok=True)
-        output_filename = f"retrieve_pairs_{self.host_repo}_{self.summary_type}.json"
+        output_filename = f"{self.host_repo}_{self.summary_type}_retrieved_pairs.json"
         output_path = os.path.join(output_dir, output_filename)
 
         with open(output_path, 'w', encoding='utf-8') as f:
