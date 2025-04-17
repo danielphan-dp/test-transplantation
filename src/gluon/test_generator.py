@@ -5,14 +5,14 @@ import argparse
 import glob
 from openai import OpenAI
 
-from prompt_generator import (
+from .prompt_generator import (
     generate_transplant_analysis_prompt,
     generate_additional_files_prompt,
     generate_test_creation_prompt
 )
 
-from data_extractor import DataExtractor
-from config import DATA_REPO_PATH
+from .data_extractor import DataExtractor
+from .config import DATA_REPO_PATH
 
 class TestGenerator:
     def __init__(self, host_repo, output_dir="./__internal__/results"):
@@ -347,7 +347,6 @@ def main():
     parser.add_argument('--frameworks', nargs='+', help='Specific frameworks to process')
     parser.add_argument('--all', action='store_true', help='Process all retrieved pairs')
     parser.add_argument('--output_dir', type=str, default='./__internal__/results', help='Output directory')
-    parser.add_argument('--base_path', type=str, default='./', help='Base path for file resolution')
     
     args = parser.parse_args()
 
