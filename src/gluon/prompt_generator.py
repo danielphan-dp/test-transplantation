@@ -1,4 +1,4 @@
-def generate_transplant_analysis_prompt(host_code_files, host_code, donor_code_files, donor_code, donor_test_file, donor_test):
+def generate_transplant_analysis_prompt(host_code_files, host_code, donor_code_files, donor_code, donor_test_file, donor_test, host_repo_files, donor_repo_files):
     """
     Generate a prompt to analyze if test methods can be transplanted from donor to host
     
@@ -9,6 +9,8 @@ def generate_transplant_analysis_prompt(host_code_files, host_code, donor_code_f
     - donor_code: string or list of code contents
     - donor_test_file: string (test file name)
     - donor_test: string (test file content)
+    - host_repo_files: list of all file paths in the host repository
+    - donor_repo_files: list of all file paths in the donor repository
     """
     # Format host code files and content
     host_files_content = ""
@@ -26,12 +28,17 @@ def generate_transplant_analysis_prompt(host_code_files, host_code, donor_code_f
     else:
         donor_files_content = f"Donor code file: {donor_code_files}\n```python\n{donor_code}\n```"
     
+    # Format the repository file paths
+    host_repo_files_str = "\n".join(host_repo_files)
+    donor_repo_files_str = "\n".join(donor_repo_files)
+    
     prompt = f"""
     You are an expert code analyzer specializing in test transplantation. I'm going to provide you with:
     
     1. Host code file(s) that need tests
     2. Donor code file(s) that have existing tests
     3. Donor test file that we want to transplant from
+    4. Complete lists of available files in both repositories
     
     Your task is to analyze whether and how specific test methods from the donor test can be transplanted to create effective tests for the host code.
     
@@ -46,6 +53,16 @@ def generate_transplant_analysis_prompt(host_code_files, host_code, donor_code_f
     {donor_test}
     ```
     
+    All available host repository files:
+    ```
+    {host_repo_files_str}
+    ```
+    
+    All available donor repository files:
+    ```
+    {donor_repo_files_str}
+    ```
+    
     Output a dictionary where:
     - Keys are the names of donor test methods that could be transplanted
     - Values are detailed plans explaining how to transplant each method
@@ -56,6 +73,7 @@ def generate_transplant_analysis_prompt(host_code_files, host_code, donor_code_f
     2. How it relates to the host code
     3. What modifications would be needed
     4. Any dependencies or fixtures that would need to be adapted
+    5. Any additional host files that would need to be referenced
     
     Example output format:
     {{
@@ -70,17 +88,23 @@ def generate_transplant_analysis_prompt(host_code_files, host_code, donor_code_f
     return prompt
 
 
-def generate_additional_files_prompt(host_code_files, transplant_analysis_result):
+def generate_additional_files_prompt(host_code_files, transplant_analysis_result, host_repo_files, donor_repo_files):
     """
     Generate a prompt to identify additional files needed for test generation
     
     Parameters:
     - host_code_files: string or list of file names
     - transplant_analysis_result: dict or string with analysis results
+    - host_repo_files: list of all file paths in the host repository
+    - donor_repo_files: list of all file paths in the donor repository
     """
     host_files_str = host_code_files
     if isinstance(host_code_files, list):
         host_files_str = ", ".join(host_code_files)
+    
+    # Format the repository file paths
+    host_repo_files_str = "\n".join(host_repo_files)
+    donor_repo_files_str = "\n".join(donor_repo_files)
     
     prompt = f"""
     Based on our previous analysis of test transplantation potential, I need to identify additional files needed for successful test transplantation.
@@ -92,10 +116,20 @@ def generate_additional_files_prompt(host_code_files, transplant_analysis_result
     {transplant_analysis_result}
     ```
     
+    All available host repository files:
+    ```
+    {host_repo_files_str}
+    ```
+    
+    All available donor repository files:
+    ```
+    {donor_repo_files_str}
+    ```
+    
     Please identify any additional files we might need to retrieve to successfully transplant and adapt the tests.
     
     Output two JSON lists:
-    1. Files needed from the host code repository (Flask)
+    1. Files needed from the host code repository
     2. Files needed from the donor code repository
     
     For each list, provide the file paths and a brief explanation of why each file is needed.

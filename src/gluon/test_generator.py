@@ -24,7 +24,10 @@ class TestGenerator:
         self.data_extractor = DataExtractor()
         self.host_repo = host_repo
 
-        self.host_repo_files = []
+        # Read host repo files from __internal__/repo_file_paths/{host_repo}.json
+        with open(f"./__internal__/repo_file_paths/{host_repo}_code_file_paths.json", "r") as f:
+            self.host_repo_files = json.load(f)
+        # A dictionary of donor repo files
         self.donor_repo_files = {}
 
         self.conversation_history = []
@@ -62,15 +65,6 @@ class TestGenerator:
             return response.choices[0].message.content
         except Exception as e:
             print(f"Error calling OpenAI API: {e}")
-            return None
-    
-    def read_file(self, file_path):
-        """Read content from a file"""
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return file.read()
-        except Exception as e:
-            print(f"Error reading file {file_path}: {e}")
             return None
     
     def write_file(self, file_path, content):
@@ -170,18 +164,8 @@ class TestGenerator:
         if additional_files_info.get("host_files_needed") and additional_files_info["host_files_needed"] != "None":
             for file_info in additional_files_info["host_files_needed"]:
                 file_path = file_info["file_path"]
-                # Try different path variations to find the file
-                possible_paths = [
-                    f"{base_path}{file_path}",
-                    f"{base_path}{host_repo}/{file_path}",
-                    f"{base_path}/repositories/{host_repo}/{file_path}"
-                ]
                 
-                content = None
-                for path in possible_paths:
-                    content = self.read_file(path)
-                    if content:
-                        break
+                content = self.data_extractor.extract_code_file(f"{DATA_REPO_PATH}/{self.host_repo}", file_path)
                 
                 if content:
                     host_files.append({"file_path": file_path, "content": content})
@@ -191,17 +175,8 @@ class TestGenerator:
         if additional_files_info.get("donor_files_needed") and additional_files_info["donor_files_needed"] != "None":
             for file_info in additional_files_info["donor_files_needed"]:
                 file_path = file_info["file_path"]
-                possible_paths = [
-                    f"{base_path}{file_path}",
-                    f"{base_path}{donor_repo}/{file_path}",
-                    f"{base_path}/repositories/{donor_repo}/{file_path}"
-                ]
                 
-                content = None
-                for path in possible_paths:
-                    content = self.read_file(path)
-                    if content:
-                        break
+                content = self.data_extractor.extract_code_file(f"{DATA_REPO_PATH}/{donor_repo}", file_path)
                 
                 if content:
                     donor_files.append({"file_path": file_path, "content": content})
@@ -272,11 +247,16 @@ class TestGenerator:
                     print(f"  Processing similar item {item_idx + 1}/{len(similar_items)}")
                     donor_framework = similar_item.get("framework", "")
 
+                    if donor_framework not in self.donor_repo_files:
+                        with open(f"./__internal__/repo_file_paths/{donor_framework}_code_file_paths.json", "r") as f:
+                            self.donor_repo_files[donor_framework] = json.load(f)
+
                     # Try different path variations for donor files
                     donor_code = None
                     donor_test = None
                     donor_code_files = similar_item.get("code", "")
                     donor_test_file = similar_item.get("test", "")
+                    code_similarity_score = similar_item.get("code_similarity_score", 0)
 
                     donor_code = self.data_extractor.extract_code_file(f"{DATA_REPO_PATH}/{donor_framework}", similar_item)
                     donor_test = self.data_extractor.extract_test_code(f"{DATA_REPO_PATH}/{donor_framework}", similar_item)
@@ -290,7 +270,8 @@ class TestGenerator:
                     transplant_analysis_result = self.analyze_transplantation_potential(
                         host_code_files, host_code,
                         donor_code_files, donor_code,
-                        donor_test_file, donor_test
+                        donor_test_file, donor_test, 
+                        self.host_repo_files, self.donor_repo_files[donor_framework]
                     )
                     
                     if not transplant_analysis_result:
@@ -300,7 +281,8 @@ class TestGenerator:
                     # Step 2: Identify and fetch additional files
                     print("  Identifying additional files needed...")
                     additional_files_info = self.identify_additional_files(
-                        host_code_files, transplant_analysis_result
+                        host_code_files, transplant_analysis_result,
+                        self.host_repo_files, self.donor_repo_files[donor_framework]
                     )
                     
                     print("  Fetching additional files...")
@@ -311,8 +293,8 @@ class TestGenerator:
                     # Step 3: Generate test file
                     print("  Generating test file...")
                     generated_test = self.generate_test_file(
-                        host_code_file, host_code,
-                        donor_code_file, donor_code,
+                        host_code_files, host_code,
+                        donor_code_files, donor_code,
                         donor_test_file, donor_test,
                         transplant_analysis_result,
                         additional_files_info,
@@ -320,19 +302,11 @@ class TestGenerator:
                     )
                     
                     # Determine name for generated test file
-                    host_repo_output_dir = os.path.join(self.output_dir, "flask")
+                    host_repo_output_dir = os.path.join(self.output_dir, self.host_repo)
                     os.makedirs(host_repo_output_dir, exist_ok=True)
                     
-                    host_test_file = host_item.get("test", "")
-                    if not host_test_file:
-                        # Create a name based on host code file
-                        file_base = os.path.basename(host_code_file)
-                        file_name = os.path.splitext(file_base)[0]
-                        host_test_file = f"test_transplanted_{file_name}_{donor_framework}.py"
-                    else:
-                        # If the host already has a test file, create a new name to avoid conflicts
-                        file_name = os.path.splitext(os.path.basename(host_test_file))[0]
-                        host_test_file = f"{file_name}_transplanted_{donor_framework}.py"
+                    donor_test_name = os.path.basename(donor_test_file).split(".")[0]
+                    host_test_file = f"transplanted_{donor_test_name}_from_{donor_framework}.py"
                     
                     # Write generated test to file
                     generated_test_path = os.path.join(host_repo_output_dir, host_test_file)
@@ -341,19 +315,20 @@ class TestGenerator:
                     
                     # Add result to output
                     result_item["similar_items"].append({
-                        "test": donor_test_file,
-                        "code": donor_code_file,
                         "framework": donor_framework,
+                        "test": donor_test_file,
+                        "code": donor_code_files,
+                        "code_similarity_score": code_similarity_score,
                         "transplant_analysis": transplant_analysis_result,
                         "additional_files_info": additional_files_info,
-                        "generated_test": generated_test_path
+                        "generated_test": generated_test
                     })
                 
                 if result_item["similar_items"]:
                     results["relevant_pairs"].append(result_item)
             
             # Write results to JSON file
-            output_path = os.path.join(self.output_dir, "transplanted_tests_results.json")
+            output_path = os.path.join(self.output_dir, f"{self.host_repo}_transplanted_tests_results.json")
             self.write_file(output_path, json.dumps(results, indent=2))
             print(f"Results written to {output_path}")
             
