@@ -310,7 +310,7 @@ def main(args):
             # retriever_processor = RetrieverProcessor(tcm_summary, "pair", args.retrieve_method, args.embedding_model)
             print("TODO: Implement pair retrieval")
         elif args.process_code:
-            retriever_processor = RetrieverProcessor(tcm_summary, "code", args.retrieve_method, args.embedding_model)
+            retriever_processor = RetrieverProcessor(tcm_summary, "code", args.retrieve_method, args.embedding_model_name)
             results = retriever_processor.process_tcm_summary_file()
             retriever_processor.save_results(results)
             processed_files.append(tcm_summary)
