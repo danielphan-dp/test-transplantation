@@ -18,12 +18,12 @@ REPOSITORY_URLS = {
     "aiohttp": "https://github.com/aio-libs/aiohttp.git",
 }
 
-
-REPOSITORIES = [
-    "flask",
-    "quart",
-    "sanic",
-]
+# framework: [src_path, test_path]
+REPOSITORIES = {
+    "flask": ["src", "tests"],
+    "quart": ["src", "tests"],
+    "sanic": ["sanic", "tests"],
+}
 
 
 RETRIEVE_METHODS = {

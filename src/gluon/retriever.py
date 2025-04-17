@@ -205,7 +205,7 @@ class RetrieverProcessor:
     
     def _get_all_repos(self):
         """Get all donor repositories"""
-        return [repo for repo in REPOSITORIES if repo != self.host_repo]
+        return [repo for repo in REPOSITORIES.keys() if repo != self.host_repo]
     
     def _retrieve_similar_items(self, query: str, donor_data: List[str]) -> List:
         """Retrieve similar items using the specified retrieval method"""
