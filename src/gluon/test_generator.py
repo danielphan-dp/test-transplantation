@@ -113,14 +113,15 @@ class TestGenerator:
             print(f"Failed to extract JSON from response: {response[:200]}...")
             return None
     
-    def analyze_transplantation_potential(self, host_code_files, host_code, donor_code_files, donor_code, donor_test_file, donor_test):
+    def analyze_transplantation_potential(self, host_code_files, host_code, donor_code_files, donor_code, donor_test_file, donor_test, host_repo_files, donor_repo_files):
         """Analyze if test methods can be transplanted from donor to host"""
         self.conversation_history = []
 
         prompt = generate_transplant_analysis_prompt(
             host_code_files, host_code, 
             donor_code_files, donor_code, 
-            donor_test_file, donor_test
+            donor_test_file, donor_test,
+            host_repo_files, donor_repo_files
         )
         response = self.call_openai_api(prompt, maintain_conversation_history=True)
         
@@ -138,11 +139,12 @@ class TestGenerator:
         
         return result
     
-    def identify_additional_files(self, host_code_files, transplant_analysis_result):
+    def identify_additional_files(self, host_code_files, transplant_analysis_result, host_repo_files, donor_repo_files):
         """Identify additional files needed for test generation"""
         prompt = generate_additional_files_prompt(
             host_code_files, 
-            json.dumps(transplant_analysis_result, indent=2)
+            json.dumps(transplant_analysis_result, indent=2),
+            host_repo_files, donor_repo_files
         )
         response = self.call_openai_api(prompt, maintain_conversation_history=True)
         result = self.parse_json_from_response(response)
