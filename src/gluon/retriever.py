@@ -13,8 +13,7 @@ from langchain.retrievers import EnsembleRetriever
 from langchain_community.retrievers import BM25Retriever
 
 from .data_extractor import DataExtractor
-from .config import REPOSITORIES
-
+from .config import REPOSITORIES, RETRIEVE_METHODS
 
 
 class CodebaseIndexer:
@@ -109,6 +108,18 @@ class Retriever():
         """
         retriever = db.as_retriever(search_type="mmr", search_kwargs={"k": topk, "fetch_k": fetch_k})
         return retriever.get_relevant_documents(query)
+    
+    @classmethod
+    def similarity_search_with_relevance_scores(cls, db, query, topk):
+        """
+        Perform similarity search with relevance scores, retrieve top-k results with relevance scores
+        :param db: FAISS DB vector store
+        :param query: Query to search for
+        :param topk: Number of top-k results to retrieve
+        :return: List of Tuples of (doc, similarity_score).
+        """
+        # retriever = db.as_retriever(search_type="similarity_search_with_relevance_scores", search_kwargs={"k": topk, "score_threshold": 0.6})
+        return db.similarity_search_with_relevance_scores(query, k=topk)
 
     @classmethod
     def similarity_score_threshold(cls, db, query, topk, score_threshold):
@@ -184,21 +195,20 @@ class RetrieverProcessor:
         """Get all donor repositories"""
         return [repo for repo in REPOSITORIES if repo != self.host_repo]
     
-    def _retrieve_similar_items(self, query: str, donor_data: List[str], k: int = 10) -> List:
+    def _retrieve_similar_items(self, query: str, donor_data: List[str]) -> List:
         """Retrieve similar items using the specified retrieval method"""
         if self.retrieve_method == "similarity_search":
-            return Retriever.similarity_search(self.db.GetVector(), query, k)
+            return Retriever.similarity_search(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"])
         elif self.retrieve_method == "similarity_search_with_relevance_scores":
-            return Retriever.similarity_search_with_relevance_scores(self.db.GetVector(), query, 1)
+            return Retriever.similarity_search_with_relevance_scores(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"])
         elif self.retrieve_method == "similarity_search_with_score":
-            return Retriever.similarity_search_with_score(self.db.GetVector(), query, 1)
+            return Retriever.similarity_search_with_score(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"])
         elif self.retrieve_method == "mmr":
-            return Retriever.mmr(self.db.GetVector(), query, k, fetch_k=k*2)
+            return Retriever.mmr(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"], fetch_k=RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["fetch_k"])
         elif self.retrieve_method == "similarity_score_threshold":
-            # return Retriever.similarity_score_threshold(self.db.GetVector(), query, k, score_threshold=0.6)
-            return Retriever.similarity_score_threshold(self.db.GetVector(), query, 1, score_threshold=0.6)
+            return Retriever.similarity_score_threshold(self.db.GetVector(), query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"], score_threshold=RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["score_threshold"])
         elif self.retrieve_method == "ensemble":
-            return Retriever.ensemble(self.db.GetVector(), donor_data, query, k, bm25_topk=5)
+            return Retriever.ensemble(self.db.GetVector(), donor_data, query, RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["k"], bm25_topk=RETRIEVE_METHODS[self.summary_type][self.retrieve_method]["bm25_topk"])
         else:
             raise ValueError(f"Invalid retrieve method: {self.retrieve_method}")
 
@@ -260,11 +270,11 @@ class RetrieverProcessor:
         output_data = []
 
         for host_item, similar_items in results:
-            pair = {
+            relevant_pair = {
                 "host_item": host_item,
                 "similar_items": similar_items
             }
-            output_data.append(pair)
+            output_data.append(relevant_pair)
 
         output_dir = "./__internal__/relevant_pairs"
         os.makedirs(output_dir, exist_ok=True)
@@ -272,9 +282,9 @@ class RetrieverProcessor:
         output_path = os.path.join(output_dir, output_filename)
 
         with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump({"pairs": output_data}, f, indent=2, ensure_ascii=False)
+            json.dump({"relevant_pairs": output_data}, f, indent=2, ensure_ascii=False)
 
-        print(f"Stored {len(results)} pairs in {output_path}")
+        print(f"Stored {len(results)} relevant pairs in {output_path}")
     
 
 def main(args):
