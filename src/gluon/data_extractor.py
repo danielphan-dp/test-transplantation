@@ -62,6 +62,7 @@ class DataExtractor:
         """Extract file paths from the repository"""
         file_paths = []
         src_path = os.path.join(repo_path, src_path)
+        print(f"Extracting file paths from {src_path}")
         # Get all file paths in the src_path
         for root, dirs, files in os.walk(src_path):
             for file in files:

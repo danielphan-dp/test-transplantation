@@ -18,6 +18,7 @@ class RepoParser:
         Output all files in the repository to a json file
         """
         repo_paths = os.path.join(self.repo_path, self.framework)
+        print(f"Parsing {repo_paths}")
         file_paths = self.data_extractor.extract_code_file_paths(repo_paths, self.src_path)
         
         with open(f"{self.output_dir}/{self.framework}_code_file_paths.json", "w") as f:
