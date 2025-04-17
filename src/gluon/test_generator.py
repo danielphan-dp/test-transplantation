@@ -2,6 +2,7 @@ import os
 import json
 import re
 import argparse
+import glob
 from openai import OpenAI
 
 from prompt_generator import (
@@ -10,22 +11,54 @@ from prompt_generator import (
     generate_test_creation_prompt
 )
 
+from data_extractor import DataExtractor
+from config import DATA_REPO_PATH
+
 class TestGenerator:
-    def __init__(self, output_dir="./__internal__/results"):
+    def __init__(self, host_repo, output_dir="./__internal__/results"):
         """Initialize the TestGenerator with OpenAI API key and output directory"""
         self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
         self.output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
+        
+        self.data_extractor = DataExtractor()
+        self.host_repo = host_repo
+
+        self.host_repo_files = []
+        self.donor_repo_files = {}
+
+        self.conversation_history = []
     
-    def call_openai_api(self, prompt):
-        """Call OpenAI GPT-4o API with the given prompt"""
+    def call_openai_api(self, prompt, maintain_conversation_history=False):
+        """
+        Call OpenAI GPT-4o API with the given prompt
+        
+        Parameters:
+        - prompt: The prompt to send to the API
+        - maintain_history: Whether to maintain conversation history
+        """
         try:
+            # Prepare messages - either a new conversation or continuation
+            if maintain_conversation_history and self.conversation_history:
+                # Add the new user message to existing conversation
+                messages = self.conversation_history + [{"role": "user", "content": prompt}]
+            else:
+                # Start a new conversation
+                messages = [{"role": "user", "content": prompt}]
+            
             response = self.client.chat.completions.create(
                 model="gpt-4o",
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0.2,
                 max_tokens=4000
             )
+
+            # If maintaining history, update the conversation history
+            if maintain_conversation_history:
+                self.conversation_history = messages + [
+                    {"role": "assistant", "content": response.choices[0].message.content}
+                ]
+
             return response.choices[0].message.content
         except Exception as e:
             print(f"Error calling OpenAI API: {e}")
@@ -86,14 +119,16 @@ class TestGenerator:
             print(f"Failed to extract JSON from response: {response[:200]}...")
             return None
     
-    def analyze_transplantation_potential(self, host_code_file, host_code, donor_code_file, donor_code, donor_test_file, donor_test):
+    def analyze_transplantation_potential(self, host_code_files, host_code, donor_code_files, donor_code, donor_test_file, donor_test):
         """Analyze if test methods can be transplanted from donor to host"""
+        self.conversation_history = []
+
         prompt = generate_transplant_analysis_prompt(
-            host_code_file, host_code, 
-            donor_code_file, donor_code, 
+            host_code_files, host_code, 
+            donor_code_files, donor_code, 
             donor_test_file, donor_test
         )
-        response = self.call_openai_api(prompt)
+        response = self.call_openai_api(prompt, maintain_conversation_history=True)
         
         # Check if response is just "None"
         if response and response.strip().lower() == "none":
@@ -109,13 +144,13 @@ class TestGenerator:
         
         return result
     
-    def identify_additional_files(self, host_code_file, transplant_analysis_result):
+    def identify_additional_files(self, host_code_files, transplant_analysis_result):
         """Identify additional files needed for test generation"""
         prompt = generate_additional_files_prompt(
-            host_code_file, 
+            host_code_files, 
             json.dumps(transplant_analysis_result, indent=2)
         )
-        response = self.call_openai_api(prompt)
+        response = self.call_openai_api(prompt, maintain_conversation_history=True)
         result = self.parse_json_from_response(response)
         
         if not result:
@@ -127,7 +162,7 @@ class TestGenerator:
         
         return result
     
-    def fetch_additional_files(self, host_repo, donor_repo, additional_files_info, base_path="./"):
+    def fetch_additional_files(self, donor_repo, additional_files_info):
         """Fetch content of additional files identified as needed"""
         host_files = []
         donor_files = []
@@ -175,19 +210,19 @@ class TestGenerator:
         
         return host_files, donor_files
     
-    def generate_test_file(self, host_code_file, host_code, donor_code_file, donor_code, 
+    def generate_test_file(self, host_code_files, host_code, donor_code_files, donor_code, 
                           donor_test_file, donor_test, transplant_analysis_result,
                           additional_files_info, host_files, donor_files):
         """Generate the transplanted test file"""
         prompt = generate_test_creation_prompt(
-            host_code_file, host_code,
-            donor_code_file, donor_code,
+            host_code_files, host_code,
+            donor_code_files, donor_code,
             donor_test_file, donor_test,
             json.dumps(transplant_analysis_result, indent=2),
             json.dumps(additional_files_info, indent=2),
             host_files, donor_files
         )
-        response = self.call_openai_api(prompt)
+        response = self.call_openai_api(prompt, maintain_conversation_history=False)
         
         # Extract code block if present
         code_pattern = r'```python\s*([\s\S]*?)\s*```|```\s*([\s\S]*?)\s*```'
@@ -201,7 +236,7 @@ class TestGenerator:
         # If no code block, return the full response
         return response
     
-    def process_retrieved_pairs(self, retrieved_pairs_file, base_path="./"):
+    def process_retrieved_pairs(self, retrieved_pairs_file):
         """Process all retrieved pairs from the JSON file"""
         try:
             with open(retrieved_pairs_file, 'r', encoding='utf-8') as f:
@@ -214,30 +249,18 @@ class TestGenerator:
                 host_item = pair.get("host_item", {})
                 similar_items = pair.get("similar_items", [])
                 
-                host_code_file = host_item.get("code", "").strip()
-                
-                # Make sure the path doesn't have leading spaces
-                if host_code_file.startswith(" "):
-                    host_code_file = host_code_file[1:]
-                
-                # Try different path variations to find the host code file
+                # Read host code file
                 host_code = None
-                for path_variant in [
-                    f"{base_path}{host_code_file}",
-                    f"{base_path}flask/{host_code_file}",
-                    f"{base_path}/repositories/flask/{host_code_file}"
-                ]:
-                    host_code = self.read_file(path_variant)
-                    if host_code:
-                        break
+                host_code = self.data_extractor.extract_code_file(f"{DATA_REPO_PATH}/{self.host_repo}", host_item)
+                host_code_files = host_item.get("code", "")
                 
                 if not host_code:
-                    print(f"Error: Could not read host code file {host_code_file}")
+                    print(f"Error: Could not read host code file {host_code_files}")
                     continue
                 
                 host_output = {
                     "test": host_item.get("test", ""),
-                    "code": host_code_file,
+                    "code": host_code_files,
                 }
                 
                 result_item = {
@@ -247,60 +270,42 @@ class TestGenerator:
                 
                 for item_idx, similar_item in enumerate(similar_items):
                     print(f"  Processing similar item {item_idx + 1}/{len(similar_items)}")
-                    donor_code_file = similar_item.get("code", "").strip()
-                    donor_test_file = similar_item.get("test", "").strip()
                     donor_framework = similar_item.get("framework", "")
-                    
-                    if not donor_code_file or not donor_test_file or not donor_framework:
-                        continue
-                    
+
                     # Try different path variations for donor files
                     donor_code = None
                     donor_test = None
-                    
-                    for path_variant in [
-                        f"{base_path}{donor_code_file}",
-                        f"{base_path}{donor_framework}/{donor_code_file}",
-                        f"{base_path}/repositories/{donor_framework}/{donor_code_file}"
-                    ]:
-                        donor_code = self.read_file(path_variant)
-                        if donor_code:
-                            break
-                    
-                    for path_variant in [
-                        f"{base_path}{donor_test_file}",
-                        f"{base_path}{donor_framework}/{donor_test_file}",
-                        f"{base_path}/repositories/{donor_framework}/{donor_test_file}"
-                    ]:
-                        donor_test = self.read_file(path_variant)
-                        if donor_test:
-                            break
+                    donor_code_files = similar_item.get("code", "")
+                    donor_test_file = similar_item.get("test", "")
+
+                    donor_code = self.data_extractor.extract_code_file(f"{DATA_REPO_PATH}/{donor_framework}", similar_item)
+                    donor_test = self.data_extractor.extract_test_code(f"{DATA_REPO_PATH}/{donor_framework}", similar_item)
                     
                     if not donor_code or not donor_test:
-                        print(f"Error: Could not read donor files: {donor_code_file} or {donor_test_file}")
+                        print(f"Error: Could not read donor files")
                         continue
                     
                     # Step 1: Analyze transplantation potential
                     print("  Analyzing transplantation potential...")
                     transplant_analysis_result = self.analyze_transplantation_potential(
-                        host_code_file, host_code,
-                        donor_code_file, donor_code,
+                        host_code_files, host_code,
+                        donor_code_files, donor_code,
                         donor_test_file, donor_test
                     )
                     
                     if not transplant_analysis_result:
-                        print(f"  Skipping donor {donor_framework}/{donor_code_file} as tests cannot be transplanted")
+                        print(f"  Skipping donor {donor_framework}/{donor_test_file} as tests cannot be transplanted")
                         continue
                     
                     # Step 2: Identify and fetch additional files
                     print("  Identifying additional files needed...")
                     additional_files_info = self.identify_additional_files(
-                        host_code_file, transplant_analysis_result
+                        host_code_files, transplant_analysis_result
                     )
                     
                     print("  Fetching additional files...")
                     host_files, donor_files = self.fetch_additional_files(
-                        "flask", donor_framework, additional_files_info, base_path
+                        donor_framework, additional_files_info
                     )
                     
                     # Step 3: Generate test file
@@ -363,7 +368,9 @@ class TestGenerator:
 def main():
     parser = argparse.ArgumentParser(description='Generate tests by transplanting from donor tests')
     parser.add_argument('--api_key', type=str, help='OpenAI API key')
-    parser.add_argument('--retrieved_pairs', type=str, required=True, help='Path to retrieved pairs JSON file')
+    parser.add_argument('--retrieved_pairs', type=str, help='Path to retrieved pairs JSON file')
+    parser.add_argument('--frameworks', nargs='+', help='Specific frameworks to process')
+    parser.add_argument('--all', action='store_true', help='Process all retrieved pairs')
     parser.add_argument('--output_dir', type=str, default='./__internal__/results', help='Output directory')
     parser.add_argument('--base_path', type=str, default='./', help='Base path for file resolution')
     
@@ -375,9 +382,24 @@ def main():
     if not os.environ.get("OPENAI_API_KEY"):
         print("Error: No OpenAI API key provided. Please set OPENAI_API_KEY environment variable or use --api-key")
         return
-    
-    generator = TestGenerator(args.output_dir)
-    generator.process_retrieved_pairs(args.retrieved_pairs, args.base_path)
+
+    if args.retrieved_pairs:
+        host_repo = os.path.basename(args.retrieved_pairs).split("_")[0]
+        generator = TestGenerator(host_repo, args.output_dir)
+        generator.process_retrieved_pairs(args.retrieved_pairs)
+    elif args.frameworks:
+        for framework in args.frameworks:
+            file = os.path.join("./__internal__/relevant_pairs", f"{framework}_code_retrieved_pairs.json")
+            if os.path.exists(file):
+                host_repo = framework
+                generator = TestGenerator(host_repo, args.output_dir)
+                generator.process_retrieved_pairs(file)
+    elif args.all:
+        processed_files = glob.glob("./__internal__/relevant_pairs/*_code_retrieved_pairs.json")
+        for file in processed_files:
+            host_repo = os.path.basename(file).split("_")[0]
+            generator = TestGenerator(host_repo, args.output_dir)
+            generator.process_retrieved_pairs(file)
 
 if __name__ == "__main__":
     main()

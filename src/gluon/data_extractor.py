@@ -32,11 +32,11 @@ class DataExtractor:
         code_files = pair_data["code"]
         if isinstance(code_files, list):
             # Multiple code files
-            code_paths = [os.path.join(repo_path, cf) for cf in code_files]
+            code_paths = [os.path.join(repo_path, cf.strip()) for cf in code_files]
             return [read_file_content(cp) for cp in code_paths]
         else:
             # Single code file
-            code_path = os.path.join(repo_path, code_files)
+            code_path = os.path.join(repo_path, code_files.strip())
             return read_file_content(code_path)
         
     @staticmethod
@@ -56,3 +56,16 @@ class DataExtractor:
             code_summaries.append(pair["code_summary"])
         print(f"Extracted {len(code_summaries)} code summaries")
         return code_summaries
+    
+    @staticmethod
+    def extract_code_file_paths(repo_path, pair_data):
+        """Extract file paths from the repository"""
+        file_paths = []
+        src_path = os.path.join(repo_path, pair_data["code"].split("/")[0])
+        # Get all file paths in the src_path
+        for root, dirs, files in os.walk(src_path):
+            for file in files:
+                file_paths.append(os.path.join(root, file))
+        print(f"Extracted {len(file_paths)} file paths")
+        return file_paths
+    

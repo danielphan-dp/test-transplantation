@@ -2,6 +2,8 @@
 Configuration settings and constants
 """
 
+DATA_REPO_PATH = "./__internal__/data_repo"
+
 REPOSITORY_URLS = {
     "flask": "https://github.com/pallets/flask.git",
     "quart": "https://github.com/pallets/quart.git",
@@ -80,3 +82,4 @@ RETRIEVE_METHODS = {
         },
     },
 }
+

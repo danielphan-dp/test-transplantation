@@ -185,7 +185,7 @@ class RetrieverProcessor:
         self.retrieve_method = retrieve_method
         self.embedding_model = embedding_model
 
-        self.host_repo = self.tcm_summary_path.replace("_tcm_with_summaries.json", "").split("/")[-1]
+        self.host_repo = os.path.basename(self.tcm_summary_path).split("_")[0]
 
         self.faiss_dir = "./__internal__/faiss_db"
         self.output_dir = "./__internal__/retriever_output"
