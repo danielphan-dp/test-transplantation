@@ -214,7 +214,7 @@ class RetrieverProcessor:
         all_donor_data = []
         all_donor_extracted_data = []
         for donor in donor_repos:
-            donor_data = self.data_extractor.load_data(os.path.join(self.tcm_summary_path, f"{donor}_tcm_with_summaries.json"))
+            donor_data = self.data_extractor.load_data(os.path.join(self.tcm_summary_path.replace(f"{self.host_repo}_tcm_with_summaries.json", ""), f"{donor}_tcm_with_summaries.json"))
             donor_extracted_data = self._extract_data_by_type(donor_data)
             all_donor_data.append(donor_data)
             all_donor_extracted_data.append(donor_extracted_data)
