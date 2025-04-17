@@ -38,7 +38,13 @@ class DataExtractor:
             # Single code file
             code_path = os.path.join(repo_path, code_files.strip())
             return read_file_content(code_path)
-        
+    
+    @staticmethod
+    def extract_code_file_by_path(repo_path, code_file_path):
+        """Extract code file from the pair data"""
+        code_path = os.path.join(repo_path, code_file_path.strip())
+        return read_file_content(code_path)
+    
     @staticmethod
     def extract_pair_summary(data):
         """Extract pair summary from the pair data"""

@@ -167,7 +167,7 @@ class TestGenerator:
             for file_info in additional_files_info["host_files_needed"]:
                 file_path = file_info["file_path"]
                 
-                content = self.data_extractor.extract_code_file(f"{DATA_REPO_PATH}/{self.host_repo}", file_path)
+                content = self.data_extractor.extract_code_file_by_path(f"{DATA_REPO_PATH}/{self.host_repo}", file_path)
                 
                 if content:
                     host_files.append({"file_path": file_path, "content": content})
@@ -178,7 +178,7 @@ class TestGenerator:
             for file_info in additional_files_info["donor_files_needed"]:
                 file_path = file_info["file_path"]
                 
-                content = self.data_extractor.extract_code_file(f"{DATA_REPO_PATH}/{donor_repo}", file_path)
+                content = self.data_extractor.extract_code_file_by_path(f"{DATA_REPO_PATH}/{donor_repo}", file_path)
                 
                 if content:
                     donor_files.append({"file_path": file_path, "content": content})
