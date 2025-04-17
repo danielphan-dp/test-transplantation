@@ -65,7 +65,8 @@ class DataExtractor:
         # Get all file paths in the src_path
         for root, dirs, files in os.walk(src_path):
             for file in files:
-                file_paths.append(os.path.join(src_path, file))
+                # Remove repo_path from the file path
+                file_paths.append(os.path.join(root, file).replace(repo_path, ""))
         print(f"Extracted {len(file_paths)} file paths")
         return file_paths
     
