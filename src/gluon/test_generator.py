@@ -276,7 +276,7 @@ class TestGenerator:
                         self.host_repo_files, self.donor_repo_files[donor_framework]
                     )
                     
-                    if transplant_analysis_result != "None":
+                    if transplant_analysis_result == "None":
                         print(f"  Skipping donor {donor_framework}/{donor_test_file} as tests cannot be transplanted")
                         continue
                     
