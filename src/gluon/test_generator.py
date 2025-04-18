@@ -309,6 +309,11 @@ class TestGenerator:
                     
                     donor_test_name = os.path.basename(donor_test_file).split(".")[0]
                     host_test_file = f"transplanted_{donor_test_name}_from_{donor_framework}.py"
+                    # Handle if the file already exists
+                    i = 1
+                    while os.path.exists(os.path.join(host_repo_output_dir, host_test_file)):
+                        host_test_file = f"transplanted_{donor_test_name}_from_{donor_framework}_v{i}.py"
+                        i += 1
                     
                     # Write generated test to file
                     generated_test_path = os.path.join(host_repo_output_dir, host_test_file)
