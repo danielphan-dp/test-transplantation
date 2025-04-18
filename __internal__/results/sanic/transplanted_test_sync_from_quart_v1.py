@@ -1,0 +1,52 @@
+# Transplanted from tests/test_sync.py in the donor project to test sanic/app.py in the host project
+
+from __future__ import annotations
+
+import threading
+from collections.abc import Generator
+
+import pytest
+
+from sanic import Sanic
+from sanic.request import Request
+from sanic.response import HTTPResponse
+
+
+@pytest.fixture(name="app")
+def _app() -> Sanic:
+    app = Sanic("test_app")
+
+    @app.route("/", methods=["GET", "POST"])
+    async def index(request: Request) -> HTTPResponse:
+        return HTTPResponse(request.method)
+
+    @app.route("/gen")
+    async def gen(request: Request) -> HTTPResponse:
+        def _gen() -> Generator[bytes, None, None]:
+            yield b"%d" % threading.current_thread().ident
+            for _ in range(2):
+                yield b"b"
+
+        return HTTPResponse(_gen(), status=200)
+
+    return app
+
+
+@pytest.mark.asyncio
+async def test_sync_request_context(app: Sanic) -> None:
+    """Test that the request context correctly handles GET and POST methods."""
+    test_client = app.test_client
+    request, response = await test_client.get("/")
+    assert response.body == b"GET"
+    request, response = await test_client.post("/")
+    assert response.body == b"POST"
+
+
+@pytest.mark.asyncio
+async def test_sync_generator(app: Sanic) -> None:
+    """Test that the generator route returns the expected response."""
+    test_client = app.test_client
+    request, response = await test_client.get("/gen")
+    result = response.body
+    assert result[-2:] == b"bb"
+    assert int(result[:-2]) != threading.current_thread().ident
