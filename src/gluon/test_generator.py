@@ -52,7 +52,7 @@ class TestGenerator:
             response = self.client.chat.completions.create(
                 model="gpt-4o",
                 messages=messages,
-                temperature=0.2,
+                temperature=0.0,
                 max_tokens=4000
             )
 
