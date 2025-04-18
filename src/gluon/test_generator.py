@@ -276,7 +276,7 @@ class TestGenerator:
                         self.host_repo_files, self.donor_repo_files[donor_framework]
                     )
                     
-                    if not transplant_analysis_result:
+                    if transplant_analysis_result != "None":
                         print(f"  Skipping donor {donor_framework}/{donor_test_file} as tests cannot be transplanted")
                         continue
                     
@@ -370,6 +370,7 @@ def main():
         generator.process_retrieved_pairs(args.retrieved_pairs)
     elif args.frameworks:
         for framework in args.frameworks:
+            print(f"Processing framework: {framework}")
             file = os.path.join("./__internal__/relevant_pairs", f"{framework}_code_retrieved_pairs.json")
             if os.path.exists(file):
                 host_repo = framework
@@ -379,6 +380,7 @@ def main():
         processed_files = glob.glob("./__internal__/relevant_pairs/*_code_retrieved_pairs.json")
         for file in processed_files:
             host_repo = os.path.basename(file).split("_")[0]
+            print(f"Processing framework: {host_repo}")
             generator = TestGenerator(host_repo, args.output_dir)
             generator.process_retrieved_pairs(file)
 
